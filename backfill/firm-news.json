@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-15T00:49:06.958Z",
+ "generated": "2026-10-15T07:47:06.280Z",
  "since": "2026-10-01",
  "firms": {
   "proskauerrose": {
@@ -27,8 +27,8 @@
    ],
    "sitemaps": 5,
    "urls": 7365,
-   "kept": 9,
-   "fetched": 9,
+   "kept": 4,
+   "fetched": 4,
    "errors": 0,
    "carried": 0
   },
@@ -54,19 +54,6 @@
    "errors": 1,
    "carried": 0
   },
-  "linklaters": {
-   "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
-   ],
-   "sitemaps": 6,
-   "urls": 17766,
-   "kept": 14,
-   "fetched": 7,
-   "errors": 7,
-   "carried": 0
-  },
   "hsf": {
    "domains": [
     "www.hsfkramer.com"
@@ -76,6 +63,19 @@
    "kept": 0,
    "fetched": 0,
    "errors": 1,
+   "carried": 0
+  },
+  "linklaters": {
+   "domains": [
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
+   ],
+   "sitemaps": 6,
+   "urls": 17770,
+   "kept": 16,
+   "fetched": 9,
+   "errors": 7,
    "carried": 0
   },
   "macfarlanes": {
@@ -132,9 +132,9 @@
    ],
    "sitemaps": 9,
    "urls": 20128,
-   "kept": 9,
-   "fetched": 7,
-   "errors": 2,
+   "kept": 11,
+   "fetched": 10,
+   "errors": 1,
    "carried": 0
   },
   "kirkland": {
@@ -142,7 +142,7 @@
     "www.kirkland.com"
    ],
    "sitemaps": 11,
-   "urls": 17401,
+   "urls": 17403,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -153,9 +153,9 @@
     "www.whitecase.com"
    ],
    "sitemaps": 11,
-   "urls": 10381,
-   "kept": 29,
-   "fetched": 29,
+   "urls": 10389,
+   "kept": 28,
+   "fetched": 28,
    "errors": 0,
    "carried": 0
   },
@@ -163,11 +163,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 9,
-   "urls": 8092,
-   "kept": 3,
-   "fetched": 3,
-   "errors": 8,
+   "sitemaps": 6,
+   "urls": 7181,
+   "kept": 2,
+   "fetched": 2,
+   "errors": 11,
    "carried": 0
   },
   "ropesgray": {
@@ -206,7 +206,7 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16192,
+   "urls": 16197,
    "kept": 6,
    "fetched": 6,
    "errors": 0,
@@ -217,7 +217,7 @@
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2851,
+   "urls": 2852,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -242,6 +242,17 @@
    "errors": 0,
    "carried": 0
   },
+  "reedsmith": {
+   "domains": [
+    "www.reedsmith.com"
+   ],
+   "sitemaps": 5,
+   "urls": 11564,
+   "kept": 6,
+   "fetched": 6,
+   "errors": 0,
+   "carried": 0
+  },
   "weil": {
    "domains": [
     "www.weil.com",
@@ -255,17 +266,6 @@
    "urls": 7756,
    "kept": 40,
    "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
-  "reedsmith": {
-   "domains": [
-    "www.reedsmith.com"
-   ],
-   "sitemaps": 5,
-   "urls": 11564,
-   "kept": 7,
-   "fetched": 7,
    "errors": 0,
    "carried": 0
   },
@@ -300,17 +300,6 @@
    "errors": 1,
    "carried": 0
   },
-  "mayerbrown": {
-   "domains": [
-    "www.mayerbrown.com"
-   ],
-   "sitemaps": 9,
-   "urls": 16327,
-   "kept": 20,
-   "fetched": 20,
-   "errors": 0,
-   "carried": 0
-  },
   "southsquare": {
    "domains": [
     "southsquare.com"
@@ -330,6 +319,17 @@
    ],
    "carried": 0
   },
+  "mayerbrown": {
+   "domains": [
+    "www.mayerbrown.com"
+   ],
+   "sitemaps": 9,
+   "urls": 16327,
+   "kept": 20,
+   "fetched": 20,
+   "errors": 0,
+   "carried": 0
+  },
   "cliffordchance": {
    "domains": [
     "www.cliffordchance.com"
@@ -344,31 +344,13 @@
  },
  "items": [
   {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-captona-on-preferred-equity-investment-with-nexamp",
-   "title": "Kirkland Advises Captona on Preferred Equity Investment with Nexamp",
-   "description": null,
-   "date": "2026-10-14",
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-on-the-lao-peoples-democratic-republics-us500m-sovereign-bond-issuance",
+   "title": "Linklaters advises on the Lao People’s Democratic Republic’s US$500m sovereign bond issuance",
+   "description": "Linklaters has advised the joint lead managers on the successful issuance by the Lao People’s Democratic Republic (Lao PDR) of US$500m 9.625% senior unsecured notes due 2032.",
+   "date": "2026-10-15",
    "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-thoma-bravo-backed-bluematrix-on-acquisition-of-aiera",
-   "title": "Kirkland Advises Thoma Bravo-Backed BlueMatrix on Acquisition of Aiera",
-   "description": null,
-   "date": "2026-10-14",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/banner-two-weeks-at-the-sec-for-funds-and-advisers",
-   "title": "Banner Two Weeks at SEC for Funds and Advisers: Rethinking Retail, Crypto Custody, Cross Trading, and More",
-   "description": null,
-   "date": "2026-10-14",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-14"
+   "lastmod": "2026-10-15"
   },
   {
    "firm": "klgates",
@@ -398,24 +380,6 @@
    "lastmod": "2026-10-14"
   },
   {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-ips-on-debt-financing-for-acquisitions-of-belyea-company-and-bold-renewables",
-   "title": "Weil Advises Integrated Power Services on Debt Financing for Acquisitions of Belyea Company and Bold Renewables",
-   "description": "Weil advised Searchlight Capital Partners and Integrated Power Services on debt financing for IPS’ acquisitions of Belyea Company and Bold Renewables.",
-   "date": "2026-10-14",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-14"
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/news/reed-smith-represents-pophouse-in-acquisition-of-50-stake-in-sias-publishing-and-master-music-rights/",
-   "title": "Reed Smith represents Pophouse in acquisition of 50% stake in Sia",
-   "description": null,
-   "date": "2026-10-14",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-14"
-  },
-  {
    "firm": "cleary",
    "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
    "title": "News Listing",
@@ -432,24 +396,6 @@
    "date": "2026-10-14",
    "dateSource": "datePublished",
    "lastmod": null
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-eqt-on-c.5.8-billion-equivalent-multi-currency-bank-and-bond-financing-for-its-acquisition-of-intertek",
-   "title": "Freshfields advises EQT on c.£5.8 billion equivalent multi-currency bank and bond financing for its acquisition of Intertek",
-   "description": null,
-   "date": "2026-10-13",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-14"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-on-3bn-credit-facility-for-uniper",
-   "title": "Freshfields advises on €3bn credit facility for Uniper",
-   "description": null,
-   "date": "2026-10-13",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-14"
   },
   {
    "firm": "traverssmith",
@@ -479,15 +425,6 @@
    "lastmod": null
   },
   {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/media/dealist-northbound-capital-inside-us-nordics-ma-surge",
-   "title": "The Dealist",
-   "description": "White & Case partners Airi Hammalov and Johan Steen joined SS&C Intralinks' The Dealist podcast to discuss the increasingly active US-Nordic M&A pipeline and the Nordic region's appeal as a destination for cross-border investment.",
-   "date": "2026-10-13",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-13"
-  },
-  {
    "firm": "klgates",
    "url": "https://www.klgates.com/thought-leadership/There-Is-a-New-Sheriff-in-Town-Why-Community-Approval-Now-Rules-Major-Project-Development-10-13-2026",
    "title": "There Is a New Sheriff in Town: Why Community Approval Now Rules Major Project Development",
@@ -513,15 +450,6 @@
    "date": "2026-10-13",
    "dateSource": "datePublished",
    "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-macquarie-asset-management-on-its-acquisition-of-units-from-la-caisse-in-maple-infrastructure-trust",
-   "title": "Freshfields advises Macquarie Asset Management on its acquisition of units from La Caisse in Maple Infrastructure Trust",
-   "description": "Global law firm Freshfields has advised Macquarie Asset Management (“MAM”), via Macquarie Asia-Pacific Infrastructure Fund 4 (“MAIF4”), on its acquisition of units from La Caisse in Maple Infrastructure Trust, an Infrastructure Investment Trust (“InvIT”) that owns and operates toll roads across India.",
-   "date": "2026-10-12",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-13"
   },
   {
    "firm": "freshfields",
@@ -560,15 +488,6 @@
    "lastmod": "2026-10-12"
   },
   {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advised-astrazeneca-on-its-$2-billion-strategic-equity-investment-and-clinical-collaboration-with-summit-therapeutics",
-   "title": "Freshfields Advises AstraZeneca on $2bn Summit Therapeutics Deal",
-   "description": "Freshfields advised AstraZeneca on its $2 billion equity investment and clinical collaboration with Summit Therapeutics to advance ADC combination strategies in cancer.",
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/",
    "title": "Financial Regulation Weekly Bulletin",
@@ -603,6 +522,15 @@
    "dateProbe": []
   },
   {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Consonance Capital Partners on Fund Formation",
+   "title": "Latham & Watkins Advises Consonance Capital Partners on US$1.35 Billion Fund Formation",
+   "description": "Multidisciplinary team led by members of the firm’s Investment Funds Practice represented the healthcare private equity firm in the formation of its oversubscribed third fund.",
+   "date": "2026-10-09",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-09"
+  },
+  {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/publications/insight/financial-regulatory-observer-autumn-2021",
    "title": "Financial Regulatory Observer - Autumn 2021",
@@ -629,15 +557,6 @@
    "date": "2026-10-09",
    "dateSource": "datePublished",
    "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-behavox-on-apiax-acquisition",
-   "title": "Freshfields advises Behavox on Apiax acquisition",
-   "description": null,
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-13"
   },
   {
    "firm": "traverssmith",
@@ -701,6 +620,15 @@
    "date": "2026-10-08",
    "dateSource": "datePublished",
    "lastmod": "2026-10-08"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Hg Sale Gen II Fund Services KKR",
+   "title": "Latham & Watkins Advises Hg in US$5.1 Billion Sale of Gen II Fund Services to KKR",
+   "description": "New York-based corporate team represents the European and transatlantic technology and services businesses investor.",
+   "date": "2026-10-07",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-07"
   },
   {
    "firm": "whitecase",
@@ -941,6 +869,15 @@
    ]
   },
   {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-opmobility-on-the-acquisition-of-hyundai-mobis-lighting-activity",
+   "title": "Linklaters advises OPmobility on Hyundai Mobis lighting acquisition",
+   "description": "Linklaters advised OPmobility on its agreement to acquire Hyundai Mobis' lighting business, strengthening its global lighting operations and mobility offering.",
+   "date": "2026-10-02",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-02"
+  },
+  {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/media/cnbc-bargain-britain-lures-foreign-buyers-hostile-takeovers-surge",
    "title": "CNBC | Bargain Britain lures foreign buyers as hostile takeovers surge",
@@ -975,15 +912,6 @@
    "date": "2026-10-02",
    "dateSource": "datePublished",
    "lastmod": "2026-10-02"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/insights/navigating-the-eus-ecodesign-for-sustainable-products-regulation",
-   "title": "Navigating the EU’s Ecodesign for Sustainable Products Regulation",
-   "description": "Learn how the EU's ESPR impacts manufacturers, importers and distributors. Explore compliance timelines, Digital Product Passports and key steps to prepare.",
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
   },
   {
    "firm": "kirkland",
