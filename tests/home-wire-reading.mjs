@@ -391,7 +391,13 @@ await ctx.close();
     row.click();
     return { found: true, readerOpen: !document.getElementById("g-reader").hidden };
   });
-  if (locked.found) check(!locked.readerOpen, "phone: a padlocked subscriber row does not open the in-app reader (opens at the publisher)");
+  // …it now opens the APP-WIDE reader (v2/js/reader-overlay.js) with the reason and the
+  // one external link, instead of leaving Wire (owner request 2026-10-15).
+  if (locked.found) {
+    check(!locked.readerOpen, "phone: a padlocked subscriber row does not open the Home in-pane reader");
+    check(await pg2.evaluate(() => { const w = document.getElementById("wire-reader"); return !!w && !w.hidden && /subscriber login/.test(w.textContent); }), "phone: …it opens the in-app reader with the reason + external link");
+    await pg2.evaluate(() => { const w = document.getElementById("wire-reader"); if (w && !w.hidden) w.querySelector(".wr-back").click(); });
+  }
   await pg2.evaluate(() => { const ov = document.getElementById("g-reader"); if (ov && !ov.hidden) document.getElementById("g-reader-back").click(); });
   await pg2.waitForTimeout(120);
   // A bot-walled LINK-OUT row (Reuters) DOES open the in-app reader now — showing the

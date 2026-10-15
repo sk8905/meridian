@@ -9,6 +9,7 @@ import { managerWire, CAT_LABEL, dedupeEvents, loadManagerData, fundEvents, name
 import { follows, followList, followBtn, toggleFollow } from "/credit/js/shared.js";
 import { reportRefresh } from "/v2/js/status.js";
 import { lastKnown, lastKnownLabel } from "/v2/js/live-cache.js";
+import { isPaywalledSrc, linksOutSrc } from "/v2/js/read-policy.js";
 import { NEWSLETTERS } from "/newsletters.js";
 import { RESEARCH, isResearchPublication } from "/research.js";
 import { FT_ITEMS } from "/ft.js";
@@ -2800,7 +2801,7 @@ function renderWire() {
 // Known subscriber sources — these show a preview + link (never fetched). Kept in
 // step with the Worker's READ_PAYWALL set so the lock shows instantly; every OTHER
 // source is attempted by the reader (any openly-accessible page prints in-pane).
-const PAYWALL_SRC = /financial times|bloomberg|wall street journal|\bwsj\b|economist|new york times|\bnyt\b|barron|business insider|the times|telegraph|nikkei|forbes|washington post|the information|seeking alpha/i;
+// (one list for the whole app — v2/js/read-policy.js)
 // The reader's OWN subscriber newsletters (Bloomberg, WSJ, The Economist, Reuters…)
 // whose email body the refresh routine stored in KV (`body: true` in newsletters.js) read
 // IN-PANE from /api/nl-body — so they are not "paywalled" here even though their
@@ -2808,8 +2809,7 @@ const PAYWALL_SRC = /financial times|bloomberg|wall street journal|\bwsj\b|econo
 const _NL_BODY = new Map((NEWSLETTERS || []).filter((n) => n && n.body && n.url && n.id).map((n) => [n.url, n.id]));
 function _isPaywalled(src, href) {
   if (href && _NL_BODY.has(href)) return false;
-  return PAYWALL_SRC.test(src || "")
-    || /(?:^|\/\/|\.)(?:ft|bloomberg|wsj|economist|nytimes|barrons|businessinsider|thetimes|telegraph|nikkei|forbes|washingtonpost|theinformation|seekingalpha)\.[a-z]/i.test(href || "");
+  return isPaywalledSrc(src, href);
 }
 // Openly-published sources that nonetheless BOT-WALL the reader — a plain AND a
 // headless-browser fetch is refused or renders empty — so they can't open in the
@@ -2818,10 +2818,7 @@ function _isPaywalled(src, href) {
 // SEPARATE from PAYWALL_SRC: no "needs a login" padlock, but they DO count against
 // the readable-share throttle, open straight at the publisher (never a dead in-pane
 // fallback), and carry an "opens at publisher" mark. Grow as more are confirmed live.
-const LINKOUT_SRC = /\breuters\b/i;
-function _linksOut(src, href) {
-  return LINKOUT_SRC.test(src || "") || /(?:^|\/\/|\.)reuters\.[a-z]/i.test(href || "");
-}
+function _linksOut(src, href) { return linksOutSrc(src, href); }
 // A row can't open in the reading pane — it opens EXTERNALLY — when it's paywalled
 // (subscriber login) OR bot-walled (Reuters &c). Both are "not readable in-pane".
 function _opensExternally(src, href) { return _isPaywalled(src, href) || _linksOut(src, href); }

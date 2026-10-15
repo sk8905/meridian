@@ -442,7 +442,7 @@ export async function mount(host, ctx) {
   const goRow = (row) => {
     const href = row.getAttribute("data-href");
     if (!href) return;
-    if (row.dataset.ext === "1" || /^https?:/i.test(href)) { window.open(href, "_blank", "noopener"); return; }
+    if (row.dataset.ext === "1" || /^https?:/i.test(href)) { (window.__wireRead ? window.__wireRead(href, { title: (row.querySelector(".tmini-t, .tw-head, td") || row).textContent.trim().slice(0, 200) }) : window.open(href, "_blank", "noopener")); return; }
     if (location.hash !== href) location.hash = href;
     router();
   };

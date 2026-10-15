@@ -2100,12 +2100,36 @@ export function formdParse(j) {
   }).filter((f) => f.issuer && f.date);
 }
 // /api/ch?q=<company> — UK Companies House profile + registered charges for the
-// Profiles borrower page (review 2026-10-15, #18). The free Companies House REST API
-// needs a key (env.CH_API_KEY, a Worker secret); without one this answers
-// { configured:false } and the page links to the public register instead. Picks the
-// best-matching ACTIVE company (exact name first), returns its number / status /
-// incorporation date and up to 25 charges (holders, created date, status). Edge-cached
-// 24h. Read-only; the key never leaves the Worker.
+// Profiles borrower page (review 2026-10-15, #18). Reads the PUBLIC register
+// (find-and-update.company-information.service.gov.uk — the same pages a person
+// browses; no API key): the company search page, then the company's charges page.
+// Picks the best-matching ACTIVE company (exact name first) and returns its number,
+// status, incorporation date and up to 25 charges (holders, created date, status,
+// brief description). Edge-cached 24h. Read-only.
+const CH_BASE = "https://find-and-update.company-information.service.gov.uk";
+const chText = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/&hellip;/g, "…").replace(/&amp;/g, "&").replace(/&#39;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/\s+/g, " ").trim();
+export function chParseSearch(html) {
+  const out = [];
+  for (const li of String(html || "").split('<li class="type-company">').slice(1)) {
+    const num = (/href="\/company\/([0-9A-Z]{6,10})"/.exec(li) || [])[1];
+    const title = chText((/title="View company">([\s\S]*?)<\/a>/.exec(li) || [])[1]);
+    const metas = [...li.matchAll(/<p class="meta crumbtrail">([\s\S]*?)<\/p>/g)].map((m) => chText(m[1]));
+    const meta = metas[metas.length - 1] || "";
+    const inc = (/Incorporated on ([0-9]{1,2} [A-Za-z]+ [0-9]{4})/.exec(meta) || [])[1] || null;
+    const tail = meta.split(" - ").slice(2).join(" - ").trim();
+    if (num && title) out.push({ company_number: num, title, date_of_creation: inc, company_status: tail ? tail.toLowerCase() : "active" });
+  }
+  return out;
+}
+export function chParseCharges(html) {
+  const out = [];
+  for (const blk of String(html || "").split(/<div class="mortgage-\d+">/).slice(1)) {
+    const g = (id) => chText((new RegExp(`id="mortgage-${id}-\\d+"[^>]*>([\\s\\S]*?)<\\/(dd|p)>`).exec(blk) || [])[1]);
+    const persons = [...blk.matchAll(/<li id="persons-entitled-\d+-charge-\d+">([\s\S]*?)<\/li>/g)].map((m) => chText(m[1])).filter(Boolean);
+    out.push({ created: g("created-on") || null, status: g("status") || null, persons, description: (g("particulars") || "").slice(0, 160) || null });
+  }
+  return out;
+}
 export function chPick(items, q) {
   const n = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").replace(/\b(limited|ltd|plc|holdings?|group)\b/g, "").replace(/\s+/g, " ").trim();
   const want = n(q);
@@ -2119,22 +2143,20 @@ async function handleCompaniesHouse(request, env, ctx) {
   const url = new URL(request.url);
   const q = (url.searchParams.get("q") || "").trim().slice(0, 120);
   const json = (o, cc = "public, max-age=3600") => new Response(JSON.stringify(o), { headers: { "content-type": "application/json", "cache-control": cc } });
-  if (!env || !env.CH_API_KEY) return json({ configured: false });
-  if (q.length < 3) return json({ configured: true, company: null });
+  if (q.length < 3) return json({ company: null });
   const cache = caches.default;
-  const ck = new Request("https://ch.internal/v1?q=" + encodeURIComponent(q.toLowerCase()));
+  const ck = new Request("https://ch.internal/v2?q=" + encodeURIComponent(q.toLowerCase()));
   const hit = await cache.match(ck); if (hit) return hit;
-  const auth = { authorization: "Basic " + btoa(env.CH_API_KEY + ":"), accept: "application/json" };
-  const get = async (path) => { try { const r = await fetch("https://api.company-information.service.gov.uk" + path, { headers: auth, signal: AbortSignal.timeout(MARKET_FETCH_MS) }); return r.ok ? await r.json() : null; } catch { return null; } };
-  const sr = await get("/search/companies?items_per_page=10&q=" + encodeURIComponent(q));
-  const c = chPick(sr && sr.items, q);
-  if (!c) { const resp = json({ configured: true, company: null }, "public, max-age=86400"); if (ctx) ctx.waitUntil(cache.put(ck, resp.clone())); return resp; }
-  const ch = await get(`/company/${c.company_number}/charges?items_per_page=25`);
+  const get = async (path) => { try { const r = await fetch(CH_BASE + path, { headers: fetchHeaders(CH_BASE + path), signal: AbortSignal.timeout(MARKET_FETCH_MS) }); return r.ok ? await r.text() : null; } catch { return null; } };
+  const sr = await get("/search/companies?q=" + encodeURIComponent(q));
+  if (sr == null) return json({ company: null, error: "register unreachable", search: `${CH_BASE}/search?q=${encodeURIComponent(q)}` }, "no-store");
+  const c = chPick(chParseSearch(sr), q);
+  if (!c) { const resp = json({ company: null, search: `${CH_BASE}/search?q=${encodeURIComponent(q)}` }, "public, max-age=86400"); if (ctx) ctx.waitUntil(cache.put(ck, resp.clone())); return resp; }
+  const chHtml = await get(`/company/${c.company_number}/charges`);
   const out = {
-    configured: true,
     company: { name: c.title, number: c.company_number, status: c.company_status || null, incorporated: c.date_of_creation || null },
-    charges: ((ch && ch.items) || []).map((x) => ({ created: x.created_on || null, status: x.status || null, persons: (x.persons_entitled || []).map((p) => p.name).filter(Boolean), description: (x.particulars && x.particulars.description) ? String(x.particulars.description).slice(0, 160) : null })),
-    source: `https://find-and-update.company-information.service.gov.uk/company/${c.company_number}`,
+    charges: chParseCharges(chHtml).slice(0, 25),
+    source: `${CH_BASE}/company/${c.company_number}`,
   };
   const resp = json(out, "public, max-age=86400");
   if (ctx) ctx.waitUntil(cache.put(ck, resp.clone()));

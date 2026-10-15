@@ -1203,7 +1203,7 @@ app.addEventListener("click", (e) => {
     const href = row.getAttribute("data-href");
     // External rows (data-ext, or an absolute http href) open in a new tab;
     // internal rows (e.g. Hedge Funds → #/hf/<id>) drive the hash router.
-    if (row.dataset.ext === "1" || /^https?:/i.test(href)) window.open(href, "_blank", "noopener");
+    if (row.dataset.ext === "1" || /^https?:/i.test(href)) (window.__wireRead ? window.__wireRead(href, { title: (row.querySelector(".tmini-t, .tw-head, td") || row).textContent.trim().slice(0, 200) }) : window.open(href, "_blank", "noopener"));
     else location.hash = href;
   }
 });

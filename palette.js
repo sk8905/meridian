@@ -313,7 +313,7 @@ export function mountPalette() {
   };
   // Recents record ONLY when a result is actually opened — a typed-then-cancelled
   // query (or a half-typed fragment) never lands in the list.
-  const go = (e) => { if (!e) return; recordSearch((e.title || input.value || "").trim()); close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else if (window.__wireNavigate && /^\/v2\//.test(e.href)) window.__wireNavigate(e.href); else window.location.href = e.href; };
+  const go = (e) => { if (!e) return; recordSearch((e.title || input.value || "").trim()); close(); if (/^https?:\/\//i.test(e.href)) { if (window.__wireRead) window.__wireRead(e.href, { title: e.title, src: e.source }); else window.open(e.href, "_blank", "noopener"); } else if (window.__wireNavigate && /^\/v2\//.test(e.href)) window.__wireNavigate(e.href); else window.location.href = e.href; };
   // Focus SYNCHRONOUSLY within the tap/click gesture so iOS Safari pops the
   // keyboard immediately (a setTimeout would escape the gesture and suppress it).
   // The panel stays FULL-SCREEN (top:0 → bottom:0) and the results scroll with a

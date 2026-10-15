@@ -126,6 +126,8 @@ export function initChrome({ onTab }) {
   // All are idempotent single inits; failures never block the shell.
   import("/brief.js").then((m) => m.initBrief()).catch(() => {});
   setupLazyPalette();
+  // Everything opens inside Wire: an app-wide reader for every external link.
+  import("./reader-overlay.js").then((m) => m.initReaderOverlay()).catch(() => {});
   import("/ptr.js").then((m) => m.initPullToRefresh()).catch(() => {});
   // Header action cluster + panels (Markets / Saved / Notifications / Search, the
   // notif bell, saved + markets loaders), ported from nav-actions with its own

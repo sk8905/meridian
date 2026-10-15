@@ -7,7 +7,7 @@
 //   • Stress     — the Dashboard stress list (CR_STRESS) and the European credits roster
 //   • Legal      — law-firm alerts, judgments and restructuring plans / schemes naming it
 //   • Advisers   — firms on its deals (v2/js/deal-advisers.js)
-//   • UK registry — Companies House profile + charges via /api/ch (when configured)
+//   • UK registry — Companies House profile + charges from the public register (/api/ch)
 // =============================================================================
 import { deals, managers } from "/credit/js/data.js";
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
@@ -84,8 +84,9 @@ export async function viewBorrower(host, rawName, base = "/v2") {
   const uk = await ukRegistry(name);
   const box = host.querySelector("#co-uk");
   if (!box) return;
-  if (!uk || uk.configured === false || !uk.company) {
-    box.innerHTML = `<div class="tpg-h">UK registry (Companies House)</div><p class="tw-empty muted small">${uk && uk.configured === false ? "Companies House lookup is not configured on this deployment." : "No matching UK company found."} <a href="https://find-and-update.company-information.service.gov.uk/search?q=${encodeURIComponent(name)}" target="_blank" rel="noopener noreferrer">Search Companies House</a></p>`;
+  const reg = `https://find-and-update.company-information.service.gov.uk/search?q=${encodeURIComponent(name)}`;
+  if (!uk || !uk.company) {
+    box.innerHTML = `<div class="tpg-h">UK registry (Companies House)</div><p class="tw-empty muted small">No matching UK company found on the public register. <a href="${esc(reg)}" target="_blank" rel="noopener noreferrer">Search Companies House</a></p>`;
     return;
   }
   const c = uk.company;

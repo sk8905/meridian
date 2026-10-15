@@ -189,3 +189,36 @@ html[data-theme="dark"][data-v2tab="menu"][data-menu-sec="settings"] .v2-botmeta
 .v2-loading { display: flex; align-items: center; justify-content: center; min-height: 55vh; color: var(--muted, #66708a); }
 .v2-spin { width: 26px; height: 26px; border-radius: 50%; border: 2.5px solid color-mix(in srgb, var(--ink, #888) 20%, transparent); border-top-color: var(--ink, #888); animation: v2-spin .7s linear infinite; }
 @keyframes v2-spin { to { transform: rotate(360deg); } }
+
+/* ---- App-wide in-app reader (v2/js/reader-overlay.js) -----------------------------
+   Everything opens inside Wire: a right-hand panel on desktop, a full-screen sheet on
+   phone. Uses the global theme tokens (it mounts on <body>, outside panel scopes). */
+.wr[hidden] { display: none; }
+.wr { position: fixed; inset: 0; z-index: 8500; }
+.wr-scrim { position: absolute; inset: 0; background: rgba(3, 6, 12, .45); }
+.wr-panel { position: absolute; top: 0; right: 0; bottom: 0; width: min(760px, 92vw); display: flex; flex-direction: column;
+  background: var(--surface, #fff); color: var(--ink, #131b2c); border-left: 1px solid var(--border, #e4e7ef); box-shadow: -12px 0 34px rgba(0, 0, 0, .25); }
+.wr-head { flex: 0 0 auto; display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid var(--border, #e4e7ef); }
+.wr-back { border: 0; background: transparent; color: var(--ink, #131b2c); font: inherit; font-size: var(--fs-title, 16px); line-height: 1; padding: 4px 8px; cursor: pointer; }
+.wr-src { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted, #5e6a84); font-size: var(--fs-micro, 10.5px); letter-spacing: .02em; }
+.wr-out { flex: 0 0 auto; color: var(--accent, #fb8b1e); font-size: var(--fs-body, 12.5px); }
+.wr-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.wr-art { padding: 16px 20px 28px; max-width: 86ch; }
+.wr-kicker { color: var(--accent, #fb8b1e); font-size: var(--fs-micro, 10.5px); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
+.wr-title { font-size: var(--fs-title, 16.5px); line-height: 1.35; margin: 0 0 8px; font-weight: 600; }
+.wr-meta { color: var(--muted, #5e6a84); font-size: var(--fs-micro, 10.5px); margin-bottom: 12px; }
+.wr-note { color: var(--muted, #5e6a84); font-size: var(--fs-body, 12.5px); line-height: 1.6; margin: 10px 0 14px; }
+.wr-loading { font-style: italic; }
+.wr-h { font-size: var(--fs-body, 12.5px); font-weight: 700; margin: 16px 0 6px; text-decoration: underline; }
+.wr-p { font-size: var(--fs-body, 12.5px); line-height: 1.72; margin: 0 0 12px; text-align: left; hyphens: none; overflow-wrap: break-word; }
+.wr-p a { text-decoration: underline; }
+.wr-fig { margin: 12px 0; } .wr-fig img { max-width: 100%; height: auto; } .wr-fig figcaption { color: var(--muted, #5e6a84); font-size: var(--fs-micro, 10.5px); }
+.wr-open { display: inline-block; margin-top: 10px; color: var(--accent, #fb8b1e); font-weight: 600; font-size: var(--fs-body, 12.5px); }
+.wr-diag { opacity: .7; }
+html.wr-open, html.wr-open body { overflow: hidden; }
+@media (max-width: 760px) {
+  .wr-scrim { display: none; }
+  .wr-panel { width: 100vw; left: 0; border-left: 0; box-shadow: none; padding-top: env(safe-area-inset-top, 0px); }
+  .wr-art { padding: 14px 12px 40vh; }
+  html.wr-open .mobile-tabbar { display: none !important; }
+}
