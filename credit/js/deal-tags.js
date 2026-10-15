@@ -938,7 +938,6 @@ const T = {
   d990: {"c":"US","s":"Industrials","a":"financing","cs":"https://sec.gov/Archives/edgar/data/6284/000119312516721523/d220440d10k.htm","cb":"hq"},
   d991: {"c":null,"s":"Diversified","a":"fund","p":"Blackstone","r":"fund"},
   d992: {"c":"Global","s":"Infrastructure & energy","a":"financing"},
-  d993: {"c":"Global","s":"Infrastructure & energy","a":"financing"},
   d994: {"c":"US","s":"Financial services","a":null,"cs":"https://amp.insurancejournal.com/news/west/2016/09/20/427056.htm","cb":"hq"},
   d995: {"c":"US","s":"Financial services","a":"aum","m":1,"p":"CVC Credit","r":"target"},
   d996: {"c":"US","s":"Financial services","a":"financing","cs":"https://www.sec.gov/Archives/edgar/data/1280784/000156459019003680/htgc-10k_20181231.htm","cb":"issuer","p":"Hercules Capital","r":"issuer"},
