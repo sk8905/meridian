@@ -658,3 +658,46 @@ a.compact-head:hover { text-decoration: none; }
   .tpane[data-pane="firms"] .tleague-full th:nth-child(6) { width: 12%; }  /* London revenue */
   .tpane[data-pane="firms"] .tleague-full th:nth-child(7) { width: 9%; }   /* PEP            */
 }
+
+/* ---- Law-firm profile: private-credit / Europe lens (v2/js/legal/firm-lens.js) ----
+   At-a-glance strip (alerts 90d · credit deals · lender side · top counterparties),
+   the practice / region filter row over the wire, and the Credit deals list (two-line
+   rows: deal / side · date · amount · lender · source). Theme comes from the shared
+   --ink / --muted / --faint / --border tokens (light + dark via premium.css). */
+.lf-glance { display: grid; grid-template-columns: repeat(4, minmax(0, auto)); justify-content: start; gap: 0; border-bottom: 1px solid var(--border); background: var(--surface); }
+.lf-g { display: flex; flex-direction: column; gap: 2px; padding: 9px 18px 9px 12px; min-width: 0; border-right: 1px solid var(--border); }
+.lf-g:last-child { border-right: 0; }
+.lf-g-k { font-size: var(--fs-micro); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); white-space: nowrap; }
+.lf-g-v { font-size: var(--fs-body); font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.lf-g-n { color: var(--muted); font-weight: 500; font-size: var(--fs-num); }
+.lf-g-s { font-size: var(--fs-micro); color: var(--faint); white-space: nowrap; }
+.lf-cn { margin-left: 0; }
+.lf-filt { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.lf-filt[hidden] { display: none; }
+.lf-sel { height: var(--chip-h, 34px); max-width: 100%; padding: 0 8px; font: inherit; font-size: var(--fs-body); font-weight: 500; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: 0; }
+.lf-sel.is-on { color: var(--ink); font-weight: 600; border-color: var(--ink); }
+.lf-sel:focus-visible { outline: 1px solid var(--muted); outline-offset: 1px; }
+.lf-clear, .lf-more { font: inherit; font-size: var(--fs-body); font-weight: 600; color: var(--muted); background: none; border: 0; padding: 6px 4px; cursor: pointer; }
+.lf-more-w { padding: 0 12px; }
+.lf-more-w:empty { display: none; }
+.lf-more { display: block; width: 100%; text-align: center; padding: 10px 4px; border-top: 1px solid var(--border); }
+@media (hover: hover) { .lf-clear:hover, .lf-more:hover { color: var(--ink); } }
+.lf-deals { list-style: none; margin: 0; padding: 0; }
+.lf-deal { padding: 9px 12px; border-bottom: 1px solid var(--border); min-width: 0; }
+.lf-deal-t { font-size: var(--fs-body); color: var(--ink); line-height: 1.35; overflow-wrap: anywhere; }
+.lf-deal-t a { color: var(--ink); }
+.lf-deal-m { margin-top: 3px; display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; font-size: var(--fs-micro); color: var(--muted); font-variant-numeric: tabular-nums; }
+.lf-deal-m a.lf-src { color: var(--faint); }
+@media (hover: hover) { .lf-deal-t a:hover, .lf-deal-m a.lf-src:hover { color: var(--ink); } }
+.lf-side { font-weight: 600; text-transform: uppercase; letter-spacing: .03em; padding: 1px 6px; border: 1px solid var(--border); color: var(--ink); white-space: nowrap; }
+.lf-side-unknown { color: var(--faint); font-weight: 500; }
+@media (max-width: 760px) {
+  .lf-glance { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lf-g { padding: 8px 16px; }
+  .lf-g:nth-child(2n) { border-right: 0; }
+  .lf-g:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+  .lf-filt { padding: 8px 16px; }
+  .lf-sel { flex: 1 1 0; min-width: 0; }
+  .lf-deal { padding: 10px 16px; }
+  .lf-more-w { padding: 0 16px; }
+}
