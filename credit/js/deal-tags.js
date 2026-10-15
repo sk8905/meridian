@@ -1065,5 +1065,13 @@ const T = {
   d1130: {"c": "US", "s": "Real estate", "a": "financing", "p": "Alterra IOS", "r": "borrower"},
   d1131: {"c": "Germany", "s": "Real estate", "a": "financing", "p": "Centerscape", "r": "borrower"},
   d1132: {"c": "UK", "s": "Transport & logistics", "a": null, "p": "Torque Holdings", "r": "borrower"},
+  d1133: {"c":"Japan","s":"Financial services","a":"ev","p":"T&D Financial Life Insurance","r":"borrower"},
+  d1134: {"c":"Pan-European","s":"Diversified","a":"fund","p":"RoundShield European Special Opportunities Fund IV","r":"fund"},
+  d1135: {"c":"Ireland","s":"Real estate","a":"fund","p":"RoundShield Irish residential real estate fund","r":"fund"},
+  d1136: {"c":"Germany","s":"Leisure & hospitality","a":null,"p":"Lodgyslife","r":"borrower"},
+  d1137: {"c":"Spain","s":"Real estate","a":null,"p":"Merkel Capital","r":"borrower"},
+  d1138: {"c":"France","s":"Transport & logistics","a":null,"p":"Europcar Mobility Group","r":"target"},
+  d1139: {"c":"France","s":"Transport & logistics","a":null,"p":"Europcar Mobility Group","r":"target"},
+  d1140: {"c":"France","s":"Transport & logistics","a":null,"p":"Europcar Mobility Group","r":"target"},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));
