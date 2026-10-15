@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-15T18:36:27.587Z",
+ "generated": "2026-10-15T23:20:05.650Z",
  "since": "2026-10-01",
  "firms": {
   "proskauerrose": {
@@ -62,19 +62,6 @@
    ],
    "carried": 0
   },
-  "linklaters": {
-   "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
-   ],
-   "sitemaps": 6,
-   "urls": 17773,
-   "kept": 15,
-   "fetched": 8,
-   "errors": 7,
-   "carried": 0
-  },
   "hsf": {
    "domains": [
     "www.hsfkramer.com"
@@ -86,6 +73,19 @@
    "errors": 1,
    "carried": 0
   },
+  "linklaters": {
+   "domains": [
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
+   ],
+   "sitemaps": 6,
+   "urls": 17774,
+   "kept": 16,
+   "fetched": 9,
+   "errors": 7,
+   "carried": 0
+  },
   "macfarlanes": {
    "domains": [
     "www.macfarlanes.com"
@@ -94,17 +94,6 @@
    "urls": 3563,
    "kept": 3,
    "fetched": 3,
-   "errors": 0,
-   "carried": 0
-  },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5013,
-   "kept": 7,
-   "fetched": 7,
    "errors": 0,
    "carried": 0
   },
@@ -121,6 +110,17 @@
    "disallowed": 1,
    "carried": 0
   },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5013,
+   "kept": 7,
+   "fetched": 7,
+   "errors": 0,
+   "carried": 0
+  },
   "aoshearman": {
    "domains": [
     "www.aoshearman.com",
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 16535,
+   "urls": 16536,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -145,17 +145,6 @@
    "errors": 1,
    "carried": 0
   },
-  "kirkland": {
-   "domains": [
-    "www.kirkland.com"
-   ],
-   "sitemaps": 11,
-   "urls": 17403,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
   "whitecase": {
    "domains": [
     "www.whitecase.com"
@@ -167,15 +156,26 @@
    "errors": 0,
    "carried": 0
   },
+  "kirkland": {
+   "domains": [
+    "www.kirkland.com"
+   ],
+   "sitemaps": 11,
+   "urls": 17408,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
   "sidley": {
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 5,
-   "urls": 6771,
+   "sitemaps": 8,
+   "urls": 7926,
    "kept": 2,
    "fetched": 2,
-   "errors": 12,
+   "errors": 9,
    "carried": 0
   },
   "ropesgray": {
@@ -244,7 +244,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12285,
+   "urls": 12291,
    "kept": 15,
    "fetched": 15,
    "errors": 0,
@@ -255,7 +255,7 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11573,
+   "urls": 11575,
    "kept": 7,
    "fetched": 7,
    "errors": 0,
@@ -271,7 +271,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7739,
+   "urls": 7741,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -302,7 +302,7 @@
     "content.clearygottlieb.com"
    ],
    "sitemaps": 1,
-   "urls": 18697,
+   "urls": 18700,
    "kept": 40,
    "fetched": 40,
    "errors": 1,
@@ -332,7 +332,7 @@
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16341,
+   "urls": 16344,
    "kept": 23,
    "fetched": 23,
    "errors": 0,
@@ -373,27 +373,27 @@
    "lastmod": "2026-10-15"
   },
   {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-qia-on-amex-acquisition-by-long-lake-management",
+   "title": "Linklaters Advises Qatar Investment Authority on American Express Global Business Travel’s $6.3bn Acquisition by Long Lake Management",
+   "description": "Linklaters Advises Qatar Investment Authority on American Express Global Business Travel’s $6.3bn Acquisition by Long Lake Management",
+   "date": "2026-10-15",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-15"
+  },
+  {
    "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/prc-local-governments-raise-rmb16-5-billion-in-offshore-rmb-bonds-in-hong-kong",
-   "title": "PRC local governments raise RMB16 5 billion in offshore RMB bonds in Hong Kong",
-   "description": "A&O Shearman advised the managers on RMB16.5bn of offshore RMB bonds issued by Guangdong, Shenzhen and Hainan and listed in Hong Kong.",
+   "url": "https://www.aoshearman.com/en/insights/sec-proposes-crypto-asset-custody-framework-for-investment-advisers-and-regulated-funds",
+   "title": "SEC proposes crypto asset custody framework for investment advisers and regulated funds",
+   "description": "SEC proposes a crypto asset custody framework covering self-custody, state trust companies and custody rule updates. Key insights for advisers and funds.",
    "date": "2026-10-15",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
   },
   {
    "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-ccc-on-6-1-billion-acquisition-by-gtcr-and-elliott",
-   "title": "Kirkland Advises CCC on $6.1 Billion Acquisition by GTCR and Elliott",
-   "description": null,
-   "date": "2026-10-15",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-stockbridge-on-acquisition-by-eqt",
-   "title": "Kirkland Advises Stockbridge on Acquisition by EQT",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-represents-sterling-investment-p-on-strategic-minority-investment-from-pact",
+   "title": "Kirkland Represents Sterling Investment Partners on Strategic Minority Investment from PACT Capital Partners",
    "description": null,
    "date": "2026-10-15",
    "dateSource": "page date label",
@@ -428,15 +428,6 @@
   },
   {
    "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/naic-credit-rating-provider-e-working-group-moves-toward-adoption-of-due-diligence-framework",
-   "title": "NAIC Credit Rating Provider (E) Working Group Moves Toward Adoption of Due Diligence Framework",
-   "description": "The Credit Rating Provider (E) Working Group (“CRP WG”) of the US National Association of Insurance Commissioners (“NAIC”) met on August 12 and",
-   "date": "2026-10-15",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-15"
-  },
-  {
-   "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/whats-happening-in-digital-markets-competition-regulation-edition-1",
    "title": "What's happening in Digital Markets Competition Regulation? Edition 1",
    "description": "As digital markets regulation evolves, products and services must be designed with applicable and future rules in mind. From interim measures against",
@@ -449,6 +440,15 @@
    "url": "https://www.mayerbrown.com/en/news/2026/10/chambers-uk-2027-ranks-31-mayer-brown-practices-and-67-lawyers",
    "title": "Chambers UK 2027 ranks 31 Mayer Brown practices and 67 lawyers",
    "description": "London – The 2027 edition of Chambers UK has ranked Mayer Brown in 31 practice areas. Of these rankings, three are in the top tier: Asset",
+   "date": "2026-10-15",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "mayerbrown",
+   "url": "https://www.mayerbrown.com/en/news/2026/10/mayer-brown-advises-bnr-power-investments-on-million-sale-of-interest-in-ypf-luz-to-ypf",
+   "title": "Mayer Brown advises BNR Power Investments B.V. on $430 million sale of interest in YPF Luz to YPF S.A.",
+   "description": "Mayer Brown represented BNR Power Investments B.V. in connection with the $430 million sale of its 24.99% equity interest in YPF Energía Eléctrica S",
    "date": "2026-10-15",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
