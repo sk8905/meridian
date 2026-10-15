@@ -20,6 +20,7 @@ import { SECTOR_FLOWS } from "/allocations.js";
 import { nbNums } from "../nb-format.js";
 import { rosterCardsHTML, wireRosters } from "../credit-roster.js";
 import { liveJSON, lastKnownLabel } from "../live-cache.js";
+import { fundsInMarket as fundsInMarketOf, FIM_STATUS } from "../funds-market.js";
 import { tagsOf, EUROPE_REGIONS } from "/credit/js/tx.js";
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
 import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID, caseSummaries as LGL_CASE_SUMMARIES } from "/legal/js/data.js";
@@ -935,22 +936,9 @@ export function mount(host, ctx) {
   // A status not refreshed in 12+ months is flagged STALE (it may have closed since);
   // named LPs come from the fund's sourced investors + the commitments ledger.
   let _fimScope = "eu", _fimStrat = "";
-  const FIM_STATUS = new Set(["Pre-marketing", "Open", "First Close"]);
-  const EU_GEO = /europe|pan-?european|\buk\b|united kingdom|ireland|nordic|dach|germany|france|benelux|italy|spain|iberia|netherlands|belgium|switzerland|sweden|denmark|norway|finland|poland|cee/i;
   const lpName = (id) => ((lps || []).find((l) => l.id === id) || {}).name || "";
-  function fundLps(f) {
-    const named = (f.investors || []).map((x) => (typeof x === "string" ? x : x && (x.name || x.lp))).filter(Boolean);
-    (commitments || []).forEach((c) => { if (c.fundId === f.id) { const n = lpName(c.lpId); if (n && !named.includes(n)) named.push(n); } });
-    return named;
-  }
-  function fundsInMarket() {
-    const yr = new Date(Date.now() - 365 * 864e5).toISOString().slice(0, 10);
-    return (funds || []).filter((f) => FIM_STATUS.has(f.status))
-      .filter((f) => _fimScope === "all" || EU_GEO.test(`${f.geoFocus || ""} ${f.domicile || ""}`))
-      .filter((f) => !_fimStrat || f.strategy === _fimStrat)
-      .map((f) => ({ f, lps: fundLps(f), stale: !f.asOf || String(f.asOf) < yr }))
-      .sort((a, b) => (a.stale - b.stale) || String(b.f.asOf || "").localeCompare(String(a.f.asOf || "")));
-  }
+  // The builder is shared with Transactions ▸ Fundraising (v2/js/funds-market.js).
+  const fundsInMarket = () => fundsInMarketOf({ scope: _fimScope, strategy: _fimStrat });
   function fimHTML() {
     const rows = fundsInMarket();
     const strats = [...new Set((funds || []).filter((f) => FIM_STATUS.has(f.status)).map((f) => f.strategy).filter(Boolean))].sort();

@@ -23,13 +23,15 @@
 import { deals, managers, funds, fundById } from "/credit/js/data.js";
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
 import { targetFit } from "/credit/js/target.js";
-import { TX_TYPES, TX_GROUPS, SECTOR_TAGS, REGIONS, REGION_LABEL, EUROPE_REGIONS, txOf, amountOf, toUsd, fmtAmt, fmtUsd, tagsOf, sizeCounts } from "/credit/js/tx.js";
+import { TX_TYPES, TX_GROUPS, SECTOR_TAGS, REGIONS, REGION_LABEL, EUROPE_REGIONS, FX, txOf, amountOf, toUsd, fmtAmt, fmtUsd, tagsOf, sizeCounts } from "/credit/js/tx.js";
 import { esc } from "/util.js";
 import { fmtDay, fmtDateP } from "/feed.js";
 import { dealCounterparty, dealSponsor, dealPartyRole } from "../deal-parse.js";
 import { creditSource } from "/credit/js/shared.js";
 import { downloadCSV } from "../csv.js";
 import { advisersFor, dealTerms } from "../deal-advisers.js";
+import { BY, BY_KEYS, FIN_ADVISERS, norm as lgNorm, managerIndex, lendersOf, sponsorOf, aggregate, rank } from "./league.js";
+import { fundraisingHTML } from "./fundraising.js";
 
 const _mById = new Map(managers.map((m) => [m.id, m]));
 const mgrName = (id) => (_mById.get(id) || {}).name || "";
@@ -51,7 +53,12 @@ const FOCUS_PILL = { band: "$1–15bn AUM", target: "Target managers" };
 const DEAL_MODES = [...TX_GROUPS.map((g) => [g.key, g.label]), ["mna", "Manager M&A"]];
 const FLOW = DEAL_MODES.map(([k]) => k);                       // lending · structured · secondary · mna
 const MODES = DEAL_MODES;
-const MODE_KEYS = MODES.map(([k]) => k);
+// Two views beside the deal-flow modes (chips after them, data-view not data-mode):
+// Fundraising (funds in market · closes · LP commitments · LP ↔ manager) and League
+// tables (lenders · sponsors · law firms · financial advisers ranked by deals / volume).
+const VIEWS = [["fundraising", "Fundraising"], ["league", "League tables"]];
+const MODE_KEYS = [...MODES, ...VIEWS].map(([k]) => k);
+const VIEW_LABEL = Object.fromEntries(VIEWS);
 const MODE_ALIAS = { primary: "lending" };                      // the pre-2026-10 mode name
 const MODE_LABEL = Object.fromEntries(MODES);
 
@@ -118,7 +125,11 @@ export function mount(host, ctx) {
   // scope: "eu" (default — the reader is a European credit fund) | "all". Europe = the
   // EUROPE_REGIONS of the deal's borrower/asset country; a search, an explicit Region
   // facet or Manager M&A always spans every region (review 2026-10-15, #5).
-  const DEFAULT = () => ({ mode: "lending", q: "", deal: "", sort: "date", dir: "desc", grp: "", f: emptyF(), period: "all", from: "", to: "", focus: "", scope: "eu" });
+  // spn: one sponsor by name (a League tables sponsor row opens the list filtered by it).
+  // lg: the League tables view; fr: the Fundraising view.
+  const LG_DEFAULT = () => ({ by: "lenders", period: "ytd", reg: "eu", type: "", sort: "n", open: "" });
+  const FR_DEFAULT = () => ({ fim: "eu", close: "" });
+  const DEFAULT = () => ({ mode: "lending", q: "", deal: "", sort: "date", dir: "desc", grp: "", f: emptyF(), period: "all", from: "", to: "", focus: "", scope: "eu", spn: "", lg: LG_DEFAULT(), fr: FR_DEFAULT() });
   let st = DEFAULT();
   let sheetOpen = false, lenderAll = false, moreOpen = false, customDate = false;
   const flowMode = () => FLOW.includes(st.mode);
@@ -136,7 +147,8 @@ export function mount(host, ctx) {
   };
   const scopeOn = () => st.scope === "eu" && !st.q && !st.f.region.length && st.mode !== "mna";
   const inScope = (r) => !scopeOn() || EUROPE_REGIONS.includes(r.tags.region);
-  const passes = (r, except) => inDate(r) && inFocus(r) && inScope(r) && FACETS.every((k) => k === except || !st.f[k].length || st.f[k].includes(FVAL[k](r)));
+  const inSpn = (r) => !st.spn || lgNorm(sponsorOf(r)) === lgNorm(st.spn);
+  const passes = (r, except) => inDate(r) && inFocus(r) && inScope(r) && inSpn(r) && FACETS.every((k) => k === except || !st.f[k].length || st.f[k].includes(FVAL[k](r)));
   const hit = (r, q) => (r.d.headline || "").toLowerCase().includes(q) || mgrName(r.d.managerId).toLowerCase().includes(q)
     || (r.d.summary || "").toLowerCase().includes(q) || typeLabel(r.tx).toLowerCase().includes(q) || r.tags.sector.toLowerCase().includes(q)
     || (r.tags.country || "").toLowerCase().includes(q);
@@ -162,7 +174,7 @@ export function mount(host, ctx) {
     });
   }
   const currentList = () => sortRows(baseRows().filter((r) => passes(r)));
-  const nSelected = () => FACETS.reduce((a, k) => a + st.f[k].length, 0) + (st.from || st.to || st.period !== "all" ? 1 : 0);
+  const nSelected = () => FACETS.reduce((a, k) => a + st.f[k].length, 0) + (st.from || st.to || st.period !== "all" ? 1 : 0) + (st.spn ? 1 : 0);
 
   // ---- URL <-> state ---------------------------------------------------------
   const csv = (a) => a.join(",");
@@ -175,10 +187,17 @@ export function mount(host, ctx) {
       else if (st.period !== "all") p.set("period", st.period);
       if (st.focus) p.set("focus", st.focus);
       if (st.scope === "all") p.set("scope", "all");
+      if (st.spn) p.set("spn", st.spn);
       if (st.q) p.set("q", st.q);
       if (st.sort !== "date" || st.dir !== "desc") p.set("sort", `${st.sort}-${st.dir}`);
       if (st.grp) p.set("grp", st.grp);
       if (st.deal) p.set("deal", st.deal);
+    } else if (st.mode === "league") {
+      const L = st.lg, D = LG_DEFAULT();
+      for (const k of ["by", "period", "reg", "type", "sort", "open"]) if (L[k] !== D[k]) p.set(k, L[k]);
+    } else if (st.mode === "fundraising") {
+      if (st.fr.fim !== "eu") p.set("fim", st.fr.fim);
+      if (st.fr.close) p.set("close", st.fr.close);
     }
     const qs = p.toString().replace(/%2C/g, ",");
     return path + (qs ? "?" + qs : "");
@@ -221,6 +240,18 @@ export function mount(host, ctx) {
       if (SORT_VAL[sk]) { s.sort = sk; s.dir = sd === "asc" ? "asc" : sd === "desc" ? "desc" : SORT_DEFAULT_DIR[sk]; }
       if (GROUPS.some(([k]) => k && k === q.get("grp"))) s.grp = q.get("grp");
       if (q.get("deal") && rowById.has(q.get("deal"))) s.deal = rowById.get(q.get("deal")).d.id;
+      s.spn = (q.get("spn") || "").trim().slice(0, 120);
+    } else if (s.mode === "league") {
+      const L = s.lg;
+      if (BY_KEYS.includes(q.get("by"))) L.by = q.get("by");
+      if (LG_PERIOD_OK(q.get("period"))) L.period = q.get("period");
+      if (q.get("reg") === "all" || REGION_LABEL[q.get("reg")] != null) L.reg = q.get("reg");
+      if (LG_TYPE_OK(q.get("type"))) L.type = q.get("type");
+      if (q.get("sort") === "vol") L.sort = "vol";
+      L.open = (q.get("open") || "").slice(0, 160);
+    } else if (s.mode === "fundraising") {
+      if (q.get("fim") === "all") s.fr.fim = "all";
+      if (["first", "final"].includes(q.get("close"))) s.fr.close = q.get("close");
     }
     return s;
   }
@@ -287,6 +318,7 @@ export function mount(host, ctx) {
             <div class="tx-asof" id="tx-asof" hidden></div>
             <div class="tx-sheet" id="tx-sheet" role="region" aria-label="Filters" hidden></div>
             <div class="tx-scroll" id="tx-body"></div>
+            <div class="tx-scroll tx-view" id="tx-view" hidden></div>
             <aside class="tx-drawer" id="tx-drawer" role="region" aria-label="Deal" hidden></aside>
           </div>
         </section>
@@ -357,6 +389,7 @@ export function mount(host, ctx) {
     if (allEu) out.push("Europe");
     const dl = dateLabel(); if (dl) out.push(dl);
     if (st.focus) out.push(FOCUS_PILL[st.focus]);
+    if (st.spn) out.push(`Sponsor: ${st.spn}`);
     return out;
   }
   function renderActive() {
@@ -471,13 +504,25 @@ export function mount(host, ctx) {
   function renderModeNav() {
     const nav = host.querySelector("#tx-mode");
     if (!nav) return;
-    const subHTML = "";   // types live in the Filters panel (no nested sub-labels)
-    nav.innerHTML = MODES.map(([k, l]) => {
+    // Owner-approved order: Lending · Structured credit · Secondaries · Restructuring ·
+    // Fundraising · Manager M&A · League tables. Restructuring is its own view
+    // (/v2/restructuring/, a link the runtime routes); Fundraising and League tables are
+    // views of this tab (data-view; #/fundraising · #/league). On iPhone the row scrolls
+    // sideways (never wraps) and the active chip is scrolled into view.
+    const flow = (k) => {
       const on = st.mode === k;
-      // Long labels shorten on phones (six chips share 390px).
-      const lbl = k === "structured" ? `Structured<span class="tx-mlong"> credit</span>` : k === "mna" ? `<span class="tx-mlong">Manager </span>M&amp;A` : esc(l);
-      return `<button type="button" class="tchip${on ? " is-on" : ""}" data-mode="${esc(k)}">${lbl}</button>` + (on ? subHTML : "");
-    }).join("");
+      // Long labels shorten on phones.
+      const lbl = k === "structured" ? `Structured<span class="tx-mlong"> credit</span>` : k === "mna" ? `<span class="tx-mlong">Manager </span>M&amp;A` : esc(MODE_LABEL[k]);
+      return `<button type="button" class="tchip${on ? " is-on" : ""}" data-mode="${esc(k)}">${lbl}</button>`;
+    };
+    const view = (k) => `<button type="button" class="tchip tx-vchip${st.mode === k ? " is-on" : ""}" data-view="${esc(k)}">${esc(VIEW_LABEL[k])}</button>`;
+    const rx = `<a class="tchip tx-vchip tx-rxchip" href="${esc(ctx.base)}/restructuring/">Restructuring</a>`;
+    nav.innerHTML = [flow("lending"), flow("structured"), flow("secondary"), rx, view("fundraising"), flow("mna"), view("league")].join("");
+    const onChip = nav.querySelector(".tchip.is-on");
+    if (onChip && nav.scrollWidth > nav.clientWidth + 1) {
+      const nr = nav.getBoundingClientRect(), cr = onChip.getBoundingClientRect();
+      if (cr.left < nr.left || cr.right > nr.right) nav.scrollLeft += (cr.left - nr.left) - (nr.width - cr.width) / 2;
+    }
     renderAsOf();
     renderActive();
   }
@@ -628,7 +673,7 @@ export function mount(host, ctx) {
   function legalForAdvisers() {
     if (_legal || _legalLoading) return _legal;
     _legalLoading = true;
-    import("/legal/js/data.js").then((m) => { _legal = m; if (st.deal) renderDrawer(); }).catch(() => { _legal = { items: [] }; });
+    import("/legal/js/data.js").then((m) => { _legal = m; if (st.deal) renderDrawer(); if (isActive() && st.mode === "league" && (st.lg.by === "law" || st.lg.by === "fa")) renderView(); }).catch(() => { _legal = { items: [], firmById: {} }; if (st.mode === "league") renderView(); });
     return null;
   }
   function advisersHTML(r) {
@@ -679,7 +724,7 @@ export function mount(host, ctx) {
     const rel = relatedRows(r);
     const relSec = (title, list) => list.length ? `<div class="tpg-h">${esc(title)} <span class="tveh-grp-n">${list.length}</span></div><ul class="tmini">${list.map(relRow).join("")}</ul>` : "";
     drawer.innerHTML = `
-      <header class="tpanel-h tx-drawer-h"><button type="button" class="tx-drawer-x" aria-label="Close the deal">‹</button><span>Deal</span></header>
+      <header class="tpanel-h tx-drawer-h"><button type="button" class="tx-drawer-x" aria-label="Close the deal">‹</button><span>Deal</span><button type="button" class="tx-share" aria-label="Share this deal">Share</button></header>
       <div class="tx-drawer-b">
         <h2 class="tx-drawer-t">${esc(d.headline || "")}</h2>
         ${d.summary ? `<p class="tx-sum">${esc(d.summary)}</p>` : ""}
@@ -713,6 +758,7 @@ export function mount(host, ctx) {
 
   // ---- CSV export: exactly what the active view shows (filters + search applied) ----
   function exportCSV(kind) {
+    if (kind === "league") { exportLeague(); return; }
     if (kind === "flow") {
       const list = currentList();
       downloadCSV(`wire-transactions-${st.q ? "search" : st.mode}`,
@@ -720,6 +766,227 @@ export function mount(host, ctx) {
         list.map((r) => [r.d.date, r.cp, dealPartyRole(r.d), r.sponsor, mgrName(r.d.managerId), MODE_LABEL[r.mode], typeLabel(r.tx), r.tags.sector, r.tags.country || "", r.tags.country ? (r.tags.countrySource ? `${BASIS_LABEL[r.tags.countryBasis] || "HQ"} (researched)` : "deal text") : "", r.tags.countrySource || "", REGION_LABEL[r.tags.region] || "",
           r.amt ? fmtAmt(r.amt) : "", r.tags.amountKind || "", r.usd != null ? Math.round(r.usd) : "", r.tags.event || "", r.d.headline || "", r.d.sourceUrl || "", r.alt.map((a) => a.sourceUrl).filter(Boolean).join(" ")]));
     }
+  }
+
+
+  // ---- League tables (#/league) ------------------------------------------------
+  // Lenders · Sponsors · Law firms · Financial advisers ranked by tracked deal count and
+  // disclosed ≈USD volume over the same enriched (de-duplicated) rows as the deal list.
+  // Filters: period (YTD · last 12m · calendar years), region (Europe-first, like the
+  // list's scope=eu) and deal type / mode. Aggregation lives in ./league.js.
+  const _mIdx = managerIndex(managers);
+  const LG_TYPE_OK = (v) => !!v && (v.startsWith("m:") ? DEAL_MODES.some(([k]) => "m:" + k === v) : v.startsWith("t:") && TX_TYPES.some((t) => "t:" + t.key === v));
+  const LG_PERIOD_OK = (v) => v === "ytd" || v === "12m" || (/^\d{4}$/.test(v || "") && YEARS.includes(v));
+  const lgInPeriod = (r, v) => v === "ytd" ? r.ts >= Date.UTC(new Date(now).getUTCFullYear(), 0, 1) : v === "12m" ? r.ts >= now - 365 * DAY : r.d.date.slice(0, 4) === v;
+  const lgInReg = (r, v) => v === "all" || (v === "eu" ? EUROPE_REGIONS.includes(r.tags.region) : r.tags.region === v);
+  // "" = all credit deal flow (Manager M&A has acquirers, not lenders — pick it explicitly).
+  const lgInType = (r, v) => !v ? r.mode !== "mna" : v.startsWith("m:") ? r.mode === v.slice(2) : r.mode !== "mna" && r.tx === v.slice(2);
+  const lgRows = () => { const L = st.lg; return rows.filter((r) => lgInPeriod(r, L.period) && lgInReg(r, L.reg) && lgInType(r, L.type)); };
+  // Advisers per deal (needs the legal desk's announcements; memoised once loaded).
+  // advisersFor() scans every announcement per deal; for a whole table hand it only the
+  // advisory announcements dated inside its own −45…+60-day window (same result, ~50× less work).
+  const _advMemo = new Map();
+  let _advItems = null;
+  function advOf(r) {
+    if (!_legal) return [];
+    if (!_advMemo.has(r)) {
+      // advNorm mirrors deal-advisers.js norm(); an announcement only joins when its title
+      // names the deal's party, so that test runs first on a pre-normalised title.
+      const advNorm = (s) => " " + String(s || "").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, " ").trim() + " ";
+      if (!_advItems) _advItems = (_legal.items || []).filter((i) => /\b(advis|counsel|acted for|acting for|acts for|represent)/i.test(i.title || ""))
+        .map((i) => ({ i, t: Date.parse(i.date), n: advNorm(i.title) })).filter((x) => x.t).sort((a, b) => a.t - b.t);
+      const key = advNorm(String(r.cp || "").replace(/\s*\(.*?\)/g, "")).trim();
+      const lo = r.ts - 46 * DAY, hi = r.ts + 61 * DAY;
+      let a = 0, z = _advItems.length;
+      while (a < z) { const m = (a + z) >> 1; if (_advItems[m].t < lo) a = m + 1; else z = m; }
+      const items = [];
+      if (key.length >= 4) for (let k = a; k < _advItems.length && _advItems[k].t <= hi; k++) if (_advItems[k].n.includes(" " + key + " ")) items.push(_advItems[k].i);
+      _advMemo.set(r, advisersFor(r.d, r.cp, { items, firmById: _legal.firmById }).map((x) => x.firm));
+    }
+    return _advMemo.get(r);
+  }
+  // Law-firm name → its Profiles firm page (legal/js/data.js firmById), when tracked.
+  let _firmIdx = null;
+  function firmIdOf(name) {
+    if (!_legal || !_legal.firmById) return "";
+    if (!_firmIdx) _firmIdx = Object.values(_legal.firmById).map((f) => [lgNorm(f.name), f.id]);
+    const n = lgNorm(name);
+    const hit = _firmIdx.find(([fn]) => fn === n || fn.startsWith(n + " ") || n.startsWith(fn + " "));
+    return hit ? hit[1] : "";
+  }
+  const KEYS_OF = {
+    lenders: (r) => lendersOf(r.d, _mIdx),
+    sponsors: (r) => { const n = sponsorOf(r); if (!n) return []; const m = _mIdx.byName.get(lgNorm(n)); return [{ key: "s:" + lgNorm(n), name: n, id: m ? m.id : "" }]; },
+    law: (r) => advOf(r).filter((f) => !FIN_ADVISERS.has(f)).map((f) => ({ key: "l:" + lgNorm(f), name: f })),
+    fa: (r) => advOf(r).filter((f) => FIN_ADVISERS.has(f)).map((f) => ({ key: "a:" + lgNorm(f), name: f })),
+  };
+  const leagueTable = () => rank(aggregate(lgRows(), KEYS_OF[st.lg.by]), st.lg.sort);
+  // The flow list behind a League row, in URL form: same period / region / type.
+  function flowHref(mode, extra) {
+    const L = st.lg, p = new URLSearchParams();
+    for (const [k, v] of Object.entries(extra)) p.set(k, v);
+    if (L.type.startsWith("t:")) p.set("type", L.type.slice(2));
+    if (L.period === "ytd" || L.period === "12m") p.set("period", L.period); else { p.set("from", `${L.period}-01`); p.set("to", `${L.period}-12`); }
+    if (L.reg === "all") p.set("scope", "all"); else if (L.reg !== "eu") p.set("reg", L.reg);
+    return `${ctx.base}/transactions/#/${mode}?${p.toString().replace(/%2C/g, ",")}`;
+  }
+  const BY_NOUN = { lenders: "lender", sponsors: "sponsor", law: "law firm", fa: "financial adviser" };
+  function entityLink(a) {
+    const by = st.lg.by;
+    if ((by === "lenders" || by === "sponsors") && a.id) return `<a class="tx-lg-a" href="${esc(ctx.base)}/profiles/#/manager/${esc(a.id)}">${esc(a.name)}</a>`;
+    if (by === "law") { const fid = firmIdOf(a.name); if (fid) return `<a class="tx-lg-a" href="${esc(ctx.base)}/profiles/#/firm/${encodeURIComponent(fid)}">${esc(a.name)}</a>`; }
+    return `<span class="tx-lg-nm">${esc(a.name)}</span>`;
+  }
+  const dayOf = (ts) => fmtDay(new Date(ts).toISOString().slice(0, 10));
+  // The deals behind one row: newest first (each opens its deal card), plus the list
+  // view filtered by that lender / sponsor, one link per mode the deals fall in.
+  function lgDetail(a) {
+    const ds = a.deals.slice().sort((x, y) => y.ts - x.ts);
+    const byMode = {}; ds.forEach((r) => { byMode[r.mode] = (byMode[r.mode] || 0) + 1; });
+    const filt = st.lg.by === "lenders" && a.id ? { lender: a.id } : st.lg.by === "sponsors" ? { spn: a.name } : null;
+    const open = filt ? `<div class="tx-lg-open">${DEAL_MODES.filter(([k]) => byMode[k]).map(([k, l]) => `<a class="tx-lg-ol" href="${esc(flowHref(k, filt))}">Open ${byMode[k]} in ${esc(l)}</a>`).join("")}</div>` : "";
+    const li = (r) => `<li><a class="tx-lg-deal" href="${esc(ctx.base)}/transactions/#/deal/${encodeURIComponent(r.d.id)}"><span class="tx-lg-dt">${esc(fmtDay(r.d.date))}</span><span class="tx-lg-dh">${esc(r.cp || r.d.headline || "—")}</span><span class="tx-lg-dv">${r.amt ? esc(fmtAmt(r.amt)) : ""}</span></a></li>`;
+    return open + `<ul class="tx-lg-deals">${ds.slice(0, 12).map(li).join("")}</ul>` + (ds.length > 12 ? `<p class="tx-lg-more muted small">Newest 12 of ${ds.length}${filt ? " — open the list for all of them" : ""}.</p>` : "");
+  }
+  function leagueHTML() {
+    const L = st.lg, phone = _phone();
+    const needLegal = (L.by === "law" || L.by === "fa") && !_legal;
+    if (needLegal) legalForAdvisers();
+    const base = lgRows(), table = needLegal ? [] : leagueTable();
+    const o = (v, l, cur) => `<option value="${esc(v)}"${v === cur ? " selected" : ""}>${esc(l)}</option>`;
+    // Phones read "Law" / "Advisers" so the four tabs share one row (R2d b).
+    const byLbl = (k, l) => (k === "law" || k === "fa" ? `<span class="tx-mlong">${esc(l)}</span><span class="tx-mshort">${k === "law" ? "Law" : "Advisers"}</span>` : esc(l));
+    const bar = `<div class="tx-lg-by" role="tablist" aria-label="League table">${BY.map(([k, l]) => `<button type="button" class="tx-fchip${L.by === k ? " is-on" : ""}" data-lg-by="${k}" role="tab" aria-selected="${L.by === k}" aria-label="${esc(l)}">${byLbl(k, l)}</button>`).join("")}</div>`
+      + `<div class="tx-lg-ctl">`
+      + `<select class="tx-filt" id="tx-lg-period" aria-label="Period">${o("ytd", "Year to date", L.period)}${o("12m", "Last 12 months", L.period)}<optgroup label="Calendar year">${YEARS.map((y) => o(y, y, L.period)).join("")}</optgroup></select>`
+      + `<select class="tx-filt" id="tx-lg-reg" aria-label="Region">${o("eu", "Europe", L.reg)}${o("all", "All regions", L.reg)}<optgroup label="Region">${REGIONS.map(([k, l]) => o(k, l, L.reg)).join("")}</optgroup></select>`
+      + `<select class="tx-filt" id="tx-lg-type" aria-label="Deal type">${o("", "All credit deal flow", L.type)}<optgroup label="Mode">${DEAL_MODES.map(([k, l]) => o("m:" + k, l, L.type)).join("")}</optgroup>`
+      + TX_GROUPS.map((g) => `<optgroup label="${esc(g.label)}">${TX_TYPES.filter((t) => t.group === g.key).map((t) => o("t:" + t.key, t.label, L.type)).join("")}</optgroup>`).join("") + `</select>`
+      + `<button type="button" class="tfocus-btn tx-csv" data-csv="league">Export CSV</button></div>`;
+    const sized = base.filter((r) => r.sizeOk && r.usd != null), vol = sized.reduce((x, r) => x + r.usd, 0);
+    const stats = `<div class="tx-stats tx-lg-stats"><span><b>${base.length}</b> deal${base.length === 1 ? "" : "s"}</span>`
+      + (vol ? `<span>≈ <b>${esc(fmtUsd(vol))}</b> disclosed<span class="tx-stats-x"> (${sized.length}/${base.length})</span></span>` : "")
+      + `<span><b>${table.length}</b> ${esc(BY_NOUN[L.by])}${table.length === 1 ? "" : "s"}</span>`
+      + `<span class="tx-lg-note" title="Volumes are disclosed deal sizes converted at the ${esc(FX.asOf)} FX snapshot; a club deal counts once for each lender, which is credited its full size.">≈USD at ${esc(FX.asOf)} FX · club deals count once per ${L.by === "lenders" ? "lender" : "party"}</span></div>`;
+    if (needLegal) return bar + stats + `<p class="tw-empty muted small">Checking law-firm announcements…</p>`;
+    if (!table.length) return bar + stats + `<p class="tw-empty muted small">No ${esc(BY_NOUN[L.by])}s ${L.by === "law" || L.by === "fa" ? "named in a deal source or a tracked firm's announcement" : "on record"} for these filters.</p>`;
+    const volCell = (a) => (a.sized ? `≈ ${esc(fmtUsd(a.vol))}` : "—");
+    const isOpen = (a) => L.open === a.key;
+    let list;
+    if (phone) {
+      list = `<ol class="tx-lg-cards" data-pvroot>${table.map((a, i) => `<li class="tx-lg-card${isOpen(a) ? " is-open" : ""}" data-pv data-lg="${esc(a.key)}" tabindex="0" aria-expanded="${isOpen(a)}">`
+        + `<div class="tx-lg-ca"><span class="tx-lg-rk">${i + 1}</span><span class="tx-lg-cn">${entityLink(a)}</span><span class="tx-lg-cv"><b>${a.n}</b> deal${a.n === 1 ? "" : "s"}</span></div>`
+        + `<div class="tx-lg-cb"><span>${a.sized ? `${volCell(a)} disclosed (${a.sized}/${a.n})` : "size undisclosed"}</span><span>latest ${esc(dayOf(a.latest))}</span></div>`
+        + `<div class="tx-lg-exp">${isOpen(a) ? lgDetail(a) : ""}</div></li>`).join("")}</ol>`;
+    } else {
+      const th = (k, l, cls) => `<th class="${cls}${k ? " tx-sortable" : ""}"${k ? ` data-lg-sort="${k}"${L.sort === k ? ` aria-sort="descending"` : ""}` : ""}>${esc(l)}</th>`;
+      const one = { lenders: "Lender", sponsors: "Sponsor", law: "Law firm", fa: "Financial adviser" }[L.by];
+      list = `<div class="tleague-wrap"><table class="tleague tleague-full tx-lg-tbl"><thead><tr>${th("", "#", "tl-n tx-lg-rkh")}${th("", one, "")}${th("n", "Deals", "tl-n")}${th("vol", "Disclosed ≈USD", "tl-n")}${th("", "Sized", "tl-n")}${th("", "Latest", "")}</tr></thead>`
+        + table.map((a, i) => `<tbody class="tx-lg-ent" data-pv><tr class="tx-lg-row${isOpen(a) ? " is-open" : ""}" data-lg="${esc(a.key)}" tabindex="0" aria-expanded="${isOpen(a)}"><td class="tl-n tx-lg-rk">${i + 1}</td><td class="tx-lg-name">${caret}${entityLink(a)}</td><td class="tl-n"><b>${a.n}</b></td><td class="tl-n">${volCell(a)}</td><td class="tl-n">${a.sized}/${a.n}</td><td class="tx-dt">${esc(dayOf(a.latest))}</td></tr>`
+          + `<tr class="tx-lg-exprow"${isOpen(a) ? "" : " hidden"}><td colspan="6"><div class="tx-lg-exp">${isOpen(a) ? lgDetail(a) : ""}</div></td></tr></tbody>`).join("") + `</table></div>`;
+    }
+    return bar + stats + list;
+  }
+  // Expand / collapse one League row in place (no re-render, so a sheet copy works too).
+  function lgToggle(el, root) {
+    const key = el.dataset.lg, open = !el.classList.contains("is-open");
+    const a = open ? leagueTable().find((x) => x.key === key) : null;
+    const expOf = (x) => (x.matches("tr") ? x.nextElementSibling : x.querySelector(".tx-lg-exp"));
+    const set = (x, on, html) => {
+      x.classList.toggle("is-open", on); x.setAttribute("aria-expanded", String(on));
+      const ex = expOf(x); if (!ex) return;
+      if (x.matches("tr")) ex.hidden = !on;
+      (ex.matches(".tx-lg-exp") ? ex : ex.querySelector(".tx-lg-exp")).innerHTML = html;
+    };
+    (root || host).querySelectorAll(".tx-lg-row.is-open, .tx-lg-card.is-open").forEach((x) => { if (x !== el) set(x, false, ""); });
+    set(el, open, open && a ? lgDetail(a) : "");
+    if (!root) { st.lg = { ...st.lg, open: open ? key : "" }; commit(false); }
+  }
+  function exportLeague() {
+    const t = leagueTable(), L = st.lg;
+    downloadCSV(`wire-league-${L.by}-${L.period}`, ["Rank", (BY.find(([k]) => k === L.by) || [])[1], "Deals", "Disclosed volume (USD m, approx.)", "Deals with a disclosed size", "Latest deal", "Profile"],
+      t.map((a, i) => [i + 1, a.name, a.n, a.sized ? Math.round(a.vol) : "", a.sized, new Date(a.latest).toISOString().slice(0, 10), a.id ? `${location.origin}${ctx.base}/profiles/#/manager/${a.id}` : ""]));
+  }
+
+  // ---- previews + See-all sheet (the Dashboard pattern, R40 / R41j) -----------------
+  // Every long list shows its first rows and "See all N ›", which opens the whole list
+  // in a full-screen sheet (a centred panel on desktop) with its own search.
+  const PREVIEW = 10;
+  function previewLists(root, limit) {
+    root.querySelectorAll("[data-pvroot], .tx-fr-list, .tx-fr-tbl > tbody, .tx-lg-tbl").forEach((list) => {
+      const items = list.matches(".tx-lg-tbl") ? [...list.querySelectorAll(":scope > tbody[data-pv]")] : [...list.querySelectorAll(":scope > [data-pv]")];
+      if (items.length <= limit) return;
+      items.slice(limit).forEach((e) => { e.style.display = "none"; e.classList.add("tx-pv-hide"); });
+      const box = list.closest(".tleague-wrap") || list;
+      const sec = list.closest("[data-fr]");
+      const title = sec ? (sec.querySelector(".tx-fr-t") || {}).textContent : `League table — ${(BY.find(([k]) => k === st.lg.by) || [])[1]}`;
+      box.insertAdjacentHTML("afterend", `<button type="button" class="tx-seeall" data-seeall="${esc(sec ? sec.dataset.fr : "league")}" data-title="${esc(title || "")}">See all ${items.length} <span aria-hidden="true">›</span></button>`);
+    });
+  }
+  let _closeSheet = null;
+  function openListSheet(btn) {
+    if (_closeSheet) _closeSheet();
+    const box = btn.previousElementSibling;
+    if (!box) return;
+    const clone = box.cloneNode(true);
+    clone.querySelectorAll(".tx-pv-hide").forEach((e) => { e.style.removeProperty("display"); e.classList.remove("tx-pv-hide"); });
+    clone.querySelectorAll("[id]").forEach((e) => e.removeAttribute("id"));
+    const items = () => [...clone.querySelectorAll("[data-pv]")];
+    const sh = document.createElement("div");
+    sh.className = "dsh dsh-sheet tx-sheetv";
+    sh.setAttribute("role", "dialog"); sh.setAttribute("aria-modal", "true"); sh.setAttribute("aria-label", btn.dataset.title || "");
+    sh.innerHTML = `<div class="dsh-sheet-hd"><span class="dsh-sheet-t">${esc(btn.dataset.title || "")} <span class="dsh-n">(${items().length})</span></span><button type="button" class="dsh-sheet-x" aria-label="Close">✕</button></div>`
+      + `<div class="dsh-sheet-f"><input type="search" class="dsh-sheet-q" placeholder="Search this list" aria-label="Search this list" autocomplete="off"></div>`;
+    const b = document.createElement("div"); b.className = "dsh-sheet-body tx-dash"; b.appendChild(clone); sh.appendChild(b);
+    document.body.appendChild(sh);
+    document.documentElement.classList.add("dsh-sheet-open");
+    const onKey = (e) => { if (e.key === "Escape") close(); };
+    const close = () => { sh.remove(); document.documentElement.classList.remove("dsh-sheet-open"); document.removeEventListener("keydown", onKey); _closeSheet = null; };
+    document.addEventListener("keydown", onKey);
+    sh.querySelector(".dsh-sheet-x").addEventListener("click", close);
+    sh.addEventListener("click", (e) => {
+      if (e.target.closest("a[href]")) { close(); return; }
+      const lg = e.target.closest("[data-lg]"); if (lg) lgToggle(lg, clone);
+    });
+    const q = sh.querySelector(".dsh-sheet-q");
+    q.addEventListener("input", () => { const v = q.value.trim().toLowerCase(); items().forEach((it) => { it.style.display = !v || it.textContent.toLowerCase().includes(v) ? "" : "none"; }); });
+    _closeSheet = close;
+  }
+
+  // ---- the non-deal-flow views: League tables · Fundraising (./fundraising.js) --------
+  function renderView() {
+    const v = host.querySelector("#tx-view");
+    if (!v || flowMode()) return;
+    if (st.mode === "league") {
+      v.innerHTML = `<div class="tx-panes-in tx-lg">${leagueHTML()}</div>`;
+      previewLists(v, _phone() ? PREVIEW : 25);
+    } else if (st.mode === "fundraising") {
+      v.innerHTML = `<div class="tx-panes-in">${fundraisingHTML(st.fr, ctx.base, _phone())}</div>`;
+      previewLists(v, PREVIEW);
+    }
+  }
+
+  // ---- Share (deal drawer): the native share sheet, else copy the link + a toast ----
+  let _toastEl = null, _toastT = null;
+  function toast(msg) {
+    if (!_toastEl || !_toastEl.isConnected) { _toastEl = document.createElement("div"); _toastEl.className = "wire-toast tx-toast"; _toastEl.setAttribute("role", "status"); document.body.appendChild(_toastEl); }
+    _toastEl.textContent = msg; _toastEl.classList.add("on");
+    clearTimeout(_toastT); _toastT = setTimeout(() => _toastEl.classList.remove("on"), 1600);
+  }
+  function copyText(t) {
+    try { if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(t); } catch { /* fall through */ }
+    return new Promise((res, rej) => {
+      const ta = document.createElement("textarea"); ta.value = t; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand("copy"); } catch { /* */ }
+      ta.remove(); if (ok) res(); else rej(new Error("copy failed"));
+    });
+  }
+  function shareDeal(id) {
+    const r = rowById.get(id); if (!r) return;
+    const url = `${location.origin}${ctx.base}/transactions/#/deal/${encodeURIComponent(r.d.id)}`;
+    if (navigator.share) { navigator.share({ title: r.d.headline || "Deal", url }).catch(() => { /* dismissed */ }); return; }
+    copyText(url).then(() => toast("Link copied"), () => toast("Copy the link from the address bar"));
   }
 
   // ---- render ----------------------------------------------------------------
@@ -747,10 +1014,13 @@ export function mount(host, ctx) {
   function showMode() {
     const show = (ids, on) => ids.forEach((id) => { const el = host.querySelector("#" + id); if (el) el.style.display = on ? "" : "none"; });
     show(["tx-flow-search", "tx-body"], flowMode());
+    const v = host.querySelector("#tx-view"); if (v) v.hidden = flowMode();
+    if (flowMode() && v) v.innerHTML = "";
   }
   function render() {
     renderModeNav();
     if (flowMode()) renderFlow();
+    else renderView();
     renderSheet();
     renderDrawer();
   }
@@ -764,6 +1034,8 @@ export function mount(host, ctx) {
 
   // ---- events (delegated) --------------------------------------------------
   host.querySelector("#tx-mode").addEventListener("click", (e) => {
+    const vb = e.target.closest(".tchip[data-view]");
+    if (vb) { if (vb.dataset.view !== st.mode) { change({ mode: vb.dataset.view, deal: "", q: "" }); window.scrollTo({ top: 0, behavior: "instant" }); } return; }
     const b = e.target.closest(".tchip[data-mode]"); if (!b) return;
     if (b.dataset.mode === st.mode) { if (st.deal) change({ deal: "" }); return; }   // the active mode → back to its list
     // Filters carry across the deal-flow modes, except Type (types belong to a mode).
@@ -782,6 +1054,10 @@ export function mount(host, ctx) {
     const t = e.target;
     if (t.matches("select[data-ctl='sort']")) { const [k, d] = t.value.split("-"); change({ sort: k, dir: d }, !sheetOpen); return; }
     if (t.matches("select[data-ctl='grp']")) { change({ grp: t.value }, !sheetOpen); return; }
+    if (t.id === "tx-lg-period" || t.id === "tx-lg-reg" || t.id === "tx-lg-type") {
+      const k = { "tx-lg-period": "period", "tx-lg-reg": "reg", "tx-lg-type": "type" }[t.id];
+      change({ lg: { ...st.lg, [k]: t.value, open: "" } }, false); return;
+    }
     if (t.id === "tx-date") {
       const v = t.value;
       if (v === "custom") { customDate = true; renderSheet(); return; }
@@ -801,6 +1077,32 @@ export function mount(host, ctx) {
     const mgr = e.target.closest("a.tx-mgr");
     if (mgr) { e.preventDefault(); ctx.navigate(`${ctx.base}/profiles/#/manager/${mgr.dataset.id}`); return; }
     if (e.target.closest("a")) return;                                   // source links etc. keep native behaviour
+    // League tables + Fundraising views.
+    const lgBy = e.target.closest("[data-lg-by]");
+    if (lgBy) { if (lgBy.dataset.lgBy !== st.lg.by) change({ lg: { ...st.lg, by: lgBy.dataset.lgBy, open: "" } }); return; }
+    const lgSort = e.target.closest("th[data-lg-sort]");
+    if (lgSort) { change({ lg: { ...st.lg, sort: lgSort.dataset.lgSort, open: "" } }, false); return; }
+    const seeAll = e.target.closest(".tx-seeall");
+    if (seeAll) { openListSheet(seeAll); return; }
+    const lgRow = e.target.closest("[data-lg]");
+    if (lgRow) { lgToggle(lgRow); return; }
+    const frFim = e.target.closest("[data-fr-fim]");
+    if (frFim) { change({ fr: { ...st.fr, fim: frFim.dataset.frFim } }, false); return; }
+    const frClose = e.target.closest("[data-fr-close]");
+    if (frClose) { change({ fr: { ...st.fr, close: frClose.dataset.frClose } }, false); return; }
+    const frJump = e.target.closest("[data-fr-jump]");
+    if (frJump) {
+      // Scroll the one scrolling region (phone: the page, under the pinned chrome;
+      // desktop: the view pane) — never scrollIntoView, which also moves the fixed frame.
+      const sec = host.querySelector(`#tx-fr-${frJump.dataset.frJump}`), v = host.querySelector("#tx-view");
+      if (!sec || !v) return;
+      if (_phone()) {
+        const nav = host.querySelector("#tx-mode"), pin = nav ? nav.getBoundingClientRect().bottom : 0;
+        window.scrollTo({ top: Math.max(0, window.scrollY + sec.getBoundingClientRect().top - pin - 4), behavior: "smooth" });
+      } else v.scrollTo({ top: v.scrollTop + sec.getBoundingClientRect().top - v.getBoundingClientRect().top, behavior: "smooth" });
+      return;
+    }
+    if (e.target.closest(".tx-share")) { shareDeal(st.deal); return; }
     // Filters sheets.
     if (e.target.closest("#tx-filters")) { sheetOpen = !sheetOpen; renderSheet(); renderActive(); return; }
     if (e.target.closest("[data-fmore-t]")) { moreOpen = !moreOpen; renderSheet(); return; }
@@ -822,7 +1124,7 @@ export function mount(host, ctx) {
     const clr = e.target.closest("[data-clear]");
     if (clr) {
       const k = clr.dataset.clear;
-      if (k === "all") change({ f: emptyF(), period: "all", from: "", to: "", focus: "", grp: "", q: "", deal: "" });
+      if (k === "all") change({ f: emptyF(), period: "all", from: "", to: "", focus: "", grp: "", q: "", spn: "", deal: "" });
       else if (k === "date") change({ period: "all", from: "", to: "", deal: "" });
       else if (k === "focus") change({ focus: "", deal: "" });
       else if (k === "europe") change(withF("region", st.f.region.filter((v) => !EUROPE_REGIONS.includes(v))));
@@ -842,6 +1144,8 @@ export function mount(host, ctx) {
   host.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && sheetOpen) { sheetOpen = false; render(); return; }
     if (e.key === "Escape" && st.deal) { closeDeal(); return; }
+    const lgr = e.target.closest && e.target.closest("[data-lg]");
+    if (lgr && e.target === lgr && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); lgToggle(lgr); return; }
     const row = e.target.closest && e.target.closest("[data-deal]");
     if (row && e.target === row && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); row.click(); }
   });
@@ -861,7 +1165,7 @@ export function mount(host, ctx) {
   applyHash();
   return {
     enter() { applyHash(); },
-    leave() {},
+    leave() { if (_closeSheet) _closeSheet(); },
     // home(): re-tapping the Transactions tab resets it to its first part —
     // Lending, no search, default filters, sheets closed, scrolled to top.
     home() {
