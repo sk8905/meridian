@@ -92,7 +92,6 @@ const T = {
   d62: {"c":"Global","s":"Industrials","a":"other"},
   d63: {"c":"UK","s":"Real estate","a":null,"p":"Modal","r":"borrower"},
   d64: {"c":"Sweden","s":"Healthcare","a":"financing"},
-  d65: {"c":"Global","s":"Infrastructure & energy","a":"portfolio"},
   d66: {"c":"Pan-European","s":"Diversified","a":"fund","p":"Investec SDF I","r":"fund"},
   d67: {"c":null,"s":"Diversified","a":"fund"},
   d68: {"c":"US","s":"Financial services","a":"financing","m":1,"cs":"https://www.builtinnyc.com/company/ite-management","cb":"hq"},

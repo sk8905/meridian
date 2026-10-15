@@ -163,19 +163,15 @@ const SPONSOR_OVERRIDES = {};
 // so the whole audit is reviewable in one place; a deal may also carry its own
 // `company` field, which takes precedence.
 const COMPANY_OVERRIDES = {
-  d284: "Industry Ventures", d5: "Novus Foods", d632: "PayPal", d612: "National CineMedia",
-  d31: "Accolade Wines",
-  // Residual corrections where the generic parse would truncate, drop a leading
+  d632: "PayPal", // Residual corrections where the generic parse would truncate, drop a leading
   // geo word that belongs to the name, surface a city/asset, or find no borrower.
   d608: "Cutting Edge", d810: "Crestline",
   // Curated 2026-10 (UX review): lender-led headlines whose borrower / target is named in
   // the deal's own headline or summary — each value checked verbatim against that text.
-  d30: "Lemma Technologies", d62: "JBF Group", d65: "Santander",
-  d158: "Cargill", d173: "Finepoint", d200: "Elara Caring", d228: "Happy Money", d278: "Euclid Transactional", d607: "Ster-Kinekor", d645: "ABN AMRO", d709: "Saks Global", d738: "DKB",
-  d740: "Deutsche Pfandbriefbank", d874: "BMG", d876: "Onyx CenterSource", d877: "Alacrity Solutions", d929: "LNG Canada",
-  d952: "Hilson Management", d954: "Zolva", d959: "Marble Point Credit Management",
-  d964: "Fortress", d1013: "Athene", d1014: "Athene", d1027: "CI Financial",
-};
+  d158: "Cargill", d607: "Ster-Kinekor", d645: "ABN AMRO", d738: "DKB",
+  d874: "BMG", d876: "Onyx CenterSource", d929: "LNG Canada",
+  d954: "Zolva", d959: "Marble Point Credit Management",
+  d964: "Fortress", d1013: "Athene", d1014: "Athene", };
 
 // First currency figure in the headline (e.g. "$750m", "€6.5bn", "£1.2bn") — for
 // surfaces that carry no structured amount. Surfaces WITH a structured amount
