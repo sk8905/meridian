@@ -3579,7 +3579,7 @@
    "name": "White Oak Global Advisors",
    "priority": 107,
    "status": "built",
-   "builtAt": "2026-10-14",
+   "builtAt": "2026-10-15",
    "events": [
     {
      "key": "financing-2021-08-16",
@@ -3627,43 +3627,43 @@
     },
     {
      "key": "susan-george-head-of-asset-management",
-     "date": "2020-06-25",
-     "what": "Susan George joins as Head of Asset Management",
      "source": "https://www.sfnet.com/home/chapters/canada/news-detail/2020/06/25/susan-george-joins-white-oak-global-advisors-as-head-of-asset-management",
-     "status": "missing",
-     "note": "Date from URL path/search snippet; page not opened - confirm on page before recording"
+     "status": "present",
+     "note": "Date from URL path/search snippet; page not opened - confirm on page before recording",
+     "recordId": "i1117",
+     "date": "2020-06-25"
     },
     {
      "key": "white-oak-real-estate-capital-launch",
-     "date": "2021-07-26",
-     "what": "Launch of White Oak Real Estate Capital",
      "source": "https://www.sfnet.com/home/chapters/canada/news-detail/2021/07/26/white-oak-global-advisors-announces-launch-of-white-oak-real-estate-capital",
-     "status": "missing",
-     "note": "Date from search snippet only; confirm on page"
+     "status": "present",
+     "note": "Date from search snippet only; confirm on page",
+     "recordId": "i1118",
+     "date": "2021-07-26"
     },
     {
      "key": "finacity-acquisition-completed",
-     "date": "2021-09-20",
-     "what": "Completion of Finacity acquisition",
      "source": "https://www.businesswire.com/news/home/20210920005141/en",
-     "status": "missing",
-     "note": "Business Wire 403; date from URL stamp/search result - confirm"
+     "status": "present",
+     "note": "Business Wire 403; date from URL stamp/search result - confirm",
+     "recordId": "d1095",
+     "date": "2021-09-20"
     },
     {
      "key": "submarine-alliance-partnership",
-     "date": "2024-11-18",
-     "what": "Partnership with United Submarine Alliance QOF",
      "source": "https://www.businesswire.com/news/home/20241118482144/en/White-Oak-Global-Advisors-Announces-Partnership-with-the-United-Submarine-Alliance-Qualified-Opportunity-Fund-LP-to-Bolster-Domestic-Submarine-Development",
-     "status": "missing",
-     "note": "Business Wire 403; date from snippet - confirm"
+     "status": "present",
+     "note": "Business Wire 403; date from snippet - confirm",
+     "recordId": "i1119",
+     "date": "2024-11-18"
     },
     {
      "key": "software-recap-senior-loan",
-     "date": "2025-11-19",
-     "what": "$17m senior secured loan for software platform recapitalisation",
      "source": "https://www.businesswire.com/news/home/20251119182658/en/White-Oak-Global-Advisors-Provides-Senior-Secured-Loan-to-Support-the-Recapitalization-of-a-Leading-Global-Software-Platform",
-     "status": "missing",
-     "note": "Business Wire 403; date from URL stamp (SFNet reprint 2025-11-20) - confirm"
+     "status": "present",
+     "note": "Business Wire 403; date from URL stamp (SFNet reprint 2025-11-20) - confirm",
+     "recordId": "d1096",
+     "date": "2025-11-19"
     },
     {
      "key": "finacity-acquisition-signing",
@@ -3686,7 +3686,7 @@
    "name": "Aperture Investors",
    "priority": 108,
    "status": "built",
-   "builtAt": "2026-10-14",
+   "builtAt": "2026-10-15",
    "events": [
     {
      "key": "macnaughton-us-credit",
@@ -3738,27 +3738,27 @@
     },
     {
      "key": "jk-brown-board",
-     "date": "2023-09-06",
-     "what": "James Keith (JK) Brown appointed to Board",
      "source": "https://www.businesswire.com/news/home/20230906438841/en/Aperture-Investors-Announces-the-Appointment-of-James-Keith-JK-Brown-to-Board-of-Directors",
-     "status": "missing",
-     "note": "Date from URL id only; a snippet said effective May 4 2023 - confirm on page"
+     "status": "present",
+     "note": "Date from URL id only; a snippet said effective May 4 2023 - confirm on page",
+     "recordId": "i1121",
+     "date": "2023-09-06"
     },
     {
      "key": "molinari-cmo",
-     "date": "2024-02-05",
-     "what": "Louis Molinari named Chief Marketing Officer",
      "source": "https://www.alternativeswatch.com/2024/02/05/aperture-taps-former-barclays-exec/",
-     "status": "missing",
-     "note": "Date from URL path only; page not opened - confirm"
+     "status": "present",
+     "note": "Date from URL path only; page not opened - confirm",
+     "recordId": "i1120",
+     "date": "2024-02-05"
     },
     {
      "key": "expands-offerings-three-year-track",
-     "date": "2023-09-27",
-     "what": "Strategies reach three-year track record; Aperture expands its offerings",
      "source": "https://www.businesswire.com/news/home/20230927362245/en/On-Heels-of-Strategies-Achieving-Three-Year-Track-Record-Aperture-Investors-Expands-its-Offerings",
-     "status": "missing",
-     "note": "Date from URL id only; page unreadable - confirm"
+     "status": "present",
+     "note": "Date from URL id only; page unreadable - confirm",
+     "recordId": "i1122",
+     "date": "2023-09-27"
     },
     {
      "key": "trex-stake-exit",
@@ -3914,6 +3914,276 @@
      "note": "Date not verified on page"
     }
    ]
+  },
+  "m49": {
+   "kind": "manager",
+   "name": "Fasanara Capital",
+   "priority": 110,
+   "status": "built",
+   "events": [
+    {
+     "key": "eif-first-close-2021",
+     "date": "2021-09-23",
+     "what": "First closing of Fasanara European Alternative Crowdlending Fund (target EUR250m), EIF EUR20m cornerstone",
+     "source": "https://www.eif.org/press/all/eif-new-fasanara-250m-fintech-fund-support-sme-europe",
+     "status": "present",
+     "recordId": "d1097"
+    },
+    {
+     "key": "raj-dutta-cco-2022",
+     "date": "2022-03-14",
+     "what": "Raj Dutta appointed Chief Commercial Officer",
+     "source": "https://www.privateequitywire.co.uk/fasanara-appoints-ex-hedge-fund-marketer-and-ir-exec-chief-commercial-officer/",
+     "status": "present",
+     "recordId": "i1123"
+    },
+    {
+     "key": "ventures-iii-350m-2022",
+     "date": "2022-05-11",
+     "what": "Seeking $350m for third fintech/crypto venture fund",
+     "source": "https://alternativecreditinvestor.com/2022/05/11/p2p-backer-fasanara-aims-to-raise-350m-for-new-fintech-fund/",
+     "status": "present",
+     "recordId": "d1098"
+    },
+    {
+     "key": "canadian-pension-200m-2022",
+     "date": "2022-11-21",
+     "what": "$200m from Canadian pension fund for fintech credit",
+     "source": "https://www.uktech.news/fintech/fasanara-capital-secures-fitech-20221121",
+     "status": "present",
+     "recordId": "d1099"
+    },
+    {
+     "key": "middle-east-md-2025",
+     "date": "2025-05-06",
+     "what": "Fawad Tariq-Khan appointed MD Middle East",
+     "source": "https://alternativecreditinvestor.com/2025/05/06/fasanara-appoints-middle-east-md-to-drive-growth-in-region/",
+     "status": "present",
+     "recordId": "i1124"
+    },
+    {
+     "key": "ferrari-strategy-2026",
+     "date": "2026-06-04",
+     "what": "Ferrari-focused credit strategy launched",
+     "source": "https://www.hedgeweek.com/fasanara-launches-ferrari-focused-credit-strategy/",
+     "status": "present",
+     "recordId": "d1100"
+    },
+    {
+     "key": "us-office-2026",
+     "date": "2026-06-18",
+     "what": "First US office opened in New York",
+     "source": "https://www.wealthbriefing.com/html/article.php/fasanara-capital-opens-debut-us-office%2C-names-head",
+     "status": "present",
+     "recordId": "i1125"
+    },
+    {
+     "key": "stablefund-tether-2026",
+     "date": "2026-09-09",
+     "what": "StableFund with Tether, $400m",
+     "source": "https://www.pymnts.com/partnerships/2026/tether-enters-private-credit-space-with-fasanara-partnership/",
+     "status": "present",
+     "recordId": "i741"
+    },
+    {
+     "key": "alkhabeer-2025",
+     "date": "2025-07-18",
+     "what": "Alkhabeer Capital fintech private credit partnership",
+     "status": "present",
+     "recordId": "i76"
+    },
+    {
+     "key": "valey-primus-clo-2026",
+     "date": "2026-09-23",
+     "what": "Valey Primus CLO",
+     "status": "present",
+     "recordId": "d914"
+    },
+    {
+     "key": "addi-2025",
+     "date": "2025-11-01",
+     "what": "Addi credit upsize",
+     "status": "present",
+     "recordId": "d84"
+    },
+    {
+     "key": "ifc-strategy-2026",
+     "date": "2026-03-02",
+     "what": "IFC fintech MSME lending strategy",
+     "status": "present",
+     "recordId": "i172"
+    },
+    {
+     "key": "ai-lab-hylands-2026",
+     "date": "2026-07",
+     "what": "Head of AI / Fasanara AI Lab",
+     "status": "rejected",
+     "note": "Only seen in a search summary; page not opened, date and facts unverified; not a major event"
+    },
+    {
+     "key": "sports-italia-fund",
+     "date": "2022",
+     "what": "Fasanara Sports Italia fund with MC Square",
+     "source": "https://financecommunity.it/?p=175085",
+     "status": "rejected",
+     "note": "Page returned 403; no date seen"
+    },
+    {
+     "key": "no-ma-cio-found",
+     "date": "2020",
+     "what": "Firm M&A / stake sale / CIO change 2020-2026",
+     "status": "rejected",
+     "note": "Searches found none"
+    }
+   ],
+   "builtAt": "2026-10-15"
+  },
+  "m11": {
+   "kind": "manager",
+   "name": "AlbaCore Capital Group",
+   "priority": 111,
+   "status": "built",
+   "events": [
+    {
+     "key": "e2020-02-fund2",
+     "date": "2020-02-13",
+     "what": "AlbaCore Partners II at EUR1.5bn AUM; firm AUM EUR3.6bn",
+     "source": "https://www.businesswire.com/news/home/20200213005099/en/",
+     "status": "present",
+     "recordId": "i1126"
+    },
+    {
+     "key": "e2020-12-dislocation",
+     "date": "2020-12-10",
+     "what": "Closes dislocation fund AlbaCore Investment Opportunities, >$1bn",
+     "source": "https://www.businesswire.com/news/home/20201210005611/en/AlbaCore-Capital-Group-Closes-Dislocation-Fund",
+     "status": "present",
+     "recordId": "i1127"
+    },
+    {
+     "key": "e2021-04-clo2",
+     "date": "2021-04-01",
+     "what": "Prices AlbaCore Euro CLO II, EUR408.35m",
+     "source": "https://www.businesswire.com/news/home/20210401005339/en",
+     "status": "present",
+     "recordId": "i1128"
+    },
+    {
+     "key": "e2021-06-fund3-first",
+     "date": "2021-06-09",
+     "what": "Partners III first close EUR1.5bn",
+     "source": "https://www.creditflux.com/Funds/2021-06-09/AlbaCore-swims-to-15-billion-first-close-on-European-private-debt-fund",
+     "status": "present",
+     "recordId": "i1129"
+    },
+    {
+     "key": "e2021-09-hires",
+     "date": "2021-09-20",
+     "what": "Three senior hires",
+     "source": "https://www.businesswire.com/news/home/20210920005412/en",
+     "status": "present",
+     "recordId": "i1130"
+    },
+    {
+     "key": "e2022-02-modulaire",
+     "date": "2022-02-04",
+     "what": "Modulaire realization",
+     "source": "https://www.businesswire.com/news/home/20220204005450/en",
+     "status": "present",
+     "recordId": "d1101"
+    },
+    {
+     "key": "e2022-12-fund3-final",
+     "date": "2022-12-02",
+     "what": "Partners III final close EUR2.2bn",
+     "source": "https://www.businesswire.com/news/home/20221202005427/en",
+     "status": "present",
+     "recordId": "i1131"
+    },
+    {
+     "key": "e2023-03-fsi",
+     "date": "2023-03-20",
+     "what": "First Sentier Investors takes majority stake",
+     "source": "https://www.businesswire.com/news/home/20230320005057/en/AlbaCore-Capital-Group-Announces-Strategic-Partnership-with-First-Sentier-Investors",
+     "status": "present",
+     "recordId": "i1132"
+    },
+    {
+     "key": "e2023-11-fsi-complete",
+     "date": "2023-11-15",
+     "what": "FSI partnership completes",
+     "source": "https://www.firstsentierinvestors.com/us/en/insto/footer/media-releases/fsi-accp-completion-of-their-strategic-partnership.html",
+     "status": "present",
+     "recordId": "i1133"
+    },
+    {
+     "key": "e2024-03-hires",
+     "date": "2024-03-27",
+     "what": "Two senior hires",
+     "source": "https://www.businesswire.com/news/home/20240327676249/en/AlbaCore-Expands-Investment-Team-with-Two-Senior-Hires",
+     "status": "present",
+     "recordId": "i1134"
+    },
+    {
+     "key": "e2024-10-gillam",
+     "date": "2024-10-30",
+     "what": "Luke Gillam Head of Senior Direct Lending",
+     "source": "https://www.businesswire.com/news/home/20241030852907/en/AlbaCore-appoints-European-Credit-Veteran-Luke-Gillam-as-Head-of-Senior-Direct-Lending",
+     "status": "present",
+     "recordId": "i1135"
+    },
+    {
+     "key": "e2024-12-hurtigruten",
+     "date": "2024-12-05",
+     "what": "Hurtigruten recap",
+     "status": "present",
+     "recordId": "d27"
+    },
+    {
+     "key": "e2025-03-sdl",
+     "date": "2025-03-27",
+     "what": "Senior direct lending ~$1.8bn",
+     "status": "present",
+     "recordId": "i17"
+    },
+    {
+     "key": "e2025-05-firstclose",
+     "date": "2025-05-14",
+     "what": "First close",
+     "status": "present",
+     "recordId": "i57"
+    },
+    {
+     "key": "e2025-06-curran",
+     "date": "2025-06-10",
+     "what": "Diarmuid Curran CLO hire",
+     "status": "present",
+     "recordId": "i193"
+    },
+    {
+     "key": "e2026-03-infra",
+     "date": "2026-03-05",
+     "what": "AlbaCore and MUFG infrastructure debt platform",
+     "source": "https://www.businesswire.com/news/home/20260305838000/en/albacore-capital-group-and-mitsubishi-ufj-financial-group-announce-infrastructure-debt-platform/",
+     "status": "present",
+     "recordId": "i1136"
+    },
+    {
+     "key": "e2020-06-clo1",
+     "date": "2020-06",
+     "what": "Debut euro CLO (AlbaCore Euro CLO I)",
+     "status": "rejected",
+     "note": "No exact date or size seen on a source page"
+    },
+    {
+     "key": "e2026-fund4",
+     "date": "2026",
+     "what": "Fund IV launch",
+     "status": "rejected",
+     "note": "Paywalled, undated, single anonymous source"
+    }
+   ],
+   "builtAt": "2026-10-15"
   }
  }
 }
