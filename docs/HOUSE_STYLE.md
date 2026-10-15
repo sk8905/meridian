@@ -1467,7 +1467,7 @@ notification badge red (`#ef4444`).
   drawer) and the Profiles card rows drop HQ (it stays on the profile page). Desktop keeps
   both. This is a deliberate phone exception to R43(b)'s "end with the source" and is
   not a loss of information. The headline figure — the deal amount, the profile's AUM /
-  revenue — sits at the **right end of line 2, at line 2's size** (`--fs-micro`), so line 1
+  revenue — sits at the **right end of line 2, at line 2's size and grey** (`--fs-micro`, `--t-mut`), so line 1
   is the headline / name alone (People keep their date lead). The iPhone bars are **search ·
   Filters** only: Deals' region button (All Europe) and European mid-market, and Profiles'
   Target / $1–15bn, are in the Filters sheet. Spec: `tests/phone-trim.mjs`.

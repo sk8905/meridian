@@ -31,7 +31,7 @@ import {
 export let app = null;
 export function __setHost(h) { app = h; }
 // Scope id lookups to the current host (the retired Legal desk can hold a hidden copy).
-const $id = (id) => (app && app.querySelector && app.querySelector("#" + CSS.escape(id))) || $id(id);
+const $id = (id) => (app && app.querySelector && app.querySelector("#" + CSS.escape(id))) || document.getElementById(id);
 
 // The Legal desk's section chips (the same set the dashboard shows). Rendered at
 // the top of every detail view so you navigate the desk the same way from a

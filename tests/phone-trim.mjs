@@ -20,9 +20,9 @@ const shown = (sel) => `[...document.querySelectorAll(${JSON.stringify(sel)})].f
   const a = await pg.evaluate(() => {
     const c = [...document.querySelectorAll("#tx-body .tx-card")].find((x) => x.querySelector(".tx-card-amt").textContent.trim());
     const am = c.querySelector(".tx-card-amt"), m = c.querySelector(".g-ev-m"), t = c.querySelector(".g-ev-t"), R = (e) => e.getBoundingClientRect();
-    return { line2: Math.abs(R(am).bottom - R(m).bottom) < 4 && R(am).top > R(t).bottom - 2, right: R(am).left > R(m).left, size: getComputedStyle(am).fontSize === getComputedStyle(m).fontSize };
+    return { line2: Math.abs(R(am).bottom - R(m).bottom) < 4 && R(am).top > R(t).bottom - 2, right: R(am).left > R(m).left, size: getComputedStyle(am).fontSize === getComputedStyle(m).fontSize && [am, ...am.querySelectorAll("*")].every((e) => getComputedStyle(e).color === getComputedStyle(m).color) };
   });
-  check(a.line2 && a.right && a.size, `iPhone Deals: the amount sits at line 2's right end at line 2's size (${JSON.stringify(a)})`);
+  check(a.line2 && a.right && a.size, `iPhone Deals: the amount sits at line 2's right end at line 2's size and grey (${JSON.stringify(a)})`);
   const bar = await pg.evaluate(() => ["#tx-scope", "#tx-focus", "#tx-q", "#tx-filters"].map((s) => !!document.querySelector(s)?.getClientRects().length));
   check(!bar[0] && !bar[1] && bar[2] && bar[3], `iPhone Deals bar: search · Filters only (scope / mid-market shown: ${bar[0]} / ${bar[1]})`);
   await pg.click("#tx-filters"); await pg.waitForSelector("#tx-sheet:not([hidden])", { timeout: 5000 });
@@ -44,9 +44,9 @@ for (const hash of ["", "#/?tab=managers", "#/?tab=hedgefunds", "#/?tab=investor
   const f = await pg.evaluate(() => {
     const tr = [...document.querySelectorAll("#pf-panes .pf-cards tbody tr")].find((r) => r.getClientRects().length && /\d/.test((r.querySelector("td.pf-c-main") || {}).textContent || ""));
     const mn = tr.querySelector("td.pf-c-main"), nm = tr.querySelector("td.tl-nm"), mt = [...tr.querySelectorAll("td.pf-c-meta")].find((x) => x.getClientRects().length), R = (e) => e.getBoundingClientRect();
-    return { below: R(mn).top >= R(nm).bottom - 2, right: Math.round(R(tr).right - R(mn).right) < 20, size: !mt || getComputedStyle(mn).fontSize === getComputedStyle(mt).fontSize };
+    return { below: R(mn).top >= R(nm).bottom - 2, right: Math.round(R(tr).right - R(mn).right) < 20, size: !mt || (getComputedStyle(mn).fontSize === getComputedStyle(mt).fontSize && [mn, ...mn.querySelectorAll("*")].every((e) => getComputedStyle(e).color === getComputedStyle(mt).color)) };
   });
-  check(f.below && f.right && f.size, `iPhone Profiles ${hash || "All"}: the AUM sits at line 2's right end at line 2's size (${JSON.stringify(f)})`);
+  check(f.below && f.right && f.size, `iPhone Profiles ${hash || "All"}: the AUM sits at line 2's right end at line 2's size and grey (${JSON.stringify(f)})`);
   const fb = await pg.evaluate(() => [...document.querySelectorAll("#pf-panes #cr-lg-focus, #pf-panes #cr-hf-focus")].filter((e) => e.getClientRects().length).length);
   check(fb === 0, `iPhone Profiles ${hash || "All"}: no Target / $1–15bn button on the bar (${fb} shown)`);
   checkErrs(errs, `profiles phone ${hash}`); await ctx.close();

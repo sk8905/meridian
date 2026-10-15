@@ -1283,11 +1283,12 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 /* iPhone (owner 2026-10-15): no source column on the deal card — the headline gets the
    width; the source stays one tap away in the deal drawer. */
 @media (max-width: 760px) {
-  /* The amount drops to line 2's right end at line 2's size (owner 2026-10-15), so the
+  /* The amount drops to line 2's right end at line 2's size and grey (owner 2026-10-15), so the
      headline has line 1 to itself. */
   .tx-cards > .tx-card.g-ev { grid-template-columns: var(--c-date-w) minmax(0, 1fr) auto; grid-template-areas: "date title title" "date meta tag"; }
   .tx-cards > .tx-card.g-ev > .c-src { display: none; }
-  .tx-cards > .tx-card.g-ev > .tx-card-amt { font-size: var(--fs-micro); line-height: 1.4; align-self: baseline; max-width: none; }
+  .tx-cards > .tx-card.g-ev > .tx-card-amt { font-size: var(--fs-micro); line-height: 1.4; align-self: baseline; max-width: none; color: var(--t-mut); }
+  .tx-cards > .tx-card.g-ev > .tx-card-amt * { color: inherit; }
   /* The bar is search · ⚙ only: region (All Europe) and European mid-market live in the
      Filters sheet (owner 2026-10-15). */
   #tx-flow-search #tx-scope, #tx-flow-search #tx-focus { display: none; }
@@ -1463,7 +1464,8 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
   #pf-panes .pf-cards tbody td.tl-hq { display: none; }
   /* The headline figure (AUM …) drops to line 2's right end at line 2's size (owner
      2026-10-15); the name has line 1 to itself. */
-  #pf-panes .pf-cards tbody td.pf-c-main:not(.c-date) { order: 4; margin-left: auto; font-size: var(--fs-micro); }
+  #pf-panes .pf-cards tbody td.pf-c-main:not(.c-date) { order: 4; margin-left: auto; font-size: var(--fs-micro); color: var(--t-mut); }
+  #pf-panes .pf-cards tbody td.pf-c-main:not(.c-date) * { color: inherit; }
   /* The bar is search · ⚙ only, as on Deals: the Target / $1–15bn lens lives in the
      Filters sheet's Managers / AUM row (owner 2026-10-15). */
   #pf-panes #cr-lg-focus, #pf-panes #cr-hf-focus { display: none; }

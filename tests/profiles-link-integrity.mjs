@@ -8,6 +8,16 @@
 // (http) or an internal #/ route the Profiles router actually handles — never a
 // desk-only route, a bare "#", or an undefined/null href.
 import { serve, launchChromium, open, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
+import { readFileSync } from "node:fs";
+
+// The law-firm page's $id helper once fell back to ITSELF when the element was gone (you
+// navigated away mid-render) — an infinite recursion, "Maximum call stack size exceeded"
+// on fast taps / slow phones. Its fallback must be the document, never a self-call.
+{
+  const src = readFileSync(new URL("../v2/js/legal/detail.js", import.meta.url), "utf8");
+  const line = (src.match(/const \$id = .*$/m) || [""])[0];
+  check(line && !/\|\|\s*\$id\(/.test(line), "legal detail: $id falls back to the document, never to itself");
+}
 
 const empty = (b) => [200, b || "{}"];
 const srv = await serve({

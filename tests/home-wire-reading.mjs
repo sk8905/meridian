@@ -269,7 +269,7 @@ await pg.reload({ waitUntil: "load" });
 await pg.waitForFunction((t) => {
   const el = document.querySelector("#g-readpane .g-read-title");
   return el && el.textContent.trim().includes(t);
-}, chosen.title.slice(0, 22), { timeout: 8000 });
+}, chosen.title.slice(0, 22), { timeout: 20000 }).catch(() => {});   // the feed fills in passes; under full-suite load that can exceed 8s
 const paneTitle = await pg.evaluate(() => (document.querySelector("#g-readpane .g-read-title") || {}).textContent.trim());
 check(paneTitle.includes(chosen.title.slice(0, 22)), `reading pane: the last-selected story is restored in the pane across a reload (${paneTitle.slice(0, 40)})`);
 
