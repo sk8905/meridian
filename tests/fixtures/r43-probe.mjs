@@ -79,6 +79,12 @@ export function r43Probe() {
   }
   for (const [p, hs] of lists) if (hs.size > 1) out.push(`uneven row heights ${[...hs].join("/")}px in ${where(p)}`);
 
+  // (c) ONE leading-column style: every visible list date and the wire's time share the
+  // same size and colour (owner 2026-10-15).
+  const leads = [...document.querySelectorAll(".g-ev > .c-date, td.c-date, a.g-feed-row > .g-feed-time")].filter(vis).filter((e) => e.textContent.trim());
+  const leadStyles = new Set(leads.map((e) => { const c = getComputedStyle(e); return `${c.fontSize} ${c.color}`; }));
+  if (leadStyles.size > 1) out.push(`leading date / time cells differ in style (${[...leadStyles].join(" vs ")})`);
+
   // (b)(f) Tables.
   for (const t of document.querySelectorAll("table")) {
     if (!vis(t)) continue;

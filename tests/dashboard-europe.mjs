@@ -117,7 +117,8 @@ const go = async (pg, sub) => { await pg.evaluate((k) => { const t = document.qu
 {
   const srv = await serve();
   const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/dashboard/`);
-  await pg.waitForTimeout(1600);
+  // Wait for the fallback to render (a fixed delay flaked under parallel load).
+  await pg.waitForFunction(() => document.querySelectorAll("#dsh-spreads tbody tr").length > 0 && !!((document.querySelector('.dsh-live[data-live="spreads"]') || {}).textContent || "").trim(), null, { timeout: 15000 }).catch(() => {});
   const lk = await pg.evaluate(() => ({
     rows: document.querySelectorAll("#dsh-spreads tbody tr").length,
     text: (document.querySelector("#dsh-spreads") || {}).textContent || "",

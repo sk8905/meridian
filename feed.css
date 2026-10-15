@@ -249,6 +249,10 @@ body.wire-sliding .g-feed-srcbar { position:static; }
 :is(.dsh-tbl, .tleague, .tx-mx, .mac-mtx, .data-table, .lg-sc-tbl, .ew-tbl, .g-fx-tbl, .na-fx-tbl, .dg-rates, .ck-dots, .dsh-fl-tbl) thead th {
   font-size:var(--fs-micro); font-weight:400; text-transform:uppercase; letter-spacing:.06em; color:var(--t-faint); white-space:nowrap; }
 :is(th, td).c-date { white-space:nowrap; }
+/* The leading date cell reads exactly like every other leading column (.c-date in an
+   events row, the wire's .g-feed-time): micro, --t-faint — out-ranking any per-table
+   cell colour. */
+table[data-cols] td.c-date { color:var(--t-faint); font-size:var(--fs-micro); }
 :is(th, td).c-src { text-align:right; white-space:nowrap; }
 :is(th, td).c-num { text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
 :is(th, td).c-tag { white-space:nowrap; }

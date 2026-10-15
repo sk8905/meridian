@@ -797,7 +797,7 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-head { padding: 12px 14px; border-bottom: 1px solid var(--border); }
 .tx-title { margin: 0; font-size:var(--fs-title); font-weight: 700; color: var(--ink); letter-spacing: -.01em; }
 .tx-blurb { margin: 3px 0 11px; font-size:var(--fs-body); line-height: 1.5; color: var(--muted); max-width: 62ch; }
-.tx-list td.tx-dt { color: var(--muted); font-family: var(--t-mono); white-space: nowrap; width: 74px; }
+.tx-list td.tx-dt { color: var(--t-faint); font-size: var(--fs-micro); font-family: var(--t-mono); white-space: nowrap; }   /* R43: the one leading-column style */
 .tx-list td.tx-hd { color: var(--ink); white-space: normal; line-height: 1.35; }
 /* Borrower / company cell: JUST the name (bold); the full headline is the hover
    title and the source link lives in the Source column. */
