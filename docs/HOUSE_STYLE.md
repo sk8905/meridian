@@ -230,6 +230,14 @@ to keep pinned/full-height on these three sections.
   markers anywhere in the app. Link the text itself; for an inline source marker
   use a plain `src` label (see `.dsh-src`). Arrows are visual noise and are not
   used.
+- **R7b — Coverage starts 1 January 2020 (owner rule 2026-10-15).** Nothing dated before
+  2020-01-01 is carried as a coverage item: no deal, intel item, LP commitment, manager
+  press item (`webNews` / `news`) or legal wire item. Profile FACTS stay (a fund's vintage, a
+  firm's `founded` year, a listed vehicle's issue date, case law). A routine that finds an
+  older event does not add it; `node scripts/enforce-coverage-start.mjs` removes any that
+  slipped in (re-runnable; it also drops the deal's tags, marks its deal-party audit entry
+  deleted and turns a checklist event that linked it into "rejected"). Enforced by
+  `tests/data-integrity.mjs`.
 
 ---
 

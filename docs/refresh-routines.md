@@ -141,11 +141,12 @@ each entity's `name` (and any well-known short/alias form) as a search term:
        every profile's coverage; `--json` is machine-readable.
     2. For each manager on the worklist, WebSearch its history — fund launches/
        closes, financings, CLO pricings, restructurings, personnel, AUM milestones —
-       from **2020 to present**, and append every **verified, dated** item (real
+       from **2020 to present** (never earlier — HOUSE_STYLE R7b: coverage starts
+       1 January 2020), and append every **verified, dated** item (real
        source URL + real date; unknown fields `null`; **never fabricate**) to
        `deals` / `intel` (with `managerId`) or the manager's `webNews`.
-    3. A firm genuinely younger than 2020 (check `founded`) legitimately has no
-       pre-2020 history — add what exists back to inception; it stays flagged only
+    3. A firm genuinely younger than 2020 (check `founded`) has its history from
+       inception; a firm founded earlier is covered from 2020 only (R7b) — it stays flagged only
        until its earliest real event is recorded. If a run cannot source a dated
        item for a worklisted name, say so in the summary and leave it for the
        rotation — do **not** pad or invent.
@@ -220,6 +221,9 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   (Yahoo, TradingView, MarketScreener, cbonds, Kalkine, Finviz, pulse2 …). The summary
   states ONLY what the cited source says — no context added from memory. Run
   `node tests/run.mjs data-integrity` with the other gating specs before publishing.
+  Nothing dated before 2020-01-01 is added (HOUSE_STYLE R7b); run
+  `node scripts/enforce-coverage-start.mjs` before the gating specs — it removes any
+  pre-2020 deal / intel / commitment / press / legal item that slipped in.
 - **Every deal is tagged in the same commit — ALL routines (refresh, heavy sweep,
   backfill, watchlist deep-dives, nightly verifier).** A deal appended to `credit/js/data.js`
   without its `credit/js/deal-tags.js` entry drops out of the Transactions filters, and

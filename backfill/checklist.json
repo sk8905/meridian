@@ -2131,8 +2131,8 @@
           "date": "2019-11-25",
           "what": "CIC Debt Fund 3 final close EUR530m (pre-2020, context)",
           "source": "https://www.creditflux.com/Funds/2019-11-25/CIC-collects-530-million-for-direct-lending-fund",
-          "status": "present",
-          "recordId": "i834"
+          "status": "rejected",
+          "note": "Record i834 removed: dated before 2020-01-01, outside the app's coverage (owner rule 2026-10-15)"
         },
         {
           "key": "cic-mezzanine-unitranche-5-final-close-450m",

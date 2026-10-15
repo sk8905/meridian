@@ -3095,15 +3095,6 @@ export const items = [
     tags: ["payments", "safeguarding", "FCA", "e-money"],
   },
   {
-    url: "https://www.traverssmith.com/knowledge/knowledge-container/the-value-in-nav-facilities/",
-    id: "u379", title: "The value in NAV facilities",
-    area: "banking", areas: ["banking"], type: "insight", firm: "traverssmith",
-    date: "2019-06-05", jurisdiction: "United Kingdom",
-    summary: "Examines the value and structuring of NAV facilities in fund finance, which look to a fund's underlying assets using loan-to-value technology.",
-    points: [],
-    tags: ["NAV facilities", "fund finance", "leverage", "private funds"],
-  },
-  {
     url: "https://www.traverssmith.com/knowledge/knowledge-container/ilpa-nav-guidelines-key-takeaways/",
     id: "u380", title: "ILPA NAV Guidelines - Key Takeaways",
     area: "banking", areas: ["banking", "funds"], type: "update", firm: "traverssmith",
@@ -4508,15 +4499,6 @@ export const items = [
     summary: "The English High Court convened separate creditor meetings in the first Part 26A restructuring plan involving only two pari passu ranking creditors, with one creditor opposing the plan.",
     points: [],
     tags: ["Part 26A", "restructuring plan", "class composition", "convening hearing"],
-  },
-  {
-    url: "https://eurorestructuring.weil.com/cross-border/winding-in-the-golden-thread-the-english-supreme-court-rules-that-no-special-treatment-applies-to-recognition-of-judgments-in-foreign-bankruptcy-proceedings/",
-    id: "u537", title: "Winding in the Golden Thread: The English Supreme Court rules that no special treatment applies to recognition of judgments in foreign bankruptcy proceedings",
-    area: "ri", areas: ["ri"], type: "update", firm: "weil",
-    date: "2012-10-25", jurisdiction: "United Kingdom",
-    summary: "The UK Supreme Court ruled that no special treatment applies to the recognition and enforcement of judgments arising in foreign bankruptcy proceedings, addressing cross-border insolvency recognition.",
-    points: [],
-    tags: ["cross-border insolvency", "recognition", "Supreme Court", "foreign judgments"],
   },
   {
     url: "https://eurorestructuring.weil.com/news/restructuring/motor-finance-new-fca-complaint-handling-rules-for-non-discretionary-commission-arrangements-following-court-judgments/",

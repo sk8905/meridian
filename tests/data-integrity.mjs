@@ -70,6 +70,18 @@ check(undated.length <= MAX_UNDATED_LEGAL, `legal.items: undated items do not gr
 const est = (L.items || []).filter((i) => i.dateEstimated).length;
 check(est <= MAX_ESTIMATED_LEGAL, `legal.items: estimated (non-exact) dates do not grow (${est} ≤ ${MAX_ESTIMATED_LEGAL})`);
 
+// 3b) Coverage starts 1 January 2020 (owner rule 2026-10-15, HOUSE_STYLE R7b): no deal,
+// intel item, LP commitment, manager press item or legal wire item dated before it.
+// (Profile facts — fund vintages, founding years, a vehicle's issue date — are not feed items.)
+{
+  const before = (d) => typeof d === "string" && /^\d{4}/.test(d) && d.slice(0, 10) < "2020-01-01".slice(0, Math.min(10, d.length));
+  const old = [];
+  for (const [name, rows] of [["deals", C.deals], ["intel", C.intel], ["HEDGE_INTEL", C.HEDGE_INTEL], ["commitments", C.commitments], ["legal.items", L.items]])
+    for (const r of rows || []) if (before(r.date)) old.push(`${name}:${r.id || r.fund || "?"}:${r.date}`);
+  for (const m of C.managers) for (const w of [...(m.webNews || []), ...(m.news || [])]) if (before(w.date)) old.push(`${m.id}.webNews:${w.date}`);
+  check(old.length === 0, `coverage starts 2020: no deal / intel / commitment / press / legal item dated before 2020-01-01${old.length ? ` (${list(old)}) — run node scripts/enforce-coverage-start.mjs` : ""}`);
+}
+
 // 4) citations: http(s), point at an article (not a bare homepage), not a low-grade aggregator
 const CITED = [...C.deals, ...C.intel, ...C.HEDGE_INTEL, ...L.items, ...L.cases];
 const badScheme = [], homepage = [], weak = [];
