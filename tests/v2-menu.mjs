@@ -15,7 +15,7 @@ async function menuState(pg) {
     const cs = getComputedStyle(m);
     const chips = [...document.querySelectorAll('.v2-view[data-view="menu"] .na-menu-bar .tchip')]
       .map((c) => { const cr = c.getBoundingClientRect(); return cr.width > 0 && cr.height > 0; });
-    return { hasMenu: true, w: Math.round(r.width), h: Math.round(r.height), display: cs.display, visible: chips.length === 5 && chips.every(Boolean) && chips.every((c) => c), labels: [...document.querySelectorAll('.v2-view[data-view="menu"] .na-menu-bar .tchip')].map((c) => c.textContent.trim()) };
+    return { hasMenu: true, w: Math.round(r.width), h: Math.round(r.height), display: cs.display, visible: chips.length === 6 && chips.every(Boolean) && chips.every((c) => c), labels: [...document.querySelectorAll('.v2-view[data-view="menu"] .na-menu-bar .tchip')].map((c) => c.textContent.trim()) };
   });
 }
 
@@ -27,8 +27,8 @@ async function menuState(pg) {
   check(s.hasMenu, "direct /v2/menu/: menu container present");
   check(s.w >= 300, `direct /v2/menu/: menu is full-width (${s.w}px), not a dropdown sliver`);
   check(s.h > 80, `direct /v2/menu/: menu has height (${s.h}px)`);
-  check(s.visible, `direct /v2/menu/: the five chips (Chat/Watchlist/New/Coverage/Settings) are visible (${(s.labels || []).join("/")})`);
-  checkEq((s.labels || []).join("/"), "Chat/Watchlist/New/Coverage/Settings", "direct /v2/menu/: chips are Chat / Watchlist / New / Coverage / Settings (Watchlist 2nd)");
+  check(s.visible, `direct /v2/menu/: the six chips (Chat/Watchlist/New/Digest/Sources/Settings) are visible (${(s.labels || []).join("/")})`);
+  checkEq((s.labels || []).join("/"), "Chat/Watchlist/New/Digest/Sources/Settings", "direct /v2/menu/: chips are Chat / Watchlist / New / Digest / Sources / Settings (Watchlist 2nd)");
   // Dialogue is a BARE Ask field rendered EXACTLY like the search band: one input,
   // NO action button, placeholder "Ask…". The band form sits on the --head ground
   // with a bottom divider; the FIELD (.na-ask-in) takes the lifted --lift ground
@@ -88,7 +88,7 @@ async function menuState(pg) {
   await pg.waitForTimeout(200);
   checkEq(await stripDisplay(), "none", "back on Chat: the bottom strip hides again");
   // The chip bar is locked at the top so it never scrolls away — either sticky
-  // (Coverage/Settings) or a flex item in the docked Chat's fixed column.
+  // (Sources/Settings) or a flex item in the docked Chat's fixed column.
   const chipbar = await pg.evaluate(() => {
     const el = document.querySelector('.v2-view[data-view="menu"] .na-menu-bar');
     const view = document.querySelector('.v2-view[data-view="menu"]');
@@ -106,7 +106,7 @@ async function menuState(pg) {
   });
   check(pin.kbdOn, "docked chat: focusing the input arms keyboard mode (chat-kbd)");
   // Full-screen while typing: the keyboard being up (html.chat-kbd) HIDES the Wire
-  // header + the Chat/Coverage/Settings tab bar, and the chat fills from the top
+  // header + the Chat/Sources/Settings tab bar, and the chat fills from the top
   // safe-area down to the keyboard top (--kbd-h) with the input visible above it.
   const kb = await pg.evaluate(() => {
     const header = document.querySelector("#wire-header");
@@ -120,7 +120,7 @@ async function menuState(pg) {
     document.documentElement.style.setProperty("--kbd-h", "0px");
     return r;
   });
-  check(kb.header === "none" && kb.tabs === "none", "docked chat (keyboard up): the Wire header + Chat/Coverage/Settings tabs are hidden");
+  check(kb.header === "none" && kb.tabs === "none", "docked chat (keyboard up): the Wire header + Chat/Sources/Settings tabs are hidden");
   check(parseFloat(kb.viewTop) <= 1, `docked chat (keyboard up): the chat fills from the top (${kb.viewTop})`);
   check(kb.viewBottom === "300px" && kb.form !== "none", `docked chat (keyboard up): it ends at the keyboard top with the input visible (${kb.viewBottom})`);
   checkErrs(errs, "direct menu");

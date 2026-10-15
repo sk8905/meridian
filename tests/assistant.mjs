@@ -134,7 +134,7 @@ await pg.keyboard.press("Escape");
 await pg.waitForTimeout(150);
 await pg.evaluate(() => { const b = document.querySelector(".nav-menu-btn") || document.querySelector('.mtab[data-key="menu"]'); if (b) b.click(); });
 await pg.waitForTimeout(700);
-check(await pg.evaluate(() => [...document.querySelectorAll(".v2-menu .na-menu-bar .tchip")].map((c) => c.textContent.trim()).join("/") === "Chat/Watchlist/New/Coverage/Settings"), "Menu shows the Chat/Watchlist/New/Coverage/Settings chips");
+check(await pg.evaluate(() => [...document.querySelectorAll(".v2-menu .na-menu-bar .tchip")].map((c) => c.textContent.trim()).join("/") === "Chat/Watchlist/New/Digest/Sources/Settings"), "Menu shows the Chat/Watchlist/New/Digest/Sources/Settings chips");
 // Dialogue chip (default): a BARE Ask field — one input styled like .tsearch,
 // no Search/Add/Ask buttons, just a dedicated Send button; Enter also submits.
 check(await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); return !!c && c.querySelectorAll(".na-ask-in").length === 1 && !c.querySelector(".na-ask-search") && !c.querySelector(".na-ask-go") && !c.querySelector(".na-ask-add"); }), "Dialogue chip is a bare Ask field: one input, no Search/Add/Ask buttons");
@@ -222,11 +222,11 @@ await pg.waitForTimeout(150);
 check(await pg.evaluate(() => document.querySelectorAll("#v2-menu-omni .na-chat-turn").length === 0), "'New chat' clears the transcript");
 check(await pg.evaluate(() => !document.querySelector("#v2-newchat")), "choosing New chat closes the dropdown");
 await pg.unroute("**/api/ask");
-// Coverage chip: Add (C) only — the LinkedIn Network importer was retired.
+// Sources chip (key "coverage"): Add a law firm (C) only — the LinkedIn Network importer was retired.
 await pg.evaluate(() => document.querySelector('.v2-menu .na-menu-bar .tchip[data-sec="coverage"]').click());
 await pg.waitForTimeout(300);
-check(await pg.evaluate(() => !!document.querySelector("#v2-menu-add .na-ask-add") && !document.querySelector("#v2-menu-add .na-ask-go")), "Coverage chip has Add (C) only, no Ask");
-check(await pg.evaluate(() => !document.querySelector(".v2-menu .wire-net, .v2-menu .wn-import")), "Coverage chip has no LinkedIn Network importer (retired)");
+check(await pg.evaluate(() => !!document.querySelector("#v2-menu-add .na-ask-add") && !document.querySelector("#v2-menu-add .na-ask-go")), "Sources chip has Add (C) only, no Ask");
+check(await pg.evaluate(() => !document.querySelector(".v2-menu .wire-net, .v2-menu .wn-import")), "Sources chip has no LinkedIn Network importer (retired)");
 
 await pg.route("**/api/propose", (route) => route.fulfill({
   status: 200, contentType: "application/json",

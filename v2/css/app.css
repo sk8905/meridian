@@ -178,6 +178,68 @@ html[data-theme="dark"][data-v2tab="menu"][data-menu-sec="settings"] .v2-botmeta
    is self-contained, so this just needs to be a visible block. */
 .v2-menu { display: block; max-width: 640px; margin: 0 auto; background: var(--surface, #fff); min-height: 40vh; }
 .v2-menu .na-menu-pane { display: block; }
+
+/* ---- Menu ▸ Sources (Coverage & sources, v2/js/status-page.js) + Menu ▸ Digest
+   (v2/js/digest.js). The menu is its own surface, so it declares its status tokens
+   here, light + dark (HOUSE_STYLE §3 token scope): GOOD = --t-up green, FAILING =
+   --t-down red, STALE = the amber token value. Sizes ride the --fs-* grid only. */
+.v2-menu { --cov-good: var(--t-up, #0f9d68); --cov-fail: var(--t-down, #df4763); --cov-stale: #b3760f; }
+[data-theme="dark"] .v2-menu { --cov-good: var(--t-up, #3fc08d); --cov-fail: var(--t-down, #f26d84); --cov-stale: #d9a441; }
+.v2-menu .watch-loading, .v2-menu .watch-empty, .cov-ok, .dg-empty { margin: 0; padding: 12px 14px; color: var(--muted, #5e6a84); font-size: var(--fs-body); }
+.cov-title { padding: 14px 14px 2px; font-size: var(--fs-title); font-weight: 700; color: var(--ink, #131b2c); }
+.cov-lede { margin: 0; padding: 0 14px 8px; font-size: var(--fs-body); color: var(--muted, #5e6a84); line-height: 1.45; }
+.cov-sum { display: flex; gap: 14px; padding: 0 14px 10px; border-bottom: 1px solid var(--border, #e4e7ef);
+  font-size: var(--fs-micro); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted, #5e6a84); }
+.cov-sum-n.is-fail { color: var(--cov-fail); } .cov-sum-n.is-stale { color: var(--cov-stale); } .cov-sum-n.is-good { color: var(--cov-good); }
+.cov-grp-h a { color: inherit; }
+.cov-row { padding: 9px 14px 10px; border-bottom: 1px solid var(--border, #e4e7ef); font-size: var(--fs-body); }
+.cov-r1 { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.cov-nm { flex: 1 1 auto; min-width: 0; font-weight: 600; color: var(--ink, #131b2c); }
+a.cov-nm:hover { color: var(--accent, #fb8b1e); }
+.cov-pill { flex: 0 0 auto; padding: 1px 6px; border: 1px solid currentColor; font-size: var(--fs-micro); font-weight: 700;
+  letter-spacing: .06em; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.cov-pill.is-good { color: var(--cov-good); } .cov-pill.is-stale { color: var(--cov-stale); }
+.cov-pill.is-fail { color: var(--surface, #fff); background: var(--cov-fail); border-color: var(--cov-fail); }
+.cov-pill.is-check { color: var(--muted, #5e6a84); }
+.cov-sec, .cov-meta, .cov-src { margin-top: 2px; font-size: var(--fs-micro); color: var(--muted, #5e6a84); line-height: 1.45; font-variant-numeric: tabular-nums; }
+.cov-sec { text-transform: uppercase; letter-spacing: .05em; font-weight: 600; color: var(--faint, #8b96ac); }
+.cov-src { color: var(--faint, #8b96ac); }
+.cov-src-h { font-weight: 600; }
+.cov-mode { font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.cov-mode.is-live { color: var(--cov-good); } .cov-mode.is-cached, .cov-mode.is-snapshot { color: var(--cov-stale); } .cov-mode.is-failing { color: var(--cov-fail); }
+.cov-why { margin-top: 4px; color: var(--ink, #131b2c); line-height: 1.45; }
+.cov-fix { margin-top: 3px; color: var(--muted, #5e6a84); line-height: 1.45; }
+.cov-fix-h { font-size: var(--fs-micro); font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--ink, #131b2c); margin-right: 4px; }
+.cov-attn .cov-row[data-st="fail"] { box-shadow: inset 2px 0 0 var(--cov-fail); }
+.cov-attn .cov-row[data-st="stale"] { box-shadow: inset 2px 0 0 var(--cov-stale); }
+.cov-start { display: grid; grid-template-columns: 1fr; border-bottom: 1px solid var(--border, #e4e7ef); }
+@media (min-width: 761px) { .cov-start { grid-template-columns: repeat(3, minmax(0, 1fr)); } .cov-role + .cov-role { border-left: 1px solid var(--border, #e4e7ef); } }
+.cov-role { padding: 4px 0 8px; }
+.cov-role-h { padding: 6px 14px 2px; font-size: var(--fs-body); font-weight: 700; color: var(--ink, #131b2c); }
+.cov-role-a { display: block; padding: 4px 14px; font-size: var(--fs-body); }
+.cov-role-nm { display: block; font-weight: 600; color: var(--ink, #131b2c); }
+.cov-role-a:hover .cov-role-nm { color: var(--accent, #fb8b1e); }
+.cov-role-why { display: block; font-size: var(--fs-micro); color: var(--muted, #5e6a84); }
+/* Digest */
+.dg-head { flex-wrap: wrap; row-gap: 6px; }
+.dg-h { font-size: var(--fs-body); color: var(--ink, #131b2c); }
+.dg-share { padding-top: 6px; padding-bottom: 6px; }
+.dg-built, .dg-sub, .dg-note { font-size: var(--fs-micro); color: var(--muted, #5e6a84); }
+.dg-sub { text-transform: none; letter-spacing: 0; font-weight: 500; }
+.dg-note { margin: 0; padding: 6px 14px 10px; }
+.dg-item { padding: 8px 14px 9px; border-bottom: 1px solid var(--border, #e4e7ef); font-size: var(--fs-body); }
+.dg-t { display: block; color: var(--ink, #131b2c); font-weight: 600; line-height: 1.4; }
+.dg-t:hover { color: var(--accent, #fb8b1e); }
+.dg-amt { font-weight: 700; color: var(--ink, #131b2c); font-variant-numeric: tabular-nums; }
+.dg-meta { margin-top: 2px; font-size: var(--fs-micro); color: var(--muted, #5e6a84); }
+.dg-in { color: var(--ink, #131b2c); font-weight: 600; }
+.dg-rates { width: 100%; border-collapse: collapse; font-size: var(--fs-body); }
+.dg-rates td { padding: 6px 14px; border-bottom: 1px solid var(--border, #e4e7ef); }
+.dg-rates td + td { padding-left: 0; }
+.dg-r-nm a { color: var(--ink, #131b2c); }
+.dg-r-v, .dg-r-c, .dg-r-d { text-align: right; white-space: nowrap; font-size: var(--fs-num); font-variant-numeric: tabular-nums; }
+.dg-r-d { color: var(--muted, #5e6a84); font-size: var(--fs-micro); }
+.dg-r-c.is-up { color: var(--cov-good); } .dg-r-c.is-down { color: var(--cov-fail); } .dg-r-c.is-flat { color: var(--faint, #8b96ac); }
 /* Menu tab on phones: the whole page reads white (surface), not the grey app
    background — so the area below the short menu list isn't a grey block. */
 @media (max-width: 760px) {

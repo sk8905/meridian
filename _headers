@@ -58,6 +58,10 @@
   Cache-Control: no-cache
 /dashboard/js/live-snapshot.js
   Cache-Control: no-cache
+/dashboard/js/health.js
+  Cache-Control: no-cache
+/digest.js
+  Cache-Control: no-cache
 /ft.js
   Cache-Control: no-cache
 /home-data.js
