@@ -338,7 +338,7 @@ await ctx.close();
     return { noStrip: !document.querySelector(".tx-typestrip, .tx-subnav"), oneRow: Math.max(...tops) - Math.min(...tops) <= 4, n: ctl.length,
       statsHidden: getComputedStyle(document.querySelector("#tx-stats")).display === "none", defaultRows: document.querySelectorAll(".tx-panes-in .tx-card").length };
   });
-  check(strip.noStrip && strip.oneRow && strip.n === 4 && strip.statsHidden, `phone: one row (search · Europe · Target · Filters), no type strip, no stats band (${strip.n} controls)`);
+  check(strip.noStrip && strip.oneRow && strip.n === 2 && strip.statsHidden, `phone: one row (search · Filters — region and mid-market live in the sheet), no type strip, no stats band (${strip.n} controls)`);
   check(strip.defaultRows > 0, `phone: the whole group's deals show by default (${strip.defaultRows} cards)`);
   const pick = await p.pg.evaluate(async () => {
     const wait = (ms) => new Promise((r) => setTimeout(r, ms));

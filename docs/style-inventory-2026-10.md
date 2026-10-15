@@ -485,7 +485,9 @@ unless listed under "Left as is".
 
 **iPhone trims (owner 2026-10-15, R44e):** the Deals card has no source column and the
 Profiles card rows (All · Managers · Hedge Funds · Investors) have no HQ; desktop keeps both,
-and the deal drawer / profile page still show them (`tests/phone-trim.mjs`).
+and the deal drawer / profile page still show them. The amount / AUM sits at line 2's right
+end at line 2's size, and the iPhone bars are search · Filters only — region, European
+mid-market and Target / $1–15bn are in the Filters sheet (`tests/phone-trim.mjs`).
 
 **Left as is (not events lists, or a design call for the owner):** day-break headers keep
 "20 Jul 2026" (they are headings); chart axes keep "12 Oct" / "Dec 25"; KPI / metric rows

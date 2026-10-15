@@ -1133,7 +1133,8 @@ notification badge red (`#ef4444`).
   **(d) De-duplication:** the same lender + date + USD size + type from two outlets is ONE
   row; the other source shows as "+n" and "Also reported" in the drawer. **(e) One-row bar + Filters panel** (2026-10 simplification).
   Every Transactions mode and every Profiles list has ONE control row: **search · (Target) ·
-  Filters** (a sliders icon with a count). Nothing else sits above the list — no type
+  Filters** (a sliders icon with a count) — on iPhone just **search · Filters**: the region
+  (Europe / All regions) and Target / $1–15bn buttons live only in the Filters sheet (R44e). Nothing else sits above the list — no type
   sub-labels in the rail, no type strip, no pills: active filters read as ONE quiet summary
   line ("Direct lending, UK & Ireland, Target · Clear"), only when something is active.
   The **Filters panel** holds everything else — desktop: a dropdown over the list under its
@@ -1464,7 +1465,11 @@ notification badge red (`#ef4444`).
   drops its source column (the headline takes the width; the source stays in the deal
   drawer) and the Profiles card rows drop HQ (it stays on the profile page). Desktop keeps
   both. This is a deliberate phone exception to R43(b)'s "end with the source" and is
-  not a loss of information. Spec: `tests/phone-trim.mjs`.
+  not a loss of information. The headline figure — the deal amount, the profile's AUM /
+  revenue — sits at the **right end of line 2, at line 2's size** (`--fs-micro`), so line 1
+  is the headline / name alone (People keep their date lead). The iPhone bars are **search ·
+  Filters** only: Deals' region button (All Europe) and European mid-market, and Profiles'
+  Target / $1–15bn, are in the Filters sheet. Spec: `tests/phone-trim.mjs`.
 
 ## 7. Technical rules
 

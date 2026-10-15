@@ -18,5 +18,10 @@ check(nicheFit({ name: "X", hq: "London, UK", aum: null, strategies: ["Distresse
 check(idx.size === managers.length, "niche: every manager is scored");
 
 const wl = worklist(loadChecklist(), 6).filter((w) => w.action !== "fill");
-check(wl.length > 0 && idx.get(wl[0].id)?.tier === "core", `backfill: the first BUILD/ADD target is core-niche (got ${wl[0]?.name})`);
+// Core-niche targets come first while any remain; once the niche is fully built
+// (2026-10-15) the worklist moves on to adjacent / off-niche names, never before.
+const all = worklist(loadChecklist(), 1e6).filter((w) => w.action !== "fill");
+const RANK = { core: 0, adjacent: 1, off: 2 }, rk = (w) => RANK[idx.get(w.id)?.tier] ?? 3;
+check(all.every((w, i) => i === 0 || rk(all[i - 1]) <= rk(w)), "backfill: BUILD/ADD targets run core-niche first, then adjacent, then off-niche");
+check(wl.length > 0 && (!all.some((w) => rk(w) === 0) || rk(wl[0]) === 0), `backfill: the first BUILD/ADD target is core-niche while any remain (got ${wl[0]?.name}, ${idx.get(wl[0]?.id)?.tier})`);
 finish();

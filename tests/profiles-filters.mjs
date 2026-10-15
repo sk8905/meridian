@@ -138,12 +138,12 @@ const vis = (pg, sel) => pg.evaluate((sel) => [...document.querySelectorAll("#pf
     const tr = document.querySelector("#pf-panes #mgr-rows tr");
     const nm = tr.querySelector(".tl-nm").getBoundingClientRect(), main = tr.querySelector(".pf-c-main").getBoundingClientRect();
     const metas = [...tr.querySelectorAll(".pf-c-meta")].filter((td) => getComputedStyle(td).display !== "none");
-    return { thead: getComputedStyle(document.querySelector('#pf-panes .tpane[data-pane="managers"] thead')).display, sameLine: Math.abs(nm.top - main.top) < 4, mainRight: main.right > window.innerWidth - 20,
+    return { thead: getComputedStyle(document.querySelector('#pf-panes .tpane[data-pane="managers"] thead')).display, sameLine: main.top >= nm.bottom - 2, mainRight: main.right > window.innerWidth - 20,
       metaBelow: metas.length >= 2 && metas.every((m) => m.getBoundingClientRect().top > nm.bottom - 2), overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
       bar: [...document.querySelectorAll('#pf-panes .tpane[data-pane="managers"] .thead-search :is(input, button, select)')].filter((e) => e.offsetParent && getComputedStyle(e).display !== "none").length };
   });
-  check(c.thead === "none" && c.sameLine && c.mainRight && c.metaBelow && c.overflow <= 1, `phone: Managers rows are cards — name · AUM, then HQ · fit · activity (no sideways scroll, ${c.overflow}px)`);
-  check(c.bar === 3, `phone: one-row bar (search · Target · Filters; ${c.bar} controls)`);
+  check(c.thead === "none" && c.sameLine && c.mainRight && c.metaBelow && c.overflow <= 1, `phone: Managers rows are cards — name, then fit · activity · AUM at the right (no sideways scroll, ${c.overflow}px)`);
+  check(c.bar === 2, `phone: one-row bar (search · Filters — Target lives in the sheet; ${c.bar} controls)`);
   // Sorting sits in the panel (Show & sort, under More filters) — headers are hidden on phone.
   await pg.locator('#pf-panes .tpane[data-pane="managers"] .pf-filter-btn').click(); await pg.waitForTimeout(100);
   await pg.locator('#pf-panes [data-pfmore]').click(); await pg.waitForTimeout(100);
