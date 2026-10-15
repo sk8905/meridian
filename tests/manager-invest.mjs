@@ -1,5 +1,5 @@
-// Manager profile: the restructured tabs (News · Vehicles · Investments ·
-// Business), the collapsible "Sources" line, and the Investments tab — deal
+// Manager profile: the restructured tabs (News · Vehicles · Investments · Timeline ·
+// Firm facts — key `business`), the collapsible "Sources" line, and the Investments tab — deal
 // activity drawn from surfaced news, tagged debt/equity. Rendered inside Profiles.
 import { serve, launchChromium, open, PHONE, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
 
@@ -18,7 +18,7 @@ await pg.waitForTimeout(1200);
 await pg.evaluate(() => { const c = document.querySelector('#pf-chips .tchip[data-p="managers"]'); if (c) c.click(); location.hash = "#/manager/m8"; });
 await pg.waitForTimeout(900);
 
-// Tabs: News · Vehicles · Investments · Business (no standalone Funds/CLOs tabs).
+// Tabs: News · Vehicles · Investments · Timeline · Firm facts (key `business`; no standalone Funds/CLOs tabs).
 const tabs = await pg.evaluate(() => [...document.querySelectorAll("#mgr-tabs .tchip")].map((c) => c.dataset.p));
 check(JSON.stringify(tabs) === JSON.stringify(["news", "vehicles", "investments", "timeline", "business"]), `manager tabs are News/Vehicles/Investments/Timeline/Business (${tabs.join("/")})`);
 
@@ -122,7 +122,7 @@ const stray = await pg.evaluate(() => [...document.querySelectorAll(".tcol-full"
   .map((e) => parseFloat(getComputedStyle(e).borderBottomWidth) || 0));
 check(stray.length > 0 && stray.every((w) => w === 0), `phone: the full-width profile column has no stray bottom-border line (${stray.join(", ")})`);
 
-// Business tab reads as data only — an undisclosed figure is dropped, never shown
+// Firm facts tab reads as data only — an undisclosed figure is dropped, never shown
 // as a "—" placeholder row (which cluttered the Headcount section on every firm
 // that discloses only a total).
 await pg.evaluate(() => { const t = document.querySelector('#mgr-tabs .tchip[data-p="business"]'); if (t) t.click(); });

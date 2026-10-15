@@ -22,6 +22,21 @@ check(tw.status, "its stress-list status is shown");
 check(tw.legal >= 5 && tw.citation, `plans, judgments and alerts are listed with citations (${tw.legal})`);
 check(/find-and-update\.company-information\.service\.gov\.uk/.test(tw.uk), "UK registry block links Companies House");
 
+// Share: no share sheet → the page URL is copied and a "Link copied" toast shows; with
+// navigator.share (iPhone) the system sheet gets the page URL instead.
+await pg.evaluate(() => {
+  Object.defineProperty(navigator, "share", { value: undefined, configurable: true });
+  Object.defineProperty(navigator, "clipboard", { value: { writeText: async (t) => { window.__copied = t; } }, configurable: true });
+});
+await pg.click("#pf-detail .co-share"); await pg.waitForTimeout(200);
+const cp = await pg.evaluate(() => ({ copied: window.__copied, url: location.href, toast: (document.querySelector(".wire-toast.on") || {}).textContent || "" }));
+check(cp.copied === cp.url && /#\/co\/Thames%20Water$/.test(cp.copied), `Share copies the borrower page URL (${cp.copied})`);
+check(cp.toast === "Link copied", `…and shows a "Link copied" toast (${cp.toast})`);
+await pg.evaluate(() => { Object.defineProperty(navigator, "share", { value: async (d) => { window.__shared = d; }, configurable: true }); });
+await pg.click("#pf-detail .co-share"); await pg.waitForTimeout(150);
+const sh = await pg.evaluate(() => ({ shared: window.__shared, url: location.href }));
+check(sh.shared && sh.shared.url === sh.url && /Thames Water/.test(sh.shared.title || ""), "with navigator.share the system share sheet gets the page URL");
+
 // Reached from the Dashboard stress table.
 await pg.goto(`http://localhost:${srv.port}/v2/dashboard/credit`);
 await pg.waitForSelector(".dsh-stresstbl a.dsh-drill", { timeout: 10000 });

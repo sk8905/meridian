@@ -181,15 +181,17 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
   await th.click(); await pg.waitForTimeout(100);
   const sortState = await pg.evaluate(() => ({ first: document.querySelector("#pf-panes #mgr-rows tr").dataset.href, aria: [...document.querySelectorAll('#pf-panes .tpane[data-pane="managers"] thead th')].map((h) => h.getAttribute("aria-sort")).filter((a) => a !== "none") }));
   check(firstDesc !== sortState.first && sortState.aria.join() === "ascending", `list columns sort on tap, and reverse on a second tap (${firstDesc} → ${sortState.first})`);
-  // AUM is USD everywhere (R29): no € figure in the Managers / Investors AUM columns, and
-  // a restated figure carries its provenance on the tooltip.
+  // AUM is STORED in USD (R29) and SHOWN honestly (R4): a figure restated from €/£ reads
+  // in its native currency with the USD equivalent in brackets ("€12bn ($13.4bn)"),
+  // everything else is USD alone; a restated figure carries its provenance on the tooltip.
   const ccy = await pg.evaluate(async () => {
     const D = await import("/credit/js/data.js");
     const cells = [...document.querySelectorAll("#pf-panes #mgr-rows td.pf-c-main, #pf-panes #lp-rows td:nth-child(4)")].map((td) => td.textContent.trim()).filter((t) => t && t !== "n/a" && t !== "—");
     const restated = [...document.querySelectorAll("#pf-panes #mgr-rows td.pf-c-main[title*='restated from']")].length;
-    return { euro: cells.filter((t) => /€|£/.test(t)).length, usd: cells.filter((t) => t.startsWith("$")).length, restated, fx: !!(D.AUM_FX && D.AUM_FX.EURUSD > 0) };
+    const dual = cells.filter((t) => /^[€£]/.test(t));
+    return { dual: dual.length, dualOk: dual.every((t) => /^[€£][\d.]+(?:m|bn|tn) \(\$[\d.]+(?:m|bn|tn)\)$/.test(t)), bareForeign: cells.filter((t) => /€|£/.test(t) && !/^[€£]/.test(t)).length, usd: cells.filter((t) => t.startsWith("$")).length, restated, fx: !!(D.AUM_FX && D.AUM_FX.EURUSD > 0) };
   });
-  check(ccy.euro === 0 && ccy.usd > 200 && ccy.restated > 50 && ccy.fx, `AUM columns are all USD (${ccy.usd} $, ${ccy.euro} €/£; ${ccy.restated} restated with provenance)`);
+  check(ccy.dual > 50 && ccy.dualOk && ccy.bareForeign === 0 && ccy.usd > 100 && ccy.restated > 50 && ccy.fx, `AUM columns: native with USD in brackets where restated, else USD (${ccy.dual} €/£ ($), ${ccy.usd} $; ${ccy.restated} restated with provenance)`);
   // Profile header coverage line
   await pg.goto(base + "/v2/profiles/#/manager/m21"); await pg.waitForSelector("#pf-detail .tdet-latest", { timeout: 8000 });
   check(/tracked.*latest/i.test(await pg.evaluate(() => document.querySelector("#pf-detail .tdet-latest").textContent)), "a profile header shows its coverage (count · 90 days · latest date)");
