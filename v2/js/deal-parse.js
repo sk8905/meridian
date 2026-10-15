@@ -112,12 +112,14 @@ export function dealSubject(d) {
 // deals keep their vehicle name.
 export function dealCounterparty(d, lenderName) {
   const s = dealSubject(d);
-  if (d && typeof d.borrower === "string" && d.borrower.trim()) return s;   // audited — shown as-is
+  // Audited — shown as-is; "Name*" when very likely but unconfirmed (owner rule, R39m).
+  if (d && typeof d.borrower === "string" && d.borrower.trim()) return s + (d.borrowerUnconfirmed ? "*" : "");
   const t = d && d.id && DEAL_TAGS[d.id];
   // An audited party is shown as-is — even when it IS the lender (a BDC issuing its own
   // notes, a manager raising its own fund).
   // An unconfirmed (inferred) vehicle name carries an asterisk wherever it is shown.
-  if (t && t.party != null) return t.party + (t.partyQuality === "unconfirmed" ? "*" : "");
+  // A placeholder ("GoldenTree vehicle" — no source names the vehicle) reads "Unknown".
+  if (t && t.party != null) return t.partyQuality === "placeholder" ? UNKNOWN : t.party + (t.partyQuality === "unconfirmed" ? "*" : "");
   if (!s || !lenderName || (d && d.clo) || (d && (d.company || COMPANY_OVERRIDES[d.id]))) return s;
   const norm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
   const a = norm(s), b = norm(lenderName);
@@ -140,7 +142,7 @@ export function dealPartyRole(d) {
 // `sponsor` field on the deal, or a SPONSOR_OVERRIDES entry, wins over the parse.
 const SPONSOR_RE = new RegExp(`(${_NAME})['’]s\\b(?:\\s+\\S+){0,8}?\\s+(?:acquisition|buyout|buy-out|purchase|take-?private|take-?over|takeover|LBO|MBO|bid|recapitalisation|recapitalization|merger|investment)\\b`);
 export function dealSponsor(d) {
-  if (d && typeof d.sponsor === "string") return d.sponsor.trim();      // explicit ("" = none)
+  if (d && typeof d.sponsor === "string") return d.sponsor.trim() + (d.sponsor.trim() && d.sponsorUnconfirmed ? "*" : "");   // explicit ("" = none)
   if (d && d.id && SPONSOR_OVERRIDES[d.id] != null) return SPONSOR_OVERRIDES[d.id];
   const subj = dealSubject(d);
   for (const text of [String((d && d.headline) || ""), String((d && d.summary) || "")]) {
@@ -163,14 +165,11 @@ const SPONSOR_OVERRIDES = {};
 // so the whole audit is reviewable in one place; a deal may also carry its own
 // `company` field, which takes precedence.
 const COMPANY_OVERRIDES = {
-  d632: "PayPal", // Residual corrections where the generic parse would truncate, drop a leading
+  // Residual corrections where the generic parse would truncate, drop a leading
   // geo word that belongs to the name, surface a city/asset, or find no borrower.
-  d608: "Cutting Edge", d810: "Crestline",
   // Curated 2026-10 (UX review): lender-led headlines whose borrower / target is named in
   // the deal's own headline or summary — each value checked verbatim against that text.
-  d645: "ABN AMRO", d738: "DKB",
-  d874: "BMG", d929: "LNG Canada",
-  d954: "Zolva", };
+  };
 
 // First currency figure in the headline (e.g. "$750m", "€6.5bn", "£1.2bn") — for
 // surfaces that carry no structured amount. Surfaces WITH a structured amount
@@ -190,6 +189,10 @@ export function dealAmount(d) {
 // seller). One deal = one record: a club deal carries every lender in `lenders`.
 const _mgrById = new Map(managers.map((m) => [m.id, m]));
 const _mName = (id) => (_mgrById.get(id) || {}).name || "";
+// The owner's rule for a party no source supports even as a likely name (R39m).
+export const UNKNOWN = "Unknown";
+// A display name without its "unconfirmed" asterisk (for links / matching).
+export const bareName = (s) => String(s || "").replace(/\*$/, "");
 export const MANAGER_ROLES = ["lender", "sponsor", "borrower", "issuer", "adviser", "seller"];
 // The tracked firm's role: explicit, else "issuer" for a CLO (the manager prices its own
 // vehicle), else "lender" (the pre-audit assumption).
@@ -202,7 +205,7 @@ export function dealManagerRole(d) {
 export function dealLenders(d) {
   if (!d) return [];
   const own = (d.lenders || []).filter((l) => l && l.name && l.role !== "arranger")
-    .map((l) => ({ ...l, name: (l.managerId && _mName(l.managerId)) || l.name }));
+    .map((l) => ({ ...l, name: ((l.managerId && _mName(l.managerId)) || l.name) + (l.unconfirmed ? "*" : "") }));
   if (own.length) {
     const lead = own.findIndex((l) => l.role === "lead");
     return lead > 0 ? [own[lead], ...own.slice(0, lead), ...own.slice(lead + 1)] : own;
@@ -213,7 +216,7 @@ export function dealLenders(d) {
 }
 export function dealArrangers(d) {
   return ((d && d.lenders) || []).filter((l) => l && l.name && l.role === "arranger")
-    .map((l) => ({ ...l, name: (l.managerId && _mName(l.managerId)) || l.name }));
+    .map((l) => ({ ...l, name: ((l.managerId && _mName(l.managerId)) || l.name) + (l.unconfirmed ? "*" : "") }));
 }
 // The tracked-firm ids a deal counts under as a LENDER (Lender facet, grouping, stats).
 export const dealLenderIds = (d) => [...new Set(dealLenders(d).map((l) => l.managerId).filter((id) => id && _mgrById.has(id)))];

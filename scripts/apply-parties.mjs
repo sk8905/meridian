@@ -68,9 +68,9 @@ export const ALIASES = {
   "smbc nikko securities america": "smbc nikko", "synovus securities": "synovus", "r seelaus": "r seelaus and",
   "silver point finance": "silver point capital", "elliott investment management": "elliott",
   "european investment fund": "eif", "jll capital markets": "jll", "jll real estate capital": "jll",
-  "kkr capital markets": "kkr", "schroders": "schroders capital",
+  "schroders": "schroders capital",
   "wells fargo securities": "wells fargo", "jp morgan securities": "jpmorgan", "greensledge capital markets": "greensledge",
-  "bbva spark": "bbva", "apollo global securities": "apollo global management", "apollo": "apollo global management",
+  "bbva spark": "bbva", "apollo": "apollo global management",
   "keybanc capital markets": "keybanc", "rbc capital markets": "rbc", "citizens jmp": "citizens",
 };
 // The display name of a profile created for an aliased brand.
@@ -95,17 +95,33 @@ function main() {
   const audit = loadAudit();
   const entries = audit.entries.slice(0, upto);
   const inScope = new Set(entries.map((e) => e.id));
+  // A record the audit found to duplicate another (duplicateOf) merges into it.
+  for (const e of audit.entries) if (e.duplicateOf && e.duplicateOf !== e.id && !audit.merges.some((g) => g.includes(e.id))) audit.merges.push([e.duplicateOf, e.id]);
   const merges = audit.merges.filter((g) => g.every((id) => inScope.has(id)));
   const byId = new Map(entries.map((e) => [e.id, e]));
   const mgrs = readRecords(CREDIT, "managers").map((r) => r.obj);
   const mgrIds = new Set(mgrs.map((m) => m.id));
+  // Banking arms and asset-management arms stay SEPARATE profiles (owner decision
+  // 2026-10): a tracked ARM (a bank's asset manager / special unit, or an asset manager's
+  // capital-markets desk) is used only when the lender's own name says so — "Investec"
+  // the bank is not "Investec (Direct Lending)", "KKR Capital Markets" is not KKR Credit —
+  // or when the record is filed under that arm. Arms never match a bare brand by name.
+  const ARM = {
+    m118: /direct lending/i, m133: /asset management|alternative credit/i, m176: /asset management|private debt/i,
+    m126: /alternative/i, m9: /alternatives|asset management|gsam/i, m101: /special situations/i, m57: /distressed/i,
+    m58: /capital solutions/i, m120: /asset management/i, m181: /credit partners/i, m140: /bluebay/i, m187: /asset management|rlam/i,
+    m69: /centerbridge/i, m81: /^(?!.*capital markets)/i, m7: /^(?!.*global securities)/i, m20: /^(?!.*capital markets)/i,
+  };
+  const ARM_QUALIFIED = new Set(["m118", "m133", "m176", "m126", "m9", "m101", "m57", "m58", "m120", "m181", "m140", "m187"]);
   const index = new Map();
-  for (const m of mgrs) { const k = canon(m.name); if (!index.has(k)) index.set(k, m.id); }
+  for (const m of mgrs) { if (ARM_QUALIFIED.has(m.id)) continue; const k = canon(m.name); if (!index.has(k)) index.set(k, m.id); }
+  const filedOf = new Map(readRecords(CREDIT, "deals").map((r) => [r.obj.id, r.obj.managerId]));
 
   // 1) Lender profiles for every untracked lender / arranger the audit names.
   let next = maxId(CREDIT, "m");
   const created = [];
-  const resolve = (name, id) => {
+  const resolve = (name, id, filed) => {
+    if (id && ARM[id] && !ARM[id].test(String(name)) && id !== filed) id = null;
     if (id && mgrIds.has(id)) return id;
     const k = canon(name);
     if (!k) return null;
@@ -119,15 +135,16 @@ function main() {
     return rec.id;
   };
   // A placeholder ("unnamed Japanese allocator", "other lenders") is not a party.
-  const cleanLenders = (ls) => (ls || []).filter((l) => l && l.name && String(l.name).trim() && !/^(unnamed|undisclosed|other|various|unknown|prepetition|existing|certain)\b/i.test(String(l.name).trim())).map((l) => ({
-    name: String(l.name).trim(), managerId: resolve(l.name, l.managerId),
+  const cleanLenders = (ls, filed) => (ls || []).filter((l) => l && l.name && String(l.name).trim() && !/^(unnamed|undisclosed|other|various|unknown|prepetition|existing|certain)\b/i.test(String(l.name).trim())).map((l) => ({
+    name: String(l.name).trim(), managerId: resolve(l.name, l.managerId, filed),
     role: ROLES.includes(l.role) ? l.role : "participant",
     amount: Number.isFinite(l.amount) ? l.amount : null, ccy: l.ccy ? String(l.ccy).toUpperCase() : null,
+    ...(l.unconfirmed ? { unconfirmed: true } : {}),
   })).filter((l, i, a) => a.findIndex((x) => x.managerId === l.managerId && x.role === l.role) === i);
 
   // Resolve every lender first, so a sponsor that is also a lender elsewhere links on
   // the first run as on any re-run (idempotent).
-  for (const e of entries) cleanLenders(e.lenders);
+  for (const e of entries) cleanLenders(e.lenders, filedOf.get(e.id));
 
   // 2) Merge groups: union of lenders, the dropped URLs kept as alsoReported.
   const deals = new Map(readRecords(CREDIT, "deals").map((r) => [r.obj.id, r.obj]));
@@ -138,7 +155,7 @@ function main() {
     for (const d of rest) if (deals.has(d) && d !== keep && !drop.has(d)) { drop.set(d, keep); (fold.get(keep) || fold.set(keep, []).get(keep)).push(deals.get(d)); }
   }
 
-  const stats = { borrower: 0, sponsor: 0, lenders: 0, managerRole: 0, merged: drop.size };
+  const stats = { borrower: 0, sponsor: 0, lenders: 0, managerRole: 0, merged: drop.size, fixes: 0, splits: 0 };
   const n = updateRecords(CREDIT, "deals", (d) => {
     if (drop.has(d.id)) return false;
     const e = byId.get(d.id);
@@ -146,14 +163,28 @@ function main() {
     if (!e && !group.length) return false;
     const before = JSON.stringify(d);
     if (e) {
-      // A trailing "*" marks an inferred vehicle (deal-tags pq) — never written as audited.
+      // Record fixes (round 2): a source showed the date / URL / type / text was wrong.
+      const fx = e.fix || {};
+      if (fx.date && /^\d{4}-\d{2}-\d{2}$/.test(fx.date) && d.date !== fx.date) { d.date = fx.date; delete d.dateEstimated; stats.fixes++; }
+      if (fx.datePrecision === "month") d.datePrecision = "month"; else if (fx.date) delete d.datePrecision;
+      if (fx.sourceUrl && /^https?:\/\//.test(fx.sourceUrl) && normUrl(fx.sourceUrl) !== normUrl(d.sourceUrl)) {
+        d.sourceUrl = fx.sourceUrl; stats.fixes++;
+        if (d.alsoReported) { d.alsoReported = d.alsoReported.filter((a) => normUrl(a.url) !== normUrl(fx.sourceUrl)); if (!d.alsoReported.length) delete d.alsoReported; }
+      }
+      for (const k of ["type", "headline", "summary"]) if (typeof fx[k] === "string" && fx[k].trim() && d[k] !== fx[k].trim()) { d[k] = fx[k].trim(); stats.fixes++; }
+      // Filed under the wrong tracked firm → re-file (the old firm keeps no claim on it).
+      if (e.refileTo) { const rid = index.get(canon(e.refileTo)) || (mgrIds.has(e.refileTo) ? e.refileTo : null); if (rid && rid !== d.managerId) { d.managerId = rid; stats.fixes++; } }
+      // Borrower: the audited name; "Unknown" when no source supports even a likely name;
+      // borrowerUnconfirmed marks a very likely but unconfirmed one (shown "Name*").
       if (typeof e.borrower === "string" && e.borrower.trim() && !/\*$/.test(e.borrower.trim())) {
         if (d.borrower !== e.borrower.trim()) stats.borrower++;
         d.borrower = e.borrower.trim(); delete d.company;
       }
+      if (e.borrowerUnconfirmed && d.borrower && d.borrower !== "Unknown") d.borrowerUnconfirmed = true; else delete d.borrowerUnconfirmed;
       const sp = typeof e.sponsor === "string" ? e.sponsor.trim() : "";
       if (d.sponsor !== sp) stats.sponsor++;
       d.sponsor = sp;
+      if (sp && e.sponsorUnconfirmed) d.sponsorUnconfirmed = true; else delete d.sponsorUnconfirmed;
       // The sponsor's profile: the tracked firm itself when it IS the sponsor, else a
       // tracked firm of exactly that name.
       const spId = !sp ? null : (e.managerRole === "sponsor" && d.managerId) ? d.managerId : (index.get(canon(sp)) || null);
@@ -161,9 +192,9 @@ function main() {
       if (spId) d.sponsorId = spId; else if (!sp) delete d.sponsorId;
       // A merged club deal keeps every lender its group's audits name, on every re-run
       // (the dropped rows are gone after the first run, their audit entries are not).
-      const ls = cleanLenders(e.lenders);
+      const ls = cleanLenders(e.lenders, d.managerId);
       for (const g of audit.merges) if (g[0] === d.id) for (const did of g.slice(1)) {
-        for (const l of cleanLenders((byId.get(did) || {}).lenders)) if (!ls.some((x) => x.managerId === l.managerId)) ls.push(l);
+        for (const l of cleanLenders((byId.get(did) || {}).lenders, d.managerId)) if (!ls.some((x) => x.managerId === l.managerId)) ls.push(l);
       }
       if (JSON.stringify(d.lenders || []) !== JSON.stringify(ls)) stats.lenders++;
       d.lenders = ls;
@@ -177,7 +208,7 @@ function main() {
       // Every lender of a dropped row joins the kept record (with its own amount); a
       // dropped row whose firm was a sponsor / borrower keeps its profile link.
       const re = byId.get(r.id);
-      const theirs = cleanLenders(re ? re.lenders : []);
+      const theirs = cleanLenders(re ? re.lenders : [], d.managerId);
       for (const l of theirs) if (!d.lenders.some((x) => x.managerId === l.managerId)) d.lenders.push(l);
       const rRole = re && re.managerRole;
       // Only an UNAUDITED dropped row contributes its firm as a lender by default — an
@@ -185,7 +216,7 @@ function main() {
       if (!re && r.managerId && !d.lenders.some((x) => x.managerId === r.managerId)) {
         d.lenders.push({ name: (mgrs.find((m) => m.id === r.managerId) || {}).name || r.managerId, managerId: r.managerId, role: "participant", amount: null, ccy: null });
       }
-      if (rRole === "sponsor" && !d.sponsorId) d.sponsorId = r.managerId;
+      if (rRole === "sponsor" && !d.sponsorId && d.sponsor) d.sponsorId = r.managerId;
       const also = d.alsoReported || [];
       for (const x of [{ url: r.sourceUrl, headline: r.headline, date: r.date || null }, ...(r.alsoReported || [])]) {
         if (x.url && normUrl(x.url) !== normUrl(d.sourceUrl) && !also.some((a) => normUrl(a.url) === normUrl(x.url))) also.push(x);
@@ -198,10 +229,42 @@ function main() {
   const dropped = deleteRecords(CREDIT, "deals", [...drop.keys()], { dryRun: DRY });
   if (created.length) appendRecords(CREDIT, "managers", created, { dryRun: DRY });
 
+  // Bundled records (round 2): each separate transaction becomes its own sourced deal.
+  // A split's id is written back into the audit file, so a re-run updates, never re-adds.
+  const live = new Map(readRecords(CREDIT, "deals").map((r) => [r.obj.id, r.obj]));
+  const newDeals = [], newTags = [];
+  let nextD = maxId(CREDIT, "d"), auditDirty = false;
+  for (const e of entries) for (const sp of e.split || []) {
+    const parent = live.get(e.id);
+    if (!parent || !sp || !sp.headline || !sp.sourceUrl || !/^\d{4}-\d{2}-\d{2}$/.test(sp.date || "")) continue;
+    if (sp.id && live.has(sp.id)) continue;
+    if (!sp.id) { sp.id = `d${++nextD}`; auditDirty = true; }
+    const rec = { id: sp.id, date: sp.date, type: sp.type || parent.type, managerId: parent.managerId, fundId: null, headline: sp.headline, summary: sp.summary || "",
+      sourceUrl: sp.sourceUrl, ...(parent.clo ? { clo: true } : {}), borrower: sp.borrower || "Unknown", sponsor: sp.sponsor || "",
+      lenders: cleanLenders(sp.lenders, parent.managerId), managerRole: MANAGER_ROLES.includes(sp.managerRole) ? sp.managerRole : (parent.managerRole || "lender") };
+    newDeals.push(rec); stats.splits++;
+    newTags.push([rec.id, parent.id]);
+  }
+  if (newDeals.length) appendRecords(CREDIT, "deals", newDeals, { dryRun: DRY });
+  if (auditDirty && !DRY) {
+    const j = JSON.parse(fs.readFileSync(AUDIT, "utf8"));
+    const ids = new Map(entries.map((e) => [e.id, e.split || []]));
+    for (const x of j.deals) if (ids.has(x.id) && (x.split || []).length) x.split = ids.get(x.id);
+    fs.writeFileSync(AUDIT, JSON.stringify(j, null, 0).replace(/\},\{"id"/g, '},\n{"id"'));
+  }
+
   // 3) Tags + checklist follow the merge; superseded parser overrides go.
   let tagSrc = fs.readFileSync(TAGS, "utf8");
   const tagsDropped = [...drop.keys()].filter((id) => new RegExp(`^  ${id}: .*\\n`, "m").test(tagSrc));
   for (const id of tagsDropped) tagSrc = tagSrc.replace(new RegExp(`^  ${id}: .*\\n`, "m"), "");
+  // A split deal inherits its parent's country + sector (same borrower group); amountKind null.
+  for (const [id, pid] of newTags) {
+    if (new RegExp(`^  ${id}: `, "m").test(tagSrc)) continue;
+    const pm = tagSrc.match(new RegExp(`^  ${pid}: (\\{.*\\}),\\s*$`, "m"));
+    let t = {}; try { t = pm ? Function(`return (${pm[1]})`)() : {}; } catch { t = {}; }
+    const nt = { c: t.c ?? null, s: t.s || "Diversified", a: null, ...(t.cs ? { cs: t.cs, cb: t.cb } : {}) };
+    tagSrc = tagSrc.replace(/\n\};\nexport const DEAL_TAGS/, `\n  ${id}: ${JSON.stringify(nt)},\n};\nexport const DEAL_TAGS`);
+  }
   if (!DRY) fs.writeFileSync(TAGS, tagSrc);
   let ck = 0;
   if (fs.existsSync(CHECKLIST)) {
@@ -223,7 +286,7 @@ function main() {
   if (!DRY) fs.writeFileSync(PARSE, parse);
 
   console.log(`apply-parties: ${n} deal(s) updated; borrower ${stats.borrower}, sponsor ${stats.sponsor}, lenders ${stats.lenders}, managerRole ${stats.managerRole}; `
-    + `${dropped} split row(s) merged into ${fold.size} deal(s); ${created.length} lender profile(s) created; ${tagsDropped.length} tag(s) and ${ck} checklist ref(s) remapped; ${ov} parser override(s) retired${DRY ? " (dry run)" : ""}`);
+    + `fixes ${stats.fixes}, split-out deals ${stats.splits}; ${dropped} split row(s) merged into ${fold.size} deal(s); ${created.length} lender profile(s) created; ${tagsDropped.length} tag(s) and ${ck} checklist ref(s) remapped; ${ov} parser override(s) retired${DRY ? " (dry run)" : ""}`);
   if (process.argv.includes("--list")) console.log(created.map((m) => `${m.id}\t${m.category}\t${m.name}`).join("\n"));
   return { created, drop, stats };
 }

@@ -1191,6 +1191,16 @@ notification badge red (`#ef4444`).
   (`isOwnSite` in util.js). A manager's Investments tab lists every deal it is party to,
   each tagged with its role there (Lender / Sponsor / Borrower / Manager). Data:
   `backfill/deal-parties.json` → `scripts/apply-parties.mjs`. Spec: `tests/deal-parties.mjs`.
+  **Confidence (owner rule 2026-10-15):** a party confirmed by a source is shown plain; one
+  that is unconfirmed but VERY likely (a CLO vehicle from the series numbering, a lender
+  named only in the record's own summary) is shown with an **asterisk** ("Margay CLO V*",
+  flags `borrowerUnconfirmed` · `sponsorUnconfirmed` · `lenders[].unconfirmed`); one that
+  would be pure speculation is left out and reads **"Unknown"** (never "<Manager> vehicle").
+  **Arms stay separate:** a bank's general banking arm and its asset-management arm are
+  different profiles ("Investec" ≠ "Investec (Direct Lending)", "HSBC" ≠ "HSBC Asset
+  Management", "Goldman Sachs" ≠ "Goldman Sachs Alternatives"), as are an asset manager
+  and its capital-markets desk ("KKR Capital Markets" ≠ KKR Credit); a tracked arm is
+  linked only when the source names it (`ARM` in apply-parties.mjs).
 
 ---
 

@@ -36,6 +36,22 @@ const l534 = d534 ? dealLenders(d534).map((l) => `${l.name}:${l.role}`).join(", 
 check(/^Investec\b[^,]*:lead, AIB:participant$/.test(l534), `d534 lenders: Investec (lead) + AIB (participant) (${l534})`);
 checkEq(d534 && creditSource(d534), "CoStar", "d534 source label is the outlet");
 
+// 2b) Owner rules (2026-10-15): banking arms and asset-management arms stay separate —
+// a bank lender is never linked to a bank's tracked asset-management / special arm unless
+// the source names that arm (or the deal is filed under it); and confidence is explicit.
+const ARM = { m118: /direct lending/i, m133: /asset management|alternative credit/i, m176: /asset management|private debt/i, m9: /alternatives|asset management|gsam/i, m101: /special situations/i, m57: /distressed/i, m58: /capital solutions/i };
+const armBad = deals.flatMap((d) => (d.lenders || []).filter((l) => ARM[l.managerId] && !ARM[l.managerId].test(l.name) && d.managerId !== l.managerId).map((l) => `${d.id}:${l.name}`));
+check(!armBad.length, `no bank lender is linked to a bank's asset-management arm (${armBad.slice(0, 6).join(", ") || "ok"})`);
+const invL = d534 && (d534.lenders || []).find((l) => /^Investec/.test(l.name));
+check(invL && invL.managerId !== "m118" && (managerById[invL.managerId] || {}).category === "bank", `d534's Investec is the bank's own profile, not "Investec (Direct Lending)" (${invL && invL.managerId})`);
+const { dealCounterparty: cp } = await import("../v2/js/deal-parse.js");
+const unk = deals.find((d) => d.borrower === "Unknown");
+check(!!unk && cp(unk, "") === "Unknown", `a borrower no source supports reads "Unknown" (${unk && unk.id})`);
+const unc = deals.find((d) => d.borrowerUnconfirmed && d.borrower);
+check(!!unc && cp(unc, "") === unc.borrower + "*", `a very likely but unconfirmed borrower carries an asterisk (${unc && unc.id}: ${unc && cp(unc, "")})`);
+const badUnk = deals.filter((d) => d.borrowerUnconfirmed && (!d.borrower || d.borrower === "Unknown")).map((d) => d.id);
+check(!badUnk.length, `"Unknown" is never marked unconfirmed (${badUnk.join(", ") || "ok"})`);
+
 // 3) Source labels: a manager's name only on the manager's own site.
 const mgrNames = new Set(managers.map((m) => m.name));
 const badSrc = deals.filter((d) => { const l = creditSource(d); return mgrNames.has(l) && !isOwnSite(srcHost(d.sourceUrl), l); }).map((d) => `${d.id}:${srcHost(d.sourceUrl)}`);
@@ -103,6 +119,19 @@ if (aib && aib.managerId) {
   await pg.waitForTimeout(300);
   const lp = await pg.evaluate(() => ({ h1: (document.querySelector("#pf-detail .tdet-id h1") || {}).textContent || "", role: (document.querySelector('.tinv-tbl tr.tinv-row[data-id="d534"] .tinv-role') || {}).textContent || "" }));
   check(/AIB/.test(lp.h1) && lp.role === "Lender", `the new AIB lender profile renders and lists d534 as Lender (${lp.h1} · ${lp.role})`);
+}
+// The drawer: "Unknown" is plain text (no profile link); "Name*" carries the unconfirmed note.
+if (unk) {
+  await pg.goto(`${base}/v2/transactions/#/deal/${unk.id}`, { waitUntil: "load" });
+  await pg.waitForSelector("#tx-drawer:not([hidden]) .tbiz", { timeout: 8000 });
+  const u = await pg.evaluate(() => { const li = document.querySelector("#tx-drawer .tbiz li"); return { v: li.querySelector(".tbiz-v").textContent.trim(), a: li.querySelectorAll(".tbiz-v a").length }; });
+  check(/^Unknown/.test(u.v) && u.a === 0, `drawer: an unknown borrower reads "Unknown", unlinked (${u.v} · ${u.a} links)`);
+}
+if (unc) {
+  await pg.goto(`${base}/v2/transactions/#/deal/${unc.id}`, { waitUntil: "load" });
+  await pg.waitForSelector("#tx-drawer:not([hidden]) .tbiz", { timeout: 8000 });
+  const u = await pg.evaluate(() => document.querySelector("#tx-drawer .tbiz li .tbiz-v").textContent.replace(/\s+/g, " ").trim());
+  check(/\*/.test(u) && /unconfirmed/.test(u), `drawer: an unconfirmed borrower shows its asterisk and note (${u.slice(0, 90)})`);
 }
 checkErrs(errs, "deal parties");
 await ctx.close(); await b.close(); srv.close();

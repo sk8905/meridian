@@ -102,7 +102,10 @@ check(empty <= 3, `nearly every deal yields a named subject (empty: ${empty})`);
   if (hc) { checkEq(dealCounterparty(hc, mname.get(hc.managerId)), "Hercules Capital", "a BDC's own notes show the BDC as issuer"); checkEq(dealPartyRole(hc), "issuer", "…with role issuer"); }
   const mg = deals.find((d) => d.id === "d908"), gt = deals.find((d) => d.id === "d86");
   if (mg) checkEq(dealCounterparty(mg, mname.get(mg.managerId)), "Margay CLO V*", "an inferred vehicle name carries an asterisk");
-  if (gt) checkEq(dealCounterparty(gt, mname.get(gt.managerId)), "GoldenTree vehicle", "an unnamed vehicle reads as a placeholder");
+  // Owner rule (R39m): a vehicle no source names reads "Unknown", never a made-up placeholder.
+  if (gt && !gt.borrower) checkEq(dealCounterparty(gt, mname.get(gt.managerId)), "Unknown", "an unnamed vehicle reads Unknown");
+  checkEq(dealCounterparty({ id: "x2", borrower: "Margay CLO VI", borrowerUnconfirmed: true, headline: "" }, ""), "Margay CLO VI*", "a very likely but unconfirmed borrower carries an asterisk");
+  checkEq(dealSponsor({ id: "x3", sponsor: "Acme Capital", sponsorUnconfirmed: true }), "Acme Capital*", "a very likely but unconfirmed sponsor carries an asterisk");
   const BAD = /^(AI|UK|US|EU|European|Fintech|SME|Danish|German|French|Spanish|Italian)$/i;
   const bad = deals.filter((d) => d.date && BAD.test(dealCounterparty(d, mname.get(d.managerId)) || "")).map((d) => d.id);
   check(!bad.length, `no deal shows a bare descriptor as its borrower (${bad.join(", ") || "none"})`);

@@ -213,7 +213,8 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 - **Data integrity is test-gated (`tests/data-integrity.mjs`).** Before appending any
   record, dedupe on entity + source URL (`managerId`/`hfId`/`firm` + `sourceUrl`/`url`)
   — the same article is ONE record; a second deal from one article needs a different
-  entity. Every record carries an exact ISO date you saw on the source (no
+  entity (for deals: a different firm OR a different audited `borrower` — one release
+  announcing several separate transactions is one record per borrower, R39m). Every record carries an exact ISO date you saw on the source (no
   `dateEstimated`, no blank `date`); cite the specific article, never a homepage, and
   prefer the issuer / filing / tier-1 outlet over an aggregator or republisher
   (Yahoo, TradingView, MarketScreener, cbonds, Kalkine, Finviz, pulse2 …). The summary
@@ -614,6 +615,11 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   "Lender profiles" below). The audit itself lives in `backfill/deal-parties.json`
   (`scripts/apply-parties.mjs` writes it; its `review` entries are the open list — clear
   one only by re-reading a source that settles it). Specs: `tests/deal-parties.mjs`.
+  Confidence: confirmed → plain; unconfirmed but very likely → keep it with the matching
+  flag (`borrowerUnconfirmed` / `sponsorUnconfirmed` / `lenders[].unconfirmed`, shown with
+  an asterisk); pure speculation → leave it out (`borrower: "Unknown"`). Keep a bank's
+  general banking arm and its asset-management arm as SEPARATE profiles — link a tracked
+  arm only when the source names that arm.
 - **Lender profiles — research the stubs every run (owner decision 2026-10).** Every
   lender / arranger named in a deal is a clickable profile: a `managers` record with
   `category: "bank" | "lender"` and `profileStub: true`, created by

@@ -26,7 +26,7 @@ import { targetFit } from "/credit/js/target.js";
 import { TX_TYPES, TX_GROUPS, SECTOR_TAGS, REGIONS, REGION_LABEL, EUROPE_REGIONS, txOf, amountOf, toUsd, fmtAmt, fmtUsd, tagsOf, sizeCounts } from "/credit/js/tx.js";
 import { esc } from "/util.js";
 import { fmtDay, fmtDateP } from "/feed.js";
-import { dealCounterparty, dealSponsor, dealPartyRole, dealLenders, dealArrangers, dealLenderIds, dealManagerRole, dealParticipants, ROLE_NAME } from "../deal-parse.js";
+import { dealCounterparty, dealSponsor, dealPartyRole, dealLenders, dealArrangers, dealLenderIds, dealManagerRole, dealParticipants, ROLE_NAME, UNKNOWN, bareName } from "../deal-parse.js";
 import { creditSource } from "/credit/js/shared.js";
 import { downloadCSV } from "../csv.js";
 import { advisersFor, dealTerms } from "../deal-advisers.js";
@@ -499,8 +499,10 @@ export function mount(host, ctx) {
   // ---- cells / columns per mode -------------------------------------------------
   const mgrLink = (id) => id && mgrName(id) ? `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(id)}" class="tx-mgr" data-id="${esc(id)}">${esc(mgrName(id))}</a>` : "—";
   // A named party → its profile: a tracked firm's manager page, else the company page.
-  const coLink = (name) => `<a href="${esc(ctx.base)}/profiles/#/co/${encodeURIComponent(name)}" title="Everything Wire holds on ${esc(name)}">${esc(name)}</a>`;
-  const partyLink = (name, id) => (id && mgrName(id) ? mgrLink(id) : name ? coLink(name) : "—");
+  // "Unknown" is not a party (no link); "Name*" (very likely, unconfirmed) links by its bare name.
+  const coLink = (name) => name === UNKNOWN ? esc(name) : `<a href="${esc(ctx.base)}/profiles/#/co/${encodeURIComponent(bareName(name))}" title="Everything Wire holds on ${esc(bareName(name))}">${esc(name)}</a>`;
+  const UNCONF = `<span class="tf-est">* unconfirmed — very likely, not confirmed by a source</span>`;
+  const partyLink = (name, id, unconf) => (id && mgrName(id) ? mgrLink(id) + (unconf || /\*$/.test(name) ? "*" : "") : name ? coLink(name) : "—");
   // The Lender column: the lead lender "+N" (Investec +1); structured / M&A rows keep
   // the tracked firm (CLO manager, acquirer).
   const firmCol = (r) => r.mode === "structured" || r.mode === "mna";
@@ -638,12 +640,12 @@ export function mount(host, ctx) {
   let _listY = 0;
   const norm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
   function relatedRows(r) {
-    const cp = norm(r.cp), sp = norm(r.sponsor);
+    const cp = r.cp === UNKNOWN ? "" : norm(bareName(r.cp)), sp = norm(bareName(r.sponsor));
     const others = rows.filter((x) => x !== r);
     const by = (f) => others.filter(f).sort((a, b) => b.ts - a.ts).slice(0, 6);
     return {
-      borrower: cp.length >= 3 ? by((x) => norm(x.cp) === cp) : [],
-      sponsor: sp.length >= 3 ? by((x) => norm(x.sponsor) === sp) : [],
+      borrower: cp.length >= 3 ? by((x) => norm(bareName(x.cp)) === cp) : [],
+      sponsor: sp.length >= 3 ? by((x) => norm(bareName(x.sponsor)) === sp) : [],
       lender: leadId(r) ? by((x) => lenderKeys(x).includes(leadId(r))) : [],
     };
   }
@@ -679,17 +681,17 @@ export function mount(host, ctx) {
       ? `${esc(fmtAmt(r.amt))}${r.usd != null && r.amt.ccy !== "USD" ? ` <span class="tf-est">≈ ${esc(fmtUsd(r.usd))}</span>` : ""}${kind && kind !== "financing" ? ` <span class="tf-est">${esc(KIND_LABEL[kind])}</span>` : ""}`
       : "Undisclosed";
     const facts = [
-      [r.mode === "mna" ? "Target" : ROLE_LABEL[dealPartyRole(d)] || "Borrower / company", (r.cp ? `<a href="${esc(ctx.base)}/profiles/#/co/${encodeURIComponent(r.cp)}" title="Everything Wire holds on ${esc(r.cp)}">${esc(r.cp)}</a>` : "—")
-        + (d.borrower ? "" : r.tags.partyQuality === "unconfirmed" ? ` <span class="tf-est">* unconfirmed — inferred, not named in a source${r.tags.partySource ? ` · <a href="${esc(r.tags.partySource)}" target="_blank" rel="noopener noreferrer">closest source</a>` : ""}</span>`
-          : r.tags.partyQuality === "placeholder" ? ` <span class="tf-est">vehicle not named in any source found</span>`
+      [r.mode === "mna" ? "Target" : ROLE_LABEL[dealPartyRole(d)] || "Borrower / company", (r.cp ? coLink(r.cp) : UNKNOWN)
+        + (d.borrower ? (d.borrowerUnconfirmed ? " " + UNCONF : "") : r.tags.partyQuality === "unconfirmed" ? ` <span class="tf-est">* unconfirmed — inferred, not named in a source${r.tags.partySource ? ` · <a href="${esc(r.tags.partySource)}" target="_blank" rel="noopener noreferrer">closest source</a>` : ""}</span>`
+          : r.tags.partyQuality === "placeholder" ? ` <span class="tf-est">no source names the vehicle</span>`
           : r.tags.partySource ? ` <span class="tf-est">researched · <a href="${esc(r.tags.partySource)}" target="_blank" rel="noopener noreferrer">source</a></span>` : "")],
       // Parties in a fixed order (R39m): Borrower / company · Sponsor · Lender(s) · Arranger.
-      ...(r.sponsor ? [["Sponsor", partyLink(r.sponsor, d.sponsorId || (r.role === "sponsor" ? d.managerId : null))]] : []),
+      ...(r.sponsor ? [["Sponsor", partyLink(r.sponsor, d.sponsorId || (r.role === "sponsor" ? d.managerId : null)) + (d.sponsorUnconfirmed ? " " + UNCONF : "")]] : []),
       ...(r.mode === "mna" ? [["Acquirer", mgrLink(d.managerId)]] : r.mode === "structured" ? [["Manager", mgrLink(d.managerId)]] : []),
       ...(r.mode === "mna" ? [] : (() => {
         const ls = r.mode === "structured" ? r.lenders.filter((l) => l.managerId !== d.managerId) : r.lenders;
-        if (!ls.length) return r.mode === "structured" ? [] : [["Lender", `<span class="tf-est">None named in the source</span>`]];
-        const one = (l) => partyLink(l.name, l.managerId) + ` <span class="tf-est">${esc(LROLE[l.role] || "lender")}${l.amount != null ? " · " + esc(fmtAmt({ v: l.amount, ccy: l.ccy || (r.amt && r.amt.ccy) || "USD" })) : ""}</span>`;
+        if (!ls.length) return r.mode === "structured" ? [] : [["Lender", UNKNOWN]];
+        const one = (l) => partyLink(l.name, l.managerId, l.unconfirmed) + ` <span class="tf-est">${esc(LROLE[l.role] || "lender")}${l.unconfirmed ? " · unconfirmed" : ""}${l.amount != null ? " · " + esc(fmtAmt({ v: l.amount, ccy: l.ccy || (r.amt && r.amt.ccy) || "USD" })) : ""}</span>`;
         return [[ls.length > 1 ? "Lenders" : "Lender", ls.map(one).join("<br>")]];
       })()),
       ...(r.arrangers.length ? [[r.arrangers.length > 1 ? "Arrangers" : "Arranger", r.arrangers.map((l) => partyLink(l.name, l.managerId)).join("<br>")]] : []),
