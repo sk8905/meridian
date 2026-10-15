@@ -17,8 +17,6 @@
 // Everything here is pure (rows in → ranked rows out) so the spec can drive it directly.
 // =============================================================================
 
-import { toUsd } from "/credit/js/tx.js";
-
 export const BY = [["lenders", "Lenders"], ["sponsors", "Sponsors"], ["law", "Law firms"], ["fa", "Financial advisers"]];
 export const BY_KEYS = BY.map(([k]) => k);
 // The financial advisers in ADVISER_NAMES (deal-advisers.js); every other name is a law firm.
@@ -27,13 +25,15 @@ export const FIN_ADVISERS = new Set(["Houlihan Lokey", "Rothschild", "PJT Partne
 export const norm = (s) => String(s || "").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/\(.*?\)/g, " ").replace(/[^a-z0-9]+/g, " ").trim();
 
 // A name → tracked-manager index (full name and the name without a bracketed suffix).
-export function managerIndex(managers) {
+// toUsd (credit/js/tx.js) is passed in, not imported: this module also runs under node
+// in tests/tx-league.mjs, where the app's root-absolute /credit/js/ path doesn't resolve.
+export function managerIndex(managers, toUsd = null) {
   const byId = new Map(), byName = new Map();
   for (const m of managers || []) {
     byId.set(m.id, m);
     for (const k of [norm(m.name), norm(String(m.name || "").replace(/\s*\(.*?\)/g, ""))]) if (k && !byName.has(k)) byName.set(k, m);
   }
-  return { byId, byName };
+  return { byId, byName, toUsd };
 }
 
 // The lenders a deal credits: [{ key, id?, name }] — unique per deal (club deals once).
@@ -53,7 +53,7 @@ export function lendersOf(d, idx) {
     for (const l of d.lenders) {
       if (typeof l === "string") { if (idx.byId.has(l)) add(l, ""); else add("", l); }
       else if (l && typeof l === "object") {
-        const own = !anyOwn ? undefined : (l.amount != null ? toUsd({ v: l.amount, ccy: l.ccy || "USD" }) : null);
+        const own = !anyOwn || !idx.toUsd ? undefined : (l.amount != null ? idx.toUsd({ v: l.amount, ccy: l.ccy || "USD" }) : null);
         add(l.managerId || (idx.byId.has(l.id) ? l.id : ""), l.name || "", own);
       }
     }

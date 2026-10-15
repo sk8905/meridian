@@ -29,7 +29,7 @@ await pg.reload({ waitUntil: "load" });
 await pg.waitForSelector("#g-rates .g-stale", { state: "attached", timeout: 8000 });
 const r = await pg.evaluate(() => ({ tiles: document.querySelectorAll("#g-rates .rate-tile").length, txt: (document.querySelector("#g-rates .g-stale") || {}).textContent || "" }));
 check(r.tiles > 0, `cached rate tiles stay on screen when the refetch fails (${r.tiles})`);
-check(/cached values/i.test(r.txt) && /from /.test(r.txt), `a visible label says the values are cached and when from ("${r.txt}")`);
+check(/^Not live · as of /.test(r.txt), `a visible label says the values are not live and as of when ("${r.txt}")`);
 checkErrs(errs, "stale label");
 await ctx.close(); await b.close(); srv.close();
 finish();

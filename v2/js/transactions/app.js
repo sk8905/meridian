@@ -814,7 +814,7 @@ export function mount(host, ctx) {
   // disclosed ≈USD volume over the same enriched (de-duplicated) rows as the deal list.
   // Filters: period (YTD · last 12m · calendar years), region (Europe-first, like the
   // list's scope=eu) and deal type / mode. Aggregation lives in ./league.js.
-  const _mIdx = managerIndex(managers);
+  const _mIdx = managerIndex(managers, toUsd);
   const LG_TYPE_OK = (v) => !!v && (v.startsWith("m:") ? DEAL_MODES.some(([k]) => "m:" + k === v) : v.startsWith("t:") && TX_TYPES.some((t) => "t:" + t.key === v));
   const LG_PERIOD_OK = (v) => v === "ytd" || v === "12m" || (/^\d{4}$/.test(v || "") && YEARS.includes(v));
   const lgInPeriod = (r, v) => v === "ytd" ? r.ts >= Date.UTC(new Date(now).getUTCFullYear(), 0, 1) : v === "12m" ? r.ts >= now - 365 * DAY : r.d.date.slice(0, 4) === v;

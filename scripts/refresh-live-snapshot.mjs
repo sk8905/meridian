@@ -30,6 +30,19 @@ export function useful(path, d) {
   return Object.keys(d).length > 0;
 }
 
+// Per-series carry-forward (fix 2026-10-15): a refresh where one source is down (e.g.
+// FRED returned no ICE BofA OAS) used to replace good spreads with nulls because the
+// payload as a whole was still "useful". Now a row that comes back null keeps the
+// previous capture's value for that row, tagged keptFrom = that capture's savedAt.
+const ROW_LISTS = { "/api/rates": "rates", "/api/eurates": "series", "/api/markets": "markets" };
+const rowKey = (x) => x && (x.id || x.symbol || x.label);
+export function carryForward(path, prev, next) {
+  const k = ROW_LISTS[path];
+  if (!k || !prev || !prev.data || !next || !Array.isArray(next[k]) || !Array.isArray(prev.data[k])) return next;
+  const old = new Map(prev.data[k].filter((x) => x && x.value != null).map((x) => [rowKey(x), x]));
+  return { ...next, [k]: next[k].map((x) => (x && x.value == null && old.has(rowKey(x)) ? { ...old.get(rowKey(x)), keptFrom: old.get(rowKey(x)).keptFrom || prev.savedAt } : x)) };
+}
+
 export function readSnapshot(src) {
   const m = /export const LIVE_SNAPSHOT = (\{[\s\S]*\});\s*$/.exec(src || "");
   try { return m ? JSON.parse(m[1]) : { payloads: {} }; } catch { return { payloads: {} }; }
@@ -56,7 +69,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   for (const p of ENDPOINTS) {
     let d = null;
     try { const r = await W.default.fetch(new Request("https://wire.local" + p), env, ctx); d = r.ok ? await r.json() : null; } catch (e) { console.error(p, String(e).slice(0, 120)); }
-    if (useful(p, d)) { cur.payloads[p] = { savedAt: now, data: d }; n++; console.log(`${p}: refreshed`); }
+    if (useful(p, d)) { cur.payloads[p] = { savedAt: now, data: carryForward(p, cur.payloads[p], d) }; n++; console.log(`${p}: refreshed`); }
     else console.log(`${p}: nothing useful — kept ${cur.payloads[p] ? cur.payloads[p].savedAt : "none"}`);
   }
   if (!n) { console.error("no endpoint refreshed — snapshot left unchanged"); process.exit(2); }

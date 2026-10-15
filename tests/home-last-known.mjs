@@ -1,7 +1,7 @@
 // Home rails never hang on "Loading…" (review 2026-10-15, #1): when /api/rates and
 // /api/markets answer but carry nothing (the harness stubs every /api/* with {}), a
 // first-time viewer (no browser cache) sees the committed last-known values
-// (dashboard/js/live-snapshot.js) with a visible "showing last-known values · <time>".
+// (dashboard/js/live-snapshot.js) with a visible "Not live · as of <time>".
 import { serve, launchChromium, open, WIDE, check, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
@@ -16,7 +16,8 @@ const r = await pg.evaluate(() => ({
   loading: /Loading market rates|Loading markets/.test(document.body.innerText),
 }));
 check(r.rates > 0 && r.mkts > 0, `Key rates and Markets show last-known tiles (${r.rates} / ${r.mkts})`);
-check(/last-known values/i.test(r.rLbl) && /last-known values/i.test(r.mLbl), `each says it is showing last-known values (${r.rLbl})`);
+// R42(d): plain and one line — "Not live · as of <d Mon HH:MM>" (the long reason is its title).
+check(/^Not live · (as of \d|last-known values)/.test(r.rLbl) && /^Not live · (as of \d|last-known values)/.test(r.mLbl), `each says it is not live, with its as-of time (${r.rLbl})`);
 check(!r.loading, "no rail is left on Loading…");
 checkErrs(errs, "home last-known");
 await b.close(); srv.close();

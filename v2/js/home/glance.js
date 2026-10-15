@@ -3672,7 +3672,7 @@ async function fallbackLastKnown(el, path, render) {
   if (!el || el.querySelector(".rate-tile")) return false;
   const lk = await lastKnown(path);
   if (lk.state === "none" || !render(el, lk.data)) return false;
-  if (!el.querySelector(".g-stale")) el.insertAdjacentHTML("beforeend", `<div class="g-stale" role="status">Live update failed — showing ${esc(lastKnownLabel(lk.at).replace(/^Last-known/, "last-known values"))}</div>`);
+  if (!el.querySelector(".g-stale")) el.insertAdjacentHTML("beforeend", `<div class="g-stale" role="status" title="Live update failed — showing the last-known values">Not live · ${esc(lastKnownLabel(lk.at).replace(/^Last-known · /, "as of ").replace(/^Last-known values$/, "last-known values"))}</div>`);
   return true;
 }
 function markStale(el, key) {
@@ -3682,7 +3682,7 @@ function markStale(el, key) {
   const stamp = when ? (when.toDateString() === new Date().toDateString()
     ? when.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
     : when.toLocaleDateString([], { day: "numeric", month: "short" }) + " " + when.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })) : "";
-  el.insertAdjacentHTML("beforeend", `<div class="g-stale" role="status">Live update failed — showing cached values${stamp ? ` from ${esc(stamp)}` : ""}</div>`);
+  el.insertAdjacentHTML("beforeend", `<div class="g-stale" role="status" title="Live update failed — showing cached values">Not live${stamp ? ` · as of ${esc(stamp)}` : " · cached values"}</div>`);
 }
 function renderRates(el, d) {
   const rowsData = (d && d.rates) || [];
@@ -3737,8 +3737,11 @@ function initHormuz() {
   renderHormuz(el, readCache("hormuz"));
   fetch("/api/hormuz", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : Promise.reject()))
-    .then((d) => { if (renderHormuz(el, d)) writeCache("hormuz", d); else if (!el.querySelector(".rate-tile")) el.innerHTML = '<span class="g-loading">Transit data unavailable right now.</span>'; })
-    .catch(() => { if (!el.querySelector(".rate-tile")) el.innerHTML = '<span class="g-loading">Transit data unavailable right now.</span>'; });
+    .then((d) => { if (renderHormuz(el, d)) { writeCache("hormuz", d); setEmpty(false); } else if (!el.querySelector(".rate-tile")) unavailable(); })
+    .catch(() => { if (!el.querySelector(".rate-tile")) unavailable(); });
+  // No data at all → hide the whole panel (home.css #jump-hormuz.g-empty), not a filler line.
+  function setEmpty(on) { const p = el.closest("#jump-hormuz"); if (p) p.classList.toggle("g-empty", on); }
+  function unavailable() { el.innerHTML = '<span class="g-loading">Transit data unavailable right now.</span>'; setEmpty(true); }
 }
 
 // ---- Market open / closed indicator ----------------------------------------

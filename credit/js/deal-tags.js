@@ -1065,7 +1065,7 @@ const T = {
   d1130: {"c": "US", "s": "Real estate", "a": "financing", "p": "Alterra IOS", "r": "borrower"},
   d1131: {"c": "Germany", "s": "Real estate", "a": "financing", "p": "Centerscape", "r": "borrower"},
   d1132: {"c": "UK", "s": "Transport & logistics", "a": null, "p": "Torque Holdings", "r": "borrower"},
-  d1133: {"c":"Japan","s":"Financial services","a":"ev","p":"T&D Financial Life Insurance","r":"borrower"},
+  d1133: {"c":"Asia","s":"Financial services","a":"ev","p":"T&D Financial Life Insurance","r":"borrower"},
   d1134: {"c":"Pan-European","s":"Diversified","a":"fund","p":"RoundShield European Special Opportunities Fund IV","r":"fund"},
   d1135: {"c":"Ireland","s":"Real estate","a":"fund","p":"RoundShield Irish residential real estate fund","r":"fund"},
   d1136: {"c":"Germany","s":"Leisure & hospitality","a":null,"p":"Lodgyslife","r":"borrower"},

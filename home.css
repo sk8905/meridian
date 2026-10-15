@@ -2007,8 +2007,11 @@
    pushing FX off-screen. The earnings well may now SHRINK (its list scrolls inside)
    down to a floor that still shows ~2 companies, so FX stays pinned at the rail base. */
 @media (min-width:1201px){
-  .tui .g-earn-scroll{ flex:0 1 auto; min-height:120px; }
+  .tui .g-earn-scroll{ flex:0 1 auto; min-height:96px; }
   .tui .g-earn{ flex:1 1 auto; min-height:0; }
   .tui .g-earn-body{ flex:1 1 auto; min-height:0; }
-  .tui .g-side > .g-movers-pnl{ min-height:120px; }
+  .tui .g-side > .g-movers-pnl{ min-height:80px; }
 }
+/* An empty Strait of Hormuz panel (no transit data) is hidden rather than taking a
+   rail slot to say so (R5: hide panels with nothing to show) — glance.js initHormuz. */
+.tui #jump-hormuz.g-empty{ display:none; }
