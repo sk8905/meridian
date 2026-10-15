@@ -1321,21 +1321,25 @@ notification badge red (`#ef4444`).
   "See all N" on desktop as well as iPhone** (desktop "See all" is a centred panel);
   Home rails keep fixed widths on every screen (`tests/dashboard-desktop-preview.mjs`). **(h) Rates** show a market-implied path from prediction-
   market odds, labelled as crowd probabilities (`tests/rates-implied.mjs`).
-- **R42 — Offering build (owner-approved 2026-10-15).** **(a) Navigation (R13):** ONE nav, identical on iPhone
-  and desktop — Home · News · Markets · Deals · Profiles (owner correction 2026-10-15).
+- **R42 — Offering build (owner-approved 2026-10-15).** **(a) Navigation (R13):** iPhone Home · News · Markets ·
+  Deals · Profiles; desktop the same WITHOUT News, because desktop Home is the news wire
+  (owner, 2026-10-15).
   Route keys are unchanged (`dashboard` reads **Markets**, `transactions` reads **Deals**).
   Restructuring and Fundraising are folded into Deals: both are chips in the Deals mode bar
   (Fundraising = `#/fundraising`; Restructuring = the hub, which carries the same mode bar
   with Restructuring lit), and Deals stays lit on both (`v2/js/chrome.js` navKeyFor;
   `tests/nav-r13.mjs`). **(b) iPhone heading rows** (Deals modes, the hub's
   sections, Profiles lists, profile tabs, Menu, Markets) are ONE sideways-scrolling row,
-  hidden scrollbar, never clipped labels; a tapped chip scrolls into view. **(c) Header
+  hidden scrollbar, never clipped labels; a tapped chip scrolls into view; the row moves
+  ONLY sideways (`overflow-y:hidden` + `touch-action:pan-x` — overflow-x:auto alone let it
+  drag vertically). **(c) Header
   cluster:** phone Search · Ask Wire · Watchlist · Notifications · Menu; desktop Ask Wire ·
   Watchlist · Notifications + Menu. ★ Watchlist opens "New since last visit" (whatsnew.js;
   badge = COUNT) + "Watchlist" (follow store; empty → suggested European managers + law
   firms). Ask Wire shows suggested questions only when committed data backs them
-  (`tests/header-watchlist.mjs`, `tests/header-ask.mjs`). **(d) Plain labels:** every wire's
-  first day header has a "?" code legend (`feedLegendHTML`; a new code must join it);
+  (`tests/header-watchlist.mjs`, `tests/header-ask.mjs`). **(d) Plain labels:** the wire carries NO "?"
+  (owner 2026-10-15); what every code means is on Menu ▸ Sources (`feedCodesHTML` — a new
+  code must join it);
   live-state badges read live / not live / "as of <d Mon HH:MM>", never SNAPSHOT /
   LAST-KNOWN; the European ≤$15bn tier reads "European mid-market"; the manager tab reads
   "Firm facts" (key `business`) (`tests/feed-legend.mjs`). **(e) Currency honesty (R4):**

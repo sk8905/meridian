@@ -25,6 +25,7 @@
 //       the last health check, and the digest build time.
 // Pure render helpers are exported for the spec (tests/status-page.mjs).
 // =============================================================================
+import { feedCodesHTML } from "/feed.js";
 import { esc } from "/util.js";
 import { useful, lastKnown } from "/v2/js/live-cache.js";
 
@@ -338,6 +339,7 @@ export function statusHTML(state) {
     + sum
     + `<div class="na-menu-recent-h">Needs attention</div><div class="cov-attn" id="v2-cov-attn">${attn}</div>`
     + `<div class="na-menu-recent-h">Start here</div>${rolesHTML()}`
+    + `<div class="na-menu-recent-h" id="cov-codes">What the wire's codes mean</div>${feedCodesHTML({ managers: true })}`
     + sections.map((s) => `<div class="cov-grp" data-sec="${esc(s.id)}"><div class="na-menu-recent-h cov-grp-h">${s.href ? `<a href="${esc(s.href)}">${esc(s.title)}</a>` : esc(s.title)}</div>`
       + s.rows.map((r) => rowHTML(r)).join("") + `</div>`).join("")
     + `</div>`;

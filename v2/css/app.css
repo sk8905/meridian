@@ -321,21 +321,14 @@ html.wr-open, html.wr-open body { overflow: hidden; }
 .na-ask-qs .na-ask-q::before { content: "→ "; color: var(--accent, #fb8b1e); font-family: var(--t-mono, ui-monospace, monospace); }
 .na-ask-qs .na-ask-q:hover { background: var(--head, #0a0a0a); color: var(--ink, #eaf0fb); border-color: var(--border, #262626); }
 
-/* ---- Feed code legend (R3): the "?" on the first day header of every wire ------- */
-.g-feed-legend { position: relative; float: right; margin: -2px 0 -2px 8px; text-transform: none; letter-spacing: 0; font-weight: 400; }
-.g-feed-legend > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px;
-  border: 1px solid currentColor; border-radius: 999px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-weight: 700; line-height: 1; opacity: .85; }
-.g-feed-legend > summary::-webkit-details-marker { display: none; }
-/* While open, lift its (sticky) day header above the later sticky day headers. */
-.g-feed-dayhdr:has(> .g-feed-legend[open]) { z-index: 6; }
-.g-feed-legend[open] > summary { opacity: 1; }
-.g-feed-legend-pop { position: absolute; right: 0; top: calc(100% + 6px); z-index: 20; width: min(300px, calc(100vw - 32px)); max-height: min(55vh, 380px); overflow-y: auto; overscroll-behavior: contain; padding: 8px 10px 10px;
-  background: var(--surface, #111); color: var(--ink, #eaf0fb); border: 1px solid var(--border, #262626); box-shadow: 0 10px 28px rgba(0, 0, 0, .35); }
-.g-feed-legend-pop h4 { margin: 2px 0 6px; font-size: var(--fs-micro); letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #8592ad); }
-.g-feed-legend-pop dl { display: grid; grid-template-columns: 38px 1fr; gap: 5px 8px; margin: 0; align-items: center; }
-.g-feed-legend-pop dt.g-feed-code, .g-feed-legend-pop dt { grid-area: auto; margin: 0; text-align: center; padding: 1px 0; font-family: var(--t-mono); font-size: calc(var(--fs-micro) - 1px); font-weight: 700; }
-.g-feed-legend-pop dd { margin: 0; font-size: var(--fs-body); line-height: 1.35; color: var(--ink, #eaf0fb); }
-.g-feed-legend-pop .g-feed-legend-t { font-family: var(--t-mono); color: var(--muted, #8592ad); }
+/* ---- Feed codes (R3): what the wire's codes mean, on Menu ▸ Sources (feed.js
+   feedCodesHTML). Not on the wire itself — owner 2026-10-15 removed the "?". ------- */
+.g-feed-codes { padding: 4px 0 8px; }
+.g-feed-codes h4 { margin: 8px 0 6px; font-size: var(--fs-micro); letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #8592ad); }
+.g-feed-codes dl { display: grid; grid-template-columns: 44px 1fr; gap: 5px 8px; margin: 0; align-items: center; }
+.g-feed-codes dt.g-feed-code, .g-feed-codes dt { grid-area: auto; margin: 0; text-align: center; padding: 1px 0; font-family: var(--t-mono); font-size: calc(var(--fs-micro) - 1px); font-weight: 700; }
+.g-feed-codes dd { margin: 0; font-size: var(--fs-body); line-height: 1.35; color: var(--ink, #eaf0fb); }
+.g-feed-codes .g-feed-legend-t { font-family: var(--t-mono); color: var(--muted, #8592ad); }
 
 /* Dashboard live-state badge (R3): "live" · "not live" · "as of 14 Oct 09:15" — the
    as-of form carries a time, so it never wraps mid-label. */
@@ -357,6 +350,12 @@ html.wr-open, html.wr-open body { overflow: hidden; }
 @media (max-width: 760px) {
   #pf-chips, #mgr-tabs, .tdet-tabbed > .twire-head .tchips, .na-menu-bar .tchips, .dsh-railnav {
     overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; scrollbar-width: none; overscroll-behavior-x: contain; }
+  /* A sideways chip row moves ONLY sideways (owner 2026-10-15): overflow-x:auto alone
+     makes overflow-y compute to auto, so a row a pixel taller than its box also dragged
+     up and down. Pin the vertical axis and claim only horizontal pans on every row. */
+  #pf-chips, #mgr-tabs, .tdet-tabbed > .twire-head .tchips, .na-menu-bar .tchips, .dsh-railnav,
+  .tx-dash .twire-head .tchips, .rxh-chips, .g-wire-lanechips {
+    overflow-y: hidden; touch-action: pan-x; overscroll-behavior: contain; }
   #pf-chips::-webkit-scrollbar, #mgr-tabs::-webkit-scrollbar, .tdet-tabbed > .twire-head .tchips::-webkit-scrollbar,
   .na-menu-bar .tchips::-webkit-scrollbar, .dsh-railnav::-webkit-scrollbar { display: none; }
   #pf-chips > .tchip, #mgr-tabs > .tchip, .tdet-tabbed > .twire-head .tchips > .tchip, .na-menu-bar .tchips > .tchip, .dsh-railnav > .dsh-navchip {

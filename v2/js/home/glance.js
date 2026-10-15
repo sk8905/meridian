@@ -18,7 +18,7 @@ import { BRIEFINGS } from "/briefings.js";
 import { nbNums } from "/v2/js/nb-format.js";
 import { h, Fragment, signal, effect, batch, mount } from "/v2/js/ui.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, isOwnSite, MONTHS } from "/util.js";
-import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow, feedLegendHTML,
+import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js";
 
 const __KEY = "home";
@@ -2661,7 +2661,7 @@ function renderMgrLane(watchOnly) {
   let out = "", lastMonth = "";
   events.forEach((r) => {
     const mk = String(r.date || "").slice(0, 7);
-    if (mk && mk !== lastMonth) { lastMonth = mk; const [y, mo] = mk.split("-"); out += `<div class="g-feed-dayhdr g-mw-month">${esc((MONTHS[(+mo) - 1] || "") + " " + y)}${out ? "" : feedLegendHTML({ managers: true })}</div>`; }
+    if (mk && mk !== lastMonth) { lastMonth = mk; const [y, mo] = mk.split("-"); out += `<div class="g-feed-dayhdr g-mw-month">${esc((MONTHS[(+mo) - 1] || "") + " " + y)}</div>`; }
     out += mgrEventRow(r);
   });
   const empty = watchOnly
@@ -2695,7 +2695,7 @@ function mergeManagersIntoFeed() {
   let out = "", lastDay = "";
   for (const m of merged) {
     const d = (m.it.date || "").slice(0, 10);
-    if (d && d !== lastDay) { lastDay = d; out += `<div class="g-feed-dayhdr">${esc(fmt(d))}${out ? "" : feedLegendHTML({ managers: true })}</div>`; }
+    if (d && d !== lastDay) { lastDay = d; out += `<div class="g-feed-dayhdr">${esc(fmt(d))}</div>`; }
     out += m.mgr ? mgrEventRow(m.it) : feedRow(m.it);
   }
   setHTML("g-feed", out || feedEmptyHTML("Nothing on the wire yet."));

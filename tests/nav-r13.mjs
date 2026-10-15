@@ -2,7 +2,8 @@
 // nav-r13.mjs — the owner-approved navigation (R13, 2026-10-15).
 //   iPhone bottom bar: Home · News · Markets · Deals · Profiles (Restructuring and
 //     Fundraising are chips inside Deals, so Deals stays lit on the Restructuring hub).
-//   Desktop header: the SAME five (owner correction, 2026-10-15). Restructuring and
+//   Desktop header: the same without News — desktop Home is the news wire (owner
+//   2026-10-15). Restructuring and
 //   Fundraising are folded into Deals, which stays lit on both.
 //   iPhone section heading rows are ONE sideways-scrolling row (no clipped chips).
 // =============================================================================
@@ -25,6 +26,8 @@ const lit = (pg, sel) => pg.evaluate((s) => [...document.querySelectorAll(s)].fi
   check(modes.includes("Restructuring") && modes.includes("Fundraising") && modes.includes("League tables"), `phone: Deals chips include Restructuring · Fundraising · League tables (${modes.join(" · ")})`);
   const row = await pg.$eval("#tx-mode", (e) => ({ sw: e.scrollWidth, cw: e.clientWidth, ox: getComputedStyle(e).overflowX, tops: new Set([...e.children].filter((k) => k.offsetParent).map((k) => Math.round(k.getBoundingClientRect().top))).size }));
   check(row.tops === 1 && row.sw > row.cw && /auto|scroll/.test(row.ox), `phone: Deals chips are one sideways-scrolling row (${JSON.stringify(row)})`);
+  const axis = await pg.$eval("#tx-mode", (e) => ({ oy: getComputedStyle(e).overflowY, ta: getComputedStyle(e).touchAction }));
+  check(axis.oy === "hidden" && axis.ta === "pan-x", `phone: the chip row moves only sideways — no vertical drag (${JSON.stringify(axis)})`);
   await pg.goto(base + "/v2/restructuring/"); await pg.waitForSelector(".mobile-tabbar .mtab");
   await pg.waitForTimeout(500);
   checkEq((await lit(pg, ".mobile-tabbar .mtab")).join(), "transactions", "phone: Deals stays lit on the Restructuring hub");
@@ -43,16 +46,13 @@ const lit = (pg, sel) => pg.evaluate((s) => [...document.querySelectorAll(s)].fi
   const { pg, errs } = await open(browser, DESKTOP, base + "/v2/transactions/");
   await pg.waitForSelector("#wire-header .ps-btn");
   const pills = await pg.$$eval("#wire-header .ps-btn", (els) => els.map((e) => e.textContent.trim()));
-  checkEq(pills.join(" · "), "Home · News · Markets · Deals · Profiles", "desktop: header pills are the agreed nav, same as iPhone");
+  checkEq(pills.join(" · "), "Home · Markets · Deals · Profiles", "desktop: header pills = the iPhone nav without News (desktop Home is the news wire)");
   checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "transactions", "desktop: Deals lit on the deal list");
   await pg.goto(base + "/v2/transactions/#/fundraising"); await pg.waitForSelector("#wire-header .ps-btn"); await pg.waitForTimeout(400);
   checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "transactions", "desktop: Fundraising is part of Deals (Deals lit)");
   await pg.goto(base + "/v2/restructuring/"); await pg.waitForSelector("#wire-header .ps-btn"); await pg.waitForTimeout(400);
   checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "transactions", "desktop: the Restructuring hub is part of Deals (Deals lit)");
   checkEq(await pg.title(), "Wire Restructuring", "desktop: hub title");
-  await pg.click('#wire-header .ps-btn[data-key="news"]');
-  await pg.waitForFunction(() => location.pathname.startsWith("/v2/news"));
-  checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "news", "desktop: News pill opens the news wire");
   await pg.click('#wire-header .ps-btn[data-key="dashboard"]');
   await pg.waitForFunction(() => location.pathname.startsWith("/v2/dashboard"));
   checkEq(await pg.title(), "Wire Markets", "desktop: Markets title");

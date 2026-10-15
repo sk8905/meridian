@@ -256,34 +256,27 @@ const LEGEND_MGR = [
   ["MAND", "mandate", "An investor mandate"],
   ["NEWS", "news", "Other press coverage of the manager"],
 ];
-// opts.managers — also explain the manager-event pills (Home's merged wire).
-export function feedLegendHTML(opts = {}) {
+// What the wire's codes mean — shown on Menu ▸ Sources (owner 2026-10-15: no "?" on the
+// wire itself). opts.managers also explains the manager-event pills (Home's merged wire).
+export function feedCodesHTML(opts = {}) {
   const row = (c, cls, t) => `<dt class="g-feed-code ${cls}">${esc(c)}</dt><dd>${esc(t)}</dd>`;
-  return `<details class="g-feed-legend"><summary aria-label="What do the codes mean?" title="What do the codes mean?">?</summary>`
-    + `<div class="g-feed-legend-pop" role="note"><h4>What the codes mean</h4><dl>`
+  return `<div class="g-feed-codes"><h4>Source codes</h4><dl>`
     + LEGEND_CODES.map(([c, cls, t]) => row(c, cls, t)).join("")
     + `</dl>`
     + (opts.managers ? `<h4>Manager events</h4><dl>` + LEGEND_MGR.map(([c, k, t]) => row(c, "cat-" + k.replace(/&/g, ""), t)).join("") + `</dl>` : "")
     + `<h4>Time column</h4><dl>`
     + `<dt class="g-feed-legend-t">≈</dt><dd>Approximate date — the source gives no exact publication date</dd>`
     + `<dt class="g-feed-legend-t">09:15</dt><dd>Publish time; where the source gives none, the time the story was added to Wire</dd>`
-    + `</dl></div></details>`;
-}
-// A tap anywhere outside an open legend (or Escape) closes it — bound once.
-if (typeof document !== "undefined" && !globalThis.__wfLegendBound) {
-  globalThis.__wfLegendBound = true;
-  const closeLegends = (keep) => document.querySelectorAll("details.g-feed-legend[open]").forEach((d) => { if (d !== keep) d.open = false; });
-  document.addEventListener("click", (e) => closeLegends(e.target && e.target.closest ? e.target.closest("details.g-feed-legend") : null), true);
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLegends(null); });
+    + `</dl></div>`;
 }
 // The day-grouped body: rows newest→oldest, each new day introduced by a date
-// header (the first one carrying the code legend), closed by a quiet end-marker.
+// header, closed by a quiet end-marker.
 export function feedBodyHTML(feed) {
   const rows = stampAddedTimes(feed.slice()).sort(byFeedDesc);
   let lastDay = null;
   return rows.map((o, i) => {
     const d = dayOf(o);
-    const hdr = d !== lastDay ? `<div class="g-feed-dayhdr">${esc(fmtDay(d))}${i === 0 ? feedLegendHTML() : ""}</div>` : "";
+    const hdr = d !== lastDay ? `<div class="g-feed-dayhdr">${esc(fmtDay(d))}</div>` : "";
     lastDay = d;
     return hdr + feedRow(o);
   }).join("") + `<div class="g-feed-end">· end of wire ·</div>`;

@@ -76,8 +76,8 @@ function setupLazyPalette() {
 // selector (All · Research · Managers · Watchlist · Newsletters); it routes to /v2/news/,
 // which the runtime resolves to the Home view in "news mode" (so the feed engine isn't
 // double-mounted) — Home itself now carries Briefing · Markets · Chart · X Feed.
-// Navigation (R13, owner-approved 2026-10-15): ONE nav, identical on iPhone and desktop —
-// Home · News · Markets · Deals · Profiles. Route keys are unchanged (URLs stay
+// Navigation (R13, owner-approved 2026-10-15): iPhone Home · News · Markets · Deals ·
+// Profiles; desktop the same without News (its Home is the news wire). Route keys are unchanged (URLs stay
 // /v2/dashboard/, /v2/transactions/); only the labels read Markets / Deals.
 // Restructuring and Fundraising are folded into Deals: they are chips in the Deals mode
 // bar (Fundraising = /v2/transactions/#/fundraising; Restructuring = the hub at
@@ -85,7 +85,9 @@ function setupLazyPalette() {
 const TABS = [
   ["home", "Home"], ["news", "News"], ["dashboard", "Markets"], ["transactions", "Deals"], ["profiles", "Profiles"],
 ];
-const PLATFORMS = TABS;
+// Desktop drops News (owner 2026-10-15): desktop Home already IS the news wire, so a
+// separate News pill showed the same screen. iPhone keeps both.
+const PLATFORMS = TABS.filter(([k]) => k !== "news");
 // Which header pill / bottom tab is lit for the current view key.
 const navKeyFor = (key) => (key === "restructuring" ? "transactions" : key);
 
