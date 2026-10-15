@@ -25,17 +25,19 @@ import { dealCounterparty, dealSponsor, dealAmount } from "../deal-parse.js";
 import { peersOf, peerDetails } from "../peers.js";
 import {
   eur, pct, fmtDate, link, nameCell,
-  notFound, applyPendingFocus, commitmentsForLp, investorsForFund, fmtAumC, aumNote, usdM, money,
+  notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager, investorsForFund, fmtAumC, aumNote, usdM, money,
+  fmtAumDual, aumDualHTML, fundMoney,
   pageList, feedDedupKey, creditSource,
   _chipMem, chipMemKey, pendingFocus,
 } from "/credit/js/shared.js";
+import { advisersInText } from "../deal-advisers.js";
 
 export let app = null;
 export function __setHost(h) { app = h; }
 // Look ids up INSIDE the current host first: the retired Credit desk can hold a
 // second (hidden) copy of the same page, so a bare document.getElementById could bind
 // to the wrong copy. Falls back to the document for anything outside the host.
-const $id = (id) => (app && app.querySelector && app.querySelector("#" + CSS.escape(id))) || $id(id);
+const $id = (id) => (app && app.querySelector && app.querySelector("#" + CSS.escape(id))) || document.getElementById(id);
 
 // Profile sub-tab ⇄ URL (#/<route>/<id>[/<tab>]): a tab switch REPLACES the history
 // entry (Back still leaves the profile in one step) but records the tab, so a
@@ -124,12 +126,14 @@ export function fundManagerId(id) { const f = fundById[id]; return (f && f.manag
 // The header's AUM figures — the SAME fields, labels and currency as the Managers
 // list columns (Group AUM · Credit AUM), so a number never changes meaning between
 // the list and the profile. The sourced aumText + as-of date ride on the tooltip.
+// Each figure reads in its native currency with the USD equivalent in brackets (R4).
+const groupField = (m) => (m.aumTotal != null ? "aumTotal" : "aum");
 function aumLine(m) {
   if (m.notAum) return "";
-  const g = m.aumTotal != null ? m.aumTotal : m.aum;
+  const g = m[groupField(m)];
   const parts = [];
-  if (g != null) parts.push(`Group AUM ${fmtAumC(g)}`);
-  if (m.aumCredit != null) parts.push(`Credit AUM ${fmtAumC(m.aumCredit)}`);
+  if (g != null) parts.push(`Group AUM ${fmtAumDual(m, groupField(m))}`);
+  if (m.aumCredit != null) parts.push(`Credit AUM ${fmtAumDual(m, "aumCredit")}`);
   if (!parts.length) return "";
   const tip = [m.aumText, m.asOf ? "as of " + m.asOf : "", aumNote(m, m.aumTotal != null ? "aumTotal" : "aum", AUM_FX)].filter(Boolean).join(" · ");
   return ` · <span class="tdet-aum"${tip ? ` title="${esc(tip)}"` : ""}>${esc(parts.join(" · "))}</span>`;
@@ -341,9 +345,9 @@ function fundBodyHTML(f) {
   const rows = [];
   if (f.strategy) rows.push(["Strategy", esc(f.strategy)]);
   if (f.status) rows.push(["Status", esc(f.status)]);
-  if (f.targetSize != null) rows.push(["Target", esc(money(f.targetSize, f.ccy))]);
-  if (f.hardCap != null) rows.push(["Hard cap", esc(money(f.hardCap, f.ccy))]);
-  if (f.raised != null) rows.push([f.evergreen ? "AUM / NAV" : "Raised", esc(money(f.raised, f.ccy)) + (f.estimated ? ' <span class="tf-est">est.</span>' : "")]);
+  if (f.targetSize != null) rows.push(["Target", esc(fundMoney(f.targetSize, f.ccy))]);
+  if (f.hardCap != null) rows.push(["Hard cap", esc(fundMoney(f.hardCap, f.ccy))]);
+  if (f.raised != null) rows.push([f.evergreen ? "AUM / NAV" : "Raised", esc(fundMoney(f.raised, f.ccy)) + (f.estimated ? ' <span class="tf-est">est.</span>' : "")]);
   if (f.deployedPct != null) rows.push(["Deployed", esc(f.deployedPct + "%") + (f.deployedAsOf ? ` <span class="tf-est">${esc(f.deployedAsOf)}</span>` : "")]);
   if (f.targetIRR) rows.push(["Target return", esc(String(f.targetIRR))]);
   const focus = [f.domicile, f.geoFocus, f.sectorFocus].filter(Boolean).map(esc).join(" · ");
@@ -418,8 +422,8 @@ function mgrStats(m) {
     .filter((x) => { const k = feedDedupKey(x); if (seen.has(k)) return false; seen.add(k); return !!x.date; }).length;
   return [
     ["HQ", esc(m.hq || "—")], ["Founded", esc(String(m.founded || "—"))],
-    ["Group AUM", m.notAum ? "n/a" : esc(fmtAumC(m.aumTotal != null ? m.aumTotal : m.aum))],
-    ["Credit AUM", m.aumCredit != null ? esc(fmtAumC(m.aumCredit)) : "—"],
+    ["Group AUM", m.notAum ? "n/a" : esc(fmtAumDual(m, groupField(m)))],
+    ["Credit AUM", m.aumCredit != null ? esc(fmtAumDual(m, "aumCredit")) : "—"],
     ["Strategies", esc((m.strategies || []).join(" · ") || "—")],
     ["Funds (in market)", `${fs.length} (${fs.filter((f) => !f.evergreen && (f.status === "Open" || f.status === "First Close")).length})`],
     ["Listed vehicles / BDCs", String(veh)],
@@ -455,6 +459,82 @@ export function viewCompare(a, b) {
     const na = sel.dataset.side === "a" ? sel.value : a, nb = sel.dataset.side === "b" ? sel.value : (b || "");
     location.hash = `#/compare/${encodeURIComponent(na)}/${encodeURIComponent(nb)}`;
   }));
+}
+
+// ---- "At a glance" (owner review R8) -----------------------------------------
+// A fact strip at the top of the manager page, built ONLY from the record and the
+// sourced items already on it: AUM (native + USD, as-of, source) · strategies · HQ ·
+// latest fund + status · deals in the last 90 days (the most recent linked) · top LPs
+// (commitments) · advisers used (curated `advisers` + firms named as advising in the
+// manager's own deal text, v2/js/deal-advisers.js) · key people (only when the record
+// names people with a role). A fact with no data is omitted, never a placeholder.
+// Phone: a compact 2-column grid. Desktop: one dense strip.
+const _PERSON = /^[A-Z][\p{L}.'’-]+(?:\s+[A-Z][\p{L}.'’-]+){1,3}$/u;
+const _ROLE = /\b(co-?founder|founder|ceo|cio|cfo|coo|chief|chair(?:man|woman)?|president|managing partner|portfolio manager|principal|general counsel)\b/i;
+const _CORP = /\b(plc|ltd|llc|llp|inc|group|partners|management|capital|holdings|float|listed|institutional|insiders|team|employees|bank|asset|investments?)\b/i;
+export function keyPeople(m) {
+  const out = [];
+  for (const o of m.owners || []) {
+    let name = String(o.name || "").trim(), role = "";
+    const par = /^([^()]+?)\s*\(([^)]+)\)\s*$/.exec(name);
+    if (par && _ROLE.test(par[2])) { name = par[1].trim(); role = par[2]; }
+    else if (_ROLE.test(o.stake || "")) role = String(o.stake);
+    else continue;
+    if (_CORP.test(name) || !_PERSON.test(name)) continue;
+    out.push({ name, role: role.replace(/\s*\(.*$/, "").trim() });
+  }
+  for (const p of m.legal || []) if (p.name && _PERSON.test(p.name)) out.push({ name: p.name, role: p.role || "", url: p.linkedin || "" });
+  return out.filter((p, i) => out.findIndex((q) => q.name === p.name) === i);
+}
+export function managerGlance(m, { fs, dealList }) {
+  const facts = [];
+  const fact = (k, v, meta, cls = "") => facts.push(`<div class="mg-f${cls ? " " + cls : ""}"><span class="mg-k">${esc(k)}</span><span class="mg-v">${v}</span>${meta ? `<span class="mg-m">${meta}</span>` : ""}</div>`);
+  const src0 = (m.sources || []).find((s) => s && s.url);
+  // AUM — native with the USD equivalent in brackets; group first, then credit.
+  if (!m.notAum && (m[groupField(m)] != null || m.aumCredit != null)) {
+    const v = [m[groupField(m)] != null ? `<span class="mg-line">${aumDualHTML(m, groupField(m))}${m.aumCredit != null ? ` <span class="mg-l">group</span>` : ""}</span>` : "",
+      m.aumCredit != null ? `<span class="mg-line">${aumDualHTML(m, "aumCredit")} <span class="mg-l">credit</span></span>` : ""].filter(Boolean).join("");
+    const meta = [m.asOf ? "as of " + esc(fmtDate(m.asOf)) : "", src0 ? `<a class="mg-src" href="${esc(src0.url)}" target="_blank" rel="noopener noreferrer" title="${esc(src0.label || "Source")}">src</a>` : ""].filter(Boolean).join(" · ");
+    fact("AUM", v, meta, "mg-aum");
+  }
+  if (m.hq) fact("HQ", esc(m.hq), m.founded ? "Founded " + esc(String(m.founded)) : "");
+  if ((m.strategies || []).length) fact("Strategies", esc(m.strategies.slice(0, 3).join(" · ")), m.strategies.length > 3 ? `+${m.strategies.length - 3} more` : "");
+  const lf = fs[0];
+  if (lf) {
+    const size = lf.evergreen ? "Evergreen" : lf.raised != null ? fundMoney(lf.raised, lf.ccy) : lf.targetSize != null ? fundMoney(lf.targetSize, lf.ccy) + " target" : "";
+    fact("Latest fund", `<button type="button" class="mg-lnk" data-openfund="${esc(lf.id)}">${esc(lf.name)}</button>`,
+      [size ? esc(size) : "", lf.status ? `<span class="mg-st">${esc(lf.status)}</span>` : "", lf.vintage ? esc(String(lf.vintage)) : ""].filter(Boolean).join(" · "));
+  }
+  // Deals in the last 90 days (de-duplicated by story), the 3 most recent linked.
+  const t90 = Date.now() - 90 * 864e5, seen = new Set();
+  const d90 = dealList.filter((d) => d.date && Date.parse(d.date) >= t90 && Date.parse(d.date) <= Date.now() + 864e5)
+    .filter((d) => { const k = feedDedupKey(d); if (seen.has(k)) return false; seen.add(k); return true; })
+    .sort(byDateDesc);
+  fact("Deals · 90d", `<span class="mg-n">${d90.length}</span>${d90.length ? " " + d90.slice(0, 3).map((d) => {
+    const nm = dealCounterparty(d, m.name) || d.headline || "";
+    return `<a class="mg-deal" href="/v2/transactions/#/deal/${esc(encodeURIComponent(d.id))}" title="${esc(d.headline || "")}">${esc(nm.length > 34 ? nm.slice(0, 33) + "…" : nm)}</a>`;
+  }).join(", ") : ""}`, d90.length ? "latest " + esc(fmtDate(d90[0])) : "none tracked", "mg-deals");
+  // Top LPs — investors with disclosed commitments to this manager, most commitments first.
+  const byLp = new Map();
+  commitmentsForManager(m.id).filter((c) => c.lpId && lpById[c.lpId]).forEach((c) => {
+    const e = byLp.get(c.lpId) || { l: lpById[c.lpId], n: 0, last: "" };
+    e.n++; if (String(c.date || "") > e.last) e.last = String(c.date || "");
+    byLp.set(c.lpId, e);
+  });
+  const lpsTop = [...byLp.values()].sort((a, b) => b.n - a.n || b.last.localeCompare(a.last) || a.l.name.localeCompare(b.l.name));
+  if (lpsTop.length) fact("Top LPs", lpsTop.slice(0, 3).map((e) => `<a href="#/lp/${esc(e.l.id)}">${esc(e.l.name.replace(/\s*\(.*?\)\s*/g, " ").trim())}</a>`).join(", "),
+    lpsTop.length > 3 ? `+${lpsTop.length - 3} more · commitments` : "commitments");
+  // Advisers used — curated adviser edges first, then firms named as advising in the
+  // manager's own deal text; each linked to its law-firm profile where covered.
+  const adv = new Map();
+  (m.advisers || []).forEach((a) => { if (a.firm) { const e = adv.get(a.firm) || { n: 0, cur: true }; e.n += 2; adv.set(a.firm, e); } });
+  dealList.forEach((d) => advisersInText(d.summary).forEach((f) => { if (f !== m.name) { const e = adv.get(f) || { n: 0, cur: false }; e.n++; adv.set(f, e); } }));
+  const advTop = [...adv.entries()].sort((a, b) => b[1].n - a[1].n || a[0].localeCompare(b[0]));
+  if (advTop.length) fact("Advisers", advTop.slice(0, 4).map(([f]) => { const fid = lawFirmIdFor(f); return fid ? `<a href="#/firm/${esc(encodeURIComponent(fid))}">${esc(f)}</a>` : esc(f); }).join(", "),
+    [advTop.length > 4 ? `+${advTop.length - 4} more` : "", advTop.some(([, e]) => !e.cur) ? "incl. named on its deals" : ""].filter(Boolean).join(" · "));
+  const ppl = keyPeople(m);
+  if (ppl.length) fact("Key people", ppl.slice(0, 3).map((p) => `${esc(p.name)}${p.role ? ` <span class="mg-l">${esc(p.role.length > 28 ? p.role.slice(0, 27) + "…" : p.role)}</span>` : ""}`).join("<br>"), ppl.length > 3 ? `+${ppl.length - 3} more` : "", "mg-ppl");
+  return facts.length ? `<section class="mgr-glance" aria-label="At a glance">${facts.join("")}</section>` : "";
 }
 
 export function viewManager(id, tab0) {
@@ -497,7 +577,7 @@ export function viewManager(id, tab0) {
   // A fund has no page of its own (retired), so its row EXPANDS in place to the
   // fund's facts, named investors (linked to their profile when covered) and sources —
   // a real destination, instead of a link that redirected back to this same page.
-  const fundSize = (x) => x.evergreen ? "Evergreen" : x.raised != null ? money(x.raised, x.ccy) + (x.status === "Final Close" ? "" : " raised") : (x.targetSize ? money(x.targetSize, x.ccy) + " target" : "—");
+  const fundSize = (x) => x.evergreen ? "Evergreen" : x.raised != null ? fundMoney(x.raised, x.ccy) + (x.status === "Final Close" ? "" : " raised") : (x.targetSize ? fundMoney(x.targetSize, x.ccy) + " target" : "—");
   const fundsList = fs.length
     ? `<ul class="tmini">${fs.map((x) => `<li class="tmini-row clickable fund-exp" id="row-fund-${esc(x.id)}" data-fund="${esc(x.id)}" role="button" tabindex="0" aria-expanded="false"><span class="tmini-t"><span class="tx-caret" aria-hidden="true">▸</span>${esc(x.name)}<span class="tmini-r">${esc(fundSize(x))}</span></span><span class="tmini-m">Vintage ${x.vintage} · ${esc(x.status || x.strategy || "")}</span><div class="fund-body" hidden></div></li>`).join("")}</ul>`
     : "";
@@ -530,7 +610,7 @@ export function viewManager(id, tab0) {
     if (m.filings && m.filings.length) out += `<div class="tpg"><div class="tpg-h">Regulatory &amp; account filings</div><ul class="tmini">${m.filings.map((x) => `<li class="tmini-row"><a class="tmini-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a>${x.date ? `<span class="tmini-m">${esc(x.date)}</span>` : ""}</li>`).join("")}</ul></div>`;
     return out;
   })();
-  // ---- Business tab: Book & business + Advisers + ownership/personnel. Shown
+  // ---- Firm facts tab (key `business`, kept so old links still land): Book & business + Advisers + ownership/personnel. Shown
   // only when there's something to show (render-if-present); also the sole home
   // for the ownership/counsel data (previously computed but never rendered). ----
   const businessPane = bookHTML(m) + advisersHTML(m) + peoplePane;
@@ -564,10 +644,13 @@ export function viewManager(id, tab0) {
   const mgrPeers = peersOf(m, managers, { tags: (x) => x.strategies || [], size: (x) => x.groupAum != null ? x.groupAum : x.aum, n: 5 });
   const mgrPeersDetails = peerDetails(mgrPeers, (e) => `#/manager/${e.id}`, (p) => {
     const s = p.shared[0] || (p.e.strategies || [])[0] || "";
-    const a = p.e.aum != null ? fmtAumC(p.e.aum) : "";
+    const a = p.e.aum != null ? fmtAumDual(p.e, "aum") : "";
     return [s, a].filter(Boolean).join(" · ");
   }, esc);
 
+  // At a glance (R8) — when it renders it carries the AUM and strategies, so the
+  // identity header drops its own AUM text and strategy chips (no duplicate facts).
+  const glanceHTML = managerGlance(m, { fs, dealList: deals.filter(belongs) });
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([["#/", "Managers"], [null, m.name]])}
@@ -575,20 +658,21 @@ export function viewManager(id, tab0) {
         <section class="tcol tcol-c tcol-full tdet-tabbed">
           <div class="tdet-id">
             <h1>${nameCell("manager", m.id, esc(m.name))}</h1>
-            <div class="tdet-sub">${esc(m.hq)} · Founded ${m.founded}${aumLine(m)}</div>
+            <div class="tdet-sub">${esc(m.hq)} · Founded ${m.founded}${glanceHTML ? "" : aumLine(m)}</div>
             ${latestLine(mgrFeed)}
-            ${m.strategies && m.strategies.length ? `<div class="tdet-chips">${m.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>` : ""}
+            ${!glanceHTML && m.strategies && m.strategies.length ? `<div class="tdet-chips">${m.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>` : ""}
             ${mgrPeersDetails}
             <details class="tdet-src-det tdet-compare"><summary>Compare</summary><div class="tdet-src-body">${mgrPeers.map((p) => `<div class="tdet-peer-row"><a class="tdet-peer" href="#/compare/${esc(m.id)}/${esc(p.e.id)}">vs ${esc(p.e.name)}</a></div>`).join("")}<div class="tdet-peer-row"><a class="tdet-peer" href="#/compare/${esc(m.id)}/">vs any manager…</a></div></div></details>
             ${srcDetails(m)}
           </div>
+          ${glanceHTML}
           <header class="tpanel-h twire-head">
             <div class="tchips" id="mgr-tabs">
               <button type="button" class="tchip is-on" data-p="news">News</button>
               <button type="button" class="tchip" data-p="vehicles">Vehicles${vehCount ? " " + vehCount : ""}</button>
               <button type="button" class="tchip" data-p="investments">Investments${investments.length ? " " + investments.length : ""}</button>
               <button type="button" class="tchip" data-p="timeline">Timeline</button>
-              ${hasBiz ? `<button type="button" class="tchip" data-p="business">Business</button>` : ""}
+              ${hasBiz ? `<button type="button" class="tchip" data-p="business">Firm facts</button>` : ""}
             </div>
           </header>
           <div class="tpanes" id="mgr-panes">
@@ -627,15 +711,18 @@ export function viewManager(id, tab0) {
     if (on && !body.dataset.built) { body.innerHTML = fundBodyHTML(fundById[li.dataset.fund] || {}); body.dataset.built = "1"; }
     body.hidden = !on; li.classList.toggle("is-open", on); li.setAttribute("aria-expanded", String(on));
   };
+  const openFund = (fid) => {
+    const li = $id("row-fund-" + fid);
+    const vb = tabs && tabs.querySelector('.tchip[data-p="vehicles"]');
+    if (vb) vb.click();
+    if (li) { toggleFund(li, true); li.scrollIntoView({ block: "center" }); }
+  };
+  // The glance's "Latest fund" opens it in Vehicles, like a fund named on a News row.
+  const glance = app && app.querySelector(".mgr-glance");
+  if (glance) glance.addEventListener("click", (e) => { const j = e.target.closest("[data-openfund]"); if (j) openFund(j.dataset.openfund); });
   if (mgrPanes) mgrPanes.addEventListener("click", (e) => {
     const jump = e.target.closest("[data-openfund]");
-    if (jump) {
-      const li = $id("row-fund-" + jump.dataset.openfund);
-      const vb = tabs && tabs.querySelector('.tchip[data-p="vehicles"]');
-      if (vb) vb.click();
-      if (li) { toggleFund(li, true); li.scrollIntoView({ block: "center" }); }
-      return;
-    }
+    if (jump) { openFund(jump.dataset.openfund); return; }
     const li = e.target.closest("li.fund-exp");
     if (!li || e.target.closest("a") || e.target.closest(".fund-body")) return;
     toggleFund(li);
@@ -764,7 +851,7 @@ export function viewLp(id, tab0) {
   const fundsIn = funds.filter((f) => (f.investors || []).some((i) => i.lpId === l.id) && !commits.some((c) => c.fundId === f.id));
   const mentions = lpMentions(l);
   const kvFig = [
-    ["Total AUM", fmtAumC(l.aum)], ["PC allocation", pct(l.pcAllocationPct)],
+    ["Total AUM", l.aum != null ? fmtAumDual(l, "aum") : fmtAumC(l.aum)], ["PC allocation", pct(l.pcAllocationPct)],
     ["Implied PC AUM", pcAum != null ? "$" + pcAum.toFixed(1) + "bn" : "—"], ["Typical ticket", usdM(l.typicalTicket)],
   ];
   const commitRows = [
@@ -790,7 +877,7 @@ export function viewLp(id, tab0) {
   // Peers: nearest investors by allocator type + strategy overlap + AUM proximity.
   const lpPeers = peersOf(l, lps, { tags: (x) => x.strategies || [], cat: (x) => x.type, size: (x) => x.aum, n: 5 });
   const lpPeersDetails = peerDetails(lpPeers, (e) => `#/lp/${e.id}`, (p) => {
-    const a = p.e.aum != null ? fmtAumC(p.e.aum) : "";
+    const a = p.e.aum != null ? fmtAumDual(p.e, "aum") : "";
     return [p.e.type || "", a].filter(Boolean).join(" · ");
   }, esc);
 
@@ -807,7 +894,7 @@ export function viewLp(id, tab0) {
         <section class="tcol tcol-c tcol-full tdet-tabbed">
           <div class="tdet-id">
             <h1>${nameCell("lp", l.id, esc(l.name))}</h1>
-            <div class="tdet-sub">${esc(l.type)} · ${esc(l.hq)}${l.aum != null ? ` · <span class="tdet-aum"${aumNote(l, "aum", AUM_FX) ? ` title="${esc(aumNote(l, "aum", AUM_FX))}"` : ""}>AUM ${esc(fmtAumC(l.aum))}</span>` : ""}${l.pcAllocationPct != null ? ` · PC allocation ${esc(pct(l.pcAllocationPct))}` : ""}</div>
+            <div class="tdet-sub">${esc(l.type)} · ${esc(l.hq)}${l.aum != null ? ` · <span class="tdet-aum"${aumNote(l, "aum", AUM_FX) ? ` title="${esc(aumNote(l, "aum", AUM_FX))}"` : ""}>AUM ${esc(fmtAumDual(l, "aum"))}</span>` : ""}${l.pcAllocationPct != null ? ` · PC allocation ${esc(pct(l.pcAllocationPct))}` : ""}</div>
             ${latestLine(mentions)}
             ${l.notes ? `<p class="tdet-desc">${esc(l.notes)}</p>` : ""}
             <div class="tdet-chips"><span class="tdet-chip"${l.mandateInferred ? ' title="Inferred from the dates of its latest public commitments"' : ""}>${esc(l.mandateStatus)}${l.mandateInferred ? " (inferred)" : ""}</span>${l.strategies.map((x) => `<span class="tdet-chip">${esc(x)}</span>`).join("")}</div>

@@ -1,5 +1,5 @@
 // Profile DETAIL sub-section nav. On desktop the manager/hedge-fund detail's
-// tabs (News · Vehicles · Investments · Business) render as a SECOND-level left
+// tabs (News · Vehicles · Investments · Firm facts) render as a SECOND-level left
 // rail — nested under the Profiles rail, tinted blue (--wb-txt) to read as
 // sub-sections — with the identity header spanning the top and the panes filling
 // the rest. On phones the SAME tabs stay a horizontal chip bar. Desktop-only, and

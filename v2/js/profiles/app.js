@@ -10,6 +10,7 @@
 // Profiles-owned host per render (see __setProfilesMode in the detail modules).
 
 import { viewBorrower } from "./borrower.js";
+import { peoplePaneHTML } from "./people.js";
 import {
   viewManager, viewClo, viewLp, viewHedgeFund, fundManagerId, viewCompare,
   __setHost as setCreditHost, __setProfilesMode as setCreditPfMode,
@@ -30,7 +31,7 @@ try { localStorage.removeItem("wire.li.v1"); } catch { /* ignore */ }
 export async function mount(host, ctx) {
   // Borrow Credit's and Legal's list builders (mounts them off-screen if needed).
   const [credit, legal] = await Promise.all([ctx.view("credit"), ctx.view("legal")]);
-  const CHIPS = [["managers", "Managers"], ["hedgefunds", "Hedge Funds"], ["investors", "Investors"], ["firms", "Law firms"]];
+  const CHIPS = [["managers", "Managers"], ["hedgefunds", "Hedge Funds"], ["investors", "Investors"], ["firms", "Law firms"], ["people", "People"]];
   host.innerHTML = `
     <div id="pf-list" class="tdash">
       <div class="tdash-grid tdash-1">
@@ -44,6 +45,7 @@ export async function mount(host, ctx) {
             ${credit.buildHedgeFunds()}
             ${credit.buildInvestors()}
             ${legal.buildLawFirms()}
+            ${peoplePaneHTML()}
             <div id="pf-detail" hidden></div>
           </div>
         </section>
@@ -114,12 +116,14 @@ export async function mount(host, ctx) {
     hedgefunds: [["strategy", "Strategy"], ["region", "Region"]],
     investors: [["type", "Type"], ["mandate", "Mandate"]],
     firms: [["tier", "Tier"], ["practice", "Practice"]],
+    // People (R11): hires / departures / promotions across the covered firms.
+    people: [["move", "Move"], ["seniority", "Seniority"], ["period", "Period"], ["kind", "Type"], ["firm", "Firm"]],
   };
   // Shown under "More filters ▸" (the rest are always in the panel).
-  const PF_MORE = { managers: ["band", "mkt"] };
+  const PF_MORE = { managers: ["band", "mkt"], people: ["firm"] };
   const _pfMore = {};
-  const FIXED_ORDER = { band: ["< $1bn", "$1–15bn", "$15–100bn", "> $100bn", "n/a"] };
-  const OPT_LABEL = { mkt: { yes: "Raising now", no: "Not raising" } };
+  const FIXED_ORDER = { band: ["< $1bn", "$1–15bn", "$15–100bn", "> $100bn", "n/a"], period: ["30d", "90d", "12m", "older"], move: ["Hire", "Departure", "Promotion", "Other"], seniority: ["C-suite", "Partner", "MD", "Head", "Director", "Other"] };
+  const OPT_LABEL = { mkt: { yes: "Raising now", no: "Not raising" }, period: { "30d": "Last 30 days", "90d": "Last 90 days", "12m": "Last 12 months", older: "Older" } };
   const pfSel = {};   // pane key → { facet: [values] }
   const selOf = (key) => (pfSel[key] = pfSel[key] || Object.fromEntries((PF_FACETS[key] || []).map(([k]) => [k, []])));
   const rowVals = (tr, k) => (tr.getAttribute("data-f-" + k) || "").split("|").filter(Boolean);
@@ -142,7 +146,7 @@ export async function mount(host, ctx) {
   }
   // ONE row filter per list — the search text, the $1–15bn AUM focus and Following
   // combine (each used to overwrite the others' result).
-  const ROWSEL = { managers: "#mgr-rows tr", hedgefunds: "#hf-rows tr", investors: "#lp-rows tr", firms: "#lf-rows tr" };
+  const ROWSEL = { managers: "#mgr-rows tr", hedgefunds: "#hf-rows tr", investors: "#lp-rows tr", firms: "#lf-rows tr", people: "#pp-rows tr" };
   const FTYPE = { manager: "manager", hf: "hf", lp: "lp", firm: "firm" };
   const dec0 = (x) => { try { return decodeURIComponent(x); } catch { return x; } };
   function rowPasses(pane, tr, except) {
@@ -345,6 +349,7 @@ export async function mount(host, ctx) {
   const rememberList = () => { if (!host.classList.contains("pf-detailing") && !pfList.hidden) _listY[activeTab()] = getY(); };
   function showList(tab) {
     exitDetail();
+    _via = null;
     pfList.hidden = false;
     if (tab) selectChip(tab);
     const y = _listY[activeTab()] || 0;
@@ -379,8 +384,8 @@ export async function mount(host, ctx) {
       const sb = activeSearch(); if (sb) _headRO.observe(sb);
     }
   };
-  const renderCredit = (p, fn) => { rememberList(); selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setCreditHost(pfDetail); setCreditPfMode(true); setY(0); fn(); syncHeadH(); };
-  const renderLegal = (p, fn) => { rememberList(); selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setLegalHost(pfDetail); setLegalPfMode(true); setY(0); fn(); syncHeadH(); };
+  const renderCredit = (p, fn) => { rememberList(); selectChip(_via || p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setCreditHost(pfDetail); setCreditPfMode(true); setY(0); fn(); syncHeadH(); };
+  const renderLegal = (p, fn) => { rememberList(); selectChip(_via || p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setLegalHost(pfDetail); setLegalPfMode(true); setY(0); fn(); syncHeadH(); };
 
   // Hash router (Profiles owns /v2/profiles/#/…). No route → the list, honouring
   // ?tab=; a detail route renders the matching desk view in place.
@@ -439,7 +444,11 @@ export async function mount(host, ctx) {
   // Navigate to a [data-href] row's target: an external/absolute href opens a
   // new tab, an internal hash route renders the profile in place NOW (not via
   // the hashchange event + active-tab guard, which can silently miss).
+  // A row opened from the People list keeps People as the active list, so the ‹ back
+  // control (and the persistent search row above the profile) return to it.
+  let _via = null;
   const goRow = (row) => {
+    _via = row.closest('.tpane[data-pane="people"]') ? "people" : null;
     const href = row.getAttribute("data-href");
     if (!href) return;
     if (row.dataset.ext === "1" || /^https?:/i.test(href)) { (window.__wireRead ? window.__wireRead(href, { title: (row.querySelector(".tmini-t, .tw-head, td") || row).textContent.trim().slice(0, 200) }) : window.open(href, "_blank", "noopener")); return; }
@@ -656,7 +665,7 @@ export async function mount(host, ctx) {
   // Each list's search box filters its rows in place by the row's data-name.
   // Scoped to this host so it never touches the desks' own (hidden) copies.
   host.addEventListener("input", (e) => {
-    const inp = e.target.closest("#mgr-q, #hf-q, #lp-q, #lf-q"); if (!inp) return;
+    const inp = e.target.closest("#mgr-q, #hf-q, #lp-q, #lf-q, #pp-q"); if (!inp) return;
     if (host.classList.contains("pf-detailing")) exitDetail();   // typing a search returns to the list
     filterList(inp.closest(".tpane"));
   });

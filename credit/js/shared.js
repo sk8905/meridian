@@ -9,7 +9,7 @@
 // ./charts.js) with the SAME ?v= token — keep them identical and bump together,
 // or the browser loads data.js twice as separate module instances (blank page).
 // =============================================================================
-import { managers, managerById, lpById, commitments } from "./data.js";
+import { managers, managerById, lpById, commitments, AUM_FX } from "./data.js";
 import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js";
 
 // ----------------------------- formatting utils ----------------------------
@@ -66,6 +66,42 @@ export function aumNote(rec, field, fx) {
   const r = from === "GBP" ? fx.GBPUSD : fx.EURUSD;
   const orig = rec[field] != null && r ? rec[field] / r : null;
   return `restated from ${from === "GBP" ? "£" : "€"}${orig != null ? (orig >= 100 ? Math.round(orig) : orig.toFixed(1)) + "bn" : ""} at the ECB reference rate (${fx.asOf})`;
+}
+// ---- Currency honesty (owner review R4) --------------------------------------------
+// A figure reads in its NATIVE currency with the USD equivalent in brackets —
+// "€53.5bn ($59.9bn)" — wherever the record evidences the native currency; where it
+// doesn't, USD only. Manager / investor AUM is STORED in USD (R29) and `aumFrom` names
+// the fields that were restated from €/£ — the native figure is recovered at the same
+// ECB reference rate (AUM_FX) the restatement used, so the pair is exactly the reported
+// figure and its stored USD equivalent. Fund sizes are stored as reported in `ccy`.
+const FX_SIGN = { EUR: "€", GBP: "£", USD: "$" };
+export const fxToUsd = (ccy) => (ccy === "USD" ? 1 : ccy === "EUR" ? AUM_FX.EURUSD : ccy === "GBP" ? AUM_FX.GBPUSD : null);
+// { usd: $bn number|null, native: "€53.5bn"|null, text: "€53.5bn ($59.9bn)"|"$59.9bn"|"—" }
+export function aumParts(rec, field) {
+  const usd = rec && rec[field] != null && isFinite(rec[field]) ? Number(rec[field]) : null;
+  if (usd == null) return { usd: null, native: null, text: "—" };
+  const from = rec.aumFrom && rec.aumFrom[field];
+  const r = from && from !== "USD" ? fxToUsd(from) : null;
+  const native = r ? fmtBn(usd / r, FX_SIGN[from]) : null;
+  return { usd, native, text: native ? `${native} (${fmtBn(usd)})` : fmtBn(usd) };
+}
+export const fmtAumDual = (rec, field) => aumParts(rec, field).text;
+// The same, as markup: the native figure leads, the USD equivalent is the muted bracket.
+export function aumDualHTML(rec, field) {
+  const p = aumParts(rec, field);
+  return p.native ? `<span class="ccy-dual"><span class="ccy-nat">${p.native}</span> <span class="ccy-usd">(${fmtBn(p.usd)})</span></span>` : p.text;
+}
+// A fund-size figure (millions, in the fund's own `ccy`): native with USD in brackets
+// for €/£ funds, USD alone for $ funds, native alone for a currency with no reference
+// rate (CAD/CHF/SEK…). Without a `ccy` the figure keeps the historic money() label.
+export function fundMoney(m, ccy) {
+  if (m == null) return "Undisclosed";
+  if (!ccy) return money(m, ccy);
+  const bn = m / 1000;
+  if (ccy === "USD") return fmtBn(bn);
+  const r = fxToUsd(ccy);
+  const sign = FX_SIGN[ccy] || CCY_SIGN[ccy] || ccy + " ";
+  return r ? `${fmtBn(bn, sign)} (${fmtBn(bn * r)})` : fmtBn(bn, sign);
 }
 // A USD amount in $m (LP tickets).
 export const usdM = (m) => (m == null ? "Undisclosed" : "$" + (m >= 1000 ? (m / 1000).toFixed(m % 1000 === 0 ? 0 : 1) + "bn" : m + "m"));

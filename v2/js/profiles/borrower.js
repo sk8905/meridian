@@ -41,6 +41,30 @@ async function ukRegistry(name) {
   } catch { return null; }
 }
 
+// Share: the system share sheet where the browser has one (iPhone), else copy the
+// page URL with a small "Link copied" toast (the app-wide .wire-toast style).
+let _toastEl = null, _toastT = null;
+function toast(msg) {
+  if (!_toastEl || !document.body.contains(_toastEl)) { _toastEl = document.createElement("div"); _toastEl.className = "wire-toast"; _toastEl.setAttribute("role", "status"); document.body.appendChild(_toastEl); }
+  _toastEl.textContent = msg;
+  _toastEl.classList.add("on");
+  clearTimeout(_toastT); _toastT = setTimeout(() => _toastEl.classList.remove("on"), 1600);
+}
+function copyText(t) {
+  if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(t);
+  return new Promise((res, rej) => {
+    const ta = document.createElement("textarea"); ta.value = t; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand("copy"); } catch { ok = false; }
+    ta.remove(); if (ok) res(); else rej(new Error("copy failed"));
+  });
+}
+export function shareBorrower(name) {
+  const url = location.href;
+  if (navigator.share) { navigator.share({ title: `${name} — Wire`, url }).catch(() => {}); return; }
+  copyText(url).then(() => toast("Link copied")).catch(() => toast("Couldn't copy the link"));
+}
+
 export async function viewBorrower(host, rawName, base = "/v2") {
   const name = coreName(rawName), k = key(name);
   const ds = borrowerDeals(name);
@@ -73,7 +97,7 @@ export async function viewBorrower(host, rawName, base = "/v2") {
   host.innerHTML = `
     <div class="tdash"><div class="tdash-grid tdash-1"><section class="tcol tcol-c tcol-full">
       <div class="tdet-id" data-borrower="${esc(name)}">
-        <h1>${esc(name)}</h1>
+        <div class="co-head"><h1>${esc(name)}</h1><button type="button" class="tfocus-btn co-share" aria-label="Share this borrower page" title="Share this page">Share</button></div>
         <div class="tdet-sub">Borrower / company · ${ds.length} deal${ds.length === 1 ? "" : "s"} · ${alerts.length + cases.length + rx.length} legal record${alerts.length + cases.length + rx.length === 1 ? "" : "s"}</div>
         ${facts.length ? `<ul class="tbiz">${facts.map(([a, v]) => `<li><span class="tbiz-k">${esc(a)}</span><span class="tbiz-v">${v}</span></li>`).join("")}</ul>` : ""}
       </div>
@@ -81,6 +105,8 @@ export async function viewBorrower(host, rawName, base = "/v2") {
       ${sec("Legal — plans, judgments & alerts", alerts.length + cases.length + rx.length, legalBody)}
       <div class="tpg" id="co-uk"><div class="tpg-h">UK registry (Companies House)</div><p class="tw-empty muted small">Looking up…</p></div>
     </section></div></div>`;
+  const sh = host.querySelector(".co-share");
+  if (sh) sh.addEventListener("click", () => shareBorrower(name));
   const uk = await ukRegistry(name);
   const box = host.querySelector("#co-uk");
   if (!box) return;

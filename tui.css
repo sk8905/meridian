@@ -653,7 +653,8 @@
   #pf-detail .tdet-tabbed {
     display: grid; column-gap: 12px; padding-right: 12px; align-items: start;
     grid-template-columns: 150px minmax(0, 1fr);
-    grid-template-areas: "id id" "nav panes"; }
+    grid-template-areas: "id id" "glance glance" "nav panes"; }
+  #pf-detail .tdet-tabbed > .mgr-glance { grid-area: glance; }
   #pf-detail .tdet-tabbed > .tdet-id { grid-area: id; }
   #pf-detail .tdet-tabbed > .tpanes { grid-area: panes; overflow: visible; min-height: 0; }
   #pf-detail .tdet-tabbed > .twire-head {
@@ -1435,6 +1436,61 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
   #pf-panes .pf-cards tbody td.pf-c-meta { display: inline; order: 3; font-size: var(--fs-micro); color: var(--muted); white-space: nowrap; max-width: 60%; overflow: hidden; text-overflow: ellipsis; }
   #pf-panes .pf-cards tbody td.pf-c-meta .pf-act-l { display: inline; }
   #pf-panes .pf-cards tbody td.pf-c-meta .pf-nil { display: none; }
+}
+
+/* ---- Currency honesty (R4): native figure, USD equivalent as a muted bracket ------- */
+.ccy-usd { color: var(--muted); font-weight: 400; }
+.ccy-dual { white-space: nowrap; }
+
+/* ---- Manager "at a glance" (R8): a fact strip at the top of the manager page.
+   Phone: compact 2-column grid. Desktop: ONE dense strip (the facts share the width). */
+.mgr-glance { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0;
+  background: var(--surface); border-bottom: 1px solid var(--border); }
+.mgr-glance .mg-f { display: flex; flex-direction: column; gap: 1px; min-width: 0; padding: 7px var(--m-gutter, 12px);
+  border-top: 1px solid var(--border); }
+.mgr-glance .mg-f:nth-child(odd) { border-right: 1px solid var(--border); }
+.mgr-glance .mg-k { font-family: var(--t-mono); font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: .04em; color: var(--faint); }
+.mgr-glance .mg-v { font-size: var(--fs-body); line-height: 1.35; color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.mgr-glance .mg-m { font-size: var(--fs-micro); color: var(--muted); font-variant-numeric: tabular-nums; }
+.mgr-glance .mg-l { font-size: var(--fs-micro); color: var(--muted); }
+.mgr-glance .mg-n { font-weight: 700; }
+.mgr-glance .mg-line { display: block; white-space: nowrap; }
+.mgr-glance a, .mgr-glance .mg-lnk { color: var(--ink); text-decoration: none; }
+.mgr-glance .mg-lnk { background: none; border: 0; padding: 0; font: inherit; text-align: left; cursor: pointer; }
+@media (hover: hover) { .mgr-glance a:hover, .mgr-glance .mg-lnk:hover { color: var(--wb-txt, #4aa3f0); } }
+.mgr-glance .mg-src { color: var(--muted); font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: .03em; border: 1px solid var(--border); padding: 0 3px; }
+@media (min-width: 761px) {
+  .mgr-glance { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(min-content, 1fr); }
+  .mgr-glance .mg-f { border-top: 0; border-right: 1px solid var(--border); padding: 8px 12px; }
+  .mgr-glance .mg-f:last-child { border-right: 0; }
+}
+
+/* ---- Borrower page: Share (native share sheet, else copy link + toast) ------------- */
+.co-head { display: flex; align-items: flex-start; gap: 10px; }
+.co-head h1 { flex: 1 1 auto; min-width: 0; }
+.co-head .co-share { flex: 0 0 auto; }
+
+/* ---- Profiles ▸ People (R11): hires / departures / promotions ---------------------- */
+.pp-tbl td.pp-date { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.pp-tbl .pp-hl { color: var(--muted); }
+.pp-tbl .pp-arr { color: var(--faint); }
+.pp-tbl .pp-mv { font-family: var(--t-mono); font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.pp-tbl .pp-mv-hire { color: var(--ink); }
+.pp-tbl .pp-src { color: var(--muted); font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: .03em; border: 1px solid var(--border); padding: 0 3px; white-space: nowrap; text-decoration: none; }
+@media (min-width: 761px) {
+  .pp-tbl { table-layout: fixed; width: 100%; }
+  .pp-tbl th:nth-child(1) { width: 20%; } .pp-tbl th:nth-child(2) { width: 112px; } .pp-tbl th:nth-child(3) { width: 104px; }
+  .pp-tbl th:nth-child(4) { width: 25%; } .pp-tbl th:nth-child(5) { width: 80px; } .pp-tbl th:nth-child(6) { width: 22%; }
+  .pp-tbl th:nth-child(7) { width: 150px; }
+  .pp-tbl td { overflow: hidden; text-overflow: ellipsis; }
+  .pp-tbl td.tl-nm { max-width: none; white-space: nowrap; }
+  .pp-tbl .pp-src { display: inline-block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; }
+}
+@media (max-width: 760px) {
+  #pf-panes .pp-tbl tbody td.pp-src-c { display: inline; order: 3; }
+  /* Five list chips (… · Law firms · People) — content-sized so every label stays on
+     one line inside 390px (R2d b). */
+  #pf-chips .tchip { flex: 1 1 auto; white-space: nowrap; padding: 0 4px; }
 }
 
 

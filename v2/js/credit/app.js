@@ -14,7 +14,7 @@ import {
   eur, pct, fmtDate, link, notFound,
   FOLLOW_KEY, FOLLOW_TYPES, follows, followList, followCount, nameCell, toggleFollow, syncFollows,
   creditSource, feedDedupKey,
-  applyPendingFocus, setPendingFocus, _chipMem, chipMemKey, fmtAumC, aumNote, usdM,
+  applyPendingFocus, setPendingFocus, _chipMem, chipMemKey, fmtAumC, aumNote, usdM, aumDualHTML,
 } from "/credit/js/shared.js";
 import { targetFit, TIER_RANK, TARGET_LABEL } from "/credit/js/target.js";
 import { viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js";
@@ -409,8 +409,9 @@ function managersPaneHTML() {
     + `<td class="tl-nm">${esc(r.m.name)}</td>`
     + `<td class="tl-hq pf-c-meta">${esc(r.m.hq || "")}</td>`
     + `<td class="tl-fit pf-c-meta" data-sort="${TIER_RANK[r.tier]}" title="Target market fit — European, ≤ $15bn, a 15%+ strategy">${esc(TARGET_LABEL[r.tier])}</td>`
-    + `<td class="tl-n pf-c-main" title="${esc([r.m.aumText, r.m.asOf ? "as of " + r.m.asOf : "", aumNote(r.m, r.m.aumTotal != null ? "aumTotal" : "aum", AUM_FX)].filter(Boolean).join(" · "))}">${r.aum == null ? "n/a" : esc(fmtAumC(r.aum))}</td>`
-    + `<td class="tl-n"${aumNote(r.m, "aumCredit", AUM_FX) ? ` title="${esc(aumNote(r.m, "aumCredit", AUM_FX))}"` : ""}>${r.m.aumCredit != null ? esc(fmtAumC(r.m.aumCredit)) : "—"}</td>`
+    // Native currency with the USD equivalent in brackets (R4); sorts on the USD figure.
+    + `<td class="tl-n pf-c-main"${r.aum != null ? ` data-sort="${r.aum}"` : ""} title="${esc([r.m.aumText, r.m.asOf ? "as of " + r.m.asOf : "", aumNote(r.m, r.m.aumTotal != null ? "aumTotal" : "aum", AUM_FX)].filter(Boolean).join(" · "))}">${r.aum == null ? "n/a" : aumDualHTML(r.m, r.m.aumTotal != null ? "aumTotal" : "aum")}</td>`
+    + `<td class="tl-n"${r.m.aumCredit != null ? ` data-sort="${r.m.aumCredit}"` : ""}${aumNote(r.m, "aumCredit", AUM_FX) ? ` title="${esc(aumNote(r.m, "aumCredit", AUM_FX))}"` : ""}>${r.m.aumCredit != null ? aumDualHTML(r.m, "aumCredit") : "—"}</td>`
     + `<td class="tl-n">${r.nf}</td>`
     + `<td class="tl-n">${r.live || ""}</td>`
     + actCell(r.act)
@@ -492,7 +493,7 @@ function investorsPaneHTML() {
     + `<td class="tl-nm">${esc(l.name)}</td>`
     + `<td class="tl-hq pf-c-meta">${esc(l.hq || "")}</td>`
     + `<td class="pf-c-meta">${esc(l.type || "")}</td>`
-    + `<td class="tl-n pf-c-main"${aumNote(l, "aum", AUM_FX) ? ` title="${esc(aumNote(l, "aum", AUM_FX))}"` : ""}>${l.aum == null ? "—" : esc(fmtAumC(l.aum))}</td>`
+    + `<td class="tl-n pf-c-main"${l.aum != null ? ` data-sort="${l.aum}"` : ""}${aumNote(l, "aum", AUM_FX) ? ` title="${esc(aumNote(l, "aum", AUM_FX))}"` : ""}>${l.aum == null ? "—" : aumDualHTML(l, "aum")}</td>`
     + `<td class="tl-n">${l.pcAllocationPct == null ? "—" : pct(l.pcAllocationPct)}</td>`
     + `<td class="tl-n">${l.typicalTicket == null ? "—" : usdM(l.typicalTicket)}</td>`
     + `<td class="tl-mnd">${mandateBadge(l.mandateStatus)}</td></tr>`;
