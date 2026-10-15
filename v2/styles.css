@@ -12,4 +12,5 @@
 @import "../legal/css/styles.css";
 @import "../macro/css/styles.css";
 @import "../dashboard.css";
+@import "./css/restructuring.css";
 @import "../feed.css";
