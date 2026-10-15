@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-15",
-  time: "05:12 BST",
+  time: "07:15 BST",
     lede: "A global AI-led sell-off deepened overnight in Asia after hot US CPI, while Treasuries held near 5.2% as traders judged an October Fed hike still unlikely.",
   bullets: [
     { html: "<strong>Macro &mdash; US CPI at 3.7% in September was hotter than expected, and a Fed hike at this month&rsquo;s FOMC is now viewed as a coin-flip,</strong> though Bloomberg&rsquo;s Authers judges a hike still unlikely given buyers for 5.2% 10-year yields.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-15/hot-inflation-isn-t-playing-along-with-trump", srcName: "Bloomberg", date: "2026-10-15" },
