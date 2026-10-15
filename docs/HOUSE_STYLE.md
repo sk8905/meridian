@@ -1163,7 +1163,8 @@ notification badge red (`#ef4444`).
   panel: Managers → Managers (All · $1–15bn · Target) · Strategy · Region; More → AUM band ·
   In market · Show & sort (★ Following, sort). Hedge funds → AUM · Strategy · Region ·
   Views (Monitor, Cross-holdings). Investors → Type · Mandate; Law firms → Tier · Practice.
-  The bar's button is **Target** on Managers and **$1–15bn** on Hedge funds. Managers and
+  The bar's button is **Target** on Managers and **$1–15bn** on Hedge funds (desktop; on
+  iPhone it lives only in the Filters sheet, R44e). Managers and
   Hedge funds carry a sortable **90d** column (tracked deals + news in 90 days; tooltip =
   latest date). Phone lists are **card rows**; their sort sits in the panel. The card rows
   carry no HQ (R44e) — it stays in the desktop table and on each profile page. **(j) Credits & BDCs live on Dashboard ▸ Credit** (`v2/js/credit-roster.js`, full-width
