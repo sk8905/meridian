@@ -20,7 +20,7 @@ import {
 } from "/legal/js/shared.js";
 // The watchlist (follow) store is shared app-wide and lives in credit/js/shared.js —
 // a law firm is followable too, so its profile gets the same ☆ star (type "firm").
-import { nameCell } from "/credit/js/shared.js";
+import { nameCell, fmtBn } from "/credit/js/shared.js";
 import { peersOf, peerDetails } from "../peers.js";
 import { latestLine } from "../profile-tabs.js";
 
@@ -152,7 +152,7 @@ const recText = (o) => { try { return JSON.stringify(o); } catch { return ""; } 
 // London-office figure formatters (mirror the Law Firms league table). Revenue in
 // £m → £Xm/£X.XXbn; PEP in the reported currency ($ for US-firm global figures).
 const lfCcy = (basis) => /\$|US\$|USD/.test(basis || "") ? "$" : "£";
-const lfMoney = (v, basis) => v == null ? "—" : lfCcy(basis) + (v >= 1000 ? (v / 1000).toFixed(2) + "bn" : Math.round(v) + "m");
+const lfMoney = (v, basis) => v == null ? "—" : fmtBn(v / 1000, lfCcy(basis));   // £m in → one money format (R2d)
 const lfPep = (p, basis) => p == null ? "—" : lfCcy(basis) + (p >= 1 ? p.toFixed(2) + "m" : Math.round(p * 1000) + "k");
 // Deal dates may be full (YYYY-MM-DD), month-only (YYYY-MM) or year-only.
 const PC_MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

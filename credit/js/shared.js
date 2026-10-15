@@ -32,12 +32,18 @@ export const fmtAum = (n) => {
 // restated once at the ECB reference rates in AUM_FX (credit/js/data.js); the record's
 // `aumFrom` names the fields restated and their original currency, so the tooltip can
 // say so.
-export const fmtAumC = (n, ccy = "$") => {
-  if (n == null) return "—";
-  if (n >= 1000) return `${ccy}${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;
+// ONE money format for every list/profile figure (R2d): 3 significant figures, no
+// padded zeros — $228bn · $13.4bn · $8.95bn · $2.9bn · $1.1tn · $450m. Managers, hedge
+// funds, investors and law firms all print through this, so a column never mixes
+// "$227.60bn" with "$14bn".
+export const fmtBn = (n, ccy = "$") => {
+  if (n == null || !isFinite(n)) return "—";
+  const trim = (x, dp) => String(+x.toFixed(dp));
+  if (n >= 1000) return `${ccy}${trim(n / 1000, n >= 10000 ? 1 : 2)}tn`;
   if (n < 1) return `${ccy}${Math.round(n * 1000)}m`;
-  return `${ccy}${n}bn`;
+  return `${ccy}${trim(n, n >= 100 ? 0 : n >= 10 ? 1 : 2)}bn`;
 };
+export const fmtAumC = (n, ccy = "$") => fmtBn(n, ccy);
 // "$9.4bn · restated from €8.4bn at ECB 13 Oct 2026" style provenance for a tooltip.
 export function aumNote(rec, field, fx) {
   const from = rec && rec.aumFrom && rec.aumFrom[field];

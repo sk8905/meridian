@@ -53,6 +53,23 @@ for (const [label, url, sel, inner, act] of PAGES) {
   check(hs.length >= 4 && hs.every((n) => n === 1), `phone: every profile sub-tab label is on one line (${hs.join(",")})`);
   await ctx.close();
 }
+// One money format across the Profiles lists (no "$227.60bn" padded zeros next to "$14bn"),
+// and the hedge-fund Performance line never repeats its as-of year ("in 2025 2025").
+{
+  const { ctx, pg } = await open(b, PHONE, base + "/v2/profiles/#/?tab=hedgefunds");
+  await pg.waitForTimeout(1800);
+  const figs = [];
+  for (const tab of ["managers", "hedgefunds", "investors", "firms"]) {
+    await pg.evaluate((t) => { location.hash = "#/?tab=" + t; }, tab); await pg.waitForTimeout(700);
+    figs.push(...await pg.evaluate(() => [...document.querySelectorAll("#pf-panes td.pf-c-main, #pf-panes td.tl-aum")].filter((e) => e.offsetParent).slice(0, 12).map((e) => e.textContent.trim())));
+  }
+  const bad = figs.filter((t) => /\.\d*0(bn|tn)$/.test(t) || /\d{3,}\.\d+bn$/.test(t));
+  check(figs.length > 20 && bad.length === 0, `phone: list money uses one 3-sig-fig format (${bad.slice(0, 4).join(", ") || figs.slice(0, 4).join(", ")})`);
+  await pg.evaluate(() => { location.hash = "#/hf/h1"; }); await pg.waitForTimeout(900);
+  const perf = await pg.evaluate(() => ([...document.querySelectorAll("#pf-detail .tdet-desc")].map((e) => e.textContent).find((t) => /^Performance/.test(t)) || ""));
+  check(perf && !/\b(\d{4})\s+\1\b/.test(perf), `phone: hedge-fund Performance line has no repeated year (${perf.slice(0, 60)})`);
+  await ctx.close();
+}
 // Light theme: the "news" slate is the darker light-theme value, not the dark-theme tint.
 {
   const { ctx, pg } = await open(b, PHONE, base + "/v2/news/");

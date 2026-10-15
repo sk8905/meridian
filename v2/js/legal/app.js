@@ -15,6 +15,7 @@ import {
 import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js";
 import { esc, MONTHS, byDateDesc, JUDGMENT_SOURCES, srcHost } from "/util.js";
+import { fmtBn } from "/credit/js/shared.js";
 
 export function mount(host, ctx) {
   const app = host;
@@ -313,7 +314,7 @@ function casesPane() {
 // (barristers' chambers are excluded).
 // Currency from the figure's basis string (US firms report global $ figures).
 const lfCcy = (basis) => /\$|US\$|USD/.test(basis || "") ? "$" : "£";
-const lfMoney = (v, basis) => v == null ? "—" : lfCcy(basis) + (v >= 1000 ? (v / 1000).toFixed(2) + "bn" : Math.round(v) + "m");
+const lfMoney = (v, basis) => v == null ? "—" : fmtBn(v / 1000, lfCcy(basis));   // £m in → one money format (R2d)
 const lfPep = (p, basis) => p == null ? "—" : lfCcy(basis) + (p >= 1 ? p.toFixed(2) + "m" : Math.round(p * 1000) + "k");
 function lawFirmRow(f) {
   const L = f.london || {};

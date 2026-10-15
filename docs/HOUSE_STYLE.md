@@ -52,7 +52,9 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   the News lanes share the width like the Home and Dashboard tabs, and profile sub-tabs
   (`News · Vehicles 32 · Investments 46 · …`) never wrap. **(c) Theme-true colours:** a
   colour token differs between light and dark when the dark tint is unreadable on white
-  (`--t-news` is `#8aa0c8` dark / `#4f6690` light). Spec: `tests/phone-consistency.mjs`.
+  (`--t-news` is `#8aa0c8` dark / `#4f6690` light). **(d) One money format:** every list /
+  profile figure prints through `fmtBn` (`credit/js/shared.js`) — 3 significant figures, no
+  padded zeros: `$228bn · $13.4bn · $8.95bn · £2.9bn · $1.13tn · $450m`. Spec: `tests/phone-consistency.mjs`.
 - **R3 — Four-column reading frame on Home** (desktop): markets rail
   (`.g-side`) · aggregated feed (`.g-feed-wrap`) · manager wire (`.g-side3`) ·
   macro rail (`.g-side2`). **Every rail is exactly the viewport height** — pinned

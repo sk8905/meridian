@@ -434,8 +434,8 @@ function hedgeFundsPaneHTML() {
   const hfSec = (cik) => `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${cik}&type=13F-HR&dateb=&owner=include&count=40`;
   const hfAum = (f) => f.aum == null ? "—"
     : (f.aumSource
-      ? `<a href="${esc(f.aumSource)}" target="_blank" rel="noopener noreferrer" title="AUM source (${esc(f.aumAsOf || "")})">$${esc(f.aum.toFixed(2))}bn</a>`
-      : `$${esc(f.aum.toFixed(2))}bn`);
+      ? `<a href="${esc(f.aumSource)}" target="_blank" rel="noopener noreferrer" title="AUM source (${esc(f.aumAsOf || "")})">${esc(fmtAumC(f.aum))}</a>`
+      : esc(fmtAumC(f.aum)));
   const hfFiling = (f) => f.cik
     ? `<a href="${esc(hfSec(f.cik))}" target="_blank" rel="noopener noreferrer" title="Latest SEC 13F-HR (CIK ${esc(f.cik)})">13F-HR</a>`
     : (f.filing
