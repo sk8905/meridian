@@ -8,18 +8,13 @@
    ============================================================================= */
 .rxh { padding:0 0 40px; }
 
-/* ---- Section chips: the Deals mode-bar look; one row, never wraps ------------- */
+/* ---- Deals mode bar (the hub is part of Deals): one row, never wraps ---------- */
 .rxh-nav { background:var(--t-head, var(--head)); }
 .rxh-chips { flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden; scrollbar-width:none; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; }
 .rxh-chips::-webkit-scrollbar { display:none; }
-.rxh-chips .tchip { flex:0 0 auto; white-space:nowrap; padding:0 12px; font:inherit; font-size:var(--fs-body); }
-.rxh-back { color:var(--t-mut); border-right:1px solid var(--t-grid); }
+.rxh-chips .tchip { flex:1 0 auto; white-space:nowrap; padding:0 12px; font:inherit; font-size:var(--fs-body); text-decoration:none; display:inline-flex; align-items:center; justify-content:center; }
 @media (min-width:761px) {
-  /* Desktop: the hub is its own header pill, so no "‹ Deals" crumb; the chip row
-     pins to the top of the hub's own scroll area. */
-  .rxh-back { display:none; }
   .rxh-nav { position:sticky; top:0; z-index:3; height:var(--chip-h, 34px); }
-  .rxh-chips .tchip { flex:1 1 0; }
 }
 
 /* ---- Title strip ---------------------------------------------------------------- */
@@ -32,10 +27,13 @@
 .rxh-card { min-width:0; scroll-margin-top:calc(var(--wire-head-h, 57px) + var(--chip-h, 34px) + 8px); }
 @media (min-width:761px) {
   .rxh-card { scroll-margin-top:calc(var(--chip-h, 34px) + 8px); }
-  /* Balanced columns (~460px each): cards keep their natural height and stack with
-     no row gaps; a card never splits across columns. */
-  .rxh-grid { display:block; columns:460px; column-gap:10px; padding:10px; }
-  .rxh-grid > .rxh-card { break-inside:avoid; margin:0 0 10px; }
+  /* Even, aligned cards (owner 2026-10-15): a grid whose cards in a row share one
+     height, and one fixed row height inside every card, so ten rows + "See all"
+     line up across the page. */
+  .rxh-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(420px, 1fr)); gap:10px; padding:10px; align-items:stretch; }
+  .rxh-grid > .rxh-card { margin:0; display:flex; flex-direction:column; }
+  .rxh-grid > .rxh-card > .rxh-body { flex:1 1 auto; display:flex; flex-direction:column; }
+  .rxh-grid > .rxh-card > .rxh-body > .dsh-seeall { margin-top:auto; }
 }
 .rxh-card .dsh-h-r a.rxh-more { color:var(--t-mut); font-size:var(--fs-micro); }
 @media (hover:hover) { .rxh-card .dsh-h-r a.rxh-more:hover { color:var(--t-ink); } }
@@ -65,3 +63,15 @@
 .rxh-st-no { color:var(--t-down); border-color:var(--t-down); }
 .rxh-st-rx { color:var(--t-ink); border-color:var(--t-ink); }
 @media (hover:hover) { .rxh a.dsh-drill.rxh-co:hover { color:var(--t-ink); } }
+
+/* ---- One row = one fixed height (owner 2026-10-15) ------------------------------
+   Every list row in every card is two single lines — the name / headline, then its
+   meta — truncated with an ellipsis (the full text is the row's title), at one fixed
+   height, so a 10-row preview is the same height in every card. */
+.rxh-card .rxh-list:not(.rxh-hist) > .rxh-i, .rxh-card .dsh-rx > .dsh-news-i {
+  box-sizing:border-box; height:var(--rxh-row, 50px); overflow:hidden; padding:6px 0; }
+.rxh-card .rxh-i-n, .rxh-card .dsh-rx .dsh-news-i > a { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; overflow-wrap:normal; }
+.rxh-card .rxh-i-m, .rxh-card .dsh-rx .dsh-news-s { flex-wrap:nowrap; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.rxh-card .rxh-i-m > span { flex:0 0 auto; }
+.rxh-card .rxh-i-m > span:last-child { flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; }
+.rxh-card .dsh-rx .dsh-news-i > a { display:block; min-width:0; }

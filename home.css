@@ -1988,20 +1988,16 @@
 /* ---- Desktop density (review 2026-10-15, #13) -------------------------------------
    Laptop heights (≤860px, e.g. 1366×768): the 20% briefing row left ~110px, so the
    Market briefing read as two clipped half-sentences. Give the top row more height on
-   short screens and fade the bottom edge so it reads as scrollable, not cut off.
-   Ultrawide (≥2560px): cap the article measure in the reading pane. */
+   short screens and fade the bottom edge so it reads as scrollable, not cut off. */
 @media (min-width:1201px) and (max-height:860px){
   .tui .g-layout{ grid-template-rows:minmax(0,1.45fr) minmax(0,3fr); }
 }
 @media (min-width:1201px){
   .tui .g-hbrief .g-hbrief-body{ -webkit-mask-image:linear-gradient(to bottom, #000 calc(100% - 18px), transparent); mask-image:linear-gradient(to bottom, #000 calc(100% - 18px), transparent); padding-bottom:16px; }
 }
-@media (min-width:2560px){
-  /* Rails keep their fixed 300 / 304 / 320px widths and the type keeps its scale on
-     every screen (owner 2026-10-15); only the article measure is capped so prose in
-     the wide reading pane stays readable. Bigger text: Menu → Settings → Text size. */
-  .tui .g-read-art{ max-width:86ch; margin:0 auto; }
-}
+/* (2026-10-15) No ultrawide reading-pane cap: the rails keep their fixed widths and the
+   article fills the pane with the normal 16px gutter on every screen (a centred 86ch
+   column read as random margins — owner). Bigger text: Menu → Settings → Text size. */
 /* Left rail with FULL data at laptop heights (review 2026-10-15): Markets (9 tiles) +
    Top movers + Hormuz + This week's earnings + FX overflowed a 725px rail by ~240px,
    pushing FX off-screen. The earnings well may now SHRINK (its list scrolls inside)

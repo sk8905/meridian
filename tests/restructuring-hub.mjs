@@ -1,7 +1,7 @@
 // Restructuring hub (/v2/restructuring/): every section card renders from Wire's own
 // data, lists preview 10 rows + "See all N" (phone and desktop), company names route to
-// the borrower page, deals route into Transactions, the section chips form ONE
-// horizontally scrolling row on iPhone (with a "‹ Deals" crumb), the Hearings card shows
+// the borrower page, deals route into Transactions, the hub carries the Deals mode bar
+// (ONE horizontally scrolling row on iPhone), every list row is one height, the Hearings card shows
 // the Rolls Building cause list (/api/causelist, stubbed from the real-page fixture) with
 // the official CaTH link, and the Dashboard stress card links to the hub. No page errors.
 import fs from "node:fs";
@@ -29,7 +29,7 @@ async function probe(pg) {
     const coLinks = [...document.querySelectorAll(".rxh a.rxh-co")].map((a) => a.getAttribute("href"));
     const dealLinks = [...document.querySelectorAll("#rxh-deals .dsh-news-i > a")].map((a) => a.getAttribute("href"));
     const chipRow = document.querySelector(".rxh-chips");
-    const back = document.querySelector(".rxh-back");
+    const rows = (id, sel) => [...(card(id) || document).querySelectorAll(sel)].filter(vis).map((e) => Math.round(e.getBoundingClientRect().height));
     return {
       present: ids.filter((id) => card(id)),
       stressShown: shown("rxh-stress", ".rxh-i"), stressMore: ((card("rxh-stress") || {}).querySelector?.(".dsh-seeall") || {}).textContent || "",
@@ -44,7 +44,9 @@ async function probe(pg) {
       chips: [...document.querySelectorAll(".rxh-chip")].map((c) => c.textContent.trim()),
       chipOneRow: chipRow ? [...chipRow.children].filter(vis).every((c, _, a) => Math.abs(c.getBoundingClientRect().top - a[0].getBoundingClientRect().top) < 2) : false,
       chipScrolls: chipRow ? getComputedStyle(chipRow).overflowX : "",
-      backVis: vis(back), backHref: back && back.getAttribute("href"),
+      chipHrefs: [...document.querySelectorAll(".rxh-chip")].map((c) => c.getAttribute("href")),
+      rowH: [...rows("rxh-stress", ".rxh-i"), ...rows("rxh-plans", ".rxh-i"), ...rows("rxh-cases", ".dsh-news-i"), ...rows("rxh-deals", ".dsh-news-i")],
+      seeTops: ["rxh-stress", "rxh-plans", "rxh-cases"].map((id) => Math.round(((card(id) || {}).querySelector?.(".dsh-seeall") || { getBoundingClientRect: () => ({ top: -1 }) }).getBoundingClientRect().top)),
       hscroll: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
     };
   }, SECTIONS);
@@ -63,17 +65,16 @@ for (const [name, dev, phone] of [["phone light", { ...PHONE, colorScheme: "ligh
   check(r.hearRows >= 10 && r.hearRx === "Sanction", `${name}: hearings list the cause-list company matters, rx hearing tagged (${r.hearRows}, "${r.hearRx}")`);
   check(r.official.startsWith("https://www.court-tribunal-hearings.service.gov.uk/summary-of-publications"), `${name}: Official cause lists links to CaTH`);
   check(r.stats.some((t) => /UK company insolvencies/.test(t)) && r.stats.some((t) => /EU bankruptcy declarations/.test(t)), `${name}: insolvency statistics (Insolvency Service + Eurostat)`);
-  checkEq(r.chips.join("|"), "Stress list|Plans & schemes|Case law|Hearings|Deals|Stats", `${name}: section chips`);
-  check(r.chipOneRow, `${name}: section chips sit on ONE row`);
+  // Owner 2026-10-15: the hub is part of Deals — its chip row is the Deals mode bar
+  // (Restructuring lit; every other chip goes to its Deals view), not in-page section chips.
+  checkEq(r.chips.join("|"), "Lending|Structured credit|Secondaries|Restructuring|Fundraising|Manager M&A|League tables", `${name}: the Deals mode bar, Restructuring lit`);
+  check(r.chipHrefs.filter(Boolean).every((h) => /^\/v2\/transactions\/#\/\w+$/.test(h)) && r.chipHrefs.filter(Boolean).length === 6, `${name}: every other chip opens its Deals view`);
+  check(r.chipOneRow, `${name}: the mode bar sits on ONE row`);
   check(!r.hscroll, `${name}: no horizontal page scroll`);
-  if (phone) {
-    checkEq(r.chipScrolls, "auto", `${name}: chip row scrolls horizontally`);
-    check(r.backVis && r.backHref === "/v2/transactions/", `${name}: "‹ Deals" crumb back to Deals`);
-  } else check(!r.backVis, `${name}: no Deals crumb on desktop (own header pill)`);
-  // A chip scrolls its card into view and marks itself on.
-  await pg.click('.rxh-chip[data-sec="rxh-stats"]'); await pg.waitForTimeout(900);
-  const jump = await pg.evaluate(() => { const c = document.getElementById("rxh-stats").getBoundingClientRect(); const n = document.querySelector(".rxh-nav").getBoundingClientRect(); return { on: (document.querySelector(".rxh-chip.is-on") || {}).dataset?.sec, top: Math.round(c.top), nav: Math.round(n.bottom), h: innerHeight }; });
-  check(jump.on === "rxh-stats" && jump.top >= jump.nav - 2 && jump.top < jump.h, `${name}: Stats chip scrolls its card into view (top ${jump.top}, nav ${jump.nav})`);
+  // Even, aligned cards: every list row is one fixed height.
+  check(r.rowH.length >= 40 && new Set(r.rowH).size === 1, `${name}: every list row is the same height (${[...new Set(r.rowH)].join("/")}px)`);
+  if (!phone && name === "desktop 1920") check(new Set(r.seeTops).size === 1, `${name}: the See all buttons line up across the first row of cards (${r.seeTops.join("/")})`);
+  if (phone) checkEq(r.chipScrolls, "auto", `${name}: chip row scrolls horizontally`);
   // See all → sheet with the whole list.
   await pg.click("#rxh-stress .dsh-seeall"); await pg.waitForTimeout(250);
   const sh = await pg.evaluate(() => { const s = document.querySelector(".dsh-sheet"); return s ? s.querySelectorAll(".rxh-i").length : 0; });

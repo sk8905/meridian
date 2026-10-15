@@ -1313,13 +1313,13 @@ notification badge red (`#ef4444`).
   "See all N" on desktop as well as iPhone** (desktop "See all" is a centred panel);
   Home rails keep fixed widths on every screen (`tests/dashboard-desktop-preview.mjs`). **(h) Rates** show a market-implied path from prediction-
   market odds, labelled as crowd probabilities (`tests/rates-implied.mjs`).
-- **R42 — Offering build (owner-approved 2026-10-15).** **(a) Navigation (R13):** iPhone
-  bottom bar Home · News · Markets · Deals · Profiles; desktop header Home · Deals ·
-  Restructuring · Fundraising · Markets · Profiles (News lives in desktop Home). Route keys
-  are unchanged (`dashboard` reads **Markets**, `transactions` reads **Deals**). Fundraising is
-  Deals at `#/fundraising` (its pill, not Deals, is lit there); on iPhone Restructuring and
-  Fundraising are Deals chips and Deals stays lit on the hub (`v2/js/chrome.js` NAV_PATH /
-  navKeyFor; `tests/nav-r13.mjs`). **(b) iPhone heading rows** (Deals modes, the hub's
+- **R42 — Offering build (owner-approved 2026-10-15).** **(a) Navigation (R13):** ONE nav, identical on iPhone
+  and desktop — Home · News · Markets · Deals · Profiles (owner correction 2026-10-15).
+  Route keys are unchanged (`dashboard` reads **Markets**, `transactions` reads **Deals**).
+  Restructuring and Fundraising are folded into Deals: both are chips in the Deals mode bar
+  (Fundraising = `#/fundraising`; Restructuring = the hub, which carries the same mode bar
+  with Restructuring lit), and Deals stays lit on both (`v2/js/chrome.js` navKeyFor;
+  `tests/nav-r13.mjs`). **(b) iPhone heading rows** (Deals modes, the hub's
   sections, Profiles lists, profile tabs, Menu, Markets) are ONE sideways-scrolling row,
   hidden scrollbar, never clipped labels; a tapped chip scrolls into view. **(c) Header
   cluster:** phone Search · Ask Wire · Watchlist · Notifications · Menu; desktop Ask Wire ·
@@ -1341,7 +1341,9 @@ notification badge red (`#ef4444`).
   `tests/profiles-people.mjs`). **(h) Law-firm lens (R10)** — glance strip, Practice +
   Region filters from the item's own areas / tags / jurisdiction, and a Credit deals tab
   with side (lender / borrower / sponsor, else "Side not stated") (`v2/js/legal/firm-lens.js`,
-  `tests/lawfirm-lens.mjs`). **(i) Restructuring hub (R6)** `/v2/restructuring/`: stress list ·
+  `tests/lawfirm-lens.mjs`). **(i) Restructuring hub (R6)** `/v2/restructuring/` (part of Deals; no in-page section
+  chips; every list row is ONE fixed height — name line + meta line, ellipsis, full text
+  as its title — so 10-row previews and See all line up across cards): stress list ·
   Part 26A plans / Part 26 schemes · R&I case law · rx deals · insolvency stats · hearings
   (public HMCTS Court & Tribunal Hearings Rolls Building cause list via `/api/causelist`,
   company matters only — personal bankruptcies never shown) · every company links to its

@@ -175,13 +175,16 @@ export function mount(host, ctx) {
   // ---- page ---------------------------------------------------------------------------
   const card = (id, title, meta, body, cls = "") => `<section class="dsh-card rxh-card${cls ? ` ${cls}` : ""}" id="${id}"><h3 class="dsh-h"><span class="dsh-h-t">${title}</span><span class="dsh-h-r">${meta}</span></h3><div class="rxh-body">${body}</div></section>`;
   const txAll = `${base}/transactions/#/lending?type=rx&scope=all`;
-  // Section chips (one horizontally scrolling row on iPhone, like the Deals mode bar).
-  const SECTIONS = [["rxh-stress", "Stress list"], ["rxh-plans", "Plans &amp; schemes"], ["rxh-cases", "Case law"], ["rxh-hearings", "Hearings"], ["rxh-deals", "Deals"], ["rxh-stats", "Stats"]];
+  // The hub is part of Deals (owner 2026-10-15): it carries the Deals mode bar with
+  // Restructuring lit, so every chip goes somewhere (the old in-page section chips are gone).
+  const DEALS_BAR = [["lending", "Lending"], ["structured", "Structured credit"], ["secondary", "Secondaries"], ["restructuring", "Restructuring"], ["fundraising", "Fundraising"], ["mna", "Manager M&amp;A"], ["league", "League tables"]];
   function render() {
     const P = plansAndSchemes(), C = rxCases(), D = rxDeals();
-    const chips = SECTIONS.map(([id, l], i) => `<button type="button" class="tchip rxh-chip${i === 0 ? " is-on" : ""}" data-sec="${id}">${l}</button>`).join("");
+    const chips = DEALS_BAR.map(([k, l]) => k === "restructuring"
+      ? `<span class="tchip rxh-chip is-on" aria-current="page">${l}</span>`
+      : `<a class="tchip rxh-chip" href="${esc(base)}/transactions/#/${k}">${l}</a>`).join("");
     host.innerHTML = `<div class="dsh rxh">
-      <header class="tpanel-h twire-head rxh-nav"><div class="tchips rxh-chips" role="tablist" aria-label="Restructuring sections"><a class="tchip rxh-back dsh-drill" href="${esc(base)}/transactions/" aria-label="Back to Deals">‹ Deals</a>${chips}</div></header>
+      <header class="tpanel-h twire-head rxh-nav"><nav class="tchips rxh-chips" aria-label="Deals">${chips}</nav></header>
       <header class="rxh-hd"><h2 class="rxh-t">Restructuring</h2><span class="rxh-sub">${CR_STRESS.length} stressed · ${P.length} plans &amp; schemes · ${C.length} judgments · ${D.length} deals</span></header>
       <div class="rxh-grid">
         ${card("rxh-stress", "Stress — situations in focus", count(CR_STRESS.length), stressBody())}
@@ -189,10 +192,13 @@ export function mount(host, ctx) {
         ${card("rxh-cases", "Case law — restructuring &amp; insolvency", count(C.length), casesBody())}
         ${card("rxh-hearings", "Hearings", `<a class="dsh-src rxh-off" href="${esc(CATH_SUMMARY)}" target="_blank" rel="noopener noreferrer" title="HMCTS Court and Tribunal Hearings — Rolls Building">Official cause lists</a>`, hearingsBody())}
         ${card("rxh-deals", "Restructuring &amp; distressed deals", `${count(D.length)} <a class="dsh-drill rxh-more" href="${esc(txAll)}">Transactions</a>`, dealsBody())}
-        ${card("rxh-stats", "Insolvency statistics", `<span class="dsh-live is-snap" data-live="bkrt" title="Sourced snapshot — live data not loaded">snapshot</span> ${asOf(EU_DISTRESS && EU_DISTRESS.asOf)}`, statsBody())}
+        ${card("rxh-stats", "Insolvency statistics", `<span class="dsh-live is-snap" data-live="bkrt" title="Sourced snapshot — live data not loaded">not live</span> ${asOf(EU_DISTRESS && EU_DISTRESS.asOf)}`, statsBody())}
       </div></div>`;
     host.querySelectorAll(".rxh-body").forEach(preview);
+    fullTitles(host);
   }
+  // Rows are one line each (even, aligned cards) — the full text stays on hover / long-press.
+  const fullTitles = (root) => root.querySelectorAll(".rxh-i-n, .rxh-i-m, .dsh-news-i > a, .dsh-news-i .dsh-news-s").forEach((el) => { if (!el.title) el.title = el.textContent.trim(); });
 
   // ---- 10-row preview + "See all N" (phone and desktop) -----------------------------
   const itemsOf = (body) => {
@@ -233,46 +239,15 @@ export function mount(host, ctx) {
     q.addEventListener("input", () => { const v = q.value.trim().toLowerCase(); itemsOf(clone).forEach((it) => { it.style.display = !v || it.textContent.toLowerCase().includes(v) ? "" : "none"; }); });
     _closeSheet = close;
   }
-  // ---- section chips: tap scrolls to the card; scrolling marks the card in view ----
-  const scroller = () => { const r = host.querySelector(".rxh"); return r && r.scrollHeight > r.clientHeight + 1 && getComputedStyle(r).overflowY !== "visible" ? r : null; };
-  const navH = () => { const n = host.querySelector(".rxh-nav"); return n ? n.getBoundingClientRect().bottom : 0; };
-  function markChip(id, reveal = true) {
-    host.querySelectorAll(".rxh-chip").forEach((c) => {
-      const on = c.dataset.sec === id;
-      c.classList.toggle("is-on", on); c.setAttribute("aria-selected", on ? "true" : "false");
-      if (on && reveal) { const row = c.parentElement; const l = c.offsetLeft - (row.clientWidth - c.offsetWidth) / 2; if (row.scrollWidth > row.clientWidth) row.scrollTo({ left: Math.max(0, l), behavior: "smooth" }); }
-    });
-  }
-  function goSection(id) {
-    const el = host.querySelector(`#${id}`); if (!el) return;
-    const top = el.getBoundingClientRect().top - navH() - 8;
-    const sc = scroller();
-    if (sc) sc.scrollBy({ top, behavior: "smooth" }); else window.scrollBy({ top, behavior: "smooth" });
-    markChip(id); _lockUntil = Date.now() + 700;
-  }
-  let _lockUntil = 0, _raf = 0;
-  function onScroll() {
-    if (_raf || Date.now() < _lockUntil || host.closest("[hidden]")) return;
-    _raf = requestAnimationFrame(() => {
-      _raf = 0;
-      const line = navH() + 40;
-      let cur = SECTIONS[0][0];
-      for (const [id] of SECTIONS) { const el = host.querySelector(`#${id}`); if (el && el.getBoundingClientRect().top <= line) cur = id; }
-      const on = host.querySelector(".rxh-chip.is-on");
-      if (!on || on.dataset.sec !== cur) markChip(cur);
-    });
-  }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  host.addEventListener("scroll", onScroll, { passive: true, capture: true });
   host.addEventListener("click", (e) => {
-    const chip = e.target.closest(".rxh-chip");
-    if (chip && host.contains(chip)) { e.preventDefault(); goSection(chip.dataset.sec); return; }
+    const chip = e.target.closest(".rxh-chip.is-on");
+    if (chip && host.contains(chip)) { e.preventDefault(); const sc = host.querySelector(".rxh"); if (sc) sc.scrollTo({ top: 0, behavior: "smooth" }); window.scrollTo({ top: 0, behavior: "smooth" }); return; }
     const b = e.target.closest(".dsh-seeall");
     if (b && host.contains(b)) { e.preventDefault(); openSheet(b.closest(".rxh-body")); }
   });
 
   // ---- live data ------------------------------------------------------------------------
-  const set = (id, html) => { const el = host.querySelector(`#${id} .rxh-body`); if (el) { el.innerHTML = html; preview(el); } };
+  const set = (id, html) => { const el = host.querySelector(`#${id} .rxh-body`); if (el) { el.innerHTML = html; preview(el); fullTitles(el); } };
   function loadLive() {
     liveJSON("/api/eurates").then((res) => {
       if (res && res.data && res.data.bankruptcies && res.data.bankruptcies.value != null) {
@@ -280,7 +255,7 @@ export function mount(host, ctx) {
         set("rxh-stats", statsBody());
         const el = host.querySelector('.dsh-live[data-live="bkrt"]');
         if (el && res.state === "live") { el.classList.remove("is-snap"); el.textContent = "live"; el.title = `Live · Eurostat ${isoDay(res.data.bankruptcies.asOf || "")}`; }
-        else if (el && res.state !== "none") { el.classList.add("is-cached"); el.textContent = "last-known"; el.title = lastKnownLabel(res.at) + " — live data not loaded"; }
+        else if (el && res.state !== "none") { el.classList.add("is-cached"); el.textContent = lastKnownLabel(res.at).replace(/^Last-known · /, "as of ").replace(/^Last-known values$/, "not live"); el.title = lastKnownLabel(res.at) + " — live data not loaded"; }
       }
     }).catch(() => {});
     fetch("/api/causelist", { headers: { accept: "application/json" } })

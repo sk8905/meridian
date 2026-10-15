@@ -359,9 +359,7 @@ async function boot() {
     const orig = history[fn].bind(history);
     history[fn] = (s, ...a) => {
       const d = fn === "pushState" ? _depth + 1 : _depth;
-      const r = orig(withDepth(s, d), ...a); _depth = d; setBackDepth(d); _curUrl = curUrl();
-      try { window.dispatchEvent(new Event("wire:url")); } catch { /* ignore */ }   // chrome re-lights Deals ↔ Fundraising
-      return r;
+      const r = orig(withDepth(s, d), ...a); _depth = d; setBackDepth(d); _curUrl = curUrl(); return r;
     };
   }
   { const s = history.state; _depth = (s && typeof s.wdepth === "number") ? s.wdepth : 0; origReplace(withDepth(s, _depth), ""); setBackDepth(_depth); }

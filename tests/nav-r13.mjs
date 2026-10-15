@@ -2,8 +2,8 @@
 // nav-r13.mjs — the owner-approved navigation (R13, 2026-10-15).
 //   iPhone bottom bar: Home · News · Markets · Deals · Profiles (Restructuring and
 //     Fundraising are chips inside Deals, so Deals stays lit on the Restructuring hub).
-//   Desktop header: Home · Deals · Restructuring · Fundraising · Markets · Profiles.
-//   Fundraising is Transactions at #/fundraising — its pill is lit there, Deals is not.
+//   Desktop header: the SAME five (owner correction, 2026-10-15). Restructuring and
+//   Fundraising are folded into Deals, which stays lit on both.
 //   iPhone section heading rows are ONE sideways-scrolling row (no clipped chips).
 // =============================================================================
 import { launchChromium, serve, PHONE, DESKTOP, open, check, checkEq, checkErrs, finish } from "./lib.mjs";
@@ -38,26 +38,21 @@ const lit = (pg, sel) => pg.evaluate((s) => [...document.querySelectorAll(s)].fi
   await pg.close();
 }
 
-// ---- Desktop ---------------------------------------------------------------
+// ---- Desktop: the SAME nav (owner 2026-10-15) --------------------------------
 {
   const { pg, errs } = await open(browser, DESKTOP, base + "/v2/transactions/");
   await pg.waitForSelector("#wire-header .ps-btn");
   const pills = await pg.$$eval("#wire-header .ps-btn", (els) => els.map((e) => e.textContent.trim()));
-  checkEq(pills.join(" · "), "Home · Deals · Restructuring · Fundraising · Markets · Profiles", "desktop: header pills order + labels");
+  checkEq(pills.join(" · "), "Home · News · Markets · Deals · Profiles", "desktop: header pills are the agreed nav, same as iPhone");
   checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "transactions", "desktop: Deals lit on the deal list");
-  await pg.click('#wire-header .ps-btn[data-key="fundraising"]');
-  await pg.waitForFunction(() => /^#\/fundraising/.test(location.hash));
-  await pg.waitForTimeout(300);
-  checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "fundraising", "desktop: the Fundraising pill opens #/fundraising and is the only one lit");
-  await pg.click('#wire-header .ps-btn[data-key="transactions"]');
-  await pg.waitForFunction(() => !/^#\/fundraising/.test(location.hash));
-  await pg.waitForTimeout(300);
-  checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "transactions", "desktop: Deals from Fundraising returns to the deal list");
-  await pg.click('#wire-header .ps-btn[data-key="restructuring"]');
-  await pg.waitForFunction(() => location.pathname.startsWith("/v2/restructuring"));
-  await pg.waitForTimeout(300);
-  checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "restructuring", "desktop: Restructuring pill opens the hub and is lit");
+  await pg.goto(base + "/v2/transactions/#/fundraising"); await pg.waitForSelector("#wire-header .ps-btn"); await pg.waitForTimeout(400);
+  checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "transactions", "desktop: Fundraising is part of Deals (Deals lit)");
+  await pg.goto(base + "/v2/restructuring/"); await pg.waitForSelector("#wire-header .ps-btn"); await pg.waitForTimeout(400);
+  checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "transactions", "desktop: the Restructuring hub is part of Deals (Deals lit)");
   checkEq(await pg.title(), "Wire Restructuring", "desktop: hub title");
+  await pg.click('#wire-header .ps-btn[data-key="news"]');
+  await pg.waitForFunction(() => location.pathname.startsWith("/v2/news"));
+  checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "news", "desktop: News pill opens the news wire");
   await pg.click('#wire-header .ps-btn[data-key="dashboard"]');
   await pg.waitForFunction(() => location.pathname.startsWith("/v2/dashboard"));
   checkEq(await pg.title(), "Wire Markets", "desktop: Markets title");

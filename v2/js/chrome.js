@@ -76,26 +76,18 @@ function setupLazyPalette() {
 // selector (All · Research · Managers · Watchlist · Newsletters); it routes to /v2/news/,
 // which the runtime resolves to the Home view in "news mode" (so the feed engine isn't
 // double-mounted) — Home itself now carries Briefing · Markets · Chart · X Feed.
-// Navigation (R13, owner-approved 2026-10-15). Route keys are unchanged (URLs stay
+// Navigation (R13, owner-approved 2026-10-15): ONE nav, identical on iPhone and desktop —
+// Home · News · Markets · Deals · Profiles. Route keys are unchanged (URLs stay
 // /v2/dashboard/, /v2/transactions/); only the labels read Markets / Deals.
-//   iPhone bottom bar: Home · News · Markets · Deals · Profiles. Restructuring and
-//     Fundraising are chips inside Deals (its sideways-scrolling mode bar), so the
-//     Deals tab stays lit on the Restructuring hub too.
-//   Desktop header: Home · Deals · Restructuring · Fundraising · Markets · Profiles
-//     (News lives inside desktop Home). "fundraising" is not a view: it is the
-//     Transactions view at #/fundraising (see NAV_PATH / navKeyFor).
+// Restructuring and Fundraising are folded into Deals: they are chips in the Deals mode
+// bar (Fundraising = /v2/transactions/#/fundraising; Restructuring = the hub at
+// /v2/restructuring/, which carries the same mode bar), so Deals stays lit on both.
 const TABS = [
   ["home", "Home"], ["news", "News"], ["dashboard", "Markets"], ["transactions", "Deals"], ["profiles", "Profiles"],
 ];
-const PLATFORMS = [["home", "Home"], ["transactions", "Deals"], ["restructuring", "Restructuring"], ["fundraising", "Fundraising"], ["dashboard", "Markets"], ["profiles", "Profiles"]];
-// Nav keys that are a sub-route of another view, not a view of their own.
-const NAV_PATH = { fundraising: "/v2/transactions/#/fundraising" };
-const isFundraisingUrl = () => /^\/v2\/transactions\/?$/.test(location.pathname) && /^#\/fundraising\b/.test(location.hash);
-// Which header pill / bottom tab is lit for the current view key + URL.
-function navKeyFor(key, where) {
-  if (where === "desk") return key === "transactions" && isFundraisingUrl() ? "fundraising" : key;
-  return key === "restructuring" ? "transactions" : key;   // phone: Restructuring is a Deals chip
-}
+const PLATFORMS = TABS;
+// Which header pill / bottom tab is lit for the current view key.
+const navKeyFor = (key) => (key === "restructuring" ? "transactions" : key);
 
 const TAB_ICONS = {
   home: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7"/><path d="M6 9.5V20h12V9.5"/></svg>',
@@ -160,16 +152,9 @@ export function initChrome({ onTab }) {
   fillAccount();
 
   // Update the active marker on both the bottom bar and the header switch.
-  let curKey = "";
-  // Re-light the nav when a view rewrites its own URL (Deals ↔ Fundraising is a hash
-  // change inside one view) — the runtime fires wire:url on every history write.
-  const relight = () => { if (curKey) setActive(curKey); };
-  window.addEventListener("wire:url", relight);
-  window.addEventListener("hashchange", relight);
   return setActive;
   function setActive(key) {
-    curKey = key;
-    const tabKey = navKeyFor(key, "phone"), deskKey = navKeyFor(key, "desk");
+    const tabKey = navKeyFor(key), deskKey = tabKey;
     tabbar.querySelectorAll(".mtab").forEach((b) => {
       const on = b.dataset.key === tabKey;
       b.classList.toggle("is-active", on);
@@ -186,14 +171,6 @@ export function initChrome({ onTab }) {
   }
 }
 
-// A header/tab tap: sub-route nav keys (Fundraising) go straight to their URL; the
-// Deals pill, pressed while on Fundraising, goes to the deal list rather than back to
-// the Fundraising URL it last showed. Everything else is the runtime's tab tap.
-function routeTab(onTab, key) {
-  if (NAV_PATH[key] && window.__wireNavigate) return window.__wireNavigate(NAV_PATH[key]);
-  if (key === "transactions" && isFundraisingUrl() && window.__wireNavigate) return window.__wireNavigate("/v2/transactions/#/lending");
-  return onTab(key);
-}
 
 function buildHeader(onTab) {
   const mount = document.getElementById("wire-header");
@@ -231,7 +208,7 @@ function buildHeader(onTab) {
   mount.addEventListener("click", (e) => {
     if (e.target.closest("#nav-back")) { e.preventDefault(); if (document.documentElement.hasAttribute("data-can-back")) history.back(); return; }
     const b = e.target.closest("[data-key]");
-    if (b) { e.preventDefault(); routeTab(onTab, b.dataset.key); }
+    if (b) { e.preventDefault(); onTab(b.dataset.key); }
   });
 }
 

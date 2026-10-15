@@ -1301,8 +1301,9 @@ Commit both with the rest of the run (one commit, rebase-and-retry publish). On 
 rebase conflict in either file, take `origin/main` and re-run the script — never
 hand-merge a generated module.
 
-**Morning digest email (first run at or after 06:00 London only).** After the publish
-has pushed, email the daily digest to the owner — on **Mondays** send the weekly one
+**Morning digest email — sent by the "/Wire: daily health email" scheduled task at
+07:10 London (owner-confirmed 2026-10-15), not by the refresh run** (`--email` only
+prints, so that read-only task can send it). On **Mondays** it sends the weekly one
 (`--email=weekly`) instead:
 
 1. `node scripts/build-digest.mjs --email` (the `WIRE_ORIGIN` environment variable, or
@@ -1322,7 +1323,8 @@ manager's `aumFrom` (the currency each stored AUM figure was converted from) mus
 with its own `aumText` and source. ICG was stored as if its "$126bn" were EUR and shown
 as ~€116bn ($130bn) — it reports in US$; fixed 2026-10-15. `tests/aum-currency.mjs`
 fails on any NEW mismatch and holds the open review list (`REVIEW`, 16 managers on
-2026-10-15). Each run, take up to **3** ids from that list, newest-sourced first:
+2026-10-15). The **"/Wire: nightly sampling verifier"** scheduled task (02:33 London) does this
+every night (step 4b of its prompt): take up to **3** ids from that list:
 1. Re-read the manager's own latest AUM disclosure (results / trading update / firm
    site / Form ADV) — WebSearch, never memory.
 2. Store the figure in the currency the firm reports: USD figures go straight into
@@ -1333,8 +1335,9 @@ fails on any NEW mismatch and holds the open review list (`REVIEW`, 16 managers 
    regulatory vs managed), split them into the right fields rather than forcing one.
 4. Delete the id from `REVIEW` in the spec (the spec fails until you do) and list it in
    the run summary with before → after and the source URL.
-The Profiles audit (one-off) clears the whole list in one pass; the routine keeps it
-from growing back.
+The Profiles audit (one-off) clears the whole list in one pass; the nightly task keeps
+it from growing back, and the refresh run's test gate includes `aum-currency` so a new
+mismatch can never be published.
 
 ---
 
