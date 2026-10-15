@@ -1,4 +1,4 @@
-// Menu view — FOUR chips:
+// Menu view — SIX chips (each linkable: /v2/menu/<chip>/, Chat = /v2/menu/):
 //   • Chat (key "dialogue") — Ask Wire (B): a conversational assistant. The input
 //     is styled like the .tsearch search fields; Enter answers inline via AI and
 //     keeps a transcript, so follow-up questions carry the earlier turns as
@@ -6,7 +6,13 @@
 //   • Watchlist — every firm/manager/fund/investor you follow across the app,
 //     grouped by kind, each a link to its profile. Reads the local follow store
 //     (meridian.follows) and unions the per-user cloud copy (/api/watchlist).
-//   • Coverage — Add a firm (C, opens a review PR).
+//   • New — records that arrived since this device last looked (whatsnew.js).
+//   • Digest — the credit-desk digest, Daily / Weekly (v2/js/digest.js over the
+//     committed /digest.js); shareable at /v2/menu/digest and /v2/menu/digest/weekly.
+//   • Sources (key "coverage") — "Coverage & sources" (v2/js/status-page.js): what
+//     Wire tracks per section, from where, how often, item counts, latest dates and a
+//     GOOD / STALE / FAILING pill, with failing/stale first + the fix; live /api probes;
+//     a role-based "Start here"; and "Add a law firm" (C, opens a review PR).
 //   • Settings — Notifications (push toggle), Appearance (theme) + Text size (a
 //     1px-step adjuster on the app-wide --fs-adj knob). Sign out and
 //     density live elsewhere: sign out in the phone bottom strip; density is not
@@ -57,9 +63,26 @@ function applyFontSize(v) {
   document.documentElement.style.setProperty("--fs-adj", v + "px");
   try { localStorage.setItem("m_fs_adj", String(v)); } catch { /* ignore */ }
 }
-// Five chips: Chat (Ask), Watchlist (follows), New (records that arrived since you
-// last looked), Coverage (Add a firm) and Settings (Notifications + Appearance).
-const SECTIONS = [["dialogue", "Chat"], ["watchlist", "Watchlist"], ["new", "New"], ["coverage", "Coverage"], ["settings", "Settings"]];
+// Six chips: Chat (Ask), Watchlist (follows), New (records that arrived since you
+// last looked), Digest (daily / weekly), Sources (Coverage & sources + Add a law
+// firm) and Settings (Notifications + Appearance).
+const SECTIONS = [["dialogue", "Chat"], ["watchlist", "Watchlist"], ["new", "New"], ["digest", "Digest"], ["coverage", "Sources"], ["settings", "Settings"]];
+const SEC_KEYS = SECTIONS.map(([k]) => k);
+// URL ⇄ chip. /v2/menu/ = Chat; /v2/menu/<key>/ = that chip ("sources" is an alias
+// of the coverage key); /v2/menu/digest/weekly = the Weekly digest.
+const SEC_ALIAS = { sources: "coverage", status: "coverage", chat: "dialogue" };
+function routeOf(sub) {
+  const a = String((sub && sub[0]) || "").toLowerCase();
+  const sec = SEC_ALIAS[a] || (SEC_KEYS.includes(a) ? a : null);
+  const mode = sec === "digest" && String((sub && sub[1]) || "").toLowerCase() === "weekly" ? "weekly" : "daily";
+  return { sec, mode };
+}
+const subOfPath = () => location.pathname.replace(/^\/v2\/menu\/?/, "").split("/").filter(Boolean);
+function pathOf(sec, mode) {
+  if (sec === "dialogue") return "/v2/menu/";
+  if (sec === "digest") return "/v2/menu/digest" + (mode === "weekly" ? "/weekly" : "");
+  return "/v2/menu/" + (sec === "coverage" ? "sources" : sec);
+}
 
 function dialoguePaneHTML() {
   // Ask Wire (mounted into #v2-menu-omni after render): Enter / "Ask" answers
@@ -94,9 +117,11 @@ function renderWatch(rows) {
   }).join("");
 }
 function coveragePaneHTML() {
-  // "Add a firm" (C) drafts a roster entry and opens a review PR; the Add (C)
+  // Coverage & sources (status-page.js paints #v2-menu-cov after render()), then
+  // "Add a law firm" (C) — drafts a roster entry and opens a review PR; the Add (C)
   // assistant mounts into #v2-menu-add after render().
-  return `<div class="na-menu-recent-h">Add a firm</div>`
+  return `<div id="v2-menu-cov"><p class="watch-loading">Checking Wire’s sources…</p></div>`
+    + `<div class="na-menu-recent-h">Add a law firm</div>`
     + `<div class="menu-asst" id="v2-menu-add"></div>`;
 }
 function settingsPaneHTML() {
@@ -122,13 +147,23 @@ function paneHTML(sec) {
   if (sec === "coverage") return coveragePaneHTML();
   if (sec === "watchlist") return watchPaneHTML();
   if (sec === "new") return `<div class="wire-watch" id="v2-menu-new"><p class="watch-loading">Loading what’s new…</p></div>`;
+  if (sec === "digest") return `<div class="wire-watch" id="v2-menu-digest"><p class="watch-loading">Loading the digest…</p></div>`;
   return dialoguePaneHTML();
 }
 
 // CSS (the menu reuses credit styles) is declared up front in v2/index.html.
 
 export function mount(host, ctx) {
-  let sec = "dialogue";
+  // The chip (and digest period) come from the URL, so a shared link lands on it.
+  const r0 = routeOf(subOfPath());
+  let sec = r0.sec || "dialogue";
+  let digestMode = r0.mode;
+  // Keep the address bar on the shown chip (in place — a chip switch is not a new
+  // history entry), so the URL is always the shareable link to what is on screen.
+  const syncURL = () => {
+    const want = pathOf(sec, digestMode);
+    if (location.pathname !== want) { try { history.replaceState(history.state, "", want); } catch { /* ignore */ } }
+  };
   // Persisted Ask/Add state so switching chips (or re-rendering after a network
   // import) keeps the last answer/draft on screen. Ask (Dialogue) and Add
   // (Coverage) are separate surfaces, so they keep separate state.
@@ -162,9 +197,26 @@ export function mount(host, ctx) {
     </div>`;
     if (sec === "dialogue") mountAssistant(host.querySelector("#v2-menu-omni"), { search: false, ask: true, add: false, bare: true, placeholder: "Ask…", state: askState });
     if (sec === "coverage") mountAssistant(host.querySelector("#v2-menu-add"), { ask: false, add: true, state: addState });
+    if (sec === "coverage") mountCoverage();
     if (sec === "watchlist") mountWatchlist();
     if (sec === "new") mountWhatsNew();
+    if (sec === "digest") mountDigest();
   };
+
+  // Coverage & sources: lazy-load the status page and paint it into its box (it
+  // repaints as each live /api probe lands).
+  async function mountCoverage() {
+    try { const S = await import("/v2/js/status-page.js"); await S.mountStatus(() => host.querySelector("#v2-menu-cov")); }
+    catch { const b = host.querySelector("#v2-menu-cov"); if (b) b.innerHTML = `<p class="watch-empty">Couldn’t load the sources page.</p>`; }
+  }
+  // Digest: lazy-load the renderer + the committed digest data module.
+  let _dg = null;
+  async function mountDigest() {
+    try {
+      if (!_dg) { const G = await import("/v2/js/digest.js"); _dg = { G, D: await G.loadDigest() }; }
+      const b = host.querySelector("#v2-menu-digest"); if (b) b.innerHTML = _dg.G.digestHTML(_dg.D, digestMode);
+    } catch { const b = host.querySelector("#v2-menu-digest"); if (b) b.innerHTML = `<p class="watch-empty">Couldn’t load the digest.</p>`; }
+  }
 
   // What's new: diff the record ids in the Home slice against this device's last
   // "seen" snapshot (whatsnew.js). The first visit just sets the starting point.
@@ -202,6 +254,7 @@ export function mount(host, ctx) {
   }
 
   render();   // initial render on mount (revisits keep this DOM alive)
+  syncURL();
 
   host.addEventListener("click", (e) => {
     // "New chat" (Chat-chip dropdown): drop the transcript and start a fresh chat.
@@ -213,8 +266,13 @@ export function mount(host, ctx) {
       // Tapping the active Chat chip toggles its dropdown; any other tap switches
       // section (and always closes the dropdown).
       if (target === "dialogue" && sec === "dialogue") { chatMenuOpen = !chatMenuOpen; render(); return; }
-      sec = target; chatMenuOpen = false; render(); return;
+      sec = target; chatMenuOpen = false; syncURL(); render(); return;
     }
+    // Digest: Daily / Weekly toggle (URL follows) + Share link.
+    const dgOpt = e.target.closest("#v2-dg-seg [data-dg-mode]");
+    if (dgOpt) { digestMode = dgOpt.dataset.dgMode === "weekly" ? "weekly" : "daily"; syncURL(); mountDigest(); return; }
+    const dgShare = e.target.closest("#v2-dg-share");
+    if (dgShare && _dg) { _dg.G.shareDigest(dgShare); return; }
     // A tap anywhere else closes an open Chat dropdown.
     if (chatMenuOpen) { chatMenuOpen = false; render(); }
     const opt = e.target.closest("#v2-theme-seg .na-theme-opt");
@@ -236,7 +294,14 @@ export function mount(host, ctx) {
   });
 
   return {
-    enter() { render(); },
+    // A same-tab move (a shared /v2/menu/digest/weekly link, a Start-here link to
+    // /v2/menu/watchlist, a Menu tab tap) lands on the chip its URL names; a bare
+    // /v2/menu/ keeps the chip the reader was on and re-syncs the address bar.
+    enter(sub) {
+      const r = routeOf(sub || subOfPath());
+      if (r.sec) { sec = r.sec; if (r.sec === "digest") digestMode = r.mode; chatMenuOpen = false; }
+      render(); syncURL();
+    },
     // Drop the menu-section signal so the bottom strip can't linger on other tabs
     // (its CSS also gates on data-v2tab="menu", but keep the root attribute tidy).
     leave() { document.documentElement.removeAttribute("data-menu-sec"); },

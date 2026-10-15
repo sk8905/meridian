@@ -1234,15 +1234,62 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 
 ---
 
+## Health snapshot + credit digest (every run; digest emailed each morning)
+
+Two generated, **tokenless + no-cache** data modules (listed in `_headers`, copied into
+`dist/` by `scripts/postbuild.mjs` like every root data file) are rebuilt on **every**
+refresh run, after the desk data, briefing and stamps and before publish:
+
+1. **Health snapshot** — `node scripts/health-check.mjs --write` → `dashboard/js/health.js`
+   (`HEALTH`). It feeds Menu ▸ **Sources** ("Coverage & sources", `v2/js/status-page.js`):
+   per-surface count / newest date / cadence window (the freshness-audit windows) and
+   the proposed fix. The page re-judges every stamp against the viewer's clock and the
+   live data modules, and probes the `/api/*` endpoints itself, so a few-hours-old
+   snapshot never reads as current — but a run that skips this step leaves the
+   "Health check — last run" row STALE (>6h) and then FAILING (>48h). The exit code
+   still reflects the verdict; a non-zero exit is NOT a reason to skip the commit.
+2. **Credit digest** — `node scripts/build-digest.mjs` → `digest.js` (`DIGEST`): the
+   daily (as-of day + the day before) and weekly (7 days) digest — top deals by the
+   size their own headline states, fund closes & fundraising, restructuring & legal
+   (schemes/RPs, judgments, R&I alerts), people moves, and 1-day / 1-week rate &
+   spread moves from `dashboard/js/live-snapshot.js` — built ONLY from committed data,
+   every item with its source URL + date (an item without a URL is dropped). Shown at
+   Menu ▸ **Digest**, shareable at `/v2/menu/digest` and `/v2/menu/digest/weekly`. It is
+   deliberately **not** in `npm run build` (its windows move with the calendar, so it is
+   not deterministic per commit); the routine owns it.
+
+Commit both with the rest of the run (one commit, rebase-and-retry publish). On a
+rebase conflict in either file, take `origin/main` and re-run the script — never
+hand-merge a generated module.
+
+**Morning digest email (first run at or after 06:00 London only).** After the publish
+has pushed, email the daily digest to the owner — on **Mondays** send the weekly one
+(`--email=weekly`) instead:
+
+1. `node scripts/build-digest.mjs --email` (the `WIRE_ORIGIN` environment variable, or
+   `--origin=https://<live host>`, supplies the app link; without it the in-app path
+   alone is printed). Line 1 of the output is the subject; the rest is the plain-text
+   body, every item followed by its source link.
+2. Send it with the **Gmail connector** (`send_message`) to the owner's own address —
+   the same connector the Email sweep above uses. If the connector offers no send tool
+   this run, create a **draft** for the owner instead (`create_draft`) and say so in the
+   run summary. Never invent items to pad an empty section: the script already prints
+   "Nothing new in this window." for it.
+3. Send **at most one** digest email per London day — before sending, search the
+   mailbox's Sent folder for today's subject and skip if it is already there.
+
+---
+
 ## The live routine prompt
 
 The operational prompt is stored in the **"/Wire: full refresh"** Routine in the
 Claude Code Routines UI and is edited there — it is the executable copy. This
 document is the **authoritative reference** for what that run must do: the
-**Invariants**, **Briefings & Key Moments**, and **Email sweep** sections are the
-contract; the Routine prompt orchestrates them (sync → freshness audit → the desk
-refreshes → briefing → stamps → email sweep → publish) and should defer here for
-the detail rather than restating it. Current live behaviour: fires **every ~2
+**Invariants**, **Briefings & Key Moments**, **Health snapshot + credit digest** and
+**Email sweep** sections are the contract; the Routine prompt orchestrates them (sync →
+freshness audit → the desk refreshes → briefing → stamps → health snapshot + digest →
+email sweep → publish → morning digest email) and should defer here for the detail
+rather than restating it. Current live behaviour: fires **every ~2
 hours** through the London day, writes a **single** briefing every run, runs the
 **freshness audit first**, and sweeps **research + newsletters + myFT** every run.
 There are **no `?v=` cache tokens to bump** (code is Vite-hashed, data is no-cache).
