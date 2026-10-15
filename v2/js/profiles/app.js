@@ -23,6 +23,7 @@ import {
 // the URL-driven row highlight here is the pending focus viewManager applies.
 import { setPendingFocus, isFollowed } from "/credit/js/shared.js";
 import { esc } from "/util.js";
+import { tableCols } from "/feed.js";
 import { downloadCSV, tableRows } from "../csv.js";
 // The LinkedIn-connections importer was retired (monitoring-only app); clear any
 // connections a previous version left on this device.
@@ -51,6 +52,12 @@ export async function mount(host, ctx) {
         </section>
       </div>
     </div>`;
+  // R43: every (re-)rendered list / profile table gets its column roles.
+  if (typeof MutationObserver === "function") {
+    let q = 0;
+    new MutationObserver(() => { if (!q) q = requestAnimationFrame(() => { q = 0; tableCols(host); }); }).observe(host, { childList: true, subtree: true });
+    tableCols(host);
+  }
   const pfList = host.querySelector("#pf-list");
   const pfDetail = host.querySelector("#pf-detail");
   const panes = host.querySelector("#pf-panes");

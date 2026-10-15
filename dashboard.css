@@ -835,7 +835,6 @@ td .dsh-yc-ea { border:0; }
   .dsh-ro-tbl tr.dsh-ro-r { display:grid; grid-template-columns:minmax(0,1fr) auto 34px; grid-template-areas:"nm rate src" "nx as as" "rd rd rd";
     column-gap:8px; padding:6px 0; border-bottom:1px solid var(--t-grid); }
   .dsh-ro-tbl tr.dsh-ro-r td { border:0; padding:1px 0; white-space:normal; }
-  .dsh-ro-tbl[data-cols] tr.dsh-ro-r td { width:auto; max-width:none; min-width:0; }   /* restacked cells drop the R43 table widths */
   .dsh-ro-r .dsh-nm { grid-area:nm; } .dsh-ro-r .dsh-ro-rate { grid-area:rate; }
   .dsh-ro-r .dsh-srccol { grid-area:src; } .dsh-ro-r .dsh-ro-nx { grid-area:nx; color:var(--t-mut); font-size:var(--fs-micro); }
   .dsh-ro-r .dsh-stress-as { grid-area:as; text-align:right; } .dsh-ro-r .dsh-ro-read { grid-area:rd; }

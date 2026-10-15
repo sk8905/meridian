@@ -225,15 +225,24 @@ export function evRow({ date = "", dateText = "", est = false, title = "", href 
 const _DATE_TXT = /^(c\. |≈ ?)?(\d{1,2} [A-Z][a-z]{2}( \d{2,4})?|[A-Z][a-z]{2} \d{4}|Q[1-4] \d{4}|\d{4}-\d{2}(-\d{2})?|TBC|—)$/;
 const _NUM_TXT = /^[-+−▲▼·]?\s*[€$£]?\s*[-+−]?[\d.,]+\s*(%|bp|bn|m|tn|x|pp|pt)?(\s*\(.*\))?$|^—$|^n\/a$/i;
 const _ROLE = /\bc-(date|num|text|tag|src)\b/;
+const _colRoots = new Set();
+let _colRaf = 0;
 export function tableCols(root) {
   if (!root || !root.querySelectorAll) return;
+  // Re-read layout (auto / fixed / stacked) when the width crosses a breakpoint.
+  if (!_colRoots.size && typeof window !== "undefined") window.addEventListener("resize", () => { if (!_colRaf) _colRaf = requestAnimationFrame(() => { _colRaf = 0; _colRoots.forEach((r) => tableCols(r)); }); });
+  _colRoots.add(root);
   root.querySelectorAll("table:not([data-cols='off'])").forEach((t) => {
     const head = t.tHead && t.tHead.rows[0] ? [...t.tHead.rows[0].cells] : [];
     if (head.some((c) => c.colSpan > 1)) return;
     // Width roles apply to auto-layout tables; a fixed-layout table keeps its own
     // column shares (data-cols="fixed") and takes only the alignment / colour roles.
+    // A table that CSS restacks into card rows on a phone (cells no longer table cells)
+    // takes no column widths at all (data-cols="stacked").
     const fixed = getComputedStyle(t).tableLayout === "fixed";
-    t.dataset.cols = fixed ? "fixed" : "auto";
+    const c0 = t.tBodies[0] && t.tBodies[0].rows[0] && t.tBodies[0].rows[0].cells[0];
+    const stacked = !!c0 && getComputedStyle(c0).display !== "table-cell";
+    t.dataset.cols = stacked ? "stacked" : fixed ? "fixed" : "auto";
     const rows = [...t.tBodies].flatMap((b) => [...b.rows]).filter((r) => ![...r.cells].some((c) => c.colSpan > 1));
     const n = Math.max(head.length, ...rows.slice(0, 8).map((r) => r.cells.length), 0);
     const textW = [];
@@ -262,8 +271,8 @@ export function tableCols(root) {
         textW.push([h || (rows[0] && rows[0].cells[i]), Math.max(6, Math.min(36, p80, 36)), Math.max(6, (h ? h.textContent.trim().length : 0))]);
       }
     }
-    const sum = fixed ? 0 : textW.reduce((a, [, w]) => a + w, 0);
-    if (sum) textW.forEach(([c, w]) => { if (c) c.style.width = `${Math.round((w / sum) * 96)}%`; });
+    const sum = fixed || stacked ? 0 : textW.reduce((a, [, w]) => a + w, 0);
+    textW.forEach(([c, w]) => { if (c) c.style.width = sum ? `${Math.round((w / sum) * 96)}%` : ""; });
   });
 }
 export const evList = (rows, cls = "") => `<ul class="g-evs${cls ? ` ${cls}` : ""}">${rows.join("")}</ul>`;

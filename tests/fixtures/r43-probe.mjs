@@ -93,7 +93,7 @@ export function r43Probe() {
       if ([th, ...th.querySelectorAll("*")].some((e) => /vertical/.test(getComputedStyle(e).writingMode))) continue;
       if (+getComputedStyle(th).fontWeight >= 600) out.push(`bold table header "${th.textContent.trim().slice(0, 20)}" in ${where(t)}`);
       if (th.scrollWidth > th.clientWidth + 1 && !/\s/.test(th.textContent.trim())) out.push(`table header clips its word "${th.textContent.trim()}" in ${where(t)}`);
-      if (th.getClientRects().length && R(th).height > parseFloat(getComputedStyle(th).lineHeight || "14") * 1.9 + 14 && !/\s/.test(th.textContent.trim())) out.push(`table header wraps a single word in ${where(t)}`);
+      if (th.textContent.trim() && th.getClientRects().length && R(th).height > parseFloat(getComputedStyle(th).lineHeight || "14") * 1.9 + 14 && !/\s/.test(th.textContent.trim())) out.push(`table header wraps a single word in ${where(t)}`);
     }
     const rows = [...t.tBodies].flatMap((b) => [...b.rows]).filter(vis).slice(0, 40);
     for (const r of rows) for (const c of r.cells) {

@@ -301,12 +301,13 @@ export function viewFirm(id, tab0) {
     if (more) more.innerHTML = moreBtn(rows.length);
   };
   // ---- Credit deals (lens): deals this firm advised on, with the side it acted for.
-  const creditRow = (c) => `<li class="lf-deal" data-side="${c.side}">`
-    + `<div class="lf-deal-t">${c.href ? `<a href="${esc(c.href)}"${c.ext ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(c.title)}</a>` : esc(c.title)}</div>`
-    + `<div class="lf-deal-m"><span class="lf-side lf-side-${c.side}">${esc(SIDE_LABEL[c.side])}</span>`
-    + [c.date ? pcDate(c.date) : "", c.amount ? esc(c.amount) : "", c.lender ? esc(c.lender) : ""].filter(Boolean).map((x) => `<span>${x}</span>`).join("")
-    + (c.src ? `<a class="lf-src" href="${esc(c.src)}" target="_blank" rel="noopener noreferrer">${esc(c.srcLabel || "source")}</a>` : "")
-    + `</div></li>`;
+  // R43: the shared events row — date · deal · side tag · source, then amount · lender.
+  const creditRow = (c) => `<li class="lf-deal g-ev" data-side="${c.side}" title="${esc([c.title, SIDE_LABEL[c.side], c.amount, c.lender].filter(Boolean).join(" · "))}">`
+    + `<span class="c-date">${c.date ? pcDate(c.date) : ""}</span>`
+    + `<span class="g-ev-t lf-deal-t">${c.href ? `<a href="${esc(c.href)}"${c.ext ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(c.title)}</a>` : esc(c.title)}</span>`
+    + `<span class="c-tag"><span class="dsh-tag lf-side lf-side-${c.side}">${esc(SIDE_LABEL[c.side])}</span></span>`
+    + `<span class="c-src">${c.src ? `<a class="lf-src" href="${esc(c.src)}" target="_blank" rel="noopener noreferrer">${esc(c.srcLabel || "source")}</a>` : ""}</span>`
+    + `<span class="g-ev-m lf-deal-m">${[c.amount ? esc(c.amount) : "", c.lender ? esc(c.lender) : ""].filter(Boolean).join(" · ")}</span></li>`;
   const renderCredit = () => {
     const list = $id("firm-credit"); if (!list) return;
     const more = $id("firm-credit-more");

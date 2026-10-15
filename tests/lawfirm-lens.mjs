@@ -102,7 +102,7 @@ const more = await pg.$("#pf-detail #firm-credit-more [data-more]"); if (more) {
 const deals = await pg.evaluate(() => [...document.querySelectorAll("#pf-detail #firm-credit .lf-deal")].map((li) => ({
   side: li.dataset.side, label: li.querySelector(".lf-side").textContent, t: li.querySelector(".lf-deal-t").textContent,
   href: (li.querySelector(".lf-deal-t a") || {}).getAttribute ? li.querySelector(".lf-deal-t a").getAttribute("href") : "",
-  src: (li.querySelector(".lf-src") || {}).href || "", meta: li.querySelector(".lf-deal-m").textContent,
+  src: (li.querySelector(".lf-src") || {}).href || "", meta: `${(li.querySelector(".c-date") || {}).textContent || ""} ${li.querySelector(".lf-deal-m").textContent}`,   // R43: the date leads the row
 })));
 checkEq(deals.length, nCredit, "the Credit deals list matches the strip's count");
 check(deals.every((d) => ["lender", "borrower", "sponsor", "unknown"].includes(d.side)), "every deal carries a side (lender / borrower / sponsor / unknown)");

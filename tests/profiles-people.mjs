@@ -102,7 +102,7 @@ for (const w of [1366, 1920]) {
     const heads = [...wrap.querySelectorAll("thead th")].map((h) => h.textContent.trim());
     return { heads, spill: wrap.scrollWidth > wrap.clientWidth + 1, vis: wrap.getBoundingClientRect().height > 200 };
   });
-  check(d.heads.join("|") === "Person|Date|Move|Role|Seniority|From → to|Source", `desktop ${w}: columns ${d.heads.join(" · ")}`);
+  check(d.heads.join("|") === "Date|Person|Move|Role|Seniority|From → to|Source", `desktop ${w}: columns (R43 date first, source last) ${d.heads.join(" · ")}`);
   check(d.vis && !d.spill, `desktop ${w}: the table fits without sideways scroll`);
   checkErrs(errs, `profiles people (desktop ${w})`);
   await ctx.close();

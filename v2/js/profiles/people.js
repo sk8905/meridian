@@ -198,24 +198,26 @@ export function peoplePaneHTML() {
     const fromTo = r.type === "Promotion" || r.type === "Other" || (!r.from && !r.to) ? `<span class="pp-arr">at</span> ${esc(r.to || r.firm)}`
       : r.from && r.to ? `${esc(r.from)} <span class="pp-arr">→</span> ${esc(r.to)}`
       : r.to ? `<span class="pp-arr">to</span> ${esc(r.to)}` : `<span class="pp-arr">from</span> ${esc(r.from)}`;
-    return `<tr class="clickable" data-href="${esc(r.href)}" data-id="${esc(r.id)}" title="${esc(r.headline)}"`
+    // R43: a people move is an events row — date first, the move tag beside the name,
+    // the source last; role and from → to on the meta line (phone).
+    return `<tr class="clickable" data-href="${esc(r.href)}" data-id="${esc(r.id)}" title="${esc([r.headline, r.seniority].filter(Boolean).join(" · "))}"`
       + ` data-name="${esc([r.person, r.role, r.firm, r.from, r.to, r.headline].filter(Boolean).join(" ").toLowerCase())}"`
       + ` data-f-firm="${esc(r.firm)}" data-f-move="${esc(r.type)}" data-f-seniority="${esc(r.seniority)}" data-f-period="${periodTags(r.date, now).join("|")}" data-f-kind="${esc(r.kind)}">`
+      + `<td class="pf-c-main pp-date c-date" data-sort="${Date.parse(r.date) || ""}">${esc(fmtDate(r))}</td>`
       + `<td class="tl-nm pp-who">${r.person ? esc(r.person) : `<span class="pp-hl">${esc(r.headline)}</span>`}</td>`
-      + `<td class="pf-c-main pp-date" data-sort="${Date.parse(r.date) || ""}">${esc(fmtDate(r))}</td>`
-      + `<td class="pf-c-meta pp-move"><span class="pp-mv pp-mv-${r.type.toLowerCase()}">${esc(r.type)}</span></td>`
+      + `<td class="pf-c-meta pp-move c-tag"><span class="dsh-tag pp-mv pp-mv-${r.type.toLowerCase()}">${esc(r.type)}</span></td>`
       + `<td class="pf-c-meta pp-role">${r.role ? esc(r.role) : "—"}</td>`
       + `<td class="pp-sen">${esc(r.seniority)}</td>`
       + `<td class="pf-c-meta pp-fromto">${fromTo}</td>`
-      + `<td class="pp-src-c">${r.url ? `<a class="pp-src" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.headline)}">${esc(r.src || "source")}</a>` : "—"}</td></tr>`;
+      + `<td class="pp-src-c c-src">${r.url ? `<a class="pp-src" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.headline)}">${esc(r.src || "source")}</a>` : "—"}</td></tr>`;
   }).join("");
   return `<div class="tpane" data-pane="people" hidden>
               <header class="tpanel-h thead-search">
                 <input type="search" id="pp-q" class="tsearch" placeholder="Search person, role or firm…" aria-label="Search people moves">
               </header>
               <div class="tleague-wrap">
-              <table class="tleague tleague-full pf-cards pp-tbl">
-                <thead><tr><th>Person</th><th>Date</th><th>Move</th><th>Role</th><th>Seniority</th><th>From → to</th><th>Source</th></tr></thead>
+              <table class="tleague tleague-full pf-cards pp-tbl" data-events="1">
+                <thead><tr><th class="c-date">Date</th><th>Person</th><th class="c-tag">Move</th><th>Role</th><th>Seniority</th><th>From → to</th><th class="c-src">Source</th></tr></thead>
                 <tbody id="pp-rows">${rows}</tbody>
               </table>
               </div>

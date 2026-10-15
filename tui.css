@@ -198,24 +198,20 @@
    selector must not clobber it, or the pane sub-header would cover the chips. */
 @media (min-width: 761px) { #pf-list .twire-head { position: relative; z-index: 1; } }
 .twire { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; min-height: 0; }
-/* single line, matching Home: date | CODE | headline (+ inline manager) | source */
-.twire .compact-item { display: grid; grid-template-columns: 70px 30px minmax(0,1fr) auto; column-gap: 10px; padding: 5px 12px; border-bottom: 1px solid var(--border); align-items: baseline; }
-.tw-date { grid-column: 1; font-family: var(--t-mono); font-size:var(--fs-num); color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.tw-tag { grid-column: 2; font-family: var(--t-mono); font-size:var(--fs-micro); font-weight:400; letter-spacing: .03em; color: var(--muted); }
-/* Profile-wire labels take the manager-wire pastel scheme (not all credit-orange):
-   DEAL green, FUND blue, CLO purple, NEWS slate. */
-.tw-tag.deal { color: var(--t-lex, #2fbf8a); }
-.tw-tag.intel { color: var(--t-hdg, #4aa3f0); }
-.tw-tag.clo { color: var(--t-mac, #9b83e2); }
-.tw-tag.news { color: var(--t-news, #8aa0c8); }
-:root[data-theme="light"] .tw-tag.news { color: var(--t-news, #4f6690); }   /* light: the dark-theme slate is too faint on white */
-.tw-body { grid-column: 3; display: flex; gap: 6px; align-items: baseline; min-width: 0; }
-.tw-head { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size:var(--fs-body); font-weight: 400; line-height: 1.35; color: var(--ink); }
-.tw-mgr-w { flex: 0 0 auto; white-space: nowrap; max-width: 42%; overflow: hidden; text-overflow: ellipsis; }
-.tw-mgr-w::before { content: "· "; color: var(--faint); }
-/* manager links inline in rows / rails: mono, light grey (not accent) */
-.tw-mgr, .compact-mgr { font-family: var(--t-mono); font-size:var(--fs-body); color: var(--muted); }
-.tw-src { grid-column: 4; text-align: right; white-space: nowrap; font-size:var(--fs-micro); color: var(--faint); font-family: var(--t-mono); padding-left: 12px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; }
+/* R43: the profile wire row IS the shared events row at every width — line 1 = date ·
+   headline · tag · source, line 2 = the inline entity / meta; two single lines with an
+   ellipsis, one fixed height (--ev-h), full text in the row title. */
+.twire .compact-item { display: grid; grid-template-columns: var(--c-date-w) minmax(0,1fr) auto var(--c-src-w);
+  grid-template-areas: "date head tag src" "date mgr mgr mgr"; column-gap: 8px; row-gap: 1px; align-items: baseline; align-content: center;
+  box-sizing: border-box; height: var(--ev-h); overflow: hidden; padding: 0 12px; border-bottom: 1px solid var(--border); }
+.tw-date { grid-area: date; align-self: start; padding-top: 2px; font-size:var(--fs-micro); color: var(--t-faint); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tw-tag { grid-area: tag; }
+.tw-body { display: contents; }
+.tw-head { grid-area: head; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size:var(--fs-body); font-weight: 400; line-height: 1.35; color: var(--t-ink); }
+.tw-mgr-w { grid-area: mgr; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size:var(--fs-micro); line-height: 1.4; color: var(--t-mut); }
+/* manager links inline in rows / rails: light grey (not accent) */
+.tw-mgr, .compact-mgr { font-size: inherit; color: var(--t-mut); }
+.tw-src { grid-area: src; min-width: 0; text-align: right; white-space: nowrap; font-size:var(--fs-micro); color: var(--t-faint); overflow: hidden; text-overflow: ellipsis; }
 .tw-src a { color: var(--faint); }
 .tw-empty { padding: 12px; }
 
@@ -268,6 +264,10 @@
 .tmini { list-style: none; margin: 0; padding: 0; }
 .tmini-row { display: block; padding: 6px 12px; border-bottom: 1px solid var(--border); }
 .tmini-row:last-child { border-bottom: 0; }
+/* A dated mini list is the shared R43 events row; it keeps the row gutter (the deal
+   drawer aligns its rows to the body edge instead). */
+.tmini > .tmini-row.g-ev { padding: 0 12px; }
+.tx-drawer-b .tmini > .tmini-row.g-ev { padding: 0; }
 .tmini-t { display: block; font-size:var(--fs-body); color: var(--ink); font-weight:400; line-height: 1.3; }
 .tmini-row.clickable { cursor: pointer; }
 .tmini-m { display: block; font-size:var(--fs-micro); color: var(--muted); margin-top: 2px; }
@@ -391,26 +391,7 @@
   body.wire-pulling .tpane[data-pane="managers"] .thead-search,
   body.wire-pulling .tpane[data-pane="managers"] .tleague-full th { position: static; }
 
-  /* Bloomberg-Go news row: the headline leads, then ONE muted meta line beneath —
-     CODE · date · entity · source — category tag first on the left. Grid (not
-     flex-wrap) so the meta stays on a single line: the entity/source tracks
-     shrink to an ellipsis instead of wrapping or overflowing off-screen.
-     .tw-body is display:contents so its headline + manager join the grid. */
-  .twire .compact-item {
-    display: grid; align-items: baseline;
-    grid-template-columns: max-content max-content minmax(0, 1fr);
-    grid-template-areas: "head head head" "tag date src";
-    column-gap: 6px; row-gap: 4px; padding: 11px 14px;
-  }
-  .tw-body { display: contents; }
-  .tw-head { grid-area: head; white-space: normal; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; font-size:var(--fs-body); }
-  /* the entity is already in the headline; drop it from the meta so the line
-     stays clean and truncates only the source (like Bloomberg's mobile rows). */
-  .tw-mgr-w { display: none; }
-  .tw-tag  { grid-area: tag; font-size:var(--fs-micro); }
-  .tw-date { grid-area: date; white-space: nowrap; }
-  .tw-src  { grid-area: src; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; padding-left: 0; max-width: none; }
-  .tw-src::before { content: "·"; color: var(--faint); margin-right: 5px; }
+  /* iPhone: the profile wire row is the same two-line events row as desktop (R43). */
 
   /* chips: swipeable if a section has many filters */
   .tchip { padding: 0 4px; }   /* equal-width tabs stay full-width on mobile */
@@ -490,16 +471,18 @@
      table-layout:fixed starves whichever column is missing from this list
      (that's exactly what squashed SLS to nothing at the right edge). */
   /* TEN columns since Fit + 90d landed (R39). */
-  .tleague-full th:nth-child(1) { width: 21%; }   /* Manager    */
-  .tleague-full th:nth-child(2) { width: 12%; }   /* HQ         */
-  .tleague-full th:nth-child(3) { width: 8%;  }   /* Fit        */
-  .tleague-full th:nth-child(4) { width: 9%;  }   /* AUM        */
-  .tleague-full th:nth-child(5) { width: 9%;  }   /* Credit AUM */
+  /* R43f: the AUM pair ("€12bn ($13.4bn)") and Fit ("European mid-market") are sized
+     to their content at 1366px; the name column gives way (ellipsis + title). */
+  .tleague-full th:nth-child(1) { width: 18%; }   /* Manager    */
+  .tleague-full th:nth-child(2) { width: 11%; }   /* HQ         */
+  .tleague-full th:nth-child(3) { width: 11%; }   /* Fit        */
+  .tleague-full th:nth-child(4) { width: 11%; }   /* AUM        */
+  .tleague-full th:nth-child(5) { width: 11%; }   /* Credit AUM */
   .tleague-full th:nth-child(6) { width: 6%;  }   /* Funds      */
   .tleague-full th:nth-child(7) { width: 6%;  }   /* In mkt     */
-  .tleague-full th:nth-child(8) { width: 8%;  }   /* 90d        */
+  .tleague-full th:nth-child(8) { width: 7%;  }   /* 90d        */
   .tleague-full th:nth-child(9) { width: 5%;  }   /* CLOs       */
-  .tleague-full th:nth-child(10) { width: 16%; }  /* SLS        */
+  .tleague-full th:nth-child(10) { width: 14%; }  /* SLS        */
   .tleague-full .tl-nm { max-width: none; }
 }
 /* Per-table column split for every OTHER .tleague-full family. They all inherit
@@ -1155,7 +1138,6 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 }
 
 /* macro dashboard — indicators rail + commentary tag */
-.tw-tag.comm { color: var(--t-mac, #9b83e2); }
 .mac-ind-cty { font-size:var(--fs-micro); font-weight:400; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); padding: 9px 12px 5px; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 .mac-ind-cty-x { font-size:var(--fs-micro); font-weight:400; letter-spacing: .03em; color: var(--faint); text-transform: none; }
 /* Detail tiles fill the available width — 2-across in the narrow rail, up to
@@ -1235,7 +1217,6 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .mac-dash-pane .macro-gauge-note { font-size:var(--fs-body); margin: 8px 0 0; }
 .mac-dash-pane .macro-gauge-note a { color: inherit; }
 /* legal wire tags */
-.tw-tag.alert, .tw-tag.case, .tw-tag.rp { color: var(--t-lex, #2fbf8a); }
 
 /* =============================================================================
    HOUSE CONFORMANCE LAYER — the remaining legacy surfaces (Funds / Managers /
@@ -1473,15 +1454,13 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 .co-head .co-share { flex: 0 0 auto; }
 
 /* ---- Profiles ▸ People (R11): hires / departures / promotions ---------------------- */
-.pp-tbl td.pp-date { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.pp-tbl td.pp-date { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--t-faint); font-size: var(--fs-micro); }
 .pp-tbl .pp-hl { color: var(--muted); }
 .pp-tbl .pp-arr { color: var(--faint); }
-.pp-tbl .pp-mv { font-family: var(--t-mono); font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
-.pp-tbl .pp-mv-hire { color: var(--ink); }
-.pp-tbl .pp-src { color: var(--muted); font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: .03em; border: 1px solid var(--border); padding: 0 3px; white-space: nowrap; text-decoration: none; }
+.pp-tbl .pp-src { color: var(--t-faint); font-size: var(--fs-micro); white-space: nowrap; text-decoration: none; }
 @media (min-width: 761px) {
   .pp-tbl { table-layout: fixed; width: 100%; }
-  .pp-tbl th:nth-child(1) { width: 20%; } .pp-tbl th:nth-child(2) { width: 112px; } .pp-tbl th:nth-child(3) { width: 104px; }
+  .pp-tbl th:nth-child(1) { width: 84px; } .pp-tbl th:nth-child(2) { width: 20%; } .pp-tbl th:nth-child(3) { width: 104px; }
   .pp-tbl th:nth-child(4) { width: 25%; } .pp-tbl th:nth-child(5) { width: 80px; } .pp-tbl th:nth-child(6) { width: 22%; }
   .pp-tbl th:nth-child(7) { width: 150px; }
   .pp-tbl td { overflow: hidden; text-overflow: ellipsis; }
@@ -1489,7 +1468,20 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
   .pp-tbl .pp-src { display: inline-block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; }
 }
 @media (max-width: 760px) {
-  #pf-panes .pp-tbl tbody td.pp-src-c { display: inline; order: 3; }
+  /* R43: on iPhone a people move is the shared two-line events row — date · person ·
+     move · source, then role · from → to (seniority rides in the row title). */
+  #pf-panes .pp-tbl.pf-cards tbody tr { display: grid; grid-template-columns: var(--c-date-w) minmax(0,1fr) auto var(--c-src-w);
+    grid-template-areas: "date who move src" "date role fromto fromto"; column-gap: 8px; row-gap: 1px; align-items: baseline; align-content: center;
+    box-sizing: border-box; height: var(--ev-h); overflow: hidden; padding: 0 var(--m-gutter, 12px); }
+  #pf-panes .pp-tbl.pf-cards tbody tr::after { content: none; }
+  #pf-panes .pp-tbl.pf-cards tbody td { display: block; min-width: 0; max-width: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-date { grid-area: date; align-self: start; padding-top: 2px; text-align: left; color: var(--t-faint); font-size: var(--fs-micro); }
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-who { grid-area: who; color: var(--t-ink); }
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-move { grid-area: move; }
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-src-c { grid-area: src; text-align: right; }
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-role { grid-area: role; font-size: var(--fs-micro); color: var(--t-mut); }
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-fromto { grid-area: fromto; font-size: var(--fs-micro); color: var(--t-mut); max-width: none; }
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-sen { display: none; }
   /* Five list chips (… · Law firms · People) — content-sized so every label stays on
      one line inside 390px (R2d b). */
   #pf-chips .tchip { flex: 1 1 auto; white-space: nowrap; padding: 0 4px; }

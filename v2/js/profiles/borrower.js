@@ -14,7 +14,8 @@ import { DEAL_TAGS } from "/credit/js/deal-tags.js";
 import { EUR_CREDITS } from "/credit/js/eu-credits.js";
 import { CR_STRESS } from "/dashboard/js/data.js";
 import { esc } from "/util.js";
-import { fmtDateP } from "/feed.js";
+import { fmtDateP, evRow } from "/feed.js";
+import { creditSource } from "/credit/js/shared.js";
 import { advisersFor } from "../deal-advisers.js";
 
 const norm = (s) => " " + String(s || "").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, " ").trim() + " ";
@@ -87,13 +88,16 @@ export async function viewBorrower(host, rawName, base = "/v2") {
     ...(stress && stress.hq ? [["HQ", esc(stress.hq)]] : []),
     ...(advisers.length ? [["Advisers", advisers.map((a) => esc(a.firm)).join(" · ")]] : []),
   ];
-  const dealsBody = ds.length ? `<ul class="tmini">${ds.map((d) => li(`<a href="${esc(base)}/transactions/#/deal/${esc(d.id)}">${esc(d.headline)}</a>`, `${esc(fmtDateP(d))} · ${esc(mgrName.get(d.managerId) || "")}`)).join("")}</ul>` : `<p class="tw-empty muted small">No tracked deal names this company.</p>`;
-  const legalBody = (alerts.length || cases.length || rx.length)
-    ? `<ul class="tmini">${[
-      ...rx.map((r) => li(ext(r.judgmentUrl || r.articleUrl, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"} — ${r.company}`), `${esc(fmtDateP(r))}${r.citation ? " · " + esc(r.citation) : ""}${r.court ? " · " + esc(r.court) : ""}`)),
-      ...cases.map((c) => li(ext(c.url, c.name), `${esc(fmtDateP(c))} · ${esc([c.court, c.citation].filter(Boolean).join(" · "))}`)),
-      ...alerts.map((i) => li(ext(i.url, i.title), `${esc(fmtDateP(i))} · ${esc(firm(i.firm))}`)),
-    ].join("")}</ul>` : `<p class="tw-empty muted small">No tracked alert, judgment or plan names this company.</p>`;
+  // R43: deals, plans, judgments and alerts are events lists — the shared row
+  // (date · headline / meta · tag · source).
+  const dealsBody = ds.length ? `<ul class="tmini g-evs">${ds.map((d) => evRow({ dateText: fmtDateP(d), title: d.headline, href: `${base}/transactions/#/deal/${d.id}`, inApp: true, meta: esc(mgrName.get(d.managerId) || ""), src: creditSource(d), srcHref: d.sourceUrl || "", cls: "tmini-row" })).join("")}</ul>` : `<p class="tw-empty muted small">No tracked deal names this company.</p>`;
+  const legalRows = [
+    ...rx.map((r) => ({ x: r, t: r.company, u: r.judgmentUrl || r.articleUrl, tag: r.type === "scheme" ? "Scheme" : "Plan", meta: [r.citation, r.court].filter(Boolean).join(" · ") })),
+    ...cases.map((c) => ({ x: c, t: c.name, u: c.url, tag: "Case", meta: [c.citation].filter(Boolean).join(" · "), src: c.court })),
+    ...alerts.map((i) => ({ x: i, t: i.title, u: i.url, tag: "Alert", meta: "", src: firm(i.firm) })),
+  ].sort((a, b) => String(b.x.date || "").localeCompare(String(a.x.date || "")));
+  const legalBody = legalRows.length
+    ? `<ul class="tmini g-evs">${legalRows.map((r) => evRow({ dateText: fmtDateP(r.x), title: r.t, href: r.u || "", meta: esc(r.meta), tag: `<span class="dsh-tag">${esc(r.tag)}</span>`, src: r.src || "", srcHref: r.src ? "" : (r.u || ""), cls: "tmini-row" })).join("")}</ul>` : `<p class="tw-empty muted small">No tracked alert, judgment or plan names this company.</p>`;
   host.innerHTML = `
     <div class="tdash"><div class="tdash-grid tdash-1"><section class="tcol tcol-c tcol-full">
       <div class="tdet-id" data-borrower="${esc(name)}">
