@@ -12,8 +12,8 @@ export const UPDATED = "28 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-10-14",
-  lastCheckedTime: "23:15 BST",
+  lastChecked: "2026-10-15",
+  lastCheckedTime: "05:12 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1036,20 +1036,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-14",
+  updated: "2026-10-15",
   us: [
+    {title: "Global AI sell-off deepens as Asian markets tumble", source: "Financial Times", date: "2026-10-15", time: "05:04", url: "https://www.ft.com/content/cf5f1209-da29-4ce1-b425-0e83818bf9ec"},
     {title: "US inflation jumps to 3.7% as Iran war drives up prices", source: "Financial Times", date: "2026-10-14", time: "21:06", url: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d"},
     {title: "Hot September CPI inflation keeps Fed on course for further tightening", source: "Financial Times", date: "2026-10-14", time: "14:21", url: "https://www.ft.com/content/6934f481-b61c-4ab0-8064-a79493702f2c"},
-    {title: "US chip stocks slide as inflation and AI debt fears unsettle investors", source: "Financial Times", date: "2026-10-14", time: "21:01", url: "https://www.ft.com/content/fb258413-e88d-47fe-98c8-f645adaea1e1"},
-    {title: "Houthis attack Saudi Aramco headquarters", source: "Financial Times", date: "2026-10-14", time: "14:25", url: "https://www.ft.com/content/a25417b3-d4e4-4b89-b14d-6370a85ce3c4"},
-    {title: "US grocery prices poised to climb as soaring fuel costs drive inflation", source: "Financial Times", date: "2026-10-14", time: "15:14", url: "https://www.ft.com/content/13929c26-1c01-41b2-b81a-d337fa5c9d27"},
+    {title: "Oil majors face $32bn dilemma over Iran war windfall", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/9d70cd3f-abd3-4e40-b644-156444cec446"},
+    {title: "Investors predict new record price for gold within two years", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/7761de04-7fac-4f7b-bddb-8457e425b642"},
   ],
   uk: [
+    {title: "Minister promises UK private pension proposals by spring", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/c84ce6a3-5724-4b98-a93a-c035d607d90f"},
+    {title: "FCA plans to embrace AI to automate financial regulation", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/3a9364ec-6930-4877-a1a2-c053dd689760"},
+    {title: "Inheritance tax toll is mounting on UK family companies", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/ed713df4-92b3-45bc-9cf4-bb5c9ea72673"},
     {title: "Healey set to pay for Budget giveaways without more borrowing", source: "Financial Times", date: "2026-10-14", time: "05:00", url: "https://www.ft.com/content/08b9bbe6-0637-497e-af6d-464dd41e6121"},
-    {title: "Healey’s Budget is a moment he must not miss", source: "Financial Times", date: "2026-10-14", time: "18:31", url: "https://www.ft.com/content/9f3713fb-6b0a-41f8-8ccc-b23f2395740e"},
-    {title: "UK chances of keeping £3.8bn bitcoin haul rise after High Court ruling", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/bbe24952-d66f-480e-b0a8-94339d75bc48"},
-    {title: "Healey’s Budget will be ‘fiction’ without plan for £35bn hole in spending, IFS warns", source: "Financial Times", date: "2026-10-12", time: "00:01", url: "https://www.ft.com/content/619800ae-b2f2-46e3-b34e-23f0525637da"},
-    {title: "Andy Burnham to step up UK business outreach amid fears of Budget tax rises", source: "Financial Times", date: "2026-10-12", time: "00:01", url: "https://www.ft.com/content/b00db29e-4334-4e04-8f09-a140aafd4b05"},
+    {title: "London’s gold market enjoys the Trump effect", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/bbb1d399-e91c-4600-9882-ea93e1f96ac9"},
   ],
 };
 
@@ -1062,8 +1062,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-13",
+  updated: "2026-10-15",
   items: [
+    {"title": "Global AI sell-off deepens as Asian markets tumble", "source": "Financial Times", "date": "2026-10-15", "time": "05:04", "url": "https://www.ft.com/content/cf5f1209-da29-4ce1-b425-0e83818bf9ec", "blurb": "Asian equities slide as the AI-led sell-off extends overnight."},
+    {"title": "French debt worries spill into stocks, driving biggest underperformance since 2010", "source": "Financial Times", "date": "2026-10-15", "time": "05:00", "url": "https://www.ft.com/content/69bfdf93-cbba-477c-9fb0-5978d1d4f506", "blurb": "Concerns over French public debt weigh on the equity market."},
+    {"title": "Oil majors face $32bn dilemma over Iran war windfall", "source": "Financial Times", "date": "2026-10-15", "time": "05:00", "url": "https://www.ft.com/content/9d70cd3f-abd3-4e40-b644-156444cec446", "blurb": "Oil groups weigh what to do with windfall profits from the Iran war."},
     {"title": "Investors brave US Treasury rout to lock in highest yields in decades", "source": "Financial Times", "date": "2026-10-13", "time": "05:00", "url": "https://www.ft.com/content/6fa735a2-a590-4461-b092-920ba489e7a8", "blurb": "Buyers step in to lock in the highest US Treasury yields in decades despite the sell-off."},
     {"title": "The election supercycle set to drag Europe right", "source": "Financial Times", "date": "2026-10-13", "time": "05:00", "url": "https://www.ft.com/content/ec433e1f-bdb4-4a1c-868e-e1c7c4121f45", "blurb": "A run of European elections is expected to shift the continent’s politics to the right."},
     {"title": "Why Trump is going for Zelenskyy’s jugular", "source": "Financial Times", "date": "2026-10-13", "time": "05:00", "url": "https://www.ft.com/content/1724a30e-cf50-4a4e-ade8-bca72ea4b9a1", "blurb": "Analysis of Washington’s pressure on Kyiv over the war."},

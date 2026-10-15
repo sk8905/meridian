@@ -49,6 +49,18 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bloomberg-pointsofreturn-hotinflation-20261015",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Hot Inflation Isn’t Playing Along With Trump",
+    date: "2026-10-15",
+    time: "05:08",
+    summary: "A rate cut appears to be out for now.",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-10-15/hot-inflation-isn-t-playing-along-with-trump",
+    body: true,
+  },
+  {
     id: "nl-bloomberg-moneystuff-bankofamericamissed-20261014",
     publication: "Bloomberg",
     author: "Matt Levine",

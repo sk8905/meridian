@@ -21,6 +21,97 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "cf5f1209-da29-4ce1-b425-0e83818bf9ec",
+    title: "Global AI sell-off deepens as Asian markets tumble",
+    date: "2026-10-15",
+    time: "05:04",
+    url: "https://www.ft.com/content/cf5f1209-da29-4ce1-b425-0e83818bf9ec"
+  },
+  {
+    id: "9632f1f7-713f-43ab-ad42-d9e876b975e9",
+    title: "The UK’s Fastest-Growing Companies",
+    date: "2026-10-15",
+    time: "05:02",
+    url: "https://www.ft.com/content/9632f1f7-713f-43ab-ad42-d9e876b975e9"
+  },
+  {
+    id: "d9353431-e9ba-4b34-a277-ab1510120ef8",
+    title: "General Atlantic’s IPO ambitions",
+    date: "2026-10-15",
+    time: "05:00",
+    url: "https://www.ft.com/content/d9353431-e9ba-4b34-a277-ab1510120ef8"
+  },
+  {
+    id: "bbb1d399-e91c-4600-9882-ea93e1f96ac9",
+    title: "London’s gold market enjoys the Trump effect",
+    date: "2026-10-15",
+    time: "05:00",
+    url: "https://www.ft.com/content/bbb1d399-e91c-4600-9882-ea93e1f96ac9"
+  },
+  {
+    id: "43c9d38a-652a-45df-b3be-c3dead3390f1",
+    title: "Marsh to shoulder biggest chunk of Greensill settlement with Credit Suisse",
+    date: "2026-10-15",
+    time: "05:00",
+    url: "https://www.ft.com/content/43c9d38a-652a-45df-b3be-c3dead3390f1"
+  },
+  {
+    id: "7761de04-7fac-4f7b-bddb-8457e425b642",
+    title: "Investors predict new record price for gold within two years",
+    date: "2026-10-15",
+    time: "05:00",
+    url: "https://www.ft.com/content/7761de04-7fac-4f7b-bddb-8457e425b642"
+  },
+  {
+    id: "c84ce6a3-5724-4b98-a93a-c035d607d90f",
+    title: "Minister promises UK private pension proposals by spring",
+    date: "2026-10-15",
+    time: "05:00",
+    url: "https://www.ft.com/content/c84ce6a3-5724-4b98-a93a-c035d607d90f"
+  },
+  {
+    id: "3a9364ec-6930-4877-a1a2-c053dd689760",
+    title: "FCA plans to embrace AI to automate financial regulation",
+    date: "2026-10-15",
+    time: "05:00",
+    url: "https://www.ft.com/content/3a9364ec-6930-4877-a1a2-c053dd689760"
+  },
+  {
+    id: "4d79b52f-1f0d-4739-82ab-7ecfb4251326",
+    title: "Ukraine to resume strikes on Russian refineries, Zelenskyy says",
+    date: "2026-10-15",
+    time: "05:00",
+    url: "https://www.ft.com/content/4d79b52f-1f0d-4739-82ab-7ecfb4251326"
+  },
+  {
+    id: "26db5bb2-9d81-4c62-aeac-c0dfef4c79e6",
+    title: "How AI mega-rounds make life harder for VC firms",
+    date: "2026-10-15",
+    time: "05:00",
+    url: "https://www.ft.com/content/26db5bb2-9d81-4c62-aeac-c0dfef4c79e6"
+  },
+  {
+    id: "ed713df4-92b3-45bc-9cf4-bb5c9ea72673",
+    title: "Inheritance tax toll is mounting on UK family companies",
+    date: "2026-10-15",
+    time: "05:00",
+    url: "https://www.ft.com/content/ed713df4-92b3-45bc-9cf4-bb5c9ea72673"
+  },
+  {
+    id: "9d70cd3f-abd3-4e40-b644-156444cec446",
+    title: "Oil majors face $32bn dilemma over Iran war windfall",
+    date: "2026-10-15",
+    time: "05:00",
+    url: "https://www.ft.com/content/9d70cd3f-abd3-4e40-b644-156444cec446"
+  },
+  {
+    id: "69bfdf93-cbba-477c-9fb0-5978d1d4f506",
+    title: "French debt worries spill into stocks, driving biggest underperformance since 2010",
+    date: "2026-10-15",
+    time: "05:00",
+    url: "https://www.ft.com/content/69bfdf93-cbba-477c-9fb0-5978d1d4f506"
+  },
+  {
     id: "18b65495-9e2a-45d6-be85-7641442ab61a",
     title: "OpenAI claims employee sent secret device information to Apple",
     date: "2026-10-14",
@@ -208,96 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-14",
     time: "12:59",
     url: "https://www.ft.com/content/c5fb2ea9-9a41-416a-90b8-337936ec4971"
-  },
-  {
-    id: "63e3c39b-357f-4a87-adf0-090c60c929a7",
-    title: "BlackRock pulls in $205bn to take assets to record high",
-    date: "2026-10-14",
-    time: "12:39",
-    url: "https://www.ft.com/content/63e3c39b-357f-4a87-adf0-090c60c929a7"
-  },
-  {
-    id: "37085602-726a-44dc-a859-51caab38eb75",
-    title: "Ukraine blindsided by Starlink restrictions and intelligence gaps",
-    date: "2026-10-14",
-    time: "12:09",
-    url: "https://www.ft.com/content/37085602-726a-44dc-a859-51caab38eb75"
-  },
-  {
-    id: "73cfaf41-d3ea-4202-bd9b-f355c9e5b504",
-    title: "Marine Le Pen: ‘All the warning signs are flashing red’",
-    date: "2026-10-14",
-    time: "12:02",
-    url: "https://www.ft.com/content/73cfaf41-d3ea-4202-bd9b-f355c9e5b504"
-  },
-  {
-    id: "178041cc-c9e7-4bd9-8c6e-7967931dcb33",
-    title: "Giorgia Meloni criticises Trump’s diesel deal with Putin",
-    date: "2026-10-14",
-    time: "12:00",
-    url: "https://www.ft.com/content/178041cc-c9e7-4bd9-8c6e-7967931dcb33"
-  },
-  {
-    id: "f8f302b1-3859-45dd-9e45-b5e9149c6f51",
-    title: "Who should we leave our pensions to?",
-    date: "2026-10-14",
-    time: "11:37",
-    url: "https://www.ft.com/content/f8f302b1-3859-45dd-9e45-b5e9149c6f51"
-  },
-  {
-    id: "eb0be26c-8ff7-49b8-b232-fc283aaebf22",
-    title: "Is this the greatest Versace collection in the world?",
-    date: "2026-10-14",
-    time: "11:00",
-    url: "https://www.ft.com/content/eb0be26c-8ff7-49b8-b232-fc283aaebf22"
-  },
-  {
-    id: "1cc06862-6767-4f22-a7c2-56945ff693de",
-    title: "Good Times – Potato Head’s design store in Bali",
-    date: "2026-10-14",
-    time: "11:00",
-    url: "https://www.ft.com/content/1cc06862-6767-4f22-a7c2-56945ff693de"
-  },
-  {
-    id: "0f7511ee-efb1-4bf0-8f87-67f572193fd3",
-    title: "General Atlantic plans early 2027 IPO at up to $10bn valuation",
-    date: "2026-10-14",
-    time: "11:00",
-    url: "https://www.ft.com/content/0f7511ee-efb1-4bf0-8f87-67f572193fd3"
-  },
-  {
-    id: "4ffa1853-0e2c-424f-b941-88c6bcac5765",
-    title: "CoreWeave targets ‘unlimited’ insurance money to fund AI build-out",
-    date: "2026-10-14",
-    time: "10:58",
-    url: "https://www.ft.com/content/4ffa1853-0e2c-424f-b941-88c6bcac5765"
-  },
-  {
-    id: "0c178261-2c29-4677-9649-5b9257662d7e",
-    title: "Turkish authorities take over country’s most-watched news channel",
-    date: "2026-10-14",
-    time: "10:47",
-    url: "https://www.ft.com/content/0c178261-2c29-4677-9649-5b9257662d7e"
-  },
-  {
-    id: "8e82ae33-cc11-4731-826a-bcd0752f79bf",
-    title: "Crypto exchange Kraken owner to buy European bank",
-    date: "2026-10-14",
-    time: "10:30",
-    url: "https://www.ft.com/content/8e82ae33-cc11-4731-826a-bcd0752f79bf"
-  },
-  {
-    id: "c69ef2f5-0644-4ec3-accb-cbc8d633e008",
-    title: "European oil refineries’ margins collapse as input costs soar",
-    date: "2026-10-14",
-    time: "09:32",
-    url: "https://www.ft.com/content/c69ef2f5-0644-4ec3-accb-cbc8d633e008"
-  },
-  {
-    id: "04ceedc2-8ec0-481f-8982-6bb331f11e41",
-    title: "Government finally signals action on AI",
-    date: "2026-10-14",
-    time: "09:30",
-    url: "https://www.ft.com/content/04ceedc2-8ec0-481f-8982-6bb331f11e41"
   }
 ];

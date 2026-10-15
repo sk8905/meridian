@@ -99,13 +99,13 @@
 // =============================================================================
 export const BRIEFINGS = {
   tz: "BST",
-  date: "2026-10-14",
-  time: "23:15 BST",
-    lede: "US September CPI came in hot at 3.7% and the FT says it keeps the Fed on course for further tightening, with US chip stocks sliding on inflation and AI-debt fears as energy costs stay the common thread.",
+  date: "2026-10-15",
+  time: "05:12 BST",
+    lede: "A global AI-led sell-off deepened overnight in Asia after hot US CPI, while Treasuries held near 5.2% as traders judged an October Fed hike still unlikely.",
   bullets: [
-    { html: "<strong>Macro &mdash; US inflation jumped to 3.7% y/y in September, above the 3.6% consensus, keeping the Fed on course for further tightening,</strong> as the Iran war pushed up energy prices; Brent was trading around $105 earlier in the session after Houthi attacks hit Saudi Aramco&rsquo;s headquarters.", src: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d", srcName: "Financial Times", date: "2026-10-14" },
-    { html: "<strong>Bonds &mdash; the US 10-year Treasury yield stood near 5.20% (30-year 5.549%) going into the September CPI print</strong>, while ECB Governing Council member Pierre Wunsch said the bank will &ldquo;probably have to hike again&rdquo; with euro-area inflation approaching 4%.", src: "https://www.cnbc.com/2026/10/14/us-treasury-yields-cpi-inflation-report.html", srcName: "CNBC", date: "2026-10-14" },
-    { html: "<strong>Equities &mdash; US chip stocks slid after the hot CPI print</strong> as inflation and AI-debt fears unsettled investors, having started the session with S&amp;P 500 futures pointing to a modest rise (7,872, +0.2%).", src: "https://www.ft.com/content/fb258413-e88d-47fe-98c8-f645adaea1e1", srcName: "Financial Times", date: "2026-10-14" },
-    { html: "<strong>Credit &mdash; redemption requests at perpetual non-traded BDCs fell quarter on quarter at 13 of 15 tracked vehicles</strong> but still averaged 9.8% of shares, above the 5% cap at nine, per Fitch; Fitch expects further declines in coming quarters.", src: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk1Rb7mMWlAmc_OtJ58Ixz-D4naVC4G8VQQGmARJOZKvK_7Hs_WgDiZftmyZrOEi3XWC1L9BA=", srcName: "Fitch Ratings", date: "2026-10-13" },
+    { html: "<strong>Macro &mdash; US CPI at 3.7% in September was hotter than expected, and a Fed hike at this month&rsquo;s FOMC is now viewed as a coin-flip,</strong> though Bloomberg&rsquo;s Authers judges a hike still unlikely given buyers for 5.2% 10-year yields.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-15/hot-inflation-isn-t-playing-along-with-trump", srcName: "Bloomberg", date: "2026-10-15" },
+    { html: "<strong>Bonds &mdash; the US 10-year Treasury yield jumped to 5.32% after the CPI print, then slid back to 5.18%</strong> on no new news, as dip-buyers stepped in at the highest yields in decades.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-15/hot-inflation-isn-t-playing-along-with-trump", srcName: "Bloomberg", date: "2026-10-15" },
+    { html: "<strong>Equities &mdash; the global AI sell-off deepened as Asian markets tumbled;</strong> the Nasdaq 100 fell 2.02% on Wednesday, its worst day since July, with Kospi down 7.8% at the time of writing.", src: "https://www.ft.com/content/cf5f1209-da29-4ce1-b425-0e83818bf9ec", srcName: "Financial Times", date: "2026-10-15" },
+    { html: "<strong>Credit &mdash; Blackstone Credit &amp; Insurance led a $1bn financing</strong> to support the combination of Analogic and Leidos&rsquo; Security Enterprise Solutions businesses.", src: "https://blackstone.com/news/press/blackstone-credit-insurance-leads-1-billion-financing-to-support-combination-of-analogic-corporation-and-leidos-security-enterprise-solutions-businesses", srcName: "Blackstone", date: "2026-10-12" },
   ],
 };
