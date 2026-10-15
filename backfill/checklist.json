@@ -489,9 +489,138 @@
       "kind": "manager",
       "name": "Aegon Asset Management",
       "priority": 5,
-      "status": "todo",
-      "builtAt": null,
-      "events": []
+      "status": "built",
+      "builtAt": "2026-10-15",
+      "events": [
+        {
+          "key": "brand-2020",
+          "date": "2020-09-07",
+          "what": "Aegon AM retires Kames Capital and TKP Investments brands",
+          "source": "https://investmentweek.co.uk/news/4019801/aegon-retires-kames-capital-completes-brand-refresh",
+          "recordId": "i1175",
+          "status": "present"
+        },
+        {
+          "key": "cio-fixed-income-2020",
+          "date": "2020-07-01",
+          "what": "Russ Morrison named global CIO of fixed income platform",
+          "source": "https://funds-europe.com/aegon-am-appoints-fixed-income-cio/",
+          "recordId": "i1176",
+          "status": "present"
+        },
+        {
+          "key": "north-westerly-2023",
+          "date": "2023-04-27",
+          "what": "Aegon AM agrees to buy NIBC North Westerly European CLO business",
+          "source": "https://funds-europe.com/aegon-to-acquire-north-westerly-clo-business/",
+          "recordId": "i1177",
+          "status": "present"
+        },
+        {
+          "key": "lakemore-partnership-2023",
+          "date": "2023-04-27",
+          "what": "Aegon AM / Lakemore US CLO equity partnership",
+          "source": "https://www.creditflux.com/CLOs/2023-04-27/Lakemore-strikes-US-CLO-equity-partnership-with-Aegon-AM?d=1",
+          "recordId": "i1178",
+          "status": "present"
+        },
+        {
+          "key": "lbp-am-extension-2023",
+          "date": "2023-07-04",
+          "what": "Aegon AM and La Banque Postale extend LBP AM JV through 2035",
+          "source": "https://wwwedit-aegon-com.aegon.com/newsroom/news/press-releases/07-2023/lbp-am-partnership-extension",
+          "recordId": "i1179",
+          "status": "present"
+        },
+        {
+          "key": "ceo-johnson-2024",
+          "date": "2024-08-22",
+          "what": "Shawn Johnson appointed CEO of Aegon AM",
+          "source": "https://aegon.com/system/files/file/2024-08/pr-aegon-am-ceo-appointment.pdf",
+          "recordId": "i1180",
+          "status": "present"
+        },
+        {
+          "key": "ltaf-fca-2025",
+          "date": "2025-03-19",
+          "what": "FCA approves CG Aegon AM Private Credit LTAF",
+          "source": "https://alternativecreditinvestor.com/2025/03/19/aegon-am-private-credit-ltaf-approved/",
+          "recordId": "i189",
+          "status": "present"
+        },
+        {
+          "key": "capital-call-fund-2025",
+          "date": "2025-06-02",
+          "what": "Capital Call Finance Fund launch",
+          "source": "https://www.aegonam.com/news/press-releases/aegon-am-launches-capital-call-finance-fund/",
+          "recordId": "i106",
+          "status": "present"
+        },
+        {
+          "key": "ubc-ltaf-2025",
+          "date": "2025-12-18",
+          "what": "Aegon UK UBC holds over GBP1bn in LTAFs incl. Aegon AM private credit LTAF",
+          "source": "https://alternativecreditinvestor.com/2025/12/18/aegon-uk-ramps-up-private-markets-exposure/",
+          "recordId": "i250",
+          "status": "present"
+        },
+        {
+          "key": "lifepath-ltaf-2026",
+          "date": "2026-01-05",
+          "what": "Aegon UK LifePath to add private markets via LTAFs incl. Aegon AM",
+          "source": null,
+          "recordId": "i481",
+          "status": "present"
+        },
+        {
+          "key": "lakemore-expansion-2026",
+          "date": "2026-06-29",
+          "what": "Aegon AM / Lakemore expand US CLO partnership",
+          "source": "https://alternativecreditinvestor.com/2026/06/29/aegon-and-lakemore-expand-clo-tie-up/",
+          "recordId": "i362",
+          "status": "present"
+        },
+        {
+          "key": "clo-ucits-2026",
+          "date": "2026-09-04",
+          "what": "Aegon launches trio of European CLO UCITS funds",
+          "source": null,
+          "recordId": "i705",
+          "status": "present"
+        },
+        {
+          "key": "insured-credit-fund-2026",
+          "date": "2026-09-23",
+          "what": "Aegon Insured Credit Fund launch",
+          "source": "https://alternativecreditinvestor.com/2026/09/23/aegon-am-unveils-insured-credit-fund/",
+          "recordId": "i819",
+          "status": "present"
+        },
+        {
+          "key": "group-us-move-cmd-2025",
+          "date": "2025-12-10",
+          "what": "Aegon group plans US head office / Transamerica rename",
+          "source": "https://wwwedit-aegon-com.aegon.com/newsroom/news/press-releases/2025/CMD-2025",
+          "note": "Group-level insurer strategy, only indirectly relevant to Aegon AM; not recorded.",
+          "status": "rejected"
+        },
+        {
+          "key": "group-egm-2026",
+          "date": "2026-10-08",
+          "what": "Aegon shareholders approve US redomiciliation",
+          "source": "https://www.insurancebusinessmag.com/us/news/breaking-news/aegon-shareholders-back-us-move-as-company-prepares-to-become-transamerica-592925.aspx",
+          "note": "Group-level; publication date not independently confirmed.",
+          "status": "rejected"
+        },
+        {
+          "key": "ils-closure-2020",
+          "date": "2020-01-15",
+          "what": "Aegon closes ILS investing unit",
+          "source": "https://www.artemis.bm/news/aegon-to-close-down-ils-investing-unit/",
+          "note": "Aegon NL insurer unit, not Aegon AM.",
+          "status": "rejected"
+        }
+      ]
     },
     "m8": {
       "kind": "manager",
@@ -5228,7 +5357,8 @@
           "date": "2022-07-07",
           "what": "Rajeev Misra steps back from SoftBank Vision Fund role, reported to launch own fund (OneIM)",
           "source": "https://www.cnbc.com/2022/07/07/top-softbank-exec-rajeev-misra-steps-back-from-role-at-vision-fund.html",
-          "status": "missing"
+          "status": "present",
+          "recordId": "i1167"
         },
         {
           "key": "oneim-first-close-6-8bn-2023",
@@ -5264,10 +5394,11 @@
         },
         {
           "key": "oha-oneim-partnership-2024",
-          "date": "2024",
+          "date": "2024-07-16",
           "what": "OHA and OneIM launch partnership to invest in European private credit",
           "source": "https://www.tipranks.com/news/press-releases/oha-and-oneim-launch-a-partnership-to-invest-in-european-private-credit",
-          "status": "missing"
+          "status": "present",
+          "recordId": "i43"
         },
         {
           "key": "holiday-parks-2024",
@@ -5595,6 +5726,249 @@
         }
       ],
       "builtAt": "2026-10-15"
+    },
+    "m35": {
+      "kind": "manager",
+      "name": "FitzWalter Capital",
+      "priority": 124,
+      "status": "built",
+      "builtAt": "2026-10-15",
+      "events": [
+        {
+          "key": "fund-i-final-2021",
+          "date": "2021-08",
+          "what": "FitzWalter Capital Partners I final close at $920m hard cap",
+          "source": "https://www.fwcap.com/news/fitzwalter-capital-partners-closes-debut-fund-at-920m-hard-cap",
+          "recordId": "i438",
+          "status": "present"
+        },
+        {
+          "key": "fwcas-2022",
+          "date": "2022-07-19",
+          "what": "FWCAS aircraft investment and leasing platform established",
+          "source": "https://www.fwcap.com/news/39-fitzwalter-capital-announces-establishment-of-fwcas-a-new-aircraft-investment-and-leasing-platform",
+          "recordId": "i411",
+          "status": "present"
+        },
+        {
+          "key": "triconnex-2022",
+          "date": "2022-12-30",
+          "what": "Agrees to buy TriConnex and eSmart Networks from Nexus Infrastructure for GBP77.7m",
+          "source": "https://www.investegate.co.uk/announcement/rns/nexus-infrastructure--nexs/proposed-disposal-of-triconnex-esmart-networks/7262093",
+          "recordId": "d1148",
+          "status": "present"
+        },
+        {
+          "key": "vietjet-liability-2024",
+          "date": "2024-07-31",
+          "what": "High Court liability judgment, FW Aviation v VietJet",
+          "source": "https://fountaincourt.uk/2024/08/commercial-court-hands-down-judgment-in-fwa-v-vietjet/",
+          "recordId": "i1171",
+          "status": "present"
+        },
+        {
+          "key": "fund-ii-final-2024",
+          "date": "2024-09-09",
+          "what": "Fund II final close at about $1.4bn",
+          "source": "https://news.bloomberglaw.com/private-equity/ex-macquarie-banker-raises-1-4-billion-for-distressed-assets",
+          "recordId": "i42",
+          "status": "present"
+        },
+        {
+          "key": "vietjet-quantum-2025",
+          "date": "2025-04-17",
+          "what": "High Court quantum judgment, FW Aviation v VietJet",
+          "source": "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2025/928",
+          "recordId": "i1172",
+          "status": "present"
+        },
+        {
+          "key": "vietjet-coa-2025",
+          "date": "2025-06-24",
+          "what": "Court of Appeal dismisses VietJet appeal",
+          "source": null,
+          "recordId": "i439",
+          "status": "present"
+        },
+        {
+          "key": "gnetwork-2026",
+          "date": "2026-01-07",
+          "what": "Acquires distressed London fibre operator G.Network",
+          "source": "https://www.datacenterdynamics.com/en/news/uk-altnet-gnetwork-acquired-by-fitzwalter-capital/",
+          "recordId": "i168",
+          "status": "present"
+        },
+        {
+          "key": "atg-possible-offer-2026",
+          "date": "2026-01-16",
+          "what": "Considering possible cash offer for Auction Technology Group at 400p/share",
+          "source": "https://www.ticker.app/lse/ATG/rns/2026-01-16/Increased-possible-offer-for-atg-plc/2538P",
+          "recordId": "i1173",
+          "status": "present"
+        },
+        {
+          "key": "atg-no-offer-2026",
+          "date": "2026-02-02",
+          "what": "Confirms no intention to make an offer for ATG",
+          "source": "https://www.tradingview.com/news/reuters.com,2026-02-02:newsml_RSB1912Ra:0-reg-fitzwalter-capital-auction-technology-no-intention-to-make-an-offer-for-atg-plc/",
+          "recordId": "i412",
+          "status": "present"
+        },
+        {
+          "key": "vietjet-third-trial-2026",
+          "date": "2026-07-31",
+          "what": "High Court judgment in third FWA v VietJet trial",
+          "source": "https://fountaincourt.uk/2026/07/commercial-court-hands-down-judgment-in-third-trial-in-fwa-v-vietjet/",
+          "recordId": "i1174",
+          "status": "present"
+        },
+        {
+          "key": "mohawk-2026",
+          "date": "2026-08-07",
+          "what": "Selected as successful bidder for Mohawk Day Camp (SIMAD bankruptcy sale)",
+          "source": "https://smb.state-journal.com/article/FitzWalter-Capital-Selected-as-Successful-Bidder-for-Mohawk-Day-Camp/6a764a812e905784f149a727",
+          "recordId": "d1149",
+          "status": "present"
+        },
+        {
+          "key": "dns-net-debt",
+          "date": "2026-05",
+          "what": "DNS:Net bank debt purchase reported May 2026",
+          "source": null,
+          "note": "Only a secondary aggregator mention found; no exact date or primary URL.",
+          "status": "rejected"
+        },
+        {
+          "key": "hires-offices",
+          "date": "2026",
+          "what": "Senior hires, office openings, other investments",
+          "source": null,
+          "note": "No verifiable dated source found.",
+          "status": "rejected"
+        }
+      ]
+    },
+    "m43": {
+      "kind": "manager",
+      "name": "Polus Capital Management",
+      "priority": 125,
+      "status": "built",
+      "builtAt": "2026-10-15",
+      "events": [
+        {
+          "key": "cairn-clo-xii-2020",
+          "date": "2020-07-22",
+          "what": "Cairn CLO XII (~EUR400m) issued",
+          "source": null,
+          "recordId": "d314",
+          "status": "present"
+        },
+        {
+          "key": "bybrook-announce-2021",
+          "date": "2021-02-02",
+          "what": "Cairn Capital agrees to acquire and merge with Bybrook Capital (Mediobanca ~64% post-deal)",
+          "source": "https://www.mediobanca.com/en/media-relations/press-releases/cairn-capital-acquisisce-bybrook-capital.html",
+          "recordId": "i1168",
+          "status": "present"
+        },
+        {
+          "key": "bybrook-complete-2021",
+          "date": "2021-09-02",
+          "what": "Cairn completes Bybrook acquisition and merger (~$9bn combined)",
+          "source": "https://hedgeweek.com/cairn-capital-completes-bybrook-capital-acquisition",
+          "recordId": "i1169",
+          "note": "Date is the Hedgeweek report date.",
+          "status": "present"
+        },
+        {
+          "key": "rebrand-polus-2022",
+          "date": "2022-11-03",
+          "what": "Cairn Capital rebrands as Polus Capital Management",
+          "source": "https://www.pei-privatecredit.com/cairn-capital-rebrands-as-polus",
+          "recordId": "i1170",
+          "status": "present"
+        },
+        {
+          "key": "cli-ii-final-2023",
+          "date": "2023-01-01",
+          "what": "Cairn Loan Investments II final close EUR228m",
+          "source": null,
+          "recordId": "i462",
+          "status": "present"
+        },
+        {
+          "key": "adia-2024",
+          "date": "2024-09-18",
+          "what": "ADIA ~$1bn commitment to Special Situations",
+          "source": null,
+          "recordId": "i419",
+          "status": "present"
+        },
+        {
+          "key": "first-us-clo-2024",
+          "date": "2024-09-01",
+          "what": "First US CLO",
+          "source": null,
+          "recordId": "d307",
+          "status": "present"
+        },
+        {
+          "key": "strategic-options-2025",
+          "date": "2025-04-23",
+          "what": "Polus explores strategic options",
+          "source": null,
+          "recordId": "i197",
+          "status": "present"
+        },
+        {
+          "key": "pli3-first-close-2025",
+          "date": "2025-06-17",
+          "what": "PLI III EUR425m initial close",
+          "source": null,
+          "recordId": "i70",
+          "status": "present"
+        },
+        {
+          "key": "special-sits-final-2025",
+          "date": "2025-11-11",
+          "what": "Special situations fund EUR890m final close",
+          "source": null,
+          "recordId": "i71",
+          "status": "present"
+        },
+        {
+          "key": "arqiva-macquarie-2026",
+          "date": "2026-03-16",
+          "what": "Arqiva 26.54% stake from Macquarie",
+          "source": null,
+          "recordId": "d197",
+          "status": "present"
+        },
+        {
+          "key": "clo-xxii-2026",
+          "date": "2026-09-25",
+          "what": "Polus EU CLO XXII closed at EUR400m",
+          "source": "https://alternativecreditinvestor.com/2026/09/25/polus-raises-e400m-for-latest-clo/",
+          "recordId": "d898",
+          "status": "present"
+        },
+        {
+          "key": "mediobanca-outcome",
+          "date": "2026",
+          "what": "Outcome of strategic options / Mediobanca stake",
+          "source": null,
+          "note": "No sourced reporting found of a sale or stake change.",
+          "status": "rejected"
+        },
+        {
+          "key": "senior-hires",
+          "date": "2026",
+          "what": "Senior hires/departures",
+          "source": null,
+          "note": "No verifiable announcements found.",
+          "status": "rejected"
+        }
+      ]
     }
   }
 }
