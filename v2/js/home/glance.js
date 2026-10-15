@@ -17,7 +17,7 @@ import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
 import { BRIEFINGS } from "/briefings.js";
 import { nbNums } from "/v2/js/nb-format.js";
 import { h, Fragment, signal, effect, batch, mount } from "/v2/js/ui.js";
-import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, isOwnSite, MONTHS } from "/util.js";
+import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, isOwnSite, MONTHS, fmtD } from "/util.js";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js";
 
@@ -2038,12 +2038,8 @@ function _allFollows() {
 // A CSS-safe category class for a manager-wire tag ("m&a" → "cat-ma"), so each
 // category paints in its own soft pastel (see feed.css) instead of all-orange.
 const _catCls = (c) => "cat-" + String(c || "news").replace(/[^a-z0-9]/gi, "").toLowerCase();
-function _mwWhen(d) {
-  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || "");
-  if (m) return `${+m[3]} ${MONTHS[+m[2] - 1]}`;
-  const mm = /^(\d{4})-(\d{2})$/.exec(d || "");
-  return mm ? `${MONTHS[+mm[2] - 1]} ${mm[1]}` : "";
-}
+// R43b: the manager wire dates its events "15 Oct 26" (util fmtD), not a year-less "15 Oct".
+function _mwWhen(d) { return d ? fmtD(d) : ""; }
 // Source label for a manager event — the press outlet, else the source domain.
 function _mwSrc(e) {
   if (!e) return "";
@@ -3573,7 +3569,7 @@ function renderEarnings() {
   const rows = all.filter((r) => { const d = String(r.date || "").slice(0, 10); return d && d >= _wk.mon && d <= _wk.sun; });
   if (!rows.length) { box.innerHTML = `<div class="g-earn-empty">No earnings scheduled this week.</div>`; return; }
   rows.sort((a, b) => String(a.date).localeCompare(String(b.date)) || String(a.when || "").localeCompare(String(b.when || "")));
-  const dshort = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? `${+m[3]} ${MONTHS[+m[2] - 1]}` : (d || ""); };
+  const dshort = (d) => fmtD(d || "");   // R43b "15 Oct 26"
   const whenTag = (w) => (/after|post|close/i.test(w || "") ? "Post" : /before|pre|open/i.test(w || "") ? "Pre" : (w || ""));
   const clean = (s) => String(s || "").split(" (")[0].replace(/\s*adjusted\b/i, "").replace(/\s{2,}/g, " ").trim();
   const pxOf = (s) => { const m = /([+-]\d+(?:\.\d+)?%)/.exec(s || ""); return m ? m[1] : ""; };
@@ -3589,8 +3585,8 @@ function renderEarnings() {
       + (r.n && r.t ? `<span class="g-earn-nm">${esc(r.n)}</span>` : "")
       + (whenTag(r.when) ? `<span class="g-earn-when">${esc(whenTag(r.when))}</span>` : "")
       + tail + `</div>`
-      + (est ? `<div class="g-earn-l"><span class="g-earn-k">Est</span> ${esc(est)}</div>` : "")
-      + (reported && act ? `<div class="g-earn-l g-earn-act"><span class="g-earn-k">Act</span> ${esc(act)}</div>` : "")
+      // R43c: two lines max — Est and Act share the second line.
+      + (est || (reported && act) ? `<div class="g-earn-l" title="${esc([est && `Est ${est}`, reported && act && `Act ${act}`].filter(Boolean).join(" · "))}">${est ? `<span class="g-earn-k">Est</span> ${esc(est)}` : ""}${reported && act ? `${est ? " · " : ""}<span class="g-earn-k">Act</span> <span class="g-earn-act">${esc(act)}</span>` : ""}</div>` : "")
       + `</div>`;
   };
   box.innerHTML = rows.map(row).join("");

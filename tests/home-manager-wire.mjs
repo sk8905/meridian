@@ -59,7 +59,7 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   check(r.isFeedRow && r.hasParts, "Manager lane: rows use the shared news-wire engine (.g-feed-row: code · date · source)");
   check(r.stacked, "Manager lane: rows adopt the news wire's stacked layout");
   const dn = r.dates.map((s) => { const m = /(\d+)\s+(\w+)/.exec(s); return m ? MON[m[2]] * 31 + (+m[1]) : -1; });
-  check(r.dates.every((s) => /^\d+\s+\w+$/.test(s)) && dn.every((v, i) => i === 0 || dn[i - 1] >= v), `Manager lane: the meta line shows the DATE, newest → oldest (${r.dates.slice(0, 6).join(", ")})`);
+  check(r.dates.every((s) => /^\d+\s+\w+\s+\d{2}$/.test(s)) && dn.every((v, i) => i === 0 || dn[i - 1] >= v), `Manager lane: the row shows the DATE ("15 Oct 26", R43b), newest → oldest (${r.dates.slice(0, 6).join(", ")})`);
   check(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b.*\d{4}/i.test(r.bands[0] || ""), `Manager lane: a month band leads the stream (${r.bands[0]})`);
 
   // The category sub-filter chips were removed (little-used), but every manager event

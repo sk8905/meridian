@@ -1401,7 +1401,19 @@ notification badge red (`#ef4444`).
   columns share the remainder with a sensible min / max (`minmax()`), never wrapping a
   single word or leaving one column stretched while another clips. It must look neat at
   laptop (1366), desk monitor (1920) and ultrawide (2560 / 3440) widths and on iPhone.
-  Specs guard every rule (`tests/style-r43.mjs`).
+  **(g) The shared primitives (T9/T10) — use these, never a per-surface copy:** `fmtD`
+  (`util.js`) is THE list/table date; `evRow` / `evList` (`feed.js`) is THE events row
+  (`.g-ev`: `.c-date` · `.g-ev-t` · `.c-tag` · `.c-src` / `.g-ev-m`, height `--ev-h`); the
+  profile wire row (`.tw-row`) and phone-restacked tables (People, Dashboard
+  `data-stk-date` tables) take the same grid; `tableCols(root)` (`feed.js`) tags every
+  table cell with its column role (`.c-date` `.c-num` `.c-text` `.c-tag` `.c-src`; an
+  events table also carries `data-events="1"`, a chart-table opts out with
+  `data-cols="off"`); `feed.css` "R43" holds the one table head, the column widths, the
+  one muted tag style and `b, strong { font-weight:inherit }`. Day-break headers and chart
+  axes keep their own date labels (headings, not list cells). Specs guard every rule
+  (`tests/style-r43.mjs` desk widths 1366 / 1920 / 2560 / 3440 + header panels + search
+  palette; `tests/style-r43-phone.mjs` iPhone light and dark; shared probe
+  `tests/fixtures/r43-probe.mjs`).
 
 ## 7. Technical rules
 

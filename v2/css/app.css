@@ -227,11 +227,9 @@ a.cov-nm:hover { color: var(--accent, #fb8b1e); }
 .dg-built, .dg-sub, .dg-note { font-size: var(--fs-micro); color: var(--muted, #5e6a84); }
 .dg-sub { text-transform: none; letter-spacing: 0; font-weight: 500; }
 .dg-note { margin: 0; padding: 6px 14px 10px; }
-.dg-item { padding: 8px 14px 9px; border-bottom: 1px solid var(--border, #e4e7ef); font-size: var(--fs-body); }
-.dg-t { display: block; color: var(--ink, #131b2c); font-weight:400; line-height: 1.4; }
-.dg-t:hover { color: var(--accent, #fb8b1e); }
-.dg-amt { font-weight:400; color: var(--ink, #131b2c); font-variant-numeric: tabular-nums; }
-.dg-meta { margin-top: 2px; font-size: var(--fs-micro); color: var(--muted, #5e6a84); }
+/* Digest items are the shared R43 events row (.g-ev, feed.css); only the gutter is local. */
+.dg-list > .dg-item.g-ev { padding: 0 14px; }
+.dg-amt { color: var(--t-ink); font-size: var(--fs-num); font-variant-numeric: tabular-nums; }
 .dg-in { color: var(--ink, #131b2c); font-weight:400; }
 .dg-rates { width: 100%; border-collapse: collapse; font-size: var(--fs-body); }
 .dg-rates td { padding: 6px 14px; border-bottom: 1px solid var(--border, #e4e7ef); }

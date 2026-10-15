@@ -151,6 +151,8 @@ body.wire-sliding .g-feed-srcbar { position:static; }
 /* ---- narrow wire column (phones + the iPad terminal's centre column): headline
    leads, meta line beneath (code · time · source). Driven by the COLUMN width, so
    it triggers whenever the wire is narrow, regardless of viewport/device. -------- */
+/* The manager wire dates its events ("15 Oct 26") where the news wire shows a time. */
+.g-mw-fev { --feed-time-w:56px; }
 @container feedwrap (max-width:760px){
   /* R43: the wire keeps its time as the first column — line 1 = time · headline,
      line 2 (under the headline) = code · source; two lines, one fixed height. */

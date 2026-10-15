@@ -433,7 +433,7 @@ function naFxMatrix(d) {
 function naHormuz(h) {
   if (!h || (!h.total && !h.tanker)) return "";
   const dm = /^(\d{4})-(\d{2})-(\d{2})/.exec(h.date || "");
-  const dstr = dm ? `${+dm[3]} ${MONTHS[+dm[2] - 1]}` : "";
+  const dstr = dm ? fmtD(h.date) : "";
   const row = (label, s, what) => {
     if (!s || s.latest == null) return "";
     const avg = s.avg30, w = s.days || 30;
@@ -473,7 +473,7 @@ function naEarnings() {
   const rows = all.filter((r) => { const d = String(r.date || "").slice(0, 10); return d && d >= _wk.mon && d <= _wk.sun; });
   if (!rows.length) return naSec("This week's earnings", "") + `<div class="na-load">No earnings scheduled this week.</div>`;
   rows.sort((a, b) => String(a.date).localeCompare(String(b.date)) || String(a.when || "").localeCompare(String(b.when || "")));
-  const dshort = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? `${+m[3]} ${MONTHS[+m[2] - 1]}` : (d || ""); };
+  const dshort = (d) => fmtD(d || "");   // R43b "15 Oct 26"
   const whenTag = (w) => (/after|post|close/i.test(w || "") ? "Post" : /before|pre|open/i.test(w || "") ? "Pre" : (w || ""));
   const clean = (s) => String(s || "").split(" (")[0].replace(/\s*adjusted\b/i, "").replace(/\s{2,}/g, " ").trim();
   const pxOf = (s) => { const m = /([+-]\d+(?:\.\d+)?%)/.exec(s || ""); return m ? m[1] : ""; };
@@ -600,12 +600,7 @@ function savedRow(x) {
   // /substack/…) used to fall through the old m/c/l/n/f-only map and show blank.
   const code = NF_CODE[x.desk] || "NEWS";
   const cls = DESK_CLASS[x.desk] || "news";
-  return `<a class="nf-row" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
-    + `<span class="nf-title">${esc(x.title)}</span>`
-    + `<span class="nf-meta"><span class="nf-code ${cls}">${esc(code)}</span>`
-    + (x.date ? `<span class="nf-time">${esc(fmtDate(x.date))}</span>` : "")
-    + (x.src ? `<span class="nf-sep">·</span><span class="nf-src">${esc(x.src)}</span>` : "")
-    + `</span></a>`;
+  return nfRow(x, code, cls, x.src, "");
 }
 // ---- Notifications — cross-desk, tagged by desk (MAC / CRD / LEX) -----------
 const ICO_BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>';
@@ -628,12 +623,16 @@ function readSeen(desk) { try { const p = JSON.parse(localStorage.getItem(NOTIF_
 function notifRow(x, fresh) {
   const cls = DESK_CLASS[x.desk] || "";
   const code = NF_CODE[x.desk] || "";
-  return `<a class="nf-row${fresh ? " nf-new" : ""}" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
-    + `<span class="nf-title">${esc(x.title)}</span>`
-    + `<span class="nf-meta"><span class="nf-code ${cls}">${esc(code)}</span>`
-    + (x.date ? `<span class="nf-time">${esc(fmtDate(x.date))}</span>` : "")
-    + (x.source ? `<span class="nf-sep">·</span><span class="nf-src">${esc(x.src || x.source)}</span>` : "")
-    + `</span></a>`;
+  return nfRow(x, code, cls, x.source ? (x.src || x.source) : "", fresh ? " nf-new" : "");
+}
+// R43: saved stories and notifications are the shared events row — date · headline ·
+// source on line 1, the desk code on line 2; two lines, one height, full text in title.
+function nfRow(x, code, cls, src, extra) {
+  return `<a class="nf-row g-ev${extra}" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""} title="${esc([x.title, src].filter(Boolean).join(" · "))}">`
+    + `<span class="c-date nf-time">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
+    + `<span class="g-ev-t nf-title">${esc(x.title)}</span><span class="c-tag"></span>`
+    + `<span class="c-src nf-src">${esc(src || "")}</span>`
+    + `<span class="g-ev-m nf-meta">${code ? `<span class="nf-code ${cls}">${esc(code)}</span>` : ""}</span></a>`;
 }
 let _notifItems = null;
 // Active notifications tab: "all" | "watch" (mirrors the Bookmarks panel).

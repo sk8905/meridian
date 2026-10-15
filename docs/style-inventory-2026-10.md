@@ -462,3 +462,30 @@ included, so a clean two-line row reads ≈2.5–3). *Status* — ☐ open · �
 - Bold ≥600 seen (6): `div.wtk-lbl` `span.wb-lbl` `span.wb-gl-l` `button.tchip.is-on` `div.na-menu-recent-h` `span.mtab-lbl`
 - Colours outside ink/mut/faint (3): `accent span.wb-hello` `rgb(74,163,240) span.wb-lbl` `rgb(74,163,240) span.wb-gl-l`
 - Horizontal page scroll: desktop no · iPhone no
+
+## After the pass (October 2026) — checklist status
+
+Every surface above was converted in four batches (Markets · Deals · Profiles ·
+Home / News / Menu / panels) and is guarded by `tests/style-r43.mjs` (1366 / 1920 /
+2560 / 3440, plus every header panel and the search palette) and
+`tests/style-r43-phone.mjs` (390×844, dark and light). Status for every row above: ☑
+unless listed under "Left as is".
+
+| Surface | Column order: before → after | Lines / height | Bold & colour fixes |
+|---|---|---|---|
+| Markets — every news list (credit / rates / legal / HF wires, CLOs & closes, distress deals, research, case law, alerts, Legal search) | headline → date (left) · tag (right) **→ date · headline · tag · source** | 3–4 lines (65px) → 2 lines (46px, fixed) | coloured tags (stress / priced / filed / stale / case / alert) → one muted tag; `--t-dim` text → ink |
+| Markets — stress, LP commitments, regulatory calendar, funds in market tables | name … date … src → **date · name · status tag · … · src** | wrapping rows (30–124px) → one line, ellipsis + title; iPhone = events row | bold names / debt / heads → regular; heads small caps faint |
+| Markets — data tables (spreads, money markets, policy, heatmaps, maturity wall, yield curve, HF AUM, by strategy, practice areas …) | unchanged (dated market data, R43a) | text columns share the width by content, never clip a word | bold figures (`.dsh-kv-v`, `.dsh-spread-v`, `.dsh-fl`, `.dsh-ms-*`) → regular |
+| Restructuring hub | stacked `.rxh-i` rows (name · tag · src / meta · date) → **shared events row** | 50px → 46px, one height in every card | bold names → regular; stage tag colours → muted |
+| Deals — Lending / Structured / Secondaries / M&A / search | … Amount · Date · Source → **Date · … · Amount · Source** | borrower wrapped 2–3 lines → one line, ellipsis | bold heads → regular small caps |
+| Deals — iPhone cards, Fundraising (funds in market, closes, LP commitments), drawer "More from …" | name first, date mid-row → **date first, source last** (shared events row) | 2–3 lines → 2 lines | filled / bold source chips → faint text |
+| Profiles — manager / HF / LP / firm wires, firm credit deals, People, Borrower | date-first already on desktop; iPhone was headline-first, 3-line clamp → **shared two-line events row everywhere** | 3 lines (iPhone) → 2 | coloured DEAL / FUND / NEWS / ALERT tags → one muted tag; bold names → regular |
+| Home / News — wire, manager wire, earnings, briefing | wire (narrow column): headline → time · headline, code · source beneath; earnings 3 lines → 2 | 62px → 2 lines | brief-strip chips: dark text on solid fill → semantic up / down text on a tint; briefing `<strong>` → regular |
+| Menu — Digest, Sources, New; header panels (notifications, saved, Watchlist, Ask); search palette | digest / notifications headline-first → **date · headline · source**; palette rows two single lines | wrapping → 2 lines | Sources FAILING pill filled → outlined; palette codes / kbd bold → regular |
+
+**Left as is (not events lists, or a design call for the owner):** day-break headers keep
+"20 Jul 2026" (they are headings); chart axes keep "12 Oct" / "Dec 25"; KPI / metric rows
+(label · value · period · SRC) are dated market data and may wrap their label to two
+lines; the 13F "Notable moves" and "Key moments" prose items; the search palette mixes
+profiles with dated items, so it keeps headline-first (two lines max); the UK registry
+"charges" list on borrower pages.

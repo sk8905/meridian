@@ -1335,11 +1335,13 @@
        panel; every card reads as the same size regardless of how many change lines it carries. */
     .tui .g-hbs-chg{ flex:1 1 auto; display:flex; align-items:center; justify-content:space-between; gap:2px;
       padding:6px 5px; background:var(--t-grid); min-width:0; }
-    .tui .g-hbs-card.up .g-hbs-chg{ background:var(--t-up); }
-    .tui .g-hbs-card.down .g-hbs-chg{ background:var(--t-down); }
-    .tui .g-hbs-arw{ font-size:11px; line-height:1; color:#11161f; flex:0 0 auto; }
+    /* R43d: the change reads in the semantic up / down colour on a tint of it (no dark
+       text on a solid fill — text stays inside the token set). */
+    .tui .g-hbs-card.up .g-hbs-chg{ background:color-mix(in srgb, var(--t-up) 18%, transparent); color:var(--t-up); }
+    .tui .g-hbs-card.down .g-hbs-chg{ background:color-mix(in srgb, var(--t-down) 18%, transparent); color:var(--t-down); }
+    .tui .g-hbs-arw{ font-size:var(--fs-micro); line-height:1; color:inherit; flex:0 0 auto; }
     .tui .g-hbs-nums{ display:flex; flex-direction:column; align-items:flex-end; line-height:1.18; min-width:0; }
-    .tui .g-hbs-n{ font-family:var(--t-mono); font-weight:400; font-size:10px; color:#11161f;
+    .tui .g-hbs-n{ font-family:var(--t-mono); font-weight:400; font-size:var(--fs-micro); color:inherit;
       font-variant-numeric:tabular-nums; white-space:nowrap; }
     .tui .g-hbs-card.flat .g-hbs-arw, .tui .g-hbs-card.flat .g-hbs-n{ color:var(--t-mut); }
     /* Freshness FOOTER — on the phone the briefing is its own labelled tab, so the header

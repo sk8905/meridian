@@ -5,6 +5,7 @@
 // source link + date). Shareable at /v2/menu/digest and /v2/menu/digest/weekly.
 // =============================================================================
 import { esc, fmtD } from "/util.js";
+import { evRow } from "/feed.js";
 
 const M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmtDay = (iso) => fmtD(String(iso || "").slice(0, 10)); // R43b: "15 Oct 26"
@@ -20,14 +21,12 @@ const SECTIONS = [
   ["people", "People moves", "No senior moves in this window."],
 ];
 
+// R43: every digest item is the shared events row — date · headline · amount · source,
+// then who · kind · "In Wire" on line 2 (two lines, full text in the row title).
 function itemHTML(x) {
-  // The size (when ranked by one) leads the meta line — it is the figure the
-  // headline itself states, so it is never a second, competing number.
-  const meta = [x.date ? fmtDay(x.date) : "", x.who, x.kind, x.src].filter(Boolean).map(esc).join(" · ");
-  return `<div class="dg-item">`
-    + `<a class="dg-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>`
-    + `<div class="dg-meta">${x.amount ? `<span class="dg-amt">${esc(x.amount)}</span> · ` : ""}${meta}${x.href ? ` · <a class="dg-in" href="${esc(x.href)}">In Wire</a>` : ""}</div>`
-    + `</div>`;
+  const meta = [x.who, x.kind].filter(Boolean).map(esc).join(" · ") + (x.href ? `${x.who || x.kind ? " · " : ""}<a class="dg-in" href="${esc(x.href)}">In Wire</a>` : "");
+  return evRow({ date: x.date || "", title: x.title, href: x.url, aCls: "dg-t", meta, src: x.src || "", srcHref: x.src ? "" : x.url,
+    tag: x.amount ? `<span class="dg-amt">${esc(x.amount)}</span>` : "", cls: "dg-item" });
 }
 function ratesHTML(R, mode) {
   if (!R || !R.items || !R.items.length) return "";
@@ -58,7 +57,7 @@ export function digestHTML(D, mode) {
     + SECTIONS.map(([k, label, empty]) => {
       const B = W[k] || { items: [], total: 0 };
       return `<div class="dg-sec" data-dg="${k}"><div class="na-menu-recent-h">${esc(label)}${B.total > B.items.length ? ` <span class="dg-sub">top ${B.items.length} of ${B.total}</span>` : ""}</div>`
-        + (B.items.length ? B.items.map(itemHTML).join("") : `<p class="dg-empty">${esc(empty)}</p>`)
+        + (B.items.length ? `<ul class="g-evs dg-list">${B.items.map(itemHTML).join("")}</ul>` : `<p class="dg-empty">${esc(empty)}</p>`)
         + `</div>`;
     }).join("")
     + ratesHTML(W.rates, mode)
