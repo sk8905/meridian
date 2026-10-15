@@ -21,6 +21,146 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "064f7a19-c495-4ba0-a5e5-a6c4bb764ddb",
+    title: "Donald Trump cancels Pete Hegseth’s plan to livestream execution after backlash",
+    date: "2026-10-15",
+    time: "17:07",
+    url: "https://www.ft.com/content/064f7a19-c495-4ba0-a5e5-a6c4bb764ddb"
+  },
+  {
+    id: "086b7a80-acdd-48d2-bd5c-a04bad812264",
+    title: "In AI-dominated markets, LatAm debt is a diversifier",
+    date: "2026-10-15",
+    time: "16:51",
+    url: "https://www.ft.com/content/086b7a80-acdd-48d2-bd5c-a04bad812264"
+  },
+  {
+    id: "37d24217-acd8-4f84-a298-4f1ccc359a27",
+    title: "Mercuria adds first copper to US Project Vault stockpile",
+    date: "2026-10-15",
+    time: "16:43",
+    url: "https://www.ft.com/content/37d24217-acd8-4f84-a298-4f1ccc359a27"
+  },
+  {
+    id: "0a436452-c1a1-492a-b5be-92848ed5e6e7",
+    title: "Former Everton bidder Josh Wander to plead guilty in US fraud case",
+    date: "2026-10-15",
+    time: "16:33",
+    url: "https://www.ft.com/content/0a436452-c1a1-492a-b5be-92848ed5e6e7"
+  },
+  {
+    id: "678bcd31-6c2a-447b-a68c-ce6dec220bbc",
+    title: "Investors dump data centre bonds as AI borrowers face ‘Darwin moment’",
+    date: "2026-10-15",
+    time: "16:25",
+    url: "https://www.ft.com/content/678bcd31-6c2a-447b-a68c-ce6dec220bbc"
+  },
+  {
+    id: "0be97035-3854-4b6c-8191-98f486862b02",
+    title: "Saudi events delayed after Houthi attacks",
+    date: "2026-10-15",
+    time: "16:04",
+    url: "https://www.ft.com/content/0be97035-3854-4b6c-8191-98f486862b02"
+  },
+  {
+    id: "cf5f1209-da29-4ce1-b425-0e83818bf9ec",
+    title: "Treasuries rally as investors seek shelter from AI turbulence",
+    date: "2026-10-15",
+    time: "15:56",
+    url: "https://www.ft.com/content/cf5f1209-da29-4ce1-b425-0e83818bf9ec"
+  },
+  {
+    id: "33aca8da-f22c-41e5-8255-289ae7d58ee7",
+    title: "Monte dei Paschi should try the ‘just say maybe’ bid defence",
+    date: "2026-10-15",
+    time: "15:23",
+    url: "https://www.ft.com/content/33aca8da-f22c-41e5-8255-289ae7d58ee7"
+  },
+  {
+    id: "15d18ed4-543d-4004-ae38-f429a118daab",
+    title: "Anglo American chief says tech giants show ‘deep interest’ in mining stakes",
+    date: "2026-10-15",
+    time: "15:19",
+    url: "https://www.ft.com/content/15d18ed4-543d-4004-ae38-f429a118daab"
+  },
+  {
+    id: "cbfd494d-cc11-4162-8618-77cc2caa806b",
+    title: "Thames Water’s senior creditors near deal with rivals to avoid court challenge",
+    date: "2026-10-15",
+    time: "15:16",
+    url: "https://www.ft.com/content/cbfd494d-cc11-4162-8618-77cc2caa806b"
+  },
+  {
+    id: "f8e99974-9f18-4141-ac4a-1f072b7ebb24",
+    title: "France and Germany to allow UK to join EU car policy if it aligns on China tariffs",
+    date: "2026-10-15",
+    time: "15:10",
+    url: "https://www.ft.com/content/f8e99974-9f18-4141-ac4a-1f072b7ebb24"
+  },
+  {
+    id: "d3a07d72-0f99-40b6-a1ad-97ecc91af81f",
+    title: "The future energy mix",
+    date: "2026-10-15",
+    time: "14:31",
+    url: "https://www.ft.com/content/d3a07d72-0f99-40b6-a1ad-97ecc91af81f"
+  },
+  {
+    id: "1ca17b0c-24f3-4c54-94b9-0b0526941efe",
+    title: "Private equity interest endangers London float of former DS Smith business",
+    date: "2026-10-15",
+    time: "14:13",
+    url: "https://www.ft.com/content/1ca17b0c-24f3-4c54-94b9-0b0526941efe"
+  },
+  {
+    id: "43c9d38a-652a-45df-b3be-c3dead3390f1",
+    title: "Credit Suisse secured $800mn from insurers in Greensill settlement",
+    date: "2026-10-15",
+    time: "14:00",
+    url: "https://www.ft.com/content/43c9d38a-652a-45df-b3be-c3dead3390f1"
+  },
+  {
+    id: "f344bdb0-7bc9-43ab-804e-88990d59091e",
+    title: "Rising inflation piles pressure on US voters ahead of midterm elections",
+    date: "2026-10-15",
+    time: "14:00",
+    url: "https://www.ft.com/content/f344bdb0-7bc9-43ab-804e-88990d59091e"
+  },
+  {
+    id: "c8721dd3-6744-4849-960f-6654cef1e80b",
+    title: "Labour to end power-sharing with Green councils that back ‘Zionism is Racism’",
+    date: "2026-10-15",
+    time: "13:43",
+    url: "https://www.ft.com/content/c8721dd3-6744-4849-960f-6654cef1e80b"
+  },
+  {
+    id: "246e950b-e1e5-4f12-af78-4a13433f3977",
+    title: "John Healey promises to ‘stay the path’ on reducing UK deficit",
+    date: "2026-10-15",
+    time: "13:42",
+    url: "https://www.ft.com/content/246e950b-e1e5-4f12-af78-4a13433f3977"
+  },
+  {
+    id: "f0975e34-5d18-4840-ae09-b998dd35d09e",
+    title: "Russia suspected of striking two tankers in Nato waters",
+    date: "2026-10-15",
+    time: "13:41",
+    url: "https://www.ft.com/content/f0975e34-5d18-4840-ae09-b998dd35d09e"
+  },
+  {
+    id: "7604138c-a7c0-485c-b5ac-d86b16590276",
+    title: "Calls to scrap employer national insurance for under-25s rejected",
+    date: "2026-10-15",
+    time: "13:20",
+    url: "https://www.ft.com/content/7604138c-a7c0-485c-b5ac-d86b16590276"
+  },
+  {
+    id: "0a39fcdb-860c-4739-8454-21fb429f6336",
+    title: "Who’s winning the trade war with China? You asked, we answered",
+    date: "2026-10-15",
+    time: "13:00",
+    url: "https://www.ft.com/content/0a39fcdb-860c-4739-8454-21fb429f6336"
+  },
+  {
     id: "fb2110b4-50d2-4ff9-9886-f7b42c5b4579",
     title: "EU leaders to urge Zelenskyy to rein in criticism of Trump",
     date: "2026-10-15",
@@ -54,20 +194,6 @@ export const FT_ITEMS = [
     date: "2026-10-15",
     time: "10:57",
     url: "https://www.ft.com/content/c8511d8c-4889-4b38-bcce-f31044ef5b30"
-  },
-  {
-    id: "0a39fcdb-860c-4739-8454-21fb429f6336",
-    title: "Submit your questions: Who’s winning the trade war with China — the EU or US?",
-    date: "2026-10-15",
-    time: "10:37",
-    url: "https://www.ft.com/content/0a39fcdb-860c-4739-8454-21fb429f6336"
-  },
-  {
-    id: "246e950b-e1e5-4f12-af78-4a13433f3977",
-    title: "John Healey promises to ‘stay the path’ on reducing UK deficit",
-    date: "2026-10-15",
-    time: "10:36",
-    url: "https://www.ft.com/content/246e950b-e1e5-4f12-af78-4a13433f3977"
   },
   {
     id: "72506712-3b5d-4a46-986e-6b06beb06b04",
@@ -126,13 +252,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/789307ae-5109-465c-9b79-7ce71308f0d2"
   },
   {
-    id: "cf5f1209-da29-4ce1-b425-0e83818bf9ec",
-    title: "Global AI sell-off deepens as Asian markets tumble",
-    date: "2026-10-15",
-    time: "05:04",
-    url: "https://www.ft.com/content/cf5f1209-da29-4ce1-b425-0e83818bf9ec"
-  },
-  {
     id: "9632f1f7-713f-43ab-ad42-d9e876b975e9",
     title: "The UK’s Fastest-Growing Companies",
     date: "2026-10-15",
@@ -152,13 +271,6 @@ export const FT_ITEMS = [
     date: "2026-10-15",
     time: "05:00",
     url: "https://www.ft.com/content/bbb1d399-e91c-4600-9882-ea93e1f96ac9"
-  },
-  {
-    id: "43c9d38a-652a-45df-b3be-c3dead3390f1",
-    title: "Marsh to shoulder biggest chunk of Greensill settlement with Credit Suisse",
-    date: "2026-10-15",
-    time: "05:00",
-    url: "https://www.ft.com/content/43c9d38a-652a-45df-b3be-c3dead3390f1"
   },
   {
     id: "7761de04-7fac-4f7b-bddb-8457e425b642",
@@ -187,117 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-15",
     time: "05:00",
     url: "https://www.ft.com/content/4d79b52f-1f0d-4739-82ab-7ecfb4251326"
-  },
-  {
-    id: "26db5bb2-9d81-4c62-aeac-c0dfef4c79e6",
-    title: "How AI mega-rounds make life harder for VC firms",
-    date: "2026-10-15",
-    time: "05:00",
-    url: "https://www.ft.com/content/26db5bb2-9d81-4c62-aeac-c0dfef4c79e6"
-  },
-  {
-    id: "ed713df4-92b3-45bc-9cf4-bb5c9ea72673",
-    title: "Inheritance tax toll is mounting on UK family companies",
-    date: "2026-10-15",
-    time: "05:00",
-    url: "https://www.ft.com/content/ed713df4-92b3-45bc-9cf4-bb5c9ea72673"
-  },
-  {
-    id: "9d70cd3f-abd3-4e40-b644-156444cec446",
-    title: "Oil majors face $32bn dilemma over Iran war windfall",
-    date: "2026-10-15",
-    time: "05:00",
-    url: "https://www.ft.com/content/9d70cd3f-abd3-4e40-b644-156444cec446"
-  },
-  {
-    id: "69bfdf93-cbba-477c-9fb0-5978d1d4f506",
-    title: "French debt worries spill into stocks, driving biggest underperformance since 2010",
-    date: "2026-10-15",
-    time: "05:00",
-    url: "https://www.ft.com/content/69bfdf93-cbba-477c-9fb0-5978d1d4f506"
-  },
-  {
-    id: "18b65495-9e2a-45d6-be85-7641442ab61a",
-    title: "OpenAI claims employee sent secret device information to Apple",
-    date: "2026-10-14",
-    time: "21:07",
-    url: "https://www.ft.com/content/18b65495-9e2a-45d6-be85-7641442ab61a"
-  },
-  {
-    id: "c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d",
-    title: "US inflation jumps to 3.7% as Iran war drives up prices",
-    date: "2026-10-14",
-    time: "21:06",
-    url: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d"
-  },
-  {
-    id: "fb258413-e88d-47fe-98c8-f645adaea1e1",
-    title: "US chip stocks slide as inflation and AI debt fears unsettle investors",
-    date: "2026-10-14",
-    time: "21:01",
-    url: "https://www.ft.com/content/fb258413-e88d-47fe-98c8-f645adaea1e1"
-  },
-  {
-    id: "dadac221-a4dd-4935-897e-7f7faebe8f17",
-    title: "Perella Weinberg and Piper Sandler abandon merger talks",
-    date: "2026-10-14",
-    time: "20:35",
-    url: "https://www.ft.com/content/dadac221-a4dd-4935-897e-7f7faebe8f17"
-  },
-  {
-    id: "a3621421-bee4-4e96-a5f2-28fa545e6397",
-    title: "Ministers to launch probe of English mayoral authority led by Ben Houchen",
-    date: "2026-10-14",
-    time: "20:35",
-    url: "https://www.ft.com/content/a3621421-bee4-4e96-a5f2-28fa545e6397"
-  },
-  {
-    id: "9209fd59-386b-4399-a870-0a3451548251",
-    title: "Sally Rooney withdraws books from UK sale over support for Palestine Action",
-    date: "2026-10-14",
-    time: "19:37",
-    url: "https://www.ft.com/content/9209fd59-386b-4399-a870-0a3451548251"
-  },
-  {
-    id: "3f821be4-f137-4cc9-b0b0-b2014f2607c2",
-    title: "Berkshire Hathaway adds $330mn to stake in tech group Bending Spoons",
-    date: "2026-10-14",
-    time: "18:58",
-    url: "https://www.ft.com/content/3f821be4-f137-4cc9-b0b0-b2014f2607c2"
-  },
-  {
-    id: "16ceb1fb-662c-4379-8187-0a51a7f4106f",
-    title: "Burnham wants to ‘repair bridges’ between Trump and Zelenskyy",
-    date: "2026-10-14",
-    time: "18:23",
-    url: "https://www.ft.com/content/16ceb1fb-662c-4379-8187-0a51a7f4106f"
-  },
-  {
-    id: "badcd536-6e53-4968-8fea-914ffc3d8d0c",
-    title: "Palantir drops legal case against Sadiq Khan over cancelled £50mn contract",
-    date: "2026-10-14",
-    time: "17:35",
-    url: "https://www.ft.com/content/badcd536-6e53-4968-8fea-914ffc3d8d0c"
-  },
-  {
-    id: "9f3713fb-6b0a-41f8-8ccc-b23f2395740e",
-    title: "Healey’s Budget is a moment he must not miss",
-    date: "2026-10-14",
-    time: "17:31",
-    url: "https://www.ft.com/content/9f3713fb-6b0a-41f8-8ccc-b23f2395740e"
-  },
-  {
-    id: "64f058ff-c8c2-4e63-bf7f-57c08ce685cb",
-    title: "Freshfields partners explore carve-out of AI unit worth ‘billions’, leaked emails reveal",
-    date: "2026-10-14",
-    time: "16:48",
-    url: "https://www.ft.com/content/64f058ff-c8c2-4e63-bf7f-57c08ce685cb"
-  },
-  {
-    id: "9acc4f6f-2faa-4ac1-aa7b-42166d677316",
-    title: "Transcription: Marine Le Pen en entretien avec le Financial Times",
-    date: "2026-10-14",
-    time: "16:35",
-    url: "https://www.ft.com/content/9acc4f6f-2faa-4ac1-aa7b-42166d677316"
   }
 ];

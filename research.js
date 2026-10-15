@@ -109,6 +109,39 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-fitch-wire-texasdatacentre-20261015",
+    publication: "Fitch Ratings",
+    author: null,
+    series: "Fitch Wire Daily",
+    title: "Texas Data Center Ratings Can Withstand Temporary Permitting Pause",
+    date: "2026-10-15",
+    time: "16:10",
+    summary: "The ongoing data center audit in Texas has no immediate ratings impact on Fitch-rated data center projects in the state, thanks to existing permits, completed interconnection approvals or contractual protections that transfer development risk to tenants.",
+    url: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk3xXo36iHjManYf_aFqTP4xIIgIJ_8Rqp3qrjkMTJFn42VtH7dR0Jz6K4vSq0p479zad2e74=#texas-data-center"
+  },
+  {
+    id: "rsch-fitch-wire-embankmetrics-20261015",
+    publication: "Fitch Ratings",
+    author: null,
+    series: "Fitch Wire Daily",
+    title: "EM Bank Aggregate Metrics Stable; Persisting Regional Differences",
+    date: "2026-10-15",
+    time: "16:10",
+    summary: "The largest emerging market banks' aggregate averages were stable in 2025, although significant regional differences persist.",
+    url: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk3xXo36iHjManYf_aFqTP4xIIgIJ_8Rqp3qrjkMTJFn42VtH7dR0Jz6K4vSq0p479zad2e74=#em-banks"
+  },
+  {
+    id: "rsch-spdji-dailyindexinsights-20261015",
+    publication: "S&P Dow Jones Indices",
+    author: null,
+    series: "Daily Index Insights",
+    title: "Daily Index Insights",
+    date: "2026-10-15",
+    time: "14:31",
+    summary: "On this day 211 years ago, Napoleon Bonaparte arrived at the isolated South Atlantic island of Saint Helena to begin his exile following his final defeat at Waterloo…",
+    url: "https://www.spglobal.com/spdji/en/commentary/article/daily-index-insights",
+  },
+  {
     id: "rsch-withintel-pc-insights-20261015",
     publication: "With Intelligence",
     author: null,

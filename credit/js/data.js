@@ -33,7 +33,7 @@ export const LAST_CHECKED = "2026-10-15";
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "16:17 BST";
+export const LAST_CHECKED_TIME = "17:15 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -2165,6 +2165,7 @@ export const intel = [
   {"id":"i1153","date":"2024-03-13","managerId":"m12","fundId":null,"type":"Fundraising","headline":"ADIA boosts commitment to Cheyne real estate capital solutions strategy to £650m","summary":"The Abu Dhabi Investment Authority increased its commitment to Cheyne's capital solutions (CRECH IX) strategy to GBP650m (USD831m); size of the new investment was not disclosed. The strategy provides senior loans against European real estate, plus subordinated debt, hybrid credit and CMBS.","sourceUrl":"https://enterpriseam.com/uae/2024/03/13/adia-boosts-investment-in-private-credit-with-fresh-commitment-to-cheyne-capital/"},
   {"id": "i1154", "date": "2026-07-14", "type": "Personnel", "headline": "PGIM hires David Blum to oversee US high yield real estate credit investments", "managerId": "m64", "summary": "PGIM hired David Blum as managing director in a newly created role overseeing U.S. high-yield real estate credit investments, based in New York. He most recently led commercial real estate debt strategies at Prospect Ridge and was previously a managing director at Angelo Gordon. PGIM's John Jacobs said the firm has grown its higher-yielding U.S. real estate debt strategies to $9 billion of AUM over the past nine years.", "sourceUrl": "https://www.pgim.com/us/en/financing/about/newsroom/press-releases/pgim-hires-david-blum-to-oversee-us-high-yield-real-estate-credit-investments.html"},
   {"id": "i1155", "date": "2026-10-14", "type": "Strategy", "headline": "Fiera Capital reports preliminary AUM of C$151.4bn at 30 September 2026", "managerId": "m97", "summary": "Fiera Capital announced preliminary assets under management of C$151.4 billion as at September 30, 2026, versus C$163.5 billion as at June 30, 2026. It will release Q3 2026 results on the evening of November 11, 2026, with a conference call on November 12 at 10:00 a.m. ET.", "sourceUrl": "https://www.fieracapital.com/en/press-releases/press-release-123040/"},
+  {"id":"i1166","date":"2026-10-15","type":"Launch","managerId":"m164","fundId":null,"headline":"Victory Park Capital and Tradable launch VALTS, tokenized access to asset-backed credit","summary":"Victory Park Capital announced VALTS (AltsABF Tokenized Feeder Fund, L.P.), a private fund giving eligible investors blockchain-based access to its AltsABF private asset-backed credit interval fund (launched January 2026), tokenized by Tradable and initially available on the Stellar network.","sourceUrl":"https://www.businesswire.com/news/home/20261015059060/en/"}
 ];
 
 // ---------------------------------------------------------------------------

@@ -49,6 +49,29 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-breaking-kepromos-20261015",
+    publication: "The Lawyer",
+    author: null,
+    series: "Breaking News",
+    title: "Breaking News: K&E promos - the 190 lawyers who got the nod",
+    date: "2026-10-15",
+    time: "16:19",
+    summary: "Kirkland & Ellis, which no longer publicises its annual promotions round, has made up around 190 lawyers to partner globally, according to The Lawyer’s initial figures.",
+    url: "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/VMGdPaeWXWM6",
+  },
+  {
+    id: "nl-legalbusiness-alert-topukgcs-20261015",
+    publication: "Legal Business",
+    author: null,
+    series: "Legal Business Alert",
+    title: "Revealed: The top UK GCs and in-house rising stars",
+    date: "2026-10-15",
+    time: "16:02",
+    summary: "GCs at companies including BT, Rolls Royce, HSBC, Revolut and Starling among more than 100 in-house leaders winning spots on Legal 500 2026 UK GC Powerlist.",
+    url: "https://www.legalbusiness.co.uk/in-house/revealed-the-top-uk-gcs-and-in-house-rising-stars/",
+    body: true,
+  },
+  {
     id: "nl-bloomberg-pointsofreturn-hotinflation-20261015",
     publication: "Bloomberg",
     author: "John Authers",
