@@ -1304,13 +1304,32 @@ has pushed, email the daily digest to the owner — on **Mondays** send the week
    `--origin=https://<live host>`, supplies the app link; without it the in-app path
    alone is printed). Line 1 of the output is the subject; the rest is the plain-text
    body, every item followed by its source link.
-2. Send it with the **Gmail connector** (`send_message`) to the owner's own address —
-   the same connector the Email sweep above uses. If the connector offers no send tool
+2. Send it with the **Gmail connector** (`send_message`) to **`skaidrive2@gmail.com`**
+   (owner-confirmed 2026-10-15) — the same connector the Email sweep above uses. If the connector offers no send tool
    this run, create a **draft** for the owner instead (`create_draft`) and say so in the
    run summary. Never invent items to pad an empty section: the script already prints
    "Nothing new in this window." for it.
 3. Send **at most one** digest email per London day — before sending, search the
    mailbox's Sent folder for today's subject and skip if it is already there.
+
+**AUM currency check (every run, budget-capped; owner request 2026-10-15).** A
+manager's `aumFrom` (the currency each stored AUM figure was converted from) must agree
+with its own `aumText` and source. ICG was stored as if its "$126bn" were EUR and shown
+as ~€116bn ($130bn) — it reports in US$; fixed 2026-10-15. `tests/aum-currency.mjs`
+fails on any NEW mismatch and holds the open review list (`REVIEW`, 16 managers on
+2026-10-15). Each run, take up to **3** ids from that list, newest-sourced first:
+1. Re-read the manager's own latest AUM disclosure (results / trading update / firm
+   site / Form ADV) — WebSearch, never memory.
+2. Store the figure in the currency the firm reports: USD figures go straight into
+   `aum` / `aumTotal` / `aumCredit` with no `aumFrom` entry for that field; a
+   EUR / GBP figure is converted with `AUM_FX` and tagged in `aumFrom`. Each figure keeps
+   its own as-of date and source in `sources`; `aumText` states the figure it describes.
+3. If the text and the stored figure describe DIFFERENT things (group vs credit AUM,
+   regulatory vs managed), split them into the right fields rather than forcing one.
+4. Delete the id from `REVIEW` in the spec (the spec fails until you do) and list it in
+   the run summary with before → after and the source URL.
+The Profiles audit (one-off) clears the whole list in one pass; the routine keeps it
+from growing back.
 
 ---
 
@@ -1319,10 +1338,11 @@ has pushed, email the daily digest to the owner — on **Mondays** send the week
 The operational prompt is stored in the **"/Wire: full refresh"** Routine in the
 Claude Code Routines UI and is edited there — it is the executable copy. This
 document is the **authoritative reference** for what that run must do: the
-**Invariants**, **Briefings & Key Moments**, **Health snapshot + credit digest** and
-**Email sweep** sections are the contract; the Routine prompt orchestrates them (sync →
-freshness audit → the desk refreshes → briefing → stamps → health snapshot + digest →
-email sweep → publish → morning digest email) and should defer here for the detail
+**Invariants**, **Briefings & Key Moments**, **Health snapshot + credit digest**, **AUM
+currency check** and **Email sweep** sections are the contract; the Routine prompt
+orchestrates them (sync → freshness audit → the desk refreshes → AUM currency check →
+briefing → stamps → health snapshot + digest → email sweep → publish → morning digest
+email) and should defer here for the detail
 rather than restating it. Current live behaviour: fires **every ~2
 hours** through the London day, writes a **single** briefing every run, runs the
 **freshness audit first**, and sweeps **research + newsletters + myFT** every run.
