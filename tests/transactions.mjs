@@ -208,7 +208,9 @@ const grp = await pg.evaluate(async () => {
   return out;
 });
 check(["", "lender", "month", "sector", "region", "type"].every((g) => grp.opts.includes(g)), `group-by offers lender · month · sector · region · type (${grp.opts.join(",")})`);
-check(["lender", "month", "sector"].every((g) => grp[g].n > 1 && grp[g].sum === grp.rowsFlat && grp[g].rows === grp.rowsFlat && grp[g].named), `grouping keeps every deal under named headers (lender ${grp.lender.n}, month ${grp.month.n}, sector ${grp.sector.n} groups; ${grp.rowsFlat} deals)`);
+// (By lender, a club deal sits under EACH of its lenders — R39m — so its rows may exceed the flat list.)
+check(["month", "sector"].every((g) => grp[g].n > 1 && grp[g].sum === grp.rowsFlat && grp[g].rows === grp.rowsFlat && grp[g].named)
+  && grp.lender.n > 1 && grp.lender.sum === grp.lender.rows && grp.lender.rows >= grp.rowsFlat && grp.lender.named, `grouping keeps every deal under named headers (lender ${grp.lender.n}, month ${grp.month.n}, sector ${grp.sector.n} groups; ${grp.rowsFlat} deals)`);
 check(grp.lender.vol && /grp=sector/.test(grp.sector.hash) && /\d{4}/.test(grp.month.first), `group headers carry a disclosed-volume subtotal; month groups are newest first (${grp.month.first})`);
 check(grp.off === 0, "No grouping restores the flat list");
 check(grp.sortDesc.aria === "descending" && grp.sortDesc.sel === "size-desc" && /sort=size-desc/.test(grp.sortDesc.hash) && grp.sortAsc.aria === "ascending" && /^(—|EV |AUM |\$?[^0-9]*$)/.test(grp.sortAsc.last), `a column header sorts (Amount ▼ ${grp.sortDesc.first.join(", ")}; ▲ keeps undisclosed last: ${grp.sortAsc.last} · ${JSON.stringify(grp.sortDesc)})`);
@@ -274,10 +276,11 @@ const inband = await pg.evaluate(async () => {
   const D = await import("/credit/js/data.js");
   const aumOf = (m) => (!m || m.notAum) ? null : (m.aumTotal != null ? m.aumTotal : m.aum);
   const set = new Set(D.managers.filter((m) => { const a = aumOf(m); return a != null && a >= 1 && a <= 15; }).map((m) => m.id));
-  const ids = [...document.querySelectorAll(".tx-panes-in .tx-list a.tx-mgr")].map((a) => a.dataset.id).filter(Boolean);
-  return { n: ids.length, allIn: ids.length > 0 && ids.every((id) => set.has(id)) };
+  // Every listed deal has at least one $1–15bn firm among its parties (R39m: a club deal counts for each).
+  const rows = [...document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row")].map((tr) => (tr.dataset.parties || "").split(" ").filter(Boolean));
+  return { n: rows.length, allIn: rows.length > 0 && rows.every((ids) => ids.some((id) => set.has(id))) };
 });
-check(inband.allIn, `with $1–15bn on, every listed deal is a $1–15bn manager's (${inband.n} links)`);
+check(inband.allIn, `with $1–15bn on, every listed deal has a $1–15bn manager among its parties (${inband.n} rows)`);
 await pg.evaluate(() => { location.hash = "#/lending"; }); await pg.waitForTimeout(200);
 
 // ---- 5) search — a flat list of matching deals across the group ----------
@@ -493,10 +496,10 @@ for (const w of [1280, 1024]) {
     const n = () => document.querySelectorAll("#tx-body tr.tx-row").length;
     const btn = document.querySelector("#tx-focus");
     const n0 = n(); btn.click(); await wait(120);
-    const ids = [...document.querySelectorAll("#tx-body a.tx-mgr")].map((a) => a.dataset.id);
+    const rows = [...document.querySelectorAll("#tx-body tr.tx-row")].map((tr) => (tr.dataset.parties || "").split(" ").filter(Boolean));
     const n2 = n(), l2 = btn.textContent, h2 = location.hash, sum = (document.querySelector("#tx-active .tx-sum") || {}).textContent || "";
     btn.click(); await wait(120);
-    return { n0, n2, l2, h2, sum, allCore: ids.length > 0 && ids.filter((id) => !core.has(id)).length === 0, off: btn.getAttribute("aria-pressed") === "false" && n() === n0 };
+    return { n0, n2, l2, h2, sum, allCore: rows.length > 0 && rows.every((ids) => ids.some((id) => core.has(id))), off: btn.getAttribute("aria-pressed") === "false" && n() === n0 };
   });
   check(t.l2 === "European mid-market" && /focus=target/.test(t.h2) && /European mid-market managers/.test(t.sum), `the bar's Target button filters to Target managers and back (${t.n0} → ${t.n2})`);
   check(t.allCore && t.n2 > 0 && t.n2 < t.n0 && t.off, "Target lists only target-market managers' deals (European · ≤ $15bn · 15%+ strategy)");

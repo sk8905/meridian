@@ -17,6 +17,8 @@
 // Everything here is pure (rows in → ranked rows out) so the spec can drive it directly.
 // =============================================================================
 
+import { toUsd } from "/credit/js/tx.js";
+
 export const BY = [["lenders", "Lenders"], ["sponsors", "Sponsors"], ["law", "Law firms"], ["fa", "Financial advisers"]];
 export const BY_KEYS = BY.map(([k]) => k);
 // The financial advisers in ADVISER_NAMES (deal-advisers.js); every other name is a law firm.
@@ -37,16 +39,23 @@ export function managerIndex(managers) {
 // The lenders a deal credits: [{ key, id?, name }] — unique per deal (club deals once).
 export function lendersOf(d, idx) {
   const out = [], seen = new Set();
-  const add = (id, name) => {
+  const add = (id, name, own) => {
     const m = id && idx.byId.get(id) || (!id && name && idx.byName.get(norm(name))) || null;
     const key = m ? m.id : name ? "n:" + norm(name) : "";
     if (!key || key === "n:" || seen.has(key)) return;
-    seen.add(key); out.push({ key, id: m ? m.id : "", name: m ? m.name : String(name).trim() });
+    seen.add(key); out.push({ key, id: m ? m.id : "", name: m ? m.name : String(name).trim(), ...(own !== undefined ? { own } : {}) });
   };
   if (d && Array.isArray(d.lenders) && d.lenders.length) {
+    // A lender's OWN stated share (audited lenders[].amount, $m in its ccy) is what it is
+    // credited. When any lender on the deal has a stated share, the others get the deal
+    // counted but no volume — never the whole deal size each (that double-counts a club).
+    const anyOwn = d.lenders.some((l) => l && typeof l === "object" && l.amount != null);
     for (const l of d.lenders) {
       if (typeof l === "string") { if (idx.byId.has(l)) add(l, ""); else add("", l); }
-      else if (l && typeof l === "object") add(l.managerId || (idx.byId.has(l.id) ? l.id : ""), l.name || "");
+      else if (l && typeof l === "object") {
+        const own = !anyOwn ? undefined : (l.amount != null ? toUsd({ v: l.amount, ccy: l.ccy || "USD" }) : null);
+        add(l.managerId || (idx.byId.has(l.id) ? l.id : ""), l.name || "", own);
+      }
     }
     if (out.length) return out;
   }
@@ -73,7 +82,8 @@ export function aggregate(rows, keysOf) {
       let a = m.get(p.key);
       if (!a) { a = { key: p.key, name: p.name, id: p.id || "", n: 0, vol: 0, sized: 0, deals: [], latest: 0 }; m.set(p.key, a); }
       a.n++; a.deals.push(r);
-      if (r.sizeOk && r.usd != null) { a.vol += r.usd; a.sized++; }
+      if (p.own !== undefined) { if (p.own != null) { a.vol += p.own; a.sized++; } }   // the lender's own stated share
+      else if (r.sizeOk && r.usd != null) { a.vol += r.usd; a.sized++; }
       if (r.ts > a.latest) a.latest = r.ts;
     }
   }

@@ -54,7 +54,8 @@ for (const [name, dev] of [["phone", PHONE], ["desktop", DESKTOP]]) {
   await pg.evaluate(() => document.querySelector("#tx-body a.tx-mgr").click());
   await pg.waitForSelector("#pf-detail .tdet-id", { timeout: 8000 });
   const h1 = await pg.evaluate(() => location.hash);
-  await pg.evaluate(() => { location.hash = "#/manager/m21"; }); await pg.waitForTimeout(400);
+  // Drill to a DIFFERENT profile than the one the link opened.
+  await pg.evaluate((h) => { location.hash = h === "#/manager/m21" ? "#/manager/m8" : "#/manager/m21"; }, h1); await pg.waitForTimeout(400);
   check(await shown(pg), `${name}: Back is live after a hash drill-down`);
   await back(pg, name); await pg.waitForTimeout(400);
   check(await pg.evaluate(() => location.hash) === h1, `${name}: Back steps one entry, to the previous profile (${h1})`);

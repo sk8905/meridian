@@ -24,6 +24,7 @@ import { liveJSON } from "../live-cache.js";
 import { fundsInMarket as fundsInMarketOf, FIM_STATUS } from "../funds-market.js";
 import { tagsOf, EUROPE_REGIONS } from "/credit/js/tx.js";
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
+import { dealLenderIds } from "../deal-parse.js";
 import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID, caseSummaries as LGL_CASE_SUMMARIES } from "/legal/js/data.js";
 
 // Third tuple element is an OPTIONAL short label shown on the narrow iPhone tab
@@ -923,7 +924,8 @@ export function mount(host, ctx) {
     const cut = new Date(Date.now() - 90 * 864e5).toISOString().slice(0, 10);
     const byId = new Map((managers || []).map((m) => [m.id, m]));
     const n = new Map();
-    (deals || []).forEach((d) => { if (d && d.managerId && d.date >= cut && byId.has(d.managerId)) n.set(d.managerId, (n.get(d.managerId) || 0) + 1); });
+    // Each lender of a club deal counts (R39m); a sponsor / borrower role is not lending.
+    (deals || []).forEach((d) => { if (d && d.date >= cut) for (const id of dealLenderIds(d)) if (byId.has(id)) n.set(id, (n.get(id) || 0) + 1); });
     const rows = [...n.entries()].sort((a, b) => b[1] - a[1] || byId.get(a[0]).name.localeCompare(byId.get(b[0]).name)).slice(0, 40);
     if (!rows.length) return `<p class="dsh-load">No tracked deals in the last 90 days.</p>`;
     return `<table class="dsh-tbl dsh-mini dsh-stk-src" data-stk-name="0" data-stk-key="1" data-stk-lab="1"><thead><tr><th>Manager</th><th class="dsh-r">Deals</th></tr></thead><tbody>`

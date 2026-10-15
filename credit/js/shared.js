@@ -10,7 +10,7 @@
 // or the browser loads data.js twice as separate module instances (blank page).
 // =============================================================================
 import { managers, managerById, lpById, commitments, AUM_FX } from "./data.js";
-import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js";
+import { esc, NEWS_SOURCES, srcHost, tidyDomain, isOwnSite } from "/util.js";
 
 // ----------------------------- formatting utils ----------------------------
 export const eur = (m) => (m == null ? "Undisclosed" : "€" + (m >= 1000 ? (m / 1000).toFixed(m % 1000 === 0 ? 0 : 1) + "bn" : m + "m"));
@@ -234,8 +234,8 @@ export function creditSource(rec) {
   const host = srcHost(rec.sourceUrl);
   if (host && NEWS_SOURCES[host]) return NEWS_SOURCES[host];
   const m = rec.managerId ? managerById[rec.managerId] : null;
-  if (m && m.name) return m.name;           // manager's own press release
-  return host ? tidyDomain(host) : "";
+  if (m && m.name && isOwnSite(host, m.name)) return m.name;   // the manager's own press page
+  return host ? tidyDomain(host) : "";      // any other outlet — never the manager's name
 }
 
 // ----------------------- relationship lookups ------------------------------

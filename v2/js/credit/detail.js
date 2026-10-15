@@ -21,7 +21,7 @@ import { BDCS } from "/credit/js/bdcs.js";
 import { tabbedHTML, bindTabs, latestLine } from "../profile-tabs.js";
 import { TX_TYPES, TX_GROUPS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtUsd } from "/credit/js/tx.js";
 import { firms as LAW_FIRMS } from "/legal/js/data.js";
-import { dealCounterparty, dealSponsor, dealAmount } from "../deal-parse.js";
+import { dealCounterparty, dealSponsor, dealAmount, dealRoleFor, ROLE_NAME } from "../deal-parse.js";
 import { peersOf, peerDetails } from "../peers.js";
 import {
   eur, pct, fmtDate, link, nameCell,
@@ -307,14 +307,18 @@ function classifyInstrument(d) {
 // instrument, size and date in their own columns and the outlet at the right. The
 // verbatim, sourced headline sits beneath the name so nothing is misrepresented
 // when the name is derived; rows that don't parse lead with the headline itself.
-function invRow(d) {
+function invRow(d, mid) {
   const { cls, sub, curated } = classifyInstrument(d);
+  // This firm's role in the deal (R39m): a sponsor deal is never presented as a loan
+  // the firm made — the Deal cell leads with "Sponsor" / "Borrower" / "Lender".
+  const role = mid ? dealRoleFor(d, mid) : null;
+  const roleTag = role && ROLE_NAME[role] ? `<span class="tinv-role" data-role="${esc(role)}">${esc(ROLE_NAME[role])}</span> · ` : "";
   const tag = cls
     ? `<span class="tinv-tag ${cls === "Debt" ? "is-debt" : "is-equity"}"${curated ? "" : ' title="Auto-derived from the linked article"'}>${esc(cls)}${sub ? " · " + esc(sub) : ""}${curated ? "" : "<span class=\"tinv-inf\">~</span>"}</span>`
     : `<span class="tinv-tag is-unspec">—</span>`;
   const outlet = creditSource(d) || "";
   const subj = dealCounterparty(d, (managerById[d.managerId] || {}).name);
-  const sponsor = dealSponsor(d);   // the PE backer, when the deal names one
+  const sponsor = role === "sponsor" ? "" : dealSponsor(d);   // the PE backer, when the deal names one (not this firm itself)
   const amt = dealAmount(d);
   const url = esc(d.sourceUrl);
   // Company/borrower cell shows JUST the name (full headline is the hover title);
@@ -330,7 +334,7 @@ function invRow(d) {
     + (d.date ? ` <a class="tx-src" href="/v2/transactions/#/deal/${esc(encodeURIComponent(d.id))}">Open in Transactions</a>` : "");
   return `<tr class="tinv-row${hasDetail ? " is-exp" : ""}" data-id="${esc(d.id)}">`
     + `<td class="tinv-c-co" title="${esc(d.headline)}">${hasDetail ? `<span class="tx-caret" aria-hidden="true">▸</span>` : ""}${esc(name)}</td>`
-    + `<td class="tinv-c-type">${esc(d.type || "—")}</td>`
+    + `<td class="tinv-c-type">${roleTag}${esc(d.type || "—")}</td>`
     + `<td class="tinv-c-instr">${tag}</td>`
     + `<td class="tinv-c-amt">${amt ? esc(amt) : "—"}</td>`
     + `<td class="tinv-c-date">${esc(fmtDate(d))}</td>`
@@ -556,7 +560,9 @@ export function viewManager(id, tab0) {
   const belongs = (x) => x.managerId === id || (x.fundId && fundIds.has(x.fundId));
   const mgrFeed = (() => {
     const items = [
-      ...deals.filter(belongs).map((d) => ({ ...d, _kind: "deal" })),
+      // A deal counts on every firm that is a party to it — filed under it, a lender in
+      // its club, or its sponsor (R39m).
+      ...deals.filter((d) => belongs(d) || dealRoleFor(d, id)).map((d) => ({ ...d, _kind: "deal" })),
       ...intel.filter(belongs).map((i) => ({ ...i, _kind: "intel" })),
       ...[...(m.news || []), ...(m.webNews || [])].map((x) => ({ ...x, _kind: "news", _mid: m.id, _mname: m.name })),
     ];
@@ -590,7 +596,7 @@ export function viewManager(id, tab0) {
   const invPane = investments.length
     ? `<div class="tleague-wrap"><table class="tleague tleague-full tinv-tbl">`
       + `<thead><tr><th>Company / borrower</th><th>Deal</th><th>Instrument</th><th>Amount</th><th>Date</th><th class="tinv-c-src">Source</th></tr></thead>`
-      + `<tbody>${investments.map(invRow).join("")}</tbody></table></div>`
+      + `<tbody>${investments.map((d) => invRow(d, id)).join("")}</tbody></table></div>`
     : `<p class="tw-empty muted small">No investments identified yet from the news surfaced for this manager.</p>`;
   const peoplePane = (() => {
     let out = "";

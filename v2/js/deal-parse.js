@@ -8,6 +8,7 @@
 // every caller keeps the verbatim, sourced headline visible, so a miss leads with
 // the headline itself rather than fabricating a name.
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
+import { managers } from "/credit/js/data.js";
 const _NAME = "[A-Z][A-Za-z0-9&.’'-]*(?:\\s+[A-Z0-9][A-Za-z0-9&.’'-]*){0,4}";
 // Geographic / nationality adjectives that commonly sit between a connective verb
 // and the borrower's proper name ("… refinances GERMAN mid-market group Kaffee
@@ -79,6 +80,8 @@ export function dealSubject(d) {
   const h = String((d && d.headline) || "");
   // The audited party (credit/js/deal-tags.js `p`, HOUSE_STYLE R39) wins over everything —
   // including "" (no counterparty: a hire, a launch, an unnamed borrower).
+  // The audited explicit borrower (2026-10 party audit, HOUSE_STYLE R39m) wins first.
+  if (d && typeof d.borrower === "string" && d.borrower.trim()) return d.borrower.trim();
   const t = d && d.id && DEAL_TAGS[d.id];
   if (t && t.party != null) return t.party;
   // An explicit, verified borrower/company on the deal wins over any parse — set
@@ -109,6 +112,7 @@ export function dealSubject(d) {
 // deals keep their vehicle name.
 export function dealCounterparty(d, lenderName) {
   const s = dealSubject(d);
+  if (d && typeof d.borrower === "string" && d.borrower.trim()) return s;   // audited — shown as-is
   const t = d && d.id && DEAL_TAGS[d.id];
   // An audited party is shown as-is — even when it IS the lender (a BDC issuing its own
   // notes, a manager raising its own fund).
@@ -159,57 +163,14 @@ const SPONSOR_OVERRIDES = {};
 // so the whole audit is reviewable in one place; a deal may also carry its own
 // `company` field, which takes precedence.
 const COMPANY_OVERRIDES = {
-  d207: "Amerplast Group", d190: "Lifeways Group", d553: "Oliver James", d555: "Riviera Travel",
-  d623: "Spire Healthcare", d731: "UWM Holdings", d856: "Eurofiber", d855: "Lyntia",
-  d860: "Digitt", d858: "ESKARIAM", d718: "Red Kite Lending", d699: "Arche MC2",
-  d265: "IPValue Management Group", d284: "Industry Ventures", d197: "Arqiva",
-  d171: "Netomnia", d720: "Pure Cremation", d63: "Modal & Centerbridge",
-  d235: "Gamuda & Castleforge Partners", d44: "quattron & NEXTRAIL", d72: "idealista",
-  d240: "hsbcad", d43: "Saarni Cloud", d5: "Novus Foods", d56: "PayPal 'Pay Later' receivables",
-  d632: "PayPal", d564: "Portobello Starboard pub portfolio", d534: "Signal",
-  d142: "Novo Banco 'Nata 2' portfolio", d138: "Sareb NPL portfolio",
-  d747: "'Project Valery' Italian UTP portfolio", d745: "Banca Mediocredito FVG portfolio",
-  d746: "'Atlantic' Portuguese NPL portfolio", d612: "National CineMedia",
-  d509: "Kanalservice Gruppe & Grupo Sasti", d737: "Paratek Pharmaceuticals",
-  d752: "CPP Investments European NPL portfolio", d753: "CPP Investments European NPL portfolio",
-  d639: "Burger King Italy", d221: "implid", d129: "Texecom", d31: "Accolade Wines",
-  // Residual corrections where the generic parse would truncate, drop a leading
+  d632: "PayPal", // Residual corrections where the generic parse would truncate, drop a leading
   // geo word that belongs to the name, surface a city/asset, or find no borrower.
-  d687: "Tapí", d689: "Penny Blue Capital", d658: "Elect Capital & MCL Finance",
-  d523: "Rantum Capital", d559: "Eaton Gate", d602: "Eaton Gate", d219: "Findango Finance",
-  d583: "Peridot Solar", d73: "American Heart of Poland", d551: "Kaufmannshaus",
-  d133: "The Morrison Hotel", d169: "Labiana", d9: "Medica Group", d126: "European LifeCare",
-  d502: "British Solar Renewables", d145: "Italian cooperative-bank NPL portfolio",
-  d608: "Cutting Edge", d584: "Fidera Vecta", d810: "Crestline",
-  d253: "Partners Group", d549: "Edison Höfe", d279: "Padana Tubi & Profilati Acciaio",
-  d835: "Mohawk Day Camp", d569: "Corinthia Lake Como", d285: "10 Lime Street",
-  d703: "1Box Group", d81: "Wolf IV securitisation", d595: "Very Group",
-  d60: "Lyocontract", d613: "Hotel Don Juan Center",
-  d656: "HR Path", d622: "German healthcare RE portfolio (PATRIZIA)",
+  d608: "Cutting Edge", d810: "Crestline",
   // Curated 2026-10 (UX review): lender-led headlines whose borrower / target is named in
   // the deal's own headline or summary — each value checked verbatim against that text.
-  d10: "EDF", d11: "RWE", d18: "Urban Logistics REIT", d27: "Hurtigruten", d29: "Condor",
-  d30: "Lemma Technologies", d32: "emeis", d34: "Altice France", d35: "Hurtigruten", d37: "WVT Industries",
-  d50: "Bionic", d59: "Arche MC2 Group", d62: "JBF Group", d64: "Karo Healthcare", d65: "Santander",
-  d78: "Condor", d110: "Veld Capital", d158: "Cargill", d173: "Finepoint", d196: "G.Network",
-  d200: "Elara Caring", d205: "SIGNAL/W.RE JV", d209: "emeis", d228: "Happy Money", d259: "Altavair",
-  d274: "Estela Group", d278: "Euclid Transactional", d280: "Health in Code",
-  d286: "Auction Technology Group", d505: "GEOGREEN", d518: "MS Lending Group", d520: "OceanFirst Bank",
-  d521: "Fusion Specialty Group", d531: "Groupe Carso", d541: "Peridot Solar",
-  d543: "Auction Technology Group", d547: "Ionic Digital", d562: "McAvoy Group", d565: "Typhoo Tea",
-  d568: "Limelight", d570: "Six Senses Loire Valley", d585: "Ricasoli Fund", d586: "FGH Bank",
-  d589: "Marabu", d590: "Casino Group", d597: "Ardagh", d598: "Intrum", d604: "Arqiva", d606: "Piraeus Bank",
-  d607: "Ster-Kinekor", d645: "ABN AMRO", d647: "Shurco", d675: "Pharmacy2U", d704: "1Box", d706: "Solace",
-  d709: "Saks Global", d733: "SME Finance and Leasing Solutions", d734: "SRE Capital", d738: "DKB",
-  d740: "Deutsche Pfandbriefbank", d755: "Yankee Global Enterprises",
-  d768: "SIRE platform", d797: "Horus Finance", d802: "Upstart", d815: "Bridge", d832: "F2 Finance",
-  d861: "Loparex", d867: "36th Street Capital", d869: "Altice International", d874: "BMG", d875: "Bayer",
-  d876: "Onyx CenterSource", d877: "Alacrity Solutions", d879: "Global Gruppe", d929: "LNG Canada",
-  d949: "SubCom", d952: "Hilson Management", d954: "Zolva", d959: "Marble Point Credit Management",
-  d964: "Fortress", d967: "Waymo", d977: "Paradigm HSE", d981: "BUKO Group",
-  d992: "Phoenix Tower International", d993: "Phoenix Tower International", d1000: "LIV Golf",
-  d1013: "Athene", d1014: "Athene", d1027: "CI Financial",
-};
+  d645: "ABN AMRO", d738: "DKB",
+  d874: "BMG", d929: "LNG Canada",
+  d954: "Zolva", };
 
 // First currency figure in the headline (e.g. "$750m", "€6.5bn", "£1.2bn") — for
 // surfaces that carry no structured amount. Surfaces WITH a structured amount
@@ -219,3 +180,52 @@ export function dealAmount(d) {
   if (!m) return "";
   return m[0].replace(/\s+/g, "").replace(/billion/i, "bn").replace(/million/i, "m");
 }
+
+// ---- Deal parties (HOUSE_STYLE R39m — 2026-10 party audit) -------------------------
+// A deal names up to four kinds of party: the BORROWER (`borrower`, else the parse
+// above), the SPONSOR (`sponsor`, `sponsorId` when it is a tracked firm), the LENDERS
+// (`lenders: [{ name, managerId, role: lead | participant | arranger | investor,
+// amount, ccy }]`) and the tracked firm the record is filed under (`managerId`) with
+// its real role (`managerRole`: lender | sponsor | borrower | issuer | adviser |
+// seller). One deal = one record: a club deal carries every lender in `lenders`.
+const _mgrById = new Map(managers.map((m) => [m.id, m]));
+const _mName = (id) => (_mgrById.get(id) || {}).name || "";
+export const MANAGER_ROLES = ["lender", "sponsor", "borrower", "issuer", "adviser", "seller"];
+// The tracked firm's role: explicit, else "issuer" for a CLO (the manager prices its own
+// vehicle), else "lender" (the pre-audit assumption).
+export function dealManagerRole(d) {
+  if (d && MANAGER_ROLES.includes(d.managerRole)) return d.managerRole;
+  return d && d.clo ? "issuer" : "lender";
+}
+// Every lender / investor (not arrangers), lead first. A deal without an audited
+// `lenders` list falls back to its tracked firm when that firm is the lender.
+export function dealLenders(d) {
+  if (!d) return [];
+  const own = (d.lenders || []).filter((l) => l && l.name && l.role !== "arranger")
+    .map((l) => ({ ...l, name: (l.managerId && _mName(l.managerId)) || l.name }));
+  if (own.length) {
+    const lead = own.findIndex((l) => l.role === "lead");
+    return lead > 0 ? [own[lead], ...own.slice(0, lead), ...own.slice(lead + 1)] : own;
+  }
+  const role = dealManagerRole(d);
+  return d.managerId && _mName(d.managerId) && (role === "lender" || role === "issuer")
+    ? [{ name: _mName(d.managerId), managerId: d.managerId, role: "lead", amount: null, ccy: null }] : [];
+}
+export function dealArrangers(d) {
+  return ((d && d.lenders) || []).filter((l) => l && l.name && l.role === "arranger")
+    .map((l) => ({ ...l, name: (l.managerId && _mName(l.managerId)) || l.name }));
+}
+// The tracked-firm ids a deal counts under as a LENDER (Lender facet, grouping, stats).
+export const dealLenderIds = (d) => [...new Set(dealLenders(d).map((l) => l.managerId).filter((id) => id && _mgrById.has(id)))];
+// Every tracked firm that is a party to the deal, with its role there — the profile
+// Investments tab lists the deal on each of them (sponsor deals labelled "Sponsor").
+export function dealParticipants(d) {
+  const out = new Map();
+  if (!d) return out;
+  if (d.managerId) out.set(d.managerId, dealManagerRole(d));
+  for (const l of d.lenders || []) if (l && l.managerId && !out.has(l.managerId)) out.set(l.managerId, l.role === "arranger" ? "arranger" : "lender");
+  if (d.sponsorId && !out.has(d.sponsorId)) out.set(d.sponsorId, "sponsor");
+  return out;
+}
+export const dealRoleFor = (d, managerId) => dealParticipants(d).get(managerId) || null;
+export const ROLE_NAME = { lender: "Lender", sponsor: "Sponsor", borrower: "Borrower", issuer: "Manager", adviser: "Adviser", arranger: "Arranger", seller: "Seller" };

@@ -17,6 +17,7 @@ import { amountOf, fmtAmt } from "/credit/js/tx.js";
 import { esc } from "/util.js";
 import { fmtDay } from "/feed.js";
 import { downloadCSV } from "./csv.js";
+import { dealLenderIds } from "./deal-parse.js";
 
 const _mById = new Map(managers.map((m) => [m.id, m]));
 const mgrName = (id) => (_mById.get(id) || {}).name || "";
@@ -74,7 +75,7 @@ function crDetail(c) {
   const rating = c.rating
     ? `${esc(c.rating)} (${esc(c.agency || EUR_CREDITS_META.agency)}${c.asOf ? ", " + esc(c.asOf) : ""})${c.source ? ` · <a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">rating action</a>` : ""}`
     : "Not rated / pending verification";
-  const lenders = [...new Set(ms.map((d) => d.managerId).filter((id) => id && mgrName(id)))];
+  const lenders = [...new Set(ms.flatMap((d) => dealLenderIds(d)).filter((id) => id && mgrName(id)))];
   return `<div class="crr-facts"><span class="crr-k">Rating</span><span>${rating}</span></div>`
     + (lenders.length ? `<div class="crr-facts"><span class="crr-k">Lenders / investors</span><span>${lenders.map((id) => `<a href="${PROFILE(id)}">${esc(mgrName(id))}</a>`).join(", ")}</span></div>` : "")
     + (ms.length ? `<div class="crr-k crr-kh">Tracked deals naming ${esc(coreName(c.name))} · ${ms.length}</div><ul class="crr-deals">${ms.slice(0, 8).map(dealLi).join("")}</ul>`

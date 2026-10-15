@@ -537,7 +537,7 @@
           "date": "2024-11-25",
           "what": "~$1bn infrastructure-loan portfolio from Santander",
           "source": null,
-          "recordId": "d65",
+          "recordId": "d12",
           "status": "present"
         },
         {
@@ -4883,7 +4883,7 @@
           "what": "Leumi GBP70m refi Marriott hotels",
           "source": "https://www.hospitalityinvestor.com/finance/zetland-capital-secures-ps70m-refinancing-loan-leumi",
           "status": "present",
-          "recordId": "d616"
+          "recordId": "d174"
         },
         {
           "key": "ssf3-raising",
@@ -5216,6 +5216,385 @@
           "note": "No evidence found."
         }
       ]
+    },
+    "m34": {
+      "kind": "manager",
+      "name": "One Investment Management (OneIM)",
+      "priority": 120,
+      "status": "built",
+      "events": [
+        {
+          "key": "misra-steps-back-softbank-launches-oneim-2022",
+          "date": "2022-07-07",
+          "what": "Rajeev Misra steps back from SoftBank Vision Fund role, reported to launch own fund (OneIM)",
+          "source": "https://www.cnbc.com/2022/07/07/top-softbank-exec-rajeev-misra-steps-back-from-role-at-vision-fund.html",
+          "status": "missing"
+        },
+        {
+          "key": "oneim-first-close-6-8bn-2023",
+          "date": "2023-08-09",
+          "what": "OneIM first close $6.8bn; backers Royal Group and Mubadala",
+          "source": "https://www.bloomberg.com/news/articles/2023-08-09/rajeev-misra-s-oneim-fund-is-hiring-after-raising-6-8-billion",
+          "recordId": "i1156",
+          "status": "present"
+        },
+        {
+          "key": "shapoorji-bond-2023",
+          "date": "2023-07",
+          "what": "OneIM invests $50m in Shapoorji Pallonji Group bond (debut India investment)",
+          "source": null,
+          "recordId": "d540",
+          "status": "present"
+        },
+        {
+          "key": "oneim-upsizes-8bn-2024",
+          "date": "2024-11-19",
+          "what": "OneIM raises about $1bn more, lifting size from $6.8bn to $8bn",
+          "source": "https://bnnbloomberg.ca/investing/2024/11/19/rajeev-misras-oneim-upsizes-to-8-billion-to-boost-investments",
+          "recordId": "i1158",
+          "status": "present"
+        },
+        {
+          "key": "misra-exits-softbank-2024",
+          "date": "2024-11-12",
+          "what": "Misra gives up SoftBank co-head roles; continues to lead OneIM",
+          "source": "https://techcrunch.com/2024/11/12/softbank-vision-fund-co-ceo-misra-to-exit",
+          "recordId": "i1157",
+          "status": "present"
+        },
+        {
+          "key": "oha-oneim-partnership-2024",
+          "date": "2024",
+          "what": "OHA and OneIM launch partnership to invest in European private credit",
+          "source": "https://www.tipranks.com/news/press-releases/oha-and-oneim-launch-a-partnership-to-invest-in-european-private-credit",
+          "status": "missing"
+        },
+        {
+          "key": "holiday-parks-2024",
+          "date": "2024-11-01",
+          "what": "OneIM & Foundation Partners acquire two UK holiday parks",
+          "source": null,
+          "recordId": "d47",
+          "status": "present"
+        },
+        {
+          "key": "adler-nrw-2024",
+          "date": "2024-12-23",
+          "what": "OneIM and OCP acquire Adler NRW residential portfolio",
+          "source": null,
+          "recordId": "d539",
+          "status": "present"
+        },
+        {
+          "key": "ftai-2025",
+          "date": "2025-01",
+          "what": "OneIM partners with FTAI on aircraft leasing",
+          "source": null,
+          "recordId": "d79",
+          "status": "present"
+        },
+        {
+          "key": "trialcap-sprim-jv-2025",
+          "date": "2025-03-10",
+          "what": "TrialCap JV with SPRIM",
+          "source": null,
+          "recordId": "i280",
+          "status": "present"
+        },
+        {
+          "key": "hudson-house-2025",
+          "date": "2025-05-14",
+          "what": "Hudson House recapitalisation",
+          "source": null,
+          "recordId": "d538",
+          "status": "present"
+        },
+        {
+          "key": "insignia-sid-2025",
+          "date": "2025-07-21",
+          "what": "CC Capital and OneIM sign Insignia scheme implementation deed",
+          "source": null,
+          "recordId": "d537",
+          "status": "present"
+        },
+        {
+          "key": "noveon-2026",
+          "date": "2026-01-19",
+          "what": "OneIM leads Noveon Magnetics Series C",
+          "source": null,
+          "recordId": "d536",
+          "status": "present"
+        },
+        {
+          "key": "london-hospitality-335m-strategy-2026",
+          "date": "2026-02-24",
+          "what": "OneIM launches GBP335m London extended-stay hospitality strategy",
+          "source": "https://www.gtlaw.com/ar/news/2026/02/press-releases/greenberg-traurig-advises-lifestyle-hospitality-capital-on-joint-venture-with-oneim-and-aendre-group",
+          "recordId": "i1159",
+          "status": "present"
+        },
+        {
+          "key": "insignia-completion-2026",
+          "date": "2026-04-28",
+          "what": "CC Capital and OneIM complete Insignia acquisition",
+          "source": null,
+          "recordId": "d267",
+          "status": "present"
+        },
+        {
+          "key": "td-financial-life-14-9pct-2026",
+          "date": "2026-06-04",
+          "what": "OneIM to acquire 14.9% of T&D Financial Life alongside PayPay",
+          "source": "https://www.softbank.jp/en/corp/news/press/sbkk/2026/20260604_02/",
+          "recordId": "d1133",
+          "status": "present"
+        }
+      ],
+      "builtAt": "2026-10-15"
+    },
+    "m110": {
+      "kind": "manager",
+      "name": "RoundShield Partners",
+      "priority": 121,
+      "status": "built",
+      "events": [
+        {
+          "key": "fund-iv-final-close-670m",
+          "date": "2020-05-01",
+          "what": "RoundShield closes fourth European Special Opportunities Fund at GBP670m hard cap",
+          "source": "https://irei.com/publications/article/roundshield-raises-670m-special-opportunities-fund/",
+          "recordId": "d1134",
+          "status": "present"
+        },
+        {
+          "key": "irish-residential-fund-first-close",
+          "date": "2021-04-05",
+          "what": "RoundShield first close of Irish residential real estate fund above EUR200m",
+          "source": "https://irei.com/news/roundshield-partner-holds-e200m-first-close-irish-real-estate-fund/",
+          "recordId": "d1135",
+          "status": "present"
+        },
+        {
+          "key": "azimut-minority-stake",
+          "date": "2022-07-28",
+          "what": "Azimut Alternative Capital Partners to acquire c.20% of RoundShield",
+          "source": "https://www.privateequitywire.co.uk/azimut-alternative-capital-partners-acquires-minority-interest-roundshield/",
+          "recordId": "i1160",
+          "status": "present"
+        },
+        {
+          "key": "fund-v-first-close-750m",
+          "date": "2023-04-27",
+          "what": "RoundShield holds first close of Fund V",
+          "source": "https://www.privateequitywire.co.uk/2023/04/27/320366/roundshield-holds-first-close-latest-fund-750m",
+          "note": "Exact date not verified from page text (date only from URL path).",
+          "status": "present",
+          "recordId": "i399"
+        },
+        {
+          "key": "fund-v-final-close-1bn",
+          "date": "2024-09-12",
+          "what": "RoundShield closes RS Fund V with over $1bn",
+          "source": "https://harrisonst.com/roundshield-closes-fund-v-with-over-1-billion-in-commitments/",
+          "recordId": "i1161",
+          "status": "present"
+        },
+        {
+          "key": "merkel-capital-facility-2024-12",
+          "date": "2024-12",
+          "what": "RoundShield EUR120m senior secured facility to Merkel Capital",
+          "source": null,
+          "recordId": "d566",
+          "status": "present"
+        },
+        {
+          "key": "harrison-street-majority-stake",
+          "date": "2025-07-30",
+          "what": "Harrison Street acquires 60% of RoundShield",
+          "source": "https://harrisonst.com/harrison-street-acquires-majority-stake-in-roundshield-partners/",
+          "recordId": "i1162",
+          "status": "present"
+        },
+        {
+          "key": "ceg-office-venture-2025-09",
+          "date": "2025-09",
+          "what": "RoundShield and CEG launch GBP200m UK office venture",
+          "source": null,
+          "recordId": "d530",
+          "status": "present"
+        },
+        {
+          "key": "lodgyslife-campsites-exit",
+          "date": "2025-12-17",
+          "what": "RoundShield exits EUR50m Lodgyslife facility via sale to First Camp",
+          "source": "https://harrisonst.com/roundshield-announce-successful-exit-of-german-campsites-portfolio-delivering-a-32-5-gross-irr/",
+          "recordId": "d1136",
+          "status": "present"
+        },
+        {
+          "key": "corinthia-lake-como",
+          "date": "2026-01-26",
+          "what": "Corinthia Lake Como development",
+          "source": null,
+          "recordId": "d569",
+          "status": "present"
+        },
+        {
+          "key": "limelight-exit-2026-03",
+          "date": "2026-03",
+          "what": "Limelight Liverpool PBSA exit",
+          "source": null,
+          "recordId": "d568",
+          "status": "present"
+        },
+        {
+          "key": "fund-iv-spain-psba-exit",
+          "date": "2026-10-06",
+          "what": "RoundShield Fund IV exit on sale of Spanish student accommodation to Westwind Capital",
+          "source": "https://harrisonst.com/hsam-europe-announces-roundshield-fund-iv-exit-and-further-roundshield-fund-v-realisation-following-sale-of-spanish-student-accommodation-portfolio-to-westwind-capital/",
+          "recordId": "d1137",
+          "status": "present"
+        }
+      ],
+      "builtAt": "2026-10-15"
+    },
+    "m32": {
+      "kind": "manager",
+      "name": "Signal Capital Partners",
+      "priority": 122,
+      "status": "built",
+      "events": [
+        {
+          "key": "signal-alpha-ii-final-close",
+          "date": "2021-03-18",
+          "what": "Signal Alpha II final close at EUR900m, above EUR850m target",
+          "source": "https://irei.com/news/signal-capital-partners-holds-e900m-final-close/",
+          "recordId": "i1163",
+          "status": "present"
+        },
+        {
+          "key": "harmonic-clo-platform-hire",
+          "date": "2022-03-10",
+          "what": "Signal hires former BlueBay official as partner and head of leveraged credit to build European CLO platform",
+          "source": "https://www.creditflux.com/CLOs/2022-03-10/Signal-hires-former-BlueBay-official-to-build-European-CLO-platform?d=1",
+          "recordId": "i1164",
+          "status": "present"
+        },
+        {
+          "key": "harmonic-clo-i",
+          "date": "2023-06-01",
+          "what": "Harmonic CLO I debut CLO",
+          "source": "https://www.creditflux.com/CLOs/2022-03-10/Signal-hires-former-BlueBay-official-to-build-European-CLO-platform?d=1",
+          "recordId": "d378",
+          "status": "present"
+        },
+        {
+          "key": "harmonic-clo-ii",
+          "date": "2024-02-26",
+          "what": "Harmonic CLO II upsized EUR450m new issue",
+          "source": "https://www.creditflux.com/CLOs/2024-02-26/Boutique-manager-chimes-in-with-second-European-CLO?d=1&edge=1",
+          "recordId": "d404",
+          "status": "present"
+        },
+        {
+          "key": "armen-minority-stake",
+          "date": "2024-10-07",
+          "what": "Armen GP Stakes Fund I takes minority stake in Signal Capital Partners; founders keep majority",
+          "source": "https://alternativecreditinvestor.com/2024/10/07/armen-takes-minority-stake-in-signal-capital-partners/",
+          "recordId": "i1165",
+          "status": "present"
+        },
+        {
+          "key": "signal-alpha-iii-final-close",
+          "date": "2025-01-01",
+          "what": "Signal Alpha III final close (Signal website: completed in 2025)",
+          "source": "https://www.signalcapital.com/about-us",
+          "recordId": "i434",
+          "status": "present"
+        },
+        {
+          "key": "harmonic-clo-vi",
+          "date": "2026-02-06",
+          "what": "Signal prices sixth CLO (Harmonic CLO VI) at EUR400m",
+          "source": "https://alternativecreditinvestor.com/2026/02/06/signal-prices-sixth-clo-at-e400m/",
+          "recordId": "d202",
+          "status": "present"
+        }
+      ],
+      "builtAt": "2026-10-15"
+    },
+    "m37": {
+      "kind": "manager",
+      "name": "Attestor",
+      "priority": 123,
+      "status": "built",
+      "events": [
+        {
+          "key": "condor-51pct-2021",
+          "date": "2021-05-24",
+          "what": "Attestor agrees to acquire 51% of Condor",
+          "source": "https://worldairlinenews.com/2021/05/22/a-bright-new-future-for-condor-attestor-acquires-a-majority-stake-in-condor/",
+          "recordId": "d588",
+          "status": "present"
+        },
+        {
+          "key": "europcar-restructuring-stake-2021",
+          "date": "2021-02-26",
+          "what": "Europcar restructuring closes; Attestor holds 12.01% per AMF filing",
+          "source": "https://echanges.dila.gouv.fr/OPENDATA/AMF/BWR/2021/02/FCBWR132056_20210226.pdf",
+          "recordId": "d1138",
+          "status": "present"
+        },
+        {
+          "key": "europcar-consortium-offer-2021",
+          "date": "2021-07-28",
+          "what": "Volkswagen, Attestor and Pon agree recommended tender offer for Europcar",
+          "source": "https://www.businesswire.com/news/home/20210728005937/en/Contemplated-Tender-Offer-on-the-Company-Europcar-Mobility-Group-Announces-an-Agreement-With-a-Consortium-Led-by-Volkswagen-Designed-to-Drive-Future-Value-Creation-in-Transforming-Mobility-Ecosystems",
+          "recordId": "d1139",
+          "status": "present"
+        },
+        {
+          "key": "europcar-offer-success-2022",
+          "date": "2022-06-15",
+          "what": "Green Mobility Holding tender offer for Europcar successful, 87.38% tendered",
+          "source": "https://www.businesswire.com/news/home/20220615005876/en/Green-Mobility-Holdings-Tender-Offer-for-Europcar-Mobility-Group-Shares-Is-Successful",
+          "recordId": "d1140",
+          "status": "present"
+        },
+        {
+          "key": "condor-49pct-option-2026",
+          "date": "2026-07",
+          "what": "Attestor exercises option to buy remaining 49% of Condor",
+          "source": "https://www.travelextra.ie/attestor-exercises-option-for-full-ownership-of-condor/",
+          "note": "Announcement date not confirmed (only publication date; closing date reported inconsistently).",
+          "status": "rejected"
+        },
+        {
+          "key": "condor-marabu-sale-2025",
+          "date": "2025-09",
+          "what": "Condor/Marabu sale process",
+          "source": null,
+          "recordId": "d29",
+          "status": "present"
+        },
+        {
+          "key": "garrett-motion-2021",
+          "date": "2021-01-11",
+          "what": "Attestor Schedule 13D amendment on Garrett Motion",
+          "source": "https://www.sec.gov/Archives/edgar/data/1735707/000119312521006912/0001193125-21-006912.txt",
+          "note": "Search snippet only; not verified in a readable source.",
+          "status": "rejected"
+        },
+        {
+          "key": "attestor-2020-gap",
+          "date": "2020",
+          "what": "No verifiable major 2020 Attestor event found",
+          "source": "https://find-and-update.company-information.service.gov.uk/company/12080120/filing-history",
+          "note": "Only a Companies House PSC change found; not a major event.",
+          "status": "rejected"
+        }
+      ],
+      "builtAt": "2026-10-15"
     }
   }
 }

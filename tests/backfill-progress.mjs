@@ -6,8 +6,8 @@
 import { loadChecklist, progress, recordById } from "../scripts/backfill-progress.mjs";
 import { check, finish } from "./lib.mjs";
 
-const MIN_PRESENT = 447;   // present (linked) events across built checklists
-const MIN_BUILT = 51;      // entities whose 2020→today checklist has been researched
+const MIN_PRESENT = 485;   // present (linked) events across built checklists
+const MIN_BUILT = 55;      // entities whose 2020→today checklist has been researched
 
 const cl = loadChecklist();
 const DATE = /^\d{4}(-\d{2}(-\d{2})?)?$/;
@@ -22,7 +22,8 @@ for (const [id, e] of Object.entries(cl.entities || {})) {
     if (v.status === "present") {
       const r = recordById.get(v.recordId);
       if (!r) bad.push(`${tag}: recordId ${v.recordId} not in data`);
-      else if (r.managerId !== id && r.hfId !== id) bad.push(`${tag}: ${v.recordId} belongs to another entity`);
+      // A merged club deal (R39m) belongs to every firm that is a party to it.
+      else if (r.managerId !== id && r.hfId !== id && r.sponsorId !== id && !(r.lenders || []).some((l) => l.managerId === id)) bad.push(`${tag}: ${v.recordId} belongs to another entity`);
     } else if (v.status === "missing") {
       if (!/^https?:\/\//.test(String(v.source || ""))) bad.push(`${tag}: missing event without a source URL`);
     } else if (v.status === "rejected") {
