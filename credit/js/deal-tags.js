@@ -1082,5 +1082,6 @@ const T = {
   d1105: {"c":null,"s":"Real estate","a":"financing","p":"Resi Capital","r":"borrower"},
   d1106: {"c":"Poland","s":"Industrials","a":"financing","p":"Polska Grupa Militarna","r":"borrower"},
   d1107: {"c":"Poland","s":"Industrials","a":"financing","p":"Proguns Group","r":"borrower"},
+  d1108: {"c":"US","s":"TMT","a":"financing","cs":"https://www.blackstone.com/news/press/blackstone-credit-insurance-leads-1-billion-financing-to-support-combination-of-analogic-corporation-and-leidos-security-enterprise-solutions-businesses/","cb":"hq","p":"Analogic Corporation","r":"target"},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));

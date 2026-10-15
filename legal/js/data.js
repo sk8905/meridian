@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-10-15";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "07:15 BST";
+export const LAST_CHECKED_TIME = "08:15 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -8181,6 +8181,8 @@ export const items = [
 {"id":"u2593","title":"A&O awarded ESG deal of the year for first blue bond in Asia","area":"banking","areas":["banking"],"type":"insight","firm":"aoshearman","date":"2021-03-25","summary":"Allen & Overy has been awarded ‘ESG Deal of the Year’ at the IFLR Asia-Pacific Awards 2021 for their work on the first blue bond issued in Asia.","url":"https://www.aoshearman.com/en/news/ao-awarded-esg-deal-of-the-year-for-first-blue-bond-in-asia"},
 {"id":"u2594","title":"White & Case Advises Lenders on Landmark Solar Financing","area":"banking","areas":["banking"],"type":"alert","firm":"whitecase","date":"2021-11-02","summary":"Global law firm White & Case LLP has advised IDB Invest and Bancolombia on a senior secured and subordinated financing, the proceeds of which will be used to finance the Bosques Solares de Los Llanos portfolio of solar photovoltaic plants located in Colombia.","url":"https://www.whitecase.com/news/press-release/white-case-advises-lenders-landmark-solar-financing"},
 {"id":"u2595","title":"Global Healthcare Exchange Completes Acquisition of Syft","area":"corporate","areas":["corporate"],"type":"alert","firm":"cleary","date":"2022-03-03","summary":"Global Healthcare Exchange Completes Acquisition of Syft","url":"https://www.clearygottlieb.com/news-and-insights/news-listing/global-healthcare-exchange-completes-acquisition-of-syft"},
+  {"id":"u2600","title":"Freshfields advises Behavox on Apiax acquisition","area":"corporate","areas":["corporate"],"type":"alert","firm":"freshfields","date":"2026-10-08","summary":"Freshfields advises Behavox on its acquisition of Apiax.","url":"https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-behavox-on-apiax-acquisition"},
+  {"id":"u2603","title":"The Dealist","area":"corporate","areas":["corporate"],"type":"insight","firm":"whitecase","date":"2026-10-13","summary":"White & Case partners Airi Hammalov and Johan Steen joined SS&C Intralinks' The Dealist podcast to discuss the increasingly active US-Nordic M&A pipeline and the Nordic region's appeal as a destination for cross-border investment.","url":"https://www.whitecase.com/news/media/dealist-northbound-capital-inside-us-nordics-ma-surge"},
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
