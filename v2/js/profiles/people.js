@@ -200,7 +200,7 @@ export function peoplePaneHTML() {
       : r.to ? `<span class="pp-arr">to</span> ${esc(r.to)}` : `<span class="pp-arr">from</span> ${esc(r.from)}`;
     // R43: a people move is an events row — date first, the move tag beside the name,
     // the source last; role and from → to on the meta line (phone).
-    return `<tr class="clickable" data-href="${esc(r.href)}" data-id="${esc(r.id)}" title="${esc([r.headline, r.seniority].filter(Boolean).join(" · "))}"`
+    return `<tr class="clickable" data-href="${esc(r.href)}" data-id="${esc(r.id)}" title="${esc([r.headline, r.type, r.seniority].filter(Boolean).join(" · "))}"`
       + ` data-name="${esc([r.person, r.role, r.firm, r.from, r.to, r.headline].filter(Boolean).join(" ").toLowerCase())}"`
       + ` data-f-firm="${esc(r.firm)}" data-f-move="${esc(r.type)}" data-f-seniority="${esc(r.seniority)}" data-f-period="${periodTags(r.date, now).join("|")}" data-f-kind="${esc(r.kind)}">`
       + `<td class="pf-c-main pp-date c-date" data-sort="${Date.parse(r.date) || ""}">${esc(fmtDate(r))}</td>`

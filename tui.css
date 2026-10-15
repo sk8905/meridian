@@ -1519,15 +1519,17 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 }
 @media (max-width: 760px) {
   /* R43: on iPhone a people move is the shared two-line events row — date · person ·
-     move · source, then role · from → to (seniority rides in the row title). */
+     source, then role · from → to. No HIRE / DEPARTURE badge (owner 2026-10-15, R44e):
+     "to / from / at" on line 2 carries the move; the type and seniority ride in the row
+     title, and the Move filter still sorts them. */
   #pf-panes .pp-tbl.pf-cards tbody tr { display: grid; grid-template-columns: var(--c-date-w) minmax(0,1fr) auto var(--c-src-w);
-    grid-template-areas: "date who move src" "date role fromto fromto"; column-gap: 8px; row-gap: 1px; align-items: baseline; align-content: center;
+    grid-template-areas: "date who who src" "date role fromto fromto"; column-gap: 8px; row-gap: 1px; align-items: baseline; align-content: center;
     box-sizing: border-box; height: var(--ev-h); overflow: hidden; padding: 0 var(--m-gutter, 12px); }
   #pf-panes .pp-tbl.pf-cards tbody tr::after { content: none; }
   #pf-panes .pp-tbl.pf-cards tbody td { display: block; min-width: 0; max-width: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   #pf-panes .pp-tbl.pf-cards tbody td.pp-date { grid-area: date; align-self: start; padding-top: 2px; text-align: left; color: var(--t-faint); font-size: var(--fs-micro); }
   #pf-panes .pp-tbl.pf-cards tbody td.pp-who { grid-area: who; color: var(--t-ink); }
-  #pf-panes .pp-tbl.pf-cards tbody td.pp-move { grid-area: move; }
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-move { display: none; }
   #pf-panes .pp-tbl.pf-cards tbody td.pp-src-c { grid-area: src; text-align: right; }
   #pf-panes .pp-tbl.pf-cards tbody td.pp-role { grid-area: role; font-size: var(--fs-micro); color: var(--t-mut); }
   #pf-panes .pp-tbl.pf-cards tbody td.pp-fromto { grid-area: fromto; font-size: var(--fs-micro); color: var(--t-mut); max-width: none; }

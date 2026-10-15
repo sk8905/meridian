@@ -57,5 +57,19 @@ for (const hash of ["", "#/?tab=managers", "#/?tab=hedgefunds", "#/?tab=investor
   check(await pg.evaluate(new Function(`return ${shown("#pf-panes tbody td.tl-hq")} > 0;`)), "desktop Profiles: the HQ column stays");
   checkErrs(errs, "profiles desktop"); await ctx.close();
 }
+// People: no HIRE / DEPARTURE badge on iPhone — the type rides in the row title.
+for (const [name, dev] of [["iPhone", PHONE], ["desktop", DESKTOP]]) {
+  const { ctx, pg, errs } = await open(b, dev, `${base}/v2/profiles/#/?tab=people`);
+  await pg.waitForFunction(() => [...document.querySelectorAll("#pp-rows tr")].some((r) => r.getClientRects().length), null, { timeout: 10000 });
+  const p = await pg.evaluate(() => {
+    const rows = [...document.querySelectorAll("#pp-rows tr")].filter((r) => r.getClientRects().length);
+    return { n: rows.length, badges: rows.filter((r) => { const m = r.querySelector("td.pp-move"); return m && m.getClientRects().length && m.getBoundingClientRect().width > 0; }).length,
+      titled: rows.every((r) => (r.getAttribute("title") || "").includes(r.dataset.fMove)) };
+  });
+  if (name === "iPhone") check(p.n > 0 && p.badges === 0, `iPhone People: no move badge on any row (${p.badges} of ${p.n} shown)`);
+  else check(p.badges > 0, `desktop People: the move column stays (${p.badges} rows)`);
+  check(p.titled, `${name} People: every row's title carries its move type`);
+  checkErrs(errs, `people ${name}`); await ctx.close();
+}
 await b.close(); srv.close();
 finish();

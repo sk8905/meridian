@@ -1470,7 +1470,9 @@ notification badge red (`#ef4444`).
   revenue — sits at the **right end of line 2, at line 2's size and grey** (`--fs-micro`, `--t-mut`), so line 1
   is the headline / name alone (People keep their date lead). The iPhone bars are **search ·
   Filters** only: Deals' region button (All Europe) and European mid-market, and Profiles'
-  Target / $1–15bn, are in the Filters sheet. Spec: `tests/phone-trim.mjs`.
+  Target / $1–15bn, are in the Filters sheet. Profiles ▸ People rows carry **no move badge**
+  (HIRE / DEPARTURE / PROMOTION) on iPhone: line 2's "to / from / at" carries the move, the
+  type rides in the row title, and the Move filter still applies. Spec: `tests/phone-trim.mjs`.
 
 ## 7. Technical rules
 
