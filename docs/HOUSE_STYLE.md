@@ -1286,6 +1286,53 @@ notification badge red (`#ef4444`).
   "See all N" on desktop as well as iPhone** (desktop "See all" is a centred panel);
   Home rails keep fixed widths on every screen (`tests/dashboard-desktop-preview.mjs`). **(h) Rates** show a market-implied path from prediction-
   market odds, labelled as crowd probabilities (`tests/rates-implied.mjs`).
+- **R42 — Offering build (owner-approved 2026-10-15).** **(a) Navigation (R13):** iPhone
+  bottom bar Home · News · Markets · Deals · Profiles; desktop header Home · Deals ·
+  Restructuring · Fundraising · Markets · Profiles (News lives in desktop Home). Route keys
+  are unchanged (`dashboard` reads **Markets**, `transactions` reads **Deals**). Fundraising is
+  Deals at `#/fundraising` (its pill, not Deals, is lit there); on iPhone Restructuring and
+  Fundraising are Deals chips and Deals stays lit on the hub (`v2/js/chrome.js` NAV_PATH /
+  navKeyFor; `tests/nav-r13.mjs`). **(b) iPhone heading rows** (Deals modes, the hub's
+  sections, Profiles lists, profile tabs, Menu, Markets) are ONE sideways-scrolling row,
+  hidden scrollbar, never clipped labels; a tapped chip scrolls into view. **(c) Header
+  cluster:** phone Search · Ask Wire · Watchlist · Notifications · Menu; desktop Ask Wire ·
+  Watchlist · Notifications + Menu. ★ Watchlist opens "New since last visit" (whatsnew.js;
+  badge = COUNT) + "Watchlist" (follow store; empty → suggested European managers + law
+  firms). Ask Wire shows suggested questions only when committed data backs them
+  (`tests/header-watchlist.mjs`, `tests/header-ask.mjs`). **(d) Plain labels:** every wire's
+  first day header has a "?" code legend (`feedLegendHTML`; a new code must join it);
+  live-state badges read live / not live / "as of <d Mon HH:MM>", never SNAPSHOT /
+  LAST-KNOWN; the European ≤$15bn tier reads "European mid-market"; the manager tab reads
+  "Firm facts" (key `business`) (`tests/feed-legend.mjs`). **(e) Currency honesty (R4):**
+  restated AUM / fund sizes read native with USD in brackets — "€53.5bn ($59.9bn)"
+  (`aumParts` / `fmtAumDual` / `fundMoney` in credit/js/shared.js); USD only when no native
+  currency; lists sort on USD. **(f) Manager "at a glance" (R8)** strip under the name:
+  AUM · HQ · strategies · latest fund + status · deals in 90d · top LPs · advisers (incl.
+  named on its deals) · key people (only named with a role); empty facts are left out
+  (`tests/manager-glance.mjs`). **(g) People (R11)** — a Profiles list of hires / departures
+  / promotions built only from the items' own text (`v2/js/profiles/people.js`,
+  `tests/profiles-people.mjs`). **(h) Law-firm lens (R10)** — glance strip, Practice +
+  Region filters from the item's own areas / tags / jurisdiction, and a Credit deals tab
+  with side (lender / borrower / sponsor, else "Side not stated") (`v2/js/legal/firm-lens.js`,
+  `tests/lawfirm-lens.mjs`). **(i) Restructuring hub (R6)** `/v2/restructuring/`: stress list ·
+  Part 26A plans / Part 26 schemes · R&I case law · rx deals · insolvency stats · hearings
+  (public HMCTS Court & Tribunal Hearings Rolls Building cause list via `/api/causelist`,
+  company matters only — personal bankruptcies never shown) · every company links to its
+  borrower page (`tests/restructuring-hub.mjs`, `tests/causelist-parse.mjs`). **(j) Deals
+  views:** League tables `#/league` (lenders · sponsors · law firms · financial advisers by
+  count and disclosed ≈USD; lenders from `d.lenders[]` else `managerId`; a club deal counts
+  once per lender) and Fundraising `#/fundraising` (funds in market — shared
+  `v2/js/funds-market.js` · first / final closes · LP commitments · LP ↔ manager)
+  (`tests/tx-league.mjs`, `tests/tx-fundraising.mjs`). Deal drawer and borrower page have
+  Share (navigator.share, else copy link). **(k) Coverage & sources (R15)** Menu ▸ Sources
+  `/v2/menu/sources` is THE "what is failing or stale" view: every surface with what it
+  tracks, sources, cadence, count, latest date and GOOD / STALE / FAILING (stale = past its
+  freshness-audit window; failing = 3× the window or a failed live `/api` probe), worst
+  first under "Needs attention" with reason + fix; stamps from `dashboard/js/health.js`
+  (`health-check --write`) re-judged client-side. A new surface joins both
+  `freshness-audit.mjs` and the status-page CATALOG (`tests/status-page.mjs`). **(l) Digest
+  (R14)** Menu ▸ Digest `/v2/menu/digest[/weekly]`, built only by `scripts/build-digest.mjs`
+  from committed data, every item with its source URL + date (`tests/digest.mjs`).
 
 ## 7. Technical rules
 
@@ -1518,6 +1565,7 @@ item keeps a real outbound source link (R7).
 - The Global Legal Post (`globallegalpost.com`) — international legal-market news (via Google News /news bridge; image-chrome suppressed)
 - Bloomberg Law
 - Law-firm client briefings
+- HMCTS Court and Tribunal Hearings (`court-tribunal-hearings.service.gov.uk`) — Rolls Building daily cause list (company matters) for the Restructuring hub's hearings card
 
 ### 8.7 Prediction markets
 - Polymarket (`polymarket.com`, `gamma-api.polymarket.com`)

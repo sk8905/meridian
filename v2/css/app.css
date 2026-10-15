@@ -347,3 +347,18 @@ html.wr-open, html.wr-open body { overflow: hidden; }
 @media (max-width: 760px) {
   .tpane[data-pane="managers"] .thead-search .tsearch, #tx-flow-search .tsearch { flex: 1 1 0; min-width: 90px; }
 }
+
+/* R13 (owner, 2026-10-15): on iPhone every section's heading row is ONE row that
+   scrolls sideways — never squeezed chips with clipped labels ("Hedge…", "Peop…").
+   Chips keep their natural width (still filling the row when they fit); the row
+   scrolls with a hidden scrollbar and chrome.js scrolls a tapped chip into view.
+   Deals' mode bar and the Restructuring hub chips already do this (tui.css,
+   restructuring.css); this covers Profiles, a profile's tabs, Menu and Markets. */
+@media (max-width: 760px) {
+  #pf-chips, #mgr-tabs, .tdet-tabbed > .twire-head .tchips, .na-menu-bar .tchips, .dsh-railnav {
+    overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; scrollbar-width: none; overscroll-behavior-x: contain; }
+  #pf-chips::-webkit-scrollbar, #mgr-tabs::-webkit-scrollbar, .tdet-tabbed > .twire-head .tchips::-webkit-scrollbar,
+  .na-menu-bar .tchips::-webkit-scrollbar, .dsh-railnav::-webkit-scrollbar { display: none; }
+  #pf-chips > .tchip, #mgr-tabs > .tchip, .tdet-tabbed > .twire-head .tchips > .tchip, .na-menu-bar .tchips > .tchip, .dsh-railnav > .dsh-navchip {
+    flex: 1 0 auto; max-width: none; min-width: max-content; overflow: visible; text-overflow: clip; padding-left: 12px; padding-right: 12px; }
+}

@@ -116,6 +116,12 @@ export function initChrome({ onTab }) {
   // In-view "go to tab" affordances (e.g. the Home feed banner's Newsletters
   // button) route via the SPA exactly like a bottom-tab tap — any [data-nav-tab]
   // element anywhere in the document switches to that tab (no full reload).
+  // iPhone: a tapped chip in a sideways-scrolling heading row slides fully into view.
+  document.addEventListener("click", (e) => {
+    const c = e.target.closest && e.target.closest(".tchip, .dsh-navchip");
+    const row = c && c.parentElement;
+    if (row && row.scrollWidth > row.clientWidth + 1) { try { c.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" }); } catch { /* ignore */ } }
+  });
   document.addEventListener("click", (e) => {
     const el = e.target.closest("[data-nav-tab]");
     if (!el) return;
