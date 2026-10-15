@@ -1039,5 +1039,6 @@ const T = {
   d1147: {"c":null,"s":"TMT","a":null},
   d1148: {"c":"UK","s":"Infrastructure & energy","a":null,"p":"TriConnex and eSmart Networks","r":"target"},
   d1149: {"c":"US","s":"Leisure & hospitality","a":null,"p":"Mohawk Day Camp","r":"target"},
+  d1150: {"c":"US","s":"Real estate","a":"financing","e":"new","p":"CLCRE 2026-FL1","r":"issuer"},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));
