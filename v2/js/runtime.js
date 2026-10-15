@@ -38,6 +38,7 @@ const ROUTES = [
   { key: "legal",  title: "Wire Legal",  load: () => import("./views/legal.js") },
   { key: "profiles", title: "Wire Profiles", load: () => import("./views/profiles.js") },
   { key: "transactions", title: "Wire Deals", load: () => import("./views/transactions.js") },
+  { key: "restructuring", title: "Wire Restructuring", load: () => import("./views/restructuring.js") },
   { key: "menu",   title: "Wire Menu",   load: () => import("./views/menu.js") },
 ];
 // Retired desk roots → their new home, so a typed URL, an old bookmark, or a stray

@@ -989,7 +989,7 @@ export function mount(host, ctx) {
         <section class="dsh-card dsh-pc-card"><h3 class="dsh-h">US private credit ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
       </div>
       <h3 class="dsh-term-lbl">Stress &amp; refinancing</h3>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length})</span></h3>${stressHTML()}</section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length})</span> <a class="dsh-src dsh-rxhub" href="${esc(`${ctx.base}/restructuring/`)}" title="Plans, schemes, case law, hearings and deals in one place">Restructuring hub</a></h3>${stressHTML()}</section>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">Maturity wall ${asOf(MATWALL && ((MATWALL.europeWall && MATWALL.europeWall.asOf) || (MATWALL.europe && MATWALL.europe.asOf) || (MATWALL.ratedWall && MATWALL.ratedWall.asOf)))}</h3><div class="dsh-scroll">${maturityHTML()}</div></section>
       ${fillCard("dsh-sphist", "Spread history — 1M change", spreadHistBody(), liveOr("sphist"))}
       ${fillCard("dsh-lenders", "Most active lenders — 90 days", lendersBody(), `<span class="dsh-n">tracked by Wire</span> ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}`)}

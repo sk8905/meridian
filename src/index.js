@@ -2163,6 +2163,106 @@ async function handleCompaniesHouse(request, env, ctx) {
   return resp;
 }
 
+// /api/causelist — the Rolls Building (Business and Property Courts) daily cause list
+// for the Restructuring hub's Hearings card. HMCTS publishes it on the PUBLIC Court and
+// Tribunal Hearings service (CaTH — no account, no login; the gov.uk Rolls Building page
+// moved there on 1 July 2025): the location's summary page links each published list,
+// and each list is an HTML page of per-list tables (Judge · Time · Venue · Type · Case
+// number · Case name · Additional information). Returns only COMPANY matters — the
+// Insolvency and Companies Court and Companies Winding Up rows (personal bankruptcy
+// "BR-" rows, i.e. individuals, are dropped) plus any row in another list whose type /
+// name names a scheme, plan, convening or sanction hearing. Each row is flagged `rx`
+// (convening · sanction · scheme · plan) when its own text says so — never inferred.
+// Edge-cached 30 min. Read-only.
+const CATH_BASE = "https://www.court-tribunal-hearings.service.gov.uk";
+export const CATH_ROLLS_SUMMARY = `${CATH_BASE}/summary-of-publications?locationId=111`;
+const CATH_MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+const cathText = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&#39;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/\s+/g, " ").trim();
+export function cathIsoDate(s) {
+  const m = /(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/.exec(String(s || ""));
+  const mi = m ? CATH_MONTHS.indexOf(m[2].toLowerCase()) : -1;
+  return mi < 0 ? null : `${m[3]}-${String(mi + 1).padStart(2, "0")}-${String(+m[1]).padStart(2, "0")}`;
+}
+// Summary page → the Rolls Building daily cause lists it links (English versions).
+export function cathParseSummary(html) {
+  const out = [];
+  for (const m of String(html || "").matchAll(/<a[^>]*href="([^"]*artefactId=[^"]+)"[^>]*>([\s\S]*?)<\/a>/g)) {
+    const title = cathText(m[2]);
+    if (!/Rolls Building Daily Cause List/i.test(title) || /Cymraeg\s*\(Welsh\)|-\s*Welsh\b/i.test(title)) continue;
+    const href = new URL(m[1].replace(/&amp;/g, "&"), CATH_BASE + "/").toString();
+    out.push({ title, href, date: cathIsoDate(title) });
+  }
+  return out;
+}
+// A row's own words → the restructuring hearing it is, or null.
+export function cathRxKind(...parts) {
+  const s = parts.join(" ");
+  if (/sanction/i.test(s)) return "sanction";
+  if (/conven/i.test(s)) return "convening";
+  if (/scheme of arrangement|\bpart 26\b(?!A)/i.test(s)) return "scheme";
+  if (/restructuring plan|part 26A/i.test(s)) return "plan";
+  return null;
+}
+// A cause-list page → { listDate, updated, sections: [{ name, rows }] }.
+export function cathParseList(html) {
+  const h = String(html || "");
+  const listDate = cathIsoDate((/List for ([^<]+)</.exec(h) || [])[1]);
+  const updated = cathText((/Last updated ([^<]+)</.exec(h) || [])[1]) || null;
+  const sections = [];
+  for (const chunk of h.split(/<h2 class="govuk-heading-l">/).slice(1)) {
+    const name = cathText(chunk.split("</h2>")[0]);
+    const heads = [...chunk.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/g)].map((x) => cathText(x[1]).toLowerCase());
+    const col = (want) => heads.findIndex((x) => x === want);
+    const ix = { judge: col("judge"), time: col("time"), venue: col("venue"), type: col("type"), caseNo: col("case number"), caseName: col("case name"), info: col("additional information") };
+    const body = (chunk.split(/<tbody[^>]*>/)[1] || "").split("</tbody>")[0];
+    const rows = [];
+    for (const tr of body.split(/<tr[^>]*>/).slice(1)) {
+      const td = [...tr.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((x) => cathText(x[1]));
+      if (!td.length) continue;
+      const g = (k) => (ix[k] >= 0 && td[ix[k]] ? td[ix[k]] : null);
+      rows.push({ judge: g("judge"), time: g("time"), venue: g("venue"), type: g("type"), caseNo: g("caseNo"), caseName: g("caseName"), info: g("info") });
+    }
+    if (name) sections.push({ name, rows });
+  }
+  return { listDate, updated, sections };
+}
+// The company matters of a parsed list (see the endpoint note above).
+export function cathCompanyRows(list) {
+  const out = [];
+  for (const sec of (list && list.sections) || []) {
+    const companyList = /insolvency and companies|companies winding up/i.test(sec.name);
+    for (const r of sec.rows) {
+      if (/^BR-/i.test(r.caseNo || "")) continue;
+      const rx = cathRxKind(r.type || "", r.caseName || "", r.info || "");
+      if (!companyList && !rx) continue;
+      if (!r.caseName) continue;
+      out.push({ ...r, list: sec.name, rx });
+    }
+  }
+  return out;
+}
+async function handleCauseList(request, env, ctx) {
+  const json = (o, cc) => new Response(JSON.stringify(o), { headers: { "content-type": "application/json", "cache-control": cc } });
+  const cache = caches.default;
+  const ck = new Request("https://causelist.internal/v1/rolls");
+  const hit = await cache.match(ck); if (hit) return hit;
+  const get = async (u) => { try { const r = await fetch(u, { headers: fetchHeaders(u), signal: AbortSignal.timeout(MARKET_FETCH_MS) }); return r.ok ? await r.text() : null; } catch { return null; } };
+  const sum = await get(CATH_ROLLS_SUMMARY);
+  if (sum == null) return json({ lists: null, error: "CaTH unreachable", source: CATH_ROLLS_SUMMARY }, "no-store");
+  const arts = cathParseSummary(sum).slice(0, 3);
+  const lists = [];
+  for (const a of arts) {
+    const page = await get(a.href);
+    if (page == null) continue;
+    const p = cathParseList(page);
+    lists.push({ date: p.listDate || a.date, updated: p.updated, url: a.href, rows: cathCompanyRows(p) });
+  }
+  lists.sort((x, y) => String(x.date || "").localeCompare(String(y.date || "")));
+  const resp = json({ source: CATH_ROLLS_SUMMARY, lists, fetched: new Date().toISOString() }, "public, max-age=1800");
+  if (ctx) ctx.waitUntil(cache.put(ck, resp.clone()));
+  return resp;
+}
+
 async function handleFormD(request, env, ctx) {
   const url = new URL(request.url);
   const q = (url.searchParams.get("q") || "").trim();
@@ -5743,6 +5843,7 @@ export default {
     if (url.pathname === "/api/bdc") return handleBDC(request, env, ctx);
     if (url.pathname === "/api/formd") return handleFormD(request, env, ctx);
     if (url.pathname === "/api/ch") return handleCompaniesHouse(request, env, ctx);
+    if (url.pathname === "/api/causelist") return handleCauseList(request, env, ctx);
     if (url.pathname === "/api/xfeed") return handleXFeed(request, env, ctx);
     if (url.pathname === "/api/perf") return handlePerf(request, env, ctx);
     if (url.pathname === "/api/hero") return handleHero(request, env, ctx);
