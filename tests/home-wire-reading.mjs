@@ -290,10 +290,14 @@ await ctx.close();
   // Desktop side pane is hidden on phones; the reader overlay exists but is hidden.
   check(await pg2.evaluate(() => { const o = document.getElementById("g-reader"); return !!o && o.hidden; }), "phone: the reader overlay starts hidden");
   // Tap an openly-readable (not padlocked) external row → the in-app reader opens.
-  const tapped = await pg2.evaluate(() => {
-    const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked"));
+  const tapped = await pg2.evaluate((walledPattern) => {
+    // Skip walled/link-out sources (e.g. a Bloomberg newsletter with no in-pane body):
+    // they render the "open the original" note, not the reader body this spec asserts.
+    const walled = new RegExp(walledPattern, "i");
+    const src = (r) => ((r.querySelector(".g-feed-src") || {}).textContent || "").trim();
+    const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked") && !walled.test(src(r)));
     if (!row) return false; row.click(); return true;
-  });
+  }, WALLED_SRC_PATTERN);
   check(tapped, "phone: found an openly-readable wire row to tap");
   await pg2.waitForSelector("#g-reader:not([hidden]) #g-reader-body .g-read-p", { timeout: 5000 });
   const rd = await pg2.evaluate(() => ({
