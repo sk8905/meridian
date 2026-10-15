@@ -107,7 +107,7 @@ const base = `http://localhost:${srv.port}`;
   await pg.waitForFunction(() => /3 new since/.test((document.querySelector("#na-watch-panel .na-watch-body") || {}).textContent || ""), null, { timeout: 10000 });
   check(await pg.evaluate(() => document.querySelector('#na-watch-panel .na-chip[data-wk="new"]').classList.contains("is-on")), "with new records the panel opens on the New tab");
   const txt = await pg.textContent("#na-watch-panel .na-watch-body");
-  check(/Transactions\s*2/.test(txt) && /Law-firm alerts\s*1/.test(txt), "New groups the arrivals by kind (Transactions 2 · Law-firm alerts 1) — the same whatsnew.js as Menu ▸ New");
+  check(/Transactions\s*2/.test(txt) && /Law-firm alerts\s*1/.test(txt), "New groups the arrivals by kind (Deals 2 · Law-firm alerts 1) — the same whatsnew.js as Menu ▸ New");
   await pg.click("#na-watch-panel [data-wn-seen]");
   await pg.waitForFunction(() => /Nothing new since/.test((document.querySelector("#na-watch-panel .na-watch-body") || {}).textContent || ""), null, { timeout: 8000 });
   check(await pg.evaluate(() => document.querySelector("#na-watch .na-count").hidden), "'Mark all as seen' re-baselines and clears the badge");

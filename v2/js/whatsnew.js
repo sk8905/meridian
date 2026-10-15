@@ -15,7 +15,7 @@ import { fmtDay } from "/feed.js";
 
 const SNAP_KEY = "wire.whatsnew.v1";
 const GROUPS = [
-  ["deals", "Transactions"], ["intel", "Fundraising & people"], ["hedge", "Hedge funds"],
+  ["deals", "Deals"], ["intel", "Fundraising & people"], ["hedge", "Hedge funds"],
   ["legal", "Law-firm alerts"], ["cases", "Case law"], ["rx", "Schemes & RPs"],
 ];
 const rxKey = (r) => "rx:" + String(r.company || "") + "|" + String(r.citation || r.date || "");

@@ -81,7 +81,7 @@ for (const [dev, name] of [[PHONE, "phone"], [DESKTOP, "desktop"]]) {
   check(s.pc && s.pc.pill === "STALE", `${name}: the same row reads STALE in its Dashboard section`);
   check(s.rates && s.rates.pill === "FAILING" && /Snapshot|Cached|Failing/.test(s.rates.meta), `${name}: the failing panel shows its serving mode (${s.rates && s.rates.meta})`);
   check(s.eurates && s.eurates.pill === "GOOD" && /Live/.test(s.eurates.meta) && /as of/.test(s.eurates.meta), `${name}: a working endpoint reads GOOD · Live with its as-of (${s.eurates && s.eurates.meta})`);
-  for (const sec of ["Home", "Transactions", "Profiles", "Legal", "Dashboard", "Briefing"]) check(s.sections.some((t) => t.includes(sec)), `${name}: a "${sec}" section is listed`);
+  for (const sec of ["Home", "Deals", "Profiles", "Legal", "Markets", "Briefing"]) check(s.sections.some((t) => t.includes(sec)), `${name}: a "${sec}" section is listed`);
   checkEq(s.roles.length, 3, `${name}: Start here offers three roles`);
   check(s.roles.map((r) => r.h).join("|") === "Lender / fund manager|Lawyer|LP / investor", `${name}: the roles are Lender / fund manager, Lawyer, LP / investor`);
   check(s.roles.every((r) => r.links.length >= 4 && r.links.length <= 5 && r.links.every((h) => h.startsWith("/v2/"))), `${name}: each role lists 4–5 in-app screens`);

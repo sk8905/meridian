@@ -69,7 +69,7 @@ export const CATALOG = [
     { key: "xfeed_newsletters", label: "Newsletters", what: "Forwarded newsletters, readable in-app", sources: "Gmail sweep — Bloomberg, The Economist, Reuters, WSJ and others", cadence: "Every refresh (~2h)" },
     { key: "macro_articles", label: "Reading list", what: "Long-form macro and markets pieces", sources: "Verified press and research", cadence: "Every refresh (~2h)" },
   ] },
-  { id: "transactions", title: "Transactions", href: "/v2/transactions/", rows: [
+  { id: "transactions", title: "Deals", href: "/v2/transactions/", rows: [
     { key: "deals", label: "Credit deals", what: "Direct lending, unitranche, NAV, SRT, ABF and secondaries deals", sources: "Managers' press releases, SEC EDGAR (Form D, BDC filings), trade press", cadence: "Every ~2h" },
     { key: "clos", label: "CLO pricings & resets", what: "New-issue CLOs, resets and refis", sources: "Manager announcements, trade press", cadence: "Every ~2h (lumpy flow)" },
     { key: "credit_volume", label: "Deal & intel flow (weekly volume)", what: "Is the deal collector still collecting at its usual rate?", sources: "Count of new deals + intel vs the 8-week median", cadence: "Judged weekly" },
@@ -87,7 +87,7 @@ export const CATALOG = [
     { key: "legal_cases", label: "Case law", what: "Reported English judgments relevant to credit", sources: "The National Archives — Find Case Law", cadence: "Every ~2h" },
     { key: "legal_rx", label: "Schemes & restructuring plans", what: "Part 26 / 26A cases and their advisers", sources: "Court judgments, firm deal announcements, press", cadence: "Every ~2h" },
   ] },
-  { id: "dashboard", title: "Dashboard panels", href: "/v2/dashboard/", rows: [
+  { id: "dashboard", title: "Markets panels", href: "/v2/dashboard/", rows: [
     { key: "api:/api/rates", label: "Credit spreads & money markets", what: "OAS spreads, SOFR, SONIA, Treasuries", sources: "FRED (ICE BofA), NY Fed, US Treasury", cadence: "fetched live on each load", href: "/v2/dashboard/credit" },
     { key: "api:/api/eurates", label: "Europe policy & money-market rates", what: "ECB deposit rate, €STR, Euribor, Bank Rate, SONIA", sources: "ECB Data Portal, Bank of England", cadence: "fetched live on each load", href: "/v2/dashboard/rates" },
     { key: "api:/api/yield-curve", label: "Yield curve", what: "US and UK curves", sources: "US Treasury daily par curve, CNBC (gilts)", cadence: "fetched live on each load", href: "/v2/dashboard/rates" },
@@ -294,24 +294,24 @@ function rowHTML(r, { attn = false } = {}) {
 // Onboarding: three roles, each with the 4–5 screens that matter most.
 export const ROLES = [
   { role: "Lender / fund manager", links: [
-    ["Transactions", "/v2/transactions/", "who lent to whom, by type and size"],
-    ["Dashboard ▸ Credit", "/v2/dashboard/credit", "spreads, defaults, BDCs, maturity wall"],
+    ["Deals", "/v2/transactions/", "who lent to whom, by type and size"],
+    ["Markets ▸ Credit", "/v2/dashboard/credit", "spreads, defaults, BDCs, maturity wall"],
     ["Profiles ▸ Managers", "/v2/profiles/#/?tab=managers", "peers' funds, deals and people"],
     ["Profiles ▸ Investors", "/v2/profiles/#/?tab=investors", "who allocates to private credit"],
     ["Digest", "/v2/menu/digest", "the day's deals, closes and moves"],
   ] },
   { role: "Lawyer", links: [
     ["Profiles ▸ Law firms", "/v2/profiles/#/?tab=firms", "each firm's alerts, deals and cases"],
-    ["Dashboard ▸ Legal", "/v2/dashboard/legal", "regulatory calendar and restructurings"],
+    ["Markets ▸ Legal", "/v2/dashboard/legal", "regulatory calendar and restructurings"],
     ["News wire", "/v2/news/", "legal and credit headlines as they land"],
-    ["Transactions", "/v2/transactions/", "deals and the advisers on them"],
+    ["Deals", "/v2/transactions/", "deals and the advisers on them"],
     ["Weekly digest", "/v2/menu/digest/weekly", "restructuring and judgments this week"],
   ] },
   { role: "LP / investor", links: [
     ["Home briefing", "/v2/", "what moved, in one read"],
     ["Profiles ▸ Managers", "/v2/profiles/#/?tab=managers", "strategy, AUM, funds in market"],
     ["Profiles ▸ Hedge funds", "/v2/profiles/#/?tab=hedgefunds", "performance, AUM and 13F books"],
-    ["Dashboard ▸ Rates", "/v2/dashboard/rates", "policy rates, curves and odds"],
+    ["Markets ▸ Rates", "/v2/dashboard/rates", "policy rates, curves and odds"],
     ["Watchlist", "/v2/menu/watchlist", "everything you follow, in one list"],
   ] },
 ];

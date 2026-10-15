@@ -28,7 +28,7 @@ const BASE = "/v2";
 // browser's module map for the session (no nonce, so revisits never re-fetch).
 const ROUTES = [
   { key: "home",   title: "Wire",        load: () => import("./views/home.js") },
-  { key: "dashboard", title: "Wire Dashboard", load: () => import("./views/dashboard.js") },
+  { key: "dashboard", title: "Wire Markets", load: () => import("./views/dashboard.js") },
   // The Credit / Legal / Macro DESKS are retired as destinations (News → Home, Data →
   // Dashboard, Entities → Profiles) — their URLs redirect (see LEGACY_REDIRECTS). Macro
   // is gone outright. Credit/Legal stay REGISTERED here (not as user destinations) only
@@ -37,7 +37,7 @@ const ROUTES = [
   { key: "credit", title: "Wire Credit", load: () => import("./views/credit.js") },
   { key: "legal",  title: "Wire Legal",  load: () => import("./views/legal.js") },
   { key: "profiles", title: "Wire Profiles", load: () => import("./views/profiles.js") },
-  { key: "transactions", title: "Wire Transactions", load: () => import("./views/transactions.js") },
+  { key: "transactions", title: "Wire Deals", load: () => import("./views/transactions.js") },
   { key: "menu",   title: "Wire Menu",   load: () => import("./views/menu.js") },
 ];
 // Retired desk roots → their new home, so a typed URL, an old bookmark, or a stray
@@ -358,7 +358,9 @@ async function boot() {
     const orig = history[fn].bind(history);
     history[fn] = (s, ...a) => {
       const d = fn === "pushState" ? _depth + 1 : _depth;
-      const r = orig(withDepth(s, d), ...a); _depth = d; setBackDepth(d); _curUrl = curUrl(); return r;
+      const r = orig(withDepth(s, d), ...a); _depth = d; setBackDepth(d); _curUrl = curUrl();
+      try { window.dispatchEvent(new Event("wire:url")); } catch { /* ignore */ }   // chrome re-lights Deals ↔ Fundraising
+      return r;
     };
   }
   { const s = history.state; _depth = (s && typeof s.wdepth === "number") ? s.wdepth : 0; origReplace(withDepth(s, _depth), ""); setBackDepth(_depth); }

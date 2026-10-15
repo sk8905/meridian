@@ -142,7 +142,7 @@ async function menuState(pg) {
     labels: [...document.querySelectorAll(".mobile-tabbar .mtab-lbl")].map((x) => x.textContent.trim()),
     tx: (document.querySelector('.mobile-tabbar .mtab[data-key="transactions"] .mtab-lbl') || {}).textContent?.trim(),
   }));
-  checkEq(tabs.tx, "Transactions", "bottom tab for the 'transactions' route reads 'Transactions'");
+  checkEq(tabs.tx, "Deals", "bottom tab for the 'transactions' route reads 'Deals'");
   check(!tabs.labels.includes("Origination") && !tabs.labels.includes("Radar"), `no bottom tab still reads 'Origination'/'Radar' (${tabs.labels.join("/")})`);
   checkErrs(errs, "tap menu");
   await ctx.close();
