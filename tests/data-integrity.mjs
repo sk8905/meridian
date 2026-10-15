@@ -13,8 +13,8 @@ import * as C from "../credit/js/data.js";
 import * as L from "../legal/js/data.js";
 import { check, finish } from "./lib.mjs";
 
-const MAX_UNDATED_LEGAL = 18;
-const MAX_ESTIMATED_LEGAL = 113;
+const MAX_UNDATED_LEGAL = 17;
+const MAX_ESTIMATED_LEGAL = 112;
 const MAX_HOMEPAGE_CITES = 4;      // d261 d227 i256 i154 — re-point to the actual release
 const MAX_WEAK_CITES = 77;
 const MAX_BAD_FUND_STATUS = 8;

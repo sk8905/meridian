@@ -1032,7 +1032,6 @@ const T = {
   d1056: {"c":"UK","s":"Consumer & retail","p":"Sunseeker International","r":"target","cs":"https://en.wikipedia.org/wiki/Sunseeker","cb":"hq"},
   d1057: {"c":"Italy","s":"Asset-backed / specialty finance","a":"portfolio","p":"BPER Group","r":"seller","cs":"https://en.wikipedia.org/wiki/BPER_Banca","cb":"hq"},
   d1058: {"c":"Italy","s":"Asset-backed / specialty finance","a":"portfolio","p":"Loira SPV","r":"issuer"},
-  d1059: {"c":"US","s":"Industrials","a":"financing","p":"Analogic Corporation","r":"borrower","cs":"https://sec.gov/Archives/edgar/data/6284/000119312516721523/d220440d10k.htm","cb":"hq"},
   d1060: {"c":"UK","s":"Asset-backed / specialty finance","a":"financing","p":"LendInvest","r":"borrower","cs":"https://en.wikipedia.org/wiki/LendInvest","cb":"hq"},
   d1061: {"c":"UK","s":"Asset-backed / specialty finance","a":"financing","p":"LendInvest","r":"borrower"},
   d1062: {"c":"UK","s":"Asset-backed / specialty finance","a":"financing","p":"LendInvest","r":"borrower","cs":"https://en.wikipedia.org/wiki/LendInvest","cb":"hq"},
