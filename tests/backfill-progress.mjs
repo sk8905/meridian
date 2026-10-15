@@ -6,7 +6,7 @@
 import { loadChecklist, progress, recordById } from "../scripts/backfill-progress.mjs";
 import { check, finish } from "./lib.mjs";
 
-const MIN_PRESENT = 485;   // present (linked) events across built checklists
+const MIN_PRESENT = 484;   // present (linked) events across built checklists (-1 2026-10-15: m36 pgm-jv-2025 was the Polish Grupa Fidera, not the tracked Fidera — rejected, record d1106 deleted)
 const MIN_BUILT = 55;      // entities whose 2020→today checklist has been researched
 
 const cl = loadChecklist();

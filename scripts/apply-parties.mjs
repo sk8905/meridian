@@ -86,7 +86,7 @@ const BANK_RE = /\b(bank|banco|banca|banque|bancorp|caixa|caja|sparkasse|landesb
 
 export function loadAudit(file = AUDIT) {
   const j = JSON.parse(fs.readFileSync(file, "utf8"));
-  return { entries: j.deals || [], merges: j.merges || [] };
+  return { entries: j.deals || [], merges: j.merges || [], profiles: j.profiles || [], deletes: j.deletes || [] };
 }
 
 function main() {
@@ -142,9 +142,17 @@ function main() {
     ...(l.unconfirmed ? { unconfirmed: true } : {}),
   })).filter((l, i, a) => a.findIndex((x) => x.managerId === l.managerId && x.role === l.role) === i);
 
+  // Owner-requested profiles (e.g. an untracked arm a deal belongs to): created first so
+  // re-filing and lender links resolve to them. category: bank | lender | manager.
+  for (const p of audit.profiles || []) {
+    const id = resolve(p.name, null, null);
+    const rec = created.find((m) => m.id === id);
+    if (rec && p.category) rec.category = p.category;
+  }
   // Resolve every lender first, so a sponsor that is also a lender elsewhere links on
   // the first run as on any re-run (idempotent).
-  for (const e of entries) cleanLenders(e.lenders, filedOf.get(e.id));
+  const deletedIds = new Set((audit.deletes || []).map((x) => x.id));
+  for (const e of entries) if (!deletedIds.has(e.id)) cleanLenders(e.lenders, filedOf.get(e.id));
 
   // 2) Merge groups: union of lenders, the dropped URLs kept as alsoReported.
   const deals = new Map(readRecords(CREDIT, "deals").map((r) => [r.obj.id, r.obj]));
@@ -227,8 +235,15 @@ function main() {
     }
     return JSON.stringify(d) !== before;
   }, { dryRun: DRY });
-  const dropped = deleteRecords(CREDIT, "deals", [...drop.keys()], { dryRun: DRY });
+  // Owner-approved deletions (not a single deal / not a tracked firm's deal / unsupported).
+  const dels = new Map((audit.deletes || []).map((x) => [x.id, x.reason || "deleted by the 2026-10 audit"]));
+  const deletedN = deleteRecords(CREDIT, "deals", [...dels.keys()], { dryRun: DRY });
+  for (const id of dels.keys()) drop.set(id, null);   // tags + checklist follow below
+  const dropped = deleteRecords(CREDIT, "deals", [...drop.keys()].filter((id) => !dels.has(id)), { dryRun: DRY }) + deletedN;
   if (created.length) appendRecords(CREDIT, "managers", created, { dryRun: DRY });
+  // A requested profile that already exists as a stub takes the requested category.
+  const wantCat = new Map((audit.profiles || []).filter((p) => p.category).map((p) => [canon(p.name), p.category]));
+  if (wantCat.size) updateRecords(CREDIT, "managers", (m) => { const c = m.profileStub && wantCat.get(canon(m.name)); if (!c || m.category === c) return false; m.category = c; return true; }, { dryRun: DRY });
 
   // Bundled records (round 2): each separate transaction becomes its own sourced deal.
   // A split's id is written back into the audit file, so a re-run updates, never re-adds.
@@ -247,6 +262,11 @@ function main() {
     newTags.push([rec.id, parent.id]);
   }
   if (newDeals.length) appendRecords(CREDIT, "deals", newDeals, { dryRun: DRY });
+  // A lender-profile stub no deal references any more (re-linked or deleted) goes.
+  const used = new Set();
+  for (const r of readRecords(CREDIT, "deals")) { const d = r.obj; used.add(d.managerId); if (d.sponsorId) used.add(d.sponsorId); for (const l of d.lenders || []) used.add(l.managerId); }
+  const orphans = readRecords(CREDIT, "managers").map((r) => r.obj).filter((m) => m.profileStub && !used.has(m.id) && !(audit.profiles || []).some((p) => canon(p.name) === canon(m.name))).map((m) => m.id);
+  if (orphans.length) { deleteRecords(CREDIT, "managers", orphans, { dryRun: DRY }); stats.orphans = orphans.length; }
   if (auditDirty && !DRY) {
     const j = JSON.parse(fs.readFileSync(AUDIT, "utf8"));
     const ids = new Map(entries.map((e) => [e.id, e.split || []]));
@@ -270,7 +290,15 @@ function main() {
   let ck = 0;
   if (fs.existsSync(CHECKLIST)) {
     let src = fs.readFileSync(CHECKLIST, "utf8");
-    src = src.replace(/("recordId"\s*:\s*")([a-z]\d+)(")/g, (all, a, id, b) => (drop.has(id) ? (ck++, a + drop.get(id) + b) : all));
+    src = src.replace(/("recordId"\s*:\s*")([a-z]\d+)(")/g, (all, a, id, b) => (drop.has(id) && drop.get(id) ? (ck++, a + drop.get(id) + b) : all));
+    // An event whose record was deleted is no longer "present": it is rejected, with why.
+    if (dels.size) {
+      const j = JSON.parse(src);
+      for (const e of Object.values(j.entities || {})) for (const v of e.events || []) if (v.recordId && dels.has(v.recordId)) {
+        v.status = "rejected"; v.note = `Record ${v.recordId} deleted (2026-10 deal audit): ${dels.get(v.recordId)}`; delete v.recordId; ck++;
+      }
+      src = JSON.stringify(j, null, 2) + "\n";
+    }
     if (ck && !DRY) fs.writeFileSync(CHECKLIST, src);
   }
   const withBorrower = new Set(readRecords(CREDIT, "deals").map((r) => r.obj).filter((d) => d.borrower).map((d) => d.id));
@@ -287,7 +315,7 @@ function main() {
   if (!DRY) fs.writeFileSync(PARSE, parse);
 
   console.log(`apply-parties: ${n} deal(s) updated; borrower ${stats.borrower}, sponsor ${stats.sponsor}, lenders ${stats.lenders}, managerRole ${stats.managerRole}; `
-    + `fixes ${stats.fixes}, split-out deals ${stats.splits}; ${dropped} split row(s) merged into ${fold.size} deal(s); ${created.length} lender profile(s) created; ${tagsDropped.length} tag(s) and ${ck} checklist ref(s) remapped; ${ov} parser override(s) retired${DRY ? " (dry run)" : ""}`);
+    + `fixes ${stats.fixes}, split-out deals ${stats.splits}, ${dels.size} deleted, ${stats.orphans || 0} orphan stub(s) removed; ${dropped} split row(s) merged into ${fold.size} deal(s); ${created.length} lender profile(s) created; ${tagsDropped.length} tag(s) and ${ck} checklist ref(s) remapped; ${ov} parser override(s) retired${DRY ? " (dry run)" : ""}`);
   if (process.argv.includes("--list")) console.log(created.map((m) => `${m.id}\t${m.category}\t${m.name}`).join("\n"));
   return { created, drop, stats };
 }

@@ -4244,8 +4244,8 @@
           "date": "2025-06-10",
           "what": "PLN250m financing from Fidera Group (Forum 119 FIZ) to PGM / Niewiadow JV",
           "source": "https://www.bankier.pl/wiadomosc/Grupa-Niewiadow-pozyskala-250-mln-zl-finansowania-8958686.html",
-          "status": "present",
-          "recordId": "d1106"
+          "status": "rejected",
+          "note": "Record d1106 deleted (2026-10 deal audit): the financier is the Polish Grupa Fidera (FORUM 119 FIZ), not the tracked Fidera"
         },
         {
           "key": "resi-30pct-2025",

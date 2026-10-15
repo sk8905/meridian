@@ -619,7 +619,12 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   flag (`borrowerUnconfirmed` / `sponsorUnconfirmed` / `lenders[].unconfirmed`, shown with
   an asterisk); pure speculation → leave it out (`borrower: "Unknown"`). Keep a bank's
   general banking arm and its asset-management arm as SEPARATE profiles — link a tracked
-  arm only when the source names that arm.
+  arm only when the source names that arm. A deal that belongs to an untracked arm of a
+  tracked group (PGIM Real Estate, KKR Private Equity, Blackstone Multi-Asset Investing) is
+  filed under that arm's own profile (`profiles` + `refileTo` in deal-parties.json,
+  `category: "manager"`), never under the group's credit arm. Records that are not a single
+  deal (a platform's annual total) or belong to a different, untracked firm of the same
+  name are removed via `deletes` (the checklist event becomes "rejected" with the reason).
 - **Lender profiles — research the stubs every run (owner decision 2026-10).** Every
   lender / arranger named in a deal is a clickable profile: a `managers` record with
   `category: "bank" | "lender"` and `profileStub: true`, created by
