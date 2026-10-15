@@ -1375,6 +1375,33 @@ notification badge red (`#ef4444`).
   (R14)** Menu ▸ Digest `/v2/menu/digest[/weekly]`, built only by `scripts/build-digest.mjs`
   from committed data, every item with its source URL + date (`tests/digest.mjs`).
 
+- **R43 — One professional list & table style, everywhere (owner 2026-10-15).** Applies
+  to every surface (Home, News, Markets, Deals incl. Restructuring / Fundraising / League
+  tables, Profiles, Menu, Digest, Sources, sheets and the reader). **(a) Events = any list
+  or table of dated items** (deals, alerts, cases, plans & schemes, hearings, fund closes,
+  LP commitments, people moves, news / digest rows). Not dated market data (rates, spreads,
+  index levels). **(b) Column order:** an events row/table LEADS with the date and ENDS with
+  the source (the SRC chip or outlet name). Date format "15 Oct 26" everywhere; on the news
+  wire, already grouped under day headers, the first column stays the time ("13:46").
+  Status tags (SANCTIONED, ADMINISTRATION …) sit next to the item's name, before the source,
+  in one muted tag style. **(c) Two lines max per events item, on every screen (iPhone
+  included — never wrap further):** line 1 = headline / name, line 2 = meta, each one line
+  with an ellipsis; the full text is the row's `title` (hover / long-press) and in full
+  when opened. One fixed row height per list so previews align (cf. R42 i). **(d) Three
+  text tiers only:** primary `--t-ink` (white in dark, near-black in light) for the
+  name / headline / key figure; mid grey `--t-mut` for supporting facts (type, amount,
+  court, counterparty); subtle `--t-faint` for dates, sources, counts and labels. `--t-dim`
+  is retired (fold into ink). **(e) Bold ONLY for headings** (section, card, sheet titles)
+  — plus the owner's one exception: the reading pane's "Open original at …" link (and the
+  in-app reader's matching "Open at …") in bold orange. No bold body text, names, tags,
+  figures or table headers; table header cells are small capitals in `--t-faint`.
+  **(f) Even, responsive columns:** one shared table style — date and source columns
+  fixed and narrow; numeric columns right-aligned, tabular-nums, sized to content; text
+  columns share the remainder with a sensible min / max (`minmax()`), never wrapping a
+  single word or leaving one column stretched while another clips. It must look neat at
+  laptop (1366), desk monitor (1920) and ultrawide (2560 / 3440) widths and on iPhone.
+  Specs guard every rule (`tests/style-r43.mjs`).
+
 ## 7. Technical rules
 
 - **T1 — Cache-busting: code carries a token, data does NOT.**
