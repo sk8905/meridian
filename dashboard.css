@@ -1064,3 +1064,12 @@ html.dsh-sheet-open, html.dsh-sheet-open body { overflow:hidden; }
 .dsh-news-i.dsh-lgl-i { padding:5px 0; }
 .dsh-news-i .dsh-lgl-t { display:inline; color:inherit; font-size:inherit; font-weight:inherit; line-height:inherit; }
 .dsh-news-i a.dsh-pc-report { display:inline; padding:0; border:0; }
+/* Desktop (owner 2026-10-15): "See all" opens the whole list as a centred panel. */
+@media (min-width:901px){
+  .dsh-sheet { inset:5vh max(6vw, calc(50vw - 640px)); border:1px solid var(--t-grid2); box-shadow:0 18px 50px rgba(0,0,0,.35); padding:0; }
+}
+/* Funds in market / LP commitments: wrap long fund and investor names so every
+   column (target, raised, LPs, as of) fits the card on desktop. */
+.dsh-fim-tbl td, .dsh-lpc-tbl td { white-space:normal; overflow-wrap:break-word; }
+.dsh-fim-tbl td.dsh-r, .dsh-fim-tbl td.dsh-stress-as, .dsh-lpc-tbl td.dsh-r, .dsh-lpc-tbl td.dsh-stress-as { white-space:nowrap; }
+.dsh-fim-tbl td.dsh-nm { min-width:180px; }

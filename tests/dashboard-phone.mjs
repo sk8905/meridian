@@ -132,7 +132,8 @@ for (const theme of ["dark", "light"]) {
   }
   await pg.goto(`http://localhost:${srv.port}/v2/dashboard/hedge-funds/`, { waitUntil: "load" }); await pg.waitForTimeout(1200);
   const d = await pg.evaluate(() => ({ btn: document.querySelectorAll(".dsh-seeall").length, stk: [...document.querySelectorAll(".dsh-stk-list")].filter((e) => e.offsetParent).length, tbl: !!document.querySelector("table.dsh-hfaum-tbl").offsetParent }));
-  check(d.btn === 0 && d.stk === 0 && d.tbl, `Desktop: tables as tables, no previews (${JSON.stringify(d)})`);
+  // Owner 2026-10-15: desktop long lists also preview 10 rows + "See all" (tables stay tables).
+  check(d.btn > 0 && d.stk === 0 && d.tbl, `Desktop: tables as tables, long lists preview 10 + See all (${JSON.stringify(d)})`);
   await ctx.close();
 }
 await b.close(); srv.close();

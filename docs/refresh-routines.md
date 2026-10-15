@@ -904,13 +904,34 @@ investor AUM is USD by convention — R29.)
   attributed source and its date; `REG_CALENDAR` rows carry `jur` (EU/UK/US) and `area`;
   `EU_DISTRESS` rows name their `measure` (TTM by count / amount / forecast). Refresh the
   default rates when Fitch / S&P / Moody's / PitchBook LCD publish the next month.
+- **LP sweep (every run, budget-capped; a deeper pass weekly on Mondays).** Look for NEW
+  public LP commitments to private credit / direct lending / CLO / ABF / special-situations
+  / infra & real-estate debt funds since the last run, newest first, Europe-relevant
+  first. Check in this order: (1) US public pension board / investment-committee papers and
+  monthly transaction reports (NY Common, NYC, CalPERS, CalSTRS, PSERS, Oregon OIC, Minnesota
+  SBI, New Jersey SIC, Washington SIB, Florida SBA, Texas TRS, Massachusetts PRIM, LACERA,
+  SFERS); (2) UK LGPS pool and fund committee papers (moderngov sites: Border to Coast,
+  Brunel, LPPI, London CIV, Northern LGPS, Wales PP, LGPS Central, ACCESS) and UK schemes
+  (USS, BTPS, Railpen, Nest, People's Pension); (3) Dutch / Nordic / German / Swiss pension
+  and insurer announcements and annual reports (APG, PGGM, PME, PMT, AP funds, Keva, Varma,
+  Ilmarinen, PFA, PKA, ATP, KLP, Versorgungswerke, Swiss funds); (4) Canada, APAC and Middle
+  East allocators (CDPQ, PSP, OMERS, GPIF, NPS, KIC, GIC, Future Fund, QIA, PIF);
+  (5) trade press (Private Debt Investor / PEI, IPE, Pensions & Investments,
+  europeanpensions.net, Alternative Credit Investor, Alternatives Watch). Each find needs a
+  `sourceUrl` you read, an LP, a manager (and fund where named), amount + currency if
+  stated (else null) and a date. Never infer an amount or a status. Append to
+  `backfill/lp-commitments-<YYYY-MM>.json` (new investors to `backfill/lp-profiles-<YYYY-MM>.json`)
+  and run `node scripts/merge-lp-research.mjs` (idempotent; skips duplicates). When an LP's
+  own report gives total AUM or a private-credit allocation %, update that investor's
+  profile with the source.
 - **LP commitments.** New public commitments go in `backfill/lp-commitments-*.json` (and new
   investors in `backfill/lp-profiles-*.json`) with a `sourceUrl` each, then run
   `node scripts/merge-lp-research.mjs`. Good primary sources: US public pension board
   papers and monthly transaction reports (NY Common, CalPERS, CalSTRS, PSERS, Oregon,
   Minnesota SBI, New Jersey SIC), UK LGPS pool papers, Dutch/Nordic annual reports.
-- **Companies House.** `/api/ch` (borrower pages) needs a free Companies House REST key as
-  the Worker secret `CH_API_KEY`; without it the page links the public register.
+- **Companies House.** `/api/ch` (borrower pages) reads the PUBLIC register
+  (find-and-update.company-information.service.gov.uk — search + charges pages). No API
+  key is used (owner decision 2026-10-15).
 
 ## Register collectors — GLEIF LEIs and Gazette notices (GitHub Actions, candidates only)
 

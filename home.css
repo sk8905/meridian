@@ -1989,10 +1989,7 @@
    Laptop heights (≤860px, e.g. 1366×768): the 20% briefing row left ~110px, so the
    Market briefing read as two clipped half-sentences. Give the top row more height on
    short screens and fade the bottom edge so it reads as scrollable, not cut off.
-   Ultrawide (≥2560px): the fixed 300/304/320px rails and 12.5px type left the centre
-   columns vast and the reading pane mostly empty. Scale the type one notch (the
-   reader's own Text size setting, an inline --fs-adj, still wins), let the rails grow
-   with the screen, and cap the article measure so prose stays readable. */
+   Ultrawide (≥2560px): cap the article measure in the reading pane. */
 @media (min-width:1201px) and (max-height:860px){
   .tui .g-layout{ grid-template-rows:minmax(0,1.45fr) minmax(0,3fr); }
 }
@@ -2000,8 +1997,9 @@
   .tui .g-hbrief .g-hbrief-body{ -webkit-mask-image:linear-gradient(to bottom, #000 calc(100% - 18px), transparent); mask-image:linear-gradient(to bottom, #000 calc(100% - 18px), transparent); padding-bottom:16px; }
 }
 @media (min-width:2560px){
-  :root{ --fs-adj:2px; }
-  .tui .g-layout{ grid-template-columns:minmax(300px,.85fr) minmax(0,1.5fr) minmax(0,1.5fr) minmax(304px,.85fr) minmax(320px,.85fr); }
+  /* Rails keep their fixed 300 / 304 / 320px widths and the type keeps its scale on
+     every screen (owner 2026-10-15); only the article measure is capped so prose in
+     the wide reading pane stays readable. Bigger text: Menu → Settings → Text size. */
   .tui .g-read-art{ max-width:86ch; margin:0 auto; }
 }
 /* Left rail with FULL data at laptop heights (review 2026-10-15): Markets (9 tiles) +

@@ -682,8 +682,8 @@ export function mount(host, ctx) {
       <header class="tpanel-h tx-drawer-h"><button type="button" class="tx-drawer-x" aria-label="Close the deal">‹</button><span>Deal</span></header>
       <div class="tx-drawer-b">
         <h2 class="tx-drawer-t">${esc(d.headline || "")}</h2>
-        <ul class="tbiz">${facts.map(([k, v]) => `<li><span class="tbiz-k">${esc(k)}</span><span class="tbiz-v">${v}</span></li>`).join("")}</ul>
         ${d.summary ? `<p class="tx-sum">${esc(d.summary)}</p>` : ""}
+        <ul class="tbiz">${facts.map(([k, v]) => `<li><span class="tbiz-k">${esc(k)}</span><span class="tbiz-v">${v}</span></li>`).join("")}</ul>
         ${relSec("Same borrower", rel.borrower)}
         ${relSec("Same sponsor", rel.sponsor)}
         ${relSec("More from " + (mgrName(d.managerId) || "this lender"), rel.lender)}

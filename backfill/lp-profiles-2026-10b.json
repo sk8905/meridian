@@ -1,0 +1,1819 @@
+[
+ {
+  "name": "Alecta",
+  "type": "Corporate Pension",
+  "hq": "Sweden",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Climate private credit"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "Swedish occupational pension; committed $110m to responsAbility's climate credit strategy (Jun 2026).",
+  "sources": [
+   {
+    "label": "New Private Markets, 30 Jun 2026",
+    "url": "https://www.newprivatemarkets.com/alecta-backs-responsability-climate-credit-strategy/"
+   }
+  ]
+ },
+ {
+  "name": "Banco Santander",
+  "type": "Bank / Treasury",
+  "hq": "Spain",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Asset-based finance"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "Group named as sponsor LP in Santander Alternative Investments' ABCL II (€150m first close, Jul 2026) alongside EIF.",
+  "sources": [
+   {
+    "label": "ACI, 7 Jul 2026",
+    "url": "https://alternativecreditinvestor.com/2026/07/07/santander-alternative-investments-raises-e150m-for-european-fund/"
+   }
+  ]
+ },
+ {
+  "name": "Bank Gospodarstwa Krajowego (BGK)",
+  "type": "Bank / Treasury",
+  "hq": "Poland",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Infrastructure debt"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "Polish state development bank; €25m to Eiffel Transition Infrastructure Fund (Jun 2025) under BGK2030 strategy.",
+  "sources": [
+   {
+    "label": "ACI, 6 Jun 2025",
+    "url": "https://alternativecreditinvestor.com/2025/06/06/bgk-commits-e25m-to-eiffel-infrastructure-fund/"
+   }
+  ]
+ },
+ {
+  "name": "Cassa Depositi e Prestiti (CDP)",
+  "type": "Bank / Treasury",
+  "hq": "Italy",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "SME private debt",
+   "Diversified debt funds",
+   "Basket bonds / minibonds"
+  ],
+  "mandateStatus": "Actively allocating",
+  "pcAllocationPct": null,
+  "notes": "Italian NPB; ~€717m across 20 diversified debt funds per CDP (Oct 2026); H1-24 commitments to Endeka, Azimut ESG-8, ECRA; often co-invests with EIF.",
+  "sources": [
+   {
+    "label": "Teleborsa/Borsa Italiana, 13 Oct 2026",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/teleborsa/finanza/cdp-calibeo-sottoscritti-20-investimenti-in-fondi-di-debito-diversificati-per-717-milioni-di-euro-81_2026-10-13_TLB.html?lang=it"
+   },
+   {
+    "label": "CDP H1 2024 report",
+    "url": "https://www.cdp.it/resources/cms/documents/RFS2024_GRUPPO_CDP_ITA.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Fondazione ENPAM",
+  "type": "Public Pension",
+  "hq": "Italy",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "SME private debt",
+   "Sustainable credit"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "Italian doctors' pension foundation; €10m to Anthilia Gap (Oct 2024); named LP in Ambienta Sustainable Credit Opportunities (Jan 2026).",
+  "sources": [
+   {
+    "label": "Milano Finanza, 3 Oct 2024",
+    "url": "https://www.milanofinanza.it/news/enpam-investe-20-milioni-nel-fondo-di-private-debt-anthilia-gap-2641325"
+   },
+   {
+    "label": "ACI, 27 Jan 2026",
+    "url": "https://alternativecreditinvestor.com/2026/01/27/ambienta-raises-more-than-e500m-for-sustainable-credit/"
+   }
+  ]
+ },
+ {
+  "name": "Generali",
+  "type": "Insurance",
+  "hq": "Italy",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Real estate debt",
+   "Sustainable credit"
+  ],
+  "mandateStatus": "Actively allocating",
+  "pcAllocationPct": null,
+  "notes": "Generali Real Estate seeded £50m UK resi lending JV with Grosvenor (Jan 2024); Generali AM named LP in Ambienta credit fund (Jan 2026).",
+  "sources": [
+   {
+    "label": "ACI, 9 Jan 2024",
+    "url": "https://alternativecreditinvestor.com/2024/01/09/generali-and-grosvenor-launch-uk-residential-lending-partnership/"
+   },
+   {
+    "label": "ACI, 27 Jan 2026",
+    "url": "https://alternativecreditinvestor.com/2026/01/27/ambienta-raises-more-than-e500m-for-sustainable-credit/"
+   }
+  ]
+ },
+ {
+  "name": "La France Mutualiste",
+  "type": "Insurance",
+  "hq": "France",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Impact private credit"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "French mutual insurer; named LP in AllianzGI impact private credit strategy first close (€560m, Sep 2024).",
+  "sources": [
+   {
+    "label": "ACI, 6 Sep 2024",
+    "url": "https://alternativecreditinvestor.com/2024/09/06/allianzgi-raises-e560m-for-impact-private-credit-strategy/"
+   }
+  ]
+ },
+ {
+  "name": "P+ Pensionskassen for Akademikere",
+  "type": "Public Pension",
+  "hq": "Denmark",
+  "aum": 148,
+  "aumCcy": "DKK",
+  "aumAsOf": "2023",
+  "strategies": [
+   "Infrastructure debt",
+   "Green credit"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "Danish academics' pension; DKK750m to CIP Green Credit Fund I (2023) alongside Lægernes Pension.",
+  "sources": [
+   {
+    "label": "Lægernes Pension news, 2023",
+    "url": "https://www.lpb.dk/Hjaelp-og-Raadgivning/Nyheder/Nyheder-2023/P-og-Laegernes-Pension-investerer-15-mia-kr-i-klimavenlig-kredit"
+   },
+   {
+    "label": "New Private Markets, 24 Aug 2023",
+    "url": "https://www.newprivatemarkets.com/in-brief-danish-pensions-commit-to-cips-1bn-target-green-debt-debut/"
+   }
+  ]
+ },
+ {
+  "name": "Pensioenfonds PostNL",
+  "type": "Corporate Pension",
+  "hq": "Netherlands",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Green private debt"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "Named first-close LP in Eiffel/Van Lanschot Kempen evergreen green private debt fund (€220m, Oct 2025).",
+  "sources": [
+   {
+    "label": "ACI, 30 Oct 2025",
+    "url": "https://alternativecreditinvestor.com/2025/10/30/eiffel-raises-e220m-for-new-green-private-debt-fund/"
+   }
+  ]
+ },
+ {
+  "name": "Pensioenfonds voor het Slagersbedrijf",
+  "type": "Corporate Pension",
+  "hq": "Netherlands",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Green private debt"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "Dutch butchers' sector fund (via Stichting De Samenwerking); named first-close LP in Eiffel/Van Lanschot Kempen green debt fund (Oct 2025).",
+  "sources": [
+   {
+    "label": "ACI, 30 Oct 2025",
+    "url": "https://alternativecreditinvestor.com/2025/10/30/eiffel-raises-e220m-for-new-green-private-debt-fund/"
+   }
+  ]
+ },
+ {
+  "name": "Rabobank",
+  "type": "Bank / Treasury",
+  "hq": "Netherlands",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Direct lending"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "Rabobank Group named LP at Colesco Capital's >€800m first platform close (Jan 2025). Also a PGGM SRT counterparty.",
+  "sources": [
+   {
+    "label": "ACI, 28 Jan 2025",
+    "url": "https://alternativecreditinvestor.com/2025/01/28/colesco-capital-raises-over-e800m-in-first-close/"
+   }
+  ]
+ },
+ {
+  "name": "Spanish Regional Resilience Fund (Fondo de Resiliencia Autonómica)",
+  "type": "Fund of Funds",
+  "hq": "Spain",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Infrastructure debt",
+   "Alternative lending"
+  ],
+  "mandateStatus": "Actively allocating",
+  "pcAllocationPct": null,
+  "notes": "NextGenerationEU-funded vehicle implemented by EIF; €62m to Qualitas Energy Credit Fund via its Alternative Lending Instrument (Feb 2026).",
+  "sources": [
+   {
+    "label": "EIF press release, 12 Feb 2026",
+    "url": "https://www.eif.org/press/all/spanish-regional-resilience-fund-invests-eur62-million-of-nextgenerationeu-funds-through-the-eif-qualitas-energy-credit-fund-to-support-renewable-energy-infrastructure"
+   }
+  ]
+ },
+ {
+  "name": "VER (State Pension Fund of Finland)",
+  "type": "Public Pension",
+  "hq": "Finland",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Sustainable credit"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "Finnish state pension buffer fund; named LP in Ambienta Sustainable Credit Opportunities final close (Jan 2026).",
+  "sources": [
+   {
+    "label": "ACI, 27 Jan 2026",
+    "url": "https://alternativecreditinvestor.com/2026/01/27/ambienta-raises-more-than-e500m-for-sustainable-credit/"
+   }
+  ]
+ },
+ {
+  "name": "Publica (Swiss Federal Pension Fund)",
+  "type": "Public Pension",
+  "hq": "Switzerland",
+  "aum": 44.9,
+  "aumCcy": "CHF",
+  "aumAsOf": "2026-05",
+  "strategies": [
+   "Direct lending (Europe)",
+   "Direct lending (US)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "pcAllocationPct": 3,
+  "notes": "Reported (Bloomberg via PEW) seeking 2 direct lending managers: Europe up to €500m, US up to $550m; ~3% of strategic portfolio earmarked for private credit.",
+  "sources": [
+   {
+    "label": "Private Equity Wire, 21 May 2026",
+    "url": "https://www.privateequitywire.co.uk/swiss-pension-fund-publica-targets-up-to-1-1bn-private-credit-allocation/"
+   }
+  ]
+ },
+ {
+  "name": "Velliv",
+  "type": "Corporate Pension",
+  "hq": "Denmark",
+  "aum": 45,
+  "aumCcy": "EUR",
+  "aumAsOf": "2024-09",
+  "strategies": [
+   "Illiquid credit",
+   "Private credit"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "~10% of €45bn in alternatives (~€4.5bn ex-RE); illiquid credit second-largest alts block and being expanded (HedgeNordic, Sep 2024).",
+  "sources": [
+   {
+    "label": "HedgeNordic, 24 Sep 2024",
+    "url": "https://hedgenordic.com/2024/09/vellivs-take-on-private-markets-the-appeal-of-private-credit/"
+   }
+  ]
+ },
+ {
+  "name": "Cassa Forense",
+  "type": "Public Pension",
+  "hq": "Italy",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": "2025-09",
+  "strategies": [
+   "Private debt",
+   "Tech lending",
+   "Credit secondaries"
+  ],
+  "mandateStatus": "Actively allocating",
+  "pcAllocationPct": null,
+  "notes": "Italian lawyers' fund; PE+PD+infra ~15% of assets; €735m new illiquid commitments in 2024; 2025 focus tech lending & credit secondaries.",
+  "sources": [
+   {
+    "label": "Focus Risparmio",
+    "url": "https://www.focusrisparmio.com/news/mercati-privati-cassa-forense-annunziata/"
+   },
+   {
+    "label": "IPE",
+    "url": "https://www.ipe.com/news/cassa-forense-accelerates-private-markets-push/10132816.article"
+   }
+  ]
+ },
+ {
+  "name": "Inarcassa",
+  "type": "Public Pension",
+  "hq": "Italy",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Private debt"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "Italian engineers/architects fund; €900m new private-markets commitments in 2025 (not split by strategy); historic domestic private debt fund book.",
+  "sources": [
+   {
+    "label": "Focus Risparmio",
+    "url": "https://www.focusrisparmio.com/news/inarcassa-infrastrutture-e-investitori-istituzionali-come-investe"
+   }
+  ]
+ },
+ {
+  "name": "OP Financial Group",
+  "type": "Insurance",
+  "hq": "Finland",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Private credit fund-of-funds"
+  ],
+  "mandateStatus": "Actively allocating",
+  "pcAllocationPct": null,
+  "notes": "Finnish banking/insurance group; invests in external private credit managers via vintage FoFs (~70% internal capital, 30% external).",
+  "sources": [
+   {
+    "label": "HedgeNordic, 3 Nov 2025",
+    "url": "https://hedgenordic.com/2025/11/ops-funds-of-funds-model-brings-efficiency-to-private-credit-investing/"
+   }
+  ]
+ },
+ {
+  "name": "Folksam",
+  "type": "Insurance",
+  "hq": "Sweden",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Direct lending (Northern Europe)"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "IPE headline: Folksam put €276m into P Capital Partners' fifth credit fund; article date unverified (likely pre-2023).",
+  "sources": [
+   {
+    "label": "IPE",
+    "url": "https://ipe.com/folksam-stows-276m-into-private-credit-for-north-european-firms/10061106.article"
+   }
+  ]
+ },
+ {
+  "name": "Asga Pensionskasse",
+  "type": "Corporate Pension",
+  "hq": "Switzerland",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Private debt"
+  ],
+  "mandateStatus": "Not currently active",
+  "pcAllocationPct": null,
+  "notes": "Swiss multi-employer fund planning first private debt allocation; per 2024 accounts no allocations before end-2026 (IPE).",
+  "sources": [
+   {
+    "label": "IPE",
+    "url": "https://www.ipe.com/news/asga-pensionskasse-to-make-first-foray-into-private-debt/10130168.article"
+   }
+  ]
+ },
+ {
+  "name": "NN Group",
+  "type": "Insurance",
+  "hq": "Netherlands",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Illiquid credit"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "Dutch insurer reported exploring new illiquid credit opportunities (PDI). No specific commitment verified in this pass.",
+  "sources": [
+   {
+    "label": "Private Debt Investor",
+    "url": "https://www.privatedebtinvestor.com/european-insurers-eye-bigger-private-debt-allocations/"
+   }
+  ]
+ },
+ {
+  "name": "Länsförsäkringar (LF)",
+  "type": "Insurance",
+  "hq": "Sweden",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Illiquid credit"
+  ],
+  "mandateStatus": "Selective",
+  "pcAllocationPct": null,
+  "notes": "Swedish insurer reported exploring new illiquid credit opportunities (PDI). No specific commitment verified in this pass.",
+  "sources": [
+   {
+    "label": "Private Debt Investor",
+    "url": "https://www.privatedebtinvestor.com/european-insurers-eye-bigger-private-debt-allocations/"
+   }
+  ]
+ },
+ {
+  "name": "British Business Bank",
+  "type": "Bank / Treasury",
+  "hq": "United Kingdom",
+  "aum": null,
+  "aumCcy": "GBP",
+  "aumAsOf": null,
+  "strategies": [
+   "SME direct lending",
+   "Growth / venture debt",
+   "Regional lending funds"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "State-owned development bank; commits £10m-£100m per debt fund (max 50% of fund) via its debt funds programme (ex-British Business Investments).",
+  "sources": [
+   {
+    "label": "Beach Point top-up (ACI)",
+    "url": "https://alternativecreditinvestor.com/2025/08/05/british-business-bank-commits-another-30m-to-beach-point-capital"
+   },
+   {
+    "label": "Soho Square II (ACI)",
+    "url": "https://alternativecreditinvestor.com/2026/07/15/british-business-bank-commits-50m-to-sme-fund/"
+   }
+  ]
+ },
+ {
+  "name": "Greater Manchester Pension Fund (GMPF)",
+  "type": "Public Pension",
+  "hq": "United Kingdom",
+  "aum": null,
+  "aumCcy": "GBP",
+  "aumAsOf": null,
+  "strategies": [
+   "Direct lending",
+   "Opportunistic credit",
+   "Asset-based finance",
+   "Special situations"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": 5,
+  "notes": "Northern LGPS member; annual private debt commitment programme run by in-house Private Markets team; Panel allocates up to 5% of assets to private debt.",
+  "sources": [
+   {
+    "label": "GMPF Special Opportunities holdings 2025",
+    "url": "https://www.gmpf.org.uk/getmedia/523df8e9-28fb-4425-9b52-fe968ed73075/Funds-within-the-Special-Opportunities-Portfolio-from-2025-to-date.pdf"
+   },
+   {
+    "label": "Tameside decision Aug 2025",
+    "url": "https://opengovernment.network/councils/tameside/decisions/164187"
+   }
+  ]
+ },
+ {
+  "name": "West Yorkshire Pension Fund",
+  "type": "Public Pension",
+  "hq": "United Kingdom",
+  "aum": null,
+  "aumCcy": "GBP",
+  "aumAsOf": null,
+  "strategies": [
+   "Direct lending",
+   "Growth debt"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Northern LGPS member; private credit sits within Alternatives mandate (Core senior direct lending since 2022 plus legacy opportunistic credit).",
+  "sources": [
+   {
+    "label": "WYPF press release 16 Oct 2025",
+    "url": "https://www.wypf.org.uk/news/press-release-16-october-2025/"
+   }
+  ]
+ },
+ {
+  "name": "Surrey Pension Fund",
+  "type": "Public Pension",
+  "hq": "United Kingdom",
+  "aum": null,
+  "aumCcy": "GBP",
+  "aumAsOf": null,
+  "strategies": [
+   "Private credit (via Border to Coast)"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Border to Coast partner fund; committed to every BCPP private credit series 1A-3A (c.£487m total private credit commitments at 31/03/2026).",
+  "sources": [
+   {
+    "label": "Surrey private investment as at 31 Mar 2026",
+    "url": "https://www.surreyi.gov.uk/download/2ylj5/m5k/Surrey%20Pension%20Fund%20Private%20Investment%20as%20at%2031%20March%202026.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Westminster City Council Pension Fund",
+  "type": "Public Pension",
+  "hq": "United Kingdom",
+  "aum": null,
+  "aumCcy": "GBP",
+  "aumAsOf": null,
+  "strategies": [
+   "European direct lending"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": 6,
+  "notes": "London LGPS fund; single private debt mandate with CVC Credit (EDL funds) sized to a 6% strategic asset allocation; topped up Oct 2023.",
+  "sources": [
+   {
+    "label": "PFC 19 Oct 2023 Private Debt Top-up",
+    "url": "https://westminster.moderngov.co.uk/documents/s55863/PFC%2019102023%20-%20Private%20Debt%20Top-up.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Ireland Strategic Investment Fund (ISIF)",
+  "type": "Sovereign Wealth Fund",
+  "hq": "Ireland",
+  "aum": null,
+  "aumCcy": "EUR",
+  "aumAsOf": null,
+  "strategies": [
+   "SME direct lending",
+   "Growth / venture debt",
+   "Real estate debt"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Irish sovereign development fund managed by NTMA; committed >€1.6bn to 35 investments in 2024; regular anchor of Irish SME credit funds.",
+  "sources": [
+   {
+    "label": "ISIF – DunPort Willow",
+    "url": "https://www.isif.ie/news/dunport-raises-200m-for-its-fourth-sme-focused-credit-fund"
+   },
+   {
+    "label": "ISIF – PCP Fund V",
+    "url": "https://www.isif.ie/news/isif-commits-50m-to-p-capital-partners-fund-v-to-back-irish-entrepreneur-led-and-family-owned-businesses"
+   }
+  ]
+ },
+ {
+  "name": "Construction Workers' Pension Scheme",
+  "type": "Corporate Pension",
+  "hq": "Ireland",
+  "aum": null,
+  "aumCcy": "EUR",
+  "aumAsOf": null,
+  "strategies": [
+   "SME direct lending"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Irish industry-wide construction sector pension scheme; named LP in DunPort Willow Corporate Credit DAC first close (Jan 2025).",
+  "sources": [
+   {
+    "label": "Dakota – DunPort first close",
+    "url": "https://www.dakota.com/fundraising-news/dunport-raises-200m-at-first-close-of-fourth-credit-fund"
+   }
+  ]
+ },
+ {
+  "name": "TPT Retirement Solutions",
+  "type": "Corporate Pension",
+  "hq": "United Kingdom",
+  "aum": 9.6,
+  "aumCcy": "GBP",
+  "aumAsOf": "2023-09-30",
+  "strategies": [
+   "Multi-strategy private credit"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "UK multi-employer DB/DC provider; seeded £650m TPT IM Private Credit Fund from its DB master trust (Sep 2024).",
+  "sources": [
+   {
+    "label": "TPT press release",
+    "url": "https://www.tpt.co.uk/news-insights/tpt-investment-management-launches-650m-private-credit-fund"
+   }
+  ]
+ },
+ {
+  "name": "Phoenix Group",
+  "type": "Insurance",
+  "hq": "United Kingdom",
+  "aum": null,
+  "aumCcy": "GBP",
+  "aumAsOf": null,
+  "strategies": [
+   "Investment-grade private credit (direct)"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "UK life/annuity insurer; mostly direct origination (c.£800m directly originated H1 2025, >90% of its private credit allocation YTD).",
+  "sources": [
+   {
+    "label": "ACI Aug 2025",
+    "url": "https://alternativecreditinvestor.com/2025/08/20/phoenix-group-makes-inaugural-private-debt-investment-in-australia/"
+   }
+  ]
+ },
+ {
+  "name": "M&G With-Profits Fund",
+  "type": "Insurance",
+  "hq": "United Kingdom",
+  "aum": 138,
+  "aumCcy": "GBP",
+  "aumAsOf": "2026-10",
+  "strategies": [
+   "Diversified private credit",
+   "ABF"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "M&G plc's with-profits fund (Prudential heritage); seeded M&G's first private credit LTAF with £74m (Oct 2026).",
+  "sources": [
+   {
+    "label": "Scottish Financial News Oct 2026",
+    "url": "https://www.scottishfinancialnews.com/articles/m-g-launches-first-long-term-asset-fund-funded-by-firms-ps138bn-with-profits"
+   }
+  ]
+ },
+ {
+  "name": "London Borough of Merton Pension Fund",
+  "type": "Public Pension",
+  "hq": "United Kingdom",
+  "aum": null,
+  "aumCcy": "GBP",
+  "aumAsOf": null,
+  "strategies": [
+   "Real estate debt"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "London LGPS fund; invested in Invesco CMI Europe real estate credit fund in H2 2025.",
+  "sources": [
+   {
+    "label": "Invesco press release 22 Jul 2026",
+    "url": "https://www.invesco.com/content/dam/invesco/uk/en/pdf/press/2026/lgps-central-becomes-latest-investor-in-invesco-22-jul-26.pdf"
+   }
+  ]
+ },
+ {
+  "name": "London Borough of Barnet Pension Fund",
+  "type": "Public Pension",
+  "hq": "United Kingdom",
+  "aum": 1.71,
+  "aumCcy": "GBP",
+  "aumAsOf": "2025-04",
+  "strategies": [
+   "Private debt"
+  ],
+  "mandateStatus": "Allocating",
+  "pcAllocationPct": 8,
+  "notes": "Recommended (Apr 2025) to raise private debt to 8% of the £1.71bn fund; vehicle/manager not named in source.",
+  "sources": [
+   {
+    "label": "Room151 Apr 2025",
+    "url": "https://www.room151.co.uk/151-news/barnet-pension-fund-ups-allocation-to-private-debt/"
+   }
+  ]
+ },
+ {
+  "name": "Merseyside Pension Fund",
+  "type": "Public Pension",
+  "hq": "United Kingdom",
+  "aum": 11.0,
+  "aumCcy": "GBP",
+  "aumAsOf": "2025-03-31",
+  "strategies": [
+   "Private credit",
+   "UK property loans",
+   "Local SME lending"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": 5.0,
+  "notes": "Northern LGPS member; private credit £544m (5.0% of assets) at 31/03/2025; also £95m local project loans and £10m to a local SME fund.",
+  "sources": [
+   {
+    "label": "MPF Annual Report 2024/25 (draft)",
+    "url": "https://lgpsboard.org/wp-content/uploads/2025/11/Merseyside2425_draft.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Lincolnshire Pension Fund",
+  "type": "Public Pension",
+  "hq": "United Kingdom",
+  "aum": 3.5585,
+  "aumCcy": "GBP",
+  "aumAsOf": "2025-03-31",
+  "strategies": [
+   "Private credit (via Border to Coast)"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Border to Coast partner fund; private markets (incl. legacy PE/infra) 19.7% of assets and multi-asset credit 10.2% at 31/03/2025.",
+  "sources": [
+   {
+    "label": "LPF Fund Report 2025",
+    "url": "https://www.wypf.org.uk/lpf/lpf-fund-report-2025"
+   }
+  ]
+ },
+ {
+  "name": "Dyfed Pension Fund",
+  "type": "Public Pension",
+  "hq": "United Kingdom",
+  "aum": null,
+  "aumCcy": "GBP",
+  "aumAsOf": null,
+  "strategies": [
+   "Private credit (via WPP/Russell)",
+   "European direct lending"
+  ],
+  "mandateStatus": "Allocating",
+  "pcAllocationPct": 5,
+  "notes": "Welsh LGPS fund (Wales Pension Partnership); raising private credit allocation to 5% funded from public equities; known commitments include WPP Global Private Credit Fund.",
+  "sources": [
+   {
+    "label": "PEI institution profile",
+    "url": "https://www.pei-privatecredit.com/institution-profiles/dyfed-pension-fund.html"
+   }
+  ]
+ },
+ {
+  "name": "Florida State Board of Administration (SBA)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 245.0,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-06-30",
+  "strategies": [
+   "Direct Lending",
+   "Opportunistic Credit"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Building out active credit: $500m JPMorgan DL (Jul 2026), $800m Two Seventy St. Marks (Q2 2026), ~$1.05bn of credit vehicles in Q1 2026.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (May 2026)",
+    "url": "https://www.dakota.com/hubfs/May%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "P&I Jul 2026",
+    "url": "https://www.pionline.com/institutional-investors/pension-funds/pi-florida-state-board-private-credit-july-2026/"
+   }
+  ]
+ },
+ {
+  "name": "Texas Municipal Retirement System (TMRS)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 45.41,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-06-25",
+  "strategies": [
+   "Structured Credit",
+   "Specialty Finance"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "2026 private-market pacing plan of $4.75bn incl. $2bn private credit (Dec 2025). Committed $600m LibreMax structured credit and $150m PIMCO specialty finance.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (January 2026)",
+    "url": "https://www.dakota.com/hubfs/January%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (April 2026)",
+    "url": "https://www.dakota.com/hubfs/April%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (June 2026)",
+    "url": "https://www.dakota.com/hubfs/June%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Washington State Investment Board (WSIB)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 202.8,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-09-03",
+  "strategies": [
+   "Special Situations",
+   "Distressed"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$300m to Monarch Capital Partners VII (Apr 2026).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (April 2026)",
+    "url": "https://www.dakota.com/hubfs/April%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "State of Wisconsin Investment Board (SWIB)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 178.0,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-09-09",
+  "strategies": [
+   "Structured Credit",
+   "Distressed",
+   "Asset-Based Finance",
+   "Direct Lending",
+   "Opportunistic Credit"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Frequent $50-100m credit tickets: Ares GSS, Glendon IV, Pantheon Senior Debt IV, Altriarch (x2), CapitalSpring VII, Charlesbank Credit Opps IV.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (January 2026)",
+    "url": "https://www.dakota.com/hubfs/January%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Massachusetts PRIM (Pension Reserves Investment Management Board)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 115.0,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-08-04",
+  "strategies": [
+   "Real Estate Debt"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$250m Affinius Credit Fund-of-One (May 2026). Plan assets shown as $123.3bn in May 2026 brief.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (May 2026)",
+    "url": "https://www.dakota.com/hubfs/May%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (August 2026)",
+    "url": "https://www.dakota.com/hubfs/August%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Connecticut Retirement Plans and Trust Funds (CRPTF)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 62.7,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-07-08",
+  "strategies": [
+   "Direct Lending",
+   "Special Situations",
+   "Private Debt FoF"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$500m to Fortress Lending Fund V + co-invest (Jul 2026), $300m Sixth Street TAO 6.0 (May 2026), $250m HarbourVest CT Private Debt Partnership (Jan 2026).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (July 2026)",
+    "url": "https://www.dakota.com/hubfs/July%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (May 2026)",
+    "url": "https://www.dakota.com/hubfs/May%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (January 2026)",
+    "url": "https://www.dakota.com/hubfs/January%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "North Carolina Investment Authority",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 208.23,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-08-28",
+  "strategies": [
+   "Special Situations",
+   "Real Estate Debt"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Manages NC Retirement Systems assets; $300m Marathon Currituck (Aug 2026) and $2.1bn North Star RE-debt holdings.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Indiana Public Retirement System (INPRS)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 63.13,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-09-11",
+  "strategies": [
+   "Opportunistic Credit",
+   "Mezzanine",
+   "Distressed"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "EUR85m ICG Europe IX (Sep 2026); $830m Oaktree Sycamore, $570m Bain Opportunistic Credit, $150m Kennedy Lewis IV + co-invest (Apr 2026).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (April 2026)",
+    "url": "https://www.dakota.com/hubfs/April%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Alaska Retirement Management Board",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 51.0,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-09-15",
+  "strategies": [
+   "Direct Lending"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$100m TPG AG Direct Lending Evergreen Fund (Jun 2026).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (June 2026)",
+    "url": "https://www.dakota.com/hubfs/June%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Kentucky Teachers' Retirement System",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 26.1,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-09-21",
+  "strategies": [
+   "Direct Lending"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$125m PGIM Large Cap Private Credit Fund I (Jun 2026).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (June 2026)",
+    "url": "https://www.dakota.com/hubfs/June%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Orange County Employees Retirement System (OCERS)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 30.35,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-08-26",
+  "strategies": [
+   "Multi-Strategy Credit",
+   "Asset-Based Finance"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$250m ICG Global Total Credit (Aug 2026); $200m Ares Pathfinder III (May 2026).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (June 2026)",
+    "url": "https://www.dakota.com/hubfs/June%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Contra Costa County Employees' Retirement Association (CCCERA)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 13.7,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-06-30",
+  "strategies": [
+   "Opportunistic Credit",
+   "Multi-Strategy Credit"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Credit 12.9% of fund at 30 Jun 2026 (public+private). Jan 2026: $100m each to HPS, KKR, Oak Hill credit; $60m ICG Metropolitan II.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (August 2026)",
+    "url": "https://www.dakota.com/hubfs/August%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (January 2026)",
+    "url": "https://www.dakota.com/hubfs/January%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Kern County Employees' Retirement Association (KCERA)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 5.8,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-08-06",
+  "strategies": [
+   "Direct Lending",
+   "Opportunistic Credit",
+   "Asset-Based Finance"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$40m Oak Hill European Credit Opportunities (Aug 2026), $40m Silver Point Tactical, $40m Ares Pathfinder III.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (August 2026)",
+    "url": "https://www.dakota.com/hubfs/August%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (June 2026)",
+    "url": "https://www.dakota.com/hubfs/June%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (May 2026)",
+    "url": "https://www.dakota.com/hubfs/May%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "San Diego City Employees' Retirement System (SDCERS)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 11.9,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-09-10",
+  "strategies": [
+   "Direct Lending",
+   "Asset-Based Finance"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$50m Pemberton Mid-Market Debt Fund V (Jul 2026); $25m Oaktree ABF; $25m TPG Twin Brook.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (July 2026)",
+    "url": "https://www.dakota.com/hubfs/July%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (May 2026)",
+    "url": "https://www.dakota.com/hubfs/May%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "San Diego County Employees Retirement Association (SDCERA)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 17.7,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-09-17",
+  "strategies": [
+   "CLO / Structured Credit"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$100m PIMCO CLO Opportunities Fund II (Nov 2025).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (January 2026)",
+    "url": "https://www.dakota.com/hubfs/January%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Teachers' Retirement System of the State of Illinois (TRS Illinois)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 76.77,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-07-31",
+  "strategies": [
+   "Direct Lending",
+   "Mining Finance"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Jul 2026 income bucket: $125m Park Square European Loan Partners II, $100m ICG Santo, $150m Taurus Mining No.3, $100m Locust Point IV-B.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (August 2026)",
+    "url": "https://www.dakota.com/hubfs/August%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (June 2026)",
+    "url": "https://www.dakota.com/hubfs/June%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "New Hampshire Retirement System",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 14.6,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-08-25",
+  "strategies": [
+   "Direct Lending"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$100m Pemberton Mid-Market Debt Fund V (Aug 2026); $50m Crescent Direct Lending IV (May 2026); 2026 pacing $350-400m private credit.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (August 2026)",
+    "url": "https://www.dakota.com/hubfs/August%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (June 2026)",
+    "url": "https://www.dakota.com/hubfs/June%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (February 2026)",
+    "url": "https://www.dakota.com/hubfs/February%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "District of Columbia Retirement Board",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 12.1,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-05-21",
+  "strategies": [
+   "Direct Lending",
+   "Asset-Based Finance"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "EUR150m Arcmont Direct Lending (May 2026); $100m Ares Pathfinder III (Jul 2026).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (July 2026)",
+    "url": "https://www.dakota.com/hubfs/July%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Boston Retirement System",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 8.2,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-07-22",
+  "strategies": [
+   "Direct Lending",
+   "Distressed",
+   "Asset-Based Finance"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Jun 2026: $20m Arcmont DLF V, $20m Sound Point US DL IV; Aug 2026: GoldenTree Distressed V, HarbourVest Credit Opps IV, Callodine ABL III.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (July 2026)",
+    "url": "https://www.dakota.com/hubfs/July%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Ohio Police & Fire Pension Fund",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 22.6,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-08-26",
+  "strategies": [
+   "Direct Lending"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$50m Ardian Private Credit VI (Apr 2026); $50m TPG Twin Brook DL VI (Jun 2026); $50m Audax DL Solutions III (Jan 2026).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (May 2026)",
+    "url": "https://www.dakota.com/hubfs/May%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (July 2026)",
+    "url": "https://www.dakota.com/hubfs/July%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "San Joaquin County Employees' Retirement Association (SJCERA)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 5.6,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-08-14",
+  "strategies": [
+   "Direct Lending",
+   "Distressed"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$50m Pemberton Strategic Credit Fund IV (Mar 2026); $50m Oaktree Special Situations IV (Feb 2026).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (April 2026)",
+    "url": "https://www.dakota.com/hubfs/April%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (February 2026)",
+    "url": "https://www.dakota.com/hubfs/February%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (August 2026)",
+    "url": "https://www.dakota.com/hubfs/August%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Vermont Pension Investment Commission (VPIC)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 6.3,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-09-22",
+  "strategies": [
+   "Direct Lending",
+   "Credit Secondaries"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "2026 pacing: $110m direct lending + $125m other private credit. Committed $75m Pemberton MMD Evergreen, $50m Pantheon Credit Opps IV, $35m Comvest.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (February 2026)",
+    "url": "https://www.dakota.com/hubfs/February%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (July 2026)",
+    "url": "https://www.dakota.com/hubfs/July%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (June 2026)",
+    "url": "https://www.dakota.com/hubfs/June%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Ventura County Employees' Retirement Association (VCERA)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 8.1,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-09-28",
+  "strategies": [
+   "Special Situations",
+   "Credit Secondaries"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Targeting $220m private credit commitments in 2026; $30m Soho Square Capital Fund II, $25m Crayhill IV (Sep 2026).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (April 2026)",
+    "url": "https://www.dakota.com/hubfs/April%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "City of Fresno Retirement Systems",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 4.8,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-09-09",
+  "strategies": [
+   "Special Situations",
+   "Opportunistic Credit"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$35m Arcmont Capital Solutions and $25m Monroe ACS (Jul 2026).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (July 2026)",
+    "url": "https://www.dakota.com/hubfs/July%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (September 2026)",
+    "url": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Montana Board of Investments",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 15.0,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-08-26",
+  "strategies": [
+   "Infrastructure Debt",
+   "Opportunistic Credit"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "$100m Copenhagen Evergreen Credit Fund (Aug 2026); $50m GoldenTree Tactical Opportunities (Feb 2026).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (August 2026)",
+    "url": "https://www.dakota.com/hubfs/August%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Dakota Public Plan Minutes (February 2026)",
+    "url": "https://www.dakota.com/hubfs/February%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "South Carolina Retirement System Investment Commission (RSIC)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 53.91,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-06-04",
+  "strategies": [
+   "Direct Lending",
+   "Opportunistic Credit"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Investor in Jefferies inaugural European DL fund (Sep 2026); $250m Barings Blue Ridge (Jun 2026); $350m Fortress Fripp Credit (Dec 2025).",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (June 2026)",
+    "url": "https://www.dakota.com/hubfs/June%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "Alternative Credit Investor, 9 Sep 2026",
+    "url": "https://alternativecreditinvestor.com/2026/09/09/jefferies-reaches-4bn-in-european-lending-capacity/"
+   }
+  ]
+ },
+ {
+  "name": "Arizona State Retirement System",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 50.0,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-03-26",
+  "strategies": [
+   "Private Credit"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": 22,
+  "notes": "2026 pacing: $1.6bn to private credit while maintaining a 22% target allocation.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (July 2026)",
+    "url": "https://www.dakota.com/hubfs/July%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Employees' Retirement System of Texas (ERS)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": 39.1,
+  "aumCcy": "USD",
+  "aumAsOf": "2026-08-25",
+  "strategies": [
+   "Private Credit"
+  ],
+  "mandateStatus": "Planning",
+  "pcAllocationPct": null,
+  "notes": "2027 pacing: $400m private credit target ($300-500m) across 2-4 primary fund commitments.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (August 2026)",
+    "url": "https://www.dakota.com/hubfs/August%202026%20Pension%20Brief.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Nippon Life Insurance",
+  "type": "Insurance",
+  "hq": "Japan",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Investment-Grade Private Credit",
+   "Structured Credit",
+   "Infrastructure Debt"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "MoU to commit ~JPY1.5tn (~$9.4bn) to Blackstone credit over 5 yrs (Jun 2026); JPY53bn to DWS European transition infra debt (Nov 2025).",
+  "sources": [
+   {
+    "label": "Advisor Perspectives / Bloomberg, 3 Jun 2026",
+    "url": "https://www.advisorperspectives.com/articles/2026/06/03/blackstone-ties-nippon-life-private-credit-investment"
+   },
+   {
+    "label": "Asia Asset Management, 7 Nov 2025",
+    "url": "https://www.asiaasset.com/?p=100851"
+   }
+  ]
+ },
+ {
+  "name": "Dai-ichi Life Insurance",
+  "type": "Insurance",
+  "hq": "Japan",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Multi-Strategy Credit",
+   "Infrastructure Debt"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "19.9% stake in Canyon Partners plus >=$1.3bn LP capital (2024); anchor EUR80m to M&G European infra debt (2018).",
+  "sources": [
+   {
+    "label": "Alternatives Watch, 14 Mar 2024",
+    "url": "https://www.alternativeswatch.com/2024/03/14/japan-insurer-dai-ichi-life-us-private-credit-foothold-canyon-partners-acquisition-deal/"
+   },
+   {
+    "label": "Private Debt Investor",
+    "url": "https://privatedebtinvestor.com/dai-ichi-life-commits-e80m-mgs-infra-debt-fund-2"
+   }
+  ]
+ },
+ {
+  "name": "Qatar Investment Authority (QIA)",
+  "type": "Sovereign Wealth Fund",
+  "hq": "Qatar",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Direct Lending",
+   "Multi-Asset Partnerships"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Large manager partnerships: $5bn US private credit with JPMorgan AM (Sep 2026), $25bn GSAM MoU (Jan 2026), 5C direct lending partnership (Feb 2026).",
+  "sources": [
+   {
+    "label": "Pulse 2.0, 21 Sep 2026",
+    "url": "https://pulse2.com/qia-and-j-p-morgan-asset-management-form-20-billion-partnership-across-global-equities-and-u-s-private-credit/"
+   },
+   {
+    "label": "Investment Monitor",
+    "url": "https://www.investmentmonitor.ai/news/qia-goldman-sachs-mou-25bn/"
+   }
+  ]
+ },
+ {
+  "name": "Public Investment Fund (PIF)",
+  "type": "Sovereign Wealth Fund",
+  "hq": "Saudi Arabia",
+  "aum": 930.0,
+  "aumCcy": "USD",
+  "aumAsOf": "2025-03",
+  "strategies": [
+   "Direct Lending (GCC)"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": 1,
+  "notes": "Non-binding MoU to anchor GSAM GCC private credit funds (Mar 2025). Semafor (Apr 2026, Global SWF data): ~1% of portfolio in private credit.",
+  "sources": [
+   {
+    "label": "Alternatives Watch, 5 Mar 2025",
+    "url": "https://www.alternativeswatch.com/2025/03/05/saudi-arabias-pif-agrees-to-anchor-goldman-sachs-private-credit-funds/"
+   },
+   {
+    "label": "Semafor, 9 Apr 2026",
+    "url": "https://www.semafor.com/article/04/09/2026/gulf-sovereigns-quadruple-private-credit-portfolios"
+   }
+  ]
+ },
+ {
+  "name": "Alpha Dhabi Holding",
+  "type": "Sovereign Wealth Fund",
+  "hq": "UAE",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Multi-Strategy Credit"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Holds 20% of a credit co-investment JV with Mubadala (up to ~$2.5bn) leveraging Mubadala-Apollo partnership (Jan 2023). Strictly an ADX-listed holding company.",
+  "sources": [
+   {
+    "label": "Apollo press release, Jan 2023",
+    "url": "https://www.apollo.com/insights-news/pressreleases/2023/01/alpha-dhabi-and-mubadala-form-partnership-to-co-invest-in-global-credit-opportunities"
+   }
+  ]
+ },
+ {
+  "name": "Temasek",
+  "type": "Sovereign Wealth Fund",
+  "hq": "Singapore",
+  "aum": 518.0,
+  "aumCcy": "SGD",
+  "aumAsOf": "2026-03-31",
+  "strategies": [
+   "Corporate Lending",
+   "Asset-Based Finance",
+   "Real Estate Credit",
+   "Venture Debt"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": 2,
+  "notes": "Private credit 2% of portfolio, target 5% by 2031; in-house arm Aranda Principal Strategies (>S$13bn). Pinegrove venture-debt partnership May 2026.",
+  "sources": [
+   {
+    "label": "Alternative Credit Investor, 8 Jul 2026",
+    "url": "https://alternativecreditinvestor.com/2026/07/08/temasek-to-more-than-double-private-credit-allocation-by-2031/"
+   },
+   {
+    "label": "Alternatives Watch, 14 May 2026",
+    "url": "https://www.alternativeswatch.com/2026/05/14/temasek-pinegrove-credit-venture-debt-partnership/"
+   }
+  ]
+ },
+ {
+  "name": "OMERS",
+  "type": "Public Pension",
+  "hq": "Canada",
+  "aum": 151.6,
+  "aumCcy": "CAD",
+  "aumAsOf": "2026-06-30",
+  "strategies": [
+   "Direct Lending",
+   "Leveraged Loans",
+   "Structured Credit"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Net assets $151.6bn after H1 2026 (Dakota; OMERS reports in CAD). GSAM Asia Pacific private credit SMA (2023); London-based European credit team.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (August 2026)",
+    "url": "https://www.dakota.com/hubfs/August%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "OMERS news, Sep 2023",
+    "url": "https://www.omers.com/news/goldman-sachs-asset-management-and-omers-enter-into-private-credit-partnership"
+   }
+  ]
+ },
+ {
+  "name": "PSP Investments",
+  "type": "Public Pension",
+  "hq": "Canada",
+  "aum": 264.9,
+  "aumCcy": "CAD",
+  "aumAsOf": "2026-02",
+  "strategies": [
+   "Direct Lending",
+   "Leveraged Loans",
+   "European Credit"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Plan assets per Dakota (shown as $264.9bn; PSP reports in CAD). Seeded AlbaCore with EUR500m (2016); sources loans for AIMCo under 2023 pact.",
+  "sources": [
+   {
+    "label": "Dakota Public Plan Minutes (February 2026)",
+    "url": "https://www.dakota.com/hubfs/February%202026%20Pension%20Brief.pdf"
+   },
+   {
+    "label": "PSP press release, 1 Nov 2016",
+    "url": "https://www.investpsp.com/en/news/psp-investments-commits-eur500-million-in-newly-created-european-credit-platform-albacore/"
+   }
+  ]
+ },
+ {
+  "name": "AIMCo (Alberta Investment Management Corporation)",
+  "type": "Public Pension",
+  "hq": "Canada",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Direct Lending",
+   "Leveraged Loans"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Jan 2023 arrangement with PSP Investments to co-invest in PSP-sourced loans; private credit teams in Edmonton, Toronto and London.",
+  "sources": [
+   {
+    "label": "GlobalCapital",
+    "url": "https://www.globalcapital.com/article/2b4px6bez6occaapv64n4/levfin/aimco-and-psp-join-forces-for-private-credit-origination"
+   }
+  ]
+ },
+ {
+  "name": "Brighter Super",
+  "type": "Public Pension",
+  "hq": "Australia",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Direct Lending (Europe)"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Queensland super fund; among four Australian investors committing A$705m combined to an Arcmont European direct lending portfolio (Sep 2026).",
+  "sources": [
+   {
+    "label": "Nuveen, Sep 2026",
+    "url": "https://www.nuveen.com/global/insights/news/nuveen-raises-705-million-for-arcmonts-european-direct-lending-strategy?type=au"
+   },
+   {
+    "label": "Investment Magazine, Sep 2026",
+    "url": "https://www.investmentmagazine.com.au/2026/09/brighter-super-jana-back-european-direct-lending-push/"
+   }
+  ]
+ },
+ {
+  "name": "JANA Private Credit Trust",
+  "type": "Fund of Funds",
+  "hq": "Australia",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Direct Lending (Europe)"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Pooled private credit vehicle of consultant JANA; co-investor with Brighter Super in Arcmont European DL Australian portfolio (Sep 2026).",
+  "sources": [
+   {
+    "label": "Nuveen, Sep 2026",
+    "url": "https://www.nuveen.com/global/insights/news/nuveen-raises-705-million-for-arcmonts-european-direct-lending-strategy?type=au"
+   }
+  ]
+ },
+ {
+  "name": "Korean Scientists and Engineers Mutual-aid Association (SEMA)",
+  "type": "Public Pension",
+  "hq": "South Korea",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Direct Lending (Europe)"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "EUR28m to BlueBay European mid-market private debt fund (Jan 2018).",
+  "sources": [
+   {
+    "label": "KED Global, 22 Jan 2018",
+    "url": "https://www.kedglobal.com/newsView/ked201801220001"
+   }
+  ]
+ },
+ {
+  "name": "Korea Post",
+  "type": "Bank / Treasury",
+  "hq": "South Korea",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Hybrid / Structured Credit"
+  ],
+  "mandateStatus": "Active",
+  "pcAllocationPct": null,
+  "notes": "Government postal agency; KRW150bn credit blind-fund mandate to STIC and IMM Credit & Solutions (Apr 2025).",
+  "sources": [
+   {
+    "label": "Asia Asset Management, 16 Apr 2025",
+    "url": "https://www.asiaasset.com/?p=9056"
+   }
+  ]
+ }
+]

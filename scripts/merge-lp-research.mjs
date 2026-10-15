@@ -4,9 +4,10 @@
 // already present (same lp + manager/fund + date + source URL) or an LP already present
 // (same name) is skipped. Every record keeps its public source URL; unknown = null.
 //   node scripts/merge-lp-research.mjs [--dry-run]
-// Inputs (committed for provenance): backfill/lp-profiles-2026-10.json,
-//   backfill/lp-commitments-2026-10.json — public pension board papers / transaction
-//   reports, manager & LP releases, trade press (each row's sourceUrl).
+// Inputs (committed for provenance): every backfill/lp-profiles-*.json and
+//   backfill/lp-commitments-*.json — public pension board papers / transaction reports,
+//   manager & LP releases, trade press (each row's sourceUrl). The LP sweep in
+//   docs/refresh-routines.md appends to these and re-runs this script.
 // AUM is USD by convention (HOUSE_STYLE R29): a EUR/GBP figure converts at AUM_FX and
 // records aumFrom provenance; any other currency is left null rather than guessed.
 // =============================================================================
@@ -19,6 +20,7 @@ const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const FILE = path.join(ROOT, "credit", "js", "data.js");
 const DRY = process.argv.includes("--dry-run");
 const read = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, "backfill", f), "utf8"));
+const inputs = (prefix) => fs.readdirSync(path.join(ROOT, "backfill")).filter((f) => f.startsWith(prefix) && f.endsWith(".json")).sort().flatMap(read);
 const C = await import(path.join(ROOT, "credit", "js", "data.js"));
 const FX = { USD: 1, EUR: C.AUM_FX.EURUSD, GBP: C.AUM_FX.GBPUSD };
 const norm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
@@ -28,7 +30,7 @@ const lpRecs = readRecords(FILE, "lps").map((r) => r.obj);
 const byName = new Map(lpRecs.map((l) => [norm(l.name), l.id]));
 let next = maxId(FILE, "l");
 const newLps = [];
-for (const x of read("lp-profiles-2026-10.json")) {
+for (const x of inputs("lp-profiles-")) {
   if (byName.has(norm(x.name))) continue;
   const id = "l" + (++next);
   const fx = x.aum != null && x.aumCcy ? FX[x.aumCcy] : null;
@@ -36,7 +38,7 @@ for (const x of read("lp-profiles-2026-10.json")) {
     id, name: x.name, type: x.type, hq: x.hq,
     aum: fx ? +(x.aum * fx).toFixed(1) : null,
     ...(fx && x.aumCcy !== "USD" ? { aumFrom: { aum: x.aumCcy } } : {}),
-    pcAllocationPct: null, pcEstimated: false, typicalTicket: null,
+    pcAllocationPct: x.pcAllocationPct ?? null, pcEstimated: false, typicalTicket: null,
     strategies: x.strategies || [], mandateStatus: x.mandateStatus || "Selective", mandateInferred: true,
     notes: x.notes || "", asOf: x.aumAsOf || null, sources: x.sources || [],
   };
@@ -47,7 +49,7 @@ for (const x of read("lp-profiles-2026-10.json")) {
 const have = new Set(C.commitments.map((c) => [c.lpId, c.managerId, c.fundId, c.date || "", c.sourceUrl || ""].join("|")));
 const newC = [];
 let unmatched = 0;
-for (const x of read("lp-commitments-2026-10.json")) {
+for (const x of inputs("lp-commitments-")) {
   const lpId = byName.get(norm(x.lp));
   if (!lpId) { unmatched++; continue; }
   const rec = {

@@ -1278,7 +1278,13 @@ notification badge red (`#ef4444`).
   shows advisers and terms only from the deal's own source or a tracked firm's announcement
   (`v2/js/deal-advisers.js`, `tests/deal-advisers.mjs`). **(g) Borrower pages** at
   `/v2/profiles/#/co/<name>` gather deals, plans, judgments, alerts and the UK registry
-  (`tests/borrower-page.mjs`). **(h) Rates** show a market-implied path from prediction-
+  (public Companies House register, no API key — `tests/borrower-page.mjs`,
+  `tests/companies-house-parse.mjs`). **(i) Everything opens inside Wire** — every external
+  link opens the app-wide reader (`v2/js/reader-overlay.js`); only a source that can't be
+  read in the app (paywall, bot-wall, PDF, empty extraction) shows its one external link
+  (`tests/in-app-reader.mjs`). Paywall / link-out lists live in `v2/js/read-policy.js`. **(j) Dashboard lists preview 10 rows +
+  "See all N" on desktop as well as iPhone** (desktop "See all" is a centred panel);
+  Home rails keep fixed widths on every screen (`tests/dashboard-desktop-preview.mjs`). **(h) Rates** show a market-implied path from prediction-
   market odds, labelled as crowd probabilities (`tests/rates-implied.mjs`).
 
 ## 7. Technical rules

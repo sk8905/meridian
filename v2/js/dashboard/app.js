@@ -360,6 +360,14 @@ export function mount(host, ctx) {
     });
   }
   const itemsOf = (body) => {
+    // Phone reads the stacked list; desktop reads the visible table rows.
+    // Desktop: the LONGEST list in the body (a card can hold a 4-row summary table and a
+    // long news list — preview the long one).
+    if (!isPhone()) {
+      const cands = [...body.querySelectorAll("tbody")].map((t) => [...t.children].filter((r) => r.tagName === "TR"));
+      for (const sel of ["li.dsh-news-i", ".dsh-km", ".dsh-earn-rel", ".dsh-hf-i", ".dsh-lgl-i"]) cands.push([...body.querySelectorAll(sel)]);
+      return cands.sort((a, b) => b.length - a.length)[0] || [];
+    }
     const stk = body.querySelector(".dsh-stk-list"); if (stk) return [...stk.children];
     for (const sel of ["li.dsh-news-i", ".dsh-km", ".dsh-earn-rel", ".dsh-hf-i", ".dsh-lgl-i"]) { const a = [...body.querySelectorAll(sel)]; if (a.length) return a; }
     return [...body.querySelectorAll("tbody tr")];
@@ -371,7 +379,8 @@ export function mount(host, ctx) {
   function previewList(body) {
     body.querySelectorAll(".dsh-pv-hide").forEach(pvShow);
     body.querySelectorAll(":scope > .dsh-seeall").forEach((e) => e.remove());
-    if (!isPhone() || body.querySelector(".dsh-chart")) return;
+    // Phone AND desktop (owner 2026-10-15): every long list previews 10 rows + "See all".
+    if (body.querySelector(".dsh-chart")) return;
     const items = itemsOf(body); if (items.length <= PREVIEW) return;
     items.slice(PREVIEW).forEach(pvHide);
     // A sub-heading (earnings week) left with nothing visible after it hides too.
@@ -382,12 +391,17 @@ export function mount(host, ctx) {
   // changes — an iPhone home-screen app can mount the view before its viewport width is
   // final, so a decision taken only at mount could leave full lists showing.
   let _lastPhone = null, _ros = null;
+  // Every list-bearing card body: fill cards, the legal search results, the news rails,
+  // and the long tables (stress list, regulatory calendar, funds in market, LP
+  // commitments, implied path, credit wire).
+  const PV_SEL = ".dsh-fill-body, #dsh-lgl-body, .dsh-newsrail > .dsh-card, .dsh-stresswrap, #dsh-regcal-b, #dsh-fim-b, #dsh-lpc, #dsh-implied";
+  const repreview = (el) => { if (!el) return; if (isPhone()) stackTables(el); previewList(el); };
   function phoneTidy() {
     const ph = isPhone();
     if (_ros && _lastPhone !== null && ph !== _lastPhone) _ros.refresh();
     _lastPhone = ph;
     stackTables(host);
-    host.querySelectorAll(".dsh-mid .dsh-fill-body, #dsh-lgl-body, .dsh-newsrail > .dsh-card").forEach(previewList);
+    host.querySelectorAll(PV_SEL).forEach(previewList);
   }
   let _closeSheet = null;
   // openSheet(body): the whole list, cloned, with a search bar.
@@ -1227,7 +1241,7 @@ export function mount(host, ctx) {
   async function loadImplied() {
     const res = await liveJSON("/api/predict");
     _pred = res.data && typeof res.data === "object" ? res.data : {}; _predState = res;
-    const el = host.querySelector("#dsh-implied"); if (el) { el.innerHTML = impliedHTML(); if (isPhone()) stackTables(el); }
+    const el = host.querySelector("#dsh-implied"); if (el) { el.innerHTML = impliedHTML(); repreview(el); }
     if ((_pred.markets || []).length) badge(res, "implied");
   }
   async function loadYieldCurve() {
@@ -1935,7 +1949,7 @@ export function mount(host, ctx) {
     const rc = host.querySelector("#dsh-regcal-b");
     if (rc) rc.addEventListener("click", (e) => {
       const b = e.target.closest("[data-regwin]"); if (!b) return;
-      _regWin = b.dataset.regwin; rc.innerHTML = regCalendarHTML(); if (isPhone()) stackTables(rc);
+      _regWin = b.dataset.regwin; rc.innerHTML = regCalendarHTML(); repreview(rc);
     });
     const q = host.querySelector("#dsh-lgl-q");
     const body = host.querySelector("#dsh-lgl-body");
@@ -1992,21 +2006,21 @@ export function mount(host, ctx) {
       const k = btn.dataset.sort;
       if (_stressSort.key === k) _stressSort.dir *= -1; else { _stressSort.key = k; _stressSort.dir = k === "debt" ? -1 : 1; }
       const wrap = host.querySelector(".dsh-stresswrap");
-      if (wrap) { wrap.outerHTML = stressHTML(); stackTables(host); wireStressSort(); }
+      if (wrap) { wrap.outerHTML = stressHTML(); stackTables(host); repreview(host.querySelector(".dsh-stresswrap")); wireStressSort(); }
     }));
   }
   host.addEventListener("change", (e) => {
     if (!e.target.matches || !e.target.matches(".dsh-fim-strat")) return;
-    _fimStrat = e.target.value; const bx = host.querySelector("#dsh-fim-b"); if (bx) { bx.innerHTML = fimHTML(); if (isPhone()) stackTables(bx); }
+    _fimStrat = e.target.value; const bx = host.querySelector("#dsh-fim-b"); if (bx) { bx.innerHTML = fimHTML(); repreview(bx); }
   });
   host.addEventListener("click", (e) => {
     const fs = e.target.closest("[data-fim-scope]");
-    if (fs) { e.preventDefault(); _fimScope = _fimScope === "eu" ? "all" : "eu"; const bx = host.querySelector("#dsh-fim-b"); if (bx) { bx.innerHTML = fimHTML(); if (isPhone()) stackTables(bx); } return; }
+    if (fs) { e.preventDefault(); _fimScope = _fimScope === "eu" ? "all" : "eu"; const bx = host.querySelector("#dsh-fim-b"); if (bx) { bx.innerHTML = fimHTML(); repreview(bx); } return; }
     const cw = e.target.closest("[data-cwscope]");
     if (cw) {
       e.preventDefault(); _cwScope = _cwScope === "eu" ? "all" : "eu";
       cw.classList.toggle("is-on", _cwScope === "eu"); cw.textContent = _cwScope === "eu" ? "Europe" : "All regions";
-      host.querySelectorAll("#dsh-cw-b").forEach((b) => { b.innerHTML = creditNewsHTML(); });
+      host.querySelectorAll("#dsh-cw-b").forEach((b) => { b.innerHTML = creditNewsHTML(); repreview(b.closest(".dsh-card")); });
       return;
     }
     const more = e.target.closest(".dsh-seeall:not([data-crall]):not([data-bdcall])");
