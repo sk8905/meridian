@@ -1958,9 +1958,122 @@
    "kind": "manager",
    "name": "Schroders Capital",
    "priority": 26,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-16",
+   "events": [
+    {
+     "key": "pamfleet-majority-stake-announced-2020-07",
+     "date": "2020-07-01",
+     "what": "Schroders agrees to buy majority stake in Asian real estate manager Pamfleet",
+     "source": "https://investmentweek.co.uk/news/4017211/schroders-buys-majority-stake-usd-1bn-real-estate-investment-manager",
+     "recordId": "i1235",
+     "status": "present"
+    },
+    {
+     "key": "julie-ii-first-close-2020-07",
+     "date": "2020-07-20",
+     "what": "First close of Schroder Euro Enhanced Infrastructure Debt Fund II (Julie II) at EUR312m",
+     "source": "https://irei.com/news/schroders-second-vintage-european-infrastructure-debt-fund-holds-e312m-first-close/",
+     "recordId": "i1237",
+     "status": "present"
+    },
+    {
+     "key": "pamfleet-majority-stake-completed-2020-08",
+     "date": "2020-08-03",
+     "what": "Pamfleet completes sale of majority stake to Schroders",
+     "source": "https://irei.com/news/pamfleet-sells-majority-stake-schroders/",
+     "recordId": "i1236",
+     "status": "present"
+    },
+    {
+     "key": "rf-eclipse-50pct-stake-2021-04",
+     "date": "2021-04-22",
+     "what": "Schroders acquires 50.1% of Australian CRE lender RF Eclipse (Schroder RF)",
+     "source": "https://www.mingtiandi.com/?p=228466",
+     "status": "rejected",
+     "note": "Exact announcement date not seen on a fetchable source; only a roundup dated 2021-04-26 citing a report dated 2021-04-22. Not verified to the day."
+    },
+    {
+     "key": "greencoat-75pct-acquisition-announced-2021-12",
+     "date": "2021-12-21",
+     "what": "Schroders agrees to acquire 75% of Greencoat Capital for initial GBP358m",
+     "source": "https://www.investegate.co.uk/announcement/rns/schroders--sdr/acquisition/6881528",
+     "recordId": "i1238",
+     "status": "present"
+    },
+    {
+     "key": "greencoat-acquisition-completed-2022-04",
+     "date": "2022-04-11",
+     "what": "Schroders completes acquisition of 75% of Greencoat Capital",
+     "source": "https://www.ticker.app/lse/SDR/rns/2022-04-11/Acquisition/9822H",
+     "recordId": "i1239",
+     "status": "present"
+    },
+    {
+     "key": "julie-iii-first-close-2023-05",
+     "date": "2023-05-15",
+     "what": "First close of Julie III above EUR320m",
+     "source": "https://irei.com/?p=519218",
+     "recordId": "i1240",
+     "status": "present"
+    },
+    {
+     "key": "pdca-launch-2023-10",
+     "date": "2023-10-23",
+     "what": "Schroders Capital launches Private Debt and Credit Alternatives platform, ~$30bn AUM",
+     "source": "https://www.schroders.com/en-us/us/intermediary/media-center/schroders-capital-unveils-global-debt-and-credit-business/",
+     "recordId": "i1241",
+     "status": "present"
+    },
+    {
+     "key": "australia-private-debt-closure-2024-12",
+     "date": "2024-12-18",
+     "what": "Schroders closes Australian private debt business",
+     "source": "https://alternativecreditinvestor.com/2024/12/18/schroders-shutters-australia-private-debt-business/",
+     "recordId": "i1242",
+     "status": "present"
+    },
+    {
+     "key": "julie-iii-final-close-2025-05",
+     "date": "2025-05-20",
+     "what": "Schroders Capital raises EUR2bn for sub-IG infrastructure debt strategy (Julie III final close)",
+     "source": "https://alternativecreditinvestor.com/2025/05/20/schroders-capital-raises-e2bn-for-sub-ig-infrastructure-debt-strategy/",
+     "status": "present",
+     "recordId": "i102"
+    },
+    {
+     "key": "apollo-partnership-2026-02",
+     "date": "2026-02-09",
+     "what": "Schroders and Apollo announce multi-channel partnership",
+     "source": "https://www.schroders.com/en-us/us/institutional/media-center/schroders-and-apollo-to-deliver-next-generation-investment-solutions-in-ambitious-multi-channel-partnership/",
+     "status": "present",
+     "recordId": "i341"
+    },
+    {
+     "key": "nuveen-takeover-agreed-2026-02",
+     "date": "2026-02-12",
+     "what": "Schroders agrees GBP9.9bn cash takeover by Nuveen",
+     "source": "https://www.ajbell.co.uk/news/articles/schroders-shares-jump-accepts-ps10-billion-takeover-bid-profit",
+     "recordId": "i1243",
+     "status": "present"
+    },
+    {
+     "key": "paterson-abf-srt-hire-2026-06",
+     "date": "2026-06-15",
+     "what": "Schroders Capital appoints Bob Paterson as head of European ABF and SRT investments",
+     "source": "https://alternativecreditinvestor.com/2026/06/15/schroders-capital-appoints-head-of-european-abf/",
+     "status": "present",
+     "recordId": "i527"
+    },
+    {
+     "key": "nuveen-takeover-completed-2026-10",
+     "date": "2026-10-01",
+     "what": "Nuveen completes acquisition of Schroders",
+     "source": "https://www.investmentweek.co.uk/news/4536620/nuveen-completes-schroders-acquisition-create-usd26trn-mega-manager",
+     "recordId": "i1244",
+     "status": "present"
+    }
+   ]
   },
   "m155": {
    "kind": "manager",
@@ -2006,9 +2119,138 @@
    "kind": "manager",
    "name": "Allianz Global Investors",
    "priority": 32,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-16",
+   "events": [
+    {
+     "key": "aroc-first-close-435m",
+     "date": "2022-01-14",
+     "what": "AROC infrastructure debt fund first close at EUR435m",
+     "source": "https://www.fundssociety.com/es/noticias/negocio/la-estrategia-de-bonos-de-infraestructuras-de-allianz-gi-capta-435-millones-de-euros-en-su-primer-cierre/",
+     "recordId": "i1261",
+     "status": "present"
+    },
+    {
+     "key": "agredo-real-estate-debt-first-close-515m",
+     "date": "2022-04-26",
+     "what": "First close of Allianz Global Real Estate Debt Opportunities Fund at EUR515m",
+     "source": "https://www.allianz.com/en/mediacenter/news/business/asset_management/220426_Allianz-Global-Investors-first-real-estate-private-debt-fund-holds-first-close.html",
+     "recordId": "i1262",
+     "status": "present"
+    },
+    {
+     "key": "structured-alpha-doj-sec-plea",
+     "date": "2022-05-17",
+     "what": "Allianz announces DOJ and SEC resolution of Structured Alpha; AGI U.S. to plead guilty",
+     "source": "https://www.allianz.com/en/mediacenter/news/financials/business_results/220517_Allianz-SE-announces-resolution-of-US-governmental-investigations-concerning-Structured-Alpha.html",
+     "recordId": "i1263",
+     "status": "present"
+    },
+    {
+     "key": "voya-us-business-transfer-complete",
+     "date": "2022-07-25",
+     "what": "Voya completes transfer of majority of AllianzGI US business",
+     "source": "https://www.voya.com/news/2022/07/voya-financial-completes-transfer-majority-allianz-global-investors-us-business-begins",
+     "recordId": "i1264",
+     "status": "present"
+    },
+    {
+     "key": "agdpd-final-close-3-3bn",
+     "date": "2023-04-20",
+     "what": "Allianz Global Diversified Private Debt Fund final close at EUR3.3bn",
+     "source": "https://www.pei-privatecredit.com/allianzgi-closes-global-fund-of-funds-at-e3-3bn/",
+     "recordId": "i1265",
+     "status": "present"
+    },
+    {
+     "key": "impact-private-credit-first-close-560m",
+     "date": "2024-09-05",
+     "what": "AllianzGI Impact Private Credit strategy first closing at EUR560mn",
+     "source": "https://uk.allianzgi.com/en-gb/our-firm/press-centre/press-releases/20240905-allianzgi-impact-private-credit-strategy-reaches-eur560mn-total-commitments-at-first-closing",
+     "recordId": "i1266",
+     "status": "present"
+    },
+    {
+     "key": "amundi-allianzgi-talks-reported",
+     "date": "2024-12-05",
+     "what": "Amundi reportedly looking at stake in AllianzGI",
+     "source": "https://investmentweek.co.uk/news/4385668/amundi-talks-acquire-allianzgi-reports",
+     "recordId": "i1267",
+     "status": "present"
+    },
+    {
+     "key": "allianz-amundi-talks-stopped",
+     "date": "2024-12-09",
+     "what": "Allianz and Amundi stop talks",
+     "source": "https://dealstreetasia.com/?p=422619",
+     "recordId": "i1268",
+     "status": "present"
+    },
+    {
+     "key": "apds-i-final-close-1-5bn",
+     "date": "2025-01-13",
+     "what": "Final close of first private debt secondaries fund at EUR1.5bn",
+     "source": "https://alternativecreditinvestor.com/2025/01/13/allianzgi-raises-e1-5bn-in-final-close-of-private-debt-secondaries-fund/",
+     "status": "present",
+     "recordId": "i55"
+    },
+    {
+     "key": "guggenheim-private-debt-vehicle-400m",
+     "date": "2025-01-22",
+     "what": "AllianzGI leads ~$400m Guggenheim private debt vehicle",
+     "source": "https://www.globenewswire.com/news-release/2025/01/22/3013595/16530/en/Guggenheim-Investments-Announces-New-Private-Debt-Vehicle-Backed-by-Allianz-Global-Investors.html",
+     "status": "present",
+     "recordId": "i210"
+    },
+    {
+     "key": "apds-ii-first-close-1-2bn",
+     "date": "2025-12-05",
+     "what": "APDS II first close at EUR1.2bn",
+     "source": "https://www.allianzgi.com/en/press-centre/media/press-releases/05122025-allianzgis-second-private-debt-secondaries-fund-holds-first-close-at-eur-1-2-billion",
+     "status": "present",
+     "recordId": "i7"
+    },
+    {
+     "key": "ace-blended-finance-690m",
+     "date": "2026-01-20",
+     "what": "AllianzGI Allianz Credit Emerging Markets blended finance fund, $690m secured",
+     "source": "https://alternativecreditinvestor.com/2026/01/20/allianzgi-rolls-out-1bn-climate-focused-em-credit-fund/",
+     "recordId": "i1269",
+     "status": "present"
+    },
+    {
+     "key": "aicof-ii-third-close",
+     "date": "2026-02-12",
+     "what": "Third close of Infrastructure Credit Opportunities Fund II over EUR1bn",
+     "source": "https://alternativecreditinvestor.com/2026/02/12/allianz-gi-lands-e1bn-for-second-infra-credit-fund/",
+     "status": "present",
+     "recordId": "i476"
+    },
+    {
+     "key": "apac-infra-credit-first-close-270m",
+     "date": "2026-04-27",
+     "what": "Asia Pacific Infrastructure Credit Fund first close $270m",
+     "source": "https://www.allianzgi.com/en/press-centre/media/press-releases/20260427-allianzgi-asia-pacific-infrastructure-credit-fund-holds-its-first-close",
+     "status": "present",
+     "recordId": "i223"
+    },
+    {
+     "key": "apac-secured-lending-iii-first-close",
+     "date": "2026-06-23",
+     "what": "Asia Pacific Secured Lending Fund III first close $744m",
+     "source": "https://alternativecreditinvestor.com/2026/06/23/allianzgi-raises-744m-for-asia-pacific-private-credit-fund/",
+     "status": "present",
+     "recordId": "i325"
+    },
+    {
+     "key": "uob-am-acquisition-announced",
+     "date": "2026-08-05",
+     "what": "AllianzGI agrees to acquire UOB Asset Management for about $433m",
+     "source": "https://www.dealstreetasia.com/stories/allianzgi-uob-asset-management-491250",
+     "recordId": "i1270",
+     "status": "present"
+    }
+   ]
   },
   "m152": {
    "kind": "manager",
@@ -2038,9 +2280,122 @@
    "kind": "manager",
    "name": "BSP-Alcentra (Franklin Templeton)",
    "priority": 36,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-16",
+   "events": [
+    {
+     "key": "fti-acquires-bsp-2019",
+     "date": "2019-02-01",
+     "what": "Franklin Templeton completes acquisition of Benefit Street Partners (pre-2020)",
+     "source": "https://www.bspcredit.com/us/news-and-insights/press-releases/franklin-templeton-completes-acquisition-of-alternative-credit-manager-benefit-street-partners/",
+     "status": "rejected",
+     "note": "Pre-2020; outside the 2020-today window."
+    },
+    {
+     "key": "alcentra-debt-ceo-desimone-2020",
+     "date": "2020-09-03",
+     "what": "Alcentra appoints Johnathan DeSimone CEO",
+     "source": "https://www.creditflux.com/Funds/2020-09-03/Alcentra-appoints-DeSimone-as-CEO",
+     "recordId": "i1254",
+     "status": "present"
+    },
+    {
+     "key": "fti-to-acquire-alcentra-2022",
+     "date": "2022-05-31",
+     "what": "Franklin Templeton announces agreement to acquire Alcentra from BNY Mellon",
+     "source": "https://www.bny.com/corporate/global/en/about-us/newsroom/press-release/franklin-templeton-to-acquire-alcentra-from-bny-mellon.html",
+     "recordId": "i1255",
+     "status": "present"
+    },
+    {
+     "key": "fti-completes-alcentra-2022",
+     "date": "2022-11-01",
+     "what": "Franklin Templeton completes acquisition of Alcentra from BNY Mellon",
+     "source": "https://investmentweek.co.uk/news/4059357/franklin-templeton-completes-acquisition-bny-mellons-alcentra",
+     "recordId": "i1256",
+     "status": "present"
+    },
+    {
+     "key": "bsp-debt-fund-v-close-2024",
+     "date": "2024-01-24",
+     "what": "BSP closes Debt Fund V at $4.7bn",
+     "source": "https://alternativecreditinvestor.com/2024/01/24/benefit-street-partners-raises-4-7bn-for-fifth-direct-lending-fund/",
+     "recordId": "i1257",
+     "status": "present"
+    },
+    {
+     "key": "bsp-special-situations-fund-ii-close-2024",
+     "date": "2024-05-08",
+     "what": "BSP closes Special Situations Fund II at about $850m",
+     "source": "https://www.franklintempleton.com/press-releases/news-room/2024/benefit-street-partners-closes-second-special-situations-fund",
+     "recordId": "i1258",
+     "status": "present"
+    },
+    {
+     "key": "gahan-western-asset-ceo-2024",
+     "date": "2024-12-03",
+     "what": "Tom Gahan, BSP founder and chairman, named CEO of Western Asset Management, remaining BSP chairman",
+     "source": "https://thinkadvisor.com/2024/12/03/western-asset-management-names-new-ceo-after-sec-probe",
+     "recordId": "i1259",
+     "status": "present"
+    },
+    {
+     "key": "bsp-clo-equity-fund-iii-2025",
+     "date": "2025-06-13",
+     "what": "BSP closes third captive US CLO equity fund at $500m",
+     "source": "https://alternativecreditinvestor.com/2025/06/13/benefit-street-partners-closes-third-captive-us-clo-equity-fund-at-500m/",
+     "status": "present",
+     "recordId": "i95"
+    },
+    {
+     "key": "bsp-coller-cv-2025",
+     "date": "2025-09-02",
+     "what": "BSP closes $2.3bn private credit continuation vehicle led by Coller Capital",
+     "source": "https://www.businesswire.com/news/home/20250902165054/en/Benefit-Street-Partners-Closes-$2.3-Billion-Private-Credit-Continuation-Vehicle-Led-by-Coller-Capital",
+     "status": "present",
+     "recordId": "d96"
+    },
+    {
+     "key": "bsp-odf-ii-close-2026",
+     "date": "2026-01-08",
+     "what": "BSP final close of Real Estate Opportunistic Debt Fund II with $10bn investable capital",
+     "source": "https://www.bisnow.com/national/news/capital-markets/benefit-street-secures-10b-for-second-real-estate-debt-fund-132618",
+     "recordId": "i1260",
+     "status": "present"
+    },
+    {
+     "key": "bsp-brand-alignment-2026",
+     "date": "2026-01-26",
+     "what": "Franklin Templeton aligns Alcentra and Benefit Street Partners under the BSP brand",
+     "source": "https://www.businesswire.com/news/home/20260123270080/en/Franklin-Templeton-Aligns-Alternative-Credit-Firms-Under-BSP-Brand",
+     "status": "present",
+     "recordId": "i200"
+    },
+    {
+     "key": "bsp-cre-clo-fl3-2026",
+     "date": "2026-03-12",
+     "what": "BSP closes BSPDF 2026-FL3, $1.1bn CRE CLO",
+     "source": "https://stocks.observer-reporter.com/observerreporter/article/bizwire-2026-3-13-benefit-street-partners-announces-closing-of-a-11-billion-cre-clo",
+     "status": "present",
+     "recordId": "d275"
+    },
+    {
+     "key": "fti-cfo-structured-solutions-2026",
+     "date": "2026-08-20",
+     "what": "Franklin Templeton closes $1.5bn inaugural CFO",
+     "source": "https://alternativecreditinvestor.com/2026/08/20/franklin-templeton-raises-1-5bn-for-inaugural-cfo/",
+     "status": "present",
+     "recordId": "d844"
+    },
+    {
+     "key": "bsp-encina-lender-finance-2026",
+     "date": "2026-10-14",
+     "what": "BSP and Franklin Templeton fund acquire Encina Lender Finance seed portfolio",
+     "source": "https://www.bspcredit.com/us/news-and-insights",
+     "status": "present",
+     "recordId": "d1046"
+    }
+   ]
   },
   "m188": {
    "kind": "manager",
@@ -2159,9 +2514,147 @@
    "kind": "manager",
    "name": "Golub Capital",
    "priority": 39,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-16",
+   "events": [
+    {
+     "key": "fundraise-2020-gcp12-gems5",
+     "date": "2020-05-13",
+     "what": "Golub raises $3bn of new investment capital in six weeks (GCP 12, GCP International 12, GEMS Fund 5, GBDC 3 closings)",
+     "source": "https://www.opalesque.com/679222/Golub_Capital_raises_of_dry_powder_for922.html",
+     "recordId": "i1245",
+     "status": "present"
+    },
+    {
+     "key": "gcp-11-12-13-final-closes",
+     "date": "2020-05-13",
+     "what": "GCP 11/12/13 flagship final close sizes",
+     "source": "https://www.opalesque.com/679222/Golub_Capital_raises_of_dry_powder_for922.html",
+     "status": "present",
+     "note": "No source found stating a final-close size/date for GCP 12 or 13; only the May 2020 closing notice for GCP 12 was found",
+     "recordId": "i1245"
+    },
+    {
+     "key": "europe-launch-2020",
+     "date": "2020-06-01",
+     "what": "Golub European direct lending (London) set up in 2020; covered by five-year anniversary record",
+     "source": "https://golubcapital.com/news-insights/golub-capital-marks-five-years-in-europe-with-continued-expansion/",
+     "status": "present",
+     "recordId": "i274"
+    },
+    {
+     "key": "results-2021-record-originations",
+     "date": "2022-01-10",
+     "what": "Record 2021 originations: $36bn+ commitments, capital under management above $45bn",
+     "source": "https://www.abladvisor.com/news/33026/golub-capital-sets-records-for-deal-activity-in-2021-36b-in-commitments-closed",
+     "recordId": "i1246",
+     "status": "present"
+    },
+    {
+     "key": "gcred-breaks-escrow-2023",
+     "date": "2023-07-06",
+     "what": "Golub Capital Private Credit Fund (GCRED) breaks escrow with ~$650m net proceeds (June 30, 2023)",
+     "source": "https://www.sfnet.com/home/chapters/canada/news-detail/2023/07/10/golub-capital-private-credit-fund-breaks-escrow-with-net-proceeds-of-650-million",
+     "recordId": "i1247",
+     "status": "present"
+    },
+    {
+     "key": "ruby-re-lead-investment-2023",
+     "date": "2023-12-06",
+     "what": "Golub is a lead investor in RGA-sponsored reinsurance sidecar Ruby Re, its first insurance capital transaction",
+     "source": "https://golubcapital.com/news-insights/golub-capital-expands-strategic-partnership-with-rga/",
+     "recordId": "i1248",
+     "status": "present"
+    },
+    {
+     "key": "record-13-9bn-2023",
+     "date": "2024-01-16",
+     "what": "Golub reports record $13.9bn raised in 2023, capital under management above $65bn",
+     "source": "https://golubcapital.com/news-insights/golub-capital-marks-30th-anniversary-with-record-fundraising-continued-expansion-and-strong-deal-activity-in-2023/",
+     "recordId": "i1249",
+     "status": "present"
+    },
+    {
+     "key": "gbdc-gbdc3-merger-announced-2024",
+     "date": "2024-01-17",
+     "what": "GBDC announces merger agreement with GBDC 3",
+     "source": "https://www.businesswire.com/news/home/20240117326420/en/Golub-Capital-BDC-Inc.-Announces-Merger-Agreement-With-Golub-Capital-BDC-3-Inc.",
+     "recordId": "i1250",
+     "status": "present"
+    },
+    {
+     "key": "gems-fund-6-final-close-2024",
+     "date": "2024-04-30",
+     "what": "$2bn final close for sixth Credit Opportunities Fund (GEMS Fund 6)",
+     "source": "https://www.businesswire.com/news/home/20240430024286/en/Golub-Capital-Announces-$2-Billion-Final-Close-for-its-Sixth-Credit-Opportunities-Fund",
+     "status": "present",
+     "recordId": "i86"
+    },
+    {
+     "key": "gbdc-gbdc3-merger-closed-2024",
+     "date": "2024-06-03",
+     "what": "GBDC completes merger with GBDC 3 (0.9138 exchange ratio, ~$8.8bn pro forma assets)",
+     "source": "https://www.businesswire.com/news/home/20240603896435/en",
+     "recordId": "i1251",
+     "status": "present"
+    },
+    {
+     "key": "clo-reset-1-7bn-2024",
+     "date": "2024-11-05",
+     "what": "Four CLOs combined into record $1.7bn reset",
+     "source": "https://www.bloomberg.com/news/articles/2024-11-05/golub-capital-combines-four-clos-into-biggest-reset-on-record",
+     "status": "present",
+     "recordId": "d432"
+    },
+    {
+     "key": "clo-65m-r-largest-2025",
+     "date": "2025-04-22",
+     "what": "Golub Capital Partners CLO 65(M)-R reset to $2.494bn, largest CLO on record",
+     "source": "https://www.dechert.com/knowledge/news/2025/4/dechert-advises-golub-capital-partners-on-largest-clo-transactio.html",
+     "status": "present",
+     "recordId": "d443"
+    },
+    {
+     "key": "gcred-500m-bofa-facility-2025",
+     "date": "2025-05-09",
+     "what": "GCRED subsidiary secures up to $500m revolving facility from Bank of America",
+     "source": null,
+     "status": "present",
+     "recordId": "d90"
+    },
+    {
+     "key": "gp-led-secondaries-launch-2025",
+     "date": "2025-10-09",
+     "what": "Golub launches GP-led secondaries strategy, committing over $1bn",
+     "source": "https://golubcapital.com/news-insights/golub-capital-launches-gp-led-secondaries-strategy/",
+     "status": "present",
+     "recordId": "i536"
+    },
+    {
+     "key": "record-20-5bn-2025",
+     "date": "2026-01-09",
+     "what": "Golub raises record $20.5bn of capital in 2025",
+     "source": "https://alternativecreditinvestor.com/2026/01/09/golub-capital-raises-record-20-5bn-of-capital-in-2025/",
+     "recordId": "i1252",
+     "status": "present"
+    },
+    {
+     "key": "euro-bsl-clo-platform-2026",
+     "date": "2026-02-10",
+     "what": "Golub expands BSL CLO business to Europe",
+     "source": "https://alternativecreditinvestor.com/2026/02/11/golub-expands-clo-platform-to-europe/",
+     "status": "present",
+     "recordId": "i183"
+    },
+    {
+     "key": "co-ceo-2026",
+     "date": "2026-05-13",
+     "what": "Lawrence Golub and David Golub named co-CEOs; three co-presidents appointed",
+     "source": "https://golubcapital.com/news-insights/golub-capital-announces-evolution-of-leadership-structure/",
+     "recordId": "i1253",
+     "status": "present"
+    }
+   ]
   },
   "m105": {
    "kind": "manager",
