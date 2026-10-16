@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-16T17:00:13.690Z",
+ "generated": "2026-10-16T21:35:12.209Z",
  "since": "2026-10-02",
  "firms": {
   "proskauerrose": {
@@ -32,14 +32,16 @@
    "errors": 0,
    "carried": 0
   },
-  "slaughtermay": {
+  "linklaters": {
    "domains": [
-    "www.slaughterandmay.com"
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
    ],
-   "sitemaps": 1,
-   "urls": 6288,
-   "kept": 9,
-   "fetched": 9,
+   "sitemaps": 6,
+   "urls": 17776,
+   "kept": 6,
+   "fetched": 6,
    "errors": 0,
    "carried": 0
   },
@@ -62,16 +64,14 @@
    ],
    "carried": 0
   },
-  "linklaters": {
+  "slaughtermay": {
    "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
+    "www.slaughterandmay.com"
    ],
-   "sitemaps": 6,
-   "urls": 17776,
-   "kept": 7,
-   "fetched": 7,
+   "sitemaps": 1,
+   "urls": 6288,
+   "kept": 9,
+   "fetched": 9,
    "errors": 0,
    "carried": 0
   },
@@ -140,9 +140,9 @@
    ],
    "sitemaps": 9,
    "urls": 20128,
-   "kept": 13,
-   "fetched": 11,
-   "errors": 2,
+   "kept": 11,
+   "fetched": 10,
+   "errors": 1,
    "carried": 0
   },
   "kirkland": {
@@ -150,7 +150,7 @@
     "www.kirkland.com"
    ],
    "sitemaps": 11,
-   "urls": 17410,
+   "urls": 17412,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -177,6 +177,17 @@
    "kept": 0,
    "fetched": 0,
    "errors": 2,
+   "carried": 0
+  },
+  "sidley": {
+   "domains": [
+    "www.sidley.com"
+   ],
+   "sitemaps": 7,
+   "urls": 7587,
+   "kept": 2,
+   "fetched": 2,
+   "errors": 10,
    "carried": 0
   },
   "ropesgray": {
@@ -209,28 +220,17 @@
    ],
    "carried": 0
   },
-  "sidley": {
-   "domains": [
-    "www.sidley.com"
-   ],
-   "sitemaps": 11,
-   "urls": 8591,
-   "kept": 2,
-   "fetched": 2,
-   "errors": 6,
-   "carried": 0
-  },
   "stephensonharwood": {
    "domains": [
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2852,
+   "urls": 2853,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
    "samples": [
-    "https://www.stephensonharwood.com/ @2026-10-12",
+    "https://www.stephensonharwood.com/ @2026-10-16",
     "https://www.stephensonharwood.com/expertise/ @2025-10-24",
     "https://www.stephensonharwood.com/expertise/sectors/ @2025-12-02",
     "https://www.stephensonharwood.com/expertise/sectors/energy-transition-infrastructure/ @2026-08-14",
@@ -244,7 +244,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12291,
+   "urls": 12293,
    "kept": 7,
    "fetched": 7,
    "errors": 0,
@@ -256,20 +256,9 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16200,
-   "kept": 3,
-   "fetched": 3,
-   "errors": 0,
-   "carried": 0
-  },
-  "reedsmith": {
-   "domains": [
-    "www.reedsmith.com"
-   ],
-   "sitemaps": 5,
-   "urls": 11579,
-   "kept": 6,
-   "fetched": 6,
+   "urls": 16201,
+   "kept": 4,
+   "fetched": 4,
    "errors": 0,
    "carried": 0
   },
@@ -290,6 +279,17 @@
     "https://www.hlc.com/es/knowledge @2023-12-08",
     "https://www.hlc.com/en/knowledge/topic-centers/fintech-mentor-program @2026-01-06"
    ],
+   "carried": 0
+  },
+  "reedsmith": {
+   "domains": [
+    "www.reedsmith.com"
+   ],
+   "sitemaps": 5,
+   "urls": 11579,
+   "kept": 12,
+   "fetched": 12,
+   "errors": 0,
    "carried": 0
   },
   "southsquare": {
@@ -321,7 +321,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7743,
+   "urls": 7745,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -332,7 +332,7 @@
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16348,
+   "urls": 16342,
    "kept": 21,
    "fetched": 21,
    "errors": 0,
@@ -376,15 +376,6 @@
    ]
   },
   {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-rheinmetall-on-new-syndicated-credit-facility",
-   "title": "Linklaters advises Rheinmetall on new €1.5bn syndicated credit facility",
-   "description": "Linklaters has advised Rheinmetall AG on the establishment of a new €1.5bn syndicated credit facility.",
-   "date": "2026-10-16",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-16"
-  },
-  {
    "firm": "macfarlanes",
    "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
    "title": "Incorporating an LLP: direct tax considerations",
@@ -421,6 +412,15 @@
    "lastmod": "2026-10-07"
   },
   {
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/award/2026/10/lawcom-international-banking-finance-restructuring-team-of-the-year",
+   "title": "Kirkland Recognized at Middle East Legal Awards",
+   "description": null,
+   "date": "2026-10-16",
+   "dateSource": "page date label",
+   "lastmod": null
+  },
+  {
    "firm": "reedsmith",
    "url": "https://www.reedsmith.com/our-insights/blogs/viewpoints/102o5at/sdaia-consults-on-extensive-amendments-to-the-saudi-pdpl-implementing-regulation/",
    "title": "SDAIA Consults on Extensive Amendments to the Saudi PDPL Implementing Regulation",
@@ -439,6 +439,24 @@
    "lastmod": "2026-10-16"
   },
   {
+   "firm": "mayerbrown",
+   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/sec-proposes-expanding-securities-eligible-for-cross-trading-by-registered-funds",
+   "title": "SEC Proposes Expanding Securities Eligible for Cross Trading by Registered Funds",
+   "description": "On October 9, 2026, the Securities and Exchange Commission (the “SEC”) proposed amendments to Rule 17a-7 under the Investment Company Act of 1940,",
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
+   "title": "Capital, regulation and capability in a new era",
+   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
+   "date": "2026-10-15",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-15"
+  },
+  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/client-case-studies/cpp-investments-and-equinix-s-us-4bn-joint-acquisition/",
    "title": "CPP Investments and Equinix’s US$4bn joint acquisition",
@@ -449,15 +467,6 @@
    "dateProbe": [
     "td style=\"width: 49.9044%; border-style: none; padding: 20px;\"> <p>On 27 February 2026, Canada Pension Pla"
    ]
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
-   "title": "Capital, regulation and capability in a new era",
-   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
-   "date": "2026-10-15",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-15"
   },
   {
    "firm": "reedsmith",
@@ -539,15 +548,6 @@
    "date": "2026-10-13",
    "dateSource": "url",
    "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/news/2026/10/ai-financing-is-booming-but-where-are-europes-term-loan-bs",
-   "title": "AI financing is booming, but where are Europe’s term loan Bs?",
-   "description": "Rob Mathews comments on why European AI-related borrowers have barely used broadly syndicated term loan Bs, and the high yield market only a little,",
-   "date": "2026-10-13",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
   },
   {
    "firm": "mayerbrown",
@@ -847,24 +847,6 @@
    "url": "https://www.lw.com/en/insights/2026/10/Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
    "title": "Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
    "description": "During the 2026 legislative session, California enacted more than two dozen AI laws regulating transparency, chatbot safety, automated decision-making, and other domains.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises ECP on Continuation Vehicle for Next Wave Energy Partners",
-   "title": "Latham & Watkins Advises ECP on US$834 Million Continuation Vehicle for Next Wave Energy Partners",
-   "description": "Multidisciplinary investment funds, M&A, and tax team represented the investment firm in a continuation fund transaction involving energy transition infrastructure.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises MaxSolar Infrastructure Financing",
-   "title": "Latham & Watkins Advises MaxSolar on €155 Million Infrastructure Financing",
-   "description": "Finance team represents leading independent power producer in the transaction.",
    "date": "2026-10-05",
    "dateSource": "page date label",
    "lastmod": "2026-10-05"
