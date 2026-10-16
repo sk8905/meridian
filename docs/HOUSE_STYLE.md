@@ -1608,6 +1608,26 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   card's markup (rows after the 10th start hidden, the button is in the HTML, and the
   iPhone stacked list keeps the hidden state) so it holds even before the phone preview
   pass runs. Spec: `tests/dashboard-trim.mjs`.
+  **(l) "First 10 + See all N ›" is THE preview for every in-card list, app-wide** (owner
+  2026-10-16; desktop AND iPhone; generalises R40 / R41j / R44k). Any list INSIDE a card or
+  section — a Dashboard card (every pane, incl. Equities' World indices / ETF flows / IPO
+  pipeline), a borrower-page section (Deals, Legal, UK registry), a Deals ▸ Fundraising
+  section (incl. the desktop LP ↔ manager matrix) and the Deals ▸ League table (10 on
+  desktop too — no longer 25) — shows its **first 10 rows** and a **"See all N ›"** button
+  that opens EVERY row in the shared sheet (full-screen on iPhone, a centred panel on
+  desktop) with a "Search this list" box; the sheet is titled with the card's title and
+  "(N)" (no duplicated count badge, no live / source badges). A list of ≤10 rows shows no
+  button. **One engine:** `v2/js/preview.js` (`previewList` / `previewAll` / `openSheet`,
+  one delegated click handler on `.dsh-seeall[data-pv]`); the Dashboard runs it on every
+  card and re-runs it when live data re-renders a card. Deals (`.tx-seeall`), the
+  Restructuring hub and the Credits/BDC rosters carry older copies of the same pattern —
+  same 10, same sheet, same look; fold them into `preview.js` when next touched, never fork
+  a new one. **Exempt — lists that ARE the page**, which scroll in full: the News wire and
+  its lanes, the Deals list (its own "Show more"), the Profiles directory, People, a
+  profile TAB whose whole content is one list (manager News / Investments / Timeline /
+  Vehicles), and the Menu pages (Digest, Watchlist, Notifications). A chart card is not a
+  list. Spec: `tests/preview-rule.mjs` (probes every Dashboard pane, Fundraising, League
+  tables and a borrower page on both devices: no card shows >10 rows).
 
 - **R45 — Listed-bond prices for stressed names (owner 2026-10-16).** **(a) Free sources
   only** — no paid feed. The live price is TradingView's free Mini Symbol Overview widget

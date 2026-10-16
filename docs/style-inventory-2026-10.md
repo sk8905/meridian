@@ -496,7 +496,9 @@ first tab label on the gutter) · R44(g) one divider weight (`--t-grid`) · R44(
 desk codes; notifications are the News wire row · R44(i) dark only · R44(j) iPhone story
 lists read date · headline, max two lines · R42(a) nav Home · Dashboard · News · Deals ·
 Profiles · R33 News lanes News · Deals · Profiles · Watchlist · Newsletters · Research
-(sideways-scrolling; Profiles covers every entity) · R42(c) no header ☆.
+(sideways-scrolling; Profiles covers every entity) · R42(c) no header ☆ · R44(k) no list
+filters on Dashboard ▸ Credit · R44(l) every in-card list shows first 10 + "See all N ›"
+(`v2/js/preview.js`; page-level lists exempt).
 
 **Left as is (not events lists, or a design call for the owner):** day-break headers keep
 "20 Jul 2026" (they are headings); chart axes keep "12 Oct" / "Dec 25"; KPI / metric rows

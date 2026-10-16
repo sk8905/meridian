@@ -966,7 +966,7 @@ export function mount(host, ctx) {
   // in a full-screen sheet (a centred panel on desktop) with its own search.
   const PREVIEW = 10;
   function previewLists(root, limit) {
-    root.querySelectorAll("[data-pvroot], .tx-fr-list, .tx-fr-tbl > tbody, .tx-lg-tbl").forEach((list) => {
+    root.querySelectorAll("[data-pvroot], .tx-fr-list, .tx-fr-tbl > tbody, .tx-mx > tbody, .tx-lg-tbl").forEach((list) => {
       const items = list.matches(".tx-lg-tbl") ? [...list.querySelectorAll(":scope > tbody[data-pv]")] : [...list.querySelectorAll(":scope > [data-pv]")];
       if (items.length <= limit) return;
       items.slice(limit).forEach((e) => { e.style.display = "none"; e.classList.add("tx-pv-hide"); });
@@ -1012,7 +1012,7 @@ export function mount(host, ctx) {
     if (!v || flowMode()) return;
     if (st.mode === "league") {
       v.innerHTML = `<div class="tx-panes-in tx-lg">${leagueHTML()}</div>`;
-      previewLists(v, _phone() ? PREVIEW : 25);
+      previewLists(v, PREVIEW);   // R44l: 10 on desktop too
     } else if (st.mode === "fundraising") {
       v.innerHTML = `<div class="tx-panes-in">${fundraisingHTML(st.fr, ctx.base, _phone())}</div>`;
       previewLists(v, PREVIEW);

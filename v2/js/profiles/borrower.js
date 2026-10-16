@@ -20,6 +20,7 @@ import { fmtDateP, evRow } from "/feed.js";
 import { creditSource } from "/credit/js/shared.js";
 import { advisersFor } from "../deal-advisers.js";
 import { bondsFor, mountQuotes } from "../bonds.js";
+import { previewAll, previewList } from "../preview.js";
 
 const norm = (s) => " " + String(s || "").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, " ").trim() + " ";
 // "Thames Water Utilities Holdings Limited" ↔ "Thames Water": compare on the name
@@ -114,6 +115,8 @@ export async function viewBorrower(host, rawName, base = "/v2") {
       ${sec("Legal — plans, judgments & alerts", alerts.length + cases.length + rx.length, legalBody)}
       <div class="tpg" id="co-uk"><div class="tpg-h">UK registry (Companies House)</div><p class="tw-empty muted small">Looking up…</p></div>
     </section></div></div>`;
+  // R44l: each section (Deals, Legal …) shows its first 10 rows + "See all N ›".
+  previewAll(host, ".tpg");
   const sh = host.querySelector(".co-share");
   if (sh) sh.addEventListener("click", () => shareBorrower(name));
   if (bonds.length) mountQuotes(host.querySelector("#co-bonds"), bonds);
@@ -131,4 +134,5 @@ export async function viewBorrower(host, rawName, base = "/v2") {
     + `<li><span class="tbiz-k">Company</span><span class="tbiz-v">${ext(`https://find-and-update.company-information.service.gov.uk/company/${c.number}`, `${c.name} (${c.number})`)}</span></li>`
     + `<li><span class="tbiz-k">Status</span><span class="tbiz-v">${esc(c.status || "—")}${c.incorporated ? " · incorporated " + esc(c.incorporated) : ""}</span></li>`
     + `</ul>` + (charges.length ? `<ul class="tmini">${charges.map((x) => li(esc((x.persons || []).join(", ") || "Charge holder not stated"), `${esc(x.created || "")} · ${esc(x.status || "")}${x.description ? " · " + esc(x.description) : ""}`)).join("")}</ul>` : `<p class="tw-empty muted small">No registered charges.</p>`);
+  previewList(box);
 }

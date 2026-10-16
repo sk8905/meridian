@@ -129,7 +129,7 @@ export function fundraisingHTML(fs, base, phone) {
     mxBody = mx.pairs.length ? `<ol class="tx-fr-list tx-fr-pairs">${mx.pairs.map((p, i) => `<li class="tx-fr-i" data-pv><div class="tx-fr-ia"><span class="tx-fr-hl"><span class="tx-lg-rk">${i + 1}</span>${lpA(p.lp)} <span class="tx-fr-x">·</span> ${mgrA(p.mId, p.mName)}</span><span class="tx-fr-v">${p.n}</span></div></li>`).join("")}</ol>` : "";
   } else {
     const head = `<thead><tr><th class="tx-mx-c">LP \\ manager</th>${mx.mgrs.map((m) => `<th class="tx-mx-h" title="${esc(m.name)} — ${m.n} commitment${m.n === 1 ? "" : "s"}"><span>${m.id ? `<a class="tx-fr-a" href="${esc(P)}/manager/${encodeURIComponent(m.id)}">${esc(m.name)}</a>` : esc(m.name)}</span></th>`).join("")}</tr></thead>`;
-    const rowsH = mx.lps.map((l) => `<tr><td class="tx-mx-c">${lpA(l.id)}</td>${mx.mgrs.map((m) => { const n = mx.cell.get(l.id + "|" + m.key) || 0; return `<td class="tx-mx-v${n ? " has-n" : ""}"${n ? ` title="${esc(lpName(l.id))} → ${esc(m.name)}: ${n} commitment${n === 1 ? "" : "s"}"` : ""}>${n || ""}</td>`; }).join("")}</tr>`).join("");
+    const rowsH = mx.lps.map((l) => `<tr data-pv><td class="tx-mx-c">${lpA(l.id)}</td>${mx.mgrs.map((m) => { const n = mx.cell.get(l.id + "|" + m.key) || 0; return `<td class="tx-mx-v${n ? " has-n" : ""}"${n ? ` title="${esc(lpName(l.id))} → ${esc(m.name)}: ${n} commitment${n === 1 ? "" : "s"}"` : ""}>${n || ""}</td>`; }).join("")}</tr>`).join("");
     mxBody = mx.lps.length ? `<div class="tleague-wrap tx-mx-wrap"><table class="tx-mx">${head}<tbody>${rowsH}</tbody></table></div>` : "";
   }
   if (!mxBody) mxBody = `<p class="tw-empty muted small">No commitments tracked.</p>`;

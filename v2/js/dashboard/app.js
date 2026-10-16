@@ -21,6 +21,7 @@ import { SECTOR_FLOWS } from "/allocations.js";
 import { nbNums } from "../nb-format.js";
 import { rosterCardsHTML, wireRosters } from "../credit-roster.js";
 import { liveJSON } from "../live-cache.js";
+import { PREVIEW, previewList as pvList, openSheet as pvSheet, closeSheet } from "../preview.js";
 import { fundsInMarket as fundsInMarketOf, FIM_STATUS } from "../funds-market.js";
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
 import { dealLenderIds } from "../deal-parse.js";
@@ -336,7 +337,7 @@ export function mount(host, ctx) {
     // R43: a card body re-rendered by live data gets its table column roles again.
     if (!_colMo && typeof MutationObserver === "function") {
       let q = 0;
-      _colMo = new MutationObserver(() => { if (!q) q = requestAnimationFrame(() => { q = 0; tableCols(host); }); });
+      _colMo = new MutationObserver(() => { if (!q) q = requestAnimationFrame(() => { q = 0; tableCols(host); previewCards(); }); });
       _colMo.observe(host, { childList: true, subtree: true });
     }
   }
@@ -346,7 +347,6 @@ export function mount(host, ctx) {
   // scroll, a filter box for long lists, ✕ to close). Wide tables re-render as
   // stacked rows: name + key figure on one line, the other fields on a small grey
   // line beneath — nothing clipped, nothing scrolling sideways.
-  const PREVIEW = 10;
   const PHONE_MQ = "(max-width:900px)";
   const isPhone = () => !!(window.matchMedia && window.matchMedia(PHONE_MQ).matches);
   function stackTables(root) {
@@ -391,21 +391,9 @@ export function mount(host, ctx) {
     for (const sel of ["li.dsh-news-i", ".dsh-km", ".dsh-earn-rel", ".dsh-hf-i", ".dsh-lgl-i"]) { const a = [...body.querySelectorAll(sel)]; if (a.length) return a; }
     return [...body.querySelectorAll("tbody tr")];
   };
-  // Hidden rows carry .dsh-pv-hide AND an inline display:none — row layouts such as
-  // `.dsh-rx .dsh-news-i { display:grid }` would otherwise out-rank a class rule.
-  const pvHide = (e) => { e.classList.add("dsh-pv-hide"); e.style.display = "none"; };
-  const pvShow = (e) => { e.classList.remove("dsh-pv-hide"); e.style.removeProperty("display"); };
-  function previewList(body) {
-    body.querySelectorAll(".dsh-pv-hide").forEach(pvShow);
-    body.querySelectorAll(":scope > .dsh-seeall").forEach((e) => e.remove());
-    // Phone AND desktop (owner 2026-10-15): every long list previews 10 rows + "See all".
-    if (body.querySelector(".dsh-chart")) return;
-    const items = itemsOf(body); if (items.length <= PREVIEW) return;
-    items.slice(PREVIEW).forEach(pvHide);
-    // A sub-heading (earnings week) left with nothing visible after it hides too.
-    body.querySelectorAll(".dsh-earn-wk").forEach((h) => { if (items[PREVIEW].compareDocumentPosition(h) & Node.DOCUMENT_POSITION_FOLLOWING) pvHide(h); });
-    body.insertAdjacentHTML("beforeend", `<button type="button" class="dsh-seeall">See all ${items.length} <span aria-hidden="true">›</span></button>`);
-  }
+  // R44l: ONE preview for the whole app (v2/js/preview.js) — the Dashboard passes its
+  // own row finder (phone reads the stacked list).
+  const previewList = (body) => pvList(body, itemsOf);
   // The phone decision is re-checked whenever the layout settles (packMid) or the width
   // changes — an iPhone home-screen app can mount the view before its viewport width is
   // final, so a decision taken only at mount could leave full lists showing.
@@ -421,50 +409,22 @@ export function mount(host, ctx) {
     _lastPhone = ph;
     stackTables(host);
     host.querySelectorAll(PV_SEL).forEach(previewList);
+    previewCards();
   }
-  let _closeSheet = null;
-  // openSheet(body): the whole list, cloned, with a search bar.
-  // openSheet(null, { move: el, onClose }): a live, interactive block (a roster with its
-  // own search / sort / rows) is MOVED into the sheet and put back on close.
-  function openSheet(body, { move = null, onClose = null } = {}) {
-    if (_closeSheet) _closeSheet();
-    const src = move || body;
-    const card = src.closest(".dsh-card");
-    const title = card ? ((card.querySelector(".dsh-h-t") || card.querySelector(".dsh-h") || {}).textContent || "").trim() : "";
-    let clone, home = null;
-    if (move) {
-      home = document.createComment("dsh-sheet-home"); move.parentNode.insertBefore(home, move);
-      clone = document.createElement("div"); clone.className = "dsh-sheet-body"; clone.appendChild(move);
-    } else {
-      clone = body.cloneNode(true);
-      clone.className = "dsh-sheet-body"; clone.removeAttribute("id"); clone.removeAttribute("style");
-      clone.querySelectorAll("[id]").forEach((e) => e.removeAttribute("id"));
-      clone.querySelectorAll(":scope > .dsh-h").forEach((e) => e.remove());
-      clone.querySelectorAll(".dsh-pv-hide").forEach(pvShow);
-      clone.querySelectorAll(".dsh-seeall").forEach((e) => e.remove());
-    }
-    const n = move ? null : itemsOf(clone).length;
-    const sh = document.createElement("div");
-    // Mounted on <body> (above the app's tab bar), carrying .dsh so card styles apply.
-    sh.className = "dsh dsh-sheet"; sh.setAttribute("role", "dialog"); sh.setAttribute("aria-modal", "true"); sh.setAttribute("aria-label", title);
-    sh.innerHTML = `<div class="dsh-sheet-hd"><span class="dsh-sheet-t">${esc(title)}${n != null ? ` <span class="dsh-n">(${n})</span>` : ""}</span><button type="button" class="dsh-sheet-x" aria-label="Close">✕</button></div>`
-      + (move ? "" : `<div class="dsh-sheet-f"><input type="search" class="dsh-sheet-q" placeholder="Search this list" aria-label="Search this list" autocomplete="off"></div>`);
-    sh.appendChild(clone);
-    document.body.appendChild(sh);
-    document.documentElement.classList.add("dsh-sheet-open");
-    const onKey = (e) => { if (e.key === "Escape") close(); };
-    const close = () => {
-      if (move && home && home.parentNode) { home.parentNode.insertBefore(move, home); home.remove(); }
-      sh.remove(); document.documentElement.classList.remove("dsh-sheet-open"); document.removeEventListener("keydown", onKey); _closeSheet = null;
-      if (onClose) onClose();
-    };
-    document.addEventListener("keydown", onKey);
-    sh.querySelector(".dsh-sheet-x").addEventListener("click", close);
-    sh.addEventListener("click", (e) => { if (e.target.closest("a[href]")) close(); });
-    const q = sh.querySelector(".dsh-sheet-q");
-    if (q) q.addEventListener("input", () => { const v = q.value.trim().toLowerCase(); itemsOf(clone).forEach((it) => { it.style.display = !v || it.textContent.toLowerCase().includes(v) ? "" : "none"; }); });
-    _closeSheet = close;
-  }
+  // R44l: EVERY other card holding a list (Equities' world indices, ETF flows, the IPO
+  // pipeline, sovereign tables …) previews too — the card itself is the body. Rosters
+  // keep their own See all; a card whose body is already in PV_SEL is done above.
+  const genericCards = () => [...host.querySelectorAll(".dsh-card")].filter((c) => !c.matches(PV_SEL) && !c.closest(PV_SEL) && !c.querySelector(PV_SEL) && !c.querySelector(".dsh-card, .crr-root") && !c.classList.contains("dsh-span"));
+  // Re-preview only a card whose state is stale (a live re-render replaced its rows), so
+  // the MutationObserver below cannot loop on the preview's own DOM writes.
+  const stale = (c) => {
+    const items = itemsOf(c), btn = c.querySelector(":scope > .dsh-seeall[data-pv]");
+    if (items.length <= PREVIEW) return !!btn;
+    return !btn || btn.textContent.replace(/\D+/g, "") !== String(items.length) || items[PREVIEW].style.display !== "none";
+  };
+  function previewCards() { genericCards().forEach((c) => { if (stale(c)) previewList(c); }); }
+
+  const openSheet = (body, o = {}) => pvSheet(body, { itemsOf, ...o });
   if (window.matchMedia) { try { window.matchMedia(PHONE_MQ).addEventListener("change", () => phoneTidy()); } catch { /* old Safari */ } }
   window.addEventListener("resize", () => { if (isPhone() !== _lastPhone) phoneTidy(); });
   window.addEventListener("pageshow", () => { if (isPhone() !== _lastPhone) phoneTidy(); });
@@ -989,7 +949,7 @@ export function mount(host, ctx) {
         + `<td class="c-text">${c.managerId ? `<a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/manager/${encodeURIComponent(c.managerId)}`)}">${esc(mName(c))}</a>` : esc(mName(c))}${fName(c) ? ` <span class="dsh-n">${esc(fName(c))}</span>` : ""}</td>`
         + `<td class="dsh-r c-num">${esc(amt(c))}</td><td class="c-src dsh-srccol">${srcLink(c.sourceUrl, "source")}</td></tr>`).join("")
       + `</tbody></table></div>`
-      + (rows.length > PREVIEW ? `<button type="button" class="dsh-seeall">See all ${rows.length} <span aria-hidden="true">›</span></button>` : "");
+      + (rows.length > PREVIEW ? `<button type="button" class="dsh-seeall" data-pv="1">See all ${rows.length} <span aria-hidden="true">›</span></button>` : "");
   }
   const fillCard = (id, title, body, meta = "", cls = "") => `<section class="dsh-card dsh-fill${cls ? ` ${cls}` : ""}" id="${id}"><h3 class="dsh-h">${title} ${meta}</h3><div class="dsh-fill-body">${body}</div></section>`;
   function creditHTML() {
@@ -1975,7 +1935,7 @@ export function mount(host, ctx) {
   // the section's news wire as a right-hand rail (omitted for Legal, which is a
   // full-width search).
   function render() {
-    if (_closeSheet) _closeSheet();
+    closeSheet();
     _ros = null;
     const nav = SUBTABS.map(([k, l, s]) => {
       // Full label in the desktop rail; a short label appears on the narrow phone
@@ -2015,7 +1975,7 @@ export function mount(host, ctx) {
   });
   host.addEventListener("click", (e) => {
     const more = e.target.closest(".dsh-seeall:not([data-crall]):not([data-bdcall])");
-    if (more) { e.preventDefault(); openSheet(more.parentElement); return; }
+    if (more) { e.preventDefault(); e.stopPropagation(); openSheet(more.parentElement); return; }
     const a = e.target.closest(".dsh-navchip[data-sub], .tchip[data-sub]");
     if (a) { e.preventDefault(); e.stopPropagation(); pane = a.dataset.sub; render(); try { history.replaceState(null, "", a.getAttribute("href")); } catch { /* */ } }
   });
@@ -2039,7 +1999,7 @@ export function mount(host, ctx) {
       pane = resolve((sub && sub[0]) || subFromUrl());
       render();
     },
-    leave() { if (_ro) { _ro.disconnect(); _ro = null; } if (_closeSheet) _closeSheet(); },
+    leave() { if (_ro) { _ro.disconnect(); _ro = null; } closeSheet(); },
     // home(): a nav-bar tap resets the Dashboard to its first sub-tab (Credit).
     home() { pane = DEFAULT_SUB; render(); window.scrollTo(0, 0); },
   };
