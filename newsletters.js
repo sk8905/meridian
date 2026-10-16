@@ -49,6 +49,18 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-zelenskyrallies-20261016",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Zelensky rallies European leaders",
+    date: "2026-10-16",
+    time: "06:03",
+    summary: "Also: Elizabeth Holmes continues to confuse",
+    url: "https://www.economist.com/the-world-in-brief",
+    body: true,
+  },
+  {
     id: "nl-reuters-tradingday-globaltechroutlosessteam-20261015",
     publication: "Reuters",
     author: "Jamie McGeever",

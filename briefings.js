@@ -100,12 +100,12 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-16",
-  time: "05:12 BST",
-  lede: "Treasuries staged one of their best days in months on Thursday as the AI-led equity rout lost steam in Europe and the US, while BoE Governor Bailey said it is early days to judge the full inflation effect of energy prices.",
+  time: "07:17 BST",
+  lede: "The dollar weakened and AI-linked stocks steadied after Fed chair Kevin Warsh declined to hint at an October rate rise, while Treasuries held Thursday's rally.",
   bullets: [
-    { html: "<strong>Macro &mdash; the US 10-year yield fell 10bp to 5.08% on Thursday</strong> as safe-haven buying met a hot producer-price print, with Wall Street&rsquo;s AI wobbles still the risk gauge for the S&amp;P 500; the Bank of England&rsquo;s Bailey said it is &lsquo;early days&rsquo; to see the full effect of energy prices on inflation.", src: "https://www.reuters.com/newsletters/trading-day", srcName: "Reuters", date: "2026-10-15" },
-    { html: "<strong>Bonds &mdash; the Bund yield dropped 11bp to 3.35%, its lowest in over a month,</strong> and the US 10-year slid to 5.08% with the curve flattening, as Thursday was one of the best days of the year for long-dated Treasuries.", src: "https://www.reuters.com/newsletters/trading-day", srcName: "Reuters", date: "2026-10-15" },
-    { html: "<strong>Equities &mdash; the S&amp;P 500 rose 0.3% and the Dow 1% on Thursday</strong> even as South Korea&rsquo;s Kospi fell 7.5% and Japan&rsquo;s Nikkei 5% in the AI sell-off; chip stocks fell for a seventh day while the Nasdaq edged up 0.1%.", src: "https://www.reuters.com/newsletters/trading-day", srcName: "Reuters", date: "2026-10-15" },
-    { html: "<strong>Credit &mdash; CoreWeave&rsquo;s 2032 bonds, issued four months ago, fell below 80 cents on the dollar,</strong> and the cost of insuring against defaults at major US AI firms hit record levels, per Reuters&rsquo; Trading Day.", src: "https://www.reuters.com/newsletters/trading-day", srcName: "Reuters", date: "2026-10-15" },
+    { html: "<strong>Macro &mdash; the dollar weakened on Friday</strong> after Fed chair Kevin Warsh declined to hint at an October rate rise following September&rsquo;s hot US CPI print, with S&amp;P 500 futures up 0.3% as the risk gauge.", src: "https://www.ft.com/content/95a8e05d-fc20-441d-b271-64e87fe41f76", srcName: "Financial Times", date: "2026-10-16" },
+    { html: "<strong>Bonds &mdash; the US 10-year yield fell 10bp to 5.08% on Thursday and the Bund yield dropped 11bp to 3.35%,</strong> one of the best days of the year for long-dated Treasuries.", src: "https://www.reuters.com/newsletters/trading-day", srcName: "Reuters", date: "2026-10-15" },
+    { html: "<strong>Equities &mdash; the S&amp;P 500 is indicated 0.3% higher at 7,744 and Japan&rsquo;s Topix up 1.9%</strong> on Friday, after SK Hynix and Samsung Electronics shares tumbled 10% on Thursday in the AI sell-off.", src: "https://www.economist.com/the-world-in-brief", srcName: "The Economist", date: "2026-10-16" },
+    { html: "<strong>Credit &mdash; the spread on CoreWeave&rsquo;s credit-default swaps rose 16% on the week,</strong> and its 2032 bonds, issued four months ago, fell below 80 cents on the dollar, as investors fret about AI-related firms&rsquo; debt.", src: "https://www.economist.com/the-world-in-brief", srcName: "The Economist", date: "2026-10-16" },
   ],
 };
