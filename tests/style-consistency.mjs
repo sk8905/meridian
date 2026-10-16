@@ -106,7 +106,9 @@ for (const [w, h, scheme] of PHONES) {
             grp: grp ? f(grp) + " " + getComputedStyle(grp).backgroundColor : null,
           };
         });
-        check(n.hs.length === 1 && n.hs[0] === wire.h && n.xs.length === 1 && n.xs[0] === wire.x, `${tag} notifications: the News row's height and headline x (${n.hs}/${n.xs} vs ${wire.h}/${wire.x})`);
+        // iPhone (R44j): News and notification headlines both wrap (≤ 3 lines), so rows take
+        // their headline's height — the shared invariants are the headline x and the --ev-h floor.
+        check(Math.min(...n.hs) >= 46 && n.xs.length === 1 && n.xs[0] === wire.x, `${tag} notifications: the News row's headline x and minimum height (${n.hs}/${n.xs} vs ≥46/${wire.x})`);
         check(n.t.length === 1 && n.t[0] === wire.t && n.l2.length === 1 && n.l2[0] === wire.l2, `${tag} notifications: headline and line 2 in the News row's size, grey and weight (${n.t} | ${n.l2} vs ${wire.t} | ${wire.l2})`);
         check(n.extras === 0 && n.l2IsSource, `${tag} notifications: no desk code / source column — the source alone on line 2 (${n.extras} rows with extras)`);
         check(n.tinted === 0, `${tag} notifications: no tinted or side-barred "new" rows (${n.tinted})`);

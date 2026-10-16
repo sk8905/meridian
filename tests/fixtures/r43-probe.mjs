@@ -55,6 +55,9 @@ export function r43Probe() {
   if (root.scrollWidth > root.clientWidth + 1) out.push(`page scrolls sideways (${root.scrollWidth} > ${root.clientWidth})`);
 
   // (b)(c) THE events row: date first, source last, two lines, one height per list.
+  // R44j exception: on iPhone the News wire and notifications wrap their headline to at
+  // most THREE lines, so those rows are checked for ≤ 3 lines and not for one height.
+  const wraps = (el) => innerWidth <= 760 && el.matches("#g-feed .g-feed-row, .na-body .nf-row.g-ev-wire");
   const lists = new Map();
   for (const li of document.querySelectorAll(".g-ev")) {
     if (!vis(li)) continue;
@@ -64,6 +67,7 @@ export function r43Probe() {
     if (rd.right > rt.left + 1) out.push(`events row date not left of its headline in ${where(li)}`);
     if (rs.width > 0 && rs.left < rt.right - 1) out.push(`events row source not right of its headline in ${where(li)}`);
     const lh = parseFloat(getComputedStyle(t).lineHeight) || 17;
+    if (wraps(li)) { if (R(li).height > lh * 3 + 26) out.push(`wrapped row over three lines (${Math.round(R(li).height)}px) in ${where(li)}`); continue; }
     if (R(li).height > lh * 2 + 18) out.push(`events row over two lines (${Math.round(R(li).height)}px) in ${where(li)}`);
     const p = li.parentElement; if (!lists.has(p)) lists.set(p, new Set()); lists.get(p).add(Math.round(R(li).height));
   }
@@ -74,6 +78,7 @@ export function r43Probe() {
     if (!tm || !tt || r.firstElementChild !== tm) { out.push(`wire row does not lead with its time in ${where(r)}`); continue; }
     if (R(tm).left > R(tt).left + 1) out.push(`wire row time not left of its headline in ${where(r)}`);
     const lh = parseFloat(getComputedStyle(tt).lineHeight) || 17;
+    if (wraps(r)) { if (R(r).height > lh * 3 + 26) out.push(`wrapped wire row over three lines (${Math.round(R(r).height)}px) in ${where(r)}`); continue; }
     if (R(r).height > lh * 2 + 26) out.push(`wire row over two lines (${Math.round(R(r).height)}px) in ${where(r)}`);
     const p = r.parentElement; if (!lists.has(p)) lists.set(p, new Set()); lists.get(p).add(Math.round(R(r).height));
   }
