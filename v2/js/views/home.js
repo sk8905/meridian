@@ -33,6 +33,8 @@ export function mount(host, ctx) {
       leave() { try { document.documentElement.classList.remove("home-brief"); } catch { /* noop */ } },
       home,
       showNews,
+      // The runtime's tab → mode sync (glance.syncMode): Home is never news mode.
+      sync(tab) { try { glance.syncMode(tab === "news"); } catch { /* best-effort */ } },
     };
   });
 }

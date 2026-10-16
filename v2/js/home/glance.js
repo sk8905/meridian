@@ -2776,6 +2776,23 @@ export function showNews() {
     window.scrollTo(0, 0);
   } catch { /* best-effort */ }
 }
+// The ONE rule for the shared Home/News view (owner 2026-10-16: "Home sometimes shows
+// the News page — it should never happen"): the mode follows the ACTIVE TAB. News is
+// always news mode; Home is NEVER news mode — leaving it restores the reader's Home pane
+// (Briefing · Markets · Chart · X Feed, else Briefing). The runtime calls this after
+// every navigation that lands on the view (tap, Back / edge-swipe, a kept-alive return,
+// a mount that finishes after the tab changed), so no path can strand the wire on Home.
+export function syncMode(isNews) {
+  if (!_wireSetter) return;
+  const on = !!document.querySelector(".g-layout.wire-newsmode");
+  if (isNews && !on) showNews();
+  else if (!isNews && on) {
+    closeMobileReader();
+    const p = _homePrefs().wire;
+    _wireSetter(["brief", "markets", "chart", "x"].includes(p) ? p : "brief");
+    window.scrollTo(0, 0);
+  }
+}
 // The dispatcher — the single entry point for (re)painting the merged wire. Desktop
 // selects the lane from the chip row; phones from the wire-tab dropdown (renderWireLanes
 // paints both). The reading pane is desktop-only (mobile rows navigate as before).

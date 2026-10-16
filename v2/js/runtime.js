@@ -206,13 +206,14 @@ async function navigate(path, { push = true, replace = false, home = false, tabT
   // same-tab move is a sub-route the view handles in place (no swap).
   if (same) {
     const r = _views.get(key);
+    document.documentElement.dataset.v2tab = tab;   // keep the flag in sync on a same-view tab (home↔news)
+    _activeTab = tab;
     if (r && r.mounted && r.ctrl) {
       if (tab === "news" && r.ctrl.showNews) r.ctrl.showNews();
       else if (home && r.ctrl.home) r.ctrl.home();
       else if (r.ctrl.enter) r.ctrl.enter(sub);
     }
-    document.documentElement.dataset.v2tab = tab;   // keep the flag in sync on a same-view tab (home↔news)
-    _activeTab = tab;
+    syncMode(r);   // Back / edge-swipe from News to Home lands here with home=false
     setChromeActive(tab); return;
   }
   _busy = true;
@@ -253,9 +254,10 @@ async function navigate(path, { push = true, replace = false, home = false, tabT
   if (!rec.mounted) {
     try { await mountView(key); }
     catch { if (_active === key) rec.section.innerHTML = '<div class="v2-loading">Could not load this view.</div>'; }
-    // First visit to Home via the News tab: mount() rendered the Home default
-    // (Briefing); flip it to news mode now.
-    if (tab === "news" && rec.mounted && rec.ctrl && rec.ctrl.showNews) rec.ctrl.showNews();
+    // mount() rendered its default; bring a shared view's mode in line with the tab that is
+    // active NOW — not the one this navigation started with (a Home tap during a News
+    // mount must not end on the news wire).
+    if (_active === key) syncMode(rec);
   } else if (tab === "news" && rec.ctrl && rec.ctrl.showNews) {
     // A kept-alive Home shown via the News tab → news mode.
     rec.ctrl.showNews();
@@ -271,6 +273,7 @@ async function navigate(path, { push = true, replace = false, home = false, tabT
     // (and its scroll) as the reader left it.
     rec.ctrl.enter(sub);
   }
+  if (rec.mounted && _active === key) syncMode(rec);   // a kept-alive return (e.g. Back) must not keep a stale mode
   // NOTE: no background pre-mounting. It was tried and removed — parsing a heavy
   // data module in the background blocks the main thread and can lag the very
   // next tap. Keep-alive already makes every REVISIT instant, and the
@@ -278,6 +281,8 @@ async function navigate(path, { push = true, replace = false, home = false, tabT
   // preload only adds contention for no perceived win.
 }
 
+// A view shared by two tabs (Home / News) follows the ACTIVE tab, whatever path led here.
+function syncMode(rec) { if (rec && rec.mounted && rec.ctrl && rec.ctrl.sync) rec.ctrl.sync(_activeTab); }
 let _setActive = () => {};
 function setChromeActive(key) { _setActive(key); }
 // In-app history depth — see "Back depth" in boot(). Mirrored onto <html

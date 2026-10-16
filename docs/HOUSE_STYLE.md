@@ -1031,6 +1031,13 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   `≤1200px` / phone-gated). Specs: `tests/v2-shell.mjs`, `tests/v2-header.mjs`,
   `tests/home-mobile-wire-tabs.mjs`, `tests/markets-panel.mjs`.
 
+  **Home never shows the News page** (owner 2026-10-16). Home and News share ONE kept-alive
+  view, so its mode follows the ACTIVE TAB on every path: the runtime calls the view's
+  `sync(tab)` (`glance.syncMode`) after each navigation that lands on it — a tap, Back /
+  edge-swipe, a return to the kept-alive view from another tab (News → Deals → Home used
+  to show the preserved news wire under a lit Home tab), and a mount that finishes after the
+  tab changed. Leaving news mode restores the reader's Home pane (Briefing · Markets ·
+  Chart · X Feed, else Briefing). Spec: `tests/home-news-mode.mjs`.
 - **R35 — Navigation keeps your place (back-stack, tab memory, URL state).** (UX review
   2026-10.) **(a) Drill-downs are history entries on every device:** a link, a search
   result, a notification or a row that opens another section (Transactions → a manager,
