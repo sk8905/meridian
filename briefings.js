@@ -100,12 +100,12 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-16",
-  time: "09:12 BST",
-  lede: "Markets steadied after Fed chair Kevin Warsh declined to back tighter policy, with the US 10-year at 5.08%, while the EU moved to build new powers to curb its trade deficit with China.",
+  time: "13:16 BST",
+  lede: "Treasuries are heading for their best week since February as the US 10-year sits near 5.10% and S&P 500 futures edge up, after an AI-led selloff that put CoreWeave's debt in distress territory.",
   bullets: [
-    { html: "<strong>Macro &mdash; the dollar weakened on Friday</strong> after Fed chair Kevin Warsh declined to hint at an October rate rise following September&rsquo;s hot US CPI print, with S&amp;P 500 futures up 0.3% as the risk gauge.", src: "https://www.ft.com/content/95a8e05d-fc20-441d-b271-64e87fe41f76", srcName: "Financial Times", date: "2026-10-16" },
-    { html: "<strong>Bonds &mdash; the US 10-year yield is 5.08%, up 2bp in early Europe on Friday,</strong> as Treasuries stayed lower after Thursday&rsquo;s rally across the curve.", src: "https://www.bloomberg.com/news/newsletters/2026-10-16/eu-seeks-new-trade-powers-to-cut-trade-deficit", srcName: "Bloomberg", date: "2026-10-16" },
-    { html: "<strong>Equities &mdash; the S&amp;P 500 is indicated 0.3% higher at 7,744 and Japan&rsquo;s Topix up 1.9%</strong> on Friday, after SK Hynix and Samsung Electronics shares tumbled 10% on Thursday in the AI sell-off.", src: "https://www.economist.com/the-world-in-brief", srcName: "The Economist", date: "2026-10-16" },
-    { html: "<strong>Credit &mdash; the spread on CoreWeave&rsquo;s credit-default swaps rose 16% on the week,</strong> and its 2032 bonds, issued four months ago, fell below 80 cents on the dollar, as investors fret about AI-related firms&rsquo; debt.", src: "https://www.economist.com/the-world-in-brief", srcName: "The Economist", date: "2026-10-16" },
+    { html: "<strong>Macro &mdash; the Bloomberg Dollar Spot Index is down 0.4% and Brent is at $105.72</strong> after Fed chair Kevin Warsh stayed silent on policy in Bangkok, pulling down bets on an October rate rise following September&rsquo;s hot US CPI.", src: "https://www.bloomberg.com/news/newsletters/2026-10-16/coreweave-is-testing-the-limits-of-ai-euphoria", srcName: "Bloomberg", date: "2026-10-16" },
+    { html: "<strong>Bonds &mdash; the US 10-year yield is 5.10%, up 4bp in early trading,</strong> even as Treasuries head for their best week since February as AI jitters halt the bond rout.", src: "https://www.ft.com/content/4c4f03f4-f878-4bd6-8128-5be7e3bb8ca1", srcName: "Financial Times", date: "2026-10-16" },
+    { html: "<strong>Equities &mdash; S&amp;P 500 futures are at 7,806.50, up 0.2%, while the Nasdaq has shed 3%</strong> since Monday in an AI rotation, with Indonesian stocks suffering their worst rout in nearly three decades after MSCI&rsquo;s warning.", src: "https://www.bloomberg.com/news/newsletters/2026-10-16/coreweave-is-testing-the-limits-of-ai-euphoria", srcName: "Bloomberg", date: "2026-10-16" },
+    { html: "<strong>Credit &mdash; CoreWeave&rsquo;s credit-default swaps briefly blew out beyond 1,000bp</strong> this week and its 2032 bonds, issued four months ago, fell into distressed territory; investors priced a more than 60% chance of default within five years.", src: "https://www.bloomberg.com/news/newsletters/2026-10-16/coreweave-is-testing-the-limits-of-ai-euphoria", srcName: "Bloomberg", date: "2026-10-16" },
   ],
 };

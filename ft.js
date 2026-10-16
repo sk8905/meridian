@@ -21,6 +21,55 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "4dffb678-9d90-46fa-b98e-40f988057984",
+    "title": "World’s oldest gunmaker expands American foothold after boardroom tussle",
+    "date": "2026-10-16",
+    "time": "13:10",
+    "url": "https://www.ft.com/content/4dffb678-9d90-46fa-b98e-40f988057984"
+  },
+  {
+    "id": "247ab744-c56a-41cd-b391-502958c052f7",
+    "title": "Burnham: straight-talker or loose cannon?",
+    "date": "2026-10-16",
+    "time": "12:47",
+    "url": "https://www.ft.com/content/247ab744-c56a-41cd-b391-502958c052f7"
+  },
+  {
+    "id": "d3ebfda8-4580-465a-bfb0-c1f5fe050ff7",
+    "title": "NHS boss Penny Dash: ‘We can’t just blame the politicians’",
+    "date": "2026-10-16",
+    "time": "12:30",
+    "url": "https://www.ft.com/content/d3ebfda8-4580-465a-bfb0-c1f5fe050ff7"
+  },
+  {
+    "id": "8540ec79-705b-4ee0-b7d3-ce041d757ecd",
+    "title": "Shareholders should have a say on making AI safe",
+    "date": "2026-10-16",
+    "time": "12:05",
+    "url": "https://www.ft.com/content/8540ec79-705b-4ee0-b7d3-ce041d757ecd"
+  },
+  {
+    "id": "bc221890-6718-4792-967c-9828e96f38af",
+    "title": "The once-obscure tech at the heart of the green energy trade war",
+    "date": "2026-10-16",
+    "time": "12:01",
+    "url": "https://www.ft.com/content/bc221890-6718-4792-967c-9828e96f38af"
+  },
+  {
+    "id": "4c83ec2c-cd77-4f9b-94e6-fdf70af706ef",
+    "title": "In Bangkok, central bankers push back on market rate-tightening bets",
+    "date": "2026-10-16",
+    "time": "11:51",
+    "url": "https://www.ft.com/content/4c83ec2c-cd77-4f9b-94e6-fdf70af706ef"
+  },
+  {
+    "id": "6b9b0cb6-2d47-46e4-bc00-febb182a5af7",
+    "title": "Sizing that ‘unlimited’ insurance capital",
+    "date": "2026-10-16",
+    "time": "11:24",
+    "url": "https://www.ft.com/content/6b9b0cb6-2d47-46e4-bc00-febb182a5af7"
+  },
+  {
     "id": "4c4f03f4-f878-4bd6-8128-5be7e3bb8ca1",
     "title": "Treasuries head for best week since February as AI jitters halt bond rout",
     "date": "2026-10-16",
@@ -250,54 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-16",
     "time": "05:00",
     "url": "https://www.ft.com/content/4dfcf1ba-0b8e-4198-b0a4-e975ebde9066"
-  },
-  {
-    "id": "b6255adb-3ce5-4463-92cd-de2f8e9a1f74",
-    "title": "‘Early days’ to see full effect of energy prices on inflation, BoE’s Bailey says",
-    "date": "2026-10-16",
-    "time": "04:12",
-    "url": "https://www.ft.com/content/b6255adb-3ce5-4463-92cd-de2f8e9a1f74"
-  },
-  {
-    "id": "50c694da-c485-4176-853b-daf643eabb5c",
-    "title": "Harvard’s endowment returns surge on back of AI and SpaceX investments",
-    "date": "2026-10-15",
-    "time": "21:06",
-    "url": "https://www.ft.com/content/50c694da-c485-4176-853b-daf643eabb5c"
-  },
-  {
-    "id": "3568dbda-ac85-45b3-815a-3a8ec853a78d",
-    "title": "Meta and Apple team up on AI model tailored for Mac computers",
-    "date": "2026-10-15",
-    "time": "21:00",
-    "url": "https://www.ft.com/content/3568dbda-ac85-45b3-815a-3a8ec853a78d"
-  },
-  {
-    "id": "9f269231-7c1a-4cb0-a4d3-0603f6cd73b6",
-    "title": "Fifa president Gianni Infantino apologises for failed investment plan",
-    "date": "2026-10-15",
-    "time": "20:23",
-    "url": "https://www.ft.com/content/9f269231-7c1a-4cb0-a4d3-0603f6cd73b6"
-  },
-  {
-    "id": "a3a389d2-7796-4f40-98d3-8986f26f6513",
-    "title": "Anthropic grants non-profit METR ‘employee-like’ access to monitor AI risks",
-    "date": "2026-10-15",
-    "time": "20:12",
-    "url": "https://www.ft.com/content/a3a389d2-7796-4f40-98d3-8986f26f6513"
-  },
-  {
-    "id": "09e07278-8479-49bb-a145-51e5d93828a2",
-    "title": "Healey signals bank tax raid in UK Budget",
-    "date": "2026-10-15",
-    "time": "18:53",
-    "url": "https://www.ft.com/content/09e07278-8479-49bb-a145-51e5d93828a2"
-  },
-  {
-    "id": "66c9bbf1-f25c-4e84-b8ae-c9272fbc49c2",
-    "title": "Bankers and advisers set for £334mn easyJet payout",
-    "date": "2026-10-15",
-    "time": "18:41",
-    "url": "https://www.ft.com/content/66c9bbf1-f25c-4e84-b8ae-c9272fbc49c2"
   }
 ];

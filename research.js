@@ -109,6 +109,28 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-fitch-insidecredit-bondyieldssovereigns-20261016",
+    publication: "Fitch Ratings",
+    author: null,
+    series: "Inside Credit",
+    title: "Inside Credit: Surge in Bond Yields Adds to Challenges Facing Developed Market Finances; Western European Sovereigns’ Fiscal Paths Continue to Diverge",
+    date: "2026-10-16",
+    time: "13:00",
+    summary: "Weekly recap: the sharp rise in developed-market government bond yields this year makes it harder to stabilise debt/GDP, while perpetual non-traded BDC redemption requests declined quarter over quarter for 13 of 15 tracked vehicles.",
+    url: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk445dS_is5WZxSEyUWAzE6zQmCV3EGYMYQZmCqy9CL440vfdKMpAHe45HfybTJQRS8c-A9jY="
+  },
+  {
+    id: "rsch-apollo-airesetstagflation-20261016",
+    publication: "Apollo Academy",
+    author: "Torsten Slok",
+    series: "The Daily Spark",
+    title: "Could an AI Reset Expose a Stagflationary Economy?",
+    date: "2026-10-16",
+    time: "11:46",
+    summary: "A sharp reset in AI expectations could undermine corporate confidence and weigh on capex and GDP growth just as higher oil prices, tariffs and tighter immigration restrictions push inflation higher.",
+    url: "https://www.apolloacademy.com/the-daily-spark/"
+  },
+  {
     id: "rsch-ubs-donovan-precisely-20261016",
     publication: "UBS CIO",
     author: "Paul Donovan",

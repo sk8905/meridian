@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-16",
-  lastCheckedTime: "11:20 BST",
+  lastCheckedTime: "13:16 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1042,7 +1042,7 @@ export const NEWS = {
     {title: "Wall Street’s AI wobbles", source: "Financial Times", date: "2026-10-16", time: "05:00", url: "https://www.ft.com/content/6a1ecb1a-a998-4cbb-be54-22df550a66ee"},
     {title: "Global AI sell-off deepens as Asian markets tumble", source: "Financial Times", date: "2026-10-15", time: "05:04", url: "https://www.ft.com/content/cf5f1209-da29-4ce1-b425-0e83818bf9ec"},
     {title: "US inflation jumps to 3.7% as Iran war drives up prices", source: "Financial Times", date: "2026-10-14", time: "21:06", url: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d"},
-    {title: "Hot September CPI inflation keeps Fed on course for further tightening", source: "Financial Times", date: "2026-10-14", time: "14:21", url: "https://www.ft.com/content/6934f481-b61c-4ab0-8064-a79493702f2c"},
+    {title: "Treasuries head for best week since February as AI jitters halt bond rout", source: "Financial Times", date: "2026-10-16", time: "12:45", url: "https://www.ft.com/content/4c4f03f4-f878-4bd6-8128-5be7e3bb8ca1"},
     {title: "Dollar weakens as Fed chair Kevin Warsh declines to hint at October rate rise", source: "Financial Times", date: "2026-10-16", time: "06:25", url: "https://www.ft.com/content/95a8e05d-fc20-441d-b271-64e87fe41f76"},
   ],
   uk: [
