@@ -2627,6 +2627,23 @@ function watchlistEvents() {
   });
   return dedupeEvents(out, { fuzzy: false }).sort((a, b) => (b.ts - a.ts) || String(b.date).localeCompare(String(a.date)));
 }
+// Profiles lane (owner 2026-10-16: "should cover all, not just managers"): the activity of
+// EVERY profiled entity in the lane's recency window (current + previous month) —
+// managers (their deals / intel / web news), hedge funds (HEDGE_INTEL), law firms (their
+// legal alerts) and investors (deal / intel headlines that name a tracked investor). A
+// row the reader follows keeps its ★. Newest first, de-duplicated.
+function profilesEvents() {
+  const nd = new Date(), winStart = Date.UTC(nd.getUTCFullYear(), nd.getUTCMonth() - 1, 1);
+  const f = _allFollows();
+  const has = (k, id) => Array.isArray(f[k]) && f[k].includes(id);
+  const out = [...managerFlatEvents(false, "all").events];
+  (HEDGE_INTEL || []).forEach((h) => { if (h && h.headline) out.push({ ..._hfEv(h), watched: has("hf", h.hfId) }); });
+  (items || []).forEach((it) => { if (it && it.firm && it.title) out.push({ ..._firmEv(it), watched: has("firm", it.firm) }); });
+  const lpRe = _termsRe((lps || []).map((l) => l.name));
+  namedEvents(lpRe).forEach((e) => out.push({ ...e, watched: false }));
+  return dedupeEvents(out.filter((e) => e.ts && e.ts >= winStart), { fuzzy: false })
+    .sort((a, b) => (b.ts - a.ts) || String(b.date).localeCompare(String(a.date)));
+}
 // A manager event as a shared .g-feed-row (same markup as the manager wire's flat row).
 function mgrEventRow(x) {
   const to = x._href || (x.ext ? x.source : `/v2/profiles/#/manager/${encodeURIComponent(x.mgrId)}`);
@@ -2643,8 +2660,8 @@ function mgrEventRow(x) {
 function renderMgrLane(watchOnly) {
   const box = document.getElementById("g-feed"); if (!box) return;
   // Watchlist: every followed profile (manager / hedge fund / law firm), NO date limit.
-  // Managers lane: the recency-windowed manager wire.
-  const events = watchOnly ? watchlistEvents() : managerFlatEvents(false, "all").events;
+  // Profiles lane: every profiled entity's activity, recency-windowed (profilesEvents).
+  const events = watchOnly ? watchlistEvents() : profilesEvents();
   let out = "", lastMonth = "";
   events.forEach((r) => {
     const mk = String(r.date || "").slice(0, 7);
@@ -2653,7 +2670,7 @@ function renderMgrLane(watchOnly) {
   });
   const empty = watchOnly
     ? `<div class="g-mw-empty">Nothing on your watchlist yet. Tap ☆ on any manager, hedge fund, law firm, fund or investor profile to follow it.</div>`
-    : `<div class="g-mw-empty">No manager activity yet.</div>`;
+    : `<div class="g-mw-empty">No profile activity yet.</div>`;
   setHTML("g-feed", out ? `<div class="g-mw-flat">${out}</div>` : empty);
   const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";
 }

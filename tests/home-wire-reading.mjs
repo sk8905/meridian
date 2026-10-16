@@ -351,14 +351,14 @@ await ctx.close();
   // bottom tab now (news mode) — tap it to get back to the feed.
   await pg2.click('.mtab[data-key="news"]');
   await pg2.waitForTimeout(250);
-  await pg2.evaluate(() => { const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked")); if (row) row.click(); });
+  await pg2.evaluate(() => { const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked") && !r.classList.contains("g-desk-n")); if (row) row.click(); });   // not a forwarded newsletter (links out by design)
   await pg2.waitForSelector("#g-reader:not([hidden])", { timeout: 4000 });
   await pg2.evaluate(() => document.getElementById("g-reader-back").click());
   await pg2.waitForTimeout(150);
   check(await pg2.evaluate(() => document.getElementById("g-reader").hidden), "phone: Back closes the reader");
   // Re-open, then an iOS-style INTERACTIVE left-edge back: the reader TRACKS the finger
   // (translateX follows the drag) and, released past the threshold, slides out and closes.
-  await pg2.evaluate(() => { const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked")); if (row) row.click(); });
+  await pg2.evaluate(() => { const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked") && !r.classList.contains("g-desk-n")); if (row) row.click(); });   // not a forwarded newsletter (links out by design)
   await pg2.waitForSelector("#g-reader:not([hidden])", { timeout: 4000 });
   const midDrag = await pg2.evaluate(() => {
     const ov = document.getElementById("g-reader");
@@ -376,7 +376,7 @@ await ctx.close();
   await pg2.waitForTimeout(420);                     // the release animation + close
   check(await pg2.evaluate(() => document.getElementById("g-reader").hidden), "phone: releasing a left-edge back-drag past the threshold closes the reader (iOS-style)");
   // A mid-content horizontal drag (NOT from the edge) must NOT close it — only the edge.
-  await pg2.evaluate(() => { const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked")); if (row) row.click(); });
+  await pg2.evaluate(() => { const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked") && !r.classList.contains("g-desk-n")); if (row) row.click(); });   // not a forwarded newsletter (links out by design)
   await pg2.waitForSelector("#g-reader:not([hidden])", { timeout: 4000 });
   await pg2.evaluate(() => {
     const ov = document.getElementById("g-reader");

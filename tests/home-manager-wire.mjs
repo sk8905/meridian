@@ -45,7 +45,7 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
     const feedT = document.querySelector("#g-feed .g-feed-title");
     return {
       flatRows: rows.length,
-      everyHasMgr: rows.length > 0 && rows.every((a) => a.getAttribute("data-mgr")),
+      everyHasMgr: rows.length > 0 && rows.every((a) => (a.getAttribute("href") || "").length > 1),
       isFeedRow: !!(first && first.classList.contains("g-feed-row")),
       hasParts: !!(first && first.querySelector(".g-feed-time") && first.querySelector(".g-feed-code") && first.querySelector(".g-feed-title") && first.querySelector(".g-feed-src")),
       stacked: first ? /"time title" "\. src"/.test(getComputedStyle(first).gridTemplateAreas || "") : false,
@@ -55,7 +55,7 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
     };
   });
   check(r.flatRows >= 8, `Manager lane: a flat manager-event stream (${r.flatRows} rows)`);
-  check(r.everyHasMgr, "Manager lane: every row carries its manager id (data-mgr)");
+  check(r.everyHasMgr, "Profiles lane: every row opens its story or profile (managers, hedge funds, law firms, investors — owner 2026-10-16)");
   check(r.isFeedRow && r.hasParts, "Manager lane: rows use the shared news-wire engine (.g-feed-row: code · date · source)");
   check(r.stacked, "Manager lane: rows adopt the news wire's stacked layout");
   const dn = r.dates.map((s) => { const m = /(\d+)\s+(\w+)/.exec(s); return m ? MON[m[2]] * 31 + (+m[1]) : -1; });

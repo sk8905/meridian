@@ -968,8 +968,11 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
 - **R33 — Lane-coverage invariant: an item reaches EVERY lane its nature implies.**
   The Home wire lanes are **News · Deals · Profiles · Watchlist · Newsletters · Research**
   (owner 2026-10-16; `WIRE_LANES` in `glance.js` — keys `all` = News, the full wire;
-  `deals` = the Credit desk's deal flow: deals, fund raises, CLOs; `manager` = Profiles,
-  managers' activity). The six share the phone width (R2d b; 4px chip padding at 390px). Each of these MUST catch what belongs to it:
+  `deals` = the Credit desk's deal flow: deals, fund raises, CLOs; `manager` = **Profiles**,
+  the activity of EVERY profiled entity — managers' deals / intel / web news, hedge-fund
+  intel, law-firm alerts and deal / intel headlines naming a tracked investor — current +
+  previous month, newest first, ★ on followed rows; `profilesEvents()` in `glance.js`,
+  spec `tests/profiles-lane.mjs`). The six share the phone width (R2d b; 4px chip padding at 390px). Each of these MUST catch what belongs to it:
   (a) **research** → the **Research** lane (`RSH` desk code / `research[]`);
   (b) a **newsletter** → the **Newsletters** lane (`LTR` / `newsletters.js`);
   (c) anything **about a covered manager / fund / hedge fund** → the **Managers**
