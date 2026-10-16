@@ -167,6 +167,7 @@ const T = {
   d191: {"c":"US","s":"Industrials","a":null},
   d192: {"c":"US","s":"Diversified","a":"fund","e":"new","p":"Menlo CLO V","r":"issuer"},
   d1173: {"c":"US","s":"Diversified","a":"fund","e":"new","p":"Menlo CLO VI","r":"issuer"},
+  d1174: {"c":"UK","s":"Real estate","a":"financing","p":"The Edge student scheme, Belfast","r":"lender"},
   d194: {"c":"UK","s":"Real estate","a":null},
   d195: {"c":"Italy","s":"Consumer & retail","a":"financing"},
   d196: {"c":"UK","s":"TMT","a":null},
