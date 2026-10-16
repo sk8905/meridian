@@ -1368,9 +1368,9 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   "unavailable" only when nothing was ever captured (`tests/dashboard-europe.mjs`).
   **(b) One event, one record; no false precision** — see refresh-routines "Duplicates, date
   precision…"; dates render through `fmtDateP` / `fmtDate(record)` (`tests/search-quality.mjs`).
-  **(c) Europe-first** — the Dashboard credit wire and Funds in market card default to
-  European borrowers/funds with a one-tap "All regions"; Deals opens unfiltered since
-  2026-10-15 (R44b, `tests/transactions-europe.mjs`).
+  **(c) Europe-first** — SUPERSEDED: Deals opens unfiltered since 2026-10-15 (R44b,
+  `tests/transactions-europe.mjs`), and the Dashboard credit wire and Funds in market list
+  every region with no region toggle since 2026-10-16 (R44k).
   **(d) Search** matches record summaries, runs newest-first within a rank and never
   silently caps — "Show all N" (`tests/search-quality.mjs`). **(e) The bell is material
   only** — earnings-call dates, webcasts, awards, podcasts, outlooks, newsletters stay out
@@ -1524,7 +1524,7 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   unfiltered — the list (`scope` defaults to all regions; Europe is one tap, `scope=eu`
   in the URL), League tables (region "All regions") and Fundraising (funds in market
   "All regions"). This supersedes R41(c)'s Europe-first default *for Deals* (the
-  Dashboard cards keep theirs). **(c) Single underline** — see R14a. **(d) Back goes back.**
+  Dashboard cards dropped theirs on 2026-10-16, R44k). **(c) Single underline** — see R14a. **(d) Back goes back.**
   Every in-page back control (the Profiles ‹ chevron, the deal drawer ‹) returns to the
   page you were on immediately before — `history.back()` whenever the app holds in-app
   history (`<html data-can-back>`, R35) — and only a cold deep link falls back to the
@@ -1599,6 +1599,15 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   Profiles lists, a law firm's Deals — are NOT story lists: they keep R43(c)'s one-line
   name and detail line (owner: "don't wrap here"). This is the one exception to R43(c)'s
   two-line, one-height rule; desktop is unchanged. Spec: `tests/phone-wire-wrap.mjs`.
+  **(k) Dashboard ▸ Credit carries no list filters** (owner 2026-10-16; desktop and iPhone):
+  the **Stress — situations in focus** list has NO "Sort by" bar (one order, by region);
+  **Funds in market** has NO Europe / All-regions toggle (every region; the strategy
+  select stays) and neither does the **Credit wire** (every region). **LP commitments —
+  latest** previews the newest **10 + "See all N ›"** like every long Dashboard list, and
+  the sheet holds EVERY dated commitment (not a top-25 slice); the cap is built into the
+  card's markup (rows after the 10th start hidden, the button is in the HTML, and the
+  iPhone stacked list keeps the hidden state) so it holds even before the phone preview
+  pass runs. Spec: `tests/dashboard-trim.mjs`.
 
 - **R45 — Listed-bond prices for stressed names (owner 2026-10-16).** **(a) Free sources
   only** — no paid feed. The live price is TradingView's free Mini Symbol Overview widget

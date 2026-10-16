@@ -22,7 +22,6 @@ import { nbNums } from "../nb-format.js";
 import { rosterCardsHTML, wireRosters } from "../credit-roster.js";
 import { liveJSON } from "../live-cache.js";
 import { fundsInMarket as fundsInMarketOf, FIM_STATUS } from "../funds-market.js";
-import { tagsOf, EUROPE_REGIONS } from "/credit/js/tx.js";
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
 import { dealLenderIds } from "../deal-parse.js";
 import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID, caseSummaries as LGL_CASE_SUMMARIES } from "/legal/js/data.js";
@@ -366,7 +365,7 @@ export function mount(host, ctx) {
         if (dIdx >= 0) {
           // R43: a dated table stacks into the shared events row — date · name / meta · tag · source.
           const m = td.map((c, i) => [c, i]).filter(([c, i]) => i !== nm && i !== key && i !== dIdx && !isSrc(c) && c.textContent.trim() && c.textContent.trim() !== "—").map(([c]) => c.innerHTML);
-          return `<li class="dsh-stk-i g-ev${src ? " g-ev-chips" : ""}" title="${esc(tr.title || tr.textContent.replace(/\s+/g, " ").trim())}"><span class="c-date">${td[dIdx] ? td[dIdx].innerHTML : ""}</span>`
+          return `<li class="dsh-stk-i g-ev${src ? " g-ev-chips" : ""}${tr.classList.contains("dsh-pv-hide") ? ' dsh-pv-hide" style="display:none' : ""}" title="${esc(tr.title || tr.textContent.replace(/\s+/g, " ").trim())}"><span class="c-date">${td[dIdx] ? td[dIdx].innerHTML : ""}</span>`
             + `<span class="g-ev-t">${td[nm] ? td[nm].innerHTML : ""}</span><span class="c-tag">${key >= 0 && td[key] ? td[key].innerHTML : ""}</span>`
             + `<span class="c-src">${src}</span><span class="g-ev-m">${m.join(" · ")}</span></li>`;
         }
@@ -709,7 +708,7 @@ export function mount(host, ctx) {
     return rows;
   }
   function stressHTML() {
-    const chip = (k, l) => `<button type="button" class="dsh-sortchip${_stressSort.key === k ? " is-on" : ""}" data-sort="${k}">${l}${_stressSort.key === k ? (_stressSort.dir > 0 ? " ▲" : " ▼") : ""}</button>`;
+    // No "Sort by" bar (owner 2026-10-16, R44k): the list keeps its one order — by region.
     // R43: an events table — date first, the status tag beside the name, source last.
     const row = (s) => `<tr title="${esc([s.name, s.status, s.sector, s.hq, s.debt].filter(Boolean).join(" · "))}">`
       + `<td class="c-date">${s.latest ? esc(isoDay(s.latest)) : "—"}</td>`
@@ -720,7 +719,6 @@ export function mount(host, ctx) {
       + `<td class="dsh-stress-debt c-num">${esc(s.debt || "—")}</td>`
       + `<td class="dsh-note c-src dsh-srccol">${srcLink(s.source, s.name + " source")}</td></tr>`;
     return `<div class="dsh-stresswrap">`
-      + `<div class="dsh-sortbar"><span class="dsh-sortlbl">Sort by</span>${chip("region", "Region")}${chip("status", "Status")}${chip("debt", "Debt")}${chip("latest", "Latest")}${chip("name", "Debtor")}</div>`
       + `<div class="dsh-scroll"><table class="dsh-tbl dsh-stresstbl dsh-stk-src" id="dsh-stress-body" data-events="1" data-stk-date="0" data-stk-name="1" data-stk-key="2"><thead><tr><th class="c-date">Latest</th><th>Debtor</th><th class="c-tag">Status</th><th>Sector</th><th>HQ</th><th class="c-num">Debt</th><th class="c-src dsh-srccol">Src</th></tr></thead>`
       + `<tbody>${stressRows().map(row).join("")}</tbody></table></div></div>`;
   }
@@ -794,18 +792,11 @@ export function mount(host, ctx) {
   }
   const newsUl = (rows, cls = "") => evList(rows, `dsh-news dsh-rx${cls ? ` ${cls}` : ""}`);
   const metaOf = (...parts) => esc(parts.filter(Boolean).join(" · "));
-  // Europe-first (review 2026-10-15, #5): by default only European items — a deal whose
-  // borrower/asset region is European (deal-tags), an intel item whose own text names
-  // Europe/UK/€/£ — with one tap to "All regions".
-  let _cwScope = "eu";
-  const _mgrHq = new Map((managers || []).map((m) => [m.id, String(m.hq || "")]));
-  const euMgr = (id) => { const h = _mgrHq.get(id) || ""; return !!h && !/\b(US|USA|United States|Canada|Australia|Japan|Singapore|Hong Kong|Asia)\b/.test(h) && /,\s*(UK|[A-Z][a-z]+|[A-Z]{2})$|London|Paris|Frankfurt|Milan|Madrid|Stockholm|Copenhagen|Luxembourg|Amsterdam|Dublin|Zurich|Geneva|Munich|Brussels|Helsinki|Oslo|Jersey/.test(h); };
-  const isEuItem = (x) => x._deal ? EUROPE_REGIONS.includes(tagsOf(x, DEAL_TAGS).region) : (isEuro(x) || euMgr(x.managerId));
+  // The Credit wire lists every region (owner 2026-10-16, R44k — the Europe toggle was removed).
   function creditWireItems() {
     const seen = new Set(), out = [];
     [...(deals || []).map((x) => ({ ...x, _deal: true })), ...(intel || [])]
       .filter((x) => x && x.date && (x.headline || x.title) && (x.sourceUrl || x.url))
-      .filter((x) => _cwScope === "all" || isEuItem(x))
       .sort(byDateDesc)
       .forEach((x) => {
         const u = x.sourceUrl || x.url;
@@ -955,7 +946,7 @@ export function mount(host, ctx) {
   // Pre-marketing / Open / First Close, Europe-focused by default, newest update first.
   // A status not refreshed in 12+ months is flagged STALE (it may have closed since);
   // named LPs come from the fund's sourced investors + the commitments ledger.
-  let _fimScope = "eu", _fimStrat = "";
+  const _fimScope = "all"; let _fimStrat = "";   // all regions — no region toggle (R44k)
   const lpName = (id) => ((lps || []).find((l) => l.id === id) || {}).name || "";
   // The builder is shared with Transactions ▸ Fundraising (v2/js/funds-market.js).
   const fundsInMarket = () => fundsInMarketOf({ scope: _fimScope, strategy: _fimStrat });
@@ -964,8 +955,8 @@ export function mount(host, ctx) {
     const strats = [...new Set((funds || []).filter((f) => FIM_STATUS.has(f.status)).map((f) => f.strategy).filter(Boolean))].sort();
     const ccy = (f) => ({ EUR: "€", GBP: "£", USD: "$" }[f.ccy] || (f.ccy ? f.ccy + " " : "$"));
     const amt = (f, v) => (v != null ? fmtBn(v / 1000, ccy(f)) : "—");
-    const bar = `<div class="dsh-sortbar"><button type="button" class="dsh-sortchip${_fimScope === "eu" ? " is-on" : ""}" data-fim-scope="1">${_fimScope === "eu" ? "Europe" : "All regions"}</button>`
-      + `<select class="dsh-fim-strat" aria-label="Strategy"><option value="">All strategies</option>${strats.map((x) => `<option value="${esc(x)}"${x === _fimStrat ? " selected" : ""}>${esc(x)}</option>`).join("")}</select>`
+    // No Europe / All-regions toggle (owner 2026-10-16, R44k): every region, one strategy select.
+    const bar = `<div class="dsh-sortbar"><select class="dsh-fim-strat" aria-label="Strategy"><option value="">All strategies</option>${strats.map((x) => `<option value="${esc(x)}"${x === _fimStrat ? " selected" : ""}>${esc(x)}</option>`).join("")}</select>`
       + `<span class="dsh-n">${rows.length} fund${rows.length === 1 ? "" : "s"} · ${rows.filter((r) => r.lps.length).length} with named LPs</span></div>`;
     // R43: dated by the fund's latest status update — date first, status beside the fund,
     // its source last.
@@ -984,17 +975,21 @@ export function mount(host, ctx) {
   // Latest LP commitments (review #15) — the public commitments ledger, newest first:
   // LP → manager / fund, amount, date, each linked to its source.
   function lpCommitsHTML() {
-    const rows = (commitments || []).filter((c) => c.date && c.sourceUrl).slice().sort((a, b) => String(b.date).localeCompare(String(a.date))).slice(0, 25);
+    const rows = (commitments || []).filter((c) => c.date && c.sourceUrl).slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
     if (!rows.length) return `<p class="dsh-load">No dated commitments tracked.</p>`;
+    // The latest 10 + "See all N ›" (owner 2026-10-16, R44k) — built into the markup, so the
+    // cap holds even before the phone preview pass runs; the sheet shows every commitment.
+    const hid = (i) => (i >= PREVIEW ? ' class="dsh-pv-hide" style="display:none"' : "");
     const sym = { EUR: "€", GBP: "£", USD: "$" };
     const amt = (c) => (c.amount != null ? `${sym[c.ccy] || (c.ccy ? c.ccy + " " : "")}${c.amount >= 1000 ? +(c.amount / 1000).toFixed(2) + "bn" : c.amount + "m"}` : "—");
     const mName = (c) => ((managers || []).find((m) => m.id === c.managerId) || {}).name || c.manager || "—";
     const fName = (c) => ((funds || []).find((f) => f.id === c.fundId) || {}).name || c.fund || "";
     return `<div class="dsh-scroll"><table class="dsh-tbl dsh-lpc-tbl dsh-stk-src" data-events="1" data-stk-date="0" data-stk-name="1" data-stk-key="3"><thead><tr><th class="c-date">Date</th><th>Investor</th><th>Manager / fund</th><th class="dsh-r c-num">Amount</th><th class="c-src dsh-srccol">Src</th></tr></thead><tbody>`
-      + rows.map((c) => `<tr title="${esc([lpName(c.lpId), mName(c), fName(c), amt(c)].filter(Boolean).join(" · "))}"><td class="c-date">${esc(isoDay(c.date))}</td><td class="dsh-nm c-text"><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/lp/${encodeURIComponent(c.lpId)}`)}">${esc(lpName(c.lpId))}</a></td>`
+      + rows.map((c, i) => `<tr${hid(i)} title="${esc([lpName(c.lpId), mName(c), fName(c), amt(c)].filter(Boolean).join(" · "))}"><td class="c-date">${esc(isoDay(c.date))}</td><td class="dsh-nm c-text"><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/lp/${encodeURIComponent(c.lpId)}`)}">${esc(lpName(c.lpId))}</a></td>`
         + `<td class="c-text">${c.managerId ? `<a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/manager/${encodeURIComponent(c.managerId)}`)}">${esc(mName(c))}</a>` : esc(mName(c))}${fName(c) ? ` <span class="dsh-n">${esc(fName(c))}</span>` : ""}</td>`
         + `<td class="dsh-r c-num">${esc(amt(c))}</td><td class="c-src dsh-srccol">${srcLink(c.sourceUrl, "source")}</td></tr>`).join("")
-      + `</tbody></table></div>`;
+      + `</tbody></table></div>`
+      + (rows.length > PREVIEW ? `<button type="button" class="dsh-seeall">See all ${rows.length} <span aria-hidden="true">›</span></button>` : "");
   }
   const fillCard = (id, title, body, meta = "", cls = "") => `<section class="dsh-card dsh-fill${cls ? ` ${cls}` : ""}" id="${id}"><h3 class="dsh-h">${title} ${meta}</h3><div class="dsh-fill-body">${body}</div></section>`;
   function creditHTML() {
@@ -1017,8 +1012,7 @@ export function mount(host, ctx) {
       <h3 class="dsh-term-lbl">Activity</h3>
       <section class="dsh-card dsh-fill"><h3 class="dsh-h">CLOs &amp; fund closes ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}</h3><div class="dsh-fill-body">${activityHTML()}</div></section>
       ${rosterCardsHTML(asOf)}`;
-    const scopeBtn = `<button type="button" class="dsh-sortchip dsh-cw-scope${_cwScope === "eu" ? " is-on" : ""}" data-cwscope="1" title="Europe only / all regions">${_cwScope === "eu" ? "Europe" : "All regions"}</button>`;
-    const news = `<section class="dsh-card" id="dsh-cw"><h3 class="dsh-h">Credit wire — latest deals &amp; intel ${scopeBtn}</h3><div id="dsh-cw-b">${creditNewsHTML()}</div></section>`;
+    const news = `<section class="dsh-card" id="dsh-cw"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3><div id="dsh-cw-b">${creditNewsHTML()}</div></section>`;
     return { mid, news, newsLabel: "Credit wire" };
   }
   // ICE BofA OAS stack from /api/rates. The feed reports OAS in PERCENT (3.11 =
@@ -2008,34 +2002,18 @@ export function mount(host, ctx) {
     }
     layoutMid();
     if (pane === "equities") loadWorldIndices();
-    if (pane === "credit") { loadRates(); loadEu(); wireStressSort(); }
+    if (pane === "credit") { loadRates(); loadEu();  }
     if (pane === "equities") loadEu();
     if (pane === "rates") { loadRates(); loadEu(); loadYieldCurve(); wireYields(); loadGovYields(); loadImplied(); }
     if (pane === "hedge-funds") wireHedgeFunds();
     if (pane === "legal") wireLegal();
   }
-  function wireStressSort() {
-    host.querySelectorAll(".dsh-sortchip").forEach((btn) => btn.addEventListener("click", () => {
-      const k = btn.dataset.sort;
-      if (_stressSort.key === k) _stressSort.dir *= -1; else { _stressSort.key = k; _stressSort.dir = k === "debt" ? -1 : 1; }
-      const wrap = host.querySelector(".dsh-stresswrap");
-      if (wrap) { wrap.outerHTML = stressHTML(); stackTables(host); repreview(host.querySelector(".dsh-stresswrap")); wireStressSort(); }
-    }));
-  }
+
   host.addEventListener("change", (e) => {
     if (!e.target.matches || !e.target.matches(".dsh-fim-strat")) return;
     _fimStrat = e.target.value; const bx = host.querySelector("#dsh-fim-b"); if (bx) { bx.innerHTML = fimHTML(); repreview(bx); }
   });
   host.addEventListener("click", (e) => {
-    const fs = e.target.closest("[data-fim-scope]");
-    if (fs) { e.preventDefault(); _fimScope = _fimScope === "eu" ? "all" : "eu"; const bx = host.querySelector("#dsh-fim-b"); if (bx) { bx.innerHTML = fimHTML(); repreview(bx); } return; }
-    const cw = e.target.closest("[data-cwscope]");
-    if (cw) {
-      e.preventDefault(); _cwScope = _cwScope === "eu" ? "all" : "eu";
-      cw.classList.toggle("is-on", _cwScope === "eu"); cw.textContent = _cwScope === "eu" ? "Europe" : "All regions";
-      host.querySelectorAll("#dsh-cw-b").forEach((b) => { b.innerHTML = creditNewsHTML(); repreview(b.closest(".dsh-card")); });
-      return;
-    }
     const more = e.target.closest(".dsh-seeall:not([data-crall]):not([data-bdcall])");
     if (more) { e.preventDefault(); openSheet(more.parentElement); return; }
     const a = e.target.closest(".dsh-navchip[data-sub], .tchip[data-sub]");

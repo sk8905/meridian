@@ -1,6 +1,6 @@
 // Funds in market (review 2026-10-15, #12): Dashboard ▸ Credit answers "which managers
 // are raising European direct-lending funds, and from which LPs?" — every fund still
-// raising (Pre-marketing / Open / First Close), Europe-focused by default, filterable
+// raising (Pre-marketing / Open / First Close), every region (no region toggle, R44k), filterable
 // by strategy, with named LPs where sourced and a STALE flag on statuses 12+ months old.
 import { serve, launchChromium, open, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
 import { funds } from "../credit/js/data.js";
@@ -19,9 +19,10 @@ check(r0.some((r) => r[7] && r[7] !== "—"), "named LPs are shown where sourced
 await pg.selectOption("#dsh-fim .dsh-fim-strat", "Senior Direct Lending"); await pg.waitForTimeout(150);
 const dl = await rows();
 check(dl.length > 0 && dl.every((r) => r[4] === "Senior Direct Lending"), `the strategy filter narrows to direct lending (${dl.length})`);
-await pg.click("#dsh-fim [data-fim-scope]"); await pg.waitForTimeout(150);
-const all = await rows();
-check(all.length >= dl.length, `All regions widens the list (${all.length} ≥ ${dl.length})`);
+// No region toggle (owner 2026-10-16, R44k): the card lists EVERY region.
+check(!(await pg.evaluate(() => !!document.querySelector("#dsh-fim [data-fim-scope], #dsh-fim .dsh-sortchip"))), "no Europe / All-regions toggle");
+const nonEu = r0.filter((r) => !/Europ|UK|Nordic|DACH|Ireland|France|German|Spain|Ital/i.test(r.join(" "))).length;
+check(nonEu > 0, `every region is listed, not only Europe (${nonEu} non-European of ${r0.length})`);
 // LP commitments ledger (review #15): newest first, each sourced, linked to the LP page.
 const lpc = await pg.evaluate(() => [...document.querySelectorAll("#dsh-lpc tbody tr")].map((tr) => ({ d: tr.querySelector(".c-date").textContent, lp: (tr.querySelector("a.dsh-drill") || {}).getAttribute?.("href") || "", src: !!tr.querySelector('.dsh-src[href^="http"]') })));
 check(lpc.length >= 20 && lpc.every((r) => r.src && /#\/lp\//.test(r.lp)), `LP commitments list is sourced and links each investor (${lpc.length})`);
