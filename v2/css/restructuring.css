@@ -53,3 +53,20 @@
 .rxh-hist-q { color:var(--t-faint); font-size:var(--fs-micro); }
 .rxh-hist-i .c-num { color:var(--t-ink); font-size:var(--fs-num); }
 .rxh-kv { grid-template-columns:minmax(0,1fr); margin-bottom:6px; }
+
+/* ---- Listed bonds: TradingView quote widgets (hub quote sheet + borrower page) ------
+   The widget draws in TradingView's own iframe (dark theme, transparent); Wire adds
+   only the caption — what the number is (delayed exchange quote) and its source. */
+.rxh-q { cursor:pointer; border:0; background:none; font:inherit; padding:0; color:var(--t-mut); }
+@media (hover:hover) { .rxh-q:hover { color:var(--t-ink); } }
+.bq-list { display:flex; flex-direction:column; gap:12px; padding:8px var(--m-gutter, 12px) 4px; }
+.bq { min-width:0; border-bottom:1px solid var(--t-grid); padding-bottom:8px; }
+.bq:last-child { border-bottom:0; }
+.bq-w { width:100%; overflow:hidden; }
+/* color-scheme matches the frame document's, else Chromium paints it an opaque white backdrop. */
+.bq-w iframe { display:block; width:100%; height:100%; border:0; background:transparent; color-scheme:normal; }
+.bq-cap { margin:4px 0 0; color:var(--t-faint); font-size:var(--fs-micro); line-height:1.4; }
+.bq-cap a { color:var(--t-mut); }
+.bq-px { color:var(--t-mut); }
+.bq-px .c-num { color:var(--t-ink); font-size:var(--fs-num); }
+.rxh-qsheet > .bq-cap { padding:0 var(--m-gutter, 12px) 12px; }

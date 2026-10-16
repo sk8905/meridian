@@ -1694,7 +1694,14 @@ item keeps a real outbound source link (R7).
 - Investing.com / Investing.com UK
 - MarketWatch
 - TradingEconomics
-- TradingView
+- TradingView — symbol search is the reference record for the stressed names' listed
+  bonds (`CR_BONDS`), and its free **Mini Symbol Overview** widget is the bond quote on the
+  Restructuring hub ("Listed bonds — quotes", Quote sheet) and the borrower page
+  (`v2/js/bonds.js`). The widget's own frame is embedded directly (no TradingView script in
+  Wire's page) and draws the number itself — Wire never reads, stores or relabels it — and
+  every widget is captioned as a delayed exchange quote on the named venue, not a
+  composite price, with the TradingView link. Only widget-quotable venues (Tradegate,
+  gettex, Frankfurt, Munich, …) are used; see refresh-routines §bonds.
 
 ### 8.2 Rates, macro & official statistics
 - FRED — Federal Reserve Bank of St. Louis (`fred.stlouisfed.org`)

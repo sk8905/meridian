@@ -8,6 +8,8 @@
 //   • Legal      — law-firm alerts, judgments and restructuring plans / schemes naming it
 //   • Advisers   — firms on its deals (v2/js/deal-advisers.js)
 //   • UK registry — Companies House profile + charges from the public register (/api/ch)
+//   • Listed bonds — its CR_BONDS lines (stressed names only): TradingView's free quote
+//                   widget per line (delayed exchange quote) + any dated press price
 // =============================================================================
 import { deals, managers } from "/credit/js/data.js";
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
@@ -17,6 +19,7 @@ import { esc } from "/util.js";
 import { fmtDateP, evRow } from "/feed.js";
 import { creditSource } from "/credit/js/shared.js";
 import { advisersFor } from "../deal-advisers.js";
+import { bondsFor, mountQuotes } from "../bonds.js";
 
 const norm = (s) => " " + String(s || "").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, " ").trim() + " ";
 // "Thames Water Utilities Holdings Limited" ↔ "Thames Water": compare on the name
@@ -71,6 +74,7 @@ export async function viewBorrower(host, rawName, base = "/v2") {
   const ds = borrowerDeals(name);
   const stress = (CR_STRESS || []).find((s) => key(s.name) === k || mentions(s.name, k));
   const credit = (EUR_CREDITS || []).find((c) => key(c.name) === k);
+  const bonds = stress ? bondsFor(stress.name) : [];
   host.innerHTML = `<div class="tdash"><div class="tdash-grid tdash-1"><section class="tcol tcol-c tcol-full"><div class="tdet-id"><h1>${esc(name)}</h1><div class="tdet-sub">Borrower / company · loading legal records…</div></div></section></div></div>`;
   const L = await import("/legal/js/data.js").catch(() => ({ items: [], cases: [], restructurings: [], firmById: {} }));
   const alerts = (L.items || []).filter((i) => mentions(i.title, k)).sort((a, b) => String(b.date).localeCompare(String(a.date)));
@@ -105,12 +109,14 @@ export async function viewBorrower(host, rawName, base = "/v2") {
         <div class="tdet-sub">Borrower / company · ${ds.length} deal${ds.length === 1 ? "" : "s"} · ${alerts.length + cases.length + rx.length} legal record${alerts.length + cases.length + rx.length === 1 ? "" : "s"}</div>
         ${facts.length ? `<ul class="tbiz">${facts.map(([a, v]) => `<li><span class="tbiz-k">${esc(a)}</span><span class="tbiz-v">${v}</span></li>`).join("")}</ul>` : ""}
       </div>
+      ${bonds.length ? sec("Listed bonds — quotes", bonds.length, `<div class="bq-list" id="co-bonds"></div>`) : ""}
       ${sec("Deals", ds.length, dealsBody)}
       ${sec("Legal — plans, judgments & alerts", alerts.length + cases.length + rx.length, legalBody)}
       <div class="tpg" id="co-uk"><div class="tpg-h">UK registry (Companies House)</div><p class="tw-empty muted small">Looking up…</p></div>
     </section></div></div>`;
   const sh = host.querySelector(".co-share");
   if (sh) sh.addEventListener("click", () => shareBorrower(name));
+  if (bonds.length) mountQuotes(host.querySelector("#co-bonds"), bonds);
   const uk = await ukRegistry(name);
   const box = host.querySelector("#co-uk");
   if (!box) return;

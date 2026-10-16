@@ -12,6 +12,9 @@
 //                           the live Eurostat bankruptcy index (/api/eurates)
 //   • Hearings            — the public Rolls Building daily cause list (/api/causelist,
 //                           CaTH) + dated Restructuring milestones (REG_CALENDAR)
+//   • Listed bonds        — dashboard/js/data.js CR_BONDS: each stressed name's listed
+//                           bonds; "Quote" opens TradingView's free widget (a delayed
+//                           exchange quote on the named venue — v2/js/bonds.js)
 // Every company name links to its borrower page (/v2/profiles/#/co/<name>). Each list
 // previews 10 rows + "See all N" (phone AND desktop, HOUSE_STYLE R40/R41j), which opens
 // the whole list in a sheet. mount(host, ctx) → { enter, leave, home }.
@@ -27,6 +30,8 @@ import { dealCounterparty } from "../deal-parse.js";
 import { coreName } from "../profiles/borrower.js";
 import { liveJSON, lastKnownLabel } from "../live-cache.js";
 import { evRow } from "/feed.js";
+import { CR_BONDS } from "/dashboard/js/data.js";
+import { bondsFor, listable, bondLabel, maturityTxt, venueOf, pxTxt, mountQuotes } from "../bonds.js";
 
 const PREVIEW = 10;
 const CATH_SUMMARY = "https://www.court-tribunal-hearings.service.gov.uk/summary-of-publications?locationId=111";
@@ -72,6 +77,12 @@ export function rxDeals() {
 export function stressRows() {
   return (CR_STRESS || []).slice().sort((a, b) => String(b.latest || "").localeCompare(String(a.latest || "")));
 }
+// Every listed bond line, grouped by name, earliest maturity first (perpetuals last).
+export function rxBonds() {
+  const stressed = new Set((CR_STRESS || []).map((s) => s.name));
+  return (CR_BONDS || []).filter((b) => listable(b) && stressed.has(b.name)).slice()
+    .sort((a, b) => a.name.localeCompare(b.name) || String(a.maturity || "9999").localeCompare(String(b.maturity || "9999")));
+}
 export function rxMilestones(today = new Date().toISOString().slice(0, 10)) {
   return ((REG_CALENDAR && REG_CALENDAR.items) || []).filter((x) => x && x.area === "Restructuring" && x.date && String(x.date) >= today.slice(0, String(x.date).length))
     .sort((a, b) => String(a.date).localeCompare(String(b.date)));
@@ -96,8 +107,18 @@ export function mount(host, ctx) {
   function stressBody() {
     return ul(stressRows().map((s) => coRow({
       name: s.name, date: s.latest, tag: tag(s.status), srcHref: s.source,
-      meta: [esc(s.sector || ""), esc(s.hq || ""), s.debt ? esc(s.debt) : ""],
+      meta: [esc(s.sector || ""), esc(s.hq || ""), s.debt ? esc(s.debt) : "", nBonds(s.name)],
     })), "No stressed names tracked.");
+  }
+  const nBonds = (name) => { const n = bondsFor(name).length; return n ? `${n} listed bond${n === 1 ? "" : "s"}` : ""; };
+  // ---- 1b · Listed bonds: one row per issue; "Quote" opens the TradingView widget ------
+  function bondsBody() {
+    return ul(rxBonds().map((b) => evRow({
+      title: `${b.name} ${bondLabel(b)}`, href: borrowerPath(b.name, base), inApp: true, aCls: "dsh-drill rxh-co",
+      dateText: maturityTxt(b.maturity), srcHref: b.src, src: "TradingView", cls: "rxh-i rxh-bond", attrs: ` data-isin="${esc(b.isin)}"`,
+      tag: `<button type="button" class="dsh-tag rxh-q" data-bq="${esc(b.isin)}" aria-label="${b.tv ? "Quote" : "Press price"} for ${esc(b.name)} ${esc(bondLabel(b))}">${b.tv ? "Quote" : "Press"}</button>`,
+      meta: [pxTxt(b) ? `press ${esc(pxTxt(b))}` : "", esc(b.isin), esc(venueOf(b)), esc(b.issuer || "")].filter(Boolean).join(" · "),
+    })), "No listed bonds mapped.", "rxh-bondl");
   }
   // ---- 2 · Plans & schemes ----------------------------------------------------------
   function plansBody() {
@@ -173,15 +194,16 @@ export function mount(host, ctx) {
   // Restructuring lit, so every chip goes somewhere (the old in-page section chips are gone).
   const DEALS_BAR = [["all", "All"], ["lending", "Lending"], ["structured", "Structured credit"], ["secondary", "Secondaries"], ["restructuring", "Restructuring"], ["fundraising", "Fundraising"], ["mna", "Manager M&amp;A"], ["league", "League tables"]];
   function render() {
-    const P = plansAndSchemes(), C = rxCases(), D = rxDeals();
+    const P = plansAndSchemes(), C = rxCases(), D = rxDeals(), B = rxBonds();
     const chips = DEALS_BAR.map(([k, l]) => k === "restructuring"
       ? `<span class="tchip rxh-chip is-on" aria-current="page">${l}</span>`
       : `<a class="tchip rxh-chip" href="${esc(base)}/transactions/#/${k}">${l}</a>`).join("");
     host.innerHTML = `<div class="dsh rxh">
       <header class="tpanel-h twire-head rxh-nav"><nav class="tchips rxh-chips" aria-label="Deals">${chips}</nav></header>
-      <header class="rxh-hd"><h2 class="rxh-t">Restructuring</h2><span class="rxh-sub">${CR_STRESS.length} stressed · ${P.length} plans &amp; schemes · ${C.length} judgments · ${D.length} deals</span></header>
+      <header class="rxh-hd"><h2 class="rxh-t">Restructuring</h2><span class="rxh-sub">${CR_STRESS.length} stressed · ${P.length} plans &amp; schemes · ${C.length} judgments · ${D.length} deals · ${B.length} listed bonds</span></header>
       <div class="rxh-grid">
         ${card("rxh-stress", "Stress — situations in focus", count(CR_STRESS.length), stressBody())}
+        ${card("rxh-bonds", "Listed bonds — quotes", `${count(B.length)} <span class="dsh-asof" title="Delayed / end-of-day exchange quotes via TradingView's free widget — not composite prices">delayed</span>`, bondsBody())}
         ${card("rxh-plans", "Plans &amp; schemes", count(P.length), plansBody())}
         ${card("rxh-cases", "Case law — restructuring &amp; insolvency", count(C.length), casesBody())}
         ${card("rxh-hearings", "Hearings", `<a class="dsh-src rxh-off" href="${esc(CATH_SUMMARY)}" target="_blank" rel="noopener noreferrer" title="HMCTS Court and Tribunal Hearings — Rolls Building">Official cause lists</a>`, hearingsBody())}
@@ -226,12 +248,39 @@ export function mount(host, ctx) {
     const close = () => { sh.remove(); document.documentElement.classList.remove("dsh-sheet-open"); document.removeEventListener("keydown", onKey); _closeSheet = null; };
     document.addEventListener("keydown", onKey);
     sh.querySelector(".dsh-sheet-x").addEventListener("click", close);
-    sh.addEventListener("click", (e) => { if (e.target.closest("a[href]")) close(); });
+    sh.addEventListener("click", (e) => {
+      const qb = e.target.closest(".rxh-q[data-bq]");
+      if (qb) { e.preventDefault(); openQuote(qb.getAttribute("data-bq")); return; }
+      if (e.target.closest("a[href]")) close();
+    });
     const q = sh.querySelector(".dsh-sheet-q");
     q.addEventListener("input", () => { const v = q.value.trim().toLowerCase(); itemsOf(clone).forEach((it) => { it.style.display = !v || it.textContent.toLowerCase().includes(v) ? "" : "none"; }); });
     _closeSheet = close;
   }
+  // "Quote" → a sheet with the bond's TradingView widget (+ the issuer's other lines).
+  function openQuote(isin) {
+    const b = (CR_BONDS || []).find((x) => listable(x) && x.isin === isin);
+    if (!b) return;
+    if (_closeSheet) _closeSheet();
+    const all = [b, ...bondsFor(b.name).filter((x) => x.isin !== isin)];
+    const sh = document.createElement("div");
+    sh.className = "dsh dsh-sheet rxh rxh-qsheet"; sh.setAttribute("role", "dialog"); sh.setAttribute("aria-modal", "true"); sh.setAttribute("aria-label", `${b.name} — bond quotes`);
+    sh.innerHTML = `<div class="dsh-sheet-hd"><span class="dsh-sheet-t">${esc(b.name)} — bond quotes <span class="dsh-n">(${all.length})</span></span><button type="button" class="dsh-sheet-x" aria-label="Close">✕</button></div>`
+      + `<div class="dsh-sheet-body rxh-sheet-body bq-list"></div>`
+      + `<p class="bq-cap"><a class="dsh-drill" href="${esc(borrowerPath(b.name, base))}">Everything Wire holds on ${esc(b.name)}</a></p>`;
+    document.body.appendChild(sh);
+    document.documentElement.classList.add("dsh-sheet-open");
+    mountQuotes(sh.querySelector(".bq-list"), all);
+    const onKey = (e) => { if (e.key === "Escape") close(); };
+    const close = () => { sh.remove(); document.documentElement.classList.remove("dsh-sheet-open"); document.removeEventListener("keydown", onKey); _closeSheet = null; };
+    document.addEventListener("keydown", onKey);
+    sh.querySelector(".dsh-sheet-x").addEventListener("click", close);
+    sh.addEventListener("click", (e) => { if (e.target.closest("a.dsh-drill[href]")) close(); });
+    _closeSheet = close;
+  }
   host.addEventListener("click", (e) => {
+    const q = e.target.closest(".rxh-q[data-bq]");
+    if (q && host.contains(q)) { e.preventDefault(); openQuote(q.getAttribute("data-bq")); return; }
     const chip = e.target.closest(".rxh-chip.is-on");
     if (chip && host.contains(chip)) { e.preventDefault(); const sc = host.querySelector(".rxh"); if (sc) sc.scrollTo({ top: 0, behavior: "smooth" }); window.scrollTo({ top: 0, behavior: "smooth" }); return; }
     const b = e.target.closest(".dsh-seeall");

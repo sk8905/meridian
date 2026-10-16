@@ -947,6 +947,22 @@ investor AUM is USD by convention — R29.)
   attributed source and its date; `REG_CALENDAR` rows carry `jur` (EU/UK/US) and `area`;
   `EU_DISTRESS` rows name their `measure` (TTM by count / amount / forecast). Refresh the
   default rates when Fitch / S&P / Moody's / PitchBook LCD publish the next month.
+- **Listed bonds of the stressed names (§bonds — `dashboard/js/data.js` `CR_BONDS`).**
+  One row per listed issue, keyed by the `CR_STRESS` `name` (an entry whose name is not
+  on the stress list is not shown — when a name leaves the list, drop its bonds). The
+  issue data is TradingView's own record: look the issuer up in TradingView's symbol
+  search (bond type) and copy `issuer`, `coupon`, `maturity` (null = perpetual) and
+  `isin` exactly; `src` is the symbol page, `checked` today. `tv` is the widget symbol on
+  a venue TradingView's FREE widget quotes — Tradegate, gettex, Frankfurt (FWB), Munich,
+  Düsseldorf, Hamburg, Hanover, preferred in that order. LSE, LuxSE, SIX, Börse Stuttgart
+  (SWB), FINRA (TRACE) and Bonds.com lines render "only available on TradingView" or
+  "Invalid symbol" in the widget — never use them. Add a line only after opening its
+  widget and seeing a CURRENT quote (a price that moved within the last month); leave out
+  matured issues and pre-restructuring issues that were exchanged or cancelled (they
+  linger on venues with a frozen quote). `px` is optional: a secondary price stated as a
+  number in a dated article (`{v, asOf, src, quote}`, `quote` = the exact phrase) — never
+  inferred, never averaged; a line with no widget venue is listed only when it has one.
+  `tests/bond-quotes.mjs` validates every row (ISIN check digit, venue, source, dates).
 - **LP sweep (every run, budget-capped; a deeper pass weekly on Mondays).** Look for NEW
   public LP commitments to private credit / direct lending / CLO / ABF / special-situations
   / infra & real-estate debt funds since the last run, newest first, Europe-relevant
