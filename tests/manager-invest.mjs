@@ -140,9 +140,10 @@ await ctx.close();
 // runaway, and every row is a single line (Source ellipsizes rather than wraps).
 {
   const d = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/profiles/#/manager/m8`);
-  await d.pg.waitForTimeout(1500);
+  // Wait for the manager page itself (not a fixed delay — flaky under suite load).
+  await d.pg.waitForSelector('#mgr-tabs .tchip[data-p="investments"]', { timeout: 15000 });
   await d.pg.evaluate(() => { const t = document.querySelector('#mgr-tabs .tchip[data-p="investments"]'); if (t) t.click(); });
-  await d.pg.waitForTimeout(400);
+  await d.pg.waitForFunction(() => { const r = document.querySelector(".tinv-tbl tbody tr"); return !!r && r.getBoundingClientRect().height > 0; }, null, { timeout: 8000 }).catch(() => {});
   const g = await d.pg.evaluate(() => {
     const tbl = document.querySelector(".tinv-tbl");
     if (!tbl) return { found: false };

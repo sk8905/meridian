@@ -8,6 +8,7 @@ import { managerWire, CAT_LABEL, dedupeEvents, loadManagerData, fundEvents, name
 // the credit app's localStorage persist; its cloud sync reconciles on next visit.
 import { follows, followList, followBtn, toggleFollow } from "/credit/js/shared.js";
 import { reportRefresh } from "/v2/js/status.js";
+import { markUpdate } from "/v2/js/update.js";
 import { lastKnown, lastKnownLabel } from "/v2/js/live-cache.js";
 import { isPaywalledSrc, linksOutSrc } from "/v2/js/read-policy.js";
 import { NEWSLETTERS } from "/newsletters.js";
@@ -173,7 +174,7 @@ export function initGlance(ctx) {
   // base + manager rows; the manager wire, macro snapshot, earnings and the shared
   // refresh stamp fill in once the data lands (a few hundred ms after first paint).
   loadDeskData().then(() => {
-    renderWire();                                        // now with the curated desk base + manager merge
+    renderWireLive();                                    // now with the curated desk base + manager merge (keeps the reader's place)
     renderManagerWire();                                 // mobile watch tab (#g-mgrwire)
     renderMacroSnapshot();
     initMacroIndicators();
@@ -1769,7 +1770,7 @@ function refreshLiveFeed() {
         // the reduced time until the NEXT fresh assembly, on every page.
         try { localStorage.setItem("wire.live.anchor", String(Date.parse(d.asOf) || Date.now())); } catch { /* private mode */ }
         window.dispatchEvent(new CustomEvent("wire:live-refresh"));
-        renderWire();
+        renderWireLive();
       }
     })
     .catch(() => { /* keep cached/static feed */ });
@@ -1799,12 +1800,11 @@ function startLiveRefresh() {
 // the same content-hashed bundle, so it slips past that check.)
 //
 // Fix: when the app is foregrounded after being away a little while, fetch the
-// briefing module fresh — a cache-busting query yields a NEW module instance, and the
-// real file is Cache-Control:no-cache so it's a cheap 304 when unchanged — and compare
+// briefing module's source fresh (no-store; the real file is Cache-Control:no-cache
+// so it's a cheap 304 when unchanged) — and compare
 // its latest (date·time) stamp with the one this page loaded. If a newer edition has
-// landed, reload ONCE to pull in every refreshed module (briefing, FT, newsletters,
-// home-data). Guarded, throttled and offline-safe; the last-used wire tab is restored
-// on reload (F8), so the only visible cost is a scroll-to-top.
+// landed, swap it into the card IN PLACE (no reload, no jump) and mark a quiet data
+// update so the other modules catch up next time the app is backgrounded (update.js).
 // The latest stamp parsed from the briefing module's SOURCE TEXT (not an import), so
 // the reopen check can read a freshly-fetched copy without re-importing the module
 // (which a running page can't do) or polluting the module map. Each slot writes its
@@ -1820,9 +1820,29 @@ function _latestStampFromText(src) {
   }
   return best;
 }
-let _briefFreshBusy = false, _briefFreshReloaded = false, _briefFreshAt = 0, _hiddenSince = 0;
+let _briefFreshBusy = false, _briefFreshAt = 0, _hiddenSince = 0;
+// Swap a newer edition into the live BRIEFINGS object and repaint the card in place —
+// no page reload, so the reader keeps their tab and scroll. The fetched source is
+// imported from a blob: URL (a fresh module instance, no cache-busting query on the
+// real file). The other refreshed data modules (FT, newsletters, research) catch up
+// on the next background via update.js — the live feed covers news in the meantime.
+async function _swapBriefing(src) {
+  const url = URL.createObjectURL(new Blob([src], { type: "text/javascript" }));
+  try {
+    const mod = await import(/* @vite-ignore */ url);
+    const fresh = mod && mod.BRIEFINGS;
+    if (!fresh || typeof fresh !== "object") return false;
+    for (const k of Object.keys(BRIEFINGS)) delete BRIEFINGS[k];
+    Object.assign(BRIEFINGS, fresh);
+    renderHomeBriefing();
+    const s = _briefSlot(), t = s && String(s.time || "").match(/(\d{1,2}):(\d{2})/);
+    if (s && s.date && t) reportRefresh(s.date, `${t[1].padStart(2, "0")}:${t[2]}`);
+    return true;
+  } catch { return false; }
+  finally { URL.revokeObjectURL(url); }
+}
 async function _checkBriefRefresh() {
-  if (_briefFreshBusy || _briefFreshReloaded || document.hidden) return;
+  if (_briefFreshBusy || document.hidden) return;
   const now = Date.now();
   if (_briefFreshAt && now - _briefFreshAt < 60 * 1000) return;   // at most once a minute
   _briefFreshAt = now; _briefFreshBusy = true;
@@ -1832,8 +1852,12 @@ async function _checkBriefRefresh() {
     // Cache-Control:no-cache, and the SW leaves /briefings.js to the network).
     const res = await fetch(`/briefings.js?cb=${now}`, { cache: "no-store" });
     if (res && res.ok) {
-      const theirs = _latestStampFromText(await res.text());
-      if (theirs && mine && theirs > mine) { _briefFreshReloaded = true; location.reload(); }
+      const text = await res.text();
+      const theirs = _latestStampFromText(text);
+      if (theirs && mine && theirs > mine) {
+        await _swapBriefing(text);
+        markUpdate("data");          // the rest of the refreshed data lands on the next background
+      }
     }
   } catch { /* offline / blocked — keep the loaded briefing */ }
   finally { _briefFreshBusy = false; }
@@ -2796,6 +2820,99 @@ export function syncMode(isNews) {
 // The dispatcher — the single entry point for (re)painting the merged wire. Desktop
 // selects the lane from the chip row; phones from the wire-tab dropdown (renderWireLanes
 // paints both). The reading pane is desktop-only (mobile rows navigate as before).
+// ---- Live repaint without the jump -----------------------------------------
+// A background refresh (the 5-min poll, a resume, the desk-data merge) used to
+// repaint the whole wire under the reader: new headlines landed on top and pushed
+// whatever they were reading down the screen, and a repaint mid-flick killed iOS
+// momentum. renderWireLive() instead (1) waits until the reader's finger is off
+// the glass and the scroll has settled, (2) pins the first visible row so it stays
+// exactly where it was, and (3) if new stories landed ABOVE that row, shows a
+// small "↑ N new" pill that scrolls back to the top on tap.
+let _touching = false, _lastMove = 0, _idleWired = false, _liveQueued = false;
+function _wireIdleTracking() {
+  if (_idleWired) return; _idleWired = true;
+  const mark = () => { _lastMove = Date.now(); };
+  window.addEventListener("touchstart", () => { _touching = true; mark(); }, { passive: true });
+  window.addEventListener("touchend", () => { _touching = false; mark(); }, { passive: true });
+  window.addEventListener("touchcancel", () => { _touching = false; mark(); }, { passive: true });
+  window.addEventListener("scroll", mark, { passive: true, capture: true });
+}
+function _whenIdle(fn) {
+  _wireIdleTracking();
+  const t0 = Date.now();
+  const tick = () => {
+    // Never hold a refresh back for more than ~10s, and never wait while hidden.
+    if (!document.hidden && Date.now() - t0 < 10000 && (_touching || Date.now() - _lastMove < 600)) { setTimeout(tick, 250); return; }
+    fn();
+  };
+  tick();
+}
+function _feedScroller(feed) {
+  for (let el = feed; el && el !== document.body; el = el.parentElement) {
+    const oy = getComputedStyle(el).overflowY;
+    if ((oy === "auto" || oy === "scroll") && el.scrollHeight > el.clientHeight + 1) return el;
+  }
+  return null;                                         // the window scrolls (phones)
+}
+const _anchorKey = (a) => a.getAttribute("href") || a.textContent.trim().slice(0, 80);
+function _anchoredRender(render) {
+  const feed = document.getElementById("g-feed");
+  if (!feed || feed.offsetParent === null) { render(); return 0; }
+  const sc = _feedScroller(feed);
+  const y = sc ? sc.scrollTop : window.scrollY;
+  const rows = () => [...feed.querySelectorAll("a.g-feed-row")];
+  const before = new Set(rows().map(_anchorKey));
+  let key = null, top0 = 0;
+  if (y > 8) {                                         // at the very top, new stories simply appear
+    const viewTop = sc ? sc.getBoundingClientRect().top : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--wire-head-h")) || 0);
+    for (const a of rows()) { const r = a.getBoundingClientRect(); if (r.bottom > viewTop + 1) { key = _anchorKey(a); top0 = r.top; break; } }
+  }
+  render();
+  if (!key) return 0;
+  const after = rows();
+  const idx = after.findIndex((a) => _anchorKey(a) === key);
+  if (idx < 0) return 0;
+  const d = after[idx].getBoundingClientRect().top - top0;
+  if (Math.abs(d) > 0.5) { if (sc) sc.scrollTop += d; else window.scrollTo({ top: window.scrollY + d, behavior: "instant" }); }
+  return after.slice(0, idx).filter((a) => !before.has(_anchorKey(a))).length;
+}
+let _newPill = null, _newCount = 0;
+function _showNewPill(n) {
+  const feed = document.getElementById("g-feed");
+  const host = feed && feed.closest(".v2-view");
+  if (!host) return;
+  _newCount += n;
+  if (!_newPill) {
+    _newPill = document.createElement("button");
+    _newPill.type = "button";
+    _newPill.className = "wire-new-pill";
+    _newPill.addEventListener("click", () => {
+      const sc = _feedScroller(feed);
+      if (sc) sc.scrollTo({ top: 0, behavior: "smooth" }); else window.scrollTo({ top: 0, behavior: "smooth" });
+      _hideNewPill();
+    });
+    // Reaching the top by hand also clears it.
+    window.addEventListener("scroll", () => {
+      if (!_newPill || _newPill.hidden) return;
+      const sc = _feedScroller(feed);
+      if ((sc ? sc.scrollTop : window.scrollY) < 40) _hideNewPill();
+    }, { passive: true, capture: true });
+    host.appendChild(_newPill);
+  }
+  _newPill.textContent = `\u2191 ${_newCount} new ${_newCount === 1 ? "story" : "stories"}`;
+  _newPill.hidden = false;
+}
+function _hideNewPill() { _newCount = 0; if (_newPill) _newPill.hidden = true; }
+function renderWireLive() {
+  if (_liveQueued) return;                             // one pending repaint is enough
+  _liveQueued = true;
+  _whenIdle(() => {
+    _liveQueued = false;
+    const n = _anchoredRender(renderWire);
+    if (n > 0) _showNewPill(n);
+  });
+}
+
 function renderWire() {
   // Coerce a stale/removed lane (e.g. a persisted "news" from before it was retired)
   // back to the default so the chip row always has an active chip.

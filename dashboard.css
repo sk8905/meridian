@@ -287,7 +287,7 @@
 @media (hover:hover){ .dsh-lgl-chip:hover { color:var(--t-ink); } }
 .dsh-lgl-chip.is-on { color:var(--t-ink); font-weight:600; box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .dsh-lgl-chip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }
-.dsh-lgl-body { max-height:62vh; overflow-y:auto; }
+.dsh-lgl-body { max-height:62vh; max-height:62svh; overflow-y:auto; }
 .dsh-lgl-list { margin:0; }
 .dsh-lgl-d { color:var(--t-mut); font-size:var(--fs-body); font-family:var(--t-mono); }
 /* IPO / generic table */
@@ -922,7 +922,7 @@ html.dsh-sheet-open, html.dsh-sheet-open body { overflow:hidden; }
 
 /* Desktop (owner 2026-10-15): "See all" opens the whole list as a centred panel. */
 @media (min-width:901px){
-  .dsh-sheet { inset:5vh max(6vw, calc(50vw - 640px)); border:1px solid var(--t-grid2); box-shadow:0 18px 50px rgba(0,0,0,.35); padding:0; }
+  .dsh-sheet { inset:5vh max(6vw, calc(50vw - 640px)); inset:5svh max(6vw, calc(50vw - 640px)); border:1px solid var(--t-grid2); box-shadow:0 18px 50px rgba(0,0,0,.35); padding:0; }
 }
 /* Funds in market / LP commitments: wrap long fund and investor names so every
    column (target, raised, LPs, as of) fits the card on desktop. */

@@ -15,16 +15,8 @@ export function initPullToRefresh() {
   if (_init || typeof window === "undefined" || typeof document === "undefined") return;
   _init = true;
 
-  // Auto-refresh when a new build is deployed. iOS home-screen (standalone) PWAs
-  // cache the bundle aggressively and don't reliably revalidate, so edits can
-  // sit invisible until a manual refresh. This detects a fresh deploy and reloads
-  // once: the HTML entry points are no-cache, so a no-store fetch of this page
-  // always returns the live markup — compare its premium.css build token to the
-  // one THIS document loaded; if it changed, a newer build is live → reload (which
-  // pulls the new tokened CSS/JS). Runs on foreground (when the user returns) and
-  // once shortly after load, so a stale open self-heals. No reload loop: after the
-  // reload the loaded token equals the live token. Runs on every device.
-  setupAutoRefresh();
+  // (New-build detection lives in v2/js/update.js — it applies updates while the
+  // app is backgrounded instead of reloading in the reader's face.)
 
   // Pull-to-refresh + double-tap-zoom handling are touch-only.
   if (!("ontouchstart" in window) && !(navigator.maxTouchPoints > 0)) return;
@@ -357,13 +349,15 @@ export function initPullToRefresh() {
 // active chip of every known row before reloading; restore by clicking them
 // once the app has rendered.
 const TAB_ROWS = ["#mac-chips", "#ck-secnav", "#lg-chips", "#cr-dash-tabs", "#firm-chips", "#mgr-tabs", ".g-feed-chips"];
-function saveTabs() {
+export function saveTabs() {
   const sel = [];
   for (const row of TAB_ROWS) {
     const on = document.querySelector(row + " .tchip.is-on, " + row + " .g-feed-chip.is-on");
     if (on) sel.push([row, on.dataset.desk || on.dataset.sec || on.textContent.trim()]);
   }
-  try { sessionStorage.setItem("wire.ptrTabs", JSON.stringify({ href: location.href, sel, t: Date.now() })); } catch { /* private mode */ }
+  // scrollY too, so a quiet background update (update.js) puts the reader back
+  // where they were; a pull-to-refresh is always at the top, so it restores to 0.
+  try { sessionStorage.setItem("wire.ptrTabs", JSON.stringify({ href: location.href, sel, y: window.scrollY || 0, t: Date.now() })); } catch { /* private mode */ }
 }
 function restoreTabs() {
   let rec = null;
@@ -371,7 +365,9 @@ function restoreTabs() {
     rec = JSON.parse(sessionStorage.getItem("wire.ptrTabs") || "null");
     sessionStorage.removeItem("wire.ptrTabs");
   } catch { return; }
-  if (!rec || rec.href !== location.href || Date.now() - (rec.t || 0) > 30000 || !Array.isArray(rec.sel)) return;
+  // A background update can be suspended by iOS mid-reload and resumed much later,
+  // so the window is generous; the record is single-use (removed above) either way.
+  if (!rec || rec.href !== location.href || Date.now() - (rec.t || 0) > 6 * 3600 * 1000 || !Array.isArray(rec.sel)) return;
   const started = Date.now();
   const tick = () => {
     let waiting = false;
@@ -383,32 +379,18 @@ function restoreTabs() {
       return false;
     });
     if (rec.sel.length && waiting && Date.now() - started < 4000) setTimeout(tick, 150);
+    else restoreY();
+  };
+  // Put the scroll back once the page is tall enough to hold it (views render async).
+  const y = +rec.y || 0;
+  const restoreY = () => {
+    if (!y) return;
+    const t0 = Date.now();
+    const step = () => {
+      if (document.documentElement.scrollHeight - innerHeight >= y) { window.scrollTo({ top: y, behavior: "instant" }); return; }
+      if (Date.now() - t0 < 4000) setTimeout(step, 120);
+    };
+    step();
   };
   setTimeout(tick, 120);
-}
-
-// Detect a new deploy and reload once (see the note in initPullToRefresh).
-function setupAutoRefresh() {
-  const tokenOf = (s) => { const m = String(s || "").match(/premium\.css\?v=([\w.-]+)/); return m ? m[1] : ""; };
-  const link = document.querySelector('link[href*="premium.css"]');
-  const loaded = tokenOf(link && link.getAttribute("href"));
-  if (!loaded) return;                       // can't compare — bail (home/apps all link premium.css)
-  let busy = false;
-  const check = async () => {
-    if (busy || document.hidden || !navigator.onLine) return;
-    // Never yank the page out from under an open overlay (menu/panels) — a
-    // reload mid-interaction reads as "my tap navigated somewhere".
-    if (document.body && (document.body.classList.contains("na-menu-open") || document.querySelector(".na-panel:not([hidden]):not(.na-menu-static)"))) return;
-    busy = true;
-    try {
-      const res = await fetch(location.pathname, { cache: "no-store" });
-      if (res.ok) {
-        const live = tokenOf(await res.text());
-        if (live && live !== loaded) { saveTabs(); location.reload(); return; }   // new build live
-      }
-    } catch { /* offline / Access redirect — ignore */ }
-    busy = false;
-  };
-  document.addEventListener("visibilitychange", () => { if (!document.hidden) check(); });
-  setTimeout(check, 4000);                   // self-heal a stale first open
 }

@@ -3,13 +3,14 @@
 // on resume, but the BRIEFING is baked into the /briefings.js ES module at load, so a
 // resumed app could show the previous edition. glance.js initBriefFreshness() closes
 // that: on foreground AFTER being away a while, it fetches /briefings.js fresh and, if
-// the 5×/day refresh has published a newer edition, reloads ONCE to pull it in.
+// the refresh has published a newer edition, SWAPS it into the card in place — no
+// reload, so tab + scroll survive — and marks a quiet "data" update that update.js
+// applies only when the app is next backgrounded (never in the reader's face).
 //
 // This test drives the exact sequence with a stubbed, swappable /briefings.js (served
 // with a JS content-type so the page's own import works), plus a controllable clock +
-// visibility so the 2-minute away-gate can be crossed without waiting. Reload is proven
-// two ways: the module-sourced briefing text can ONLY change via a reload (a running
-// page can't re-import it), and a window sentinel is wiped by a full document reload.
+// visibility so the 2-minute away-gate can be crossed without waiting. A window
+// sentinel proves whether a full document reload happened.
 import { serve, launchChromium, PHONE, check, checkErrs, finish } from "./lib.mjs";
 
 const brief = (time) => `export const BRIEFINGS = { tz: "BST", order: ["morning"], slots: {
@@ -60,18 +61,37 @@ await pg.waitForTimeout(700);
 check((await sentinel()) === 1, "a quick away (<2 min) does not reload (sentinel survives)");
 check(/10:15/.test(await when()), "still the 10:15 edition after a quick away");
 
-// --- Case 2: away > 2 min with a newer edition → reload ONCE, pulling the new edition.
+// --- Case 2: away > 2 min with a newer edition → swapped IN PLACE (no reload).
 await setSentinel();
+await pg.evaluate(() => window.scrollTo(0, 0));
 await away(3 * 60 * 1000);                      // 3 min away
 await pg.waitForFunction(() => /16:15/.test((document.querySelector("#g-hbrief .g-hbrief-when") || {}).textContent || ""), null, { timeout: 8000 });
 check(/16:15/.test(await when()), `shows the new 16:15 edition after resume (${await when()})`);
-check((await sentinel()) === undefined, "a full reload happened (sentinel was wiped)");
+check((await sentinel()) === 1, "the new edition arrived WITHOUT a page reload (sentinel survives)");
+check((await pg.evaluate(() => window.__wireUpdate && window.__wireUpdate.pendingUpdate())) === "data", "a quiet data update is pending");
 
-// --- Case 3: away > 2 min but NO newer edition → no reload (idempotent, no loop).
+// --- Case 3: the pending update is applied OFF SCREEN — never while an overlay is
+// open, and only when the app is backgrounded.
+await setSentinel();
+await pg.evaluate(() => document.documentElement.classList.add("wr-open"));   // reader open
+await pg.evaluate(() => window.__setVis("hidden"));
+await pg.waitForTimeout(600);
+check((await sentinel()) === 1, "no background reload while the reader is open");
+await pg.evaluate(() => { window.__setVis("visible"); document.documentElement.classList.remove("wr-open"); });
+await pg.evaluate(() => window.__setVis("hidden"));
+await pg.waitForFunction(() => window.__sentinel === undefined && document.readyState === "complete", null, { timeout: 8000 }).catch(() => {});
+check((await sentinel()) === undefined, "the pending update reloaded while the app was backgrounded");
+await pg.waitForSelector("#g-hbrief .g-hbrief-head", { state: "attached", timeout: 8000 });
+check(/16:15/.test(await when()), "after the background update the 16:15 edition loads natively");
+
+// --- Case 4: away > 2 min but NO newer edition → nothing pending, no reload (no loop).
 await setSentinel();
 await away(3 * 60 * 1000);
 await pg.waitForTimeout(800);
-check((await sentinel()) === 1, "no reload when the edition is unchanged (sentinel survives)");
+check((await pg.evaluate(() => window.__wireUpdate && window.__wireUpdate.pendingUpdate())) === null, "nothing pending when the edition is unchanged");
+await pg.evaluate(() => window.__setVis("hidden"));
+await pg.waitForTimeout(600);
+check((await sentinel()) === 1, "no reload on background when nothing is pending");
 
 checkErrs(errs, "home brief freshness");
 await ctx.close();

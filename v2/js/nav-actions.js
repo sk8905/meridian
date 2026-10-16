@@ -21,6 +21,7 @@ import { mountAssistant, askSuggestions } from "/v2/js/assistant.js";
 import { FX_KEYMOMENT, OUTLOOK, EARNINGS } from "/macro/js/content.js";
 import { nbNums } from "./nb-format.js";
 import { ICO_MKT } from "./icons.js";
+import { markUpdate, initUpdater } from "./update.js";
 const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.abs(v); if (a >= 1000) return v.toLocaleString(undefined, { maximumFractionDigits: a >= 10000 ? 0 : 1 }); if (a >= 100) return v.toFixed(1); if (a >= 1) return v.toFixed(2); return v.toFixed(4); };
 // OAS/bp series carry `value` in PERCENT (0.77 → 77 bp), matching the desktop's
 // fmtRate and rateRow's own change scaling — so bp values are ×100, not raw.
@@ -849,11 +850,10 @@ export function initNavActions() {
       // reload ONCE so stale in-memory modules (e.g. a pre-fix Profiles bundle) are
       // replaced by the fresh build. Guarded so it never loops and never fires on
       // the first-ever install (no prior controller).
+      // The reload is no longer immediate: it is marked pending and applied by
+      // update.js when the app is next backgrounded (or the pill is tapped).
       if (navigator.serviceWorker.controller) {
-        let _swReloaded = false;
-        navigator.serviceWorker.addEventListener("controllerchange", () => {
-          if (_swReloaded) return; _swReloaded = true; location.reload();
-        });
+        navigator.serviceWorker.addEventListener("controllerchange", () => markUpdate("code"));
       }
       navigator.serviceWorker.register("/sw.js").then((reg) => {
         // Force an update check every launch — iOS standalone PWAs otherwise let an
@@ -863,6 +863,7 @@ export function initNavActions() {
         try { reg.update(); } catch { /* */ }
       }).catch(() => {});
     }
+    initUpdater();
     // BUILD-TOKEN SELF-HEAL (independent of the service worker). The SW reload
     // above only fires when sw.js itself changes; a module-only deploy (a fix to
     // a view's JS) does NOT change sw.js, so a resumed iOS PWA — which never
@@ -872,7 +873,7 @@ export function initNavActions() {
     // on every foreground, fetch the shell fresh (no-store, bypasses the SW as a
     // non-navigation same-origin GET) and compare the runtime build token it
     // serves NOW against the one THIS document actually loaded. If they differ,
-    // our code is stale — reload once to pull the new build.
+    // our code is stale — mark an update pending (update.js applies it off screen).
     {
       const runningBuild = () => {
         // Prod (Vite): the entry module is /assets/index-<hash>.js — the content
@@ -896,7 +897,7 @@ export function initNavActions() {
           if (res && res.ok) {
             const html = await res.text();
             const m = /\/assets\/index-([A-Za-z0-9_-]+)\.js/.exec(html) || /\/v2\/js\/runtime\.js\?v=([^"'&]+)/.exec(html);
-            if (m && m[1] && m[1] !== mine) { reloaded = true; location.reload(); return; }
+            if (m && m[1] && m[1] !== mine) { reloaded = true; markUpdate("code"); return; }
           }
         } catch { /* offline / Access redirect — keep the working build */ }
         finally { checking = false; }

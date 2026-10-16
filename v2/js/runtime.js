@@ -99,7 +99,13 @@ function ctxFor() {
 }
 
 // Ensure a view is loaded + mounted (once). Returns its record.
-const SKELETON = '<div class="v2-loading" aria-hidden="true"><div class="v2-spin"></div></div>';
+// A grey, content-shaped placeholder (not a spinner): a chip strip + list rows, or a
+// tile grid for the Dashboard — so the page already has its shape and the real content
+// drops into place instead of popping in. It fades in after ~150ms (CSS), so a quick
+// load never flashes it at all.
+const SKEL_ROW = '<div class="v2-skel-row"><span class="v2-skel-t"></span><span class="v2-skel-l"></span></div>';
+const skeleton = (key) => `<div class="v2-loading v2-skel" aria-hidden="true"><div class="v2-skel-bar"></div>${
+  key === "dashboard" ? `<div class="v2-skel-tiles">${'<div class="v2-skel-tile"></div>'.repeat(6)}</div>` : SKEL_ROW.repeat(14)}</div>`;
 
 // The section SHELL — created instantly, no module load. This is what lets a
 // switch paint immediately (a skeleton) instead of waiting on a heavy module.
@@ -110,7 +116,7 @@ function getShell(key) {
   section.className = "v2-view";
   section.dataset.view = key;
   section.hidden = true;
-  section.innerHTML = SKELETON;
+  section.innerHTML = skeleton(key);
   appEl().appendChild(section);
   rec = { section, mod: null, ctrl: null, mounted: false, loading: null };
   _views.set(key, rec);

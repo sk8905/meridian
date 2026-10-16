@@ -171,7 +171,7 @@ async function deepLink(url, view, min, label) {
   await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: box.x, y: box.y }] });
   await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
   // The moment the destination becomes visible, it must already be PAINTED — a
-  // skeleton spinner or real content — never an empty section. (Before it swaps
+  // content-shaped skeleton or real content — never an empty section. (Before it swaps
   // in, the view transition holds the old view on screen, so there's no blank
   // either way.) Poll for first-visible, then assert it's painted at that instant.
   let firstPaint = null;
@@ -179,15 +179,16 @@ async function deepLink(url, view, min, label) {
     firstPaint = await pg.evaluate(() => {
       const s = document.querySelector('.v2-view[data-view="profiles"]');
       if (!s || s.hidden) return null;
-      return { skeleton: !!s.querySelector(".v2-spin"), len: s.textContent.trim().length };
+      return { skeleton: !!s.querySelector(".v2-skel"), rows: s.querySelectorAll(".v2-skel-row").length, len: s.textContent.trim().length };
     });
     if (firstPaint) break;
     await pg.waitForTimeout(20);
   }
   check(!!firstPaint, "instant swap: destination becomes visible (transition completes)");
   check(firstPaint && (firstPaint.skeleton || firstPaint.len > 0), "instant swap: it is painted (skeleton or content) the instant it appears — never an empty freeze");
+  check(!firstPaint || !firstPaint.skeleton || firstPaint.rows >= 8, `instant swap: the placeholder is content-shaped (list rows), not a spinner (${firstPaint && firstPaint.rows} rows)`);
   await pg.waitForTimeout(900);
-  const settled = await pg.evaluate(() => { const s = document.querySelector('.v2-view[data-view="profiles"]'); return { spin: !!s.querySelector(".v2-spin"), len: s.textContent.trim().length }; });
+  const settled = await pg.evaluate(() => { const s = document.querySelector('.v2-view[data-view="profiles"]'); return { spin: !!s.querySelector(".v2-skel"), len: s.textContent.trim().length }; });
   check(!settled.spin && settled.len > 5000, `instant swap: content fills in after load (${settled.len} chars)`);
   checkErrs(errs, "instant swap");
   await ctx.close();

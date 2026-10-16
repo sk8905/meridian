@@ -441,8 +441,10 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   gate `LIVE_RESUME_MS`, so a reopened PWA shows current headlines — not ones up to
   the 5-min poll stale); and — for the module-baked **briefing** — `glance.js`
   `initBriefFreshness()` refetches `briefings.js` after the app has been away >2 min
-  and reloads ONCE if a newer (date·time) edition has landed, pulling in every
-  refreshed module. (The `nav-actions` build self-heal only
+  and, if a newer (date·time) edition has landed, swaps it into the card IN PLACE and
+  marks a quiet update that `v2/js/update.js` applies (a reload that pulls in every
+  refreshed module) only when the app is next backgrounded (HOUSE_STYLE R48). (The
+  `nav-actions` build self-heal only
   catches CODE deploys; a data-only refresh keeps the same hashed bundle.) Nothing
   for the routine to do here — it's automatic — but keep the briefing's per-slot
   `date`/`time` stamps monotonic each run, since that stamp is the freshness signal.

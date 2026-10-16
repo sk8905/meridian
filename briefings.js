@@ -9,7 +9,7 @@
 // briefing on EVERY run — new `date`+`time` stamp, fresh `lede` and `bullets` — so the
 // "Updated …" stamp advances roughly every two hours and the briefing is never more
 // than one run stale. (The client also re-fetches this module when the app is
-// foregrounded and reloads once if a newer edition has landed.)
+// foregrounded and swaps a newer edition into the card in place.)
 //
 // DESK FOCUS: the briefing covers the four MARKET desks — Macro, Bonds, Equities
 // and Credit (private equity / private credit fund news) — and ONLY those (no

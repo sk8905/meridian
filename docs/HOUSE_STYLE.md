@@ -1667,6 +1667,38 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   "price: <outlet>". Upkeep: refresh-routines §bonds. Spec: `tests/bond-quotes.mjs` (ISIN check digits,
   venues, sources, "(date)" format, hub + sheet + borrower page, phone and desktop).
 
+- **R46 — Touch feel: no sticky hover, a native press (owner 2026-10-16).** On iPhone a
+  `:hover` style latches after a tap (the row stays lit until something else is touched),
+  so **every `:hover` rule in the bundled stylesheets sits inside `@media (hover:hover)`**
+  — split a mixed selector list so only the `:hover` part is fenced. Touch gets a neutral
+  `:active` press instead (`v2/css/app.css`, `@media (hover:none)`): feed rows shade
+  `--t-panel2` after a ~90ms delay (a scroll cancels it first, like a native list), tabs
+  and chips dim; the grey iOS tap flash is off. No hover-neutraliser blocks
+  (`@media (hover:none){ …:hover{…} }`) — they would cancel the press. Spec:
+  `tests/hover-guard.mjs`.
+- **R47 — Viewport units: `dvh`/`svh`, never bare `vh` (owner 2026-10-16).** In iPhone
+  Safari `vh` ignores the toolbar, so vh-sized boxes resize as it slides and the page
+  jumps. Every `vh` declaration keeps a twin on the next line: **`dvh` for full-height
+  page boxes** (`height`/`min-height`), **`svh` for everything else** (panel
+  max-heights, offsets, padding); the bare `vh` line stays as the old-engine fallback.
+  Spec: `tests/viewport-units.mjs`.
+- **R48 — Nothing moves under the reader (owner 2026-10-16).** **(a) No surprise
+  reloads.** Only `v2/js/update.js` may reload the app on its own: a new build, a new
+  service worker or a new data edition only marks an update *pending*; it is applied when
+  the app is next **backgrounded** (never while the reader, menu or a panel is open), with
+  tab/chips/scroll restored (`ptr.js` saveTabs/restoreTabs), or when the reader taps the
+  **"New version"** pill (code updates; desktop may never background). Pull-to-refresh
+  (the reader asked) and the Access re-auth are the only other reloads. A new briefing
+  edition swaps into the card **in place** (`glance.js` `_swapBriefing`). **(b) Live
+  repaints hold position.** A background repaint of the wire goes through
+  `renderWireLive()`: it waits until the finger is off the glass and scrolling has
+  settled, pins the first visible row so it stays exactly where it was, and when new
+  stories land above it shows **"↑ N new stories"** (tap → top). At the top of the feed new
+  stories simply appear. **(c) Placeholders, not spinners.** A not-yet-mounted tab paints a
+  content-shaped grey skeleton (chip strip + list rows; tiles for the Dashboard) that
+  fades in after 150ms, so a fast load never flashes it. Specs:
+  `tests/home-brief-freshness.mjs`, `tests/home-live-anchor.mjs`, `tests/v2-parity.mjs`.
+
 ## 7. Technical rules
 
 - **T1 — Cache-busting: code carries a token, data does NOT.**

@@ -178,7 +178,9 @@ check(!/05:00, 09:00, 12:00, 17:00/.test(statusJs),
 // blue-filled pill. header.css alone owns .ps-btn.is-active.
 check(!/(^|\n)\s*\.ps-btn\.is-active/.test(homeCss),
   "home.css does not redeclare an unscoped .ps-btn.is-active (header.css R12 owns it)");
-check(/\.ps-btn\.is-active,\s*\.ps-btn\.is-active:hover\s*\{[^}]*border-bottom:\s*2px solid var\(--accent,/.test(headerCss),
+// (The :hover twin is fenced behind @media (hover:hover) — R46 — so it is its own rule.)
+check(/\.ps-btn\.is-active\s*\{[^}]*background:\s*transparent;[^}]*border-bottom:\s*2px solid var\(--accent,/.test(headerCss)
+  && /@media \(hover:hover\) \{ \.ps-btn\.is-active:hover\s*\{[^}]*background:\s*transparent;[^}]*border-bottom:\s*2px solid var\(--accent,/.test(headerCss),
   "header.css .ps-btn.is-active is border-bottom-only, no fill");
 
 // R10a — the command-bar's Substack/Brewed/Bloomberg/Econ wire pills must key

@@ -272,7 +272,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 [data-theme="dark"] .notif-panel,
 [data-theme="dark"] .g-sv-panel,
 [data-theme="dark"] .cmdk-panel { background: var(--surface); color: var(--ink); }
-[data-theme="dark"] .notif-item:hover, [data-theme="dark"] .notif-item.is-new:hover, [data-theme="dark"] .g-np-item:hover, [data-theme="dark"] .g-sv-item:hover { background: rgba(255,255,255,.06); }
+@media (hover:hover) { [data-theme="dark"] .notif-item:hover, [data-theme="dark"] .notif-item.is-new:hover, [data-theme="dark"] .g-np-item:hover, [data-theme="dark"] .g-sv-item:hover { background: rgba(255,255,255,.06); } }
 /* the Home saved menu → terminal surface, squared (matches the notif panel) */
 .g-sv-panel { border-radius: 0; }
 .g-sv-item { border-radius: 0; }
@@ -290,7 +290,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 :root[data-theme="dark"] .na-panel, :root[data-theme="dark"] .ms-pop, :root[data-theme="dark"] .notif-panel, :root[data-theme="dark"] .cmdk-panel, :root[data-theme="dark"] .g-sv-panel, :root[data-theme="dark"] .g-notif-panel { box-shadow: none; border: 1px solid var(--border); }
 [data-theme="dark"] .ms-pop { background: var(--surface); border-color: var(--border); color: var(--ink); }
 [data-theme="dark"] .ms-opt { color: var(--ink); }
-[data-theme="dark"] .ms-opt:hover { background: rgba(255,255,255,.06); }
+@media (hover:hover) { [data-theme="dark"] .ms-opt:hover { background: rgba(255,255,255,.06); } }
 [data-theme="dark"] .notif-item.is-new { background: rgba(74,168,240,.1); }
 /* Up/down (green/red) figures brighten on the dark surface. */
 [data-theme="dark"] .up, [data-theme="dark"] .g-gl-v .up, [data-theme="dark"] .gl-tk.up .gl-tk-c, [data-theme="dark"] .rate-chg.up { color: var(--t-up, #3fc08d); }
@@ -421,7 +421,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   text-decoration: none; background: none; border: 0; cursor: pointer;
   -webkit-appearance: none; appearance: none;
 }
-.mtab:hover { color: var(--muted, #4a5566); }
+@media (hover:hover) { .mtab:hover { color: var(--muted, #4a5566); } }
 /* Let each tab shrink to its grid cell and keep its label inside it: a long label
    ("Transactions") stays on one line and, only if a large text size would push it
    past the cell, truncates with an ellipsis instead of bleeding to the screen edge. */
@@ -443,7 +443,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 /* Dark variant — home dashboard + every app share it (one override covers all). */
 [data-theme="dark"] .mobile-tabbar { background: var(--bg, #000); border-top: 1px solid var(--t-grid); box-shadow: none; }
 [data-theme="dark"] .mtab { color: var(--muted, #7f8ca6); }
-[data-theme="dark"] .mtab:hover { color: var(--ink-soft, #cdd6e6); }
+@media (hover:hover) { [data-theme="dark"] .mtab:hover { color: var(--ink-soft, #cdd6e6); } }
 [data-theme="dark"] .mtab.is-active { color: var(--ink, #eaf0fb); background: none; }       /* icon + label stay WHITE… */
 [data-theme="dark"] .mtab.is-active::before { background: var(--accent, #fb8b1e); }         /* …only the top chip marker is orange */
 /* Menu as a page (/menu/): the panel is permanently open — phones use the
@@ -497,13 +497,13 @@ html.wire-boot #out { visibility: hidden; }
 .tchip-menu-item { display: block; width: 100%; text-align: left; border: 0; background: transparent;
   color: var(--ink, #e8e8e8); font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body);
   font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 10px 14px; cursor: pointer; }
-.tchip-menu-item:hover { background: var(--hover, rgba(255,255,255,.05)); color: var(--accent, #fb8b1e); }
+@media (hover:hover) { .tchip-menu-item:hover { background: var(--hover, rgba(255,255,255,.05)); color: var(--accent, #fb8b1e); } }
 /* Push toggle row (Notifications tab): label left, the on/off pill right. */
 .na-menu-pushrow { justify-content: space-between; }
 .na-menu-pushrow .na-menu-push { margin-right: 0; }
 @media (min-width: 761px) {
   .na-panel.na-menu-static { position: static !important; width: auto; max-width: 560px;
-    margin: 26px auto; display: flex; flex-direction: column; min-height: 60vh; max-height: none;
+    margin: 26px auto; display: flex; flex-direction: column; min-height: 60vh; min-height: 60dvh; max-height: none;
     border: 1px solid var(--border, #262626); box-shadow: none; }
 }
 
@@ -594,7 +594,7 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 57px) + v
   border-left: 1px solid var(--border, #262626); color: var(--muted, #8592ad); cursor: pointer;
   font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); line-height: 1; }
 .na-fs-opt:first-child { border-left: 0; }
-.na-fs-opt:not([disabled]):hover { color: var(--ink, #e8edf5); }
+@media (hover:hover) { .na-fs-opt:not([disabled]):hover { color: var(--ink, #e8edf5); } }
 .na-fs-opt[disabled] { opacity: .35; cursor: default; }
 .na-fs-val { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
   min-width: 56px; padding: 0 8px; border-left: 1px solid var(--border, #262626);
@@ -618,7 +618,7 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 57px) + v
    and remains available on phones, which have no rails. */
 @media (min-width: 761px) { #na-mkt { display: none; } }
 .na-btn svg { width: 19px; height: 19px; }
-.na-btn:hover { color: var(--ink, #eaf0fb); }
+@media (hover:hover) { .na-btn:hover { color: var(--ink, #eaf0fb); } }
 /* Never draw the browser focus box around these icon buttons — its `outline:auto`
    ring read as a stray white square on the dark bar (e.g. after clicking Briefing).
    Keyboard focus instead just brightens the icon; no box at any time. */
@@ -637,7 +637,7 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 57px) + v
    to the Markets / Saved buttons so all three read as one set — square, transparent,
    outline (stroke) icon, same size and muted colour. */
 .na-actions .notif-bell { width: 34px; height: 34px; border-radius: 0; background: transparent; border: 1px solid var(--border, #262626); color: var(--muted, #8592ad); }
-.na-actions .notif-bell:hover { background: transparent; color: var(--ink, #eaf0fb); border-color: var(--ink, #eaf0fb); }
+@media (hover:hover) { .na-actions .notif-bell:hover { background: transparent; color: var(--ink, #eaf0fb); border-color: var(--ink, #eaf0fb); } }
 /* The bell icon lives in an inline <span>, so its <svg> otherwise sits on the
    text baseline (descender gap below) and reads as too high. Make the wrapper a
    flex box and the svg a block so it centres in the button like Markets/Saved. */
@@ -664,7 +664,7 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 57px) + v
    Search all share one top edge instead of each floating to its own height-
    dependent centre. Phones keep the full-screen sheet (the max-width:760px block
    below resets top/transform). */
-.na-panel { position: fixed; left: 50%; top: 9vh; right: auto; transform: translateX(-50%); width: min(560px, 92vw); max-width: 92vw; max-height: 82vh; overflow-y: auto; overscroll-behavior: contain; z-index: 200; background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626); box-shadow: 0 12px 34px rgba(0,0,0,.5); }
+.na-panel { position: fixed; left: 50%; top: 9vh; top: 9svh; right: auto; transform: translateX(-50%); width: min(560px, 92vw); max-width: 92vw; max-height: 82vh; max-height: 82svh; overflow-y: auto; overscroll-behavior: contain; z-index: 200; background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626); box-shadow: 0 12px 34px rgba(0,0,0,.5); }
 /* The Briefing reads as prose across three desks, so let it use the space a wide
    monitor offers — ~half the viewport — while never dropping below the standard
    560px panel width or spilling past the 92vw phone cap. */
@@ -674,14 +674,14 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 57px) + v
 .na-h-t { font-size:var(--fs-body); font-weight: 700; letter-spacing: .02em; color: var(--ink, #eaf0fb); text-transform: uppercase; }
 .na-h-n { color: var(--muted, #8592ad); font-weight:400; text-transform: none; }
 .na-close { display: none; place-items: center; width: 30px; height: 30px; flex: 0 0 auto; border: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); cursor: pointer; font-size:var(--fs-head); line-height: 1; }
-.na-close:hover { color: var(--ink, #eaf0fb); border-color: var(--ink, #eaf0fb); }
+@media (hover:hover) { .na-close:hover { color: var(--ink, #eaf0fb); border-color: var(--ink, #eaf0fb); } }
 /* Markets rows — mirror the desktop left rail: mono type, section headers with a
    right-hand sub-label, and Top movers drawn as centre-anchored bars. Identical on
    every page (Markets · Macro · Portfolio share this one list grammar). */
 .na-sec { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); color: var(--ink, #eaf0fb); font-weight: 700; padding: 9px 12px 5px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--t-grid); }
 .na-sec-x { font-weight: 600; font-size:var(--fs-micro); color: var(--faint, #5c6a86); }
 .na-mrow { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: baseline; padding: 8px 12px; border-bottom: 1px solid var(--t-grid); font-size:var(--fs-body); color: inherit; text-decoration: none; }
-a.na-mrow:hover { background: var(--head, #0a0a0a); }
+@media (hover:hover) { a.na-mrow:hover { background: var(--head, #0a0a0a); } }
 .na-l { font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .na-v, .na-c { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; }
 /* Top-movers row: label · bar · %. A FIXED label column + a flexible (1fr) bar
@@ -787,7 +787,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* New / Earlier read as the News wire's day-break band (.g-feed-dayhdr, R6). */
 .nf-grp { padding: 6px var(--m-gutter, 12px); font-size:var(--fs-micro); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--t-day); background: var(--t-head); border-bottom: 1px solid var(--t-grid); }
 .nf-row { display: block; padding: 9px 12px; border-bottom: 1px solid var(--t-grid); text-decoration: none; color: inherit; }
-.nf-row:hover { background: var(--head, #0a0a0a); }
+@media (hover:hover) { .nf-row:hover { background: var(--head, #0a0a0a); } }
 /* Notifications panel section headers — the "N new updates" / "Recent" bands read
    as the SAME grey section-header band the Markets panel uses (.na-sec): mono,
    12px, grey --head background, hairline bottom border, 12px gutters. */
@@ -810,7 +810,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    the daily odds change stacked directly beneath it. */
 .na-pred-chips { position: sticky; top: 0; z-index: 2; display: flex; gap: 0; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--t-grid); }
 .na-pred-fchip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; min-height: var(--chip-h, 34px); font: inherit; font-size:var(--fs-body); font-weight: 400; letter-spacing: .01em; padding: 0 4px; white-space: nowrap; border: 0; background: transparent; color: var(--muted, #8592ad); cursor: pointer; }
-.na-pred-fchip:hover:not(:disabled) { color: var(--ink, #eaf0fb); }
+@media (hover:hover) { .na-pred-fchip:hover:not(:disabled) { color: var(--ink, #eaf0fb); } }
 .na-pred-fchip.on { color: var(--ink, #eaf0fb); font-weight: 600; box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .na-pred-fchip.on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }
 .na-pred-fchip:disabled { opacity: .4; cursor: default; }
@@ -908,20 +908,21 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    base .na-btn is --muted grey for the light chip bar, and its :hover brighten
    made these change colour). Scoped to .topbar, so the chip-bar case is
    untouched. */
-.topbar .na-btn, .topbar .na-btn:hover,
-.topbar .na-actions .notif-bell, .topbar .na-actions .notif-bell:hover { color: #cdd6e6; }
-.topbar .na-actions .notif-bell:hover { border-color: var(--border, #262626); }
+.topbar .na-btn, .topbar .na-actions .notif-bell { color: #cdd6e6; }
+@media (hover:hover) { .topbar .na-btn:hover, .topbar .na-actions .notif-bell:hover { color: #cdd6e6; } }
+@media (hover:hover) { .topbar .na-actions .notif-bell:hover { border-color: var(--border, #262626); } }
 .topbar .na-ring circle { stroke: #cdd6e6; }
 /* Flat, squared tabs with an accent underline — matches the Home feed filters. */
 /* margin-right:auto pushes the identity/bell cluster to the right gutter — the
    role the removed search pill's margin-left:auto used to play. */
 .topbar .platform-switch { align-self: stretch; align-items: stretch; background: transparent; border: 0; border-radius: 0; padding: 0; gap: 0; margin-right: auto; }
 .topbar .ps-btn { display: inline-flex; align-items: center; padding: 6px 12px; border: 0; border-radius: 0; font-size:var(--fs-body); font-weight: 600; color: #fff; cursor: pointer; }
-.topbar .ps-btn:hover { background: rgba(255,255,255,.06); color: #fff; }
+@media (hover:hover) { .topbar .ps-btn:hover { background: rgba(255,255,255,.06); color: #fff; } }
 /* Selected platform: header.css's .ps-btn.is-active (border-bottom-only, R12) is
    the single source of truth — do not re-declare a competing marker here. */
 .topbar .nav-link { display: inline-flex; align-items: center; padding: 0 12px; border-radius: 0; font-size:var(--fs-body); font-weight: 500; color: #9fb0cc; }
-.topbar .nav-link:hover, .topbar .nav-link:focus-visible { background: rgba(255,255,255,.05); color: #fff; }
+.topbar .nav-link:focus-visible { background: rgba(255,255,255,.05); color: #fff; }
+@media (hover:hover) { .topbar .nav-link:hover { background: rgba(255,255,255,.05); color: #fff; } }
 .topbar .nav-link.active { color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent, #fb8b1e); }
 .topbar button, .topbar .notif-bell { border-radius: 0; }
 .topbar .notif-panel, .topbar .mkt-panel { border-radius: 0; }
@@ -965,7 +966,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .rowmenu-act { display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px var(--m-gutter, 12px);
   background: none; border: 0; color: var(--ink, #eaf0fb); font: inherit; font-size:var(--fs-body);
   text-align: left; cursor: pointer; border-radius: 0; }
-.rowmenu-act:hover { background: var(--panel2, rgba(255,255,255,.05)); }
+@media (hover:hover) { .rowmenu-act:hover { background: var(--panel2, rgba(255,255,255,.05)); } }
 .rowmenu-act svg { width: 16px; height: 16px; flex: 0 0 auto; color: var(--accent, #fb8b1e); }
 .rowmenu-cancel { color: var(--muted, #8592ad); border-top: 1px solid var(--t-grid); }
 @media (max-width: 760px) {
@@ -1003,7 +1004,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-mktsel-menu .tchip-menu-item { display: block; width: 100%; text-align: left; border: 0; background: transparent;
   color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: var(--fs-body); font-weight: 600; letter-spacing: .03em; padding: 11px 14px; cursor: pointer; }
 .na-mktsel-menu .tchip-menu-item.is-on { color: var(--accent, #fb8b1e); }
-.na-mktsel-menu .tchip-menu-item:hover { background: rgba(127,140,170,.10); color: var(--accent, #fb8b1e); }
+@media (hover:hover) { .na-mktsel-menu .tchip-menu-item:hover { background: rgba(127,140,170,.10); color: var(--accent, #fb8b1e); } }
 
 /* Briefing panel (Morning · Afternoon · Evening) — a grounded digest, every
    bullet linking its source. Chip row reuses .na-chips above. */
@@ -1022,7 +1023,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .nb-topic { color: var(--accent, #fb8b1e); }
 .nb-num { color: inherit; }
 .na-brief-src { font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size:var(--fs-micro); font-weight:400; letter-spacing: .02em; white-space: nowrap; }
-.na-brief-src:hover { color: var(--ink); }
+@media (hover:hover) { .na-brief-src:hover { color: var(--ink); } }
 .na-brief-foot { padding: 10px 12px; border-top: 1px solid var(--t-grid); font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size:var(--fs-micro); line-height: 1.45; }
 
 /* ---- Ask Wire assistant panel (feature B) — a terminal Q&A box: an input row
@@ -1037,12 +1038,12 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-ask-send { flex: 0 0 auto; display: grid; place-items: center; width: 40px; align-self: stretch; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--accent, #fb8b1e); cursor: pointer; padding: 0; }
 .na-ask-send:disabled { color: var(--faint, #5c6a86); cursor: default; }
 .na-ask-add, .na-ask-search { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); font-weight:400; letter-spacing: .04em; text-transform: uppercase; padding: 0 12px; cursor: pointer; }
-.na-ask-add:hover:not(:disabled), .na-ask-search:hover:not(:disabled) { color: var(--ink, #eaf0fb); }
+@media (hover:hover) { .na-ask-add:hover:not(:disabled), .na-ask-search:hover:not(:disabled) { color: var(--ink, #eaf0fb); } }
 .na-ask-add:disabled, .na-ask-search:disabled { color: var(--faint, #5c6a86); cursor: default; }
 /* Clear-text ✕ — shows while the field has text, taps to empty it. In the menu
    Chat it floats inside the field's right edge; in the header it's a flex sibling. */
 .na-ask-clr { flex: 0 0 auto; display: grid; place-items: center; width: 26px; height: 24px; border: 0; background: transparent; color: var(--faint, #5c6a86); font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); line-height: 1; cursor: pointer; padding: 0; }
-.na-ask-clr:hover { color: var(--ink, #eaf0fb); }
+@media (hover:hover) { .na-ask-clr:hover { color: var(--ink, #eaf0fb); } }
 .na-ask-clr[hidden] { display: none; }
 .na-ask-out { padding: 0; }
 .na-ask-hint { padding: 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size:var(--fs-body); line-height: 1.5; }
@@ -1063,7 +1064,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-sugg-mark { color: var(--accent, #fb8b1e); flex: 0 0 auto; }
 .na-suggs { display: flex; flex-flow: row wrap; align-items: center; justify-content: center; gap: 8px; width: 100%; }
 .na-sugg { flex: 0 1 auto; border: 1px solid var(--border, #262626); background: var(--lift, #202020); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); letter-spacing: .02em; padding: 8px 13px; border-radius: 0; cursor: pointer; white-space: nowrap; }
-.na-sugg:hover { border-color: var(--accent, #fb8b1e); color: var(--accent, #fb8b1e); }
+@media (hover:hover) { .na-sugg:hover { border-color: var(--accent, #fb8b1e); color: var(--accent, #fb8b1e); } }
 /* The Ask assistant in the Menu → Dialogue chip is rendered to look EXACTLY like
    the shared search band (bandHTML → .tpanel-h.thead-search with a .tsearch
    field): a full-width band on the --head ground with an 8px 12px gutter and a
@@ -1123,7 +1124,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    keeps its uppercase-eyebrow look; a chevron on the right rotates when open. */
 .na-ask-srcd > summary { cursor: pointer; list-style: none; display: flex; align-items: center; }
 .na-ask-srcd > summary::-webkit-details-marker { display: none; }
-.na-ask-srcd > summary:hover { color: var(--muted, #8592ad); }
+@media (hover:hover) { .na-ask-srcd > summary:hover { color: var(--muted, #8592ad); } }
 .na-ask-srcn { color: var(--faint, #5c6a86); font-weight:400; margin-left: 4px; }
 .na-ask-srcd > summary::after { content: ""; width: 5px; height: 5px; margin-left: auto; margin-right: 2px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; opacity: .75; transform: rotate(-45deg); transition: transform .12s ease; }
 .na-ask-srcd[open] > summary::after { transform: rotate(45deg); }
@@ -1140,9 +1141,9 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-firm-desc { margin-top: 6px; color: var(--muted, #8592ad); font-size:var(--fs-body); line-height: 1.55; }
 .na-approve-row { display: flex; align-items: center; gap: 14px; padding: 4px 12px 4px; }
 .na-approve-gh { font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-micro); color: var(--muted, #8592ad); white-space: nowrap; }
-.na-approve-gh:hover { color: var(--accent, #fb8b1e); }
+@media (hover:hover) { .na-approve-gh:hover { color: var(--accent, #fb8b1e); } }
 .na-approve-note { padding: 0 12px 10px; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-micro); line-height: 1.5; color: var(--faint, #5c6a86); }
 
 /* ---- House rule: NO hyperlink underlines anywhere on the platform — links
         read by colour and context (hover keeps its colour shift only). ---- */
-a, a:hover, a:focus { text-decoration: none !important; }
+a, a:focus { text-decoration: none !important; }   /* covers :hover too — an !important on `a` beats every non-important hover underline */
