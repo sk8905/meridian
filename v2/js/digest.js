@@ -25,7 +25,7 @@ const SECTIONS = [
 // then who · kind · "In Wire" on line 2 (two lines, full text in the row title).
 function itemHTML(x) {
   const meta = [x.who, x.kind].filter(Boolean).map(esc).join(" · ") + (x.href ? `${x.who || x.kind ? " · " : ""}<a class="dg-in" href="${esc(x.href)}">In Wire</a>` : "");
-  return evRow({ date: x.date || "", title: x.title, href: x.url, aCls: "dg-t", meta, src: x.src || "", srcHref: x.src ? "" : x.url,
+  return evRow({ story: true, date: x.date || "", title: x.title, href: x.url, aCls: "dg-t", meta, src: x.src || "", srcHref: x.src ? "" : x.url,
     tag: x.amount ? `<span class="dg-amt">${esc(x.amount)}</span>` : "", cls: "dg-item" });
 }
 function ratesHTML(R, mode) {

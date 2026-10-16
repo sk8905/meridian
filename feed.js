@@ -206,7 +206,8 @@ export function rowTip(...parts) {
   const t = parts.map(_plain).filter(Boolean).join(" · ");
   return t ? ` title="${esc(t)}"` : "";
 }
-export function evRow({ date = "", dateText = "", est = false, title = "", href = "", inApp = false, meta = "", tag = "", src = "", srcHref = "", cls = "", aCls = "", dCls = "", attrs = "", tip = "" } = {}) {
+// story: a STORY list (headlines, not names + facts) — on iPhone it reads like the News wire (R44j).
+export function evRow({ date = "", dateText = "", est = false, title = "", href = "", inApp = false, meta = "", tag = "", src = "", srcHref = "", cls = "", aCls = "", dCls = "", attrs = "", tip = "", story = false } = {}) {
   const d = dateText || (date ? fmtD(date) : "");
   const full = tip || [title, _plain(meta), _plain(tag), src].filter(Boolean).join(" · ");
   const a = href
@@ -217,7 +218,7 @@ export function evRow({ date = "", dateText = "", est = false, title = "", href 
   const s = src
     ? (srcHref ? `<a href="${esc(srcHref)}" target="_blank" rel="noopener noreferrer">${esc(src)}</a>` : esc(src))
     : (srcHref ? `<a class="dsh-src" href="${esc(srcHref)}" target="_blank" rel="noopener noreferrer" title="Source">src</a>` : "");
-  return `<li class="g-ev${cls ? ` ${cls}` : ""}" title="${esc(full)}"${attrs}>`
+  return `<li class="g-ev${story ? " g-ev-story" : ""}${cls ? ` ${cls}` : ""}" title="${esc(full)}"${attrs}>`
     + `<span class="c-date${dCls ? ` ${dCls}` : ""}"${est ? ' title="Approximate date — the source shows no exact publication date"' : ""}>${est && d ? "c. " : ""}${esc(d)}</span>`
     + a + `<span class="c-tag">${tag}</span><span class="c-src">${s}</span>`
     + `<span class="g-ev-m">${meta}</span></li>`;

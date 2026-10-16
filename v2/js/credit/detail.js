@@ -108,7 +108,7 @@ function crWireRow(x, inline) {
   const head = isNews || profilesMode
     ? (url ? ext(title, url) : `<span class="tw-head">${esc(title)}</span>`)
     : `<a href="#/${x._kind === "deal" ? "deals" : "intel"}" data-goto="${x._kind === "deal" ? "deals" : "intel"}:${x.id}" class="tw-head">${esc(title)}</a>`;
-  return `<li class="compact-item tw-row" data-kind="${x._kind}"${isNews ? ` data-fkey="${esc(feedDedupKey(x))}"` : ` id="row-${esc(x.id)}"`}${rowTip(title, inline, src)}>`
+  return `<li class="compact-item tw-row g-ev-story" data-kind="${x._kind}"${isNews ? ` data-fkey="${esc(feedDedupKey(x))}"` : ` id="row-${esc(x.id)}"`}${rowTip(title, inline, src)}>`
     + `<span class="tw-date">${x.date ? esc(fmtDate(x)) : "undated"}</span>`
     + `<span class="tw-tag ${x._kind}">${CR_KIND[x._kind]}</span>`
     + `<span class="tw-body">${head}${inline ? `<span class="tw-mgr-w">${inline}</span>` : ""}</span>`

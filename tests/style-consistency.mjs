@@ -75,7 +75,8 @@ for (const [w, h, scheme] of PHONES) {
     const { ctx, pg, errs } = await page(w, h, scheme, "/v2/news/");
     await pg.waitForSelector("#g-feed a.g-feed-row", { timeout: 15000 });
     const wire = await pg.evaluate(() => {
-      const r = document.querySelector("#g-feed a.g-feed-row"), t = r.querySelector(".g-feed-title"), s = r.querySelector(".g-feed-src"), d = document.querySelector("#g-feed .g-feed-dayhdr");
+      // The first row WITH a source line (an in-app item, e.g. a hedge-fund story with no outlet, has none).
+      const r = [...document.querySelectorAll("#g-feed a.g-feed-row")].find((x) => x.querySelector(".g-feed-src")), t = r.querySelector(".g-feed-title"), s = r.querySelector(".g-feed-src"), d = document.querySelector("#g-feed .g-feed-dayhdr");
       const f = (e) => { const c = getComputedStyle(e); return `${c.fontSize} ${c.color} ${c.fontWeight}`; };
       return { h: Math.round(r.getBoundingClientRect().height), x: Math.round(t.getBoundingClientRect().left), t: f(t), l2: f(s), day: d ? f(d) + " " + getComputedStyle(d).backgroundColor : null };
     });

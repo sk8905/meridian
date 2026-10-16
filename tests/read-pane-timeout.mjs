@@ -30,7 +30,7 @@ const clicked = await pg.evaluate((pat) => {
   const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
   // Not the story the pane auto-opened on load (.is-reading): its body is already fetched /
   // cached, so re-opening it shows no loading note. Pick a story that starts a fresh fetch.
-  const r = rows.find((x) => !x.classList.contains("is-locked") && !x.classList.contains("is-reading") && !x.classList.contains("g-desk-n") && !re.test((x.querySelector(".g-feed-src") || {}).textContent || ""));
+  const r = rows.find((x) => x.getAttribute("target") === "_blank" && !x.classList.contains("is-locked") && !x.classList.contains("is-reading") && !x.classList.contains("g-desk-n") && !re.test((x.querySelector(".g-feed-src") || {}).textContent || ""));
   if (!r) return false; (r.querySelector(".g-feed-src") || r).click(); return true;
 }, WALLED_SRC_PATTERN);
 check(clicked, "a readable wire row was opened in the pane");

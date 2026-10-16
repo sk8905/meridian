@@ -108,7 +108,8 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   // their activity, each row starred, headline itself not orange.
   await lane(pg, "Profiles");
   await pg.waitForSelector("#g-feed .g-mw-fev", { timeout: 6000 });
-  const mgr = await pg.evaluate(() => document.querySelector("#g-feed .g-mw-fev[data-mgr]").dataset.mgr);
+  // A MANAGER row: the Profiles lane also carries hedge funds / law firms / investors (R33).
+  const mgr = await pg.evaluate(async () => { const ids = new Set((await import("/credit/js/data.js")).managers.map((m) => m.id)); return [...document.querySelectorAll("#g-feed .g-mw-fev[data-mgr]")].map((r) => r.dataset.mgr).find((id) => ids.has(id)); });
   await pg.evaluate((id) => localStorage.setItem("meridian.follows", JSON.stringify({ manager: [id] })), mgr);
   await pg.reload({ waitUntil: "load" });
   await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });

@@ -31,17 +31,20 @@ for (const theme of ["dark", "light"]) {
       const badges = [...root.querySelectorAll(".dsh-mid .dsh-h")].filter((h) => h.offsetParent && h.querySelector(".dsh-live")).map((h) => {
         const t = h.querySelector(".dsh-h-t").getBoundingClientRect(), l = h.querySelector(".dsh-live").getBoundingClientRect(), c = h.closest(".dsh-card").getBoundingClientRect();
         return { n: nm(h), dy: Math.round(l.top - t.top), dr: Math.round(c.right - l.right) }; }).filter((x) => Math.abs(x.dy) > 4 || x.dr > 24).map((x) => `${x.n} (dy ${x.dy}, right ${x.dr})`);
-      // R43 (supersedes R40's headline-first row): every events row leads with the date,
-      // the headline beside it, the source last on the same line, the meta beneath — two lines.
+      // iPhone (R44j, owner 2026-10-16): every Dashboard news card is a STORY list and reads
+      // like the News wire — date first, the headline beside it (≤ 2 lines), no source / tag /
+      // meta drawn. Any other events row keeps R43's date · headline · source, meta beneath.
       const rowsBad = [...root.querySelectorAll(".dsh-news-i, .dsh-stk-i.g-ev")].filter((li) => li.offsetParent).filter((li) => {
         const d = li.querySelector(":scope > .c-date"), a = li.querySelector(":scope > .g-ev-t"), sx = li.querySelector(":scope > .c-src");
-        if (!d || !a || !sx || li.children[0] !== d) return true;
-        const rd = d.getBoundingClientRect(), ra = a.getBoundingClientRect(), rs = sx.getBoundingClientRect();
-        if (rd.right > ra.left + 1 || Math.abs(rd.top - ra.top) > 6 || rs.left < ra.right - 1) return true;
-        return li.getBoundingClientRect().height > parseFloat(getComputedStyle(a).lineHeight) * 2 + 16; }).map((li) => nm(li));
+        if (!d || !a || li.children[0] !== d) return true;
+        const rd = d.getBoundingClientRect(), ra = a.getBoundingClientRect(), lh = parseFloat(getComputedStyle(a).lineHeight);
+        if (rd.right > ra.left + 1 || Math.abs(rd.top - ra.top) > 6) return true;
+        if (li.classList.contains("g-ev-story")) return ra.height > lh * 2 + 2 || [...li.querySelectorAll(":scope > .c-src, :scope > .c-tag, :scope > .g-ev-m")].some((e) => e.getBoundingClientRect().height > 0);
+        if (!sx || sx.getBoundingClientRect().left < ra.right - 1) return true;
+        return li.getBoundingClientRect().height > lh * 2 + 16; }).map((li) => nm(li));
       return { rowsBad: [...new Set(rowsBad)], badges, vscroll: [...new Set(vscroll)], hscroll: [...new Set(hscroll)], clipped: [...new Set(clipped)].slice(0, 5), orange: orange.slice(0, 5), pageW: document.documentElement.scrollWidth };
     });
-    checkEq(r.rowsBad.join("|"), "", `${theme} ${t}: every events row reads date · headline · source, meta beneath — two lines max (R43)`);
+    checkEq(r.rowsBad.join("|"), "", `${theme} ${t}: every events row leads with its date; news cards read date · headline (≤ 2 lines, R44j), other rows date · headline · source, meta beneath (R43)`);
     checkEq(r.badges.join("|"), "", `${theme} ${t}: LIVE / NOT LIVE / AS-OF badges sit top-right on the title line`);
     checkEq(r.vscroll.join("|"), "", `${theme} ${t}: no card scrolls inside itself`);
     checkEq(r.hscroll.join("|"), "", `${theme} ${t}: nothing scrolls sideways inside a card`);

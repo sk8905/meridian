@@ -1452,7 +1452,7 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   in one muted tag style. **(c) Two lines max per events item, on every screen (iPhone
   included — never wrap further):** line 1 = headline / name, line 2 = meta, each one line
   with an ellipsis; the full text is the row's `title` (hover / long-press) and in full
-  when opened. One fixed row height per list so previews align (cf. R42 i; the iPhone News wire and notifications are the one exception — R44j) — and ONE compact height
+  when opened. One fixed row height per list so previews align (cf. R42 i; iPhone story lists are the one exception — R44j) — and ONE compact height
   app-wide (owner 2026-10-15, "like the Deals page"): every events row, the narrow news
   wire (Home / News) and the iPhone Profiles card rows all sit at `--ev-h` (46px; 56px
   under the Comfortable density) with a 12px gutter and two lines. The leading column is
@@ -1572,14 +1572,19 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   control and nothing follows the OS scheme. Rules elsewhere that say "light and dark"
   now mean dark only; the light token values remain in the stylesheets as the base
   layer the dark overrides sit on, but are never shown. Spec: `tests/theme-toggle.mjs`.
-  **(j) iPhone: the wire row reads in full** (owner 2026-10-16) — ONE rule on `a.g-feed-row` in feed.css, so it holds wherever the wire row is drawn. In the News section
-  (every lane: News · Deals · Profiles · Watchlist · Newsletters · Research) and the
-  notifications panel (All and Watchlist tabs), each headline WRAPS to at most **three
-  lines** (`-webkit-line-clamp:3`), the row drops its source line and the ★, and rows take
-  the height their headline needs (min `--ev-h`). The source and paywall state stay in the
-  reading pane ("Open original at …") and the row's title. This is the one exception to
-  R43(c)'s two-line, one-height rule; desktop keeps the two-line wire row. Spec:
-  `tests/phone-wire-wrap.mjs`.
+  **(j) iPhone: every STORY list reads like the News wire** (owner 2026-10-16) — ONE rule in
+  feed.css. A story list is a list of headlines: the News section (every lane), the
+  notifications panel and saved stories (all THE wire row, `feedRow`), and the rows marked
+  `.g-ev-story` — profile News / Alerts / "Involved in" tabs (manager, hedge fund, law
+  firm), the borrower page's Deals and Legal lists, the deal drawer's "More from …", every
+  Dashboard news card and Menu ▸ Digest. On iPhone each row is **date · headline only**:
+  the headline wraps to at most **TWO lines, never three** (`-webkit-line-clamp:2`); no
+  source, tag, meta line or ★; the row takes the height its headline needs (min `--ev-h`,
+  9px top / bottom). The full text and source stay in the row's title and the opened
+  story. Lists of NAMES + FACTS — Deals, Restructuring hub, Fundraising, People, the
+  Profiles lists, a law firm's Deals — are NOT story lists: they keep R43(c)'s one-line
+  name and detail line (owner: "don't wrap here"). This is the one exception to R43(c)'s
+  two-line, one-height rule; desktop is unchanged. Spec: `tests/phone-wire-wrap.mjs`.
 
 ## 7. Technical rules
 

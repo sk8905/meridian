@@ -703,7 +703,7 @@ export function mount(host, ctx) {
   }
   const leadId = (r) => lenderKeys(r).find((id) => id !== "_") || "";
   // R43: related deals are an events list — the shared row (date · headline / lender · amount · source).
-  const relRow = (x) => evRow({ date: x.d.date, title: x.d.headline || "—", meta: [esc(lenderCellName(x) || ""), x.amt ? esc(fmtAmt(x.amt)) : ""].filter(Boolean).join(" · "),
+  const relRow = (x) => evRow({ story: true, date: x.d.date, title: x.d.headline || "—", meta: [esc(lenderCellName(x) || ""), x.amt ? esc(fmtAmt(x.amt)) : ""].filter(Boolean).join(" · "),
     src: creditSource(x.d), cls: "tmini-row clickable tx-rel", attrs: ` data-deal="${esc(x.d.id)}"` });
   const srcLink = (d) => d.sourceUrl ? `<a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(creditSource(d) || "source")}</a>` : "—";
   // Law-firm announcements (legal desk) are loaded on the first drawer open only —

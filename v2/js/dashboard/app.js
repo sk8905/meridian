@@ -790,7 +790,7 @@ export function mount(host, ctx) {
   const mgrName = (id) => ((managers || []).find((m) => m.id === id) || {}).name || "";
   function newsLi({ title, href, inApp = false, date, est = false, meta = "", tag = "", src = "", srcHref = "", cls = "", aCls = "", dCls = "", attrs = "" }) {
     return evRow({ title: deEnt(title), href, inApp, dateText: isoDay(date),
-      est, meta, tag, src, srcHref, cls: `dsh-news-i${cls ? ` ${cls}` : ""}`, aCls, dCls, attrs });
+      est, meta, tag, src, srcHref, cls: `dsh-news-i${cls ? ` ${cls}` : ""}`, aCls, dCls, attrs, story: true });   // every Dashboard news card is a story list
   }
   const newsUl = (rows, cls = "") => evList(rows, `dsh-news dsh-rx${cls ? ` ${cls}` : ""}`);
   const metaOf = (...parts) => esc(parts.filter(Boolean).join(" · "));

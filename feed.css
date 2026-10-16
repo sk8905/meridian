@@ -233,18 +233,26 @@ body.wire-sliding .g-feed-srcbar { position:static; }
 /* The notifications panel IS a wire column: its rows are feedRow (.g-feed-row), so it is a
    feedwrap container and takes the narrow wire layout (time · headline / source). */
 #na-notif-panel .na-body { container:feedwrap / inline-size; }
-/* iPhone: THE wire row reads in FULL (owner 2026-10-16, R44j) — wherever it is drawn
-   (News, notifications, saved stories): the headline wraps to at most 3 lines, the row
-   drops its source line and the ★, and takes the height its headline needs (min --ev-h).
-   The source and paywall state stay in the reading pane and the row's title. One rule on
-   the one row — desktop is unchanged. */
+/* iPhone: EVERY story list reads like the News wire (owner 2026-10-16, R44j) — the wire
+   row (News, notifications, saved stories) and the story-list rows marked .g-ev-story
+   (profile News / Alerts tabs, the borrower page, the deal drawer's "More from …", every
+   Dashboard news card, Digest): date · headline only, the headline wrapping to at most
+   TWO lines; no source, tag, meta line or ★; the row takes the height its headline needs
+   (min --ev-h). Full text and source stay in the row's title / the opened story. Lists of
+   names + facts (Deals, Restructuring, Fundraising, People, Profiles) are NOT story lists
+   and keep their one-line name and detail line. One rule; desktop is unchanged. */
 @media (max-width:760px){
-  a.g-feed-row.g-feed-row { height:auto; min-height:var(--ev-h); padding-top:9px; padding-bottom:9px; align-items:start;
-    grid-template-columns:var(--c-date-w) minmax(0,1fr); grid-template-areas:"time title"; }
-  a.g-feed-row > .g-feed-title { white-space:normal; text-overflow:clip; overflow:hidden;
-    display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; line-height:1.35; }
-  a.g-feed-row > .g-feed-time { padding-top:1px; }
-  a.g-feed-row > :is(.g-feed-src, .g-feed-lock), a.g-feed-row .g-mw-fev-star { display:none; }
+  /* :not(#_) lifts the story row above any surface's own row padding (drawer, mini-lists) —
+     only the vertical padding and height are set here, so each surface keeps its gutters. */
+  a.g-feed-row.g-feed-row, li.g-ev.g-ev-story:not(#_), .twire .tw-row.g-ev-story { height:auto; min-height:var(--ev-h); padding-top:9px; padding-bottom:9px; align-items:start; align-content:start; }
+  a.g-feed-row.g-feed-row { grid-template-columns:var(--c-date-w) minmax(0,1fr); grid-template-areas:"time title"; }
+  li.g-ev.g-ev-story { grid-template-columns:var(--c-date-w) minmax(0,1fr); grid-template-areas:"date title"; }
+  .twire .tw-row.g-ev-story { grid-template-columns:var(--c-date-w) minmax(0,1fr); grid-template-areas:"date head"; }
+  a.g-feed-row > .g-feed-title, li.g-ev.g-ev-story > .g-ev-t, .twire .tw-row.g-ev-story .tw-head {
+    white-space:normal; text-overflow:clip; overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; line-height:1.35; }
+  a.g-feed-row > .g-feed-time, li.g-ev.g-ev-story > .c-date, .twire .tw-row.g-ev-story > .tw-date { padding-top:1px; }
+  a.g-feed-row > :is(.g-feed-src, .g-feed-lock), a.g-feed-row .g-mw-fev-star,
+  li.g-ev.g-ev-story > :is(.c-tag, .c-src, .g-ev-m), .twire .tw-row.g-ev-story :is(.tw-tag, .tw-src, .tw-mgr-w) { display:none; }
 }
 @media (hover:hover){ .g-ev > a.g-ev-t:hover, .g-ev > .g-ev-m a:hover { color:var(--t-ink); } }
 

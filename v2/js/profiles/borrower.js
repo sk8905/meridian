@@ -94,14 +94,14 @@ export async function viewBorrower(host, rawName, base = "/v2") {
   ];
   // R43: deals, plans, judgments and alerts are events lists — the shared row
   // (date · headline / meta · tag · source).
-  const dealsBody = ds.length ? `<ul class="tmini g-evs">${ds.map((d) => evRow({ dateText: fmtDateP(d), title: d.headline, href: `${base}/transactions/#/deal/${d.id}`, inApp: true, meta: esc(mgrName.get(d.managerId) || ""), src: creditSource(d), srcHref: d.sourceUrl || "", cls: "tmini-row" })).join("")}</ul>` : `<p class="tw-empty muted small">No tracked deal names this company.</p>`;
+  const dealsBody = ds.length ? `<ul class="tmini g-evs">${ds.map((d) => evRow({ story: true, dateText: fmtDateP(d), title: d.headline, href: `${base}/transactions/#/deal/${d.id}`, inApp: true, meta: esc(mgrName.get(d.managerId) || ""), src: creditSource(d), srcHref: d.sourceUrl || "", cls: "tmini-row" })).join("")}</ul>` : `<p class="tw-empty muted small">No tracked deal names this company.</p>`;
   const legalRows = [
     ...rx.map((r) => ({ x: r, t: r.company, u: r.judgmentUrl || r.articleUrl, tag: r.type === "scheme" ? "Scheme" : "Plan", meta: [r.citation, r.court].filter(Boolean).join(" · ") })),
     ...cases.map((c) => ({ x: c, t: c.name, u: c.url, tag: "Case", meta: [c.citation].filter(Boolean).join(" · "), src: c.court })),
     ...alerts.map((i) => ({ x: i, t: i.title, u: i.url, tag: "Alert", meta: "", src: firm(i.firm) })),
   ].sort((a, b) => String(b.x.date || "").localeCompare(String(a.x.date || "")));
   const legalBody = legalRows.length
-    ? `<ul class="tmini g-evs">${legalRows.map((r) => evRow({ dateText: fmtDateP(r.x), title: r.t, href: r.u || "", meta: esc(r.meta), tag: `<span class="dsh-tag">${esc(r.tag)}</span>`, src: r.src || "", srcHref: r.src ? "" : (r.u || ""), cls: "tmini-row" })).join("")}</ul>` : `<p class="tw-empty muted small">No tracked alert, judgment or plan names this company.</p>`;
+    ? `<ul class="tmini g-evs">${legalRows.map((r) => evRow({ story: true, dateText: fmtDateP(r.x), title: r.t, href: r.u || "", meta: esc(r.meta), tag: `<span class="dsh-tag">${esc(r.tag)}</span>`, src: r.src || "", srcHref: r.src ? "" : (r.u || ""), cls: "tmini-row" })).join("")}</ul>` : `<p class="tw-empty muted small">No tracked alert, judgment or plan names this company.</p>`;
   host.innerHTML = `
     <div class="tdash"><div class="tdash-grid tdash-1"><section class="tcol tcol-c tcol-full">
       <div class="tdet-id" data-borrower="${esc(name)}">

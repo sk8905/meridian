@@ -68,7 +68,9 @@ check(all.mgrRows > 0 && all.total > all.mgrRows, `All lane: news + manager inte
 // mode with a kicker + headline + an 'Open original' link.
 await lane(pg, "News");
 await pg.waitForTimeout(250);
-await pg.evaluate(() => { const r = [...document.querySelectorAll("#g-feed .g-feed-row")].find((x) => !x.classList.contains("is-locked")); if (r) r.click(); });
+// An EXTERNAL story (target=_blank): an in-app row (e.g. a hedge-fund item with no source URL
+// opens its profile) has no "Open original" link to assert.
+await pg.evaluate(() => { const r = [...document.querySelectorAll("#g-feed .g-feed-row")].find((x) => !x.classList.contains("is-locked") && x.getAttribute("target") === "_blank"); if (r) r.click(); });
 await pg.waitForTimeout(400);
 const def = await pg.evaluate(() => ({
   title: (document.querySelector("#g-readpane .g-read-title") || {}).textContent.trim(),
