@@ -1326,7 +1326,7 @@ prints, so that read-only task can send it). On **Mondays** it sends the weekly 
 manager's `aumFrom` (the currency each stored AUM figure was converted from) must agree
 with its own `aumText` and source. ICG was stored as if its "$126bn" were EUR and shown
 as ~€116bn ($130bn) — it reports in US$; fixed 2026-10-15. `tests/aum-currency.mjs`
-fails on any NEW mismatch and holds the open review list (`REVIEW`, 16 managers on
+fails on any NEW mismatch and holds the open review list (`REVIEW`, 13 managers on
 2026-10-15). The **"/Wire: nightly sampling verifier"** scheduled task (02:33 London) does this
 every night (step 4b of its prompt): take up to **3** ids from that list:
 1. Re-read the manager's own latest AUM disclosure (results / trading update / firm

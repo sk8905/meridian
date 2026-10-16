@@ -4,24 +4,35 @@
 // hand-edit; re-run the script. Tokenless + no-cache (see _headers).
 // =============================================================================
 export const DIGEST = {
- "asOf": "2026-10-15",
- "built": "2026-10-15T10:56:18.309Z",
+ "asOf": "2026-10-16",
+ "built": "2026-10-16T01:41:41.876Z",
  "daily": {
   "label": "Daily",
-  "from": "2026-10-14",
-  "to": "2026-10-15",
+  "from": "2026-10-15",
+  "to": "2026-10-16",
   "deals": {
-   "total": 1,
+   "total": 2,
    "items": [
     {
-     "id": "d1046",
-     "date": "2026-10-14",
-     "title": "Franklin Templeton and Benefit Street Partners expand asset-backed finance capabilities with Encina Lender Finance transaction",
-     "url": "https://www.bspcredit.com/us/news-and-insights/press-releases/franklin-templeton-and-benefit-street-partners-expand-asset-backed-finance-capabilities-with-encina-lender-finance-transaction/",
-     "src": "bspcredit.com",
-     "who": "BSP-Alcentra (Franklin Templeton)",
-     "kind": "Acquisition",
-     "href": "/v2/transactions/#/deal/d1046",
+     "id": "d1150",
+     "date": "2026-10-15",
+     "title": "Castlelake prices $1.1bn commercial real estate CLO, CLCRE 2026-FL1, its first",
+     "url": "https://www.castlelake.com/article/castlelake-prices-1-1-billion-commercial-real-estate-clo-clcre-2026-fl1/",
+     "src": "castlelake.com",
+     "who": "Castlelake, L.P.",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1150",
+     "amount": "$1.1bn"
+    },
+    {
+     "id": "d1147",
+     "date": "2026-10-15",
+     "title": "Pemberton provides financing to support Exponent's buyout of Killarney Telecommunications",
+     "url": "https://pembertonam.com/news/pemberton-provides-financing-to-support-exponents-buyout-of-killarney-telecommunications/",
+     "src": "pembertonam.com",
+     "who": "Pemberton Asset Management",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1147",
      "amount": null
     }
    ]
@@ -31,26 +42,15 @@ export const DIGEST = {
    "items": []
   },
   "legal": {
-   "total": 1,
-   "items": [
-    {
-     "id": "u2350",
-     "date": "2026-10-14",
-     "title": "The Insolvency Administrator's Long Memory – When Gratuitous Benefits Are Reclaimed",
-     "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/the-insolvency-administrators-long-memory-when-gratuitous-benefits-are-reclaimed",
-     "src": "mayerbrown.com",
-     "who": "Mayer Brown",
-     "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/mayerbrown"
-    }
-   ]
+   "total": 0,
+   "items": []
   },
   "people": {
    "total": 0,
    "items": []
   },
   "rates": {
-   "savedAt": "2026-10-15T09:15:38.018Z",
+   "savedAt": "2026-10-15T11:20:40.777Z",
    "items": [
     {
      "label": "SONIA",
@@ -178,10 +178,10 @@ export const DIGEST = {
  },
  "weekly": {
   "label": "Weekly",
-  "from": "2026-10-09",
-  "to": "2026-10-15",
+  "from": "2026-10-10",
+  "to": "2026-10-16",
   "deals": {
-   "total": 5,
+   "total": 6,
    "items": [
     {
      "id": "d966",
@@ -195,6 +195,17 @@ export const DIGEST = {
      "amount": "$2.8bn"
     },
     {
+     "id": "d1150",
+     "date": "2026-10-15",
+     "title": "Castlelake prices $1.1bn commercial real estate CLO, CLCRE 2026-FL1, its first",
+     "url": "https://www.castlelake.com/article/castlelake-prices-1-1-billion-commercial-real-estate-clo-clcre-2026-fl1/",
+     "src": "castlelake.com",
+     "who": "Castlelake, L.P.",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1150",
+     "amount": "$1.1bn"
+    },
+    {
      "id": "d990",
      "date": "2026-10-12",
      "title": "Blackstone Credit & Insurance leads $1bn financing for the combination of Analogic and Leidos' Security Enterprise Solutions businesses",
@@ -206,26 +217,26 @@ export const DIGEST = {
      "amount": "$1bn"
     },
     {
-     "id": "d991",
-     "date": "2026-10-09",
-     "title": "Blackstone raises ~$1bn private credit continuation fund led by Allianz Global Investors",
-     "url": "https://www.privateequitywire.co.uk/blackstone-raises-1bn-for-private-credit-continuation-fund/",
-     "src": "privateequitywire.co.uk",
-     "who": "Blackstone Credit & Insurance (BXCI)",
-     "kind": "Continuation Vehicle",
-     "href": "/v2/transactions/#/deal/d991",
-     "amount": "$1bn"
+     "id": "d1146",
+     "date": "2026-10-12",
+     "title": "Investec Real Estate refinances Belfast student housing scheme with £21.3m loan",
+     "url": "https://realassets.ipe.com/news/investec-real-estate-refinances-belfast-student-housing-scheme/10138874.article",
+     "src": "realassets.ipe.com",
+     "who": "Investec",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1146",
+     "amount": "£21.3m"
     },
     {
-     "id": "d921",
-     "date": "2026-10-09",
-     "title": "CVC Credit prices Cordatus XXXIX, its second European CLO of 2026, at €400m",
-     "url": "https://www.cvc.com/media/news/2026/cvc-credit-prices-second-european-clo-of-2026",
-     "src": "cvc.com",
-     "who": "CVC (Credit)",
-     "kind": "Structured Credit",
-     "href": "/v2/transactions/#/deal/d921",
-     "amount": "€400m"
+     "id": "d1147",
+     "date": "2026-10-15",
+     "title": "Pemberton provides financing to support Exponent's buyout of Killarney Telecommunications",
+     "url": "https://pembertonam.com/news/pemberton-provides-financing-to-support-exponents-buyout-of-killarney-telecommunications/",
+     "src": "pembertonam.com",
+     "who": "Pemberton Asset Management",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1147",
+     "amount": null
     },
     {
      "id": "d1046",
@@ -245,7 +256,7 @@ export const DIGEST = {
    "items": []
   },
   "legal": {
-   "total": 11,
+   "total": 6,
    "items": [
     {
      "id": "c283",
@@ -264,46 +275,6 @@ export const DIGEST = {
      "url": "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2585",
      "src": "caselaw.nationalarchives.gov.uk",
      "who": "High Court (Comm)",
-     "kind": "Judgment",
-     "href": null
-    },
-    {
-     "id": "c284",
-     "date": "2026-10-09",
-     "title": "Stonegate Farmers Limited v Joey Heavey [2026] EWHC 2519 (Comm)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2519",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (Comm)",
-     "kind": "Judgment",
-     "href": null
-    },
-    {
-     "id": "c287",
-     "date": "2026-10-09",
-     "title": "Secretary of State for Business and Trade v Gareth David Gwynne Davies [2026] EWHC 2563 (BP)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2563",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (BP)",
-     "kind": "Judgment",
-     "href": null
-    },
-    {
-     "id": "c289",
-     "date": "2026-10-09",
-     "title": "Christopher Shaw v Coleman Capital LLP (in Liquidation) & Ors [2026] EWHC 2546 (BP)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2546",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (BP)",
-     "kind": "Judgment",
-     "href": null
-    },
-    {
-     "id": "c291",
-     "date": "2026-10-09",
-     "title": "ASGC Holding LLC & Ors v Innovo Holding Ltd & Ors [2026] EWHC 2538 (BP)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2538",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (BP)",
      "kind": "Judgment",
      "href": null
     },
@@ -365,7 +336,7 @@ export const DIGEST = {
    ]
   },
   "rates": {
-   "savedAt": "2026-10-15T09:15:38.018Z",
+   "savedAt": "2026-10-15T11:20:40.777Z",
    "items": [
     {
      "label": "SONIA",
