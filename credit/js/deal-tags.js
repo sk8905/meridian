@@ -166,6 +166,7 @@ const T = {
   d190: {"c":"UK","s":"Healthcare","a":"financing"},
   d191: {"c":"US","s":"Industrials","a":null},
   d192: {"c":"US","s":"Diversified","a":"fund","e":"new","p":"Menlo CLO V","r":"issuer"},
+  d1173: {"c":"US","s":"Diversified","a":"fund","e":"new","p":"Menlo CLO VI","r":"issuer"},
   d194: {"c":"UK","s":"Real estate","a":null},
   d195: {"c":"Italy","s":"Consumer & retail","a":"financing"},
   d196: {"c":"UK","s":"TMT","a":null},

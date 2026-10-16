@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-10-16";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "15:25 BST";
+export const LAST_CHECKED_TIME = "16:40 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -241,6 +241,7 @@ export const updateTypes = [
 // area: primary practice-area id. areas: all relevant practice-area ids.
 // For case notes, court/citation are populated.
 export const items = [
+  {"id":"u2979","title":"Clifford Chance advises Azora on final close of Azora Southern Europe Opportunities III","area":"funds","areas":["funds"],"type":"alert","firm":"cliffordchance","date":"2026-10-05","summary":"Azora Southern Europe Opportunities III (SEO III) reached its final close with €1.6 billion in commitments, which Azora describes as the largest real estate fund raised for Southern Europe. Separate co-investment capital of €450 million brings total capital raised to €2.05 billion, with about €4.5 billion of total investment capacity. The close includes nearly 30 investors from 16 countries. Evercore and Clifford Chance advised Azora on the fundraising.","url":"https://www.azora.com/en/blog/azora-closes-the-largest-real-estate-fund-dedicated-to-southern-europe/"},
   {"id":"u2785","title":"White & Case Advises Lottery.com on Its Business Combination and Nasdaq Listing","area":"corporate","areas":["corporate"],"type":"alert","firm":"whitecase","date":"2021-11-05","summary":"Global law firm White & Case LLP has advised Lottery.com, a leading technology company that is transforming how, where and when lottery is played, on its business combination with Trident Acquisitions Corp., a publicly traded special purpose acquisition company (SPAC).","url":"https://www.whitecase.com/news/press-release/white-case-advises-lotterycom-its-business-combination-and-nasdaq-listing"},
   {"id":"u2786","title":"Mayer Brown advises Vitruvian Partners in acquisition of AnyVan Group","area":"corporate","areas":["corporate"],"type":"alert","firm":"mayerbrown","date":"2022-01-27","summary":"London — Mayer Brown represented Vitruvian Partners, a European private equity firm in its acquisition of AnyVan Group, an online booking platform","url":"https://www.mayerbrown.com/en/news/2022/01/mayer-brown-advises-vitruvian-partners-in-acquisition-of-anyvan-group"},
   {"id":"u2787","title":"A&O advises on the financing of TPG Capital's acquisition of DOC Generici","area":"banking","areas":["banking"],"type":"alert","firm":"aoshearman","date":"2022-11-03","summary":"Allen & Overy advised on financing for TPG Capital's acquisition of DOC Generici, a leading Italian generic pharmaceuticals manufacturer.","url":"https://www.aoshearman.com/en/news/ao-advises-on-the-financing-of-tpg-capitals-acquisition-of-doc-generici"},
