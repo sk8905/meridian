@@ -21,6 +21,118 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "86038629-9b53-4859-bc59-a67fb0059c37",
+    "title": "Welfare reform is possible: we did it before, we can do it again",
+    "date": "2026-10-16",
+    "time": "16:53",
+    "url": "https://www.ft.com/content/86038629-9b53-4859-bc59-a67fb0059c37"
+  },
+  {
+    "id": "d05f87bf-225b-43f9-86e6-2f9537cd75c6",
+    "title": "Apple set for UK legal fight over iPhone tap-to-pay rules",
+    "date": "2026-10-16",
+    "time": "16:21",
+    "url": "https://www.ft.com/content/d05f87bf-225b-43f9-86e6-2f9537cd75c6"
+  },
+  {
+    "id": "cc22b728-dee4-4a3f-a52f-fb3f09aa30e0",
+    "title": "Andy Burnham urges SNP’s John Swinney to team up on devolving jobs support",
+    "date": "2026-10-16",
+    "time": "16:00",
+    "url": "https://www.ft.com/content/cc22b728-dee4-4a3f-a52f-fb3f09aa30e0"
+  },
+  {
+    "id": "f49c8e39-f07f-4177-9948-aabe55e5ed91",
+    "title": "Citi becomes latest US bank to restrict AI agents from accessing accounts",
+    "date": "2026-10-16",
+    "time": "15:58",
+    "url": "https://www.ft.com/content/f49c8e39-f07f-4177-9948-aabe55e5ed91"
+  },
+  {
+    "id": "a0a143ac-6a48-410a-b121-92f293b0ad6d",
+    "title": "Trump has failed to listen to voters on inflation",
+    "date": "2026-10-16",
+    "time": "15:58",
+    "url": "https://www.ft.com/content/a0a143ac-6a48-410a-b121-92f293b0ad6d"
+  },
+  {
+    "id": "5b36d8a4-49f1-4877-8719-2db984c13081",
+    "title": "The hunt for Fed October",
+    "date": "2026-10-16",
+    "time": "15:39",
+    "url": "https://www.ft.com/content/5b36d8a4-49f1-4877-8719-2db984c13081"
+  },
+  {
+    "id": "15922d6d-421a-4b33-a329-45443491e1be",
+    "title": "India police detain ‘Cockroach’ leader again to head off new protests",
+    "date": "2026-10-16",
+    "time": "15:39",
+    "url": "https://www.ft.com/content/15922d6d-421a-4b33-a329-45443491e1be"
+  },
+  {
+    "id": "0c7188db-2ab2-4b41-a7ea-a4e8b795e173",
+    "title": "How to value anything with one simple question",
+    "date": "2026-10-16",
+    "time": "14:57",
+    "url": "https://www.ft.com/content/0c7188db-2ab2-4b41-a7ea-a4e8b795e173"
+  },
+  {
+    "id": "800db28a-9176-4ca3-9334-69ede9a2b3ef",
+    "title": "Lufthansa exploring sale of software assets in €1bn deal",
+    "date": "2026-10-16",
+    "time": "14:56",
+    "url": "https://www.ft.com/content/800db28a-9176-4ca3-9334-69ede9a2b3ef"
+  },
+  {
+    "id": "44934b4f-f01b-45c1-9c51-ec4566e662a9",
+    "title": "UAE had ‘clear incentives’ to influence Telegraph coverage, Ofcom finds",
+    "date": "2026-10-16",
+    "time": "14:44",
+    "url": "https://www.ft.com/content/44934b4f-f01b-45c1-9c51-ec4566e662a9"
+  },
+  {
+    "id": "c36f858f-73e2-478b-9fdb-92b9167ce37f",
+    "title": "France and Germany seal EU car deal",
+    "date": "2026-10-16",
+    "time": "14:42",
+    "url": "https://www.ft.com/content/c36f858f-73e2-478b-9fdb-92b9167ce37f"
+  },
+  {
+    "id": "6fc92bd5-e79f-42a9-833c-74b8fffcf1a7",
+    "title": "Carmakers face smaller cut in UK EV sales targets",
+    "date": "2026-10-16",
+    "time": "14:27",
+    "url": "https://www.ft.com/content/6fc92bd5-e79f-42a9-833c-74b8fffcf1a7"
+  },
+  {
+    "id": "4ad90130-8f3f-4770-8567-f5cb51497386",
+    "title": "FTAV’s Friday charts quiz",
+    "date": "2026-10-16",
+    "time": "14:02",
+    "url": "https://www.ft.com/content/4ad90130-8f3f-4770-8567-f5cb51497386"
+  },
+  {
+    "id": "e3a17496-0dc2-42d8-ba7d-16a013016249",
+    "title": "The new unequivocal Zelenskyy",
+    "date": "2026-10-16",
+    "time": "14:00",
+    "url": "https://www.ft.com/content/e3a17496-0dc2-42d8-ba7d-16a013016249"
+  },
+  {
+    "id": "24ea259d-da7a-4f5e-bb86-86b33e629a48",
+    "title": "Albania PM refuses to resign as student protesters attack government buildings",
+    "date": "2026-10-16",
+    "time": "13:57",
+    "url": "https://www.ft.com/content/24ea259d-da7a-4f5e-bb86-86b33e629a48"
+  },
+  {
+    "id": "b3979904-2252-4934-9cff-729a815cb4b0",
+    "title": "Starlink spectrum deal piles Elon Musk’s plate ever higher",
+    "date": "2026-10-16",
+    "time": "13:15",
+    "url": "https://www.ft.com/content/b3979904-2252-4934-9cff-729a815cb4b0"
+  },
+  {
     "id": "4dffb678-9d90-46fa-b98e-40f988057984",
     "title": "World’s oldest gunmaker expands American foothold after boardroom tussle",
     "date": "2026-10-16",
@@ -187,117 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-16",
     "time": "06:00",
     "url": "https://www.ft.com/content/d36787c1-f0b0-4445-8237-90eb4d521081"
-  },
-  {
-    "id": "537c9a68-7b6f-41a7-80ff-acac5c52e80d",
-    "title": "The data centre IPO debacle that sparked a market meltdown",
-    "date": "2026-10-16",
-    "time": "05:54",
-    "url": "https://www.ft.com/content/537c9a68-7b6f-41a7-80ff-acac5c52e80d"
-  },
-  {
-    "id": "246f1614-cd9a-4747-bc58-97e9cb10fb4b",
-    "title": "FirstFT: Healey signals tax raid on banks in UK Budget",
-    "date": "2026-10-16",
-    "time": "05:33",
-    "url": "https://www.ft.com/content/246f1614-cd9a-4747-bc58-97e9cb10fb4b"
-  },
-  {
-    "id": "155bc83f-655d-4891-a431-aa5e1e1ce96a",
-    "title": "Has London’s £5bn ‘super sewer’ improved water quality in the Thames?",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/155bc83f-655d-4891-a431-aa5e1e1ce96a"
-  },
-  {
-    "id": "dcab1c7f-00aa-4194-bdb1-0a0c6712e4e8",
-    "title": "Canary Wharf developer George Iacobescu overseeing new London skyscraper",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/dcab1c7f-00aa-4194-bdb1-0a0c6712e4e8"
-  },
-  {
-    "id": "56d14d34-955a-41e9-90da-5eda7d179509",
-    "title": "How Trump’s America fell in love with UFC",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/56d14d34-955a-41e9-90da-5eda7d179509"
-  },
-  {
-    "id": "efe55232-3a97-4b3e-825b-64af4e7edb90",
-    "title": "Postcard from Chester: high spirits and loud voices at the World Town Crier Tournament",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/efe55232-3a97-4b3e-825b-64af4e7edb90"
-  },
-  {
-    "id": "6a1ecb1a-a998-4cbb-be54-22df550a66ee",
-    "title": "Wall Street’s AI wobbles",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/6a1ecb1a-a998-4cbb-be54-22df550a66ee"
-  },
-  {
-    "id": "c6e911dd-440b-4852-925c-448faeb52d98",
-    "title": "Young people to get less cash but more job support under Milburn welfare plan",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/c6e911dd-440b-4852-925c-448faeb52d98"
-  },
-  {
-    "id": "0ce2a031-5c81-4b48-a4b1-d19585fd3a66",
-    "title": "Why law firms should resist the lure of the AI spin-off",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/0ce2a031-5c81-4b48-a4b1-d19585fd3a66"
-  },
-  {
-    "id": "5a310aee-f555-4266-874c-b1b4db20186d",
-    "title": "Anthropic secured highest junk credit rating in June",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/5a310aee-f555-4266-874c-b1b4db20186d"
-  },
-  {
-    "id": "1bd1cdc2-9dc1-4538-8820-129e9bd9117b",
-    "title": "UK government courted UBS over London HQ move",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/1bd1cdc2-9dc1-4538-8820-129e9bd9117b"
-  },
-  {
-    "id": "9585ba4d-5036-4f5d-9656-0dc4f6bdee4e",
-    "title": "The secret fight around financial flows",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/9585ba4d-5036-4f5d-9656-0dc4f6bdee4e"
-  },
-  {
-    "id": "586218d3-6943-4690-8dd8-63dd329c781d",
-    "title": "US business leaders are waking up to the perils of plutopopulism",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/586218d3-6943-4690-8dd8-63dd329c781d"
-  },
-  {
-    "id": "7a260d99-c761-4ab1-8185-d7e0225a8472",
-    "title": "What do the Houthis want?",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/7a260d99-c761-4ab1-8185-d7e0225a8472"
-  },
-  {
-    "id": "2839679e-f329-41f0-a252-93444e81252c",
-    "title": "Airlines should give up their fuel-hedging dogfight",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/2839679e-f329-41f0-a252-93444e81252c"
-  },
-  {
-    "id": "4dfcf1ba-0b8e-4198-b0a4-e975ebde9066",
-    "title": "Why is the fintech boom failing to improve fin-lit?",
-    "date": "2026-10-16",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/4dfcf1ba-0b8e-4198-b0a4-e975ebde9066"
   }
 ];
