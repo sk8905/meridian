@@ -259,6 +259,31 @@ export function initPullToRefresh() {
   // — the big black band the reader hit on the second pull.
   function flushReset() { if (clearT) { clearTimeout(clearT); clearT = 0; } clearPage(); }
 
+  // NEVER STUCK (owner 2026-10-16): iOS home-screen apps can drop location.reload()
+  // (the app was backgrounded mid-pull, timers frozen) or restore the page from the
+  // back-forward cache with the ring still spinning — `busy` then never cleared and the
+  // orange ring sat over the list until the app was killed. So: reload, retry once, and
+  // if the page is still here after ~6s, put the ring away and give the gesture back.
+  // Returning to the app with a pull still pending finishes the refresh it asked for.
+  let _relT0 = 0, _relT = [];
+  function resetBusy() {
+    _relT.forEach(clearTimeout); _relT = []; _relT0 = 0;
+    busy = false; dist = 0;
+    apply(0, true, false); clearT = setTimeout(clearPage, 320);
+  }
+  function reloadOrReset() {
+    try { location.reload(); } catch { /* */ }
+    _relT.push(setTimeout(() => { try { location.reload(); } catch { /* */ } }, 2500));
+    _relT.push(setTimeout(resetBusy, 6000));
+  }
+  window.addEventListener("pageshow", (e) => { if (busy && e.persisted) resetBusy(); });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden || !busy) return;
+    const pending = Date.now() - _relT0 > 1500;
+    resetBusy();
+    if (pending) { saveTabs(); try { location.reload(); } catch { /* */ } }
+  });
+
   window.addEventListener("touchstart", (e) => {
     if (busy || e.touches.length !== 1) { armed = false; pulling = false; return; }
     const list = ptrList();
@@ -318,8 +343,9 @@ export function initPullToRefresh() {
       // so a dead network still reloads (into the cached copy) after ~3.5s.
       const fresh = [location.pathname, "/ft.js", "/newsletters.js", "/credit/js/data.js", "/legal/js/data.js", "/macro/js/content.js"]
         .map((u) => fetch(u, { cache: "reload" }).catch(() => {}));
+      _relT0 = Date.now();
       Promise.race([Promise.allSettled(fresh), new Promise((r) => setTimeout(r, 3500))])
-        .then(() => location.reload());
+        .then(reloadOrReset);
     } else { apply(0, true, false); clearT = setTimeout(clearPage, 320); }
     dist = 0;
   }, { passive: true });

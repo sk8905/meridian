@@ -474,6 +474,12 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   app covers** (same covered-entity relevance). See `saved.js` `_caseInBell`.
 - **R17 — Cache-first render:** show last-good from cache immediately, then pull
   a live refresh.
+  **(a) Pull-to-refresh never sticks** (owner 2026-10-16; `ptr.js`): a released pull
+  reloads; if the page is still there ~2.5s later it reloads once more, and after ~6s it
+  puts the spinning ring away and re-arms the gesture. A page restored from the iOS
+  back-forward cache with the ring spinning clears it at once, and returning to the
+  home-screen app with a pull still pending finishes that refresh. The orange ring may
+  never sit over the content. Spec: `tests/ptr-reveal.mjs`.
 - **R18 — Macro commentary coverage:** at least **10 commentary items per day**
   across US + UK, drawn from a broad roster of macro-strategy houses/economists
   (Yardeni, Absolute Strategy, Gavekal, BCA, Capital Economics, Pantheon,

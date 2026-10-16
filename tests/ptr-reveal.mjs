@@ -81,6 +81,18 @@ check(released.spinning, "release past the threshold puts the ring into its spin
 check(released.restPad > 0 && released.restPad <= 66, `the ring holds at the compact rest descent while spinning (${released.restPad}px)`);
 check(released.pageTY <= 1, `the page is still unmoved while the ring spins (page translateY ${released.pageTY}px)`);
 
+// NEVER STUCK: a page restored with the ring still spinning (iOS back-forward cache, or a
+// reload the home-screen app dropped) puts the ring away and the next pull arms again.
+const unstuck = await pg.evaluate(async () => {
+  window.dispatchEvent(new PageTransitionEvent("pageshow", { persisted: true }));
+  await new Promise((r) => setTimeout(r, 450));
+  const g = document.getElementById("ptr-ring"), z = document.getElementById("ptr-zone");
+  return { spinning: g.classList.contains("ptr-spinning"), op: parseFloat(getComputedStyle(g).opacity) || 0, pad: Math.round(parseFloat(getComputedStyle(z).paddingTop) || 0) };
+});
+check(!unstuck.spinning && unstuck.op === 0 && unstuck.pad === 0, `a restored page clears a stuck spinning ring (spinning ${unstuck.spinning}, opacity ${unstuck.op}, descent ${unstuck.pad}px)`);
+const again = await pull(120);
+check(again && again.maxPad > 0, `after clearing, the next pull arms again (${again && again.maxPad}px)`);
+
 checkErrs(errs, "ptr ring-only pull");
 await ctx.close();
 await b.close();
