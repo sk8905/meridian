@@ -1280,9 +1280,122 @@
    "kind": "manager",
    "name": "Azimut (Italy private credit)",
    "priority": 17,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-16",
+   "events": [
+    {
+     "key": "kennedy-lewis-minority-stake",
+     "date": "2020-07-29",
+     "what": "Azimut (AACP) takes minority stake in Kennedy Lewis",
+     "source": "https://www.newsfilecorp.com/release/62987",
+     "recordId": "i1218",
+     "status": "present"
+    },
+    {
+     "key": "sanctuary-wealth-announced",
+     "date": "2020-11-02",
+     "what": "Azimut agrees to acquire 55% of Sanctuary Wealth",
+     "source": "https://www.fundssociety.com/en/news/business/azimut-acquires-a-55-stake-in-sanctuary-wealth-a-leading-independent-firm-in-the-united-states-wealth-management-industry-2/",
+     "recordId": "i1219",
+     "status": "present"
+    },
+    {
+     "key": "sanctuary-wealth-completed",
+     "date": "2021-02-22",
+     "what": "Azimut completes 55% Sanctuary Wealth acquisition",
+     "source": "https://www.emarketstorage.it/sites/default/files/comunicati/2022-05/20210222_90581.pdf",
+     "recordId": "i1220",
+     "status": "present"
+    },
+    {
+     "key": "az-eltif-capital-solutions-final-close",
+     "date": "2021",
+     "what": "AZ ELTIF Capital Solutions final closing at EUR147.5m",
+     "source": "https://www.finanzaonline.com/?p=640907",
+     "status": "rejected",
+     "note": "Only 'mid-2021' confirmed; exact day not verified."
+    },
+    {
+     "key": "unicredit-loi",
+     "date": "2022-12-16",
+     "what": "Azimut and UniCredit sign letter of intent on distribution",
+     "source": "https://www.aziendabanca.it/notizie/investimenti-risparmio/unicredit-azimut",
+     "recordId": "i1221",
+     "status": "present"
+    },
+    {
+     "key": "eif-cornerstone-esg8-first-close",
+     "date": "2023-06-08",
+     "what": "EIF EUR30m cornerstone in Azimut senior private credit fund",
+     "source": "https://www.eif.org/InvestEU/news/2023/investeu-eif-azimut-investments-launch-new-senior-private-credit-fund-promote-climate-action-italy.htm",
+     "recordId": "i127",
+     "status": "present"
+    },
+    {
+     "key": "kennedy-lewis-stake-sale",
+     "date": "2024-04-03",
+     "what": "Azimut agrees to sell Kennedy Lewis stake to Petershill for USD225m",
+     "source": "https://italia-informa.com/public/italiainforma/ComunicatiStampa/Azimut/AZIMUT_3_APRILE.pdf",
+     "recordId": "i1222",
+     "status": "present"
+    },
+    {
+     "key": "esg8-first-close-126m",
+     "date": "2024-06-03",
+     "what": "Diversified Corporate Credit ESG-8 first close at EUR126m",
+     "source": "https://bebeez.it/private-debt/primo-closing-della-raccolta-a-126-mln-euro-per-azimut-diversified-corporate-credit-esg/",
+     "recordId": "d244",
+     "status": "present"
+    },
+    {
+     "key": "capital-solutions-ii-second-close",
+     "date": "2024-07-08",
+     "what": "AZ ELTIF Private Debt Capital Solutions II second closing above EUR205m",
+     "source": "https://bebeez.it/crisi-rilanci/secondo-closing-a-205-mln-euro-per-az-eltif-private-debt-capital-solutions-ii-che-finanzia-anche-biokimica/",
+     "recordId": "d1168",
+     "status": "present"
+    },
+    {
+     "key": "az-nga-oaktree-announced",
+     "date": "2024-09-30",
+     "what": "Azimut announces Oaktree partnership in AZ NGA",
+     "source": "https://forbes.it/2024/09/30/oaktree-investe-150-milioni-nella-controllata-australiana-di-azimut/",
+     "recordId": "i1223",
+     "status": "present"
+    },
+    {
+     "key": "az-nga-oaktree-completed",
+     "date": "2024-12-16",
+     "what": "Azimut completes Oaktree transaction in AZ NGA",
+     "source": "https://www.emarketstorage.it/sites/default/files/comunicati/2024-12/20241216_158549.pdf",
+     "recordId": "i1224",
+     "status": "present"
+    },
+    {
+     "key": "board-renewal-giuliani-medda-zambotti",
+     "date": "2025-04-30",
+     "what": "AGM renews board; Medda and Zambotti managing directors",
+     "source": "https://www.emarketstorage.it/sites/default/files/comunicati/2025-03/20250320_162432.pdf",
+     "status": "rejected",
+     "note": "Source is the pre-AGM board report; AGM outcome not confirmed from a primary source."
+    },
+    {
+     "key": "hofi-syndicated-facility",
+     "date": "2026-03-26",
+     "what": "Azimut joins ~EUR200m HOFI syndicated facility",
+     "source": "https://bebeez.eu/2026/03/26/italys-private-debt-corporate-finance-weekly-round-up-news-from-hofi-augens-capital-antin-infrastructure-anima-alternative-azimut-bcc-milano-bnl-bnpp-bper-cib-banco-bpm-credit/",
+     "recordId": "d195",
+     "status": "present"
+    },
+    {
+     "key": "yapi-kredi-portfoy-announced",
+     "date": "2026-07-29",
+     "what": "Azimut signs agreement to acquire Yapi Kredi Portfoy",
+     "source": "https://www.teleborsa.it/AMP/News/2026/07/29/azimut-diventa-il-secondo-maggiore-asset-manager-in-turchia-con-l-acquisto-di-ykp-1.html",
+     "recordId": "i1225",
+     "status": "present"
+    }
+   ]
   },
   "m120": {
    "kind": "manager",
@@ -1385,17 +1498,299 @@
    "kind": "manager",
    "name": "Sixth Street",
    "priority": 21,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-16",
+   "events": [
+    {
+     "key": "tpg-separation-announced",
+     "date": "2020-01-28",
+     "what": "TPG and Sixth Street tell LPs they will separate",
+     "source": "https://www.bloomberg.com/news/articles/2020-01-28/tpg-sixth-street-to-end-partnership-in-bid-to-fuel-dealmaking",
+     "status": "rejected",
+     "note": "Date only from the URL slug; page not fetchable. The May 2020 release confirms only that LPs were told in January 2020."
+    },
+    {
+     "key": "tpg-separation-complete",
+     "date": "2020-05-01",
+     "what": "TPG and Sixth Street complete separation",
+     "source": "https://sixthstreet.com/?p=2030",
+     "recordId": "i1211",
+     "status": "present"
+    },
+    {
+     "key": "sle2-final-close",
+     "date": "2021-01-08",
+     "what": "SLE II final close at EUR1bn hard cap",
+     "source": "https://sixthstreet.com/firm_news/sixth-street-closes-second-fund-for-direct-lending-in-europe-at-1-billion-hard-cap/",
+     "recordId": "i1212",
+     "status": "present"
+    },
+    {
+     "key": "growth-fund-final-close",
+     "date": "2022-11-03",
+     "what": "Sixth Street Growth closes $4.4bn at hard cap",
+     "source": "https://sixthstreet.com/?p=3127",
+     "recordId": "i1213",
+     "status": "present"
+    },
+    {
+     "key": "sslp-first-close",
+     "date": "2023-06",
+     "what": "Sixth Street Lending Partners first close c.$4.28bn",
+     "source": "https://www.privatedebtinvestor.com/sixth_street_bdc_first_close/",
+     "status": "rejected",
+     "note": "Exact day not verified from a primary source."
+    },
+    {
+     "key": "salisbury-co-cio",
+     "date": "2023-07-28",
+     "what": "Julian Salisbury named partner and Co-CIO",
+     "source": "https://sixthstreet.com/?p=3713",
+     "recordId": "i1214",
+     "status": "present"
+    },
+    {
+     "key": "tpg-stake-buyback",
+     "date": "2024-09-03",
+     "what": "Sixth Street reportedly buys back TPG's remaining stake",
+     "source": "https://semafor.com/article/09/03/2024/tpg-sells-stake-in-former-credit-arm-sixth-street-back-to-the-firm",
+     "recordId": "i1215",
+     "status": "present"
+    },
+    {
+     "key": "northwestern-mutual-partnership",
+     "date": "2025-01-07",
+     "what": "Northwestern Mutual takes minority stake; Sixth Street to manage $13bn",
+     "source": "https://news.northwesternmutual.com/2025-01-07-Northwestern-Mutual-and-Sixth-Street-Announce-Long-Term-Strategic-Partnership",
+     "recordId": "i1216",
+     "status": "present"
+    },
+    {
+     "key": "sle3-final-close",
+     "date": "2026-01-14",
+     "what": "SLE III final close at EUR3.75bn announced",
+     "source": "https://www.businesswire.com/news/home/20260114643327/en/Sixth-Street-Raises-%E2%82%AC3.75-Billion-for-Third-European-Direct-Lending-Fund",
+     "recordId": "i29",
+     "status": "present"
+    },
+    {
+     "key": "easterly-retirement",
+     "date": "2026-02-19",
+     "what": "Co-President Joshua Easterly to retire effective 2026-06-30",
+     "source": "https://www.sec.gov/Archives/edgar/data/1508655/000119312526063983/d53156d8k.htm",
+     "recordId": "i1217",
+     "status": "present"
+    },
+    {
+     "key": "monument-re-majority",
+     "date": "2026-06-29",
+     "what": "Sixth Street to become majority shareholder of Monument Re",
+     "source": "https://www.businesswire.com/news/home/20260629331268/en/Sixth-Street-to-Become-Majority-Shareholder-of-Monument-Re",
+     "recordId": "d982",
+     "status": "present"
+    },
+    {
+     "key": "castle-trust-acquisition",
+     "date": "2026-08-03",
+     "what": "Sixth Street and Bayview acquire Castle Trust Bank",
+     "source": "https://alternativecreditinvestor.com/2026/08/03/bayview-and-sixth-street-acquire-uk-specialist-bank-castle-trust/",
+     "recordId": "d713",
+     "status": "present"
+    },
+    {
+     "key": "waymo-5bn-loan",
+     "date": "2026-10-08",
+     "what": "Sixth Street co-leads Waymo $5bn term loan",
+     "source": "https://sixthstreet.com/investment_announce/waymo-closes-5-billion-debt-financing-to-accelerate-business-expansion/",
+     "recordId": "d967",
+     "status": "present"
+    }
+   ]
   },
   "m9": {
    "kind": "manager",
    "name": "Goldman Sachs Alternatives",
    "priority": 22,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-16",
+   "events": [
+    {
+     "key": "gsbd-mmlc-merger-complete",
+     "date": "2020-10-12",
+     "what": "Goldman Sachs BDC completes merger with Goldman Sachs Middle Market Lending Corp.",
+     "source": "https://www.businesswire.com/news/home/20201012005466/en/Goldman-Sachs-BDC-Inc.-Closes-Merger-with-Goldman-Sachs-Middle-Market-Lending-Corp.",
+     "recordId": "d1169",
+     "status": "present"
+    },
+    {
+     "key": "wsmp-viii-final-close",
+     "date": "2023-01",
+     "what": "West Street Mezzanine Partners VIII final close, $15.2bn",
+     "source": "https://www.marketsmedia.com/goldman-sachs-am-closes-15-2bn-mezzanine-fund",
+     "status": "rejected",
+     "note": "Exact day unverified; reports conflict (12 vs 13 Jan 2023) and the primary release was not retrievable."
+    },
+    {
+     "key": "omers-apac-private-credit-sma",
+     "date": "2023-09-28",
+     "what": "GSAM and OMERS Asia Pacific private credit partnership",
+     "source": "https://am.gs.com/en-us/advisors/news/press-release/2023/goldman-sachs-asset-management-and-omers-enter-into-private-credit-partnership-to-invest-in-asia-pacific",
+     "recordId": "i1226",
+     "status": "present"
+    },
+    {
+     "key": "private-credit-leadership-reshuffle",
+     "date": "2023-12-11",
+     "what": "Olafson to lead global private credit; Reynolds and Sterling elevated",
+     "source": "https://alternativecreditinvestor.com/2023/12/11/goldman-sachs-reshuffles-private-credit-team/",
+     "recordId": "i1227",
+     "status": "present"
+    },
+    {
+     "key": "mubadala-apac-1bn-pc",
+     "date": "2024-02-26",
+     "what": "Goldman Sachs Alternatives and Mubadala $1bn APAC private credit partnership",
+     "source": "https://am.gs.com/en-us/advisors/news/press-release/2024/goldman-sachs-alternatives-and-mubadala-sign-usd-1bn-private-credit-partnership-to-invest-in-asia-pacific",
+     "recordId": "i1228",
+     "status": "present"
+    },
+    {
+     "key": "wsemmcf-final-close",
+     "date": "2024-03-27",
+     "what": "West Street European Middle Market Credit Fund final close EUR1.35bn",
+     "source": "https://am.gs.com/en-us/institutions/news/press-release/2024/goldman-sachs-alternatives-raises-135-billion-euros-west-street-european-middle-market-credit-fund",
+     "recordId": "i22",
+     "status": "present"
+    },
+    {
+     "key": "wsrecp-iv-final-close",
+     "date": "2024-05-14",
+     "what": "West Street Real Estate Credit Partners IV final close, >$7bn",
+     "source": "https://am.gs.com/en-us/advisors/news/press-release/2024/goldman-sachs-alternatives-raises-over-7-billion-dollars-real-estate-credit-strategies",
+     "recordId": "i1229",
+     "status": "present"
+    },
+    {
+     "key": "wslp-v-final-close",
+     "date": "2024-05-29",
+     "what": "West Street Loan Partners V final close at $13.1bn",
+     "source": "https://am.gs.com/en-us/advisors/news/press-release/2024/goldman-sachs-alternatives-raises-more-than-20-billion-for-senior-direct-lending-with-the-final-close-of-west-street-loan-partners-v",
+     "recordId": "i1230",
+     "status": "present"
+    },
+    {
+     "key": "loan-partners-iv-close-2021",
+     "date": "2021-03",
+     "what": "Loan Partners IV close at $7.1bn",
+     "source": "https://www.opalesque.com/703377/Goldman_Sachs_garners_for_private_credit_strategy337.html",
+     "status": "rejected",
+     "note": "Only a secondary 2024 mention; no primary release found."
+    },
+    {
+     "key": "capital-solutions-group",
+     "date": "2025-01-13",
+     "what": "Goldman creates Capital Solutions Group; Bantwal co-head of private credit",
+     "source": "https://fortune.com/2025/01/13/goldman-sachs-david-solomon-private-credit-apollo-global-deals-private-equity",
+     "status": "rejected",
+     "note": "Wire holds this event (i130) under the duplicate entity m101 (Goldman Sachs Asset Management), not m9; left unlinked pending an m101→m9 merge."
+    },
+    {
+     "key": "climate-credit-launch",
+     "date": "2025-03-12",
+     "what": "Climate Credit strategy launched with $1bn",
+     "source": "https://am.gs.com/en-us/institutions/news/press-release/2025/climate-credit-strategy",
+     "recordId": "i771",
+     "status": "present"
+    },
+    {
+     "key": "trowe-collaboration",
+     "date": "2025-09-04",
+     "what": "Goldman Sachs and T. Rowe Price strategic collaboration",
+     "source": "https://www.sec.gov/Archives/edgar/data/1113169/000111316925000028/pressrelease_9425.htm",
+     "recordId": "i1231",
+     "status": "present"
+    },
+    {
+     "key": "industry-ventures-announced",
+     "date": "2025-10-13",
+     "what": "Goldman announces acquisition of Industry Ventures",
+     "source": "https://am.gs.com/en-us/advisors/news/press-release/2025/goldman-sachs-announces-acquisition-of-industry-ventures",
+     "recordId": "d1170",
+     "status": "present"
+    },
+    {
+     "key": "innovator-announced",
+     "date": "2025-12-01",
+     "what": "Goldman agrees to acquire Innovator Capital Management",
+     "source": "https://am.gs.com/en-ch/advisors/news/press-release/2025/goldman-sachs-announces-agreement-to-acquire-innovator-capital-management",
+     "recordId": "d1171",
+     "status": "present"
+    },
+    {
+     "key": "industry-ventures-completed",
+     "date": "2026-01-05",
+     "what": "Goldman completes acquisition of Industry Ventures",
+     "source": "https://www.goldmansachs.com/pressroom/press-releases/2026/goldman-sachs-completes-acquisition-of-industry-ventures",
+     "recordId": "d284",
+     "status": "present"
+    },
+    {
+     "key": "mgmt-committee-reynolds-bantwal",
+     "date": "2026-01-26",
+     "what": "Reynolds and Bantwal join Goldman Management Committee",
+     "source": "https://www.marketsmedia.com/?p=150636",
+     "recordId": "i1232",
+     "status": "present"
+    },
+    {
+     "key": "innovator-completed",
+     "date": "2026-04-02",
+     "what": "Goldman completes acquisition of Innovator Capital Management",
+     "source": "https://am.gs.com/en-qa/institutions/news/press-release/2026/goldman-sachs-completes-acquisition-of-innovator-capital-management",
+     "recordId": "d1172",
+     "status": "present"
+    },
+    {
+     "key": "fgi-worldwide",
+     "date": "2026-05-12",
+     "what": "Goldman Sachs Alternatives acquires FGI Worldwide",
+     "source": "https://am.gs.com/en-us/advisors/news/press-release/2026/goldman-sachs-alternatives-acquires-fgi-worldwide",
+     "recordId": "d672",
+     "status": "present"
+    },
+    {
+     "key": "gsbd-miller-steps-down",
+     "date": "2026-08-07",
+     "what": "GS BDC co-CEO David Miller to step down; Bantwal sole CEO",
+     "source": "https://www.tradingview.com/news/marketbeat:ec469fcc8094b:0-goldman-sachs-bdc-q2-earnings-call-highlights/",
+     "recordId": "i612",
+     "status": "present"
+    },
+    {
+     "key": "lcn-capital",
+     "date": "2026-08-18",
+     "what": "Goldman agrees to acquire LCN Capital Partners",
+     "source": "https://www.goldmansachs.com/pressroom/press-releases/2026/goldman-sachs-announces-agreement-to-acquire-lcn-capital-partners",
+     "recordId": "d793",
+     "status": "present"
+    },
+    {
+     "key": "wscp-ix-final-close",
+     "date": "2026-09-15",
+     "what": "West Street Capital Partners IX final close (private equity)",
+     "source": "https://am.gs.com/en-us/advisors/news/press-release/2026/goldman-sachs-alternatives-west-street-capital-partners-ix-final-close",
+     "recordId": "i1233",
+     "status": "present"
+    },
+    {
+     "key": "gsec-10bn",
+     "date": "2026-09-24",
+     "what": "GSEC evergreen European private credit passes $10bn",
+     "source": "https://alternativecreditinvestor.com/2026/09/24/goldman-sachs-inks-10bn-for-european-evergreen-credit-fund/",
+     "recordId": "i826",
+     "status": "present"
+    }
+   ]
   },
   "m153": {
    "kind": "manager",
@@ -1417,9 +1812,147 @@
    "kind": "manager",
    "name": "ICG (Intermediate Capital Group)",
    "priority": 25,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-16",
+   "events": [
+    {
+     "key": "strategic-equity-iii-final-close",
+     "date": "2020-01-30",
+     "what": "ICG Strategic Equity Fund III final close at $2.4bn",
+     "source": "https://www.icgam.com/2020/01/30/icg-strategic-equity-closes-third-fundraise-with-2-4bn-more-than-doubling-previous-vintage/",
+     "recordId": "i1203",
+     "status": "present"
+    },
+    {
+     "key": "sdp-iv-final-close",
+     "date": "2021-12-14",
+     "what": "Senior Debt Partners IV closes at about EUR8.1bn",
+     "source": "https://icgam.com/?p=2886",
+     "status": "present",
+     "note": "Only an icgam.com reprint of a trade article; ICG's own release not found.",
+     "recordId": "i1204"
+    },
+    {
+     "key": "sale-leaseback-i-final-close",
+     "date": "2021-11-18",
+     "what": "Sale and Leaseback I final close at EUR1.2bn",
+     "source": "https://www.icgam.com/?p=867",
+     "recordId": "i1204",
+     "status": "present"
+    },
+    {
+     "key": "asia-pacific-iv-final-close",
+     "date": "2022-05-23",
+     "what": "Asia Pacific Fund IV final close at $1.1bn",
+     "source": "https://www.icgam.com/2022/05/23/icg-announces-final-close-of-1-1bn-for-asia-pacific-fund-iv/",
+     "recordId": "i1205",
+     "status": "present"
+    },
+    {
+     "key": "strategic-equity-iv-final-close",
+     "date": "2022-06-22",
+     "what": "ICG Strategic Equity IV final close (above $5bn)",
+     "source": "https://www.icgam.com/2022/06/22/icg-collects-more-than-5bn-for-largest-fund-dedicated-to-gp-leds/",
+     "status": "rejected",
+     "note": "icgam page is a trade-press reprint saying only 'more than $5bn'; ICG's own release and size not verified."
+    },
+    {
+     "key": "europe-viii-final-close",
+     "date": "2022-08-02",
+     "what": "ICG Europe VIII final close at EUR8.1bn",
+     "source": "https://www.icgam.com/?p=4495",
+     "recordId": "i1206",
+     "status": "present"
+    },
+    {
+     "key": "cfo-bicarregui-succeeds-bharadia",
+     "date": "2023-02-21",
+     "what": "David Bicarregui appointed CFOO to succeed Vijay Bharadia",
+     "source": "https://www.icgam.com/2023/02/21/vijay-bharadia-to-step-down-as-icg-cfoo-former-goldman-partner-david-bicarregui-appointed-his-successor/",
+     "recordId": "i1207",
+     "status": "present"
+    },
+    {
+     "key": "lp-secondaries-i-final-close",
+     "date": "2024-04-02",
+     "what": "ICG LP Secondaries I final close at $1bn hard cap",
+     "source": "https://icgam.com/?p=6346",
+     "recordId": "i1208",
+     "status": "present"
+    },
+    {
+     "key": "sdp-v-final-close",
+     "date": "2024-09-11",
+     "what": "Senior Debt Partners V final close at $17bn",
+     "source": "https://www.icgam.com/2024/09/11/icg-announces-final-close-for-senior-debt-partners-fund-5-at-17bn-significantly-above-target/",
+     "recordId": "i20",
+     "status": "present"
+    },
+    {
+     "key": "strategic-equity-v-final-close",
+     "date": "2025-03-03",
+     "what": "ICG Strategic Equity Fund V final close at $11bn",
+     "source": "https://www.icgam.com/2025/03/03/icg-strategic-equity-completes-record-fundraise-of-11bn/",
+     "recordId": "i1209",
+     "status": "present"
+    },
+    {
+     "key": "mid-market-ii-final-close",
+     "date": "2025-03-20",
+     "what": "ICG Europe Mid-Market Fund II final close at EUR3.0bn",
+     "source": "https://www.icgam.com/?p=7836",
+     "recordId": "i1210",
+     "status": "present"
+    },
+    {
+     "key": "infrastructure-ii-final-close",
+     "date": "2025-09-15",
+     "what": "ICG Infrastructure Fund II final close at EUR3.15bn",
+     "source": "https://www.icgam.com/2025/09/15/",
+     "recordId": "i51",
+     "status": "present"
+    },
+    {
+     "key": "amundi-partnership-announced",
+     "date": "2025-11-18",
+     "what": "ICG and Amundi announce strategic and equity partnership (9.9% stake)",
+     "source": "https://www.icgam.com/2025/11/18/icg-and-amundi-announce-long-term-strategic-and-equity-partnership/",
+     "recordId": "i207",
+     "status": "present"
+    },
+    {
+     "key": "metropolitan-ii-final-close",
+     "date": "2026-03-31",
+     "what": "ICG Real Estate Metropolitan Fund II final close at EUR1.4bn",
+     "source": "https://www.icgam.com/2026/03/31/icg-real-estate-announces-e1-4bn-final-close-for-second-metropolitan-fund/",
+     "status": "present",
+     "recordId": "i228"
+    },
+    {
+     "key": "europe-ix-final-close",
+     "date": "2026-09-09",
+     "what": "ICG Europe Fund IX final close at EUR12bn",
+     "source": "https://www.icgam.com",
+     "recordId": "i739",
+     "status": "present"
+    },
+    {
+     "key": "amundi-stake-completed",
+     "date": "2026-09-17",
+     "what": "Amundi completes EUR620m purchase of 9.9% stake in ICG",
+     "source": "https://www.icgam.com",
+     "recordId": "i787",
+     "status": "present"
+    },
+    {
+     "key": "ceo-change",
+     "date": "2020",
+     "what": "CEO / senior leadership change",
+     "source": "https://www.investegate.co.uk/announcement/rns/icg-plc--icg/chief-executive-officer-change/4656077",
+     "status": "rejected",
+     "note": "The CEO announcement found predates the 2020 window; no 2020-2026 CEO change found."
+    }
+   ]
   },
   "m111": {
    "kind": "manager",

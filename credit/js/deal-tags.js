@@ -1057,5 +1057,10 @@ const T = {
   d1165: {"c":"Global","s":"Asset-backed / specialty finance","a":"fund","p":"Oaktree Asset-Backed Finance fund","r":"fund"},
   d1166: {"c":"United States","s":"TMT","a":"financing","p":"Analogic Corporation","r":"borrower"},
   d1167: {"c":"UK","s":"Real estate","a":"financing","p":"Bridges Fund Management / ROK Property JV","r":"borrower"},
+  d1168: {"c":"Italy","s":"Diversified","a":"fund","p":"Private Debt Capital Solutions II","r":"fund"},
+  d1169: {"c":"US","s":"Financial services","a":null,"m":1,"cs":"https://www.businesswire.com/news/home/20201012005466/en/Goldman-Sachs-BDC-Inc.-Closes-Merger-with-Goldman-Sachs-Middle-Market-Lending-Corp.","cb":"hq"},
+  d1170: {"c":"US","s":"Financial services","a":null,"m":1,"cs":"https://am.gs.com/en-us/advisors/news/press-release/2025/goldman-sachs-announces-acquisition-of-industry-ventures","cb":"hq"},
+  d1171: {"c":"US","s":"Financial services","a":null,"m":1,"cs":"https://am.gs.com/en-ch/advisors/news/press-release/2025/goldman-sachs-announces-agreement-to-acquire-innovator-capital-management","cb":"hq"},
+  d1172: {"c":"US","s":"Financial services","a":null,"m":1,"cs":"https://am.gs.com/en-qa/institutions/news/press-release/2026/goldman-sachs-completes-acquisition-of-innovator-capital-management","cb":"hq"},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));
