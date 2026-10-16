@@ -45,7 +45,7 @@ for (const [label, url, sel, inner, act] of PAGES) {
   const { ctx, pg } = await open(b, PHONE, base + "/v2/news/");
   await pg.waitForTimeout(1800);
   const lanes = await pg.evaluate(() => [...document.querySelectorAll(".g-wire-lane")].filter((e) => e.offsetParent).map((e) => { const r = e.getBoundingClientRect(); return { t: e.textContent, l: r.left, r: r.right }; }));
-  check(lanes.length === 5 && lanes.every((l) => l.l >= 0 && l.r <= 390), `phone: all five News lanes fit the screen (${lanes.map((l) => l.t + "@" + Math.round(l.r)).join(" ")})`);
+  check(lanes.length === 6 && lanes.every((l) => l.l >= 0 && l.r <= 390), `phone: all six News lanes fit the screen (${lanes.map((l) => l.t + "@" + Math.round(l.r)).join(" ")})`);
   await ctx.close();
 }
 {

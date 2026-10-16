@@ -2552,7 +2552,11 @@ let _wirePool = [];           // live/streamed wire items (Watchlist name-matchi
 // The wire-lane chips. "News" was retired (the All lane already carries the full
 // news stream, interleaved with manager events); Research sits in its place. The
 // "manager" lane keeps its key but is labelled "Managers" (plural).
-const WIRE_LANES = [["all", "All"], ["research", "Research"], ["manager", "Managers"], ["watchlist", "Watchlist"], ["newsletters", "Newsletters"]];
+// Owner 2026-10-16: News · Deals · Profiles · Watchlist · Newsletters · Research. Keys are
+// kept so stored lanes and links still resolve: "all" (the full wire) reads News; "deals"
+// is the Credit desk's deal flow (deals, fund raises, CLOs); "manager" (managers'
+// activity) reads Profiles.
+const WIRE_LANES = [["all", "News"], ["deals", "Deals"], ["manager", "Profiles"], ["watchlist", "Watchlist"], ["newsletters", "Newsletters"], ["research", "Research"]];
 const _WIRE_LANE_KEYS = new Set(WIRE_LANES.map(([k]) => k));
 
 // Manager events, flattened + de-duped across managers, for the merged wire.
@@ -2777,6 +2781,7 @@ function renderWire() {
   else if (lane === "manager") renderMgrLane(false);
   else if (lane === "newsletters") { _feedDesk = "n"; renderFeed(); }
   else if (lane === "research") { _feedDesk = "research"; renderFeed(); }
+  else if (lane === "deals") { _feedDesk = "c"; renderFeed(); }
   else { _feedDesk = "all"; renderFeed(); if (lane === "all") mergeManagersIntoFeed(); }
   _decorateLocks();                                    // flag subscriber-only rows with a padlock
   ensureReadWired();

@@ -1,6 +1,6 @@
 // =============================================================================
 // nav-r13.mjs — the owner-approved navigation (R13, 2026-10-15).
-//   iPhone bottom bar: Home · News · Markets · Deals · Profiles (Restructuring and
+//   iPhone bottom bar AND desktop header: Home · Dashboard · News · Deals · Profiles (Restructuring and
 //     Fundraising are chips inside Deals, so Deals stays lit on the Restructuring hub).
 //   Desktop header: the same without News — desktop Home is the news wire (owner
 //   2026-10-15). Restructuring and
@@ -19,7 +19,7 @@ const lit = (pg, sel) => pg.evaluate((s) => [...document.querySelectorAll(s)].fi
   const { pg, errs } = await open(browser, PHONE, base + "/v2/transactions/");
   await pg.waitForSelector(".mobile-tabbar .mtab");
   const labels = await pg.$$eval(".mobile-tabbar .mtab .mtab-lbl", (els) => els.map((e) => e.textContent.trim()));
-  checkEq(labels.join(" · "), "Home · News · Markets · Deals · Profiles", "phone: bottom bar order + labels");
+  checkEq(labels.join(" · "), "Home · Dashboard · News · Deals · Profiles", "phone: bottom bar order + labels (owner 2026-10-16)");
   checkEq((await lit(pg, ".mobile-tabbar .mtab")).join(), "transactions", "phone: Deals lit on Transactions");
   await pg.waitForSelector("#tx-mode .tchip");
   const modes = await pg.$$eval("#tx-mode .tchip", (els) => els.map((e) => e.textContent.trim()));
@@ -46,7 +46,7 @@ const lit = (pg, sel) => pg.evaluate((s) => [...document.querySelectorAll(s)].fi
   const { pg, errs } = await open(browser, DESKTOP, base + "/v2/transactions/");
   await pg.waitForSelector("#wire-header .ps-btn");
   const pills = await pg.$$eval("#wire-header .ps-btn", (els) => els.map((e) => e.textContent.trim()));
-  checkEq(pills.join(" · "), "Home · Markets · Deals · Profiles", "desktop: header pills = the iPhone nav without News (desktop Home is the news wire)");
+  checkEq(pills.join(" · "), "Home · Dashboard · News · Deals · Profiles", "desktop: header pills = the same nav as iPhone (owner 2026-10-16)");
   checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "transactions", "desktop: Deals lit on the deal list");
   await pg.goto(base + "/v2/transactions/#/fundraising"); await pg.waitForSelector("#wire-header .ps-btn"); await pg.waitForTimeout(400);
   checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "transactions", "desktop: Fundraising is part of Deals (Deals lit)");
@@ -55,7 +55,7 @@ const lit = (pg, sel) => pg.evaluate((s) => [...document.querySelectorAll(s)].fi
   checkEq(await pg.title(), "Wire Restructuring", "desktop: hub title");
   await pg.click('#wire-header .ps-btn[data-key="dashboard"]');
   await pg.waitForFunction(() => location.pathname.startsWith("/v2/dashboard"));
-  checkEq(await pg.title(), "Wire Markets", "desktop: Markets title");
+  checkEq(await pg.title(), "Wire Dashboard", "desktop: Dashboard title");
   checkErrs(errs, "desktop nav");
   await pg.close();
 }

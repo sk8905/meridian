@@ -31,7 +31,7 @@ const lanes = await pg.evaluate(() => ({
   headVisible: (() => { const h = document.getElementById("g-feed-head"); return !!h && getComputedStyle(h).display !== "none" && h.getBoundingClientRect().height > 1; })(),
   deskChips: document.querySelectorAll("#g-wire-lanes .g-feed-deskchip, #g-wire-lanes .g-feed-grpbtn, #g-wire-lanes [data-mglcat], #g-feed-head .g-feed-deskchip, #g-feed-head .g-feed-grpbtn, #g-feed-head [data-mglcat]").length,
 }));
-check(lanes.tabs.join(" · ") === "All · Research · Managers · Watchlist · Newsletters", `lane tabs are All · Research · Managers · Watchlist · Newsletters (${lanes.tabs.join(" · ")})`);
+check(lanes.tabs.join(" · ") === "News · Deals · Profiles · Watchlist · Newsletters · Research", `lane tabs are News · Deals · Profiles · Watchlist · Newsletters · Research (${lanes.tabs.join(" · ")})`);
 check(!lanes.hasSubsSlot, "no inline sub-filter slot (#g-wire-subs) exists");
 check(!lanes.headVisible, "the #g-feed-head sub-filter band takes no space");
 check(lanes.deskChips === 0, `no desk / category / group sub-filter chips anywhere (${lanes.deskChips})`);
@@ -58,7 +58,7 @@ check(nl.rows > 0, `Newsletters lane renders newsletter items (${nl.rows} rows f
 // still in the lane (persistent selection — the shade no longer drops on a re-render).
 const readingIdx = () => pg.evaluate(() => { const rows = [...document.querySelectorAll("#g-feed .g-feed-row")]; return rows.findIndex((r) => r.classList.contains("is-reading")); });
 const beforeTitle = await pg.evaluate(() => ((document.querySelector("#g-readpane .g-read-title") || {}).textContent || "").trim());
-await pg.evaluate(() => { const b = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === "All"); if (b) b.click(); });
+await pg.evaluate(() => { const b = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === "News"); if (b) b.click(); });
 await pg.waitForTimeout(500);
 const afterSwitch = await pg.evaluate(() => {
   const shaded = document.querySelector("#g-feed .g-feed-row.is-reading");

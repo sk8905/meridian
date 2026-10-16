@@ -1,7 +1,7 @@
 // Home on mobile (iPhone nav reorg): the multi-column terminal collapses to one
 // column. HOME top nav = Briefing (default, always expanded) · Markets (the full
 // Equities/Macro/Predictions panel) · Chart · X Feed. The aggregated NEWS wire + its
-// lane selector (All · Research · Managers · Watchlist · Newsletters) is the separate
+// lane selector (News · Deals · Profiles · Watchlist · Newsletters · Research) is the separate
 // NEWS bottom tab (news mode): there the four home tabs hide and only the lane chip
 // shows, over the feed. On desktop the lane chips + reading pane show and these tabs
 // are hidden.
@@ -49,7 +49,7 @@ const b = await launchChromium();
   check(labels.join(" · ") === "Briefing · Markets · Chart · X Feed", `phone: home top nav — Briefing · Markets · Chart · X Feed (${labels.join(", ")})`);
   check(!(await chipVisible("#g-wire-lanechips")), "phone: the news lane chip row is hidden in home mode");
   const laneChips = await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanechips .g-wire-lane")].map((i) => i.textContent.trim()));
-  check(laneChips.join(" · ") === "All · Research · Managers · Watchlist · Newsletters", `phone: the news lane chip row carries the five lanes (${laneChips.join(", ")})`);
+  check(laneChips.join(" · ") === "News · Deals · Profiles · Watchlist · Newsletters · Research", `phone: the news lane chip row carries the six lanes (${laneChips.join(", ")})`);
 
   // DEFAULT home pane = the Market Briefing (always expanded), feed/markets/chart/x hidden.
   check(await vis("#g-hbrief"), "phone: the Market Briefing pane is the default (shown on load)");
@@ -99,18 +99,18 @@ const b = await launchChromium();
   check(await pg.evaluate(() => document.documentElement.dataset.v2tab === "news"), "phone: the News tab flags data-v2tab=news");
   check(await vis("#g-feed"), "phone: News mode shows the aggregated feed");
   check(await chipVisible("#g-wire-lanechips"), "phone: News mode shows the lane chip row");
-  check(await pg.evaluate(() => document.querySelector("#g-wire-lanechips .g-wire-lane.is-on")?.textContent.trim() === "All"), "phone: the All chip is active by default");
+  check(await pg.evaluate(() => document.querySelector("#g-wire-lanechips .g-wire-lane.is-on")?.textContent.trim() === "News"), "phone: the All chip is active by default");
   check(!(await chipVisible('.g-wiretab[data-wire="brief"]')), "phone: News mode hides the Briefing home tab");
   check(!(await chipVisible('.g-wiretab[data-wire="markets"]')), "phone: News mode hides the Markets home tab");
   check(!(await vis("#g-hbrief")), "phone: News mode hides the briefing pane");
 
   // Tapping a lane chip switches the lane and repaints the feed in place.
-  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanechips .g-wire-lane")].find((c) => c.textContent.trim() === "Managers").click());
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanechips .g-wire-lane")].find((c) => c.textContent.trim() === "Profiles").click());
   await pg.waitForTimeout(250);
   const mgrLane = await pg.evaluate(() => ({ lbl: ((document.querySelector("#g-wire-lanechips .g-wire-lane.is-on") || {}).textContent || "").trim(), rows: document.querySelectorAll("#g-feed .g-mw-fev").length }));
-  check(mgrLane.lbl === "Managers" && mgrLane.rows > 0, `phone: the Managers lane chip renders manager events in the wire (${mgrLane.rows} rows)`);
+  check(mgrLane.lbl === "Profiles" && mgrLane.rows > 0, `phone: the Managers lane chip renders manager events in the wire (${mgrLane.rows} rows)`);
   // Back to All — no filter band; feed sits directly under the wire tabs.
-  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanechips .g-wire-lane")].find((c) => c.textContent.trim() === "All").click());
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanechips .g-wire-lane")].find((c) => c.textContent.trim() === "News").click());
   await pg.waitForTimeout(250);
   check(await pg.evaluate(() => { const head = document.getElementById("g-feed-head"); return !head || getComputedStyle(head).display === "none"; }), "phone: no filter band on the All lane (removed)");
 
@@ -136,7 +136,7 @@ const b = await launchChromium();
     briefVisible: (() => { const h = document.getElementById("g-hbrief"); return !!h && getComputedStyle(h).display !== "none" && h.getBoundingClientRect().height > 0; })(),
   }));
   check(afterHome.v2tab === "home" && afterHome.briefOn && afterHome.briefVisible, "phone: a Home tap returns to the Market Briefing pane (home mode)");
-  check(afterHome.lane === "All", `phone: a Home tap resets the underlying news lane to All (${afterHome.lane})`);
+  check(afterHome.lane === "News", `phone: a Home tap resets the underlying news lane to All (${afterHome.lane})`);
 
   checkErrs(errs, "home mobile wire tabs");
   await ctx.close();

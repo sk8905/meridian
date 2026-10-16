@@ -1660,7 +1660,7 @@
         /* The row starts at the screen edge like every other heading row; the first lane
            carries the 12px gutter, so its label and underline line up with Deals / Profiles. */
         .tui .g-layout.wire-newsmode .g-wire-lanechips{ padding:0; }
-        .tui .g-wire-lanechips .g-wire-lane{ flex:1 1 auto; justify-content:center; padding:0 6px; }
+        .tui .g-wire-lanechips .g-wire-lane{ flex:1 1 auto; justify-content:center; padding:0 4px; }   /* six lanes fit 390px (owner 2026-10-16) */
         .tui .g-wire-lanechips .g-wire-lane:first-child{ justify-content:flex-start; padding-left:var(--m-gutter, 12px); }
       }
       .tui .g-layout.wire-newsmode .g-side,

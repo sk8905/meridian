@@ -28,7 +28,7 @@ const BASE = "/v2";
 // browser's module map for the session (no nonce, so revisits never re-fetch).
 const ROUTES = [
   { key: "home",   title: "Wire",        load: () => import("./views/home.js") },
-  { key: "dashboard", title: "Wire Markets", load: () => import("./views/dashboard.js") },
+  { key: "dashboard", title: "Wire Dashboard", load: () => import("./views/dashboard.js") },
   // The Credit / Legal / Macro DESKS are retired as destinations (News → Home, Data →
   // Dashboard, Entities → Profiles) — their URLs redirect (see LEGACY_REDIRECTS). Macro
   // is gone outright. Credit/Legal stay REGISTERED here (not as user destinations) only

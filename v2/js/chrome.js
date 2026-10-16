@@ -73,21 +73,21 @@ function setupLazyPalette() {
 // Bottom tab bar (iPhone): Home · News · Dashboard · Profiles · Transactions. Menu
 // left the bottom bar — its hamburger now lives in the top-right header cluster (shown
 // on phones too; see header.css). "News" is the aggregated news wire with its lane
-// selector (All · Research · Managers · Watchlist · Newsletters); it routes to /v2/news/,
+// selector (News · Deals · Profiles · Watchlist · Newsletters · Research); it routes to /v2/news/,
 // which the runtime resolves to the Home view in "news mode" (so the feed engine isn't
 // double-mounted) — Home itself now carries Briefing · Markets · Chart · X Feed.
-// Navigation (R13, owner-approved 2026-10-15): iPhone Home · News · Markets · Deals ·
-// Profiles; desktop the same without News (its Home is the news wire). Route keys are unchanged (URLs stay
-// /v2/dashboard/, /v2/transactions/); only the labels read Markets / Deals.
+// Navigation (R13, owner 2026-10-16): Home · Dashboard · News · Deals · Profiles on BOTH
+// desktop and iPhone. Route keys are unchanged (URLs stay /v2/dashboard/,
+// /v2/transactions/); only the labels read Dashboard / Deals.
 // Restructuring and Fundraising are folded into Deals: they are chips in the Deals mode
 // bar (Fundraising = /v2/transactions/#/fundraising; Restructuring = the hub at
 // /v2/restructuring/, which carries the same mode bar), so Deals stays lit on both.
+// Owner 2026-10-16: Home · Dashboard · News · Deals · Profiles, on desktop AND iPhone
+// (the dashboard route reads "Dashboard"; desktop carries News again).
 const TABS = [
-  ["home", "Home"], ["news", "News"], ["dashboard", "Markets"], ["transactions", "Deals"], ["profiles", "Profiles"],
+  ["home", "Home"], ["dashboard", "Dashboard"], ["news", "News"], ["transactions", "Deals"], ["profiles", "Profiles"],
 ];
-// Desktop drops News (owner 2026-10-15): desktop Home already IS the news wire, so a
-// separate News pill showed the same screen. iPhone keeps both.
-const PLATFORMS = TABS.filter(([k]) => k !== "news");
+const PLATFORMS = TABS;
 // Which header pill / bottom tab is lit for the current view key.
 const navKeyFor = (key) => (key === "restructuring" ? "transactions" : key);
 

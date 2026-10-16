@@ -41,7 +41,7 @@ await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
 
 // All lane (default): the news stream interleaved with manager events, and NO
 // sub-filter row (the desk chips were removed — the lane tabs are the only control).
-await lane(pg, "All");
+await lane(pg, "News");
 await pg.waitForTimeout(200);
 const news = await pg.evaluate(() => ({
   subs: document.querySelectorAll("#g-wire-subs .g-feed-deskchip, #g-feed-head .g-feed-deskchip").length,
@@ -53,7 +53,7 @@ check(news.subs === 0, "All lane: no desk sub-filter row (removed)");
 check(news.newsRows > 0, `All lane: renders the news stream (${news.newsRows} news rows, ${news.mgrRows} manager events interleaved)`);
 
 // All lane: news + manager interleaved, and still no sub-filters.
-await lane(pg, "All");
+await lane(pg, "News");
 await pg.waitForTimeout(250);
 const all = await pg.evaluate(() => ({
   subs: document.querySelectorAll("#g-wire-subs .g-feed-deskchip, #g-wire-subs .g-feed-chip, #g-feed-head .g-feed-deskchip, #g-feed-head .g-feed-chip").length,
@@ -66,7 +66,7 @@ check(all.mgrRows > 0 && all.total > all.mgrRows, `All lane: news + manager inte
 // Reading pane: there is NO auto-open (R3a) — the reader opens a story. Open the top
 // readable row (on the News lane, so no manager-event rows) and it renders in reading
 // mode with a kicker + headline + an 'Open original' link.
-await lane(pg, "All");
+await lane(pg, "News");
 await pg.waitForTimeout(250);
 await pg.evaluate(() => { const r = [...document.querySelectorAll("#g-feed .g-feed-row")].find((x) => !x.classList.contains("is-locked")); if (r) r.click(); });
 await pg.waitForTimeout(400);
@@ -208,7 +208,7 @@ check(!!(pay || freeSel), "reading pane: access state resolves from the source")
 // The publication NAME is no longer a special external jump: clicking it opens the
 // row IN THE READING PANE exactly like the rest of the row (never a new tab), and it
 // still does NOT filter the wire by that newsroom.
-await lane(pg, "All");
+await lane(pg, "News");
 await pg.waitForTimeout(200);
 const srcLink = await pg.evaluate(() => {
   window.__opened = null;
@@ -234,7 +234,7 @@ if (srcLink) {
 
 // Reading-pane selection: a story is auto-selected by default, and the LAST-SELECTED story
 // is restored across a reload (not reset to the newest).
-await lane(pg, "All");
+await lane(pg, "News");
 // Wait for the default auto-selection to land (a fixed 250ms wait races under
 // parallel CPU load — the flake this removes).
 await pg.waitForFunction(() => !!document.querySelector("#g-feed .g-feed-row.is-reading"), { timeout: 8000 }).catch(() => {});
@@ -269,12 +269,14 @@ check(storedKey && chosen && storedKey === chosen.key, `reading pane: the select
 await pg.reload({ waitUntil: "load" });
 // After reload the RESTORED story is shown in the pane (the .is-reading row highlight is
 // transient — a later live re-render drops it — so assert the pane CONTENT, not the row).
-await pg.waitForFunction((t) => {
-  const el = document.querySelector("#g-readpane .g-read-title");
-  return el && el.textContent.trim().includes(t);
-}, chosen.title.slice(0, 22), { timeout: 20000 }).catch(() => {});   // the feed fills in passes; under full-suite load that can exceed 8s
-const paneTitle = await pg.evaluate(() => (document.querySelector("#g-readpane .g-read-title") || {}).textContent.trim());
-check(paneTitle.includes(chosen.title.slice(0, 22)), `reading pane: the last-selected story is restored in the pane across a reload (${paneTitle.slice(0, 40)})`);
+// Identify the restored story by its "Open original" link (its own URL): the TITLE is
+// swapped for the reader service's title once the (stubbed) body arrives, so reading it
+// after the wait raced that fetch under full-suite load.
+const restored = await pg.waitForFunction((k) => {
+  const a = document.querySelector("#g-readpane a.g-read-open:not(.g-read-ent)");
+  return a && a.getAttribute("href") === k ? a.getAttribute("href") : false;
+}, chosen.key, { timeout: 20000 }).then((h) => h.jsonValue()).catch(async () => pg.evaluate(() => (document.querySelector("#g-readpane a.g-read-open") || {}).getAttribute?.("href") || "(none)"));   // the feed fills in passes
+check(restored === chosen.key, `reading pane: the last-selected story is restored in the pane across a reload (${String(restored).slice(0, 60)})`);
 
 checkErrs(errs, "merged wire news/all + reading pane");
 await ctx.close();

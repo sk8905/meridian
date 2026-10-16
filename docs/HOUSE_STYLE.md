@@ -952,8 +952,10 @@ notification badge red (`#ef4444`).
   `tests/manager-coverage.mjs` (tool present; profile-feeding records carry real
   date + URL, none future-dated; backfilled reference profiles keep depth).
 - **R33 — Lane-coverage invariant: an item reaches EVERY lane its nature implies.**
-  The Home wire lanes are **All · Research · Managers · Watchlist · Newsletters**
-  (`WIRE_LANES` in `glance.js`). Each of these MUST catch what belongs to it:
+  The Home wire lanes are **News · Deals · Profiles · Watchlist · Newsletters · Research**
+  (owner 2026-10-16; `WIRE_LANES` in `glance.js` — keys `all` = News, the full wire;
+  `deals` = the Credit desk's deal flow: deals, fund raises, CLOs; `manager` = Profiles,
+  managers' activity). The six share the phone width (R2d b; 4px chip padding at 390px). Each of these MUST catch what belongs to it:
   (a) **research** → the **Research** lane (`RSH` desk code / `research[]`);
   (b) a **newsletter** → the **Newsletters** lane (`LTR` / `newsletters.js`);
   (c) anything **about a covered manager / fund / hedge fund** → the **Managers**
@@ -994,7 +996,7 @@ notification badge red (`#ef4444`).
   own bottom tab** — `/v2/news/` resolves to the **Home view in news mode** (so the
   feed engine is never double-mounted): the runtime flags `data-v2tab="news"` and calls
   `ctrl.showNews()` (`setWire("news")` → `.wire-newsmode`), which shows the aggregated
-  feed + the lane selector (`All · Research · Managers · Watchlist · Newsletters`) and
+  feed + the lane selector (`News · Deals · Profiles · Watchlist · Newsletters · Research`) and
   **hides the four home tabs**. The desktop terminal is untouched (all of this is
   `≤1200px` / phone-gated). Specs: `tests/v2-shell.mjs`, `tests/v2-header.mjs`,
   `tests/home-mobile-wire-tabs.mjs`, `tests/markets-panel.mjs`.
@@ -1342,10 +1344,12 @@ notification badge red (`#ef4444`).
   "See all N" on desktop as well as iPhone** (desktop "See all" is a centred panel);
   Home rails keep fixed widths on every screen (`tests/dashboard-desktop-preview.mjs`). **(h) Rates** show a market-implied path from prediction-
   market odds, labelled as crowd probabilities (`tests/rates-implied.mjs`).
-- **R42 — Offering build (owner-approved 2026-10-15).** **(a) Navigation (R13):** iPhone Home · News · Markets ·
-  Deals · Profiles; desktop the same WITHOUT News, because desktop Home is the news wire
-  (owner, 2026-10-15).
-  Route keys are unchanged (`dashboard` reads **Markets**, `transactions` reads **Deals**).
+- **R42 — Offering build (owner-approved 2026-10-15).** **(a) Navigation (R13):** **Home · Dashboard · News ·
+  Deals · Profiles** on BOTH iPhone and desktop (owner 2026-10-16 — supersedes the
+  2026-10-15 "Markets" label and the desktop nav without News; on desktop, News opens the
+  news wire view).
+  Route keys are unchanged (`dashboard` reads **Dashboard** — page title "Wire Dashboard" —
+  `transactions` reads **Deals**).
   Restructuring and Fundraising are folded into Deals: both are chips in the Deals mode bar
   (Fundraising = `#/fundraising`; Restructuring = the hub, which carries the same mode bar
   with Restructuring lit), and Deals stays lit on both (`v2/js/chrome.js` navKeyFor;
