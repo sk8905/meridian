@@ -109,6 +109,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-ubs-donovan-precisely-20261016",
+    publication: "UBS CIO",
+    author: "Paul Donovan",
+    series: "Morning audio comment",
+    title: "Precisely",
+    date: "2026-10-16",
+    time: "07:51",
+    summary: "Fed Chair Warsh gave no hawkish forward guidance at the IMF meetings and expectations for an October rate increase are fading; bond rallies on AI-driven safe-haven demand undercut the fiscal-sustainability worry.",
+    url: "https://www.ubs.com/global/en/wealth-management/insights/chief-investment-office/market-insights/paul-donovan.html",
+  },
+  {
     id: "rsch-guggenheim-fixedincomesectorviews4q26-20261015",
     publication: "Guggenheim Investments",
     author: null,

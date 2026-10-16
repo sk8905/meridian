@@ -21,6 +21,90 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "4c4f03f4-f878-4bd6-8128-5be7e3bb8ca1",
+    "title": "Treasuries head for best week since February as AI jitters halt bond rout",
+    "date": "2026-10-16",
+    "time": "11:08",
+    "url": "https://www.ft.com/content/4c4f03f4-f878-4bd6-8128-5be7e3bb8ca1"
+  },
+  {
+    "id": "753fa2ed-1763-462b-a4c0-ded9b53baf3c",
+    "title": "Indonesia stocks plunge after MSCI says market could be cut from indices",
+    "date": "2026-10-16",
+    "time": "11:06",
+    "url": "https://www.ft.com/content/753fa2ed-1763-462b-a4c0-ded9b53baf3c"
+  },
+  {
+    "id": "b739fd97-d839-4287-ab91-45fcedaec76a",
+    "title": "‘We’re potty for vintage Polo Ralph Lauren’",
+    "date": "2026-10-16",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/b739fd97-d839-4287-ab91-45fcedaec76a"
+  },
+  {
+    "id": "e2acd655-0a6a-4de6-9404-c838f6e7b8cb",
+    "title": "Republicans turn on Donald Trump’s tariffs in battle for ‘political survival’",
+    "date": "2026-10-16",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/e2acd655-0a6a-4de6-9404-c838f6e7b8cb"
+  },
+  {
+    "id": "c62481a2-eb6c-4ab8-b226-47efd50affcd",
+    "title": "Should I be stockpiling for an emergency?",
+    "date": "2026-10-16",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/c62481a2-eb6c-4ab8-b226-47efd50affcd"
+  },
+  {
+    "id": "ee6dfd48-fa31-4bde-9962-2f9f09c36798",
+    "title": "EU vows to maintain Russia sanctions after US pivot",
+    "date": "2026-10-16",
+    "time": "10:26",
+    "url": "https://www.ft.com/content/ee6dfd48-fa31-4bde-9962-2f9f09c36798"
+  },
+  {
+    "id": "42eb2851-ddc2-4f13-a55b-8f50cf43443b",
+    "title": "No, Sally Rooney’s books are not ‘banned’ from the UK",
+    "date": "2026-10-16",
+    "time": "09:30",
+    "url": "https://www.ft.com/content/42eb2851-ddc2-4f13-a55b-8f50cf43443b"
+  },
+  {
+    "id": "be1019ac-1023-45b0-835f-d111f2b2b741",
+    "title": "Inside this Hudson Valley home, every room is a time capsule",
+    "date": "2026-10-16",
+    "time": "09:30",
+    "url": "https://www.ft.com/content/be1019ac-1023-45b0-835f-d111f2b2b741"
+  },
+  {
+    "id": "76265c1d-3a38-4d11-8e4a-2a4c1ecfae1c",
+    "title": "From fashion to finca: the McQueen PR who escaped to Ibiza",
+    "date": "2026-10-16",
+    "time": "09:30",
+    "url": "https://www.ft.com/content/76265c1d-3a38-4d11-8e4a-2a4c1ecfae1c"
+  },
+  {
+    "id": "650f6b11-67fb-40cf-baea-cd6c321e51de",
+    "title": "Tim Smit on the glories of the Eden Project – 25 years later",
+    "date": "2026-10-16",
+    "time": "09:30",
+    "url": "https://www.ft.com/content/650f6b11-67fb-40cf-baea-cd6c321e51de"
+  },
+  {
+    "id": "06d33c3b-d06c-47da-837b-a6b1c81f621d",
+    "title": "ELV Denim is bringing a couture touch to Sanderson offcuts",
+    "date": "2026-10-16",
+    "time": "09:30",
+    "url": "https://www.ft.com/content/06d33c3b-d06c-47da-837b-a6b1c81f621d"
+  },
+  {
+    "id": "83a8155d-a4f5-4ef8-96af-502ca8f4a279",
+    "title": "Antoine Billore – the cheekiest boy in antiques",
+    "date": "2026-10-16",
+    "time": "09:30",
+    "url": "https://www.ft.com/content/83a8155d-a4f5-4ef8-96af-502ca8f4a279"
+  },
+  {
     "id": "fca7f5ff-94c8-4c78-90cb-d458fd27724a",
     "title": "FTAV’s further reading",
     "date": "2026-10-16",
@@ -215,89 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-15",
     "time": "18:41",
     "url": "https://www.ft.com/content/66c9bbf1-f25c-4e84-b8ae-c9272fbc49c2"
-  },
-  {
-    "id": "70f69253-6017-4259-95c9-48bf0e088b40",
-    "title": "Criminals stole $90mn of crypto by hiding password readers in USB-like devices",
-    "date": "2026-10-15",
-    "time": "18:23",
-    "url": "https://www.ft.com/content/70f69253-6017-4259-95c9-48bf0e088b40"
-  },
-  {
-    "id": "5dd8b17e-b0a3-4b14-9d83-aba2627e635d",
-    "title": "Risk of an AI crunch for stock markets is rising",
-    "date": "2026-10-15",
-    "time": "17:53",
-    "url": "https://www.ft.com/content/5dd8b17e-b0a3-4b14-9d83-aba2627e635d"
-  },
-  {
-    "id": "8890bf3f-f243-4bd0-8e2f-f80c78e363f8",
-    "title": "Europe cannot rely on trade barriers to counter China",
-    "date": "2026-10-15",
-    "time": "17:35",
-    "url": "https://www.ft.com/content/8890bf3f-f243-4bd0-8e2f-f80c78e363f8"
-  },
-  {
-    "id": "064f7a19-c495-4ba0-a5e5-a6c4bb764ddb",
-    "title": "Donald Trump cancels Pete Hegseth’s plan to livestream execution after backlash",
-    "date": "2026-10-15",
-    "time": "17:07",
-    "url": "https://www.ft.com/content/064f7a19-c495-4ba0-a5e5-a6c4bb764ddb"
-  },
-  {
-    "id": "086b7a80-acdd-48d2-bd5c-a04bad812264",
-    "title": "In AI-dominated markets, LatAm debt is a diversifier",
-    "date": "2026-10-15",
-    "time": "16:51",
-    "url": "https://www.ft.com/content/086b7a80-acdd-48d2-bd5c-a04bad812264"
-  },
-  {
-    "id": "37d24217-acd8-4f84-a298-4f1ccc359a27",
-    "title": "Mercuria adds first copper to US Project Vault stockpile",
-    "date": "2026-10-15",
-    "time": "16:43",
-    "url": "https://www.ft.com/content/37d24217-acd8-4f84-a298-4f1ccc359a27"
-  },
-  {
-    "id": "0a436452-c1a1-492a-b5be-92848ed5e6e7",
-    "title": "Former Everton bidder Josh Wander to plead guilty in US fraud case",
-    "date": "2026-10-15",
-    "time": "16:33",
-    "url": "https://www.ft.com/content/0a436452-c1a1-492a-b5be-92848ed5e6e7"
-  },
-  {
-    "id": "678bcd31-6c2a-447b-a68c-ce6dec220bbc",
-    "title": "Investors dump data centre bonds as AI borrowers face ‘Darwin moment’",
-    "date": "2026-10-15",
-    "time": "16:25",
-    "url": "https://www.ft.com/content/678bcd31-6c2a-447b-a68c-ce6dec220bbc"
-  },
-  {
-    "id": "0be97035-3854-4b6c-8191-98f486862b02",
-    "title": "Saudi events delayed after Houthi attacks",
-    "date": "2026-10-15",
-    "time": "16:04",
-    "url": "https://www.ft.com/content/0be97035-3854-4b6c-8191-98f486862b02"
-  },
-  {
-    "id": "cf5f1209-da29-4ce1-b425-0e83818bf9ec",
-    "title": "Treasuries rally as investors seek shelter from AI turbulence",
-    "date": "2026-10-15",
-    "time": "15:56",
-    "url": "https://www.ft.com/content/cf5f1209-da29-4ce1-b425-0e83818bf9ec"
-  },
-  {
-    "id": "33aca8da-f22c-41e5-8255-289ae7d58ee7",
-    "title": "Monte dei Paschi should try the ‘just say maybe’ bid defence",
-    "date": "2026-10-15",
-    "time": "15:23",
-    "url": "https://www.ft.com/content/33aca8da-f22c-41e5-8255-289ae7d58ee7"
-  },
-  {
-    "id": "15d18ed4-543d-4004-ae38-f429a118daab",
-    "title": "Anglo American chief says tech giants show ‘deep interest’ in mining stakes",
-    "date": "2026-10-15",
-    "time": "15:19",
-    "url": "https://www.ft.com/content/15d18ed4-543d-4004-ae38-f429a118daab"
   }
 ];
