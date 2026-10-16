@@ -19,7 +19,7 @@ switch that turns the Vite pipeline on.
 
 - **`docs/HOUSE_STYLE.md`** — the agreed rulebook for layout, feed/day-break
   conventions, colour tokens, typography, chrome, behaviour, and engineering
-  discipline (rules **R1–R48, T1–T21**), plus **§8 the canonical data-resource
+  discipline (rules **R1–R49, T1–T22**), plus **§8 the canonical data-resource
   roster**. Every change must conform. When something here and there conflict,
   HOUSE_STYLE wins.
 - **`docs/refresh-routines.md`** — invariants for the ~2-hourly content refresh
@@ -50,6 +50,11 @@ switch that turns the Vite pipeline on.
 - **Deploy discipline.** Commit directly to `main` and push to `origin/main` —
   see **Branch & deploy policy** below. Pushing to `main` triggers the live
   deploy, so verify before every push.
+- **Native feel.** Nothing moves under the reader: no surprise reloads (only
+  `v2/js/update.js` may reload, off screen), live repaints hold position, hover is
+  fenced to mouse devices, `dvh`/`svh` not bare `vh`, skeletons not spinners —
+  HOUSE_STYLE **R46–R49**. Native shell (Capacitor) is a recorded decision, not
+  adopted — **T22**.
 - **Single source of truth.** One feed engine (`feed.js` → `.g-feed-row`), one
   shared chrome, one router. When a surface is ported to v2, edit the **v2 copy**
   under `v2/js/` — the retired top-level orchestrators are not loaded.

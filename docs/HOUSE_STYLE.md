@@ -1698,6 +1698,19 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   content-shaped grey skeleton (chip strip + list rows; tiles for the Dashboard) that
   fades in after 150ms, so a fast load never flashes it. Specs:
   `tests/home-brief-freshness.mjs`, `tests/home-live-anchor.mjs`, `tests/v2-parity.mjs`.
+- **R49 — Native-feel checklist for any new UI (owner 2026-10-16).** The bar is "feels
+  like an App Store app", not "works". Every new or changed surface: **(a)** follows
+  R46–R48 (fenced hover + touch press; `dvh`/`svh`; no reloads, no repaint under the
+  reader, skeletons not spinners); **(b) reserves space for async content** — a pane that
+  fills in later keeps its height (skeleton, `min-height` or fixed row size) so nothing
+  below it shifts; **(c) floating notices use the one pill style** (`.wire-update-pill` /
+  `.wire-new-pill` in `v2/css/app.css`: bottom-centre above the tab bar, `--t-head`
+  ground, `--fs-micro`) — no toasts, banners or modals for status; **(d) motion uses the
+  tokens** (`--dur-1/2`, `--ease-out/soft`) and every animation has a
+  `prefers-reduced-motion` off-switch; **(e)** a background refresh never resets scroll,
+  tab, chip or open-reader state; **(f)** the change gets a spec proving it doesn't jump
+  (layout position before/after, as in `tests/home-live-anchor.mjs`). Review the change
+  on the 390px phone viewport before pushing.
 
 ## 7. Technical rules
 
@@ -1800,6 +1813,24 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   Chromium doesn't paint an opaque white backdrop behind a transparent dark widget. Only
   free, embeddable vendor widgets; the caption states what the number is and links the
   vendor (R45a).
+- **T22 — Native iPhone shell (Capacitor): decision record (owner 2026-10-16).**
+  **Status: NOT adopted** — Wire stays a home-screen web app (PWA) while the R46–R49
+  polish is lived with; revisit if it still doesn't feel native. **If adopted, the
+  rules are:** **(a) one codebase** — Capacitor wraps the same Vite `dist/` build; no
+  forked native copy of any view, and the web app keeps working on its own (desktop and
+  browser stay first-class). **(b) Distribution: TestFlight** (personal/small-team use,
+  no App Store review, builds expire after 90 days); the public App Store only by explicit
+  owner decision, since a thin web wrapper risks rejection under App Review guideline 4.2.
+  **(c) Data stays live** — the data modules and `/api/*` are still fetched from the
+  deployed origin, so the ~2-hourly refresh needs no app release; **code** ships either
+  as a new TestFlight build or via a live-update service, never by hand-editing the app
+  bundle. **(d) Native features earn their place:** haptics on tap/pull-to-refresh, the
+  native status bar and splash screen, the bundled offline shell (instant launch) and
+  native push first — each wrapped behind a capability check so the web build no-ops.
+  **(e) Prove the Cloudflare Access login** round-trips inside the app's web view before
+  anything else is built on it. Costs: Apple Developer Program ($99/yr) and a macOS build
+  (a Mac or a cloud macOS runner). Refs: capacitorjs.com/docs/ios ·
+  developer.apple.com/testflight · developer.apple.com/app-store/review/guidelines.
 
 ---
 
