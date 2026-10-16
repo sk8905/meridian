@@ -40,12 +40,25 @@ for (const [label, url, sel, inner, act] of PAGES) {
   await ctx.close();
 }
 
-// Bars fit: News lanes all on-screen; profile sub-tabs one line each.
+// News lanes (owner 2026-10-16): the USUAL heading-row spacing (chips 0 12px, labels never
+// squeezed) and the row scrolls sideways only; a tapped lane scrolls into view.
 {
   const { ctx, pg } = await open(b, PHONE, base + "/v2/news/");
-  await pg.waitForTimeout(1800);
-  const lanes = await pg.evaluate(() => [...document.querySelectorAll(".g-wire-lane")].filter((e) => e.offsetParent).map((e) => { const r = e.getBoundingClientRect(); return { t: e.textContent, l: r.left, r: r.right }; }));
-  check(lanes.length === 6 && lanes.every((l) => l.l >= 0 && l.r <= 390), `phone: all six News lanes fit the screen (${lanes.map((l) => l.t + "@" + Math.round(l.r)).join(" ")})`);
+  await pg.waitForSelector("#g-wire-lanechips .g-wire-lane", { timeout: 10000 });
+  await pg.waitForTimeout(600);
+  const r = await pg.evaluate(() => {
+    const row = document.querySelector("#g-wire-lanechips"), chips = [...row.querySelectorAll(".g-wire-lane")];
+    const cs = getComputedStyle(row);
+    return { n: chips.length, pads: [...new Set(chips.map((c) => getComputedStyle(c).paddingLeft + "/" + getComputedStyle(c).paddingRight))], oneLine: chips.every((c) => c.scrollWidth <= c.clientWidth + 1 && c.getBoundingClientRect().height < 40),
+      scrolls: row.scrollWidth > row.clientWidth, ox: cs.overflowX, oy: cs.overflowY, pageW: document.documentElement.scrollWidth };
+  });
+  check(r.n === 6 && r.pads.length === 1 && r.pads[0] === "12px/12px", `phone: six News lanes at the usual 0 12px chip spacing (${r.pads.join(", ")})`);
+  check(r.oneLine, "phone: no lane label is squeezed or wrapped");
+  check(r.scrolls && r.ox === "auto" && r.oy === "hidden" && r.pageW <= 390, `phone: the lane row scrolls sideways only, the page does not (overflow ${r.ox}/${r.oy}, page ${r.pageW}px)`);
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanechips .g-wire-lane")].find((c) => c.textContent.trim() === "Research").click());
+  await pg.waitForTimeout(400);
+  const seen = await pg.evaluate(() => { const row = document.querySelector("#g-wire-lanechips"), on = row.querySelector(".g-wire-lane.is-on"); const a = row.getBoundingClientRect(), c = on.getBoundingClientRect(); return { lbl: on.textContent.trim(), inView: c.left >= a.left - 1 && c.right <= a.right + 1 }; });
+  check(seen.lbl === "Research" && seen.inView, `phone: the tapped lane (${seen.lbl}) scrolls into view`);
   await ctx.close();
 }
 {

@@ -2728,6 +2728,16 @@ function renderWireLanes() {
   const chips = document.getElementById("g-wire-lanechips");
   if (chips) chips.innerHTML = WIRE_LANES.map(([k, l]) =>
     `<button type="button" class="g-wire-lane${_wireLane === k ? " is-on" : ""}" data-lane="${esc(k)}" role="tab" aria-selected="${_wireLane === k}">${esc(l)}</button>`).join("");
+  // The lane row scrolls sideways on iPhone (R42b): keep the selected lane in view —
+  // moved by the row's own scrollLeft, so the page never jumps.
+  if (chips) {
+    const on = chips.querySelector(".g-wire-lane.is-on");
+    if (on) {
+      const l = on.offsetLeft, r = l + on.offsetWidth;
+      if (l < chips.scrollLeft) chips.scrollLeft = l;
+      else if (r > chips.scrollLeft + chips.clientWidth) chips.scrollLeft = r - chips.clientWidth;
+    }
+  }
 }
 function _setWireLane(k) {
   if (!k || k === _wireLane) { _closeLaneMenu(); return; }

@@ -63,7 +63,8 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   and the roster / earnings rows lost their 2–4px private insets. Guard: the line-start
   sweep in `tests/style-consistency.mjs`.
   **(b) Bars fit:** a phone tab/lane bar shows every label on one line inside the screen —
-  the News lanes share the width like the Home and Dashboard tabs, and profile sub-tabs
+  the Home and Dashboard tabs share the width (the News lanes are the exception — usual
+  `0 12px` spacing in a sideways-scrolling row, owner 2026-10-16), and profile sub-tabs
   (`News · Vehicles 32 · Investments 46 · …`) never wrap. **(c) Theme-true colours:** a
   colour token differs between light and dark when the dark tint is unreadable on white
   (`--t-news` is `#8aa0c8` dark / `#4f6690` light). **(d) One money format:** every list /
@@ -984,7 +985,7 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   the activity of EVERY profiled entity — managers' deals / intel / web news, hedge-fund
   intel, law-firm alerts and deal / intel headlines naming a tracked investor — current +
   previous month, newest first, ★ on followed rows; `profilesEvents()` in `glance.js`,
-  spec `tests/profiles-lane.mjs`). The six share the phone width (R2d b; 4px chip padding at 390px). Each of these MUST catch what belongs to it:
+  spec `tests/profiles-lane.mjs`). On iPhone the six keep the usual heading-row spacing (chips `0 12px`) and the row scrolls sideways (R42b), the selected lane kept in view (owner 2026-10-16). Each of these MUST catch what belongs to it:
   (a) **research** → the **Research** lane (`RSH` desk code / `research[]`);
   (b) a **newsletter** → the **Newsletters** lane (`LTR` / `newsletters.js`);
   (c) anything **about a covered manager / fund / hedge fund** → the **Managers**
