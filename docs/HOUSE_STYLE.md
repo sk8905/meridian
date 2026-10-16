@@ -1211,10 +1211,15 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   desktop and iPhone — a one-row bar (search · sort menu · CSV), then **two-line rows**
   (name · headline figure / sector-or-manager meta) that **expand in place** (tap again to
   close); never a table, never sideways scroll. Credits: quick chips *All · ▼ Downgraded ·
-  ▲ Upgraded*, a 12-row preview + *Show all N*; a row shows rating (with its source) and the
+  ▲ Upgraded*; a row shows rating (with its source) and the
   tracked deals naming the obligor + their lenders. BDCs: *Listed* / *Private (non-traded)*
   sections; the row shows size, adviser (→ profile), NAV, non-accrual and the live Px/NAV
-  or GATED; expanding gives the sourced facts, SEC links and the holdings fetch. The open
+  or GATED; expanding gives the sourced facts, SEC links and the holdings fetch. **Both
+  rosters preview 10 rows + "See all N ›" on desktop AND iPhone** (owner 2026-10-16 — the
+  desktop credits roster had a 12-row inline "Show all" and the BDCs listed every fund);
+  "See all" moves the live roster into the Dashboard sheet (centred panel on desktop) and
+  closing it returns the 10-row preview; searching, a chip or an open row shows every
+  match. The open
   row is in the URL (`?credit=<name>` / `?bdc=<ticker>`, replaceState); the palette, the
   stress list and the old Transactions `#/credits` / `#/bdc` links land on it. Desktop caps
   each list at ~560px and scrolls inside. Specs: `tests/transactions.mjs`,

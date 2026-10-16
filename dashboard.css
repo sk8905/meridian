@@ -847,7 +847,6 @@ td .dsh-yc-ea { border:0; }
 .crr-sec:first-child { margin-top:0; }
 .crr-n { color:var(--t-faint); font-weight:400; }
 .crr-none { margin:6px 0; color:var(--t-faint); font-size:var(--fs-body); }
-.crr-more { display:block; width:100%; margin-top:6px; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font:inherit; font-size:var(--fs-body); cursor:pointer; border-radius:0; }
 .crr-hold { margin:4px 0; padding-left:20px; font-size:var(--fs-micro); }
 .crr-hold li { padding:2px 0; }
 .crr-hold li > span:last-child { float:right; margin-left:8px; color:var(--t-mut); font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
@@ -855,6 +854,8 @@ td .dsh-yc-ea { border:0; }
 .crr-srcs a { color:var(--t-mut); }
 @media (min-width:901px){
   .crr-body { max-height:560px; overflow-y:auto; overscroll-behavior:contain; padding-right:4px; }
+  /* In the See-all sheet the roster takes the sheet's own scroll — no in-card cap. */
+  .dsh-sheet .crr-body { max-height:none; overflow:visible; }
 }
 
 /* =============================================================================

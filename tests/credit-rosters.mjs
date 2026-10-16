@@ -36,7 +36,7 @@ for (const [dev, label] of [[DESKTOP, "desktop"], [PHONE, "phone"]]) {
       crRows: cr.querySelectorAll(".crr-row").length, crTables: cr.querySelectorAll("table").length + bd.querySelectorAll("table").length,
       crTrend: [...cr.querySelectorAll(".crr-row")].every((r) => r.querySelector(".tcr-tr.tx-up, .tcr-tr.tx-dn, .tcr-tr.tx-fl") && r.querySelector(".tcr-rt")),
       chips: [...cr.querySelectorAll("[data-crtrend]")].map((c) => c.textContent.replace(/\d+/g, "").trim()),
-      more: !!cr.querySelector("[data-crall]"),
+      more: (cr.querySelector(".dsh-seeall[data-crall]") || {}).textContent || "",
       secs: [...bd.querySelectorAll(".crr-sec")].map((s) => s.textContent.replace(/\d+/g, "").trim()),
       bdRows: bd.querySelectorAll(".crr-row").length, bdAll: !!bd.querySelector("[data-bdcall]"),
       shownMgr: [...bd.querySelectorAll(".crr-row")].length,
@@ -46,13 +46,24 @@ for (const [dev, label] of [[DESKTOP, "desktop"], [PHONE, "phone"]]) {
     };
   }, V);
   check(v.crTables === 0, `${label}: the rosters are card lists, not tables (${v.crTables} tables)`);
-  // Phone previews 10 rows with "See all" (HOUSE_STYLE R40e); desktop previews 12.
-  check((label === "phone" ? v.crRows === 10 : v.crRows >= 12) && v.crTrend, `${label}: credits rows show a rating + 12-month trend (${v.crRows} rows)`);
-  check(v.chips.join("|") === "All|▼ Downgraded|▲ Upgraded" && v.more, `${label}: credits quick chips + a "Show all" (${v.chips.join(" · ")})`);
-  if (label === "phone") check(v.secs.join("|") === "Listed" && v.bdRows === 10 && v.bdAll, `phone: BDCs preview 10 funds with "See all" (${v.bdRows})`);
-  else check(v.secs.join("|") === "Listed|Private (non-traded)" && v.bdRows === BDCS.length, `${label}: BDCs list every fund in Listed / Private sections (${v.bdRows})`);
+  // Phone AND desktop preview 10 rows + "See all N ›" (owner 2026-10-16, HOUSE_STYLE R40).
+  check(v.crRows === 10 && v.crTrend, `${label}: credits preview 10 rows, each with a rating + 12-month trend (${v.crRows} rows)`);
+  check(v.chips.join("|") === "All|▼ Downgraded|▲ Upgraded" && new RegExp(`^See all ${EUR_CREDITS.length}`).test(v.more.trim()), `${label}: credits quick chips + "See all ${EUR_CREDITS.length}" (${v.chips.join(" · ")} · "${v.more.trim()}")`);
+  check(v.secs.join("|") === "Listed" && v.bdRows === 10 && v.bdAll, `${label}: BDCs preview 10 funds with "See all" (${v.bdRows})`);
   check(/^1\.10× NAV$/.test((v.arccPx || "").trim()), `${label}: listed BDCs show the LIVE price÷NAV (${v.arccPx})`);
-  check(label === "phone" ? v.mgrLinks > 0 && v.mgrLinks <= 10 : v.mgrLinks === BDCS.filter((x) => x.managerId).length, `${label}: covered advisers link to their profile (${v.mgrLinks})`);
+  check(v.mgrLinks > 0 && v.mgrLinks <= 10, `${label}: covered advisers link to their profile (${v.mgrLinks})`);
+
+  // "See all" → the whole roster in the sheet (Listed + Private for BDCs); ✕ → back to 10.
+  for (const [id, all, n] of [["#dsh-credits", "[data-crall]", EUR_CREDITS.length], ["#dsh-bdcs", "[data-bdcall]", BDCS.length]]) {
+    await pg.click(`${V} ${id} ${all}`);
+    await pg.waitForSelector(".dsh-sheet .crr-row", { timeout: 5000 });
+    const inSheet = await pg.evaluate(() => ({ rows: document.querySelectorAll(".dsh-sheet .crr-row").length, secs: [...document.querySelectorAll(".dsh-sheet .crr-sec")].map((x) => x.textContent.replace(/\d+/g, "").trim()).join("|") }));
+    check(inSheet.rows === n, `${label}: ${id} "See all" opens all ${n} rows in the sheet (${inSheet.rows}${inSheet.secs ? ` · ${inSheet.secs}` : ""})`);
+    await pg.click(".dsh-sheet .dsh-sheet-x");
+    await pg.waitForFunction(([V, id]) => !document.querySelector(".dsh-sheet") && document.querySelectorAll(`${V} ${id} .crr-row`).length === 10, [V, id], { timeout: 5000 }).catch(() => {});
+    const back = await pg.evaluate(([V, id]) => document.querySelectorAll(`${V} ${id} .crr-row`).length, [V, id]);
+    check(back === 10, `${label}: closing the sheet puts ${id} back to its 10-row preview (${back})`);
+  }
   check(v.pageOver <= 1 && v.cardOver === 0, `${label}: no horizontal overflow — page ${v.pageOver}px, ${v.cardOver} elements past the card edge`);
 
   // Credits: Downgraded chip narrows; a row expands with its sourced rating + deals; re-tap closes.

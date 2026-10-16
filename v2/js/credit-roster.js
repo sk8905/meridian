@@ -27,11 +27,10 @@ const PROFILE = (id) => `/v2/profiles/#/manager/${encodeURIComponent(id)}`;
 const cr = { q: "", trend: "", sort: "", open: "", all: false };
 const bdc = { q: "", sort: "size-desc", open: "" };
 let _quotes = null, _quotesTried = false;
-const CR_PREVIEW = 12;
-// iPhone: rosters preview 10 rows; "See all" hands the live roster to the Dashboard's
-// full-screen sheet (opts.onSeeAll) instead of expanding the card in place.
-const PHONE_PREVIEW = 10;
-const isPhone = () => !!(typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width:900px)").matches);
+// Phone AND desktop (owner 2026-10-16, as every Dashboard list — R40): rosters preview
+// 10 rows; "See all N ›" hands the live roster to the Dashboard's sheet (full-screen on
+// iPhone, a centred panel on desktop — opts.onSeeAll) instead of expanding the card.
+const PREVIEW = 10;
 
 // ---- Credits ------------------------------------------------------------------
 const RATING_ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "SD", "D"];
@@ -93,8 +92,7 @@ function creditsBody() {
   if (!EUR_CREDITS.length) return `<p class="crr-none">The European credit universe (anchored to the ${esc(EUR_CREDITS_META.index)}) is being compiled — sourced names and ratings land here as they’re verified.</p>`;
   const list = crList();
   const narrowed = !!(cr.q || cr.trend);
-  const lim = isPhone() ? PHONE_PREVIEW : CR_PREVIEW;
-  const shown = cr.all || narrowed ? list : list.slice(0, Math.max(lim, list.findIndex((c) => c.name === cr.open) + 1));
+  const shown = cr.all || narrowed ? list : list.slice(0, Math.max(PREVIEW, list.findIndex((c) => c.name === cr.open) + 1));
   const down = EUR_CREDITS.filter((c) => c.trend === "down").length, up = EUR_CREDITS.filter((c) => c.trend === "up").length;
   const chip = (v, l) => `<button type="button" class="crr-chip${cr.trend === v ? " is-on" : ""}" data-crtrend="${v}" aria-pressed="${cr.trend === v}">${l}</button>`;
   return `<div class="crr-bar"><input type="search" class="crr-q" data-roster="credits" placeholder="Search credits" aria-label="Search credits" value="${esc(cr.q)}">`
@@ -102,7 +100,7 @@ function creditsBody() {
     + `<button type="button" class="crr-csv" data-csv="credits">CSV</button></div>`
     + `<div class="crr-chips">${chip("", `All ${EUR_CREDITS.length}`)}${chip("down", `▼ Downgraded ${down}`)}${chip("up", `▲ Upgraded ${up}`)}</div>`
     + `<div class="crr-body">${list.length ? `<ul class="crr-list">${shown.map(crRow).join("")}</ul>` : `<p class="crr-none">No credits match.</p>`}`
-    + (shown.length < list.length ? (isPhone() ? `<button type="button" class="dsh-seeall" data-crall="1">See all ${list.length} <span aria-hidden="true">›</span></button>` : `<button type="button" class="crr-more" data-crall="1">Show all ${list.length}</button>`) : "") + `</div>`;
+    + (shown.length < list.length ? `<button type="button" class="dsh-seeall" data-crall="1">See all ${list.length} <span aria-hidden="true">›</span></button>` : "") + `</div>`;
 }
 
 // ---- BDCs ----------------------------------------------------------------------
@@ -174,10 +172,10 @@ function bdcRow(b) {
 }
 function bdcBody() {
   const list = bdcSorted(BDCS.filter(bdcMatch));
-  // Phone preview: the first 10 (listed first, then private) unless searching, a row is
-  // open, or the whole roster is showing in the sheet.
-  const cut = isPhone() && !bdc.all && !bdc.q && !bdc.open && list.length > PHONE_PREVIEW;
-  let left = cut ? PHONE_PREVIEW : Infinity;
+  // Preview (phone and desktop): the first 10 (listed first, then private) unless
+  // searching, a row is open, or the whole roster is showing in the sheet.
+  const cut = !bdc.all && !bdc.q && !bdc.open && list.length > PREVIEW;
+  let left = cut ? PREVIEW : Infinity;
   const take = (rows) => { const r = rows.slice(0, Math.max(0, left)); left -= r.length; return r; };
   const sec = (label, rows) => { const all = rows.length, r = take(rows); return r.length ? `<div class="crr-sec">${esc(label)} <span class="crr-n">${all}</span></div><ul class="crr-list">${r.map(bdcRow).join("")}</ul>` : ""; };
   return `<div class="crr-bar"><input type="search" class="crr-q" data-roster="bdc" placeholder="Search BDCs" aria-label="Search BDCs" value="${esc(bdc.q)}">`
@@ -276,8 +274,8 @@ export function wireRosters(host, opts = {}) {
     }
     const tr = e.target.closest("[data-crtrend]");
     if (tr) { cr.trend = tr.dataset.crtrend; cr.open = ""; paintCr(); writeUrl(); return; }
-    if (e.target.closest("[data-crall]")) { cr.all = true; paintCr(); if (isPhone() && opts.onSeeAll) opts.onSeeAll(crRoot, "credits"); return; }
-    if (e.target.closest("[data-bdcall]")) { bdc.all = true; paintBdc(); if (isPhone() && opts.onSeeAll) opts.onSeeAll(bdcRoot, "bdc"); return; }
+    if (e.target.closest("[data-crall]")) { cr.all = true; paintCr(); if (opts.onSeeAll) opts.onSeeAll(crRoot, "credits"); return; }
+    if (e.target.closest("[data-bdcall]")) { bdc.all = true; paintBdc(); if (opts.onSeeAll) opts.onSeeAll(bdcRoot, "bdc"); return; }
     const hb = e.target.closest(".tbdc-hold-btn");
     if (hb) { hb.disabled = true; hb.textContent = "Loading…"; loadHoldings(hb.dataset.cik, hb.nextElementSibling, hb); return; }
     if (e.target.closest(".crr-x")) return;   // clicks inside an open row's detail
