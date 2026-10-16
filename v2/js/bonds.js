@@ -38,8 +38,6 @@ export const bondLabel = (b) => {
   const l = [couponTxt(b.coupon), yr].filter(Boolean).join(" ");
   return l && (b.coupon != null || b.perp) ? l : (b.bond || l || "bond");
 };
-// "57 (28 Sep 26)" — a press price always carries its as-of date.
-export const pxTxt = (b) => (hasPx(b) ? `${b.px.v != null ? b.px.v : b.px.text} (${fmtD(b.px.asOf)})` : "");
 
 // The widget: the iframe TradingView's documented embed script itself inserts (its
 // mini-symbol-overview page, config in the URL hash). Embedding the frame directly keeps

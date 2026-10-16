@@ -31,7 +31,8 @@ import { coreName } from "../profiles/borrower.js";
 import { liveJSON, lastKnownLabel } from "../live-cache.js";
 import { evRow } from "/feed.js";
 import { CR_BONDS } from "/dashboard/js/data.js";
-import { bondsFor, listable, bondKey, bondLabel, maturityTxt, venueOf, pxTxt, mountQuotes } from "../bonds.js";
+import { bondsFor, listable, bondKey, bondLabel, maturityTxt, venueOf, hasPx, mountQuotes } from "../bonds.js";
+import { ICO_MKT } from "../icons.js";
 
 const PREVIEW = 10;
 const CATH_SUMMARY = "https://www.court-tribunal-hearings.service.gov.uk/summary-of-publications?locationId=111";
@@ -111,13 +112,19 @@ export function mount(host, ctx) {
     })), "No stressed names tracked.");
   }
   const nBonds = (name) => { const n = bondsFor(name).length; return n ? `${n} listed bond${n === 1 ? "" : "s"}` : ""; };
-  // ---- 1b · Listed bonds: one row per issue; "Quote" opens the TradingView widget ------
+  // ---- 1b · Listed bonds: one row per issue (owner 2026-10-16) — date (maturity) · name ·
+  // the PRESS price "57 (28 Sep 26)" where one exists + a small market symbol linking to
+  // the live TradingView quote where the line has one · SRC (the press article, else the
+  // TradingView page). Wire shows no live number itself (R45).
+  const pxCell = (b) => (hasPx(b)
+    ? `<span class="rxh-px"><span class="c-num">${esc(String(b.px.v != null ? b.px.v : b.px.text))}</span> <span class="rxh-px-d">(${esc(fmtD(b.px.asOf))})</span></span>` : "")
+    + (b.tv ? `<button type="button" class="rxh-q rxh-live" data-bq="${esc(bondKey(b))}" aria-label="Live price — ${esc(b.name)} ${esc(bondLabel(b))} (${esc(venueOf(b))}, TradingView)" title="Live price · ${esc(venueOf(b))} via TradingView">${ICO_MKT}</button>` : "");
   function bondsBody() {
     return ul(rxBonds().map((b) => evRow({
       title: `${b.name} ${bondLabel(b)}`, href: borrowerPath(b.name, base), inApp: true, aCls: "dsh-drill rxh-co",
-      dateText: maturityTxt(b), srcHref: b.src || (b.px || {}).src, src: b.src ? "TradingView" : ((b.px || {}).outlet || ""), cls: "rxh-i rxh-bond", attrs: ` data-isin="${esc(b.isin || "")}"`,
-      tag: `<button type="button" class="dsh-tag rxh-q" data-bq="${esc(bondKey(b))}" aria-label="${b.tv ? "Quote" : "Press price"} for ${esc(b.name)} ${esc(bondLabel(b))}">${b.tv ? "Quote" : "Press"}</button>`,
-      meta: [pxTxt(b) ? `press ${esc(pxTxt(b))}` : "", esc(b.isin || ""), esc(venueOf(b)), esc(b.issuer || "")].filter(Boolean).join(" · "),
+      dateText: maturityTxt(b), srcHref: hasPx(b) ? b.px.src : b.src, chip: true, cls: "rxh-i rxh-bond", attrs: ` data-isin="${esc(b.isin || "")}"`,
+      tag: pxCell(b),
+      meta: [esc(b.isin || ""), esc(venueOf(b)), esc(b.issuer || ""), hasPx(b) && b.px.outlet ? `price: ${esc(b.px.outlet)}${b.px.aggregator ? " (aggregator)" : ""}` : ""].filter(Boolean).join(" · "),
     })), "No listed bonds mapped.", "rxh-bondl");
   }
   // ---- 2 · Plans & schemes ----------------------------------------------------------

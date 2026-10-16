@@ -3,7 +3,9 @@
 // real ISIN (valid check digit), a stressed name, a widget venue TradingView's free
 // widget can quote (never LSE / LuxSE / FINRA, which show "only available on
 // TradingView"), its symbol page as source, and any press price dated + sourced.
-// The Restructuring hub lists every line; "Quote" opens a sheet holding TradingView's
+// The Restructuring hub lists every line (owner 2026-10-16): the press price "57 (28 Sep 26)"
+// where one exists, a small market symbol where a live quote exists (it opens a sheet
+// holding TradingView's
 // widget embed for that symbol, captioned as a delayed exchange quote; a press-only line
 // shows its dated price instead. The borrower page carries the same widgets. The embed
 // markup is what's checked (the third-party frame's content is not).
@@ -55,26 +57,36 @@ for (const [name, dev] of [["phone", PHONE], ["desktop", DESKTOP]]) {
     return {
       rows: rows.length,
       hrefs: rows.map((li) => li.querySelector("a.rxh-co").getAttribute("href")),
-      srcs: rows.map((li) => (li.querySelector(".c-src a") || {}).href || ""),
+      srcs: rows.map((li) => { const a = li.querySelector(".c-src a.dsh-src"); return a ? { href: a.href, t: a.textContent.trim() } : null; }),
+      cells: rows.map((li) => ({ isin: li.dataset.isin, px: (li.querySelector(".c-tag .rxh-px") || {}).textContent || "", live: !!li.querySelector(".c-tag .rxh-live svg"), label: (li.querySelector(".rxh-live") || { getAttribute: () => "" }).getAttribute("aria-label"), words: /\b(QUOTE|PRESS|Quote|Press|TradingView)\b/.test(li.querySelector(".c-tag").textContent + li.querySelector(".c-src").textContent) })),
       lead: rows.map((li) => li.querySelector(".c-date").textContent),
       stressMeta: [...document.querySelectorAll("#rxh-stress .rxh-i")].some((li) => /\d listed bonds?/.test(li.textContent)),
-      pressMeta: rows.filter((li) => li.querySelector(".rxh-q").textContent === "Press").map((li) => li.querySelector(".g-ev-m").textContent),
       sub: document.querySelector(".rxh-sub").textContent,
       hscroll: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
     };
   });
   checkEq(r.rows, listed, `${name}: the bonds card lists every mapped line (incl. behind See all)`);
   check(r.hrefs.every((h) => /^\/v2\/profiles\/#\/co\/[^/]+$/.test(h)), `${name}: each bond row opens its borrower page`);
-  const press = new Set(CR_BONDS.filter((x) => !x.src).map((x) => x.px.src));
-  check(r.srcs.every((s) => /^https:\/\/www\.tradingview\.com\/symbols\//.test(s) || press.has(s)), `${name}: each bond row's source is its TradingView symbol page (or, with no ISIN, the press article)`);
+  // Every row ends with a SRC chip: the press article when the row shows a press price,
+  // else the TradingView symbol page.
+  const shownBonds = CR_BONDS.slice().filter((x) => x.tv || x.px);
+  const want = (row) => { const x = shownBonds.find((y) => (y.isin || "") === row.isin && (row.isin || (y.px && !y.isin))); return x ? (x.px ? x.px.src : x.src) : null; };
+  check(r.srcs.every((s) => s && /^src$/i.test(s.t)), `${name}: every bond row ends with a SRC chip`);
+  check(r.cells.every((c, i) => !c.isin || r.srcs[i].href === want(c)), `${name}: SRC opens the press article for a press-priced row, else the TradingView page`);
+  // Price slot: press price "(date)" where one exists; the market symbol where a live quote exists; no QUOTE / PRESS / TradingView words.
+  const byIsin = new Map(CR_BONDS.filter((x) => x.isin).map((x) => [x.isin, x]));
+  const pxRe = /^\S+ \((\d{1,2} [A-Z][a-z]{2} \d{2}|[A-Z][a-z]{2} \d{4})\)$/;
+  check(r.cells.filter((c) => c.isin).every((c) => { const x = byIsin.get(c.isin); return (x.px ? pxRe.test(c.px.trim()) : c.px === "") && c.live === !!x.tv; }), `${name}: rows show the press price "(date)" only where one exists, and the market symbol only where a live quote exists`);
+  check(r.cells.some((c) => c.px) && r.cells.some((c) => c.live && !c.px), `${name}: both kinds present — press-priced rows and live-only rows`);
+  check(r.cells.every((c) => !c.words), `${name}: no QUOTE / PRESS buttons or "TradingView" text in the rows`);
+  check(r.cells.filter((c) => c.live).every((c) => /^Live price — /.test(c.label)), `${name}: the market symbol is labelled "Live price — …" (a11y)`);
   check(r.lead.every((d) => /^([A-Z][a-z]{2} \d{4}|\d{4}|Perp|—)$/.test(d)), `${name}: rows lead with the maturity (${r.lead.slice(0, 3).join(" / ")})`);
   check(r.stressMeta, `${name}: stress rows note their listed bonds`);
-  check(r.pressMeta.length > 0 && r.pressMeta.every((m) => /^press \S+ \((\d{1,2} [A-Z][a-z]{2} \d{2}|[A-Z][a-z]{2} \d{4})\)/.test(m)), `${name}: press-priced rows lead line 2 with "press <price> (date)" (${r.pressMeta[0]})`);
   check(new RegExp(`${listed} listed bonds`).test(r.sub), `${name}: hub header counts the listed bonds (${r.sub})`);
   check(!r.hscroll, `${name}: no horizontal page scroll`);
 
-  // Quote → sheet with TradingView's Mini Symbol Overview frame for that symbol.
-  await pg.click("#rxh-bonds .rxh-bond .rxh-q");
+  // Market symbol → sheet with TradingView's Mini Symbol Overview frame for that symbol.
+  await pg.click("#rxh-bonds .rxh-bond .rxh-live");
   await pg.waitForSelector(".rxh-qsheet .bq-w", { timeout: 5000 });
   const q = await pg.evaluate(() => {
     const sh = document.querySelector(".rxh-qsheet");
@@ -91,20 +103,6 @@ for (const [name, dev] of [["phone", PHONE], ["desktop", DESKTOP]]) {
   await pg.click(".rxh-qsheet .dsh-sheet-x");
   check(!(await pg.$(".rxh-qsheet")), `${name}: the quote sheet closes`);
 
-  // A press-only line: no widget, the dated price with its source.
-  if (pressOnly) {
-    await pg.click("#rxh-bonds .dsh-seeall").catch(() => {});
-    const sel = `.rxh-q[data-bq="${pressOnly.isin}"]`;
-    await pg.click(`.dsh-sheet ${sel}`).catch(() => pg.click(`#rxh-bonds ${sel}`));
-    await pg.waitForSelector(".rxh-qsheet .bq", { timeout: 5000 });
-    const p = await pg.evaluate((isin) => {
-      const first = document.querySelector(".rxh-qsheet .bq");
-      return { widget: !!first.querySelector(".bq-w"), text: first.textContent, src: (first.querySelector(".bq-px a") || {}).href || "", isin };
-    }, pressOnly.isin);
-    check(!p.widget && p.text.includes(String(pressOnly.px.v != null ? pressOnly.px.v : pressOnly.px.text)) && p.src === pressOnly.px.src && /no free live quote/.test(p.text), `${name}: a press-only line shows its sourced price and no widget`);
-    check(/Press price \S+ \(\d{1,2} [A-Z][a-z]{2} \d{2}\)/.test(p.text), `${name}: the press price carries its as-of date as "(date)" ("${p.text.slice(0, 40)}")`);
-    await pg.click(".rxh-qsheet .dsh-sheet-x");
-  }
   checkErrs(errs, `restructuring hub bonds (${name})`);
   await ctx.close();
 }
@@ -125,6 +123,12 @@ for (const [name, dev] of [["phone", PHONE], ["desktop", DESKTOP]]) {
   await pg.goto(`${base}/v2/profiles/#/co/Galeria`);
   await pg.waitForFunction(() => /legal record/.test((document.querySelector("#pf-detail .tdet-sub") || {}).textContent || ""), null, { timeout: 15000 });
   check(!(await pg.$("#co-bonds")), "borrower page: no bonds section for a name with no listed bond");
+  if (pressOnly) {
+    await pg.goto(`${base}/v2/profiles/#/co/${encodeURIComponent(pressOnly.name)}`);
+    await pg.waitForSelector("#co-bonds .bq", { timeout: 15000 });
+    const p = await pg.evaluate(() => { const q = document.querySelector("#co-bonds .bq"); return { widget: !!q.querySelector(".bq-w"), text: q.textContent, src: (q.querySelector(".bq-px a") || {}).href || "" }; });
+    check(!p.widget && p.src === pressOnly.px.src && /Press price \S+ \(\d{1,2} [A-Z][a-z]{2} \d{2}\)/.test(p.text) && /no free live quote/.test(p.text), `borrower page: a press-only line shows "Press price N (date)" with its source and no widget ("${p.text.slice(0, 40)}")`);
+  }
   checkErrs(errs, "borrower page bonds");
   await ctx.close();
 }

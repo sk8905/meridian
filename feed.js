@@ -207,14 +207,15 @@ export function rowTip(...parts) {
   return t ? ` title="${esc(t)}"` : "";
 }
 // story: a STORY list (headlines, not names + facts) — on iPhone it reads like the News wire (R44j).
-export function evRow({ date = "", dateText = "", est = false, title = "", href = "", inApp = false, meta = "", tag = "", src = "", srcHref = "", cls = "", aCls = "", dCls = "", attrs = "", tip = "", story = false } = {}) {
+export function evRow({ date = "", dateText = "", est = false, title = "", href = "", inApp = false, meta = "", tag = "", src = "", srcHref = "", chip = false, cls = "", aCls = "", dCls = "", attrs = "", tip = "", story = false } = {}) {
   const d = dateText || (date ? fmtD(date) : "");
   const full = tip || [title, _plain(meta), _plain(tag), src].filter(Boolean).join(" · ");
   const a = href
     ? `<a class="g-ev-t${aCls ? ` ${aCls}` : ""}" href="${esc(href)}"${inApp ? "" : ' target="_blank" rel="noopener noreferrer"'}>${esc(title)}</a>`
     : `<span class="g-ev-t${aCls ? ` ${aCls}` : ""}">${esc(title)}</span>`;
-  // No outlet given → name it from the source URL (or the external row link).
-  if (!src && (srcHref || (href && !inApp && /^https?:/.test(href)))) src = outletOf(srcHref || href);
+  // No outlet given → name it from the source URL (or the external row link) — unless the
+  // caller asked for the plain SRC chip (`chip: true`, e.g. the bond rows, R45).
+  if (!chip && !src && (srcHref || (href && !inApp && /^https?:/.test(href)))) src = outletOf(srcHref || href);
   const s = src
     ? (srcHref ? `<a href="${esc(srcHref)}" target="_blank" rel="noopener noreferrer">${esc(src)}</a>` : esc(src))
     : (srcHref ? `<a class="dsh-src" href="${esc(srcHref)}" target="_blank" rel="noopener noreferrer" title="Source">src</a>` : "");

@@ -59,6 +59,15 @@
    only the caption — what the number is (delayed exchange quote) and its source. */
 .rxh-q { cursor:pointer; border:0; background:none; font:inherit; padding:0; color:var(--t-mut); }
 @media (hover:hover) { .rxh-q:hover { color:var(--t-ink); } }
+/* Bond rows: the tag slot holds the press price "57 (28 Sep 26)" + the live-price
+   market symbol, so it is not capped like a status tag. The symbol is 16px drawn in a
+   28px hit box (negative margin keeps the row height). */
+.g-ev.rxh-bond > .c-tag { max-width:none; display:inline-flex; align-items:center; gap:4px; }
+.rxh-px { color:var(--t-ink); white-space:nowrap; }
+.rxh-px .c-num { font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
+.rxh-px-d { color:var(--t-faint); font-size:var(--fs-micro); }
+.rxh-live { display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; margin:-6px -4px; }
+.rxh-live svg { width:16px; height:16px; }
 .bq-list { display:flex; flex-direction:column; gap:12px; padding:8px var(--m-gutter, 12px) 4px; }
 .bq { min-width:0; border-bottom:1px solid var(--t-grid); padding-bottom:8px; }
 .bq:last-child { border-bottom:0; }

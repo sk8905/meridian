@@ -1612,16 +1612,24 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   pre-restructuring (exchanged / cancelled) issues stay out; LSE / LuxSE / SIX / Stuttgart /
   FINRA / Bonds.com lines are never used (the free widget can't show them). **(c) Keep
   press prices where that's all there is** — a name with no free live quote keeps its
-  latest press-quoted price, however old, as its own line ("Press" instead of "Quote");
+  latest press-quoted price, however old, as its own line;
   a live line may carry one too. Only a number a dated article states (a range as text);
   never inferred, averaged or taken from a CDS auction / recovery figure; an aggregator
   is allowed only when nothing better exists and is flagged "(aggregator)". **(d) Always
-  the as-of date, in brackets:** "press 57 (28 Sep 26)" on the row, "Press price 57
+  the as-of date, in brackets:** "57 (28 Sep 26)" on the row, "Press price 57
   (28 Sep 26) · Euronews" in the sheet / borrower page; month precision prints "(May
   2026)" when the article gives no day. **(e) Where:** the Restructuring hub's "Listed
-  bonds — quotes" card (10-row preview + See all; Quote / Press opens the bond sheet), the
+  bonds — quotes" card (10-row preview + See all), the
   stress rows' "N listed bonds", and the borrower page's "Listed bonds — quotes" section.
-  Upkeep: refresh-routines §bonds. Spec: `tests/bond-quotes.mjs` (ISIN check digits,
+  **(f) Row anatomy (owner 2026-10-16):** maturity · "<name> <coupon> <year>" (→ borrower
+  page) · the price slot · **SRC**. The price slot shows ONLY a press price, "57 (28 Sep
+  26)", where one exists, plus a small **market symbol** (the shared `ICO_MKT`,
+  `v2/js/icons.js`; labelled "Live price — …") where the line has a live quote — it opens
+  the TradingView quote sheet. Wire puts no live number in its own row (it can't read the
+  widget, and Tradegate's terms forbid automated access / redistribution). No QUOTE / PRESS
+  buttons, no "TradingView" text: SRC is the plain chip (`evRow({ chip: true })`) to the
+  press article, else the TradingView symbol page. Line 2: ISIN · venue · issuer ·
+  "price: <outlet>". Upkeep: refresh-routines §bonds. Spec: `tests/bond-quotes.mjs` (ISIN check digits,
   venues, sources, "(date)" format, hub + sheet + borrower page, phone and desktop).
 
 ## 7. Technical rules
@@ -1748,7 +1756,7 @@ item keeps a real outbound source link (R7).
 - TradingEconomics
 - TradingView — symbol search is the reference record for the stressed names' listed
   bonds (`CR_BONDS`), and its free **Mini Symbol Overview** widget is the bond quote on the
-  Restructuring hub ("Listed bonds — quotes", Quote sheet) and the borrower page
+  Restructuring hub ("Listed bonds — quotes"; the row's market symbol opens the quote sheet) and the borrower page
   (`v2/js/bonds.js`). The widget's own frame is embedded directly (no TradingView script in
   Wire's page) and draws the number itself — Wire never reads, stores or relabels it — and
   every widget is captioned as a delayed exchange quote on the named venue, not a
