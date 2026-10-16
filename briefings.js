@@ -100,11 +100,11 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-16",
-  time: "07:17 BST",
-  lede: "The dollar weakened and AI-linked stocks steadied after Fed chair Kevin Warsh declined to hint at an October rate rise, while Treasuries held Thursday's rally.",
+  time: "09:12 BST",
+  lede: "Markets steadied after Fed chair Kevin Warsh declined to back tighter policy, with the US 10-year at 5.08%, while the EU moved to build new powers to curb its trade deficit with China.",
   bullets: [
     { html: "<strong>Macro &mdash; the dollar weakened on Friday</strong> after Fed chair Kevin Warsh declined to hint at an October rate rise following September&rsquo;s hot US CPI print, with S&amp;P 500 futures up 0.3% as the risk gauge.", src: "https://www.ft.com/content/95a8e05d-fc20-441d-b271-64e87fe41f76", srcName: "Financial Times", date: "2026-10-16" },
-    { html: "<strong>Bonds &mdash; the US 10-year yield fell 10bp to 5.08% on Thursday and the Bund yield dropped 11bp to 3.35%,</strong> one of the best days of the year for long-dated Treasuries.", src: "https://www.reuters.com/newsletters/trading-day", srcName: "Reuters", date: "2026-10-15" },
+    { html: "<strong>Bonds &mdash; the US 10-year yield is 5.08%, up 2bp in early Europe on Friday,</strong> as Treasuries stayed lower after Thursday&rsquo;s rally across the curve.", src: "https://www.bloomberg.com/news/newsletters/2026-10-16/eu-seeks-new-trade-powers-to-cut-trade-deficit", srcName: "Bloomberg", date: "2026-10-16" },
     { html: "<strong>Equities &mdash; the S&amp;P 500 is indicated 0.3% higher at 7,744 and Japan&rsquo;s Topix up 1.9%</strong> on Friday, after SK Hynix and Samsung Electronics shares tumbled 10% on Thursday in the AI sell-off.", src: "https://www.economist.com/the-world-in-brief", srcName: "The Economist", date: "2026-10-16" },
     { html: "<strong>Credit &mdash; the spread on CoreWeave&rsquo;s credit-default swaps rose 16% on the week,</strong> and its 2032 bonds, issued four months ago, fell below 80 cents on the dollar, as investors fret about AI-related firms&rsquo; debt.", src: "https://www.economist.com/the-world-in-brief", srcName: "The Economist", date: "2026-10-16" },
   ],

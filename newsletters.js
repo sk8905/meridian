@@ -49,6 +49,30 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bloomberg-morningbriefingeurope-eutrademeasures-20261016",
+    publication: "Bloomberg",
+    author: null,
+    series: "Morning Briefing Europe",
+    title: "EU trade measures",
+    date: "2026-10-16",
+    time: "07:50",
+    summary: "EU Seeks New Trade Powers to Cut Trade Deficit",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-16/eu-seeks-new-trade-powers-to-cut-trade-deficit",
+    body: true,
+  },
+  {
+    id: "nl-nonbillable-freshfieldsbigideas-20261016",
+    publication: "Non-Billable",
+    author: null,
+    series: null,
+    title: "Freshfields has big ideas",
+    date: "2026-10-16",
+    time: "09:08",
+    summary: "More law firm mergers 'inevitable' as mid-market firms face profits squeeze, says PwC",
+    url: "https://non-billable.beehiiv.com/p/linklaters-and-cleary-deny-merger-report-2",
+    body: true,
+  },
+  {
     id: "nl-economist-worldinbrief-zelenskyrallies-20261016",
     publication: "The Economist",
     author: null,
