@@ -109,6 +109,28 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-mandg-bondvigilantes-whatthepastgetswrong-20261016",
+    publication: "M&G Bond Vigilantes",
+    author: "Luke Coha",
+    series: "Bond Vigilantes",
+    title: "What the Past Gets Wrong About the Future",
+    date: "2026-10-16",
+    time: "14:51",
+    summary: "Bond Vigilantes post (15 Oct) on Paramount Skydance’s recent $110 billion acquisition of Warner Bros. Discovery.",
+    url: "https://bondvigilantes.com/blog/2026/10/what-the-past-gets-wrong-about-the-future/"
+  },
+  {
+    id: "rsch-ubs-weekly-softwareshardpricing-20261016",
+    publication: "UBS CIO",
+    author: "Paul Donovan",
+    series: "UBS Weekly Blog",
+    title: "Software’s hard pricing",
+    date: "2026-10-16",
+    time: "13:57",
+    summary: "US “software and accessories” consumer prices rose over 25% in the past year, while software prices in Europe and the UK are still falling.",
+    url: "https://secure.ubs.com/campaign/nl/jsp/m.jsp?c=%401YGh9oyyP%2BzKi3eNVmHoWSMr6RCHMfJyMxdHaMtvvCo%3D"
+  },
+  {
     id: "rsch-fitch-insidecredit-bondyieldssovereigns-20261016",
     publication: "Fitch Ratings",
     author: null,
