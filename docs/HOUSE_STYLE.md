@@ -1565,14 +1565,14 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   saved stories) ARE the News wire row** (owner 2026-10-16): date · headline, the source
   alone on line 2 — no desk code, no right-hand source column, no tinted / orange-barred
   "new" rows; "New" / "Earlier" are the wire's day-break band (`--t-day`, R6). Built as the
-  events row's wire variant `.g-ev.g-ev-wire` (feed.css); the desk stays in `data-desk`.
+  News wire row itself — `feed.js feedRow` (`.g-feed-row`, with `nf-row` for the panel's click handling; the panel body is a `feedwrap` container) — so ONE set of rules styles News, notifications and saved stories on every surface (owner 2026-10-16: "they should share rules with News"); the desk stays in `data-desk`.
   **(i) Dark only** (owner 2026-10-16: "eliminate light mode from desktop and iPhone — I
   never use it"). The boot script in `v2/index.html` always sets `data-theme="dark"`,
   whatever the OS asks for or an old `m_theme_pref` says; Menu ▸ Settings has no Theme
   control and nothing follows the OS scheme. Rules elsewhere that say "light and dark"
   now mean dark only; the light token values remain in the stylesheets as the base
   layer the dark overrides sit on, but are never shown. Spec: `tests/theme-toggle.mjs`.
-  **(j) iPhone News + notifications read in full** (owner 2026-10-16). In the News section
+  **(j) iPhone: the wire row reads in full** (owner 2026-10-16) — ONE rule on `a.g-feed-row` in feed.css, so it holds wherever the wire row is drawn. In the News section
   (every lane: News · Deals · Profiles · Watchlist · Newsletters · Research) and the
   notifications panel (All and Watchlist tabs), each headline WRAPS to at most **three
   lines** (`-webkit-line-clamp:3`), the row drops its source line and the ★, and rows take

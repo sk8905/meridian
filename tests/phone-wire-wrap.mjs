@@ -1,4 +1,5 @@
-// iPhone News + notifications (owner 2026-10-16, HOUSE_STYLE R44j): the headline reads in
+// iPhone News + notifications (owner 2026-10-16, HOUSE_STYLE R44j) — notifications ARE the
+// News wire row (feed.js feedRow), so one rule covers both: the headline reads in
 // full — it wraps to at most three lines — with no source line and no ★. Rows take the
 // height their headline needs (min --ev-h). Desktop keeps the two-line wire row.
 import { serve, launchChromium, open, PHONE, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
@@ -36,9 +37,10 @@ const measure = (pg, { sel, titleSel, srcSel }) => pg.evaluate(({ sel, titleSel,
   check(m.n > 0 && m.starShown === 0, `iPhone News ▸ Watchlist: no ★ on the rows (${m.starShown} shown)`);
   await pg.click("#na-notif");
   await pg.waitForSelector("#na-notif-panel:not([hidden]) .nf-row", { timeout: 15000 });
-  m = await measure(pg, rowsInfo("#na-notif-panel .nf-row.g-ev-wire", ".nf-title", ".nf-meta"));
+  m = await measure(pg, rowsInfo("#na-notif-panel a.nf-row.g-feed-row", ".g-feed-title", ".g-feed-src"));
   check(m.n > 3 && m.maxLines <= 3 && m.clipped === 0, `iPhone notifications: headlines wrap, at most three lines (${m.multi}/${m.n} wrap, max ${m.maxLines})`);
   check(m.srcShown === 0, `iPhone notifications: no source line (${m.srcShown} shown)`);
+  check(await pg.evaluate(() => [...document.querySelectorAll("#na-notif-panel a.nf-row")].every((r) => r.classList.contains("g-feed-row"))), "notifications are drawn by the News wire row (feedRow), not a look-alike");
   checkErrs(errs, "phone wire wrap"); await ctx.close();
 }
 // Desktop: unchanged — the wire row keeps its source line.

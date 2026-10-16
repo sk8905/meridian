@@ -230,22 +230,21 @@ body.wire-sliding .g-feed-srcbar { position:static; }
 .g-ev.g-ev-chips { grid-template-columns:var(--c-date-w) minmax(0,1fr) auto var(--c-chip-w); }
 /* The News-wire variant (notifications, saved): lead · headline, the source alone on line 2 —
    exactly the narrow wire row (.g-feed-row) — no tag, no source column (owner 2026-10-16). */
-.g-ev.g-ev-wire { grid-template-columns:var(--c-date-w) minmax(0,1fr); grid-template-areas:"date title" "date meta"; }
-.g-ev.g-ev-wire > :is(.c-tag, .c-src) { display:none; }
-/* iPhone News + notifications (owner 2026-10-16, R44j): the headline reads in FULL —
-   it wraps to at most 3 lines — and the row drops its source line and the ★. Rows take
-   the height their headline needs (min --ev-h); the source and paywall state stay in the
-   reading pane ("Open original at …") and the row's title. Desktop is unchanged. */
+/* The notifications panel IS a wire column: its rows are feedRow (.g-feed-row), so it is a
+   feedwrap container and takes the narrow wire layout (time · headline / source). */
+#na-notif-panel .na-body { container:feedwrap / inline-size; }
+/* iPhone: THE wire row reads in FULL (owner 2026-10-16, R44j) — wherever it is drawn
+   (News, notifications, saved stories): the headline wraps to at most 3 lines, the row
+   drops its source line and the ★, and takes the height its headline needs (min --ev-h).
+   The source and paywall state stay in the reading pane and the row's title. One rule on
+   the one row — desktop is unchanged. */
 @media (max-width:760px){
-  #g-feed .g-feed-row { height:auto; min-height:var(--ev-h); padding-top:9px; padding-bottom:9px; align-items:start;
+  a.g-feed-row.g-feed-row { height:auto; min-height:var(--ev-h); padding-top:9px; padding-bottom:9px; align-items:start;
     grid-template-columns:var(--c-date-w) minmax(0,1fr); grid-template-areas:"time title"; }
-  #g-feed .g-feed-row > .g-feed-title, .na-body .nf-row.g-ev-wire > .nf-title { white-space:normal; text-overflow:clip; overflow:hidden;
+  a.g-feed-row > .g-feed-title { white-space:normal; text-overflow:clip; overflow:hidden;
     display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; line-height:1.35; }
-  #g-feed .g-feed-row > .g-feed-time { padding-top:1px; }
-  #g-feed .g-feed-row > :is(.g-feed-src, .g-feed-lock), #g-feed .g-mw-fev-star { display:none; }
-  .na-body .nf-row.g-ev-wire { height:auto; min-height:var(--ev-h); padding-top:9px; padding-bottom:9px; align-items:start;
-    grid-template-areas:"date title"; }
-  .na-body .nf-row.g-ev-wire > .nf-meta { display:none; }
+  a.g-feed-row > .g-feed-time { padding-top:1px; }
+  a.g-feed-row > :is(.g-feed-src, .g-feed-lock), a.g-feed-row .g-mw-fev-star { display:none; }
 }
 @media (hover:hover){ .g-ev > a.g-ev-t:hover, .g-ev > .g-ev-m a:hover { color:var(--t-ink); } }
 

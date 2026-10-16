@@ -55,9 +55,9 @@ export function r43Probe() {
   if (root.scrollWidth > root.clientWidth + 1) out.push(`page scrolls sideways (${root.scrollWidth} > ${root.clientWidth})`);
 
   // (b)(c) THE events row: date first, source last, two lines, one height per list.
-  // R44j exception: on iPhone the News wire and notifications wrap their headline to at
-  // most THREE lines, so those rows are checked for ≤ 3 lines and not for one height.
-  const wraps = (el) => innerWidth <= 760 && el.matches("#g-feed .g-feed-row, .na-body .nf-row.g-ev-wire");
+  // R44j exception: on iPhone THE wire row (News, notifications, saved) wraps its headline to
+  // at most THREE lines, so those rows are checked for ≤ 3 lines and not for one height.
+  const wraps = (el) => innerWidth <= 760 && el.matches("a.g-feed-row");
   const lists = new Map();
   for (const li of document.querySelectorAll(".g-ev")) {
     if (!vis(li)) continue;

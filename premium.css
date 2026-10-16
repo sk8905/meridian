@@ -803,11 +803,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .nf-time { flex: 0 0 auto; }
 .nf-sep { flex: 0 0 auto; }
 .nf-src { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-/* R43: notification + saved rows are the shared events row (.g-ev) — keep the panel
-   gutter and drop the old clamped-title / meta-line layout inside it. */
-.nf-row.g-ev { padding: 0 12px; }
-.nf-row.g-ev .nf-title { display: block; -webkit-line-clamp: unset; margin: 0; }
-.nf-row.g-ev .nf-meta { display: block; font-size: var(--fs-micro); }
+/* Notification + saved rows are THE wire row (feed.js feedRow, .g-feed-row) — styled in feed.css. */
 /* Prediction-market pane (mobile dropdown) — mirrors the desktop rail: a
    Macro/Politics/Finance chip row (grey ground, accent underline when active),
    then the question on the left with the implied YES odds pinned top-right and

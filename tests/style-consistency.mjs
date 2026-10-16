@@ -97,11 +97,11 @@ for (const [w, h, scheme] of PHONES) {
           const grp = document.querySelector(".na-panel .nf-grp");
           return {
             hs: [...new Set(rows.map((r) => Math.round(r.getBoundingClientRect().height)))],
-            xs: [...new Set(rows.map((r) => Math.round(r.querySelector(".g-ev-t").getBoundingClientRect().left)))],
-            t: [...new Set(rows.map((r) => f(r.querySelector(".g-ev-t"))))],
-            l2: [...new Set(rows.map((r) => f(r.querySelector(".g-ev-m"))))],
+            xs: [...new Set(rows.map((r) => Math.round(r.querySelector(".g-feed-title").getBoundingClientRect().left)))],
+            t: [...new Set(rows.map((r) => f(r.querySelector(".g-feed-title"))))],
+            l2: [...new Set(rows.map((r) => f(r.querySelector(".g-feed-src"))))],
             extras: rows.filter((r) => [...r.querySelectorAll(".c-src, .c-tag, .nf-code")].some((e) => e.getClientRects().length && e.textContent.trim())).length,
-            l2IsSource: rows.every((r) => (r.getAttribute("title") || "").endsWith(r.querySelector(".g-ev-m").textContent.trim())),
+            l2IsSource: rows.every((r) => (r.getAttribute("title") || "").endsWith(r.querySelector(".g-feed-src").textContent.trim())),
             tinted: rows.filter((r) => !/rgba\(0, 0, 0, 0\)/.test(getComputedStyle(r).backgroundColor) || getComputedStyle(r).boxShadow !== "none").length,
             grp: grp ? f(grp) + " " + getComputedStyle(grp).backgroundColor : null,
           };

@@ -182,7 +182,8 @@ export function feedRow(o) {
   // to drive the sub-filter chips, and that must not override the desk code (else a
   // hedge story reads NEWS/RAISE instead of HDG).
   const codeKey = o.desk === "hdg" ? "hdg" : (o.type || o.desk);
-  return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}${rowTip(o.title, o.src ? cleanSource(o.src) : "")}`
+  // o.cls: extra classes for a host surface that reuses THE wire row (e.g. notifications' nf-row).
+  return `<a class="g-feed-row g-desk-${o.desk}${o.cls ? " " + esc(o.cls) : ""}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}${rowTip(o.title, o.src ? cleanSource(o.src) : "")}`
     + ` data-sk="${esc(o.sk || "x")}"${o.sid ? ` data-sid="${esc(o.sid)}"` : ""}${o.mgr ? ` data-mgr="${esc(o.mgr)}"` : ""}${o.firm ? ` data-firm="${esc(o.firm)}"` : ""} data-desk="${esc(o.desk)}" data-date="${esc(o.date || "")}" data-time="${esc(o.time || "")}">`
     + `<span class="g-feed-time${o.est ? " g-feed-time-est" : o.added ? " g-feed-time-added" : ""}"${timeAttr}>${esc(t)}</span>`
     + `<span class="g-feed-code ${domClass(o)}" title="${esc(DESK[codeKey] || "")}">${DESK_CODE[codeKey] || ""}</span>`

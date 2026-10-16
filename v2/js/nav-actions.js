@@ -16,6 +16,7 @@
 // the same full-screen presentation on mobile.
 // =============================================================================
 import { esc, MONTHS, fmtD } from "/util.js";
+import { feedRow } from "/feed.js";
 import { mountAssistant, askSuggestions } from "/v2/js/assistant.js";
 import { FX_KEYMOMENT, OUTLOOK, EARNINGS } from "/macro/js/content.js";
 import { nbNums } from "./nb-format.js";
@@ -601,15 +602,12 @@ const NOTIF_KEYS = { c: "meridian.credit.notifSeen", l: "meridian.legal.notifSee
 const NOTIF_API = { c: "/api/notif-credit", l: "/api/notif-legal" };
 function readSeen(desk) { try { const p = JSON.parse(localStorage.getItem(NOTIF_KEYS[desk]) || "null"); return Array.isArray(p) ? new Set(p) : null; } catch { return null; } }
 function notifRow(x, fresh) { return nfRow(x, x.source ? (x.src || x.source) : "", fresh ? " nf-new" : ""); }
-// Saved stories and notifications read EXACTLY like the News wire (owner 2026-10-16, R44h):
-// lead · headline on line 1, the source alone on line 2 — no desk code, no source column,
-// no tinted "new" row (the New / Earlier day-break bands carry that). Two lines, one height,
-// full text in the title. The desk stays in the markup (data-desk) for filtering.
+// Saved stories and notifications ARE the News wire row (owner 2026-10-16): rendered by
+// feed.js feedRow — one engine, one set of rules — with the date in the lead column. No
+// tinted "new" row (the New / Earlier day-break bands carry that); nf-row marks the panel's
+// rows for its click handling. The desk stays in the markup (data-desk).
 function nfRow(x, src, extra) {
-  return `<a class="nf-row g-ev g-ev-wire${extra}" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""} data-desk="${esc(x.desk || "")}" title="${esc([x.title, src].filter(Boolean).join(" · "))}">`
-    + `<span class="c-date nf-time">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
-    + `<span class="g-ev-t nf-title">${esc(x.title)}</span><span class="c-tag"></span><span class="c-src"></span>`
-    + `<span class="g-ev-m nf-meta">${esc(src || "")}</span></a>`;
+  return feedRow({ desk: x.desk || "", href: x.href, ext: !!x.ext, title: x.title, src: src || "", time: x.date ? fmtDate(x.date) : "", date: x.date || "", cls: "nf-row" + extra });
 }
 let _notifItems = null;
 // Active notifications tab: "all" | "watch" (mirrors the Bookmarks panel).
