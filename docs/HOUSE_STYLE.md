@@ -963,7 +963,7 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   / secret dump).
 - **R32 — Manager profiles are a MATERIAL feature: history to 2020 + current, for
   the WHOLE roster.** Every covered manager profile (`credit/js/data.js` `managers[]`,
-  the Managers lane and `/v2/profiles/`) must carry a real event stream — `deals` /
+  the News ▸ Profiles lane — key `manager` — and `/v2/profiles/`) must carry a real event stream — `deals` /
   `intel` (keyed `managerId`) and the manager's `webNews` — reaching back to **2020**
   (or the firm's inception, where it is younger — check `founded`) **and** kept
   current. This is **not** limited to watchlisted names: the refresh routine makes a
@@ -996,10 +996,10 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   that only appears as a raw newswire row but concerns a covered or watchlisted
   entity is a **tagging miss**: the refresh routine's newswire cross-check
   (docs/refresh-routines.md → Credit) must promote it into a tagged `deals`/`intel`
-  record so it surfaces in the Managers/Watchlist lanes, not only the raw wire.
+  record so it surfaces in the Profiles / Watchlist lanes, not only the raw wire.
   Personnel/strategy moves count (observed 2026-10: M&G / Duncan Batty sat in the
-  newswire but not the Managers lane until tagged to `m105`).
-  - **Watchlist = every followed profile, NO date limit.** The **Managers** lane is
+  newswire but not the Managers — now Profiles — lane until tagged to `m105`).
+  - **Watchlist = every followed profile, NO date limit.** The **Profiles** lane (formerly Managers; it now carries every profiled entity, R33) is
     a recency wire (current + previous month). The **Watchlist** lane is the user's
     deliberate follows and has **NO backdate limit** — only NOTIFICATIONS are
     time-boxed (the 7-day bell). It aggregates **every followed profile type**:
@@ -1445,8 +1445,9 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   or table of dated items** (deals, alerts, cases, plans & schemes, hearings, fund closes,
   LP commitments, people moves, news / digest rows). Not dated market data (rates, spreads,
   index levels). **(b) Column order:** an events row/table LEADS with the date and ENDS with
-  the source (the SRC chip or outlet name) — except the iPhone Deals card, which drops the
-  source column (R44e; the source stays in the deal drawer). Date format "15 Oct 26" everywhere; on the news
+  the source (the SRC chip or outlet name) — except on iPhone: the Deals card drops the
+  source column (R44e; the source stays in the deal drawer), and every STORY list reads
+  date · headline only (R44j; the source stays in the row's title and the opened story). Date format "15 Oct 26" everywhere; on the news
   wire, already grouped under day headers, the first column stays the time ("13:46").
   Status tags (SANCTIONED, ADMINISTRATION …) sit next to the item's name, before the source,
   in one muted tag style. **(c) Two lines max per events item, on every screen (iPhone
@@ -1540,7 +1541,8 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   `tests/phone-geometry.mjs` (390px light, 430px dark). **Audit 2026-10-16:** a heading
   row's chips keep their natural `0 12px` width and are never stretched (a stretched chip
   centred "Chat" at 15px on a 430px iPhone); the bars that must FIT (Home tabs, Markets,
-  News lanes, profile sub-tabs) share the width but pad their FIRST label to the gutter
+  profile sub-tabs) share the width but pad their FIRST label to the gutter (the News lanes
+  no longer fit — they are a sideways-scrolling row at the usual `0 12px`, R2d b / R33)
   (the Home tabs' "Briefing" sat at 23–28px); the header panels' chips are a heading row
   too. **One search-row control height:** on desktop the input and every button in the
   row share the input's 20px (the Filters button was 26px, toggles 19px), 26px on iPhone,
@@ -1558,12 +1560,13 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   previous row's), and the desk terminal's last panel in a column, which sits on the
   footer's top rule (audit 2026-10-16).
   **(h) No colour desk codes on the wire** (owner 2026-10-15): News / Home wire rows read
-  time · headline, then the source on line 2 — like every events row. The code stays in
+  time · headline, then the source on line 2 — like every events row (desktop; on iPhone
+  the wire row is date · headline only, wrapping to two lines — R44j). The code stays in
   the markup (the row's desk, for filters and search) but is not drawn. Spec: `tests/phone-trim.mjs`.
   The same goes for line 2 elsewhere (audit 2026-10-16): the search palette's code is the
   one muted outlined tag, and a People row's "→" takes line 2's grey. **Notifications (and
   saved stories) ARE the News wire row** (owner 2026-10-16): date · headline, the source
-  alone on line 2 — no desk code, no right-hand source column, no tinted / orange-barred
+  alone on line 2 on desktop (iPhone: R44j) — no desk code, no right-hand source column, no tinted / orange-barred
   "new" rows; "New" / "Earlier" are the wire's day-break band (`--t-day`, R6). Built as the
   News wire row itself — `feed.js feedRow` (`.g-feed-row`, with `nf-row` for the panel's click handling; the panel body is a `feedwrap` container) — so ONE set of rules styles News, notifications and saved stories on every surface (owner 2026-10-16: "they should share rules with News"); the desk stays in `data-desk`.
   **(i) Dark only** (owner 2026-10-16: "eliminate light mode from desktop and iPhone — I

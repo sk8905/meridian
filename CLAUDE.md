@@ -8,7 +8,7 @@ terminal.
 
 The v2 SPA is **built by Vite** (`npm run build` → `dist/`). `npm run build` is three
 steps: `node scripts/gen-home-data.mjs` (regenerates the tokenless `home-data.js` slice
-the Managers lane reads) → `vite build` (bundles + content-hashes the JS and the eleven
+the News ▸ Profiles lane reads) → `vite build` (bundles + content-hashes the JS and the eleven
 `@import`ed stylesheets) → `node scripts/postbuild.mjs` (copies everything else the
 Worker serves — data modules, shared root modules, the retired top-level pages,
 static files — into `dist/` as-is). `wrangler.jsonc` serves assets from `dist`, and
