@@ -31,7 +31,7 @@ import { coreName } from "../profiles/borrower.js";
 import { liveJSON, lastKnownLabel } from "../live-cache.js";
 import { evRow } from "/feed.js";
 import { CR_BONDS } from "/dashboard/js/data.js";
-import { bondsFor, listable, bondLabel, maturityTxt, venueOf, pxTxt, mountQuotes } from "../bonds.js";
+import { bondsFor, listable, bondKey, bondLabel, maturityTxt, venueOf, pxTxt, mountQuotes } from "../bonds.js";
 
 const PREVIEW = 10;
 const CATH_SUMMARY = "https://www.court-tribunal-hearings.service.gov.uk/summary-of-publications?locationId=111";
@@ -81,7 +81,7 @@ export function stressRows() {
 export function rxBonds() {
   const stressed = new Set((CR_STRESS || []).map((s) => s.name));
   return (CR_BONDS || []).filter((b) => listable(b) && stressed.has(b.name)).slice()
-    .sort((a, b) => a.name.localeCompare(b.name) || String(a.maturity || "9999").localeCompare(String(b.maturity || "9999")));
+    .sort((a, b) => a.name.localeCompare(b.name) || String(a.maturity || (a.perp ? "9998" : "9999")).localeCompare(String(b.maturity || (b.perp ? "9998" : "9999"))));
 }
 export function rxMilestones(today = new Date().toISOString().slice(0, 10)) {
   return ((REG_CALENDAR && REG_CALENDAR.items) || []).filter((x) => x && x.area === "Restructuring" && x.date && String(x.date) >= today.slice(0, String(x.date).length))
@@ -115,9 +115,9 @@ export function mount(host, ctx) {
   function bondsBody() {
     return ul(rxBonds().map((b) => evRow({
       title: `${b.name} ${bondLabel(b)}`, href: borrowerPath(b.name, base), inApp: true, aCls: "dsh-drill rxh-co",
-      dateText: maturityTxt(b.maturity), srcHref: b.src, src: "TradingView", cls: "rxh-i rxh-bond", attrs: ` data-isin="${esc(b.isin)}"`,
-      tag: `<button type="button" class="dsh-tag rxh-q" data-bq="${esc(b.isin)}" aria-label="${b.tv ? "Quote" : "Press price"} for ${esc(b.name)} ${esc(bondLabel(b))}">${b.tv ? "Quote" : "Press"}</button>`,
-      meta: [pxTxt(b) ? `press ${esc(pxTxt(b))}` : "", esc(b.isin), esc(venueOf(b)), esc(b.issuer || "")].filter(Boolean).join(" · "),
+      dateText: maturityTxt(b), srcHref: b.src || (b.px || {}).src, src: b.src ? "TradingView" : ((b.px || {}).outlet || ""), cls: "rxh-i rxh-bond", attrs: ` data-isin="${esc(b.isin || "")}"`,
+      tag: `<button type="button" class="dsh-tag rxh-q" data-bq="${esc(bondKey(b))}" aria-label="${b.tv ? "Quote" : "Press price"} for ${esc(b.name)} ${esc(bondLabel(b))}">${b.tv ? "Quote" : "Press"}</button>`,
+      meta: [pxTxt(b) ? `press ${esc(pxTxt(b))}` : "", esc(b.isin || ""), esc(venueOf(b)), esc(b.issuer || "")].filter(Boolean).join(" · "),
     })), "No listed bonds mapped.", "rxh-bondl");
   }
   // ---- 2 · Plans & schemes ----------------------------------------------------------
@@ -258,11 +258,11 @@ export function mount(host, ctx) {
     _closeSheet = close;
   }
   // "Quote" → a sheet with the bond's TradingView widget (+ the issuer's other lines).
-  function openQuote(isin) {
-    const b = (CR_BONDS || []).find((x) => listable(x) && x.isin === isin);
+  function openQuote(key) {
+    const b = (CR_BONDS || []).find((x) => listable(x) && bondKey(x) === key);
     if (!b) return;
     if (_closeSheet) _closeSheet();
-    const all = [b, ...bondsFor(b.name).filter((x) => x.isin !== isin)];
+    const all = [b, ...bondsFor(b.name).filter((x) => bondKey(x) !== key)];
     const sh = document.createElement("div");
     sh.className = "dsh dsh-sheet rxh rxh-qsheet"; sh.setAttribute("role", "dialog"); sh.setAttribute("aria-modal", "true"); sh.setAttribute("aria-label", `${b.name} — bond quotes`);
     sh.innerHTML = `<div class="dsh-sheet-hd"><span class="dsh-sheet-t">${esc(b.name)} — bond quotes <span class="dsh-n">(${all.length})</span></span><button type="button" class="dsh-sheet-x" aria-label="Close">✕</button></div>`

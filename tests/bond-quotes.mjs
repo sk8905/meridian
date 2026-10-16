@@ -20,25 +20,31 @@ const isinOk = (s) => {
 };
 const names = new Set(CR_STRESS.map((s) => s.name));
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
+// A widget line needs its ISIN + TradingView record; a press-only line (owner 2026-10-16:
+// keep press prices where that's all there is) needs a dated, sourced price, and an ISIN
+// or the article's own description of the bond.
+const pxOk = (p) => p && (typeof p.v === "number" || (typeof p.text === "string" && p.text)) && DATE.test(p.asOf)
+  && /^https:\/\//.test(p.src) && p.quote && p.outlet;
 const bad = CR_BONDS.filter((b) => !(
-  names.has(b.name) && isinOk(b.isin) && b.issuer && (b.coupon == null || typeof b.coupon === "number")
-  && (b.maturity === null || DATE.test(b.maturity)) && DATE.test(b.checked)
+  names.has(b.name) && (b.isin == null ? !b.tv && b.bond : isinOk(b.isin)) && (b.issuer || b.bond)
+  && (b.coupon == null || typeof b.coupon === "number")
+  && (b.maturity === null || DATE.test(b.maturity) || /^\d{4}$/.test(b.maturity)) && DATE.test(b.checked)
   && (b.tv === null || /^(TRADEGATE|GETTEX|FWB|MUN|DUS|HAM|HAN):[A-Z0-9]+$/.test(b.tv))
-  && /^https:\/\/www\.tradingview\.com\/symbols\/[A-Z]+-[A-Z0-9]+\/$/.test(b.src)
+  && (b.src == null ? !b.tv : /^https:\/\/www\.tradingview\.com\/symbols\/[A-Z]+-[A-Z0-9]+\/$/.test(b.src))
   && (!b.tv || b.src === `https://www.tradingview.com/symbols/${b.tv.replace(":", "-")}/`)
-  && (b.px === null || (typeof b.px.v === "number" && DATE.test(b.px.asOf) && /^https:\/\//.test(b.px.src) && b.px.quote))
+  && (b.px === null || pxOk(b.px))
   && (b.tv || b.px)));
 check(CR_BONDS.length >= 10, `CR_BONDS maps the stressed names' listed bonds (${CR_BONDS.length})`);
-check(!bad.length, `every bond line is sound: stressed name, valid ISIN, widget venue, TradingView source, dated press price (bad: ${bad.map((b) => b.isin).join(", ")})`);
-checkEq(new Set(CR_BONDS.map((b) => b.isin)).size, CR_BONDS.length, "no ISIN listed twice");
-check(!CR_BONDS.some((b) => b.maturity && b.maturity <= b.checked), "no matured issue is listed");
+check(!bad.length, `every bond line is sound: stressed name, valid ISIN, widget venue, TradingView source, dated press price (bad: ${bad.map((b) => b.isin || b.bond).join(", ")})`);
+checkEq(new Set(CR_BONDS.map((b) => b.isin || `${b.name}|${b.bond}`)).size, CR_BONDS.length, "no bond listed twice");
+check(!CR_BONDS.some((b) => b.tv && b.maturity && b.maturity <= b.checked), "no matured issue carries a live quote");
 check(isinOk("XS2576550326") && !isinOk("XS2576550327"), "ISIN check-digit test itself works");
 
 const srv = await serve();
 const base = `http://localhost:${srv.port}`;
 const b = await launchChromium();
 const listed = CR_BONDS.length;
-const pressOnly = CR_BONDS.find((x) => !x.tv && x.px);
+const pressOnly = CR_BONDS.find((x) => !x.tv && x.px && x.isin);
 
 // ---- Restructuring hub: the bonds card + quote sheet ------------------------------------
 for (const [name, dev] of [["phone", PHONE], ["desktop", DESKTOP]]) {
@@ -52,6 +58,7 @@ for (const [name, dev] of [["phone", PHONE], ["desktop", DESKTOP]]) {
       srcs: rows.map((li) => (li.querySelector(".c-src a") || {}).href || ""),
       lead: rows.map((li) => li.querySelector(".c-date").textContent),
       stressMeta: [...document.querySelectorAll("#rxh-stress .rxh-i")].some((li) => /\d listed bonds?/.test(li.textContent)),
+      pressMeta: rows.filter((li) => li.querySelector(".rxh-q").textContent === "Press").map((li) => li.querySelector(".g-ev-m").textContent),
       sub: document.querySelector(".rxh-sub").textContent,
       hscroll: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
     };
@@ -61,6 +68,7 @@ for (const [name, dev] of [["phone", PHONE], ["desktop", DESKTOP]]) {
   check(r.srcs.every((s) => /^https:\/\/www\.tradingview\.com\/symbols\//.test(s)), `${name}: each bond row's source is its TradingView symbol page`);
   check(r.lead.every((d) => /^([A-Z][a-z]{2} \d{4}|Perp)$/.test(d)), `${name}: rows lead with the maturity (${r.lead.slice(0, 3).join(" / ")})`);
   check(r.stressMeta, `${name}: stress rows note their listed bonds`);
+  check(r.pressMeta.length > 0 && r.pressMeta.every((m) => /^press \S+ \(\d{1,2} [A-Z][a-z]{2} \d{2}\)/.test(m)), `${name}: press-priced rows lead line 2 with "press <price> (date)" (${r.pressMeta[0]})`);
   check(new RegExp(`${listed} listed bonds`).test(r.sub), `${name}: hub header counts the listed bonds (${r.sub})`);
   check(!r.hscroll, `${name}: no horizontal page scroll`);
 
@@ -92,7 +100,8 @@ for (const [name, dev] of [["phone", PHONE], ["desktop", DESKTOP]]) {
       const first = document.querySelector(".rxh-qsheet .bq");
       return { widget: !!first.querySelector(".bq-w"), text: first.textContent, src: (first.querySelector(".bq-px a") || {}).href || "", isin };
     }, pressOnly.isin);
-    check(!p.widget && p.text.includes(String(pressOnly.px.v)) && p.src === pressOnly.px.src && /no free live quote/.test(p.text), `${name}: a press-only line shows its dated, sourced price and no widget`);
+    check(!p.widget && p.text.includes(String(pressOnly.px.v != null ? pressOnly.px.v : pressOnly.px.text)) && p.src === pressOnly.px.src && /no free live quote/.test(p.text), `${name}: a press-only line shows its sourced price and no widget`);
+    check(/Press price \S+ \(\d{1,2} [A-Z][a-z]{2} \d{2}\)/.test(p.text), `${name}: the press price carries its as-of date as "(date)" ("${p.text.slice(0, 40)}")`);
     await pg.click(".rxh-qsheet .dsh-sheet-x");
   }
   checkErrs(errs, `restructuring hub bonds (${name})`);

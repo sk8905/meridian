@@ -317,10 +317,13 @@ export const CR_STRESS = [
 // (Tradegate · gettex · Frankfurt · Munich; LSE / LuxSE / FINRA bond quotes are
 // TradingView-only). `tv` = the widget symbol. `checked` = the day the widget was seen
 // showing a current quote on that venue; lines with no quote in the last month, matured
-// issues and pre-restructuring issues were left out. maturity null = perpetual.
-// `px` = an optional news-quoted price {v, asOf, src, quote} (cents / % of par), only
-// where a dated article states the number — never inferred; a line with no widget
-// venue (`tv` null) is listed only when it carries such a `px`. See refresh-routines §bonds.
+// issues and pre-restructuring issues were left out. `perp: true` = perpetual.
+// `px` = a news-quoted price {v | text (a quoted range), asOf, src, outlet, quote,
+// aggregator?} (cents / % of par), only where a dated article states the number — never
+// inferred; shown as "57 (28 Sep 26)". Where there is no free live quote the press price
+// is kept as the line's only price, however old (owner 2026-10-16); such a line (`tv`
+// null) needs no ISIN when the article names none — `bond` then carries the article's
+// description, and `maturity` may be a year. See refresh-routines §bonds.
 export const CR_BONDS = [
   {"name": "Thames Water", "issuer": "Thames Water Utilities Finance Plc", "coupon": 4.0, "maturity": "2029-04-18", "isin": "XS2576550326", "tv": "TRADEGATE:XS257655032", "src": "https://www.tradingview.com/symbols/TRADEGATE-XS257655032/", "checked": "2026-10-16", "px": null},
   {"name": "Thames Water", "issuer": "Thames Water Utilities Finance Plc", "coupon": 0.875, "maturity": "2030-01-31", "isin": "XS2438026440", "tv": "TRADEGATE:XS243802644", "src": "https://www.tradingview.com/symbols/TRADEGATE-XS243802644/", "checked": "2026-10-16", "px": null},
@@ -331,13 +334,13 @@ export const CR_BONDS = [
   {"name": "airBaltic", "issuer": "AS Air Baltic Corporation", "coupon": 16.5, "maturity": "2029-08-14", "isin": "XS2800678224", "tv": "TRADEGATE:XS280067822", "src": "https://www.tradingview.com/symbols/TRADEGATE-XS280067822/", "checked": "2026-10-16", "px": null},
   {"name": "Pfleiderer", "issuer": "PCF GmbH", "coupon": 4.75, "maturity": "2029-04-15", "isin": "XS2333301674", "tv": "TRADEGATE:506A", "src": "https://www.tradingview.com/symbols/TRADEGATE-506A/", "checked": "2026-10-16", "px": null},
   {"name": "Victoria plc", "issuer": "Victoria Plc", "coupon": 3.75, "maturity": "2028-03-15", "isin": "XS2315945829", "tv": "TRADEGATE:XS231594582", "src": "https://www.tradingview.com/symbols/TRADEGATE-XS231594582/", "checked": "2026-10-16", "px": null},
-  {"name": "BayWa", "issuer": "BayWa AG", "coupon": 7.75, "maturity": null, "isin": "DE000A351PD9", "tv": "TRADEGATE:A351PD", "src": "https://www.tradingview.com/symbols/TRADEGATE-A351PD/", "checked": "2026-10-16", "px": null},
+  {"name": "BayWa", "issuer": "BayWa AG", "coupon": 7.75, "maturity": null, "perp": true, "isin": "DE000A351PD9", "tv": "TRADEGATE:A351PD", "src": "https://www.tradingview.com/symbols/TRADEGATE-A351PD/", "checked": "2026-10-16", "px": null},
   {"name": "Altice International", "issuer": "Altice Financing SA", "coupon": 4.25, "maturity": "2029-08-15", "isin": "XS2373430425", "tv": "TRADEGATE:XS237343042", "src": "https://www.tradingview.com/symbols/TRADEGATE-XS237343042/", "checked": "2026-10-16", "px": null},
   {"name": "Altice International", "issuer": "Altice Financing SA", "coupon": 3.0, "maturity": "2028-01-15", "isin": "XS2102493389", "tv": "GETTEX:A28R7A", "src": "https://www.tradingview.com/symbols/GETTEX-A28R7A/", "checked": "2026-10-16", "px": null},
   {"name": "Tele Columbus (Pyur)", "issuer": "Tele Columbus AG", "coupon": 10.0, "maturity": "2029-01-01", "isin": "XS1814546013", "tv": "MUN:XS181454601", "src": "https://www.tradingview.com/symbols/MUN-XS181454601/", "checked": "2026-10-16", "px": null},
   {"name": "Grifols", "issuer": "Grifols Escrow Issuer SA", "coupon": 3.875, "maturity": "2028-10-15", "isin": "XS2393001891", "tv": "TRADEGATE:XS239300189", "src": "https://www.tradingview.com/symbols/TRADEGATE-XS239300189/", "checked": "2026-10-16", "px": null},
   {"name": "Altice France (SFR)", "issuer": "Altice France SA", "coupon": 7.25, "maturity": "2029-11-01", "isin": "XS3161792075", "tv": "GETTEX:A4EHR4", "src": "https://www.tradingview.com/symbols/GETTEX-A4EHR4/", "checked": "2026-10-16", "px": null},
-  {"name": "Aston Martin Lagonda", "issuer": "Aston Martin Capital Holdings Ltd.", "coupon": 10.0, "maturity": "2029-03-31", "isin": "USG05891AL32", "tv": null, "src": "https://www.tradingview.com/symbols/FWB-USG05891AL3/", "checked": "2026-10-16", "px": {"v": 57, "asOf": "2026-09-28", "src": "https://www.euronews.com/2026/09/29/europes-most-troubled-companies-whos-hit-hardest-by-high-interest-rates", "quote": "Aston Martin's 10% dollar bond due in March 2029 was quoted at only around 57 cents on the dollar on 28 September."}},
+  {"name": "Aston Martin Lagonda", "issuer": "Aston Martin Capital Holdings Ltd.", "coupon": 10.0, "maturity": "2029-03-31", "isin": "USG05891AL32", "tv": null, "src": "https://www.tradingview.com/symbols/FWB-USG05891AL3/", "checked": "2026-10-16", "px": {"v": 57, "asOf": "2026-09-28", "outlet": "Euronews", "src": "https://www.euronews.com/2026/09/29/europes-most-troubled-companies-whos-hit-hardest-by-high-interest-rates", "quote": "Aston Martin's 10% dollar bond due in March 2029 was quoted at only around 57 cents on the dollar on 28 September."}},
 ];
 
 export const DASH_ASOF = "2026-10-15";

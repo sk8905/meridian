@@ -959,9 +959,15 @@ investor AUM is USD by convention — R29.)
   "Invalid symbol" in the widget — never use them. Add a line only after opening its
   widget and seeing a CURRENT quote (a price that moved within the last month); leave out
   matured issues and pre-restructuring issues that were exchanged or cancelled (they
-  linger on venues with a frozen quote). `px` is optional: a secondary price stated as a
-  number in a dated article (`{v, asOf, src, quote}`, `quote` = the exact phrase) — never
-  inferred, never averaged; a line with no widget venue is listed only when it has one.
+  linger on venues with a frozen quote). `px` is a secondary price stated in a dated
+  article (`{v, asOf, src, outlet, quote}`; `text` instead of `v` for a quoted range;
+  `aggregator: true` when only an aggregator carries it; `quote` = the exact phrase) —
+  never inferred, never averaged. **Keep press prices where that's all there is (owner
+  2026-10-16):** a stressed name with no widget-quotable line still gets its latest press
+  price as a line of its own (`tv` null), however old — the app always prints the as-of
+  date, "57 (28 Sep 26)". Such a line takes the ISIN when the bond is identifiable,
+  otherwise `isin` null and `bond` = the article's description (`maturity` may be a
+  year). Each run, replace a press price only with a newer dated one.
   `tests/bond-quotes.mjs` validates every row (ISIN check digit, venue, source, dates).
 - **LP sweep (every run, budget-capped; a deeper pass weekly on Mondays).** Look for NEW
   public LP commitments to private credit / direct lending / CLO / ABF / special-situations

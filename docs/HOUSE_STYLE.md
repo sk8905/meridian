@@ -1701,7 +1701,9 @@ item keeps a real outbound source link (R7).
   Wire's page) and draws the number itself — Wire never reads, stores or relabels it — and
   every widget is captioned as a delayed exchange quote on the named venue, not a
   composite price, with the TradingView link. Only widget-quotable venues (Tradegate,
-  gettex, Frankfurt, Munich, …) are used; see refresh-routines §bonds.
+  gettex, Frankfurt, Munich, …) are used. Where no free live quote exists, the latest
+  press-quoted price is kept (owner 2026-10-16), always printed with its as-of date in
+  brackets — "press 57 (28 Sep 26)" — and its outlet; see refresh-routines §bonds.
 
 ### 8.2 Rates, macro & official statistics
 - FRED — Federal Reserve Bank of St. Louis (`fred.stlouisfed.org`)
