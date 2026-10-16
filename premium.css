@@ -52,8 +52,7 @@
 
 /* ---- Tabular figures: finance numbers align in columns and never re-flow
         (jitter) as their last digits change on update. ---- */
-.kpi-value, .kpi-aum, .card-aum, .facts dd, .data-table td, .data-table .rank,
-.legend-item strong, .legend-pct, .rate, .rate-val, .nav-badge {
+.kpi-value, .facts dd, .data-table td, .data-table .rank, .rate, .rate-val {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
 }
@@ -66,7 +65,7 @@ h2, .brand-text strong { letter-spacing: -.011em; }
 
 /* ---- Soft, navy-tinted elevation on cards (a designed depth system rather
         than flat 1px borders). ---- */
-.card, .kpi-card, .g-card {
+.card, .g-card {
   box-shadow: var(--elev-1);
   transition: box-shadow var(--dur-2) var(--ease-soft);
 }
@@ -177,9 +176,7 @@ h2, .brand-text strong { letter-spacing: -.011em; }
    role text is root-relative, so it is unaffected). Role text overrides below. */
 body { font-size: var(--fs-content); }
 h1 { font-size: var(--fs-section-title); }
-h2, h3, .g-card-title, .macro-sum-title, .feature-card > h2, .card > h2 { font-size: var(--fs-card-title); }
-.macro-sum-line, .macro-para, .macro-bottomline { font-size: var(--fs-content); }
-
+h2, h3, .g-card-title, .macro-sum-title, .card > h2 { font-size: var(--fs-card-title); }
 /* Feed/list/dashboard item titles across the apps inherited the 16px body base;
    pin them to the home item-title size. .intel-head = Credit/Macro feed rows,
    .feed-title = Legal list/case views, .compact-head = every app DASHBOARD's
@@ -189,7 +186,7 @@ h2, h3, .g-card-title, .macro-sum-title, .feature-card > h2, .card > h2 { font-s
    balances "pretty" short 2–3 line blocks, shortening the first line so titles
    wrap earlier than needed. Greedy wrapping fills each line to the full width.
    (Body copy / descriptions keep :pretty, where orphan-avoidance helps.) */
-.g-item .t, .intel-head, .feed-title, .compact-head, .rx-name { text-wrap: wrap; }
+.g-item .t, .intel-head, .feed-title, .compact-head { text-wrap: wrap; }
 /* A .card that is a grid/flex item (e.g. the Credit dashboard's .grid-3 columns,
    and the Legal/Macro equivalents) must be allowed to shrink below its content's
    min-content width. Otherwise a single-line (nowrap) .compact-head headline sets
@@ -217,19 +214,11 @@ h2, h3, .g-card-title, .macro-sum-title, .feature-card > h2, .card > h2 { font-s
         `:not(.small)` leaves the .76rem "muted small" captions alone. ---- */
 .lead { font-size: var(--fs-content); }
 p.muted:not(.small) { font-size: var(--fs-tagline); }
-.detail-body { font-size: var(--fs-content); }
-
-/* ---- Manager page: the Funds and CLOs tables share one column template so
-        their columns line up perfectly across the two cards. table-layout:fixed
-        makes the inline <colgroup> widths authoritative (identical in both). ---- */
-.mgr-vehicle-table { table-layout: fixed; width: 100%; }
-.mgr-vehicle-table td, .mgr-vehicle-table th { overflow: hidden; text-overflow: ellipsis; }
 
 /* ---- The "Sign out" link is white at every point in the app — the top-bar
         account chip on home (.g-user a) and on Credit/Legal/Macro
         (.account-nav a). ---- */
 .account-nav a, .g-user a { color: #fff; }
-
 
 /* ---- Respect the system reduced-motion preference. ---- */
 @media (prefers-reduced-motion: reduce) {
@@ -283,65 +272,29 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 [data-theme="dark"] .notif-panel,
 [data-theme="dark"] .g-sv-panel,
 [data-theme="dark"] .cmdk-panel { background: var(--surface); color: var(--ink); }
-[data-theme="dark"] .notif-item:hover,
-[data-theme="dark"] .notif-item.is-new:hover,
-[data-theme="dark"] .g-np-item:hover,
-[data-theme="dark"] .g-sv-item:hover,
-[data-theme="dark"] .cmdk-item.is-active,
-[data-theme="dark"] .cmdk-item:hover { background: rgba(255,255,255,.06); }
+[data-theme="dark"] .notif-item:hover, [data-theme="dark"] .notif-item.is-new:hover, [data-theme="dark"] .g-np-item:hover, [data-theme="dark"] .g-sv-item:hover { background: rgba(255,255,255,.06); }
 /* the Home saved menu → terminal surface, squared (matches the notif panel) */
 .g-sv-panel { border-radius: 0; }
 .g-sv-item { border-radius: 0; }
 /* Terminal dropdown/popover rules — squared, hairline, one surface. Covers the
    nav-bar notification panel, the multi-select filter menus and the relative-date
    menu, which otherwise keep a rounded white pill from the base stylesheet. */
-.notif-panel, .ms-pop, .rel-dd-menu, .cmdk-panel { border-radius: 0; }
-.notif-item, .ms-opt, .rel-dd-item { border-radius: 0; }
+.notif-panel, .ms-pop, .cmdk-panel { border-radius: 0; }
+.notif-item, .ms-opt { border-radius: 0; }
 .ms-pop { box-shadow: 0 12px 34px rgba(0,0,0,.5); padding: 0; }
 .ms-opt { border-bottom: 1px solid var(--t-grid); }
 /* Flat terminal (dark): the floating menus (Briefing/Markets/Saved/Notifications,
    the filter + relative-date popovers and the command palette) drop their drop-
    shadow and read on the 1px hairline alone — coplanar with the page, like the
    reference terminals. Light mode keeps its soft shadow for separation. */
-:root[data-theme="dark"] .na-panel,
-:root[data-theme="dark"] .ms-pop,
-:root[data-theme="dark"] .notif-panel,
-:root[data-theme="dark"] .rel-dd-menu,
-:root[data-theme="dark"] .cmdk-panel,
-:root[data-theme="dark"] .g-sv-panel,
-:root[data-theme="dark"] .g-notif-panel { box-shadow: none; border: 1px solid var(--border); }
-[data-theme="dark"] .ms-pop, [data-theme="dark"] .rel-dd-menu { background: var(--surface); border-color: var(--border); color: var(--ink); }
+:root[data-theme="dark"] .na-panel, :root[data-theme="dark"] .ms-pop, :root[data-theme="dark"] .notif-panel, :root[data-theme="dark"] .cmdk-panel, :root[data-theme="dark"] .g-sv-panel, :root[data-theme="dark"] .g-notif-panel { box-shadow: none; border: 1px solid var(--border); }
+[data-theme="dark"] .ms-pop { background: var(--surface); border-color: var(--border); color: var(--ink); }
 [data-theme="dark"] .ms-opt { color: var(--ink); }
-[data-theme="dark"] .ms-opt:hover, [data-theme="dark"] .rel-dd-item:hover { background: rgba(255,255,255,.06); }
+[data-theme="dark"] .ms-opt:hover { background: rgba(255,255,255,.06); }
 [data-theme="dark"] .notif-item.is-new { background: rgba(74,168,240,.1); }
 /* Up/down (green/red) figures brighten on the dark surface. */
-[data-theme="dark"] .up, [data-theme="dark"] .g-gl-v .up,
-[data-theme="dark"] .gl-tk.up .gl-tk-c, [data-theme="dark"] .rate-chg.up,
-[data-theme="dark"] .mkt-fut.up { color: var(--t-up, #3fc08d); }
-[data-theme="dark"] .down, [data-theme="dark"] .g-gl-v .down,
-[data-theme="dark"] .gl-tk.down .gl-tk-c, [data-theme="dark"] .rate-chg.down,
-[data-theme="dark"] .mkt-fut.down { color: var(--t-down, #f26d84); }
-
-/* ---- Theme toggle button — always sits on the navy top bar (both themes), so
-        it keeps the same light-on-navy styling in light and dark. The sun/moon
-        glyphs swap on the active theme. ---- */
-.theme-toggle { display: inline-flex; align-items: center; justify-content: center;
-  width: 34px; height: 34px; border-radius: 0; cursor: pointer; flex: 0 0 auto;
-  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
-  color: #fff; padding: 0; line-height: 1; }
-.theme-toggle:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.32); }
-.theme-toggle svg { width: 16px; height: 16px; }
-/* Three-state toggle: the icon shows the current CHOICE (light / dark / system),
-   driven by data-theme-choice on <html>. Desktop cycles light ↔ dark; phones
-   cycle system ↔ other (override = the opposite of the OS setting). */
-.theme-toggle .ico-sun, .theme-toggle .ico-moon, .theme-toggle .ico-auto { display: none; }
-[data-theme-choice="light"] .theme-toggle .ico-sun,
-[data-theme-choice="dark"] .theme-toggle .ico-moon,
-[data-theme-choice="system"] .theme-toggle .ico-auto,
-:root:not([data-theme-choice]) .theme-toggle .ico-auto { display: inline-flex; }
-/* Phone "override" state: reflect the resolved theme (what you switched TO). */
-[data-theme-choice="other"][data-theme="light"] .theme-toggle .ico-sun,
-[data-theme-choice="other"][data-theme="dark"] .theme-toggle .ico-moon { display: inline-flex; }
+[data-theme="dark"] .up, [data-theme="dark"] .g-gl-v .up, [data-theme="dark"] .gl-tk.up .gl-tk-c, [data-theme="dark"] .rate-chg.up { color: var(--t-up, #3fc08d); }
+[data-theme="dark"] .down, [data-theme="dark"] .g-gl-v .down, [data-theme="dark"] .gl-tk.down .gl-tk-c, [data-theme="dark"] .rate-chg.down { color: var(--t-down, #f26d84); }
 
 /* ---- App top bars (Credit / Legal / Macro — NOT the Glance home, which uses its
         own .g-actions cluster): .topbar-right is a vertically-stacked column of the
@@ -365,8 +318,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   }
   .topbar-right .account-nav { grid-area: acct; justify-self: end; }
   .topbar-right .data-status { grid-area: status; justify-self: end; }
-  .topbar-right .theme-toggle { grid-area: toggle; }
-}
+  }
 
 /* ---- Desktop: the identity (email/sign-out) + last-refresh block is lifted OUT
         of the top nav (header.js placeAccountBlock) to the bottom of Home's right
@@ -520,11 +472,6 @@ html.wire-boot main#app, html.wire-boot .footer, html.wire-boot .wticker, html.w
 html.wire-boot .wbrief, html.wire-boot #glance, html.wire-boot #loading,
 html.wire-boot #out { visibility: hidden; }
 
-/* During a swipe-between-chips gesture the static inset-underline on-state is
-   suppressed — swipetabs.js draws a single 2px bar that SLIDES between the two
-   chips with the panes instead of the underline jumping at the switch. */
-.st-nobar { box-shadow: none !important; }
-
 /* /menu/ head strip: the same segmented chip bar the other pages pin under
    the header (one chip for now — Search). tui.css styles the chips. */
 .na-menu-bar { height: var(--chip-h, 34px); flex: 0 0 auto; display: flex;
@@ -563,14 +510,9 @@ html.wire-boot #out { visibility: hidden; }
 /* ---- Menu panel content (the /menu/ page — full-screen on phones, a
         centred card on desktop; rules apply in both). */
 .na-menu-row { display: flex; align-items: center; gap: 10px; width: 100%;
-  padding: 13px 14px; border: 0; border-bottom: 1px solid var(--t-grid);
+  padding: 13px var(--m-gutter, 12px); border: 0; border-bottom: 1px solid var(--t-grid);
   background: transparent; color: var(--ink, #eaf0fb); font: inherit; font-size:var(--fs-body);
   text-align: left; border-radius: 0; }
-.na-menu-search { color: var(--faint, #5c6a86); cursor: pointer; }
-.na-menu-search svg { width: 16px; height: 16px; flex: 0 0 auto; }
-.na-menu-search > span { flex: 1 1 auto; }
-.na-menu-search kbd { flex: 0 0 auto; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body);
-  border: 1px solid var(--border, #262626); padding: 0 5px; color: var(--muted, #8592ad); }
 .na-menu-acct { display: block; font-size:var(--fs-body); color: var(--muted, #8592ad); }
 .na-menu-acct strong { color: var(--ink, #eaf0fb); font-weight:400; }
 .na-menu-acct a { color: var(--muted, #8592ad); font-weight:400; text-decoration: none; margin-left: .2em; }
@@ -580,18 +522,13 @@ html.wire-boot #out { visibility: hidden; }
    panel FOOTER (pinned to the bottom via the flex column below). */
 #na-menu-panel:not([hidden]) { display: flex; flex-direction: column; }
 #na-menu-panel .na-body { display: flex; flex-direction: column; flex: 1 1 auto; }
-.na-menu-recent-h { padding: 12px 14px 4px; font-family: var(--t-mono, ui-monospace, monospace);
+.na-menu-recent-h { padding: 12px var(--m-gutter, 12px) 4px; font-family: var(--t-mono, ui-monospace, monospace);
   font-size:var(--fs-micro); font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
   color: var(--t-faint); }
-.na-recent-row { color: var(--muted, #8592ad); cursor: pointer;
-  border-bottom: 1px solid var(--t-grid); }
-.na-recent-row svg { width: 14px; height: 14px; flex: 0 0 auto; color: var(--faint, #5c6a86); }
 /* Appearance — the theme chip reuses the Push-notifications row style
    (.na-menu-pushrow + .na-menu-push), so no bespoke control CSS is needed. */
 /* Push-notifications toggle — a small ghost chip on the RIGHT of the footer,
    beside the signed-in / last-refresh lines (which keep the left column). */
-.na-menu-foot { display: flex; align-items: center; }
-.na-menu-foot-l { flex: 1 1 auto; min-width: 0; }
 .na-menu-push { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px;
   margin-right: 14px; padding: 5px 9px; border: 1px solid var(--border, #262626);
   background: transparent; color: var(--muted, #8592ad); border-radius: 0; cursor: pointer; font: inherit; }
@@ -599,9 +536,6 @@ html.wire-boot #out { visibility: hidden; }
 /* Footer sits flush against the bottom tab bar: compact rows, no stray
    padding (the menu panel drops the generic 1.2rem bottom padding). */
 #na-menu-panel { padding-bottom: 0; }
-.na-menu-foot { margin-top: auto; border-top: 1px solid var(--t-grid); padding: 7px 0 9px; }
-.na-menu-foot .na-menu-row { border-bottom: 0; padding: 3px 14px; }
-
 /* History-navigation diagnostic toast (nav-actions navDiag) */
 .wire-navdiag { position: fixed; left: 10px; right: 10px; bottom: calc(84px + env(safe-area-inset-bottom, 0px));
   z-index: 9600; background: var(--head, #0a0a0a); border: 1px solid var(--border, #262626); color: var(--muted, #8592ad);
@@ -698,12 +632,7 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 57px) + v
    Accent orange per R9 (orange = new/unread; red is a negative-delta colour). */
 .na-badge { position: absolute; top: 3px; right: 3px; width: 7px; height: 7px; padding: 0; border-radius: 999px; background: var(--accent, #fb8b1e); font-size: 0; color: transparent; overflow: hidden; pointer-events: none; }
 .na-badge[hidden] { display: none; }
-/* Unread-briefing marker: a small accent dot on the Briefing button while the
-   current slot holds a briefing the reader hasn't opened (mirrors how the
-   Notifications panel flags new rows with --accent). Sits in the empty top-right
-   corner clear of the 19px centred icon; cleared once that slot is opened. */
-.na-brief-dot { position: absolute; top: 3px; right: 3px; width: 7px; height: 7px; border-radius: 999px; background: var(--accent, #fb8b1e); pointer-events: none; }
-.na-brief-dot[hidden] { display: none; }
+
 /* The notification bell is relocated into this cluster by nav-actions.js; match it
    to the Markets / Saved buttons so all three read as one set — square, transparent,
    outline (stroke) icon, same size and muted colour. */
@@ -863,19 +792,14 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    as the SAME grey section-header band the Markets panel uses (.na-sec): mono,
    12px, grey --head background, hairline bottom border, 12px gutters. */
 .nf-head { padding: 9px 12px 5px; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); letter-spacing: .04em; text-transform: uppercase; color: var(--accent, #fb8b1e); font-weight: 700; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--t-grid); }
-.nf-head-quiet { color: var(--muted, #8592ad); }
-.nf-sub { padding: 9px 12px 5px; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-micro); letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); background: var(--head, #0a0a0a); border-bottom: 1px solid var(--t-grid); }
 /* Titles clamp to two lines (the Wire-analysis guidance rows are full
    paragraphs); a tap goes straight to the full story via the row's link. */
 .nf-title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
   color: var(--ink, #eaf0fb); font-weight: 400; font-size:var(--fs-body); line-height: 1.35; margin-bottom: 4px; }
 .nf-meta { display: flex; align-items: center; gap: 8px; min-width: 0; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); color: var(--muted, #8592ad); }
-.nf-code { flex: 0 0 auto; font-size:var(--fs-micro); font-weight:400; letter-spacing: .04em; padding: 2px 5px; }
-.nf-code.macro { color: var(--t-mac, #9b83e2); background: color-mix(in srgb, var(--t-mac, #9b83e2) 16%, transparent); }
-.nf-code.credit { color: var(--t-crd, #fb8b1e); background: color-mix(in srgb, var(--t-crd, #fb8b1e) 16%, transparent); }
-.nf-code.legal { color: var(--t-lex, #2fbf8a); background: color-mix(in srgb, var(--t-lex, #2fbf8a) 16%, transparent); }
-.nf-code.newsletter { color: var(--t-amber, #d9a441); background: color-mix(in srgb, var(--t-amber, #d9a441) 16%, transparent); }
-.nf-code.ft { color: var(--t-ft, #e0708e); background: color-mix(in srgb, var(--t-ft, #e0708e) 16%, transparent); }
+/* The desk code reads as plain line-2 text — line 2 is ONE size and ONE grey (R43c/d):
+   no per-desk colour, no tinted fill (the colour codes left the wire too, R44h). */
+.nf-code { flex: 0 0 auto; font-size: inherit; font-weight:400; letter-spacing: .04em; color: inherit; background: none; padding: 0; }
 .nf-time { flex: 0 0 auto; }
 .nf-sep { flex: 0 0 auto; }
 .nf-src { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -884,15 +808,14 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .nf-row.g-ev { padding: 0 12px; }
 .nf-row.g-ev .nf-title { display: block; -webkit-line-clamp: unset; margin: 0; }
 .nf-row.g-ev .nf-meta { display: block; font-size: var(--fs-micro); }
-.nf-row.g-ev .nf-code { padding: 0 4px; }
 /* Prediction-market pane (mobile dropdown) — mirrors the desktop rail: a
    Macro/Politics/Finance chip row (grey ground, accent underline when active),
    then the question on the left with the implied YES odds pinned top-right and
    the daily odds change stacked directly beneath it. */
 .na-pred-chips { position: sticky; top: 0; z-index: 2; display: flex; gap: 0; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--t-grid); }
-.na-pred-fchip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; min-height: var(--chip-h, 34px); font: inherit; font-size:var(--fs-body); font-weight: 600; letter-spacing: .01em; padding: 0 4px; white-space: nowrap; border: 0; background: transparent; color: var(--muted, #8592ad); cursor: pointer; }
+.na-pred-fchip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; min-height: var(--chip-h, 34px); font: inherit; font-size:var(--fs-body); font-weight: 400; letter-spacing: .01em; padding: 0 4px; white-space: nowrap; border: 0; background: transparent; color: var(--muted, #8592ad); cursor: pointer; }
 .na-pred-fchip:hover:not(:disabled) { color: var(--ink, #eaf0fb); }
-.na-pred-fchip.on { color: var(--ink, #eaf0fb); box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
+.na-pred-fchip.on { color: var(--ink, #eaf0fb); font-weight: 600; box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .na-pred-fchip.on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }
 .na-pred-fchip:disabled { opacity: .4; cursor: default; }
 .na-pred { display: flex; align-items: flex-start; gap: 10px; }
@@ -977,22 +900,6 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
         inner whitespace: `<footer class="footer"></footer>`. ---- */
 .footer:empty { display: none; }
 
-/* ---- Desktop: the theme toggle is a plain two-state light/dark switch — no
-        "system" option (the cycle logic skips it above 760px). Show the icon for
-        the resolved theme, never the "auto" glyph. `:root`-prefixed so these tie
-        the choice-based rules on specificity and win on source order. ---- */
-@media (min-width: 761px) {
-  :root .theme-toggle .ico-sun,
-  :root .theme-toggle .ico-moon,
-  :root .theme-toggle .ico-auto { display: none; }
-  :root[data-theme="light"] .theme-toggle .ico-sun { display: inline-flex; }
-  :root[data-theme="dark"]  .theme-toggle .ico-moon { display: inline-flex; }
-}
-
-/* When an item carries no publish time (e.g. some commentary), drop the empty
-   time cell so the headline sits flush left instead of behind a blank column. */
-.intel-row .intel-date:empty { display: none; }
-
 /* ===== Unified modern command bar — matches the Home terminal nav =====
    Applied to the Macro / Credit / Legal section top bars. premium.css loads
    after each section's styles.css, so these win; scoped under .topbar so the
@@ -1002,7 +909,6 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 @media (min-width: 901px) { .topbar .topbar-inner { height: 54px; } }
 .topbar .logo { color: #fff; }
 .topbar .brand-text strong { font-size:var(--fs-title); font-weight: 600; }
-.topbar .brand-sub { color: #8ea6c8; font-size:var(--fs-micro); }
 /* Top-bar action icons (Markets · Saved · Bell · Search + the refresh ring):
    ONE constant light colour — never brightens or dims, including on hover (the
    base .na-btn is --muted grey for the light chip bar, and its :hover brighten
@@ -1020,18 +926,10 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .topbar .ps-btn:hover { background: rgba(255,255,255,.06); color: #fff; }
 /* Selected platform: header.css's .ps-btn.is-active (border-bottom-only, R12) is
    the single source of truth — do not re-declare a competing marker here. */
-.topbar .mainnav { align-self: stretch; align-items: stretch; gap: 0; }
 .topbar .nav-link { display: inline-flex; align-items: center; padding: 0 12px; border-radius: 0; font-size:var(--fs-body); font-weight: 500; color: #9fb0cc; }
 .topbar .nav-link:hover, .topbar .nav-link:focus-visible { background: rgba(255,255,255,.05); color: #fff; }
 .topbar .nav-link.active { color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent, #fb8b1e); }
-.topbar .nav-link.nav-primary { color: #dbe5f5; }
-.topbar .nav-link.nav-primary.active { color: #fff; }
-.topbar .nav-sep { background: rgba(255,255,255,.14); align-self: center; }
-.topbar .nav-search { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: #9fb0cc; border-radius: 0; font-size:var(--fs-head); }
-.topbar .nav-search:hover { background: rgba(255,255,255,.11); color: #fff; border-color: rgba(255,255,255,.22); }
-.topbar .nav-search kbd { background: rgba(255,255,255,.1); font-weight:400; border-radius: 0; }
-.topbar .topbar-tag { color: #8ea6c8; }
-.topbar button, .topbar .notif-bell, .topbar .nav-search { border-radius: 0; }
+.topbar button, .topbar .notif-bell { border-radius: 0; }
 .topbar .notif-panel, .topbar .mkt-panel { border-radius: 0; }
 
 /* =============================================================================
@@ -1064,13 +962,13 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626);
   box-shadow: 0 12px 34px rgba(0,0,0,.5); }
 /* Small grey group header inside the row menu (e.g. the earnings Sources list) */
-.rowmenu-sub { padding: 8px 14px 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-micro);
+.rowmenu-sub { padding: 8px var(--m-gutter, 12px) 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-micro);
   font-weight:400; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86);
   border-top: 1px solid var(--t-grid); }
-.rowmenu-title { padding: 10px 14px; font-size:var(--fs-body); line-height: 1.35; color: var(--muted, #8592ad);
+.rowmenu-title { padding: 10px var(--m-gutter, 12px); font-size:var(--fs-body); line-height: 1.35; color: var(--muted, #8592ad);
   border-bottom: 1px solid var(--t-grid);
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.rowmenu-act { display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 14px;
+.rowmenu-act { display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px var(--m-gutter, 12px);
   background: none; border: 0; color: var(--ink, #eaf0fb); font: inherit; font-size:var(--fs-body);
   text-align: left; cursor: pointer; border-radius: 0; }
 .rowmenu-act:hover { background: var(--panel2, rgba(255,255,255,.05)); }
@@ -1089,14 +987,14 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    header block stays anchored while the list scrolls. Opaque band so rows don't
    show through. */
 .na-chips { display: flex; gap: 0; height: var(--chip-h, 34px); border-bottom: 1px solid var(--t-grid); position: sticky; top: 33px; z-index: 2; background: var(--head, #0a0a0a); }
-.na-chip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; padding: 0 8px;
+/* A heading row like every other (R44f): chips `0 12px` from the panel edge, so the
+   first label sits on the 12px gutter; regular weight, the selected one 600 with the
+   ONE selection marker (R14a). */
+.na-chip { flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-start; padding: 0 var(--m-gutter, 12px);
   border: 0; background: transparent;
-  color: var(--muted, #8592ad); font: inherit; font-size:var(--fs-body); font-weight: 600; letter-spacing: .03em;
-  cursor: pointer; border-radius: 0; }
-/* Active marker = the canonical 2-layer chip underline (matches .tchip): the inset
-   -2px sits inside the chip's bottom edge and the 0 1px 0 layer lands ON the row's
-   border-bottom, so the accent sits flush on the borderline — not floating above it. */
-.na-chip.is-on { color: var(--ink, #eaf0fb); box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
+  color: var(--muted, #8592ad); font: inherit; font-size:var(--fs-body); font-weight: 400;
+  cursor: pointer; border-radius: 0; white-space: nowrap; }
+.na-chip.is-on { color: var(--ink, #eaf0fb); font-weight: 600; box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .na-chip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }
 /* Markets switcher as a DROPDOWN (the iPhone Markets tab; loadMarkets opts.switcher
    = "dropdown") — same menu style as the News lane selector. The chips (above) stay
@@ -1115,14 +1013,10 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 
 /* Briefing panel (Morning · Afternoon · Evening) — a grounded digest, every
    bullet linking its source. Chip row reuses .na-chips above. */
-/* All briefing text is MONO on the terminal-panel scale (HOUSE_STYLE R11): 10px
-   uppercase eyebrow · 12px lede · 12px body rows — no ad-hoc sizes, matching the
-   Notifications panel's prose block and the .na-sec/.nf-sub chrome. */
-.na-brief-when { padding: 9px 12px 0; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size:var(--fs-micro); font-weight:400; letter-spacing: .05em; text-transform: uppercase; }
+
 /* Lede is clamped to 3 lines so a long authored summary can never push the panel
    past one screen (see renderBriefing — the bullet list is capped in lockstep). */
 .na-brief-lede { margin: 5px 0 2px; padding: 0 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size:var(--fs-body); line-height: 1.5; font-weight:400; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.na-brief-list { list-style: none; margin: 6px 0 0; padding: 0; }
 .na-brief-b { padding: 8px 12px; border-top: 1px solid var(--t-grid); font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size:var(--fs-body); line-height: 1.55; }
 .na-brief-b strong { color: var(--ink, #eaf0fb); font-weight:400; }
 /* Briefing colour cues: the TOPIC heading (Macro / Bonds / Equities …) is

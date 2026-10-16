@@ -107,14 +107,11 @@ check(/\.na-pf-tgl\.on,\s*\.na-pred-dir\.on\s*\{[^}]*box-shadow:\s*inset 0 -2px 
 check(!/\.na-pf-tgl\.on,\s*\.na-pred-dir\.on\s*\{\s*background:\s*color-mix/.test(premiumCss),
   "premium.css .na-pf-tgl.on/.na-pred-dir.on no longer swap background via color-mix on select");
 
-// R10a — the command palette's Bloomberg/econ-release/newsletter code chips
-// must key off the domain tokens (Macro/Newsletters), not invent their own
-// per-type hex (BBG/ECON are Macro-domain label types; SUBS/BREW are
-// Newsletters-domain label types, matching feed.css's .g-feed-code.*).
-check(/\.mcmdk-code\.bbg\{color:var\(--t-mac,/.test(paletteJs), "palette.js .mcmdk-code.bbg keys off --t-mac, not an invented --t-bbg");
-check(/\.mcmdk-code\.econ\{color:var\(--t-mac,/.test(paletteJs), "palette.js .mcmdk-code.econ keys off --t-mac, not an invented --t-econ");
-check(/\.mcmdk-code\.substack\{color:var\(--t-amber,/.test(paletteJs), "palette.js .mcmdk-code.substack keys off --t-amber, not an invented --t-sub");
-check(/\.mcmdk-code\.brew\{color:var\(--t-amber,/.test(paletteJs), "palette.js .mcmdk-code.brew keys off --t-amber, not an invented --t-brew");
+// R43d / R44h — the command palette's desk code is the ONE muted tag (outlined, --t-mut,
+// no tinted fill): the per-desk colour codes left the wire, and a palette row reads like
+// every list row (audit 2026-10-16).
+check(/\.mcmdk-code\{[^}]*color:var\(--t-mut\);background:transparent;border:1px solid var\(--t-grid2\)\}/.test(paletteJs)
+  && !/\.mcmdk-code\.[a-z]+\{/.test(paletteJs), "palette.js .mcmdk-code is the one muted tag — no per-desk colour or fill");
 
 // Dashboard date formatter must include the year — the Legal tile's keyword
 // search spans case law from multiple years (legal/js/data.js dates back to
@@ -263,12 +260,18 @@ check(/l\.name\.toLowerCase\(\)\.includes\(f\.q\.toLowerCase\(\)\) \|\| \(l\.hq 
     "v2/js/dashboard/app.js heat cells no longer hardcode the dark-theme --t-up/--t-down RGB values");
 }
 
-// R6 — the Macro earnings-watch day-break's dark-mode label colour reads the
-// canonical --t-accent token (falling back to the surface's own --macro if
-// --t-accent isn't in scope), matching R6's spec ("label --t-accent"), rather
-// than reading only the local --macro alias.
-check(/\[data-theme="dark"\] \.ew-day strong \{ color: var\(--t-accent, var\(--macro\)\); \}/.test(macroCss),
-  "macro/css/styles.css .ew-day dark label reads var(--t-accent, var(--macro)), the canonical R6 token with a local fallback");
+// R6 — every day-break heading (the wire's .g-feed-dayhdr, the profile wire's .tw-day,
+// the Macro earnings-watch .ew-day) reads ONE token, --t-day (accent in dark, a
+// readable blue in light), defined once in the home.css palette — never a literal hex
+// per surface and per theme (the old light #2f6cae was hard-coded three times).
+{
+  const tuiCss = fs.readFileSync(path.join(ROOT, "tui.css"), "utf8");
+  check(/\.ew-day strong \{ color: var\(--t-day\);/.test(macroCss)
+    && /\.g-feed-dayhdr \{[^}]*color:var\(--t-day\)/.test(feedCss)
+    && /\.tw-day \{[^}]*color: var\(--t-day\)/.test(tuiCss),
+    "the three day-break headings read the one --t-day token");
+  check(![macroCss, feedCss, tuiCss].some((c) => /2f6cae/i.test(c)), "no literal #2f6cae left outside the token palette");
+}
 
 // R14a — the phone-only News/Watchlist wire-swap tabs' selected state must use
 // the shared --chip-ul underline (black light / white dark), like every other
@@ -291,15 +294,14 @@ check(/\.dsh-earn-tk \{[^}]*font-variant-numeric:tabular-nums/.test(dashboardCss
 check(/\.dsh-hf-t \{[^}]*font-variant-numeric:tabular-nums/.test(dashboardCss),
   "dashboard.css .dsh-hf-t hedge-fund ticker has tabular-nums");
 
-// R8/R14a — the iPhone Dashboard section tab bar matches the Profiles/Home
-// wire-head chips: its active marker is the shared --chip-ul underline (black
-// light / white dark), NOT the accent orange, so the whole chip/tab family
-// selects the same way. (The desktop left rail keeps its own accent side-bar;
-// this is the mobile top bar only.)
-check(/\.dsh-navchip\.is-on\{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul,\s*#000\)/.test(dashboardCss),
-  "dashboard.css mobile .dsh-navchip.is-on uses the shared --chip-ul underline, not the accent orange");
-check(/\[data-theme="dark"\] \.dsh-navchip\.is-on\{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul,\s*#fff\)/.test(dashboardCss),
+// R14a — the Dashboard section nav selects like every chip/tab row at EVERY width: the
+// shared --chip-ul underline (black light / white dark), never the accent orange and
+// never the old desktop accent side-bar (audit 2026-10-16).
+check(/\.dsh-navchip\.is-on \{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul,\s*#000\)/.test(dashboardCss),
+  "dashboard.css .dsh-navchip.is-on uses the shared --chip-ul underline, not the accent orange");
+check(/\[data-theme="dark"\] \.dsh-navchip\.is-on \{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul,\s*#fff\)/.test(dashboardCss),
   "dashboard.css has a dark-mode .dsh-navchip.is-on override reading var(--chip-ul, #fff)");
+check(!/inset 3px 0 0/.test(dashboardCss), "dashboard.css: no accent side-bar selection marker left");
 
 // Terminal restyle — the Dashboard panels read as a dense grid of flat, square,
 // hairline boxes (the agreed "terminal" look), in our own colour tokens:
@@ -360,6 +362,8 @@ for (const [label, src] of [
   ["v2/js/assistant.js", assistantJs],
   ["v2/js/views/menu.js", menuJs],
   ["v2/js/home/glance.js", glanceJs],
+  // The in-app reader's "Open original ↗" / "Open at <host> ↗" (audit 2026-10-16).
+  ["v2/js/reader-overlay.js", read("v2/js/reader-overlay.js")],
 ]) {
   check(!ARROW_BEFORE_CLOSE_A.test(src), `${label}: no link text ends in a decorative arrow glyph (R7a)`);
 }

@@ -27,7 +27,7 @@ for (const [width, colorScheme] of [[390, "dark"], [430, "dark"]]) {   // dark i
   for (const [name, path, rowSel, titleSel] of PAGES) {
     const { ctx, pg, errs } = await open(b, dev, base + path);
     await pg.waitForFunction((s) => [...document.querySelectorAll(s)].some((r) => r.getBoundingClientRect().width > 0 && r.getBoundingClientRect().top < innerHeight), rowSel, { timeout: 15000 });
-    await pg.waitForTimeout(300);
+    await pg.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));   // late layout lands (no fixed wait)
     const m = await pg.evaluate(([rowSel, titleSel]) => {
       const vis = (e) => e && e.getBoundingClientRect().width > 0 && e.getBoundingClientRect().top < innerHeight;
       const row = [...document.querySelectorAll(rowSel)].find(vis), t = row.querySelector(titleSel);

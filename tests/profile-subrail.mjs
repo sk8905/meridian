@@ -1,24 +1,25 @@
 // Profile DETAIL sub-section nav. On desktop the manager/hedge-fund detail's
 // tabs (News · Vehicles · Investments · Firm facts) render as a SECOND-level left
-// rail — nested under the Profiles rail, tinted blue (--wb-txt) to read as
-// sub-sections — with the identity header spanning the top and the panes filling
-// the rest. On phones the SAME tabs stay a horizontal chip bar. Desktop-only, and
+// rail — nested under the Profiles rail, selected with the ONE marker every tab row
+// uses (HOUSE_STYLE R14a: ink, 600, one inset underline — it was blue with a 3px blue
+// side-bar until the 2026-10-16 audit) — with the identity header spanning the top and
+// the panes filling the rest. On phones the SAME tabs stay a horizontal chip bar. Desktop-only, and
 // only in the Profiles surface (#pf-detail).
 import { serve, launchChromium, open, PHONE, check, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
 const b = await launchChromium();
 const base = `http://localhost:${srv.port}`;
-const BLUE = /rgb\(74, 163, 240\)|rgb\(31, 111, 208\)/;   // --wb-txt dark / light
+const ONE_UL = /^rgb\([^)]*\) 0px -2px 0px 0px inset$/;   // R14a: one inset underline layer
 
 async function openManager(vp) {
   const { ctx, pg, errs } = await open(b, vp, base + "/v2/");
   await pg.evaluate(() => localStorage.setItem("m_signed_in", "1"));
-  await pg.waitForTimeout(1000);
+  await pg.waitForFunction(() => [...document.querySelectorAll(".v2-view")].some((v) => v.offsetParent !== null && v.textContent.trim().length > 20), null, { timeout: 15000 });
   await pg.evaluate(() => { history.pushState({ v2: true }, "", "/v2/profiles/"); dispatchEvent(new PopStateEvent("popstate")); });
-  await pg.waitForTimeout(700);
+  await pg.waitForFunction(() => !!document.querySelector("#pf-chips .tchip"), null, { timeout: 15000 });
   await pg.evaluate(() => { location.hash = "#/manager/m8"; });
-  await pg.waitForTimeout(900);
+  await pg.waitForFunction(() => !!document.querySelector("#pf-detail .tdet-tabbed > .twire-head .tchip.is-on"), null, { timeout: 15000 });
   return { ctx, pg, errs };
 }
 
@@ -38,15 +39,16 @@ async function openManager(vp) {
       grid: sec ? getComputedStyle(sec).display : null,
       dir: chips ? getComputedStyle(chips).flexDirection : null,
       leftOfPanes: rr && pr ? rr.right <= pr.left + 2 : null,
-      onColor: onCS ? onCS.color : null,
+      onWeight: onCS ? onCS.fontWeight : null,
       onShadow: onCS ? onCS.boxShadow : null,
+      offWeight: [...new Set([...document.querySelectorAll("#pf-detail .tdet-tabbed > .twire-head .tchip:not(.is-on)")].map((c) => getComputedStyle(c).fontWeight))].join(","),
     };
   });
   check(r.grid === "grid", `desktop: detail section is a grid (${r.grid})`);
   check(r.dir === "column", `desktop: sub-tabs stack vertically as a rail (${r.dir})`);
   check(r.leftOfPanes === true, "desktop: the rail sits to the LEFT of the panes");
-  check(BLUE.test(r.onColor || ""), `desktop: active sub-tab text is blue, not orange (${r.onColor})`);
-  check(BLUE.test(r.onShadow || ""), `desktop: active sub-tab carries a blue left bar (${r.onShadow})`);
+  check(r.onWeight === "600" && r.offWeight === "400", `desktop: active sub-tab 600, the others 400 (${r.onWeight} / ${r.offWeight})`);
+  check(ONE_UL.test(r.onShadow || ""), `desktop: active sub-tab carries the one inset underline, no side-bar (${r.onShadow})`);
   checkErrs(errs, "desktop sub-rail");
   await ctx.close();
 }

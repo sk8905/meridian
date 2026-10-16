@@ -115,7 +115,7 @@ export function r43Probe() {
   // (d)(e) Every visible text node's colour and weight.
   const probe = document.createElement("span"); document.body.appendChild(probe);
   const rgb = (v) => { probe.style.color = ""; probe.style.color = v; return getComputedStyle(probe).color; };
-  const toks = ["ink", "mut", "faint", "accent", "up", "down", "link", "news", "mac", "crd", "lex", "amber", "ft", "hdg", "rsch", "fi"];
+  const toks = ["ink", "mut", "faint", "accent", "up", "down", "link", "news", "mac", "crd", "lex", "amber", "ft", "hdg", "rsch", "fi", "day"];
   const cs0 = getComputedStyle(root);
   const allowed = new Set(toks.map((k) => cs0.getPropertyValue(`--t-${k}`).trim()).filter(Boolean).map(rgb));
   ["--wb-txt", "--accent", "--ink", "--chip-ul"].forEach((k) => { const v = cs0.getPropertyValue(k).trim(); if (v) allowed.add(rgb(v)); });
@@ -130,7 +130,7 @@ export function r43Probe() {
     ".g-feed-dayhdr", ".tw-day", ".ew-day", ".year-head", ".tveh-grp-h", ".tinv-head", ".tinv-spon-l", ".tbdc-seclbl", ".tx-striplbl", ".tx-fh", ".tx-fmore-t", ".tx-title", ".tx-drawer-t", ".tx-phone-h",
     ".cov-title", ".cov-sec", ".cov-src-h", ".cov-fix-h", ".cov-role-h", ".mac-km-h", ".macro-subhead", ".macro-sum-title", ".compact-head", ".intel-head", ".g-hbs-lbl", ".g-sv-head", ".g-rates-head", ".g-snap-t", ".g-mm-title", ".g-mkt-title", ".g-card-title", ".g-sub-h", ".g-mw-coach-h", ".hf-cons-h-t", ".hf-ofr-h", ".wire-watch .watch-grp-h", ".dg-head",
     // navigation tabs, chips, brand
-    ".tchip", ".mtab", ".nav-link", ".ps-btn", ".logo", ".g-logo", ".brand-text *", ".g-brand-text *", ".dsh-navchip", ".g-feed-chip", ".g-wiretab", ".g-wire-lane", ".na-chip", ".na-pred-fchip", ".g-pred-fchip", ".dsh-lgl-chip", ".crr-chip", ".dsh-sortchip", ".lf-sel", ".seg-btn", ".chart-mode-btn", ".chart-range-btn", ".g-hero-rg", ".g-mkt-chip", ".sls-chip", ".chip", ".tchip-menu-item",
+    ".tchip", ".mtab", ".nav-link", ".ps-btn", ".logo", ".g-logo", ".brand-text *", ".g-brand-text *", ".dsh-navchip", ".g-feed-chip", ".g-wiretab", ".g-wire-lane", ".na-chip", ".na-pred-fchip", ".g-pred-fchip", ".dsh-lgl-chip", ".crr-chip", ".dsh-sortchip", ".lf-sel", ".seg-btn", ".chart-mode-btn", ".chart-range-btn", ".g-hero-rg", ".g-mkt-chip", ".sls-chip", ".chip", ".tchip-menu-item", ".tx-fchip",
     // the owner's one exception: "Open original at …" / "Open at …"
     ".g-read-open", ".wr-open", ".wr-h", ".g-read-h",
   ].join(",");

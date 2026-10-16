@@ -16,7 +16,7 @@
 // previews 10 rows + "See all N" (phone AND desktop, HOUSE_STYLE R40/R41j), which opens
 // the whole list in a sheet. mount(host, ctx) → { enter, leave, home }.
 // =============================================================================
-import { esc, MONTHS, byDateDesc, fmtD } from "/util.js";
+import { esc, MONTHS, byDateDesc, fmtD, revealSelected } from "/util.js";
 import { CR_STRESS, EU_DISTRESS, REG_CALENDAR } from "/dashboard/js/data.js";
 import { restructurings, cases } from "/legal/js/data.js";
 import { deals, managers } from "/credit/js/data.js";
@@ -189,6 +189,7 @@ export function mount(host, ctx) {
         ${card("rxh-stats", "Insolvency statistics", `<span class="dsh-live is-snap" data-live="bkrt" title="Sourced snapshot — live data not loaded">not live</span> ${asOf(EU_DISTRESS && EU_DISTRESS.asOf)}`, statsBody())}
       </div></div>`;
     host.querySelectorAll(".rxh-body").forEach(preview);
+    requestAnimationFrame(() => revealSelected(host.querySelector(".rxh-chips")));
   }
 
   // ---- 10-row preview + "See all N" (phone and desktop) -----------------------------

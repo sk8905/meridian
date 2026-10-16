@@ -19,7 +19,7 @@ import { nbNums } from "/v2/js/nb-format.js";
 import { h, Fragment, signal, effect, batch, mount } from "/v2/js/ui.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, isOwnSite, MONTHS, fmtD } from "/util.js";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js";
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt, rowTip } from "/feed.js";
 
 const __KEY = "home";
 const __ROOT = document.documentElement;
@@ -2134,22 +2134,9 @@ function renderManagerWire() {
     return `<div class="g-mw-item">${hdr}${activity}<div class="g-mw-stories">${shown}${more}</div></div>`;
   };
 
-  // Flat chronological row: a single manager event, rendered with the SAME engine
-  // as the news wire (.g-feed-row) so it inherits the identical stacked layout —
-  // headline on top, a meta line (code · DATE · source) beneath (the manager
-  // column is a narrow feedwrap container, so the stacked layout always applies).
-  // Instead of a publish time the meta shows the event's date; the headline already
-  // leads with the manager, so there is no separate manager-name label — just an
-  // orange ★ before the headline when the manager is watchlisted.
-  const flatEv = (x) => {
-    const to = x.ext ? x.source : `/v2/profiles/#/manager/${encodeURIComponent(x.mgrId)}`;
-    const star = x.watched ? `<span class="g-mw-fev-star" title="On your watchlist" aria-label="Watchlisted">★</span> ` : "";
-    return `<a class="g-feed-row g-mw-fev" data-mgr="${esc(x.mgrId)}" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
-      + `<span class="g-feed-time">${_mwWhen(x.date)}</span>`
-      + `<span class="g-feed-code ${_catCls(x.cat)}">${CAT_LABEL[x.cat] || "NEWS"}</span>`
-      + `<span class="g-feed-title">${star}${esc(x.title)}</span>`
-      + `<span class="g-feed-src">${esc(_mwSrc(x))}</span></a>`;
-  };
+  // Flat chronological row: the one manager-event wire row (mgrEventRow, below) — the
+  // shared .g-feed-row engine, time · headline, the source beneath (R43 / R44h).
+  const flatEv = mgrEventRow;
 
   let html;
   if (_mwGroup) {
@@ -2644,7 +2631,7 @@ function watchlistEvents() {
 function mgrEventRow(x) {
   const to = x._href || (x.ext ? x.source : `/v2/profiles/#/manager/${encodeURIComponent(x.mgrId)}`);
   const star = x.watched ? `<span class="g-mw-fev-star" title="On your watchlist" aria-label="Watchlisted">★</span> ` : "";
-  return `<a class="g-feed-row g-mw-fev" data-mgr="${esc(x.mgrId)}" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+  return `<a class="g-feed-row g-mw-fev" data-mgr="${esc(x.mgrId)}" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}${rowTip(x.title, CAT_LABEL[x.cat], _mwSrc(x))}>`
     + `<span class="g-feed-time">${_mwWhen(x.date)}</span>`
     + `<span class="g-feed-code ${_catCls(x.cat)}">${CAT_LABEL[x.cat] || "NEWS"}</span>`
     + `<span class="g-feed-title">${star}${esc(x.title)}</span>`

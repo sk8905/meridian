@@ -51,7 +51,7 @@ for (const [w, h, only] of WIDTHS) {
     await pg.keyboard.press("/");
     await pg.waitForFunction(() => !!document.querySelector(".cmdk, .mcmdk, [class*='cmdk']"), null, { timeout: 8000 }).catch(() => {});
     await pg.keyboard.type("ares");
-    await pg.evaluate(() => new Promise((r) => setTimeout(r, 300)));
+    await pg.waitForFunction(() => document.querySelectorAll(".mcmdk-row").length > 0, null, { timeout: 8000 }).catch(() => {});
     const bad = await pg.evaluate(r43Probe);
     checkEq(bad.slice(0, 8).join(" | "), "", `${w}px search palette`);
   }

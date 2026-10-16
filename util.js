@@ -119,3 +119,13 @@ export const fmtAum = (n) => {
   if (n < 1) return `$${Math.round(n * 1000)}m`;
   return `$${n}bn`;
 };
+
+// R42b: a sideways-scrolling heading row shows its SELECTED chip — centred into view
+// when the row first renders with it off-screen (a deep link to the 6th tab must not
+// land with its label cut at the edge). Scrolls the row only, never the page.
+export function revealSelected(row) {
+  const on = row && row.querySelector(".is-on, [aria-current]");
+  if (!on || row.scrollWidth <= row.clientWidth + 1) return;
+  const nr = row.getBoundingClientRect(), cr = on.getBoundingClientRect();
+  if (cr.left < nr.left || cr.right > nr.right) row.scrollLeft += (cr.left - nr.left) - (nr.width - cr.width) / 2;
+}

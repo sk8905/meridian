@@ -496,3 +496,45 @@ DEPARTURE badge on iPhone (the type is in the row title) (`tests/phone-trim.mjs`
 lines; the 13F "Notable moves" and "Key moments" prose items; the search palette mixes
 profiles with dated items, so it keeps headline-first (two lines max); the UK registry
 "charges" list on borrower pages.
+
+## Consistency audit — 16 October 2026 (measured)
+
+A Playwright probe measured computed geometry and styles on every surface — Home, News
+(each lane), Deals (All, each mode, Fundraising, League), Profiles (All, Managers, Hedge
+Funds, Investors, Law firms, People), a manager / hedge fund / law firm / borrower page,
+the Restructuring hub, Markets (each tab), Menu (incl. Sources, Digest), the search
+palette, the notifications and watchlist panels and the reader — at iPhone 390×844 and
+430×932 and desk 1366, 1920, 2560 and 3440, each in light and dark (~420 page states,
+~6,500 checks). The guard is `tests/style-consistency.mjs` (+ `tests/spec-hygiene.mjs`);
+rules recorded in HOUSE_STYLE R6, §3, R2d(a), R7a, R14a, R43c, R44f–h and T20.
+
+| Area | Before (measured) | After |
+|---|---|---|
+| Desktop left rails (Deals · Profiles · Markets) | selected = orange 3px side-bar in a box; every item 600 | one inset underline, 600 on / 400 off |
+| Profile sub-rail (desktop) | blue text + blue 3px side-bar; every item 600 | one underline, 600 / 400 |
+| Home desk lanes · chart range | lanes all 700; range 600 with a blue 2px border | 400 / 600 + the one underline |
+| Header panels' chips (notifications, watchlist) | every chip 600, centred — first label at 33–99px on iPhone | 400 / 600, `0 12px`, first label at 12px |
+| League / Fundraising segments, Filters chips & button | orange tint fill + orange border (League "on" weight 400) | one underline, 600 |
+| $1–15bn / Target / European mid-market toggles | orange label, orange tinted fill when on | ordinary toggle (muted, underline when on) |
+| Secondaries chip in Profiles tables | orange-tinted, bold | the one muted outlined tag |
+| iPhone heading rows | Home tabs' first label 23 / 28px; Menu chips stretched (15px at 430); Markets 19 / 23px | 12px everywhere |
+| Restructuring hub (iPhone) | rows inside boxed cards, headline at 85px; selected "Restructuring" chip cut off at the edge | full-bleed sections, headline at 72px; chip scrolled into view |
+| Digest · League tables (iPhone) | headline at 74px (14px gutter) · 38px (rank not in the lead column) | 72px |
+| Profile pages | manager glance drew a 2nd rule under the identity header (2px); law-firm glance + filters 16px; identity header 16px on desktop | one rule; 12px |
+| Desk tables | Deals date column 178 / 262 / 359 / 492px (1366→3440); People 84–215px | `--c-date-w` (64px) of content at every width |
+| Desk search rows | input 20px, buttons 19 and 26px in one row; 11px gutter; Markets roster bar 34px | every control 20px (26px iPhone); 12px |
+| Desk wire | lead gap 10px | 8px |
+| Full text in `title` | 100% of wire rows and profile-wire rows had none | every row (`rowTip`, feed.js) |
+| Line 2 | notification desk code a coloured, tinted pill; People "→" faint | line 2's size and grey |
+| Search palette | coloured filled codes; rules on `--border` / `--t-grid2`; bold Cancel; 14px gutter; clear button dark grey on white | muted outlined code; `--t-grid`; 400; 12px; `--t-faint` |
+| Colour tokens | day-break label a literal `#2f6cae` in 3 files; legacy `--faint` undefined in light (fell back to the dark `#5c6a86`) | `--t-day` token; `--faint` defined |
+| Dividers | desk terminal's last panel + footer = 2px; Markets Equities group rows = 2px; phone strip divider a literal rgba | one 1px `--t-grid` |
+| Gutters & padding | Menu pages / row menu 14px; `.dsh-card` 14px (desk) | 12px |
+| Reader | "Open original ↗", "Open at … ↗" (R7a) | no arrows |
+| Hygiene | ~800 dead CSS rules (≈85 KB); 75 `!important`; `tableCols` re-invoked itself from its own resize listener; a duplicate manager-row builder in glance.js; fixed-time waits in the style specs | purged; 65 (ratchet); one `_reflowCols`; one `mgrEventRow`; condition waits + ratchet (T20) |
+
+**Left for the owner's call:** Markets' cards stay boxed (R2d a) so a Markets list starts
+inside its card (85px), not at 72px; the regulatory calendar keeps month-precision dates
+("Dec 2026"); 507 fixed-time waits remain in older specs (507, ratcheted, not converted); the
+`?v=` on the favicon / touch icon (static files, not code or data); the "Follow" button's
+filled orange "on" state in watchlist suggestions; the many remaining magic z-index values.

@@ -76,15 +76,13 @@
    bleed through. */
 .g-feed-dayhdr { position:sticky; top:0; z-index:3; padding:6px 12px; background:var(--t-head); border-top:0; margin:0;
   border-bottom:1px solid var(--t-grid);
-  font-size:var(--fs-micro); font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--t-accent); }
-:root[data-theme="light"] .g-feed-dayhdr { background:var(--t-head, #f4f7fb); color:#2f6cae;
-  border-bottom:1px solid var(--t-grid); }
+  font-size:var(--fs-micro); font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--t-day); }
 @media (max-width:900px){ .g-feed-dayhdr { top:var(--wire-head-h, 57px); } }
 /* No colour desk codes on the wire (owner 2026-10-15): the row is time · headline · source,
    like every list. The code stays in the markup (the row's desk, for filters / search). */
 .g-feed-row > .g-feed-code { display:none; }
 .g-feed-row { display:grid; grid-template-columns:var(--c-date-w) minmax(0,1fr) minmax(0,168px); align-items:baseline;
-  gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); text-decoration:none; }
+  column-gap:8px; padding:5px 12px; border-bottom:1px solid var(--t-grid); text-decoration:none; }   /* the one 8px lead gap (R43c) */
 .g-feed-row:hover { background:var(--t-panel2); }
 /* R43: the wire's leading time reads exactly like every list's leading date (.c-date):
    micro, --t-faint, tabular figures. */
@@ -241,7 +239,7 @@ body.wire-sliding .g-feed-srcbar { position:static; }
 .c-tag { white-space:nowrap; }
 
 /* ---- ONE tag style: muted, micro, outlined — never coloured, never bold ------- */
-.dsh-tag, .tw-tag, .tinv-tag, .tui-li-tag, .tx-tag {
+.dsh-tag, .tw-tag, .tinv-tag {
   display:inline-block; font-size:var(--fs-micro); font-weight:400; line-height:1.45; letter-spacing:.03em;
   text-transform:uppercase; color:var(--t-mut); background:transparent; border:1px solid var(--t-grid2);
   border-radius:0; padding:0 4px; white-space:nowrap; vertical-align:baseline; }

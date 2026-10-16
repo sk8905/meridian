@@ -27,13 +27,6 @@
 /* Narrow phone tab bar: show the SHORT label so "Hedge Funds"
    doesn't get clipped in its equal segment; the desktop rail keeps the full one. */
 @media (max-width:760px){ .dsh-railnav .dsh-tab-lg { display:none; } .dsh-railnav .dsh-tab-sm { display:inline; } }
-.dsh-pane { display:flex; flex-direction:column; gap:var(--dsh-gap); padding:var(--dsh-gap); }
-@media (min-width:761px){ .dsh-pane{ display:grid; grid-template-columns:repeat(2,1fr); align-items:start; } .dsh-pane > .dsh-card:first-child, .dsh-pane > .dsh-more{ grid-column:1 / -1; } }
-/* The terminal panes fill the viewport edge-to-edge (see .dsh-term below), so the
-   sub-tab nav stretches full-width too — the chips are equal-width across the
-   whole screen, never a centred cluster. Any non-terminal .dsh-pane fallback
-   still caps to a centred column so its rows stay dense. */
-@media (min-width:1180px){ .dsh-pane:not(.dsh-term){ max-width:1160px; margin-left:auto; margin-right:auto; } }
 
 /* ---- PROTOTYPE (option 4): fixed-viewport terminal for the Macro pane --------
    The dashboard fills the viewport; the rates panels tile into three columns and
@@ -44,37 +37,14 @@
   .dsh:has(.dsh-term) .dsh-nav{ flex:0 0 auto; }
   .dsh-term{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; align-items:stretch; gap:var(--dsh-gap);
     max-width:none; margin:0; padding:var(--dsh-gap); }
-  .dsh-term > .dsh-card:first-child, .dsh-term > .dsh-term-top{ flex:0 0 auto; }
-  /* Top strip (Equities): Key moments (wide) beside a companion card (narrow). */
-  .dsh-term-top{ display:grid; grid-template-columns:4fr 1fr; gap:var(--dsh-gap); align-items:stretch; }
-  .dsh-term-top > .dsh-card{ grid-column:auto; min-width:0; min-height:0; overflow-y:auto;
-    overscroll-behavior:contain; scrollbar-width:thin; }
-  /* Three EQUAL columns — each section gets the same one-third of the width. */
-  .dsh-term-ws{ flex:1 1 auto; min-height:0; display:grid;
-    grid-template-columns:repeat(3, minmax(0,1fr)); gap:var(--dsh-gap); }
-  .dsh-term-col{ min-height:0; display:flex; flex-direction:column; gap:var(--dsh-gap);
-    overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
-  .dsh-term-col > .dsh-card{ flex:0 0 auto; }
-  /* Per-column label above each pane's cards (Macro: Policy rates · Cycle · Wire). */
+  .dsh-term > .dsh-card:first-child { flex:0 0 auto; }
+  
+
+/* Per-column label above each pane's cards (Macro: Policy rates · Cycle · Wire). */
   .dsh-term-lbl{ flex:0 0 auto; margin:0; font-size:var(--fs-micro); font-weight:700; letter-spacing:.06em;
     text-transform:uppercase; color:var(--t-mut); padding-bottom:2px; }
-  /* Stack the Fed/BoE FedWatch|dot-plot internals in a terminal column so they
-     read cleanly at column width instead of cramping side by side. */
-  .dsh-term-col .dsh-fed{ grid-template-columns:1fr; }
-  /* The Dalio/Marks cycle pair stacks in a single terminal column. */
-  .dsh-term-col .dsh-cyc{ grid-template-columns:1fr; }
-  /* Wire rail: header pins, the headline list scrolls. */
-  .dsh-term-rail{ overflow:hidden; }
-  .dsh-term-rail > .dsh-card{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
-  .dsh-term-rail .dsh-h{ flex:0 0 auto; }
-  .dsh-term-rail .dsh-news{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; margin:0; }
-  /* Solo terminal panel (Legal): one card fills the viewport; its heading, search
-     box and filter chips pin, and only the results list scrolls. */
-  .dsh-term-solo > .dsh-card:first-child{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
-  .dsh-term-solo > .dsh-card > .dsh-h,
-  .dsh-term-solo > .dsh-card > .dsh-lgl-search,
-  .dsh-term-solo > .dsh-card > .dsh-lgl-chips{ flex:0 0 auto; }
-  .dsh-term-solo .dsh-lgl-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+  
+
 }
 
 /* ---- 3-zone Dashboard: left nav rail · stacked middle · right news rail ------
@@ -87,30 +57,20 @@
 .dsh-railnav { display:flex; flex-flow:row nowrap; gap:0; position:sticky; top:0; z-index:3;
   background:var(--t-head); border-bottom:1px solid var(--t-grid); }
 .dsh-navchip { flex:1 1 0; min-width:0; text-align:center; display:block; padding:10px 4px; font-size:var(--fs-body);
-  font-weight:600; color:var(--t-mut); text-decoration:none; white-space:nowrap; overflow:hidden;
+  font-weight:400; color:var(--t-mut); text-decoration:none; white-space:nowrap; overflow:hidden;
   text-overflow:ellipsis; cursor:pointer; }
-.dsh-navchip.is-on { color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--t-accent); }
-/* iPhone top tab bar: match the Profiles / Home wire-head chips (.twire-head
-   .tchip) exactly — 11px, regular weight until active (600 on), and the active
-   marker is the shared --chip-ul underline (black in light, white in dark), NOT
-   the orange accent, extended 1px below so it lands flush ON the divider. The
-   desktop left rail (min-width:901px) keeps its own pill look, so scope this to
-   the phone width where the segmented top bar actually shows. */
+/* The ONE selection marker (R14a) at every width — phone top bar and desktop rail. */
+.dsh-navchip.is-on { color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--chip-ul, #000); }
+:root[data-theme="dark"] .dsh-navchip.is-on { box-shadow:inset 0 -2px 0 var(--chip-ul, #fff); }
+/* iPhone top tab bar: the Profiles / Home wire-head chip geometry — a fixed
+   --chip-h (34px) row with each chip centred, not the taller 10px-padded pill. */
 @media (max-width:900px){
-  /* Same bar height as the Profiles/Transactions wire-head chips: a fixed
-     --chip-h (34px) row with the chip centred, not the taller 10px-padded pill. */
   .dsh-railnav{ height:var(--chip-h, 34px); box-sizing:border-box; }
-  .dsh-navchip{ font-size:var(--fs-body); font-weight:400; padding:0 4px; height:100%;
+  .dsh-navchip{ font-size:var(--fs-body); padding:0 4px; height:100%;
     display:flex; align-items:center; justify-content:center; }
-  .dsh-navchip.is-on{ font-weight:600;
-    box-shadow:inset 0 -2px 0 var(--chip-ul, #000); }
-  :root[data-theme="dark"] .dsh-navchip.is-on{
-    box-shadow:inset 0 -2px 0 var(--chip-ul, #fff); }
 }
 .dsh-mid, .dsh-newsrail { display:flex; flex-direction:column; gap:var(--dsh-gap); min-width:0; padding:0 var(--dsh-gap); }
-/* Maturity-wall + spreads wrapper: stacks on narrow screens, becomes a 2fr/1fr row
-   on the terminal (see the .dsh-3z grid rules above). */
-.dsh-matrow { display:flex; flex-direction:column; gap:var(--dsh-gap); min-width:0; }
+
 /* News-rail items read as a wire: the headline sits on top (full width) with a
    muted meta line (date · source) beneath, so the narrow rail never squeezes the
    headline down to one word per line. */
@@ -133,8 +93,7 @@
   .dsh-navchip{ flex:0 0 auto; text-align:left; border:1px solid transparent; border-radius:0;
     background:transparent; padding:8px 11px; overflow:visible; text-overflow:clip; box-shadow:none; }
   @media (hover:hover){ .dsh-navchip:hover{ color:var(--t-ink); background:var(--t-panel2); } }
-  .dsh-navchip.is-on{ color:var(--t-ink); background:var(--t-panel); border-color:var(--t-grid2);
-    box-shadow:inset 3px 0 0 var(--t-accent); }
+  /* (the active rail item keeps the base .dsh-navchip.is-on marker — R14a, no box / bar) */
   /* Middle + rails: the grid gap spaces the columns; drop the mobile side padding. */
   .dsh-mid, .dsh-newsrail{ padding:0; }
   /* The middle is a 2-up grid, but conservatively: everything spans the FULL
@@ -157,29 +116,16 @@
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-term-lbl,
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card.dsh-span,
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card.dsh-wide{ grid-column:1 / -1; }
-  /* Maturity-wall row: the wide table beside the (short) live spreads — 2fr / 1fr. */
-  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-matrow{ grid-column:1 / -1; display:grid;
-    grid-template-columns:minmax(0,1fr) 260px; gap:var(--dsh-gap); align-items:start; }
-  /* The full-width Pulse card lays its metrics out in two columns. */
+  
+/* The full-width Pulse card lays its metrics out in two columns. */
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-pc-card .dsh-pc-grid{ grid-template-columns:1fr 1fr; column-gap:22px; }
-  /* Policy-rates row: the four rate panels (Fed · BoE · Rate outlook · Yield curve)
-     side by side, filling the width instead of a spread-out 2×2. Their inner
-     two-column splits (FedWatch|dot-plot, kv grids) collapse so each quarter reads
-     on one line. */
-  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row4{ grid-column:1 / -1; display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:var(--dsh-gap); align-items:start; }
-  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row4 .dsh-fed,
-  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row4 .dsh-kvgrid{ grid-template-columns:minmax(0,1fr); }
-  /* Cycle row: the two cycle panes side by side (each splits into meters + narrative
+  
+/* Cycle row: the two cycle panes side by side (each splits into meters + narrative
      internally — a 4-column slice across the pair). */
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row2{ grid-column:1 / -1; display:grid;
     grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:var(--dsh-gap); align-items:start; }
-  /* Credit row: the Pulse metrics beside the maturity wall + the (narrow) live
-     spreads — the three read across the width rather than stacked. */
-  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row-cr{ grid-column:1 / -1; display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:var(--dsh-gap); align-items:start; }
-  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row-cr .dsh-pc-grid{ grid-template-columns:1fr; }
-  /* A tile is only ~half the middle wide, so its inner two-column grids (kv
+  
+/* A tile is only ~half the middle wide, so its inner two-column grids (kv
      metrics, the Fed/BoE FedWatch|dot-plot split) collapse to one column so every
      row reads on a single line. Full-width rows keep their two columns. */
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card:not(.dsh-span):not(.dsh-wide) .dsh-kvgrid,
@@ -198,7 +144,7 @@
 /* Terminal panels: square corners, 1px hairline, flat — no radius or shadow, so
    the middle reads as a dense grid of aligned boxes (the "CAPITALTERM" look),
    in our own colour tokens. */
-.dsh-card { background:var(--t-panel); border:1px solid var(--t-grid); border-radius:0; padding:12px 14px; }
+.dsh-card { background:var(--t-panel); border:1px solid var(--t-grid); border-radius:0; padding:12px; }   /* one card padding, 12px (R2d a) */
 /* Panel title: a small MUTED label over a full-width bottom hairline divider —
    the section header sits quiet and the data below carries the emphasis
    (HOUSE_STYLE R10/R11). */
@@ -214,14 +160,6 @@
 .dsh-src { color:var(--t-mut); text-decoration:none; font-size:var(--fs-micro); text-transform:uppercase; letter-spacing:.03em; border:1px solid var(--t-grid2); border-radius:0; padding:0 3px; vertical-align:middle; }
 @media (hover:hover){ .dsh-src:hover { color:var(--t-ink); border-color:var(--t-mut); } }
 .dsh-live { color:var(--t-up); font-size:var(--fs-body); font-weight:400; letter-spacing:.04em; text-transform:uppercase; border:1px solid var(--t-up); border-radius:0; padding:0 4px; }
-
-/* Index strip — horizontal scroll on phone, wraps on desktop */
-.dsh-strip { display:flex; gap:8px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
-.dsh-strip::-webkit-scrollbar{ display:none; }
-.dsh-idx { flex:0 0 auto; min-width:120px; display:flex; flex-direction:column; gap:2px; padding:8px 10px; border:1px solid var(--t-grid); border-radius:0; text-decoration:none; background:var(--t-panel2); }
-.dsh-idx-nm { color:var(--t-mut); font-size:var(--fs-body); }
-.dsh-idx-lv { color:var(--t-ink); font-size:var(--fs-num); font-weight:400; font-variant-numeric:tabular-nums; }
-.dsh-idx-yt { font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
 
 /* Sector ranked bars (diverging around a centre line) */
 .dsh-sectors { display:flex; flex-direction:column; gap:5px; }
@@ -281,7 +219,6 @@
 .dsh-spread { display:flex; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-spread-nm { flex:1; color:var(--t-ink); font-family:var(--t-mono); font-size:var(--fs-body); }
 .dsh-spread-v { color:var(--t-ink); font-family:var(--t-mono); font-weight:400; font-variant-numeric:tabular-nums; }
-.dsh-spread-u { color:var(--t-faint); font-size:var(--fs-body); margin-left:2px; }
 .dsh-load { color:var(--t-mut); font-size:var(--fs-body); margin:2px 0; }
 
 /* Key moments — sourced "why it moved" rows in the Equities pane. Fixed first
@@ -307,8 +244,8 @@
 .dsh-fl-note { color:var(--t-faint); font-size:var(--fs-micro); line-height:1.5; margin:8px 0 0; }
 /* Geography bands: a small left-aligned label rule introducing each regional
    block (United States, Europe, Asia-Pacific, …), set off by a top rule. */
-.dsh-fl-tbl tr.dsh-georow td.dsh-geo { text-align:left; padding:10px 6px 3px; font-size:var(--fs-micro); font-weight:400; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); border-top:1px solid var(--t-grid); }
-.dsh-fl-tbl tbody tr.dsh-georow:first-child td.dsh-geo { border-top:0; padding-top:2px; }
+.dsh-fl-tbl tr.dsh-georow td.dsh-geo { text-align:left; padding:10px 6px 3px; font-size:var(--fs-micro); font-weight:400; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); border-top:0; }   /* the row above already draws the one rule — never two (R44g) */
+.dsh-fl-tbl tbody tr.dsh-georow:first-child td.dsh-geo { padding-top:2px; }
 .dsh-fl-pos { color:var(--t-up); font-weight:400; }
 /* Market-sizes matrix (Macro): the four asset classes laid out SIDE BY SIDE, each
    a block (region rows × Size + 1Y/5Y/10Y). Blocks fill the width and wrap to
@@ -346,17 +283,13 @@
 .dsh-lgl-chips { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:0 0 10px; }
 .dsh-lgl-lbl { color:var(--t-mut); font-size:var(--fs-body); font-weight:400; margin-right:2px; }
 .dsh-lgl-chip { display:inline-flex; align-items:center; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font:inherit;
-  font-size:var(--fs-body); font-weight:600; padding:0 9px; border-radius:0; cursor:pointer; }
+  font-size:var(--fs-body); font-weight:400; padding:0 9px; border-radius:0; cursor:pointer; }
 @media (hover:hover){ .dsh-lgl-chip:hover { color:var(--t-ink); } }
-.dsh-lgl-chip.is-on { color:var(--t-ink); font-weight:700; box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
+.dsh-lgl-chip.is-on { color:var(--t-ink); font-weight:600; box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .dsh-lgl-chip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }
 .dsh-lgl-body { max-height:62vh; overflow-y:auto; }
 .dsh-lgl-list { margin:0; }
-.dsh-lgl-i-h { display:flex; align-items:center; gap:8px; margin-bottom:2px; }
 .dsh-lgl-d { color:var(--t-mut); font-size:var(--fs-body); font-family:var(--t-mono); }
-.dsh-lgl-badge { font-size:var(--fs-micro); font-weight:400; text-transform:uppercase; letter-spacing:.04em; padding:1px 5px; border-radius:0; border:1px solid var(--t-grid2); }
-.dsh-lgl-m { color:var(--t-mut); font-size:var(--fs-micro); margin-top:2px; }
-
 /* IPO / generic table */
 .dsh-scroll { overflow-x:auto; }
 .dsh-tbl { width:100%; border-collapse:collapse; font-size:var(--fs-body); font-family:var(--t-mono); }
@@ -428,8 +361,6 @@
 .dsh-fim-strat{ font:inherit; font-size:var(--fs-body); color:var(--t-ink); background:var(--t-panel); border:1px solid var(--t-grid2); border-radius:0; padding:3px 6px; }
 .dsh-fim-lps{ max-width:260px; }
 .dsh-reg-jur{ color:var(--t-mut); white-space:nowrap; }
-.dsh-asof-lk{ margin-left:6px; }
-
 .dsh-ladder-cap { color:var(--t-faint); font-size:var(--fs-micro); margin-top:4px; }
 /* Maturity wall — the bar chart is integrated HORIZONTALLY into the per-year
    table: each Maturing cell holds a proportional bar (width = amt/max) with the
@@ -499,26 +430,16 @@
 }
 
 /* Stress cards */
-.dsh-stresslist { display:flex; flex-direction:column; gap:8px; }
 .dsh-stress { border:1px solid var(--t-grid); border-radius:0; padding:9px 10px; background:var(--t-panel2); }
 .dsh-stress-h { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
 .dsh-stress-h .dsh-nm { color:var(--t-ink); font-weight:400; font-size:var(--fs-body); }
 .dsh-stress-debt { color:var(--t-ink); font-weight:400; font-size:var(--fs-num); font-variant-numeric:tabular-nums; white-space:nowrap; }
-.dsh-stress-m { color:var(--t-mut); font-size:var(--fs-body); margin:3px 0 4px; }
 /* Stress sort chip bar */
 .dsh-sortbar { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:0 0 8px; }
 .dsh-sortlbl { color:var(--t-mut); font-size:var(--fs-body); margin-right:2px; }
 .dsh-sortchip { display:inline-flex; align-items:center; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font-size:var(--fs-body); font-family:inherit; padding:0 8px; cursor:pointer; }
 .dsh-sortchip.is-on { color:var(--t-ink); font-weight:600; box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .dsh-sortchip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }
-.dsh-stress-n { color:var(--t-ink); font-size:var(--fs-body); line-height:1.35; }
-
-.dsh-more a { color:inherit; text-decoration:none; font-size:var(--fs-body); }
-@media (hover:hover){ .dsh-more a:hover { text-decoration:none; } }
-
-/* A full-width card spanning both desktop columns (hero rows: index strip,
-   earnings, IPO, stress, embedded wires). */
-@media (min-width:761px){ .dsh-pane > .dsh-span{ grid-column:1 / -1; } }
 
 /* Regime pills (Macro) — quick colour-coded read of stance/cycle/bubble */
 .dsh-pills { display:flex; flex-wrap:wrap; gap:8px; }
@@ -548,36 +469,17 @@
 
 /* Rate-outlook grid (Macro) — one card per economy, stacked vertically so the
    Rate-outlook card fills the height of the taller Yield-curve card beside it. */
-.dsh-rogrid { display:grid; grid-template-columns:1fr; gap:10px; }
 .dsh-ro { border:1px solid var(--t-grid); border-radius:0; padding:9px 10px; background:var(--t-panel2); }
-.dsh-ro-h { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
-.dsh-ro-nm { color:var(--t-mut); font-size:var(--fs-body); }
 .dsh-ro-rate { color:var(--t-ink); font-size:var(--fs-num); font-weight:400; font-variant-numeric:tabular-nums; }
-.dsh-ro-m { color:var(--t-ink); font-size:var(--fs-body); margin:3px 0; }
-/* Collapsed-by-default commentary (native <details>). */
-.dsh-ro-more { margin-top:4px; }
-.dsh-ro-sum { cursor:pointer; color:var(--t-accent); font-size:var(--fs-body); font-weight:400; list-style:none;
-  display:inline-flex; align-items:center; gap:5px; user-select:none; }
-.dsh-ro-sum::-webkit-details-marker { display:none; }
-.dsh-ro-sum::before { content:"\25B8"; font-size:.72em; transition:transform .15s ease; }
-.dsh-ro-more[open] .dsh-ro-sum { margin-bottom:5px; }
-.dsh-ro-more[open] .dsh-ro-sum::before { transform:rotate(90deg); }
-.dsh-ro-b { color:var(--t-mut); font-size:var(--fs-body); line-height:1.35; }
 
 /* Yield curve (Macro) — SVG term structure + key */
 .dsh-yc { margin-bottom:8px; }
 /* Multi-country curve: SVG stretches to fill the full plot width at a fixed
    height (preserveAspectRatio:none in markup); Y-axis value labels sit in a left
    gutter, X-axis labels align under the plot. */
-.dsh-yc-plot { position:relative; padding-left:36px; }
-.dsh-yc-yax { position:absolute; left:0; top:0; width:36px; height:210px; }
-.dsh-yc-yax span { position:absolute; right:5px; transform:translateY(-50%); font-size:var(--fs-micro); color:var(--t-faint); font-variant-numeric:tabular-nums; white-space:nowrap; }
 .dsh-yc-svg { width:100%; height:210px; display:block; }
-.dsh-yc-grid { stroke:var(--t-grid); stroke-width:1; }
-.dsh-yc-x { padding-left:36px; }
 .dsh-yc-us { stroke:var(--t-accent); stroke-width:2; } .dsh-yc-us-d { fill:var(--t-accent); }
 .dsh-yc-uk { stroke:var(--t-mac); stroke-width:2; } .dsh-yc-uk-d { fill:var(--t-mac); }
-.dsh-yc-x { display:flex; justify-content:space-between; color:var(--t-faint); font-size:var(--fs-body); padding:2px 6px 0; }
 /* Macro yield curve — dots, tenor axis labels and the value table share one
    column grid (92px label column + N equal tenor columns) so they line up. */
 .dsh-yc2-plot { padding-left:104px; }
@@ -590,10 +492,7 @@
 .dsh-yc-key { display:inline-block; width:9px; height:9px; border-radius:0; margin-right:5px; vertical-align:baseline; }
 .dsh-yc-key.dsh-yc-us { background:var(--t-accent); } .dsh-yc-key.dsh-yc-uk { background:var(--t-mac); }
 td .dsh-yc-us, td .dsh-yc-uk { border:0; }
-/* Multi-country curve legend (Bonds) + the yield-change tenor selector. */
-.dsh-yc-leg { display:flex; flex-wrap:wrap; gap:4px 12px; margin:6px 0 10px; }
-.dsh-yc-lg { display:inline-flex; align-items:center; gap:5px; color:var(--t-ink); font-size:var(--fs-body); }
-.dsh-yc-lg i { width:9px; height:9px; border-radius:0; display:inline-block; }
+
 /* Bond-duration selector: pushed to the top-right of the card header, compact so
    it sits in line with the title. */
 .dsh-h-sel .dsh-yld-sel { margin-left:auto; }
@@ -603,9 +502,6 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-news { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
 
 /* Sortable Stress league table (Credit) */
-.dsh-tbl th.dsh-sortable { cursor:pointer; user-select:none; }
-@media (hover:hover){ .dsh-tbl th.dsh-sortable:hover { color:var(--t-ink); } }
-.dsh-tbl th.dsh-sorted { color:var(--t-ink); }
 .dsh-stresstbl td.dsh-note { white-space:normal; color:var(--t-ink); font-size:var(--fs-body); line-height:1.35; }
 .dsh-stresstbl td.dsh-nm { white-space:normal; }
 /* Debtor / Sector / HQ / Debt are their own columns now, all left-aligned. */
@@ -618,11 +514,6 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 /* Rate-outlook table: the "Read" commentary column wraps to fit its space. */
 .dsh-ro-tbl td.dsh-ro-read { white-space:normal; color:var(--t-ink); font-size:var(--fs-body); line-height:1.4; }
 .dsh-tbl td.dsh-mut { color:var(--t-mut); }
-
-/* Two-up pair (spreads|maturity, earnings|IPO) — side by side from a small width */
-.dsh-pair { display:grid; grid-template-columns:1fr; gap:var(--dsh-gap,10px); }
-@media (min-width:560px){ .dsh-pair{ grid-template-columns:1fr 1fr; } }
-.dsh-pair > .dsh-card { min-width:0; }
 
 /* Fed path — dot plot + CME FedWatch */
 .dsh-fed { display:grid; grid-template-columns:1fr; gap:12px; }
@@ -693,8 +584,6 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 /* Spread / money-market tiles: level · 1W / 1M moves · as-of + SRC. */
 .dsh-spreads-card .dsh-spreads, #dsh-mm { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); column-gap:18px; row-gap:0; }
 .dsh-spread { flex-wrap:wrap; row-gap:2px; }
-.dsh-spread-cs { display:inline-flex; gap:8px; font-size:var(--fs-num); font-variant-numeric:tabular-nums; color:var(--t-mut); }
-.dsh-spread-c.up { color:var(--t-up); } .dsh-spread-c.down { color:var(--t-down); }
 .dsh-spread-as { flex:1 0 100%; color:var(--t-faint); font-size:var(--fs-micro); }
 .dsh-tape-as { display:flex; justify-content:flex-end; gap:6px; margin-top:4px; }
 .dsh-tape-as .dsh-asof { margin-left:0; }
@@ -752,7 +641,7 @@ td .dsh-yc-ea { border:0; }
   .dsh-h:has(.dsh-h-r > :not(.dsh-live))::before { content:""; order:3; flex:0 0 100%; height:0; }
 }
 /* -- Dates: one size, one grey -- */
-.dsh-asof, .dsh-kv-d, .dsh-spread-as, .dsh-stress-as, .dsh-news-d, .dsh-pc-report-d, .dsh-ms-as, .dsh-lgl-d, .dsh-km-x .dsh-asof {
+.dsh-asof, .dsh-kv-d, .dsh-spread-as, .dsh-stress-as, .dsh-news-d, .dsh-ms-as, .dsh-lgl-d, .dsh-km-x .dsh-asof {
   font-size:var(--fs-micro); color:var(--t-faint); font-weight:400; font-variant-numeric:tabular-nums; }
 /* -- Chip family: status · source · tag — one size -- */
 .dsh-live, .dsh-src, .dsh-tag, .dsh-band, .dsh-hf-dir, .dsh-earn-when {
@@ -868,13 +757,7 @@ td .dsh-yc-ea { border:0; }
   .dsh-mid.dsh-masonry .dsh-hf-i, .dsh-mid.dsh-masonry .dsh-lgl-i, .dsh-mid.dsh-masonry .dsh-rx .dsh-news-i,
   .dsh-mid.dsh-masonry .dsh-earn-rel, .dsh-mid.dsh-masonry .dsh-km, .dsh-mid.dsh-masonry .dsh-earn-wk { break-inside:avoid; }
 }
-/* Long commentary lists keep a fixed height and scroll inside (like the news rail),
-   so one long list never leaves its neighbours ending far above it. */
-@media (min-width:901px){
-  .dsh-mid.dsh-masonry > .dsh-cap { display:flex; flex-direction:column; max-height:560px; }
-  .dsh-mid.dsh-masonry > .dsh-cap > .dsh-h { flex:0 0 auto; }
-  .dsh-mid.dsh-masonry > .dsh-cap > :not(.dsh-h) { flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
-}
+
 /* -- Fill cards (R40): charts and long lists that take the height the layout gives
    them. Header fixed; body fills and scrolls (lists) or scales (charts). -- */
 .dsh-card.dsh-fill { display:flex; flex-direction:column; box-sizing:border-box; }
@@ -926,6 +809,10 @@ td .dsh-yc-ea { border:0; }
    quick chips, then two-line rows (name · headline figure / meta) that expand in place.
    Never a sideways-scrolling table. Desktop caps the list height and scrolls inside. */
 .crr-bar { display:flex; gap:6px; align-items:center; margin:2px 0 8px; }
+/* The roster bar is a search row like every other (R44f): its field and buttons take the
+   search input's height — 20px on desktop, 26px on iPhone. */
+.crr-bar > :is(.crr-q, .crr-sort, .crr-csv) { box-sizing:border-box; height:20px; }
+@media (max-width:760px){ .crr-bar > :is(.crr-q, .crr-sort, .crr-csv) { height:26px; } }
 .crr-q { flex:1 1 auto; min-width:0; height:var(--chip-h,34px); box-sizing:border-box; border:1px solid var(--t-grid2); background:transparent; color:var(--t-ink); font:inherit; font-size:var(--fs-body); padding:0 9px; border-radius:0; }
 .crr-sort { flex:0 1 auto; min-width:0; max-width:46%; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font:inherit; font-size:var(--fs-body); padding:0 4px; border-radius:0; }
 .crr-csv { flex:0 0 auto; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font:inherit; font-size:var(--fs-micro); font-weight:400; letter-spacing:.05em; padding:0 9px; cursor:pointer; border-radius:0; }
@@ -1025,7 +912,7 @@ html.dsh-sheet-open, html.dsh-sheet-open body { overflow:hidden; }
 
 /* iPhone gutter (R2d): card edges sit on the same 12px line as every other phone page. */
 @media (max-width:760px) {
-  .dsh-pane, .dsh-mid { padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
+  .dsh-mid { padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
   .dsh-card { padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
 }
 

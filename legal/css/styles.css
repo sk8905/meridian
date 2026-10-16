@@ -56,18 +56,11 @@ h3 { font-size:var(--fs-title); line-height: 1.25; margin: 0; }
    on long feed headlines / prose so a single word never wraps alone on the last
    line. Both are progressively enhanced (ignored where unsupported). */
 h1, h2, h3, .kpi-label { text-wrap: balance; }
-.feed-title, .compact-head, .rx-name, p, .muted, .feed-summary, .ai-summary p, .lead { text-wrap: pretty; }
+.feed-title, .compact-head, p, .muted, .feed-summary, .lead { text-wrap: pretty; }
 a { color: inherit; text-decoration: none; }
 a:hover { text-decoration: none; }
 img, svg { max-width: 100%; }
 .muted { color: var(--muted); }
-
-.skip-link {
-  position: absolute; left: -999px; top: 0; background: var(--navy); color: #fff;
-  padding: .6rem 1rem; border-radius: 0 0 8px 0; z-index: 100;
-}
-.skip-link:focus { left: 0; }
-
 
 /* "Load more" button for paginated feeds. */
 .load-more-wrap { display: flex; justify-content: center; margin-top: 1rem; }
@@ -120,13 +113,6 @@ img, svg { max-width: 100%; }
 .notif-item { padding: .45rem .5rem; border-bottom: 1px solid var(--t-grid); border-radius: 6px; }
 .notif-item:last-child { border-bottom: none; }
 .notif-empty { padding: .6rem .5rem; }
-.nav-toggle {
-  display: none; background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.22);
-  font-size:var(--fs-title); width: 40px; height: 40px; border-radius: 7px; cursor: pointer;
-}
-.mobile-nav { display: none; flex-direction: column; gap: .15rem; background: var(--navy); padding: .4rem 1.5rem .9rem; }
-.mobile-nav .nav-link { padding: .65rem .8rem; }
-
 /* ---- Layout ---- */
 /* Full-width content with consistent 2rem side gutters (no centred max-width). */
 .container { padding: 1.75rem 2rem 3rem; }
@@ -141,7 +127,6 @@ img, svg { max-width: 100%; }
 .page-head h1 { color: var(--ink); }
 .lead { font-size:var(--fs-title); color: var(--ink-soft); margin: 0 0 1rem; }
 .lead strong { color: var(--ink); }
-.hero-actions { display: flex; gap: .6rem; flex-wrap: wrap; }
 .btn {
   display: inline-block; padding: .5rem 1rem; border-radius: 8px; font-size:var(--fs-head); font-weight:400;
   text-decoration: none; cursor: pointer; background: var(--surface); color: var(--primary-ink);
@@ -153,7 +138,6 @@ img, svg { max-width: 100%; }
 
 /* ---- KPIs (Wire: teal left border) ---- */
 .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
-.kpis-5 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 /* White tile with a soft pastel left-trim drawn from the practice-area pill
    palette — the trim is tinted (not the fill). */
 .kpi {
@@ -169,32 +153,9 @@ img, svg { max-width: 100%; }
 .kpi.accent { border-left-color: var(--accent); }
 .kpi.accent .kpi-num { color: var(--accent); }
 
-/* Collapsible "Key metrics" toggle — a plain text button (no card). On desktop
-   the block is rendered open (the `open` attribute is set in JS) and the summary
-   is hidden, so the tiles are always shown and can't be collapsed. On phones the
-   summary stays and the tiles collapse by default to save space. */
-.rk-toggle { margin: 0 0 1.25rem; }
-.rk-toggle > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: .45rem;
-  width: fit-content; font-weight:400; font-size:var(--fs-title); color: var(--muted); padding: .15rem .1rem; }
-.rk-toggle > summary::-webkit-details-marker { display: none; }
-.rk-toggle > summary:hover { text-decoration: none; }
-.rk-caret { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
-  transform: rotate(45deg); margin-bottom: 3px; transition: transform .15s; }
-.rk-toggle[open] .rk-caret { transform: rotate(-135deg); margin-bottom: -2px; }
-.rk-toggle-body { margin-top: .8rem; }
-.rk-toggle-body .kpis { margin-bottom: 0; }
-@media (min-width: 761px) {
-  .rk-toggle > summary { display: none; }
-  .rk-toggle-body { margin-top: 0; }
-}
-
 /* ---- Dashboard two-column lists ---- */
-.dash-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-.feed-card { display: flex; flex-direction: column; }
 .feed-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .feed-head h2 { margin: 0; }
-.feed-intro { margin: .25rem 0 .5rem; font-size:var(--fs-head); color: var(--muted); }
-
 /* ---- Feed / list rows (Wire-style) ---- */
 .feed-row { display: flex; gap: .7rem; padding: .8rem 0; border-bottom: 1px solid var(--t-grid); }
 .feed-row:last-child { border-bottom: 0; }
@@ -203,7 +164,6 @@ img, svg { max-width: 100%; }
 .feed-meta { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; width: 5.5rem; flex-shrink: 0; }
 /* Stack area labels one per line so multi-area rows read tidily in the meta column. */
 .feed-meta .chips { flex-direction: column; align-items: flex-start; gap: .25rem; }
-.feed-type { font-size:var(--fs-body); text-transform: uppercase; letter-spacing: .4px; color: var(--muted); font-weight:400; }
 .feed-date { font-size:var(--fs-head); color: var(--muted); }
 .feed-body { min-width: 0; flex: 1; }
 .feed-title { font-weight:400; color: var(--ink); display: inline-block; margin-bottom: .15rem; overflow-wrap: anywhere; }
@@ -216,81 +176,31 @@ a.feed-title:hover { text-decoration: none; }
 .sum-clamp.is-open .feed-summary.clamp2 { -webkit-line-clamp: unset; overflow: visible; }
 .clamp-toggle { display: inline-block; margin-top: .15rem; padding: 0; background: none; border: 0; color: var(--primary); font: inherit; font-size:var(--fs-body); font-weight:400; cursor: pointer; }
 .clamp-toggle:hover { text-decoration: none; }
-/* Schemes/RPs rows tuck all their structured detail into the expander. */
-.rx-clamp .rx-detail { display: none; }
-.rx-clamp.is-open .rx-detail { display: block; margin-top: .45rem; }
-/* Schemes/RPs: the "more" toggle sits inline at the END of the summary text (was
-   on its own line beneath it) to save vertical space. */
-.rx-clamp .feed-summary.clamp2 { display: inline; -webkit-line-clamp: unset; overflow: visible; }
-.rx-clamp .clamp-toggle { margin-top: 0; margin-left: .4rem; }
+
 /* Truncated (2-line) summaries — e.g. Case law: the "more" toggle sits inline at the
    END of the last visible line, never on its own line. It is absolutely positioned at
    the bottom-right of the clamped box with a fade so it doesn't overlap the text. On
    expand, the text flows inline and "less" trails it. */
-.sum-clamp:not(.rx-clamp) { position: relative; }
-.sum-clamp:not(.rx-clamp) .clamp-toggle {
-  position: absolute; right: 0; bottom: 0; margin: 0; padding-left: 2.4rem;
-  background: linear-gradient(90deg, rgba(255,255,255,0), var(--surface) 45%);
-}
-.sum-clamp:not(.rx-clamp).is-open .feed-summary.clamp2 { display: inline; }
-.sum-clamp:not(.rx-clamp).is-open .clamp-toggle {
-  position: static; padding-left: 0; margin-left: .4rem; background: none;
-}
 .feed-foot { font-size:var(--fs-head); color: var(--muted); line-height: 1.6; }
 .feed-foot .firm { font-weight:400; color: var(--ink-soft); }
 .feed-foot .cite { color: var(--muted); font-style: italic; }
 .feed-foot a { color: inherit; }
 /* Firm-profile links (footer + detail head) are internal → no ↗; underline on hover. */
 .feed-foot a.firm { color: inherit; }
-a.firm:hover, a.firm-big:hover { text-decoration: none; }
-.src-tag { font-size:var(--fs-body); font-weight:400; letter-spacing: .4px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: .02rem .35rem; }
-
+a.firm:hover { text-decoration: none; }
 /* ---- Panels & charts ---- */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
 .panel {
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
   padding: 1.1rem 1.25rem; margin-bottom: 1rem; box-shadow: var(--shadow); overflow: hidden;
 }
 .panel h2 { color: var(--ink-soft); }
 .chart { width: 100%; height: auto; }
-.chart-label { font-size:var(--fs-body); fill: var(--ink-soft); }
-.chart-value { font-size:var(--fs-num); fill: var(--muted); font-weight:400; font-variant-numeric: tabular-nums; }
-.chart-axis { font-size:var(--fs-body); fill: var(--muted); }
 .chart-grid { stroke: var(--line); stroke-width: 1; }
-.clickable, .bar-row.clickable { cursor: pointer; }
-.bar-row.clickable:hover rect[rx] { opacity: .82; }
-.bar-row:focus-visible { outline: 2px solid var(--primary); }
+.clickable { cursor: pointer; }
 .chart g.col.clickable:hover rect[rx] { opacity: .82; }
 .chart g.col.clickable:focus-visible { outline: 2px solid var(--primary); }
-.donut-wrap { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
 .donut { width: 180px; flex: 0 0 auto; }
-.donut-total { font-size:var(--fs-hero); font-weight:400; fill: var(--ink); font-variant-numeric: tabular-nums; }
-.donut-sub { font-size:var(--fs-body); fill: var(--muted); }
 .legend { display: flex; flex-direction: column; gap: .4rem; }
-.legend-item { display: flex; align-items: center; gap: .5rem; font-size:var(--fs-head); color: var(--ink-soft); }
-.legend-item.clickable:hover { color: var(--ink); }
-.legend-swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
-
-/* ---- Section heads ---- */
-.section-head { font-size:var(--fs-title); margin: 1.1rem 0 .8rem; }
-.section-head-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin: 1.1rem 0 .8rem; }
-.section-head-row .section-head { margin: 0; }
-.see-all { font-weight:400; font-size:var(--fs-head); }
-
-/* ---- Practice-area cards ---- */
-.area-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
-.area-card {
-  display: block; text-decoration: none; color: inherit; background: var(--surface);
-  border: 1px solid var(--line); border-left: 3px solid var(--c, var(--primary));
-  border-radius: var(--radius); padding: 1rem 1.1rem; box-shadow: var(--shadow);
-}
-.area-card:hover { box-shadow: var(--shadow-lg); text-decoration: none; }
-.area-card-head { display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
-.area-card-head strong { font-size:var(--fs-title); }
-.area-count { background: color-mix(in srgb, var(--c, var(--primary)) 15%, #fff); color: color-mix(in srgb, var(--c, var(--primary)) 60%, #22263a); border-radius: 999px; padding: 0 .55rem; font-size:var(--fs-body); font-weight:400; }
-.area-blurb { margin: .5rem 0 .4rem; font-size:var(--fs-head); color: var(--muted); }
-.area-recent { font-size:var(--fs-head); color: var(--ink-soft); font-style: italic; }
 
 /* ---- Cards grid ---- */
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
@@ -298,8 +208,6 @@ a.firm:hover, a.firm-big:hover { text-decoration: none; }
   background: var(--surface); border: 1px solid var(--line);
   border-radius: var(--radius); padding: 1.1rem 1.25rem; box-shadow: var(--shadow); overflow: hidden;
 }
-.feature-card { border-top: 3px solid var(--accent); }
-.card-foot { margin-top: .75rem; padding-top: .6rem; border-top: 1px solid var(--t-grid); font-size:var(--fs-head); font-weight:400; }
 /* `.small` size is owned by premium.css (the canonical scale): fine-print / meta
    text at --fs-item-meta, not --fs-head. Re-adding a font-size here would load
    after premium.css in the v2 bundle and inflate every "muted small" caption. */
@@ -310,9 +218,6 @@ a.firm:hover, a.firm-big:hover { text-decoration: none; }
 a.compact-head:hover { text-decoration: none; }
 .compact-meta { margin-top: .15rem; }
 .compact-meta .small { color: var(--muted); }
-.card-link { display: block; padding: 1rem 1.1rem 0; text-decoration: none; color: inherit; flex: 1; }
-.card-link:hover { text-decoration: none; }
-.card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; margin-bottom: .5rem; }
 .chips { display: flex; flex-wrap: wrap; gap: .35rem; }
 .chip {
   display: inline-block; font-size:var(--fs-body); font-weight: 700; padding: .12rem .5rem; border-radius: 999px;
@@ -325,17 +230,13 @@ a.compact-head:hover { text-decoration: none; }
   border: 1px solid color-mix(in srgb, var(--c, var(--primary)) 26%, #fff); }
 .chip.type { background: color-mix(in srgb, var(--muted) 14%, #fff); color: var(--primary-ink); border: 1px solid color-mix(in srgb, var(--muted) 30%, #fff); }
 .chip.new { background: color-mix(in srgb, var(--muted) 14%, #fff); color: color-mix(in srgb, var(--muted) 74%, var(--ink)); border: 1px solid color-mix(in srgb, var(--muted) 30%, #fff); }
-.card-date { font-size:var(--fs-body); color: var(--muted); white-space: nowrap; }
 .card-title { margin: 0 0 .5rem; font-size:var(--fs-title); color: var(--ink); }
-.card-summary { margin: 0 0 .8rem; font-size:var(--fs-head); color: var(--ink-soft); }
-.card-meta { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; font-size:var(--fs-body); padding-bottom: .9rem; }
 .firm { font-weight:400; color: var(--ink); }
 .cite { color: var(--muted); font-style: italic; }
 
 /* ---- List view ---- */
 .list-head { margin-bottom: 1.1rem; }
 .list-head h1 { margin: 0 0 .25rem; }
-.list-layout { display: grid; grid-template-columns: 240px 1fr; gap: 1.5rem; align-items: start; }
 /* Horizontal filter bar (Wire Credit style): an uppercase label above each
    control, a search box, and plain-text multi-select dropdowns — the feed below
    spans the full width. */
@@ -372,40 +273,15 @@ a.compact-head:hover { text-decoration: none; }
 }
 .ms-opt:hover { background: #f1f5f9; }
 .ms-opt input { flex: 0 0 auto; width: 15px; height: 15px; min-width: 0; margin: 0; padding: 0; accent-color: var(--accent); cursor: pointer; }
-.filters-top { display: flex; justify-content: flex-end; margin-bottom: .3rem; }
-.link-btn { background: none; border: 0; color: var(--primary); cursor: pointer; font-size:var(--fs-head); font-weight:400; padding: 0; }
-.filter-group { border: 0; border-top: 1px solid var(--t-grid); margin: 0; padding: .8rem 0 .2rem; }
-.filter-group legend { font-weight: 700; font-size:var(--fs-body); text-transform: uppercase; letter-spacing: .5px; color: var(--muted); padding: 0; margin-bottom: .4rem; }
 /* Collapsible (folded) filter group — disclosure dropdown to save space. */
-.filter-fold { padding: .55rem 0 .35rem; }
-.filter-fold > summary {
-  display: flex; align-items: center; gap: .4rem; cursor: pointer; list-style: none;
-  font-weight:400; font-size:var(--fs-body); text-transform: uppercase; letter-spacing: .5px; color: var(--muted);
-  padding: .1rem 0;
-}
-.filter-fold > summary::-webkit-details-marker { display: none; }
-.filter-fold > summary::after { content: "▾"; margin-left: auto; font-size:var(--fs-body); transition: transform .15s; }
-.filter-fold[open] > summary::after { transform: rotate(180deg); }
-.fg-badge { background: var(--primary); color: #fff; border-radius: 999px; padding: 0 .4rem; font-size:var(--fs-micro); font-weight:400; line-height: 1.5; text-transform: none; letter-spacing: 0; }
-.fold-body { margin-top: .35rem; max-height: 220px; overflow-y: auto; }
 .check { display: flex; align-items: center; gap: .5rem; font-size:var(--fs-head); padding: .2rem 0; cursor: pointer; }
 .check input { width: 16px; height: 16px; accent-color: var(--primary); flex: 0 0 auto; }
 .check.toggle { font-weight:400; padding: .4rem 0; }
-.results-wrap { min-width: 0; }
-.searchbar { margin-bottom: .8rem; }
-.searchbar input[type="search"] {
-  width: 100%; padding: .6rem .9rem; border: 1px solid var(--line); border-radius: 8px;
-  font-size:var(--fs-title); background: var(--surface); color: var(--ink); box-shadow: var(--shadow);
-}
-.searchbar input[type="search"]:focus { outline: 2px solid var(--muted); outline-offset: 0; border-color: var(--ink); }
-.result-count { color: var(--muted); font-size:var(--fs-head); margin-bottom: .8rem; }
 /* Year section breaks in the alert / case-law lists (matching Wire Credit) */
-.year-group + .year-group { margin-top: .5rem; }
 .year-head {
   font-size:var(--fs-head); font-weight: 700; color: var(--muted); text-transform: uppercase;
   letter-spacing: 1px; margin: 1rem 0 .1rem; padding-bottom: .35rem; border-bottom: 2px solid var(--line);
 }
-.year-group:first-child .year-head { margin-top: .25rem; }
 .empty { padding: 2rem; text-align: center; color: var(--muted); }
 /* Deep-link highlight when arriving at a specific case from the dashboard */
 .feed-row.flash { animation: rowflash 2.2s ease-out; }
@@ -418,15 +294,8 @@ a.compact-head:hover { text-decoration: none; }
 .detail h2 { font-size: var(--fs-card-title); margin: 1.4rem 0 .6rem; }
 /* Save button lives at the TOP-RIGHT of the article box (platform convention),
    in a row with the area/type chips; the title sits full-width below. */
-.detail-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
-.detail-top .detail-chips { flex: 1 1 auto; }
-.detail-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
-.detail-meta { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; font-size: var(--fs-item-meta); color: var(--ink-soft); margin-bottom: 1rem; }
-.firm-big { font-weight:400; }
 .juris { color: var(--muted); }
-.case-bar { display: flex; flex-wrap: wrap; gap: 1.5rem; background: #f1f5f9; border-radius: 8px; padding: .8rem 1rem; margin-bottom: 1.2rem; font-size:var(--fs-head); }
-.case-bar .lbl, .source-box .lbl { display: block; font-size:var(--fs-body); text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight:400; }
-.detail-summary { font-size: var(--fs-content); color: var(--ink); }
+.source-box .lbl { display: block; font-size:var(--fs-body); text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight:400; }
 .points { padding-left: 1.2rem; }
 .points li { margin-bottom: .4rem; }
 .tags { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.2rem 0; }
@@ -438,46 +307,13 @@ a.compact-head:hover { text-decoration: none; }
 .related { margin-top: 2rem; }
 .reviewed { color: var(--muted); font-size:var(--fs-head); text-align: center; margin-top: 1.5rem; }
 
-/* ---- Case law view ---- */
-.case-controls { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: .8rem; }
-.case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.case-card {
-  display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line);
-  border-left: 3px solid var(--c, var(--primary)); border-radius: var(--radius);
-  padding: 1.1rem 1.25rem; box-shadow: var(--shadow);
-}
-.case-card-top { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; margin-bottom: .45rem; }
-.case-court { font-size:var(--fs-body); text-transform: uppercase; letter-spacing: .4px; color: var(--muted); font-weight:400; }
-.case-date { font-size:var(--fs-body); color: var(--muted); margin-left: auto; }
-.case-name { margin: .1rem 0 .6rem; font-size:var(--fs-title); line-height: 1.3; }
-.case-name a { color: var(--ink); text-decoration: none; }
-.case-name a:hover { color: var(--ink); text-decoration: none; }
-.case-cite { display: block; color: var(--muted); font-style: italic; font-weight: 500; font-size:var(--fs-head); margin-top: .15rem; }
-.ai-summary { background: #f0fdfa; border: 1px solid #ccfbf1; border-left: 3px solid var(--accent); border-radius: 8px; padding: .6rem .8rem; margin: 0 0 .8rem; }
-.ai-badge { display: inline-block; font-size:var(--fs-micro); font-weight:400; text-transform: uppercase; letter-spacing: .6px; color: var(--primary-ink); margin-bottom: .25rem; }
-.ai-summary p { margin: 0; font-size:var(--fs-head); color: var(--ink-soft); }
-.case-link { font-size:var(--fs-head); font-weight:400; margin-top: auto; }
-
 /* The bottom tab bar (.mobile-tabbar / .mtab) is defined ONCE, in premium.css
    — identical on every page, like the shared header. */
 
-/* ---- Responsive ---- */
-@media (max-width: 980px) {
-  .dash-cols { grid-template-columns: 1fr; }
-  .kpis-5 { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 1100px) {
-  .grid-3 { grid-template-columns: 1fr 1fr; }
-}
 /* Stack the header + content at ≤900px, matching Wire Credit/Macro/Glance so
    all four top bars switch to the stacked mobile layout at the same width. */
 @media (max-width: 900px) {
-  .grid-2 { grid-template-columns: 1fr; }
-  .grid-3 { grid-template-columns: 1fr; }
-  .list-layout { grid-template-columns: 1fr; }
   .filters { position: static; max-height: none; overflow: visible; }
-  .case-grid { grid-template-columns: 1fr; }
-
   /* Stacked header so nothing overflows on a ~390px screen: brand + bell on the
      top row, the sign-in/refresh block on its own full-width row (so the email +
      "Last refresh" line never clip), then the platform toggle, then the nav as a
@@ -491,10 +327,8 @@ a.compact-head:hover { text-decoration: none; }
       "search  search"
       "nav     nav";
   }
-  .nav-search { grid-area: search; width: 100%; min-width: 0; margin-left: 0; justify-content: space-between; }
   .brand { grid-area: brand; justify-self: start; }
   .brand-text strong { font-size:var(--fs-title); }
-  .brand-sub { font-size:var(--fs-micro); }
   .logo { font-size:var(--fs-title); }
   .platform-switch { grid-area: toggle; justify-self: start; align-self: center; }
   .ps-btn { padding: .24rem .5rem; font-size:var(--fs-body); }
@@ -503,11 +337,6 @@ a.compact-head:hover { text-decoration: none; }
   .topbar-right { grid-area: account; align-items: flex-end; text-align: right; margin-left: 0; }
   .account-nav, .data-status { white-space: nowrap; font-size:var(--fs-body); }
   .account-nav .si-prefix { display: none; }
-  .mainnav {
-    grid-area: nav; display: flex; justify-content: flex-start; gap: .15rem;
-    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px;
-  }
-  .mainnav::-webkit-scrollbar { display: none; }
   .nav-link { padding: .3rem .5rem; font-size:var(--fs-head); white-space: nowrap; flex: 0 0 auto; }
   /* Match Credit/Macro: reduce the side padding on mobile so the content is the
      same width as the other apps (it was staying at the desktop 2rem). */
@@ -518,10 +347,9 @@ a.compact-head:hover { text-decoration: none; }
    alongside (to the left of) the bell, then the scrolling nav. */
 @media (max-width: 760px) {
   .topbar-inner { grid-template-columns: auto 1fr auto; grid-template-areas: "brand account bell" "nav nav nav"; }
-  .platform-switch, .nav-search { display: none; }
+  .platform-switch { display: none; }
   .logo { font-size:var(--fs-hero); }
   .brand-text strong { font-size:var(--fs-title); }
-  .brand-sub { font-size:var(--fs-micro); }
   .topbar-right { justify-self: end; }
   .account-nav, .data-status { font-size:var(--fs-micro); }
   body { padding-bottom: 5.65rem; }   /* clear the fixed bottom tab bar (premium.css) */
@@ -530,7 +358,6 @@ a.compact-head:hover { text-decoration: none; }
   .cards { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) {
-  .kpis-5 { grid-template-columns: repeat(2, 1fr); }
   .kpi-num { font-size:var(--fs-hero); }
   /* Stack the feed-row meta above the body on narrow screens */
   .feed-row { flex-direction: column; gap: .35rem; position: relative; }
@@ -552,30 +379,12 @@ a.compact-head:hover { text-decoration: none; }
 .seg-btn:hover { background: #f1f5f9; }
 .seg-btn.active { background: var(--primary); color: #fff; }
 
-/* Detail lines inside the feed body — muted, matching .feed-summary typography. */
-.rx-line { margin: .5rem 0; font-size:var(--fs-head); color: var(--muted); overflow-wrap: anywhere; line-height: 1.5; }
-.rx-lbl { display: block; font-weight:400; color: var(--ink-soft); text-transform: uppercase; font-size:var(--fs-body); letter-spacing: .4px; margin-bottom: .12rem; }
-.rx-features { margin: .5rem 0 .3rem; padding-left: 1.1rem; }
-.rx-features li { font-size:var(--fs-head); color: var(--muted); margin: .28rem 0; line-height: 1.5; }
-/* Collapsible row — the COMPANY NAME (inside <summary>) is the expand toggle. */
-.rx-bar { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .8rem; }
-.rx-det { margin-top: 0; }
-.rx-summary { cursor: pointer; list-style: none; padding: .1rem 0; }
-.rx-summary::-webkit-details-marker { display: none; }
 /* Title + Save on one row (no wrap): the title flexes/shrinks so the Save button
    stays pinned to the top-right of the box, matching Wire Credit's rows. */
 .rx-title-line { display: flex; align-items: baseline; gap: .45rem; }
 /* Title takes only its content width so the outcome note sits BESIDE the headline
    (not pushed to the far right); the Save button keeps its margin-left:auto. */
 .rx-title-line .feed-title { flex: 0 1 auto; min-width: 0; }
-.rx-out-text { flex: 0 0 auto; }
-.rx-name { color: var(--ink); }
-.rx-summary:hover .rx-name { color: var(--ink); }
-.rx-compact { display: block; font-size:var(--fs-head); color: var(--muted); margin-top: .25rem; }
-.rx-expand { margin-top: .7rem; padding-top: .6rem; border-top: 1px dashed var(--line); line-height: 1.5; }
-.rx-expand .feed-summary { margin: .1rem 0 .55rem; line-height: 1.55; }
-.rx-expand .feed-foot { margin-top: .7rem; }
-
 /* Dark-mode accent (shared surfaces/shadows live in premium.css). */
 :root[data-theme="dark"] { --accent: #fb8b1e; --primary: #fb8b1e; --primary-ink: #c9d3e6; }
 
@@ -585,11 +394,6 @@ a.compact-head:hover { text-decoration: none; }
 .kpis .kpi .kpi-num { grid-column: 1; grid-row: 1 / 3; align-self: center; }
 .kpis .kpi .kpi-label { grid-column: 2; grid-row: 1; align-self: end; margin: 0; }
 .kpis .kpi .kpi-sub { grid-column: 2; grid-row: 2; align-self: start; margin: 0; }
-
-/* ---- Dashboard feature-card taglines (the muted line under each section heading)
-        are clamped to a single line so the cards stay compact. ---- */
-.feature-card > h2 + p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; }
-
 
 /* ===================== Schemes & RPs table (dashboard pane) =====================
    Every Part 26A plan / Part 26 scheme in one dense table — company, debt, status,
@@ -665,11 +469,11 @@ a.compact-head:hover { text-decoration: none; }
    rows: deal / side · date · amount · lender · source). Theme comes from the shared
    --ink / --muted / --faint / --border tokens (light + dark via premium.css). */
 .lf-glance { display: grid; grid-template-columns: repeat(4, minmax(0, auto)); justify-content: start; gap: 0; border-bottom: 1px solid var(--t-grid); background: var(--surface); }
-.lf-g { display: flex; flex-direction: column; gap: 2px; padding: 9px 18px 9px 12px; min-width: 0; border-right: 1px solid var(--border); }
+.lf-g { display: flex; flex-direction: column; gap: 2px; padding: 8px var(--m-gutter, 12px); min-width: 0; border-right: 1px solid var(--border); }   /* as the manager glance (.mg-f) */
 .lf-g:last-child { border-right: 0; }
 .lf-g-k { font-size: var(--fs-micro); font-weight:400; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); white-space: nowrap; }
 .lf-g-v { font-size: var(--fs-body); font-weight:400; color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
-.lf-g-n { color: var(--muted); font-weight: 500; font-size: var(--fs-num); }
+.lf-g-n { color: var(--muted); font-weight: 400; font-size: var(--fs-num); }
 .lf-g-s { font-size: var(--fs-micro); color: var(--faint); white-space: nowrap; }
 .lf-cn { margin-left: 0; }
 .lf-filt { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--t-grid); background: var(--surface); }
@@ -688,10 +492,8 @@ a.compact-head:hover { text-decoration: none; }
 .lf-deal-t a { color: inherit; text-decoration: none; }
 @media (max-width: 760px) {
   .lf-glance { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .lf-g { padding: 8px 16px; }
   .lf-g:nth-child(2n) { border-right: 0; }
   .lf-g:nth-child(-n+2) { border-bottom: 1px solid var(--t-grid); }
-  .lf-filt { padding: 8px 16px; }
   .lf-sel { flex: 1 1 0; min-width: 0; }
   .lf-more-w { padding: 0 16px; }
 }

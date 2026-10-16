@@ -14,6 +14,7 @@ import {
   items, cases, restructurings, firms, firmById, areaById, typeById,
 } from "/legal/js/data.js";
 import { esc, byDateDesc } from "/util.js";
+import { rowTip } from "/feed.js";
 import {
   fmtDate, itemDate, isNew, areaChip, tierLabel, firmLink,
   _chipMem, chipMemKey,
@@ -167,7 +168,7 @@ function pcDate(s) {
   return m ? PC_MON[+m[2] - 1] + " " + m[1] : esc(s);
 }
 // One private-capital deal row (last-12-months list): date · parties · role · value.
-const pcDealRow = (d) => `<li class="compact-item tw-row" data-kind="deal">`
+const pcDealRow = (d) => `<li class="compact-item tw-row" data-kind="deal"${rowTip(d.parties, d.role, d.value)}>`
   + `<span class="tw-date">${pcDate(d.date)}</span>`
   + `<span class="tw-tag deal">DEAL</span>`
   + `<span class="tw-body">${d.url ? `<a href="${esc(d.url)}" target="_blank" rel="noopener noreferrer" class="tw-head">${esc(d.parties)}</a>` : `<span class="tw-head">${esc(d.parties)}</span>`}`
@@ -197,7 +198,7 @@ export function viewFirm(id, tab0) {
   firmAlerts.forEach((i) => (i.areas || [i.area]).forEach((a) => (areaMix[a] = (areaMix[a] || 0) + 1)));
   const areaMixRows = Object.entries(areaMix).sort((a, b) => b[1] - a[1]);
 
-  const alertWireRow = (it) => `<li class="compact-item tw-row" data-kind="alert">`
+  const alertWireRow = (it) => `<li class="compact-item tw-row" data-kind="alert"${rowTip(it.title, (areaById[(it.areas || [it.area])[0]] || {}).name, (typeById[it.type] || {}).name || it.type)}>`
     + `<span class="tw-date"${it.dateEstimated ? ' title="Approximate date — the source shows no exact publication date"' : ""}>${it.date ? (it.dateEstimated ? "c. " : "") + esc(fmtDate(it.date)) : ""}</span>`
     + `<span class="tw-tag alert">ALERT</span>`
     + `<span class="tw-body">${it.url ? `<a href="${esc(it.url)}" target="_blank" rel="noopener noreferrer" class="tw-head">${esc(it.title)}</a>` : `<a href="#/item/${encodeURIComponent(it.id)}" class="tw-head">${esc(it.title)}</a>`}`
@@ -215,7 +216,7 @@ export function viewFirm(id, tab0) {
     ...rxMentions.map(rxRow),
     ...alertMentions.map((i) => ({ date: i.date, tag: "alert", code: "ALERT", title: i.title, href: i.url || `#/item/${encodeURIComponent(i.id)}`, ext: !!i.url, meta: (firmById[i.firm] || {}).name || "", prac: itemPractices(i), reg: itemRegions(i) })),
   ].sort(byDateDesc);
-  const invRow = (x) => `<li class="compact-item tw-row">`
+  const invRow = (x) => `<li class="compact-item tw-row"${rowTip(x.title, x.meta)}>`
     + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
     + `<span class="tw-tag ${x.tag}">${x.code}</span>`
     + `<span class="tw-body"><a href="${esc(x.href)}"${x.ext ? ` target="_blank" rel="noopener noreferrer"` : ""} class="tw-head">${esc(x.title)}</a>`

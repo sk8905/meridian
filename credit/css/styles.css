@@ -51,8 +51,7 @@ h3 { font-size:var(--fs-title); margin: 0; }
    headlines & prose so a single word never wraps alone on the last line.
    Progressive enhancement — ignored where unsupported. */
 h1, h2, h3, .kpi-label { text-wrap: balance; }
-.intel-head, .compact-head, p, .muted, .lead, .card-desc { text-wrap: pretty; }
-
+.intel-head, .compact-head, p, .muted, .lead { text-wrap: pretty; }
 
 /* ---------- notifications bell ---------- */
 .notif { position: relative; flex: 0 0 auto; }
@@ -83,21 +82,10 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
 /* Full-width content with consistent 2rem side gutters (no centred max-width). */
 .container { padding: 1.75rem 2rem 3rem; }
 .page-head { margin-bottom: 1.25rem; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
 /* Collapsible "Latest news" panel on the dashboard — two-column list when open. */
 .news-panel { margin-bottom: 1rem; }
 .news-cols { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1.75rem; }
 @media (max-width: 760px) { .news-cols { grid-template-columns: 1fr; } }
-/* Feed pages: charts in a 30% left margin, feed in the 70% right column. */
-.split-3070 { display: grid; grid-template-columns: 36fr 64fr; gap: 1.5rem; align-items: start; }
-/* Let the grid honour the 3fr:7fr ratio exactly. Without this, a column's
-   min-content (the Deals range-slider controls, or long unbreakable feed text)
-   can push the split off-ratio, and differently per tab — which is why Deals and
-   Intelligence looked inconsistent. min-width:0 keeps them identical. */
-.split-3070 .split-left, .split-3070 .split-right { min-width: 0; }
-.split-3070 .split-left { display: flex; flex-direction: column; gap: 1rem; }
-.split-3070 .split-left .chart { width: 100%; height: auto; }
 
 /* "Load more" button for paginated feeds. */
 .load-more-wrap { display: flex; justify-content: center; margin-top: 1rem; }
@@ -117,63 +105,9 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 1.1rem 1.25rem; margin-bottom: 1rem; box-shadow: var(--shadow);
 }
-.card-foot { margin-top: .75rem; padding-top: .6rem; border-top: 1px solid var(--t-grid); }
-
-/* Collapsed-by-default "Key rates & metrics" toggle — a plain text button (no
-   card) that reveals the rates band + KPI tiles. Kept compact when collapsed. */
-.rk-toggle { margin: 0 0 1rem; }
-.rk-toggle > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: .45rem;
-  width: fit-content; font-weight:400; font-size:var(--fs-title); color: var(--muted); padding: .15rem .1rem; }
-.rk-toggle > summary::-webkit-details-marker { display: none; }
-.rk-toggle > summary:hover { text-decoration: none; }
-.rk-caret { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
-  transform: rotate(45deg); margin-bottom: 3px; transition: transform .15s; }
-.rk-toggle[open] .rk-caret { transform: rotate(-135deg); margin-bottom: -2px; }
-.rk-toggle-body { margin-top: .8rem; }
-.rk-toggle-body .kpi-grid { margin-bottom: 0; }
-/* On desktop/browser the block is rendered open (the `open` attribute is set in
-   JS) and the summary is hidden, so the rates + metrics are always shown and can
-   no longer be collapsed. On phones the summary stays and it remains collapsible. */
-@media (min-width: 761px) {
-  .rk-toggle > summary { display: none; }
-  .rk-toggle-body { margin-top: 0; }
-}
-
-/* Watchlist category toggles — styled like the compact sidebar filters: a plain
-   grey text button with a caret, no card. The three sit in a row; opening one
-   (accordion — one at a time, in JS) reveals its followed names in the full-width
-   panel below, flowing across the available width to save vertical space. */
-.wl-cats { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.75rem; margin-bottom: .5rem; }
-.wl-cat { margin: 0; }
-.wl-cat-head { display: inline-flex; align-items: baseline; gap: .35rem; cursor: pointer; list-style: none;
-  color: var(--muted); font-weight: 700; font-size:var(--fs-head); padding: .1rem 0; width: fit-content; }
-.wl-cat-head::-webkit-details-marker { display: none; }
-.wl-cat-head h2 { margin: 0; font-size: inherit; font-weight: inherit; color: inherit; }
-.wl-cat-head h2 .muted { color: inherit; font-weight: 600; }
-.wl-cat-head:hover, .wl-cat[open] .wl-cat-head { color: var(--ink); }
-.wl-caret { color: currentColor; font-size:var(--fs-body); line-height: 1; flex-shrink: 0; }
-.wl-caret::after { content: "▾"; }
-.wl-cat[open] .wl-caret::after { content: "▴"; }
-/* The in-cell body is never shown directly — the open category renders into the
-   full-width .wl-panel below the toggles. */
-.wl-cat .wl-body { display: none; }
-.wl-panel { display: none; }
-.wl-panel:not([hidden]) {
-  display: block; margin: 0 0 1.25rem;
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: .6rem .95rem; box-shadow: var(--shadow);
-}
-/* Open list flows into as many ~230px columns as fit the available width. */
-.wl-panel .link-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 0 1.5rem; margin: 0; }
-.wl-panel .link-list li { border-bottom: none; padding: .3rem 0; }
 
 /* ---------- KPIs ---------- */
-.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
-.kpi-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--primary);
-  border-radius: var(--radius); padding: 1rem 1.1rem; box-shadow: var(--shadow); }
 .kpi-value { font-size:var(--fs-hero); font-weight:400; color: var(--primary-ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
-.kpi-value.kpi-aum { font-size:var(--fs-title); }
 .kpi-label { font-size:var(--fs-head); color: var(--muted); margin-top: .2rem; }
 .kpi-sub { font-size:var(--fs-body); }
 
@@ -192,22 +126,10 @@ h3.sub { font-size:var(--fs-head); text-transform: uppercase; letter-spacing: .5
 h3.sub:first-of-type { margin-top: .2rem; }
 
 /* ---------- fund status sections ---------- */
-.lifecycle-note { background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:.6rem .8rem; margin:.6rem 0 1rem; }
-.lifecycle-note p { margin:.3rem 0 0; }
 .active-filter { display:flex; align-items:center; gap:.5rem; background:#eef2f8; border:1px solid #c8d5e6; color:var(--ink); border-radius:8px; padding:.45rem .7rem; margin:.4rem 0 .8rem; font-size:var(--fs-head); }
 .active-filter button.chip { cursor:pointer; background:#e8edf5; border-color:#c8d5e6; color:var(--ink); }
 .active-filter button.chip:hover { background:#c8d5e6; }
 .fund-section { margin-bottom: 1.4rem; }
-.section-head { font-size:var(--fs-title); margin: 1.1rem 0 .6rem; display: flex; align-items: center; gap: .5rem; }
-.section-head .chip { font-size:var(--fs-body); }
-
-/* ---------- dashboard: deal-led layout ---------- */
-.feature-card { border-top: 3px solid var(--primary); }
-/* Divider that demotes fundraising to a clearly-secondary band on the dashboard. */
-.section-divider { display: flex; align-items: center; gap: .9rem; margin: 2rem 0 .25rem; }
-.section-divider::before, .section-divider::after { content: ""; height: 1px; background: var(--border); flex: 1; }
-.section-divider span { font-size:var(--fs-body); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); white-space: nowrap; }
-.section-intro { margin: 0 0 1rem; }
 
 /* ---------- watchlist / follow stars ---------- */
 /* Fixed-width, vertically-centred so the star never shifts the text after it. */
@@ -222,29 +144,13 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .namecell { display: flex; align-items: baseline; gap: .35rem; }
 .namecell .follow-btn { flex: 0 0 auto; margin-right: 0; }
 .namecell-text { display: block; min-width: 0; }
-.nav-badge {
-  display: inline-block; min-width: 16px; padding: 0 5px; margin-left: .15rem;
-  background: rgba(255,255,255,.22); color: #fff; border-radius: 999px;
-  font-size:var(--fs-body); font-weight:400; line-height: 16px; text-align: center;
-}
-
 /* ---------- league tables ---------- */
 .data-table.league td { padding: .5rem .6rem; }
 .data-table .rank { width: 2rem; color: var(--muted); font-weight:400; text-align: center; font-variant-numeric: tabular-nums; }
 .data-table .num { text-align: right; font-weight:400; color: var(--primary-ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.card-aum { font-size:var(--fs-title); }
-
 /* ---------- deployment / dry powder ---------- */
 .deploy { margin-top: .85rem; padding-top: .75rem; border-top: 1px solid var(--t-grid); }
-.deploy-head { display: flex; justify-content: space-between; gap: 1rem; font-size:var(--fs-head); font-weight: 600; color: var(--muted); margin-bottom: .4rem; }
-.deploy-bar { background: #eef2f7; border: 1px solid var(--border); border-radius: 6px; height: 16px; overflow: hidden; }
-.deploy-fill { height: 100%; background: var(--t-up, #3fc08d); }
-.deploy-stats { display: flex; gap: 1.25rem; margin-top: .5rem; font-size:var(--fs-head); flex-wrap: wrap; }
-.deploy-stats strong { color: var(--primary-ink); }
-.deploy-note { margin-top: .4rem; }
-
 /* ---------- data completeness & provenance ---------- */
-.data-asof { margin: .5rem 0 0; display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 .data-meter { display: inline-flex; align-items: center; gap: .4rem; font-size:var(--fs-body); font-weight:400; white-space: nowrap; }
 .data-meter .dm-bar { width: 42px; height: 7px; border-radius: 4px; background: var(--border); overflow: hidden; display: inline-block; }
 .data-meter .dm-fill { display: block; height: 100%; }
@@ -253,17 +159,9 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .data-meter.dm-lo .dm-fill { background: var(--faint, #8b96ac); }
 .data-meter.dm-hi { color: var(--t-up, #3fc08d); } .data-meter.dm-mid { color: var(--accent); } .data-meter.dm-lo { color: var(--faint, #8b96ac); }
 .fund-sub { display: flex; align-items: center; gap: .35rem; flex-wrap: wrap; }
-.provenance .dim-list { list-style: none; margin: .6rem 0; padding: 0; display: grid; gap: .3rem; }
 .provenance .dim { display: grid; grid-template-columns: 1.4rem 11rem 1fr; align-items: baseline; gap: .5rem; padding: .35rem .2rem; border-bottom: 1px solid var(--t-grid); }
 .provenance .dim:last-child { border-bottom: 0; }
-.provenance .dim-icon { font-weight:400; text-align: center; border-radius: 50%; }
-.provenance .dim-key { font-weight:400; }
-.dim-yes .dim-icon { color: var(--t-up, #3fc08d); }
-.dim-est .dim-icon, .dim-indicative .dim-icon { color: var(--accent); }
-.dim-no .dim-icon { color: var(--t-down, #f26d84); }
-.dim-na .dim-icon { color: var(--faint, #8b96ac); }
-.dim-no .dim-key { color: var(--faint, #8b96ac); }
-@media (max-width: 640px) { .provenance .dim { grid-template-columns: 1.4rem 1fr; } .provenance .dim-detail { grid-column: 2; } }
+@media (max-width: 640px) { .provenance .dim { grid-template-columns: 1.4rem 1fr; } }
 
 /* ---------- source citations ---------- */
 .sources { margin: .4rem 0 .25rem; line-height: 1.6; }
@@ -298,7 +196,6 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .data-table tbody td { padding: .6rem .6rem; border-bottom: 1px solid var(--t-grid); vertical-align: middle; }
 .data-table tbody tr.clickable { cursor: pointer; }
 .data-table tbody tr.clickable:hover { background: #f8fafc; }
-.prog-col { min-width: 190px; }
 /* Keep the leading name column a consistent width so the Managers, Funds and
    Investors tables read consistently while still stretching to full width. */
 .data-table th:first-child, .data-table td:first-child { width: 28%; }
@@ -321,16 +218,6 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .progress-fill { position: absolute; inset: 0 auto 0 0; background: var(--accent, #fb8b1e); border-radius: 6px 0 0 6px; }
 .progress-label { position: relative; z-index: 1; font-size:var(--fs-body); font-weight:400; color: #0f172a; padding: 0 .5rem; line-height: 22px; mix-blend-mode: normal; }
 
-/* ---------- cards grid (managers) ---------- */
-.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-.manager-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 1.1rem; box-shadow: var(--shadow); cursor: pointer; transition: border-color .15s, transform .1s; display: flex; flex-direction: column; gap: .6rem; }
-.manager-card:hover { border-color: var(--ink); }
-.manager-card-head { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; }
-.manager-stats { display: flex; gap: 1.25rem; padding: .5rem 0; border-top: 1px solid var(--t-grid); border-bottom: 1px solid var(--t-grid); }
-.manager-stats div { display: flex; flex-direction: column; }
-.manager-stats strong { color: var(--primary-ink); font-size:var(--fs-title); }
-
 /* ---------- detail ---------- */
 .breadcrumb { font-size:var(--fs-head); margin-bottom: .9rem; color: var(--muted); }
 .breadcrumb .sep { margin: 0 .4rem; color: var(--muted); }
@@ -339,10 +226,6 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .facts div { display: flex; justify-content: space-between; gap: 1rem; padding: .35rem 0; border-bottom: 1px dashed var(--border); }
 .facts dt { color: var(--muted); }
 .facts dd { margin: 0; font-weight:400; text-align: right; overflow-wrap: anywhere; min-width: 0; }
-.link-list { list-style: none; margin: .25rem 0 0; padding: 0; }
-.link-list li { padding: .45rem 0; border-bottom: 1px solid var(--t-grid); }
-.link-list li:last-child { border-bottom: none; }
-
 /* ---------- intelligence rows ---------- */
 .intel-row { display: flex; gap: .7rem; padding: .8rem 0; border-bottom: 1px solid var(--t-grid); }
 .intel-row:last-child { border-bottom: none; }
@@ -361,92 +244,22 @@ a.intel-head:hover { text-decoration: none; }
 .intel-body p { margin: .15rem 0 .35rem; }
 .intel-title-line { display: flex; align-items: flex-start; gap: .6rem; }
 .intel-src-inline { margin-top: .05rem; white-space: nowrap; flex-shrink: 0; }
-/* Manager-profile rows put the date at the end of the headline line, after the
-   source (grey), instead of in the meta column. */
-.intel-date-end { margin-top: .05rem; white-space: nowrap; flex-shrink: 0; }
-/* One-line news / commentary rows — matches the home feed: a fixed time column,
-   a bold headline that ellipsizes to its content, then a muted inline source. */
-.intel-row.oneline { flex-direction: row; align-items: baseline; gap: .7rem; flex-wrap: nowrap; padding: .62rem 0; }
-.intel-row.oneline .chip { margin: 0; }
-.intel-row.oneline .intel-date { flex: 0 0 auto; min-width: 4.9rem; white-space: nowrap; font-size:var(--fs-body); }
-.intel-row.oneline .intel-head { flex: 0 1 auto; min-width: 0; margin-bottom: 0; font-size:var(--fs-head); line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.intel-row.oneline .intel-src-inline { flex: 0 1 auto; min-width: 0; margin-top: 0; overflow: hidden; text-overflow: ellipsis; font-size:var(--fs-body); }
-/* News/Commentary type tag, pinned to the far right (mirrors the home feed's
-   section tag). */
-.intel-type { flex: 0 0 auto; margin-left: auto; padding-left: .7rem; color: var(--muted); font-size:var(--fs-body); white-space: nowrap; }
-@media (max-width: 640px) {
-  .intel-row.oneline { flex-wrap: wrap; }
-  .intel-row.oneline .intel-head { flex: 1 1 100%; order: 4; white-space: normal; overflow: visible; }
-  .intel-row.oneline .intel-date { order: 2; }
-  .intel-row.oneline .intel-src-inline { flex: 1 1 100%; order: 5; white-space: normal; }
-  .intel-row.oneline .intel-type { order: 3; margin-left: auto; padding-left: 0; }
-}
+
 /* ---------- charts ---------- */
 .chart { width: 100%; height: auto; }
-.chart g.bar-row.clickable { cursor: pointer; }
-.chart g.bar-row.clickable:hover { opacity: .82; }
-.chart g.line-pt.clickable { cursor: pointer; }
-.chart g.line-pt.clickable:hover rect { fill: rgba(43,74,124,0.07); }
-.chart g.line-pt.clickable:hover circle { r: 6; }
 .donut path.clickable { cursor: pointer; }
 .donut path.clickable:hover { opacity: .82; }
-.legend-item.clickable { cursor: pointer; }
-.legend-item.clickable:hover { text-decoration: none; }
-.chart-link.clickable { cursor: pointer; display: block; }
-.chart-link.clickable:hover { opacity: .85; }
-.kpi-card.clickable { cursor: pointer; transition: border-color .15s, transform .1s, box-shadow .15s; }
-.kpi-card.clickable:hover { border-left-color: var(--ink); box-shadow: 0 6px 16px rgba(15,23,42,.08); }
-.chart-label { font-size:var(--fs-body); fill: var(--muted); }
-.chart-value { font-size:var(--fs-num); fill: var(--ink); font-weight:400; font-variant-numeric: tabular-nums; }
 /* Faint full-scale track behind each bar so proportions read at a glance. */
 .bar-track { fill: var(--border); }
-/* ---------- Trends page ---------- */
-.trend-section { margin: 0 0 2.25rem; }
-.trend-cat { font-size:var(--fs-title); margin: 0 0 .85rem; padding-bottom: .4rem; border-bottom: 2px solid var(--border); color: var(--ink); }
+
 /* Fixed two-up grid so every card is the same width — bar charts then scale by
    the same factor as the full-width line charts (whose viewBox is ~2× a bar's),
    keeping label/value text a consistent size across the whole page. */
-.trend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; align-items: start; }
-.trend-wide { margin-bottom: 1rem; }
-@media (max-width: 900px) { .trend-grid { grid-template-columns: 1fr; } }
-.chart-axis { font-size:var(--fs-micro); fill: var(--muted); }
 .chart-grid { stroke: var(--border); stroke-width: 1; }
-.donut-wrap { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
 .donut { width: 200px; height: 200px; flex: 0 0 auto; }
-.donut-total { font-size:var(--fs-hero); font-weight:400; fill: var(--primary-ink); font-variant-numeric: tabular-nums; }
-.donut-sub { font-size:var(--fs-micro); fill: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 .legend { display: flex; flex-direction: column; gap: .4rem; font-size:var(--fs-head); min-width: 190px; }
-.legend-item { display: flex; align-items: center; gap: .55rem; }
-.legend-swatch { width: 11px; height: 11px; border-radius: 3px; display: inline-block; flex: 0 0 auto; }
-.legend-label { flex: 1 1 auto; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.legend-item strong { font-variant-numeric: tabular-nums; }
-.legend-pct { color: var(--muted); min-width: 36px; text-align: right; font-variant-numeric: tabular-nums; }
-.chart-legend { display: flex; gap: 1.4rem; justify-content: center; margin: 0 0 .4rem; font-size:var(--fs-head); color: var(--muted); }
-/* Secondary heading stacked inside a card (e.g. a second chart below the first). */
-.card-subhead { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--t-grid); }
+
 /* Quarterly-trend dual-handle range slider (one track, two thumbs). */
-.trend-controls { display: flex; flex-direction: column; gap: .5rem; margin: .35rem 0 1rem; }
-.range-readout { font-size:var(--fs-head); color: var(--muted); }
-.range-readout strong { color: var(--primary-ink); }
-.range-slider { position: relative; height: 22px; width: 340px; max-width: 100%; }
-.range-track, .range-fill { position: absolute; top: 50%; transform: translateY(-50%); height: 5px; border-radius: 4px; }
-.range-track { left: 0; right: 0; background: #e5e7eb; }
-.range-fill { background: var(--primary); }
-.range-slider input[type="range"] {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%; margin: 0;
-  -webkit-appearance: none; appearance: none; background: transparent; pointer-events: none;
-}
-.range-slider input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none; appearance: none; pointer-events: auto;
-  width: 16px; height: 16px; border-radius: 50%; background: #fff;
-  border: 2px solid var(--primary); cursor: pointer; box-shadow: 0 1px 3px rgba(15,23,42,.25);
-}
-.range-slider input[type="range"]::-moz-range-thumb {
-  pointer-events: auto; width: 16px; height: 16px; border-radius: 50%; background: #fff;
-  border: 2px solid var(--primary); cursor: pointer; box-shadow: 0 1px 3px rgba(15,23,42,.25);
-}
-.range-slider input[type="range"]::-webkit-slider-runnable-track { background: transparent; }
-.range-slider input[type="range"]::-moz-range-track { background: transparent; }
 #trend-start { z-index: 4; }
 #trend-end { z-index: 3; }
 
@@ -459,26 +272,9 @@ a.intel-head:hover { text-decoration: none; }
 
 /* ---------- responsive ---------- */
 /* 3-up dashboard rows step down to 2 columns before collapsing to 1. */
-@media (max-width: 1100px) {
-  .grid-3 { grid-template-columns: 1fr 1fr; }
-}
 @media (max-width: 900px) {
-  .grid-2 { grid-template-columns: 1fr; }
-  /* On mobile, push the visuals (charts) below the feed on each tab. */
-  .split-3070 { grid-template-columns: 1fr; }
-  .split-3070 .split-right { order: 1; }
-  .split-3070 .split-left { order: 2; }
-  .grid-3 { grid-template-columns: 1fr; }
-  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-  .card-grid { grid-template-columns: 1fr; }
-  /* Compact profile stat tiles: a single slim row of 4 (AUM · Funds · In market ·
-     Founded) instead of two tall 2×2 rows. Small type + brief labels. */
-  .kpi-grid.kpi-compact { grid-template-columns: repeat(4, 1fr); gap: .4rem; }
-  .kpi-compact .kpi-card { padding: .5rem .4rem; border-left-width: 2px; }
-  .kpi-compact .kpi-value { font-size:var(--fs-title); }
-  .kpi-compact .kpi-value.kpi-aum { font-size:var(--fs-head); }
-  .kpi-compact .kpi-label { font-size:var(--fs-micro); margin-top: .15rem; }
-  /* Stack profile fact pairs (e.g. Owners) one per row so long names/stakes stop
+
+/* Stack profile fact pairs (e.g. Owners) one per row so long names/stakes stop
      wrapping mid-word in a cramped 2-column grid. */
   .facts { grid-template-columns: 1fr; }
 
@@ -495,10 +291,8 @@ a.intel-head:hover { text-decoration: none; }
       "search  search"
       "nav     nav";
   }
-  .nav-search { grid-area: search; width: 100%; min-width: 0; margin-left: 0; justify-content: space-between; }
   .brand { grid-area: brand; justify-self: start; }
   .brand-text strong { font-size:var(--fs-title); }
-  .brand-sub { font-size:var(--fs-micro); }
   .logo { font-size:var(--fs-title); }
   .platform-switch { grid-area: toggle; justify-self: start; align-self: center; }
   .ps-btn { padding: .24rem .5rem; font-size:var(--fs-body); }
@@ -507,16 +301,7 @@ a.intel-head:hover { text-decoration: none; }
   .topbar-right { grid-area: account; align-items: flex-end; text-align: right; margin-left: 0; }
   .account-nav, .data-status { white-space: nowrap; font-size:var(--fs-body); }
   .account-nav .si-prefix { display: none; }
-  .mainnav {
-    grid-area: nav; display: flex;
-    justify-content: flex-start; gap: .15rem;
-    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
-    padding-bottom: 2px;
-  }
-  .mainnav::-webkit-scrollbar { display: none; }
   .nav-link { padding: .3rem .5rem; font-size:var(--fs-head); white-space: nowrap; flex: 0 0 auto; }
-  .nav-sep { display: none; }
-
   .container { padding: 1rem 1rem 2.5rem; }
   .card { padding: 1rem; }
   /* Data tables scroll horizontally rather than squishing columns to one word
@@ -528,15 +313,7 @@ a.intel-head:hover { text-decoration: none; }
   /* Stack intel/deal rows so the date/type column doesn't eat the width. */
   .intel-row { flex-direction: column; gap: .35rem; }
   .intel-meta { width: auto; flex-direction: row; align-items: center; gap: .5rem; padding-right: 4.7rem; }
-  .intel-row:not(.oneline) { position: relative; }
-  /* Let the headline take its own full-width line with the source/date beneath it,
-     so a long headline never gets squeezed to one character per line. */
-  .intel-row:not(.oneline) .intel-title-line { flex-wrap: wrap; }
-  .intel-row:not(.oneline) .intel-title-line .intel-head { flex: 1 0 100%; }
-  .intel-row.oneline .chip { order: 1; }
-  .intel-row.oneline .intel-date { order: 2; }
-  .intel-row.oneline .intel-head { flex: 1 0 100%; order: 4; }
-  .intel-row.oneline .intel-src-inline { flex: 1 0 100%; order: 5; }
+  
 }
 
 /* Collapse filter bars behind a "Filters" toggle on phones to save space. */
@@ -556,10 +333,9 @@ a.intel-head:hover { text-decoration: none; }
      tab bar; the top bar keeps a bigger logo, bell, and the sign-in/refresh block
      alongside (to the left of) the bell, then the scrolling view nav. */
   .topbar-inner { grid-template-columns: auto 1fr auto; grid-template-areas: "brand account bell" "nav nav nav"; }
-  .platform-switch, .nav-search { display: none; }
+  .platform-switch { display: none; }
   .logo { font-size:var(--fs-hero); }
   .brand-text strong { font-size:var(--fs-title); }
-  .brand-sub { font-size:var(--fs-micro); }
   .topbar-right { justify-self: end; }
   .account-nav, .data-status { font-size:var(--fs-micro); }
   body { padding-bottom: 5.65rem; }   /* clear the fixed bottom tab bar (premium.css) */
@@ -568,7 +344,6 @@ a.intel-head:hover { text-decoration: none; }
 @media (max-width: 480px) {
   h1 { font-size:var(--fs-hero); }
   .kpi-value { font-size:var(--fs-hero); }
-  .kpi-value.kpi-aum { font-size:var(--fs-title); }
   /* Filters stack to full width and stay tappable. */
   .filters { gap: .5rem; }
   .filter { flex: 1 1 100%; }
@@ -614,34 +389,19 @@ a.intel-head:hover { text-decoration: none; }
 .compact-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
 a.compact-head:hover { text-decoration: none; }
 .compact-meta { margin-top: .15rem; }
-/* Manager name in a compact-row meta line — a link to the profile, kept in the
-   muted meta colour but underlined on hover so it reads as clickable. */
-a.compact-mgr { color: inherit; }
-a.compact-mgr:hover { color: var(--ink); text-decoration: none; }
 
 /* ---------- year section breaks (manager feeds) ---------- */
-.year-group + .year-group { margin-top: .5rem; }
 .year-head {
   font-size:var(--fs-head); font-weight: 700; color: var(--muted); text-transform: uppercase;
   letter-spacing: 1px; margin: 1rem 0 .1rem; padding-bottom: .35rem;
   border-bottom: 2px solid var(--border);
 }
-.year-group:first-child .year-head { margin-top: .25rem; }
-
 /* ---------- deep-link highlight on feed pages ---------- */
 .intel-row.flash { animation: rowflash 2.2s ease-out; }
 @keyframes rowflash { 0% { background: #fef9c3; } 100% { background: transparent; } }
 
 /* Dark-mode accent (shared surfaces/shadows live in premium.css). */
 :root[data-theme="dark"] { --accent: #fb8b1e; --primary: #fb8b1e; --primary-ink: #c9d3e6; }
-
-/* ---- Dashboard KPI tiles: the number sits to the LEFT of the label+sub instead of
-        above them, roughly halving each tile's height. (Manager-profile mini-KPIs
-        in .kpi-compact keep the stacked layout.) ---- */
-.kpi-grid:not(.kpi-compact) .kpi-card { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto; align-items: center; column-gap: .7rem; }
-.kpi-grid:not(.kpi-compact) .kpi-card .kpi-value { grid-column: 1; grid-row: 1 / 3; align-self: center; }
-.kpi-grid:not(.kpi-compact) .kpi-card .kpi-label { grid-column: 2; grid-row: 1; align-self: end; margin: 0; }
-.kpi-grid:not(.kpi-compact) .kpi-card .kpi-sub { grid-column: 2; grid-row: 2; align-self: start; }
 
 /* ---- Page head: the "Target focus" toggle sits on the SAME row as the heading,
         vertically centred on it (top-right); the lede sits below, full width. ---- */
@@ -658,17 +418,12 @@ a.compact-mgr:hover { color: var(--ink); text-decoration: none; }
 /* Alignment (right, matching the other data columns) lives in tui.css beside
    tl-hq/tl-cl (load-order specificity). Chips gap LEFTWARD since the column
    anchors right. */
-.sls-chip { display: inline-block; padding: 2px 6px; margin: 1px 0 1px 4px; border-radius: 3px;
-  font-size:var(--fs-micro); font-weight: 600; letter-spacing: .03em; line-height: 1.4; vertical-align: middle;
-  font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink); text-decoration: none;
-  background: color-mix(in srgb, var(--accent, #fb8b1e) 14%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent, #fb8b1e) 32%, transparent); cursor: pointer; }
-/* Clickable (links to the source story in the manager profile) — lift on hover. */
-a.sls-chip:hover { color: var(--ink); text-decoration: none;
-  background: color-mix(in srgb, var(--accent, #fb8b1e) 26%, transparent);
-  border-color: color-mix(in srgb, var(--accent, #fb8b1e) 55%, transparent); }
-.tl-sls-key { margin: 8px 8px 4px; font-size:var(--fs-micro); line-height: 1.5; }
-
+/* The ONE muted tag (R43d / feed.css .dsh-tag): outlined, micro, --t-mut, never filled or bold. */
+.sls-chip { display: inline-block; padding: 0 4px; margin: 1px 0 1px 4px; border-radius: 0;
+  font-size:var(--fs-micro); font-weight: 400; letter-spacing: .03em; line-height: 1.45; vertical-align: baseline;
+  color: var(--t-mut); text-decoration: none; background: transparent; border: 1px solid var(--t-grid2); cursor: pointer; }
+/* Clickable (links to the source story in the manager profile). */
+a.sls-chip:hover { color: var(--t-ink); text-decoration: none; }
 /* Managers league table — ALL headings and cells left-aligned (matches the Hedge
    Funds and Law Firms lists). Scoped to the managers pane so it overrides the
    default league right-alignment (tui.css `.tleague th:not(:first-child)` and
@@ -776,43 +531,14 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .adv-inf { font-size:var(--fs-micro); text-transform: uppercase; letter-spacing: .03em; color: var(--t-mut, #8592ad); border: 1px solid var(--border, #262626); border-radius: 3px; padding: 0 4px; margin-left: 4px; vertical-align: middle; }
 
 /* ---- Origination Radar (.tdash terminal) ---------------------------------- */
-/* Filter bar is a grey sub-header; it and the column-header row are both pinned
-   (see the desktop block below) so only the target list scrolls under them.
-   Filters start at the LEFT edge — cancel tui.css's .tsearch margin-left:auto,
-   which otherwise shoved the whole row toward the centre. */
-.org-filters { flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--t-grid); background: var(--head); }
-/* Search spans the full row (forcing the LINE/AUM/TIER selects onto the line below). */
-.org-filters #org-q { margin-left: 0; flex: 1 1 100%; width: 100%; max-width: none; }
-.org-fl { display: inline-flex; align-items: center; gap: 4px; font-size:var(--fs-micro); color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
-.org-fl select, .org-tier, .org-rel, .org-cov { background: var(--bg); border: 1px solid var(--border, #262626); color: var(--ink); font-family: inherit; font-size:var(--fs-body); border-radius: 0; padding: 1px 4px; }
-.org-tbl th, .org-tbl td { vertical-align: middle; }
+
 /* Left-align every column (header + cell) — out-specifies tui.css's default
    right-alignment for non-first league columns. One line per cell (ellipsis). */
 .tpane[data-pane="radar"] .tleague th,
 .tpane[data-pane="radar"] .tleague td { text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tpane[data-pane="radar"] .tl-nm { max-width: none; }
-.org-sortable { cursor: pointer; user-select: none; }
-.org-sortable.on { color: var(--ink); }
-.org-open { color: var(--ink); text-decoration: none; }
-.org-open:hover { text-decoration: none; }
-.org-hq-h, .org-hq-c { color: var(--muted); font-family: var(--t-mono); font-size:var(--fs-micro); white-space: nowrap; }
-.org-strat { color: var(--muted); font-size:var(--fs-micro); }
-.org-aum-c { font-family: var(--t-mono); font-size:var(--fs-num); color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.org-aum-cr { color: var(--muted); }
-.org-band { font-family: var(--t-mono); font-size:var(--fs-micro); color: var(--muted); }
-.org-band.mid { color: var(--ink); font-weight:400; }
-.org-wallet { white-space: nowrap; }
 .org-w { display: inline-block; min-width: 21px; text-align: center; font-family: var(--t-mono); font-size:var(--fs-micro); padding: 1px 2px; margin-right: 1px; border: 1px solid var(--border, #262626); border-radius: 3px; color: var(--faint); }
 .org-w.on { color: var(--ink); border-color: var(--muted); font-weight:400; }
-.org-adv { font-size:var(--fs-micro); color: var(--muted); }
-.org-white-flag { color: var(--faint); }
-.org-latest { font-size:var(--fs-micro); white-space: nowrap; color: var(--muted); }
-.org-lt-k { color: var(--ink); }
-.org-lt-lnk { color: inherit; text-decoration: none; }
-.org-lt-lnk:hover { text-decoration: none; }
-.org-warm-btn { background: transparent; border: 0; cursor: pointer; color: var(--faint); font-size:var(--fs-head); display: inline-flex; align-items: center; gap: 4px; padding: 0; }
-.org-warm-btn.on { color: var(--ink); }
-.org-warm-lbl { font-size:var(--fs-micro); text-transform: uppercase; letter-spacing: .03em; }
 /* Desktop: pin BOTH sub-headers (filter banner + column-header row) and scroll
    ONLY the client list; fixed column widths keep every row to one line. */
 @media (min-width: 761px) {
@@ -821,25 +547,6 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
   #org-panes > .tpane[hidden] { display: none; }
   .tpane[data-pane="radar"] { display: flex; flex-direction: column; }
   .tpane[data-pane="radar"] .tleague-wrap { flex: 1 1 auto; min-height: 0; overflow-y: auto; margin: 0; }
-  .tpane[data-pane="radar"] .org-note { flex: 0 0 auto; margin: 0; }
-  .tpane[data-pane="radar"] .org-tbl { table-layout: fixed; }
-  .tpane[data-pane="radar"] .org-tbl thead th { position: sticky; top: 0; z-index: 2; background: var(--head); }
   .tpane[data-pane="pipeline"] { overflow-y: auto; }
-  /* Column widths (sum 100) — Fund · HQ · Strategy · AUM · Credit · Wallet · Advisers · Latest · Warm · Tier. */
-  .org-tbl th:nth-child(1), .org-tbl td:nth-child(1) { width: 18%; }
-  .org-tbl th:nth-child(2), .org-tbl td:nth-child(2) { width: 10%; }
-  .org-tbl th:nth-child(3), .org-tbl td:nth-child(3) { width: 14%; }
-  .org-tbl th:nth-child(4), .org-tbl td:nth-child(4) { width: 8%; }
-  .org-tbl th:nth-child(5), .org-tbl td:nth-child(5) { width: 8%; }
-  .org-tbl th:nth-child(6), .org-tbl td:nth-child(6) { width: 13%; }
-  .org-tbl th:nth-child(7), .org-tbl td:nth-child(7) { width: 8%; }
-  .org-tbl th:nth-child(8), .org-tbl td:nth-child(8) { width: 9%; }
-  .org-tbl th:nth-child(9), .org-tbl td:nth-child(9) { width: 7%; }
-  .org-tbl th:nth-child(10), .org-tbl td:nth-child(10) { width: 5%; }
+  
 }
-.org-card { border: 1px solid var(--border, #262626); border-radius: 6px; padding: 9px 11px; margin: 8px 12px; background: var(--surface2, var(--head, #131313)); }
-.org-card-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.org-card-tier { font-weight:400; color: var(--ink); font-family: var(--t-mono); }
-.org-card-w { margin-left: auto; }
-.org-card-ctl { display: flex; gap: 14px; flex-wrap: wrap; margin: 6px 0; font-size:var(--fs-micro); color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
-.org-notes { width: 100%; box-sizing: border-box; background: var(--bg); border: 1px solid var(--border, #262626); color: var(--ink); font-family: inherit; font-size:var(--fs-body); padding: 5px 7px; border-radius: 4px; resize: vertical; margin-top: 4px; }

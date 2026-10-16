@@ -48,6 +48,10 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   phone page puts text (or a boxed card's edge) exactly **`--m-gutter` = 12px** from the
   screen edge — feed rows, Profiles lists AND profile pages, the Transactions list and deal
   card, Dashboard cards (card padding is the same 12px). Never a page-specific 14/16px.
+  (Audit 2026-10-16: the Menu pages — Sources, Digest, Settings, the row menu — used
+  14px, the law-firm glance and filters 16px, the profile identity header 16px on desktop
+  and `.dsh-card` 14px on desktop; all 12px now. Markets' cards stay boxed — the one
+  named exception, so a Markets list starts inside its card, not at 72px.)
   **(b) Bars fit:** a phone tab/lane bar shows every label on one line inside the screen —
   the News lanes share the width like the Home and Dashboard tabs, and profile sub-tabs
   (`News · Vehicles 32 · Investments 46 · …`) never wrap. **(c) Theme-true colours:** a
@@ -234,8 +238,8 @@ to keep pinned/full-height on these three sections.
   / Legal / Palette. No bespoke per-section list markup.
 - **R6 — Standard day breaks** on every dated list — the main wire *and*
   sub-lists such as Legal Case Law (`.tw-day`): the micro scale step **10px /
-  600**, uppercase, `.04em` tracking, grey band (`--t-head`), label `--t-accent`
-  (dark) / `#2f6cae` (light). One font (mono, like everything), no per-section
+  600**, uppercase, `.04em` tracking, grey band (`--t-head`), label `--t-day` (the
+  accent in dark, `#2f6cae` in light — one token, §3). One font (mono, like everything), no per-section
   variants.
 - **R7 — Every item is sourced + dated; never fabricated.** Each headline
   carries a real source and link.
@@ -243,7 +247,8 @@ to keep pinned/full-height on these three sections.
   `→`, `➚`, `»`, or a CSS `::after` external-link arrow) to links or source
   markers anywhere in the app. Link the text itself; for an inline source marker
   use a plain `src` label (see `.dsh-src`). Arrows are visual noise and are not
-  used.
+  used. (The in-app reader's "Open original ↗" / "Open at … ↗" were the last ones —
+  removed 2026-10-16; `tests/color-tokens.mjs` now covers `reader-overlay.js`.)
 - **R7b — Coverage starts 1 January 2020 (owner rule 2026-10-15).** Nothing dated before
   2020-01-01 is carried as a coverage item: no deal, intel item, LP commitment, manager
   press item (`webNews` / `news`) or legal wire item. Profile FACTS stay (a fund's vintage, a
@@ -257,24 +262,24 @@ to keep pinned/full-height on these three sections.
 
 ## 3. Colour — only these tokens, used only this way
 
-All colour flows from `--t-*` tokens, defined light + dark on the panel roots
-(`#glance`, `.na-panel`, `.g-main.tui`, `.g-feed-wrap`, `.dsh`). **No raw hex in
-component CSS** except the documented day-break light label (`#2f6cae`) and the
-notification badge red (`#ef4444`).
+All colour flows from `--t-*` tokens, defined ONCE, light + dark, on `:root` in the
+canonical palette block of `home.css` (v2 bundles every stylesheet, so `:root` reaches
+every surface; the old per-surface copies were deleted). **No raw hex in component CSS**
+except the notification badge red (`#ef4444`) — the day-break label is the `--t-day`
+token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
 
-> **Token scope is per-surface, not global.** The `--t-*` tokens are *class-
-> scoped* to the roots above — they do **not** cascade from `:root`. Any NEW
-> top-level surface (its own view container) must declare its own light+dark
-> token block, or every `var(--t-*)` inside it resolves to nothing — invisible
-> bars, black-on-black text. The Dashboard (`.dsh`) learned this the hard way;
-> mirror `feed.css`'s `.g-feed-wrap` block (and add `--t-up`/`--t-down`, which
-> `feed.css` omits) for any future surface.
+> **The legacy aliases** (`--ink` / `--muted` / `--faint` / `--border` / `--head`) still
+> back older rules. Each must be defined in BOTH themes on `:root` (`v2/css/app.css` light,
+> `tui.css` dark): `--faint` was missing in light, so every `var(--faint, #5c6a86)` painted
+> the DARK grey on white (audit 2026-10-16). New CSS uses the `--t-*` names.
 
 | Token | Dark | Light | Used for |
 |---|---|---|---|
 | `--t-ground` | `#141414` | `#e7ebf2` | app background |
 | `--t-panel` / `--t-panel2` | `#141414` / `#202020` | `#ffffff` / `#f3f6fb` | panel surface / hover |
 | `--t-head` | `#111111` | `#f4f7fb` | header bands, day breaks |
+| `--t-grid` / `--t-grid2` | `#212121` / `#2d2d2d` | `#e0e6ef` / `#cdd6e3` | EVERY horizontal divider / outlined boxes only (R44g) |
+| `--t-day` | `#fb8b1e` | `#2f6cae` | the day-break heading on every dated list (`.g-feed-dayhdr`, `.tw-day`, `.ew-day`, R6) |
 | `--t-ink` | `#eaf0fb` | `#131b2c` | primary text / values |
 | `--t-mut` / `--t-faint` | `#8592ad` / `#5c6a86` | `#5e6a84` / `#8b96ac` | supporting facts / dates, sources, counts, labels (R43d — `--t-dim` is retired, folded into `--t-ink`) |
 | `--t-accent` | `#fb8b1e` | `#fb8b1e` | active / emphasis only |
@@ -414,7 +419,16 @@ notification badge red (`#ef4444`).
   declaration is the ONE selection marker across every tab row app-wide — the Menu chip
   bar, the `.twire-head` tab rows (Profiles, Macro, Transactions, detail section-nav),
   the dashboard nav, the Home wire tabs (`.g-wiretab`) — so no tab row ever reads
-  heavier or thinner than another. The base `.tchip.is-on` rule carries it; do NOT
+  heavier or thinner than another. **Every selectable chip, everywhere (audit
+  2026-10-16):** unselected chips are weight **400**, the selected one **600** with this
+  one underline and **no fill** — including the DESKTOP left rails (Deals, Profiles,
+  Markets — they used an orange 3px side-bar and bolded every item), the profile
+  sub-rail (it was blue), the Home desk lanes and chart range (`.g-hero-rg`, blue), the
+  header panels' chips (`.na-chip`, every chip was 600), League / Fundraising segments,
+  the Filters chips and button (`.tx-fchip` / `.tx-fbtn`, orange tint), the prediction
+  filters, the Legal chips, and the $1–15bn / Target / European mid-market toggles
+  (`.tfocus-aum`, orange label + fill — R10 "no orange labels"). Guard:
+  `tests/style-consistency.mjs`. The base `.tchip.is-on` rule carries it; do NOT
   re-declare a variant per surface. Always give the layer a theme-aware fallback
   (`var(--chip-ul, #000)` in light, `var(--chip-ul, #fff)` under `[data-theme="dark"]`):
   a bare `var(--chip-ul)` with no fallback becomes an invalid declaration the moment the
@@ -1430,7 +1444,15 @@ notification badge red (`#ef4444`).
   64px on desktop, always with an **8px gap** — so on iPhone every list's headline starts
   at the same x, 12 + 52 + 8 = **72px**, on News, Deals, Fundraising, Profiles and People
   (no page-specific lead). Labels shorten to fit on iPhone — **"H Fund"** for Hedge fund
-  (Manager · Investor · Law firm fit whole); desktop keeps the full word. **(d) Three
+  (Manager · Investor · Law firm fit whole); desktop keeps the full word. **Audit
+  2026-10-16:** League table cards lead with their rank in the same column (name at 72px,
+  line 2 under the name); the Restructuring hub's sections are full-bleed on iPhone (no
+  side borders), so its rows start at 72px like the rest of Deals; on desktop a table's
+  date column is the lead column at EVERY width — `--c-date-w` of content, the name
+  column takes the slack (Deals' date stretched to 178–543px, People's to 84–215px), and
+  the desk wire keeps the one 8px gap (it was 10px). **Every list row carries its full
+  text in its `title`** — the wire (`feedRow`, the manager wire) and the profile wires
+  (`.tw-row`) had none; build it with `rowTip(...)` (feed.js). **(d) Three
   text tiers only:** primary `--t-ink` (white in dark, near-black in light) for the
   name / headline / key figure; mid grey `--t-mut` for supporting facts (type, amount,
   court, counterparty); subtle `--t-faint` for dates, sources, counts and labels. `--t-dim`
@@ -1492,22 +1514,38 @@ notification badge red (`#ef4444`).
   selected tab is weight 600 everywhere (the hub's chips no longer drop it). Every search
   row is the same: **8px above and below on iPhone (43px), none on desktop (28px)** — Deals
   matches Profiles. Lists start their headline at 72px (R43c). Spec:
-  `tests/phone-geometry.mjs` (390px light, 430px dark).
+  `tests/phone-geometry.mjs` (390px light, 430px dark). **Audit 2026-10-16:** a heading
+  row's chips keep their natural `0 12px` width and are never stretched (a stretched chip
+  centred "Chat" at 15px on a 430px iPhone); the bars that must FIT (Home tabs, Markets,
+  News lanes, profile sub-tabs) share the width but pad their FIRST label to the gutter
+  (the Home tabs' "Briefing" sat at 23–28px); the header panels' chips are a heading row
+  too. **One search-row control height:** on desktop the input and every button in the
+  row share the input's 20px (the Filters button was 26px, toggles 19px), 26px on iPhone,
+  and the row's gutter is 12px (`.tpanel-h` was 11px); Markets' roster bar (`.crr-bar`)
+  follows it. A selected chip in a sideways row is scrolled into view when the row
+  renders (`revealSelected`, util.js — the hub landed with "Restructuring" cut off).
   **(g) One divider weight** (owner 2026-10-15, "some line breaks are heavier than
   others"): EVERY horizontal divider — list rows, the line under the header, the tab row,
   the search row, section heads, table rows, cards, the bottom tab bar — is `1px solid
   var(--t-grid)` (#212121 dark / #e0e6ef light). `--border` / `--t-grid2` are for OUTLINED
   boxes only (search fields, buttons, chips), never a divider; and a list never draws a
-  top rule under a bar that already has a bottom one (no doubled line).
+  top rule under a bar that already has a bottom one (no doubled line). The same holds
+  for a strip under a header (the manager glance drew a top rule under the identity
+  header's bottom rule), a group row in a table (`.dsh-geo` added a top rule under the
+  previous row's), and the desk terminal's last panel in a column, which sits on the
+  footer's top rule (audit 2026-10-16).
   **(h) No colour desk codes on the wire** (owner 2026-10-15): News / Home wire rows read
   time · headline, then the source on line 2 — like every events row. The code stays in
-  the markup (the row's desk, for filters and search) but is not drawn.
+  the markup (the row's desk, for filters and search) but is not drawn. Spec: `tests/phone-trim.mjs`.
+  The same goes for line 2 elsewhere (audit 2026-10-16): a notification's desk code is
+  plain line-2 text (it was a coloured, tinted pill), the search palette's code is the one
+  muted outlined tag, and a People row's "→" takes line 2's grey.
   **(i) Dark only** (owner 2026-10-16: "eliminate light mode from desktop and iPhone — I
   never use it"). The boot script in `v2/index.html` always sets `data-theme="dark"`,
   whatever the OS asks for or an old `m_theme_pref` says; Menu ▸ Settings has no Theme
   control and nothing follows the OS scheme. Rules elsewhere that say "light and dark"
   now mean dark only; the light token values remain in the stylesheets as the base
-  layer the dark overrides sit on, but are never shown. Spec: `tests/theme-toggle.mjs`. Spec: `tests/phone-trim.mjs`.
+  layer the dark overrides sit on, but are never shown. Spec: `tests/theme-toggle.mjs`.
 
 ## 7. Technical rules
 
@@ -1591,6 +1629,16 @@ notification badge red (`#ef4444`).
   would have caught it; keep commits small and single-concern.
 - **T19 — A11y basics.** Semantic elements, `aria-label` on icon-only buttons,
   visible focus states.
+- **T20 — Hygiene ratchets (audit 2026-10-16).** `tests/spec-hygiene.mjs` holds the
+  suite's debt to budgets that may only FALL: fixed-time waits in specs
+  (`waitForTimeout(n)` / `setTimeout(r, n)` — wait for a condition instead; the style and
+  geometry specs carry none) and `!important` in the stylesheets (T16); and no helper in
+  `feed.js` / `util.js` calls itself (`tableCols` re-registered itself from its own
+  resize handler — now one module-level `_reflowCols`). **Dead CSS goes with its feature:**
+  the audit removed ~800 rules (≈85 KB) whose every selector named a class no JS or HTML in
+  the repo uses (retired BDC / credit tables, the old Transactions type strip and group-by
+  buttons, the Home "Saved" panel, theme toggle, Markets slide-over …). When a feature
+  leaves, its CSS leaves in the same commit.
 
 ---
 

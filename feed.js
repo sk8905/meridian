@@ -182,7 +182,7 @@ export function feedRow(o) {
   // to drive the sub-filter chips, and that must not override the desk code (else a
   // hedge story reads NEWS/RAISE instead of HDG).
   const codeKey = o.desk === "hdg" ? "hdg" : (o.type || o.desk);
-  return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}`
+  return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}${rowTip(o.title, o.src ? cleanSource(o.src) : "")}`
     + ` data-sk="${esc(o.sk || "x")}"${o.sid ? ` data-sid="${esc(o.sid)}"` : ""}${o.mgr ? ` data-mgr="${esc(o.mgr)}"` : ""}${o.firm ? ` data-firm="${esc(o.firm)}"` : ""} data-desk="${esc(o.desk)}" data-date="${esc(o.date || "")}" data-time="${esc(o.time || "")}">`
     + `<span class="g-feed-time${o.est ? " g-feed-time-est" : o.added ? " g-feed-time-added" : ""}"${timeAttr}>${esc(t)}</span>`
     + `<span class="g-feed-code ${domClass(o)}" title="${esc(DESK[codeKey] || "")}">${DESK_CODE[codeKey] || ""}</span>`
@@ -199,6 +199,12 @@ export function feedRow(o) {
 // row with a URL but no outlet name gets the SRC chip. The full text rides in the
 // row's title attribute (hover / long-press); one fixed height (--ev-h) per list.
 const _plain = (h) => String(h || "").replace(/<[^>]*>/g, "").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/\s+/g, " ").trim();
+// R43c: a list row is two single, ellipsised lines — its FULL text rides in the row's
+// title (hover / long-press). ` title="headline · meta · source"` from plain or HTML parts.
+export function rowTip(...parts) {
+  const t = parts.map(_plain).filter(Boolean).join(" · ");
+  return t ? ` title="${esc(t)}"` : "";
+}
 export function evRow({ date = "", dateText = "", est = false, title = "", href = "", inApp = false, meta = "", tag = "", src = "", srcHref = "", cls = "", aCls = "", dCls = "", attrs = "", tip = "" } = {}) {
   const d = dateText || (date ? fmtD(date) : "");
   const full = tip || [title, _plain(meta), _plain(tag), src].filter(Boolean).join(" · ");
@@ -227,11 +233,16 @@ const _NUM_TXT = /^[-+−▲▼·]?\s*[€$£]?\s*[-+−]?[\d.,]+\s*(%|bp|bn|m|t
 const _ROLE = /\bc-(date|num|text|tag|src)\b/;
 const _colRoots = new Set();
 let _colRaf = 0;
+// Re-read layout (auto / fixed / stacked) of every tagged root when the width crosses a
+// breakpoint — one rAF-throttled listener, registered once (T17), not a self-call.
+function _reflowCols() { if (!_colRaf) _colRaf = requestAnimationFrame(() => { _colRaf = 0; _colRoots.forEach(_tagCols); }); }
 export function tableCols(root) {
   if (!root || !root.querySelectorAll) return;
-  // Re-read layout (auto / fixed / stacked) when the width crosses a breakpoint.
-  if (!_colRoots.size && typeof window !== "undefined") window.addEventListener("resize", () => { if (!_colRaf) _colRaf = requestAnimationFrame(() => { _colRaf = 0; _colRoots.forEach((r) => tableCols(r)); }); });
+  if (!_colRoots.size && typeof window !== "undefined") window.addEventListener("resize", _reflowCols);
   _colRoots.add(root);
+  _tagCols(root);
+}
+function _tagCols(root) {
   root.querySelectorAll("table:not([data-cols='off'])").forEach((t) => {
     const head = t.tHead && t.tHead.rows[0] ? [...t.tHead.rows[0].cells] : [];
     if (head.some((c) => c.colSpan > 1)) return;

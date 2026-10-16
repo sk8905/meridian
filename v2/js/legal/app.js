@@ -13,7 +13,7 @@ import {
   markVisitedSoon, _chipMem, chipMemKey,
 } from "/legal/js/shared.js";
 import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js";
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire, rowTip } from "/feed.js";
 import { esc, MONTHS, byDateDesc, JUDGMENT_SOURCES, srcHost } from "/util.js";
 import { fmtBn } from "/credit/js/shared.js";
 
@@ -297,7 +297,7 @@ function schemesTablePane() {
 // The Case law pane: every tracked BAILII case as a wire row (full list, not the
 // newest-N slice the combined wire is capped at).
 function casesPane() {
-  const row = (c) => `<li class="compact-item tw-row">`
+  const row = (c) => `<li class="compact-item tw-row"${rowTip(c.name, c.court, c.citation)}>`
     + `<span class="tw-date">${c.date ? esc(fmtDate(c.date)) : ""}</span>`
     + `<span class="tw-tag case">CASE</span>`
     + `<span class="tw-body"><a href="${esc(c.url || "#/")}"${c.url ? ` target="_blank" rel="noopener noreferrer"` : ""} class="tw-head">${esc(c.name)}</a><span class="tw-mgr-w"><span class="tw-mgr">${esc(c.court)}</span></span></span>`

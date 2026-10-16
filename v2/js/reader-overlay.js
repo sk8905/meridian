@@ -7,7 +7,7 @@
 // Worker's /api/read (the same extractor as the Home reading pane) and prints the text.
 // Where a source CAN'T be read in the app — a subscriber paywall, a bot-walled publisher,
 // a PDF / spreadsheet, or an extraction that comes back empty — the reader says so and
-// gives the external link ("Open at <host> ↗"), which is the only link that leaves Wire.
+// gives the external link ("Open at <host>"), which is the only link that leaves Wire.
 //
 // Not intercepted: the Home wire's own rows and reading pane (they already read
 // in-pane), links marked data-ext (deliberately external — the reader's own "Open
@@ -28,7 +28,7 @@ function ensure() {
   ov.id = "wire-reader"; ov.className = "wr"; ov.hidden = true;
   ov.setAttribute("role", "dialog"); ov.setAttribute("aria-modal", "true"); ov.setAttribute("aria-label", "Reader");
   ov.innerHTML = `<div class="wr-scrim" data-wr-close></div><section class="wr-panel">
-      <header class="wr-head"><button type="button" class="wr-back" data-wr-close aria-label="Close reader">‹</button><span class="wr-src"></span><a class="wr-out" data-ext="1" target="_blank" rel="noopener noreferrer">Open original ↗</a></header>
+      <header class="wr-head"><button type="button" class="wr-back" data-wr-close aria-label="Close reader">‹</button><span class="wr-src"></span><a class="wr-out" data-ext="1" target="_blank" rel="noopener noreferrer">Open original</a></header>
       <div class="wr-body"></div></section>`;
   document.body.appendChild(ov);
   ov.addEventListener("click", (e) => { if (e.target.closest("[data-wr-close]")) { e.preventDefault(); close(true); } });
@@ -55,7 +55,7 @@ function shell({ title, src, url, note, body, meta }) {
     + (meta ? `<div class="wr-meta">${meta}</div>` : "")
     + (note ? `<div class="wr-note">${note}</div>` : "")
     + (body || "")
-    + `<a class="wr-open" data-ext="1" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open at ${esc(host(url) || "source")} ↗</a>`
+    + `<a class="wr-open" data-ext="1" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open at ${esc(host(url) || "source")}</a>`
     + `</article>`;
 }
 

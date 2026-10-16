@@ -24,7 +24,7 @@ import { deals, managers, funds, fundById } from "/credit/js/data.js";
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
 import { targetFit } from "/credit/js/target.js";
 import { TX_TYPES, TX_GROUPS, SECTOR_TAGS, REGIONS, REGION_LABEL, EUROPE_REGIONS, FX, txOf, amountOf, toUsd, fmtAmt, fmtUsd, tagsOf, sizeCounts } from "/credit/js/tx.js";
-import { esc, fmtD } from "/util.js";
+import { esc, fmtD, revealSelected } from "/util.js";
 import { fmtDateP, tableCols, evRow } from "/feed.js";
 import { dealCounterparty, dealSponsor, dealPartyRole, dealLenders, dealArrangers, dealLenderIds, dealManagerRole, dealParticipants, ROLE_NAME, UNKNOWN, bareName } from "../deal-parse.js";
 import { creditSource } from "/credit/js/shared.js";
@@ -539,11 +539,7 @@ export function mount(host, ctx) {
     const view = (k) => `<button type="button" class="tchip tx-vchip${st.mode === k ? " is-on" : ""}" data-view="${esc(k)}">${esc(VIEW_LABEL[k])}</button>`;
     const rx = `<a class="tchip tx-vchip tx-rxchip" href="${esc(ctx.base)}/restructuring/">Restructuring</a>`;
     nav.innerHTML = [flow("all"), flow("lending"), flow("structured"), flow("secondary"), rx, view("fundraising"), flow("mna"), view("league")].join("");
-    const onChip = nav.querySelector(".tchip.is-on");
-    if (onChip && nav.scrollWidth > nav.clientWidth + 1) {
-      const nr = nav.getBoundingClientRect(), cr = onChip.getBoundingClientRect();
-      if (cr.left < nr.left || cr.right > nr.right) nav.scrollLeft += (cr.left - nr.left) - (nr.width - cr.width) / 2;
-    }
+    revealSelected(nav);
     renderAsOf();
     renderActive();
   }
