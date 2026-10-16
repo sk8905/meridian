@@ -15,7 +15,7 @@
 // here; the bell keeps its own per-app content/seen-state but is layered with
 // the same full-screen presentation on mobile.
 // =============================================================================
-import { esc, MONTHS, setThemeColorMeta, fmtD } from "/util.js";
+import { esc, MONTHS, fmtD } from "/util.js";
 import { mountAssistant, askSuggestions } from "/v2/js/assistant.js";
 import { FX_KEYMOMENT, OUTLOOK, EARNINGS } from "/macro/js/content.js";
 import { nbNums } from "./nb-format.js";
@@ -602,17 +602,6 @@ function savedRow(x) {
 }
 // ---- Notifications — cross-desk, tagged by desk (MAC / CRD / LEX) -----------
 const ICO_BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>';
-// Theme preference plumbing — the CONTROL lives in the Menu → Settings segmented
-// control (both surfaces); the nav bar no longer carries a theme button. These
-// helpers stay because the runtime still owns the OS "system" follow (applied in
-// initNavActions): "system" tracks the OS live; "light"/"dark" are concrete
-// remembered choices in data-theme-choice (+ localStorage) that persist across
-// OS changes and reloads.
-const osDark = () => !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
-// The stored preference: "system" | "light" | "dark".
-const storedPref = () => { const c = document.documentElement.getAttribute("data-theme-choice"); return (c === "light" || c === "dark") ? c : "system"; };
-// Resolve a preference to a concrete theme: system = OS setting, else itself.
-const resolveTheme = (pref) => (pref === "system" ? (osDark() ? "dark" : "light") : pref);
 // Two desks only: the bell is limited to Credit + Legal deal-flow (saved.js
 // buildNotifs) — macro items no longer appear, so no macro seen-state to sync.
 const NOTIF_KEYS = { c: "meridian.credit.notifSeen", l: "meridian.legal.notifSeen" };
@@ -812,28 +801,7 @@ export function initNavActions() {
       bar.appendChild(wrap);
     }
 
-    // Theme follows a remembered preference: "system" (track the OS) or a concrete
-    // "light"/"dark". The pref is stored in localStorage (m_theme_pref) so the
-    // inline head script applies it before paint on the next load. The theme
-    // CONTROL now lives only in the Menu → Settings segmented control (both
-    // surfaces) — there is no nav-bar theme button any more — but the OS "system"
-    // follow is still owned here so a system-set choice tracks light/dark live.
-    const applyThemeChoice = (pref) => {
-      const r = document.documentElement;
-      const t = resolveTheme(pref);
-      r.setAttribute("data-theme", t);
-      r.setAttribute("data-theme-choice", pref);
-      try { localStorage.setItem("m_theme_pref", pref); } catch { /* */ }
-      setThemeColorMeta(t);
-    };
-    // Only re-apply on OS light/dark change when following the system; a
-    // concrete choice is remembered and must not drift.
-    if (window.matchMedia) {
-      const mq = window.matchMedia("(prefers-color-scheme: dark)");
-      const onOS = () => { if (storedPref() === "system") applyThemeChoice("system"); };
-      if (mq.addEventListener) mq.addEventListener("change", onOS);
-      else if (mq.addListener) mq.addListener(onOS);
-    }
+    // Dark is the only theme (owner 2026-10-16) — the boot script sets it; no OS follow.
 
     // Refresh-countdown ring. stroke-dashoffset walks 0 → circumference across
     // the 5-minute window (full ring draining to empty), then wraps. The phase

@@ -38,7 +38,7 @@ const base = `http://localhost:${srv.port}`;
   });
   check(!pane.densitySeg && !pane.densityLabel, "Settings has NO Density control");
   check(!pane.account && !pane.acctRow, "Settings has NO Account section");
-  check(pane.theme && pane.push, "Settings keeps Theme + Notifications controls");
+  check(!pane.theme && pane.push, "Settings has NO Theme control (dark only, 2026-10-16) and keeps Notifications");
   checkErrs(errs, "settings pane");
   await ctx.close();
 }

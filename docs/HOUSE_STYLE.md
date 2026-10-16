@@ -1497,7 +1497,13 @@ notification badge red (`#ef4444`).
   top rule under a bar that already has a bottom one (no doubled line).
   **(h) No colour desk codes on the wire** (owner 2026-10-15): News / Home wire rows read
   time · headline, then the source on line 2 — like every events row. The code stays in
-  the markup (the row's desk, for filters and search) but is not drawn. Spec: `tests/phone-trim.mjs`.
+  the markup (the row's desk, for filters and search) but is not drawn.
+  **(i) Dark only** (owner 2026-10-16: "eliminate light mode from desktop and iPhone — I
+  never use it"). The boot script in `v2/index.html` always sets `data-theme="dark"`,
+  whatever the OS asks for or an old `m_theme_pref` says; Menu ▸ Settings has no Theme
+  control and nothing follows the OS scheme. Rules elsewhere that say "light and dark"
+  now mean dark only; the light token values remain in the stylesheets as the base
+  layer the dark overrides sit on, but are never shown. Spec: `tests/theme-toggle.mjs`. Spec: `tests/phone-trim.mjs`.
 
 ## 7. Technical rules
 

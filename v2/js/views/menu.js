@@ -21,7 +21,7 @@
 // only Briefing/Markets/Bookmarks/Notifications). On DESKTOP the header still
 // carries the search pill and the Ask chat, and this menu mirrors the same chips.
 // The Ask/Add/omnibox UI is the shared assistant module (mountAssistant).
-import { esc, setThemeColorMeta } from "/util.js";
+import { esc } from "/util.js";
 import { mountAssistant } from "/v2/js/assistant.js";
 
 const ICO_BELL = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';
@@ -30,21 +30,6 @@ const ICO_BELL = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" st
 // section toggles the dropdown; otherwise the chip switches to it as normal.
 const ICO_CARET = '<svg class="tchip-caret" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
 
-const storedPref = () => { const c = document.documentElement.getAttribute("data-theme-choice"); return (c === "light" || c === "dark") ? c : "system"; };
-const osDark = () => !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
-// THREE explicit options — System · Light · Dark — surfaced as a segmented
-// control. The stored pref (data-theme-choice / m_theme_pref) stays a concrete
-// system|light|dark that the inline boot script already understands.
-const THEME_LABEL = { system: "System", light: "Light", dark: "Dark" };
-const THEME_ORDER = ["system", "light", "dark"];
-function applyTheme(pref) {
-  const r = document.documentElement;
-  const t = pref === "system" ? (osDark() ? "dark" : "light") : pref;
-  r.setAttribute("data-theme", t);
-  r.setAttribute("data-theme-choice", pref);
-  try { localStorage.setItem("m_theme_pref", pref); } catch { /* ignore */ }
-  setThemeColorMeta(t);
-}
 // Text size — the whole app rides ONE knob, --fs-adj in premium.css (every type
 // token is basePx + --fs-adj). The reader nudges it in 1px steps here; the value
 // is an absolute px offset written inline on <html> (so it overrides the :root
@@ -131,10 +116,6 @@ function settingsPaneHTML() {
     + `<div class="na-menu-row na-menu-pushrow"><span>Push notifications</span>`
     + `<button type="button" class="na-menu-push" id="v2-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">${word}</span></button></div>`
     + `<div class="na-menu-recent-h">Appearance</div>`
-    + `<div class="na-menu-row na-menu-pushrow"><span>Theme</span>`
-    + `<div class="na-theme-seg" id="v2-theme-seg" role="group" aria-label="Theme">`
-    + THEME_ORDER.map((pf) => `<button type="button" class="na-theme-opt${storedPref() === pf ? " is-on" : ""}" data-pref="${pf}" aria-pressed="${storedPref() === pf ? "true" : "false"}">${THEME_LABEL[pf]}</button>`).join("")
-    + `</div></div>`
     + `<div class="na-menu-row na-menu-pushrow"><span>Text size</span>`
     + `<div class="na-fs-seg" id="v2-fs-seg" role="group" aria-label="Text size">`
     + `<button type="button" class="na-fs-opt" data-fs="down" aria-label="Smaller text"${fsStored() <= FS_MIN ? " disabled" : ""}>A&minus;</button>`
@@ -291,8 +272,6 @@ export function mount(host, ctx) {
     if (dgShare && _dg) { _dg.G.shareDigest(dgShare); return; }
     // A tap anywhere else closes an open Chat dropdown.
     if (chatMenuOpen) { chatMenuOpen = false; render(); }
-    const opt = e.target.closest("#v2-theme-seg .na-theme-opt");
-    if (opt) { applyTheme(opt.dataset.pref); render(); return; }
     const fsBtn = e.target.closest("#v2-fs-seg .na-fs-opt");
     if (fsBtn && !fsBtn.disabled) {
       applyFontSize(fsStored() + (fsBtn.dataset.fs === "up" ? FS_STEP : -FS_STEP));

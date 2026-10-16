@@ -21,7 +21,7 @@ const PAGES = [
   ["Profiles ▸ Managers", "/v2/profiles/#/?tab=managers", "#mgr-rows tr", "td.tl-nm"],
   ["Profiles ▸ People", "/v2/profiles/#/?tab=people", "#pp-rows tr", "td.tl-nm"],
 ];
-for (const [width, colorScheme] of [[390, "light"], [430, "dark"]]) {
+for (const [width, colorScheme] of [[390, "dark"], [430, "dark"]]) {   // dark is the only theme (2026-10-16)
   const dev = { viewport: { width, height: 900 }, isMobile: true, hasTouch: true, userAgent: "Mozilla/5.0 (iPhone)", colorScheme };
   const seen = [];
   for (const [name, path, rowSel, titleSel] of PAGES) {
