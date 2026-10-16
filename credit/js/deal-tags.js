@@ -1055,5 +1055,7 @@ const T = {
   d1163: {"c":"Pan-European","s":"Diversified","a":"fund","p":"Oaktree European Capital Solutions Fund III","r":"fund"},
   d1164: {"c":"Global","s":"Diversified","a":"fund","p":"Oaktree Opportunities Fund XII","r":"fund"},
   d1165: {"c":"Global","s":"Asset-backed / specialty finance","a":"fund","p":"Oaktree Asset-Backed Finance fund","r":"fund"},
+  d1166: {"c":"United States","s":"TMT","a":"financing","p":"Analogic Corporation","r":"borrower"},
+  d1167: {"c":"UK","s":"Real estate","a":"financing","p":"Bridges Fund Management / ROK Property JV","r":"borrower"},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));
