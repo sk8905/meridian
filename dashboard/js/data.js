@@ -321,7 +321,8 @@ export const CR_STRESS = [
 // `px` = a news-quoted price {v | text (a quoted range), asOf, src, outlet, quote,
 // aggregator?} (cents / % of par), only where a dated article states the number — never
 // inferred; shown as "57 (28 Sep 26)". Where there is no free live quote the press price
-// is kept as the line's only price, however old (owner 2026-10-16); such a line (`tv`
+// is kept as the line's only price, however old (owner 2026-10-16; `asOf` may be a
+// month, "2026-05", when the article gives no day); such a line (`tv`
 // null) needs no ISIN when the article names none — `bond` then carries the article's
 // description, and `maturity` may be a year. See refresh-routines §bonds.
 export const CR_BONDS = [
@@ -341,6 +342,10 @@ export const CR_BONDS = [
   {"name": "Grifols", "issuer": "Grifols Escrow Issuer SA", "coupon": 3.875, "maturity": "2028-10-15", "isin": "XS2393001891", "tv": "TRADEGATE:XS239300189", "src": "https://www.tradingview.com/symbols/TRADEGATE-XS239300189/", "checked": "2026-10-16", "px": null},
   {"name": "Altice France (SFR)", "issuer": "Altice France SA", "coupon": 7.25, "maturity": "2029-11-01", "isin": "XS3161792075", "tv": "GETTEX:A4EHR4", "src": "https://www.tradingview.com/symbols/GETTEX-A4EHR4/", "checked": "2026-10-16", "px": null},
   {"name": "Aston Martin Lagonda", "issuer": "Aston Martin Capital Holdings Ltd.", "coupon": 10.0, "maturity": "2029-03-31", "isin": "USG05891AL32", "tv": null, "src": "https://www.tradingview.com/symbols/FWB-USG05891AL3/", "checked": "2026-10-16", "px": {"v": 57, "asOf": "2026-09-28", "outlet": "Euronews", "src": "https://www.euronews.com/2026/09/29/europes-most-troubled-companies-whos-hit-hardest-by-high-interest-rates", "quote": "Aston Martin's 10% dollar bond due in March 2029 was quoted at only around 57 cents on the dollar on 28 September."}},
+  {"name": "Grupo Antolin", "issuer": "Grupo Antolin-Irausa SA", "coupon": 3.5, "maturity": "2028-04-30", "isin": "XS2355632584", "tv": null, "src": "https://www.tradingview.com/symbols/FWB-XS235563258/", "checked": "2026-10-16", "px": {"v": 60, "asOf": "2026-05", "outlet": "Octus", "src": "https://octus.com/resources/articles/grupo-antolin-to-start-debt-talks-ahead-of-springing-maturity/", "quote": "The 2028 and 2030 bonds are quoted at 60-mid and 58-mid, respectively"}},
+  {"name": "Grupo Antolin", "issuer": "Grupo Antolin-Irausa SA", "coupon": 10.375, "maturity": "2030-01-30", "isin": "XS2867238532", "tv": null, "src": "https://www.tradingview.com/symbols/FWB-XS286723853/", "checked": "2026-10-16", "px": {"v": 58, "asOf": "2026-05", "outlet": "Octus", "src": "https://octus.com/resources/articles/grupo-antolin-to-start-debt-talks-ahead-of-springing-maturity/", "quote": "The 2028 and 2030 bonds are quoted at 60-mid and 58-mid, respectively"}},
+  {"name": "Pandion", "issuer": "Pandion AG", "coupon": 8.0, "maturity": "2026-02-05", "isin": "DE000A289YC5", "tv": null, "src": "https://www.tradingview.com/symbols/TRADEGATE-A289YC/", "checked": "2026-10-16", "px": {"v": 5.27, "asOf": "2026-09-05", "outlet": "Börse Express", "aggregator": true, "src": "https://www.boerse-express.com/news/articles/pandion-aktie-79-prozent-verlust-in-30-tagen-944978", "quote": "Sie wurde Medienberichten zufolge zeitweise mit einem leichten Plus von 0,38 Prozent bei 5,27 Euro in Stuttgart gehandelt."}},
+  {"name": "SpaceX", "issuer": null, "bond": "6.65% notes due 2056 (50-year)", "coupon": 6.65, "maturity": "2056", "isin": null, "tv": null, "src": null, "checked": "2026-10-16", "px": {"v": 85, "asOf": "2026-10-10", "outlet": "TIKR (quoting the FT's John Foley)", "aggregator": true, "src": "https://www.tikr.com/blog/spacex-is-getting-riskier-by-the-minute-as-its-50-year-bonds-slip-to-85-cents", "quote": "trade at something like 85 cents on the dollar"}},
 ];
 
 export const DASH_ASOF = "2026-10-15";

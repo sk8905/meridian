@@ -23,7 +23,7 @@ const DATE = /^\d{4}-\d{2}-\d{2}$/;
 // A widget line needs its ISIN + TradingView record; a press-only line (owner 2026-10-16:
 // keep press prices where that's all there is) needs a dated, sourced price, and an ISIN
 // or the article's own description of the bond.
-const pxOk = (p) => p && (typeof p.v === "number" || (typeof p.text === "string" && p.text)) && DATE.test(p.asOf)
+const pxOk = (p) => p && (typeof p.v === "number" || (typeof p.text === "string" && p.text)) && (DATE.test(p.asOf) || /^\d{4}-\d{2}$/.test(p.asOf))
   && /^https:\/\//.test(p.src) && p.quote && p.outlet;
 const bad = CR_BONDS.filter((b) => !(
   names.has(b.name) && (b.isin == null ? !b.tv && b.bond : isinOk(b.isin)) && (b.issuer || b.bond)
@@ -65,10 +65,11 @@ for (const [name, dev] of [["phone", PHONE], ["desktop", DESKTOP]]) {
   });
   checkEq(r.rows, listed, `${name}: the bonds card lists every mapped line (incl. behind See all)`);
   check(r.hrefs.every((h) => /^\/v2\/profiles\/#\/co\/[^/]+$/.test(h)), `${name}: each bond row opens its borrower page`);
-  check(r.srcs.every((s) => /^https:\/\/www\.tradingview\.com\/symbols\//.test(s)), `${name}: each bond row's source is its TradingView symbol page`);
-  check(r.lead.every((d) => /^([A-Z][a-z]{2} \d{4}|Perp)$/.test(d)), `${name}: rows lead with the maturity (${r.lead.slice(0, 3).join(" / ")})`);
+  const press = new Set(CR_BONDS.filter((x) => !x.src).map((x) => x.px.src));
+  check(r.srcs.every((s) => /^https:\/\/www\.tradingview\.com\/symbols\//.test(s) || press.has(s)), `${name}: each bond row's source is its TradingView symbol page (or, with no ISIN, the press article)`);
+  check(r.lead.every((d) => /^([A-Z][a-z]{2} \d{4}|\d{4}|Perp|—)$/.test(d)), `${name}: rows lead with the maturity (${r.lead.slice(0, 3).join(" / ")})`);
   check(r.stressMeta, `${name}: stress rows note their listed bonds`);
-  check(r.pressMeta.length > 0 && r.pressMeta.every((m) => /^press \S+ \(\d{1,2} [A-Z][a-z]{2} \d{2}\)/.test(m)), `${name}: press-priced rows lead line 2 with "press <price> (date)" (${r.pressMeta[0]})`);
+  check(r.pressMeta.length > 0 && r.pressMeta.every((m) => /^press \S+ \((\d{1,2} [A-Z][a-z]{2} \d{2}|[A-Z][a-z]{2} \d{4})\)/.test(m)), `${name}: press-priced rows lead line 2 with "press <price> (date)" (${r.pressMeta[0]})`);
   check(new RegExp(`${listed} listed bonds`).test(r.sub), `${name}: hub header counts the listed bonds (${r.sub})`);
   check(!r.hscroll, `${name}: no horizontal page scroll`);
 
