@@ -1354,10 +1354,12 @@ notification badge red (`#ef4444`).
   hidden scrollbar, never clipped labels; a tapped chip scrolls into view; the row moves
   ONLY sideways (`overflow-y:hidden` + `touch-action:pan-x` — overflow-x:auto alone let it
   drag vertically). **(c) Header
-  cluster:** phone Search · Ask Wire · Watchlist · Notifications · Menu; desktop Ask Wire ·
-  Watchlist · Notifications + Menu. ★ Watchlist opens "New since last visit" (whatsnew.js;
-  badge = COUNT) + "Watchlist" (follow store; empty → suggested European managers + law
-  firms). Ask Wire shows suggested questions only when committed data backs them
+  cluster:** phone Search · Ask Wire · Notifications · Menu; desktop Ask Wire ·
+  Notifications + Menu. **No header ☆ Watchlist** (removed by the owner 2026-10-16 — it
+  duplicated other surfaces): the watchlist is Menu ▸ Watchlist (empty → suggested
+  European managers + law firms with a one-tap Follow), News ▸ Watchlist, the bell's
+  Watchlist tab and Profiles ▸ ★ Following; "New since last visit" is Menu ▸ New
+  (whatsnew.js). Ask Wire shows suggested questions only when committed data backs them
   (`tests/header-watchlist.mjs`, `tests/header-ask.mjs`). **(d) Plain labels:** the wire carries NO "?"
   (owner 2026-10-15); what every code means is on Menu ▸ Sources (`feedCodesHTML` — a new
   code must join it);

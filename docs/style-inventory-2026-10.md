@@ -481,7 +481,7 @@ unless listed under "Left as is".
 | Deals — iPhone cards, Fundraising (funds in market, closes, LP commitments), drawer "More from …" | name first, date mid-row → **date first, source last** (shared events row); iPhone deal cards then drop the source column (R44e, source in the drawer) | 2–3 lines → 2 lines | filled / bold source chips → faint text |
 | Profiles — manager / HF / LP / firm wires, firm credit deals, People, Borrower | date-first already on desktop; iPhone was headline-first, 3-line clamp → **shared two-line events row everywhere** | 3 lines (iPhone) → 2 | coloured DEAL / FUND / NEWS / ALERT tags → one muted tag; bold names → regular |
 | Home / News — wire, manager wire, earnings, briefing | wire (narrow column): headline → time · headline, code · source beneath; earnings 3 lines → 2 | 62px → 2 lines | brief-strip chips: dark text on solid fill → semantic up / down text on a tint; briefing `<strong>` → regular |
-| Menu — Digest, Sources, New; header panels (notifications, saved, Watchlist, Ask); search palette | digest / notifications headline-first → **date · headline · source**; palette rows two single lines | wrapping → 2 lines | Sources FAILING pill filled → outlined; palette codes / kbd bold → regular |
+| Menu — Digest, Sources, New; header panels (notifications, saved, Ask; the ☆ Watchlist panel was retired 2026-10-16); search palette | digest / notifications headline-first → **date · headline · source**; palette rows two single lines | wrapping → 2 lines | Sources FAILING pill filled → outlined; palette codes / kbd bold → regular |
 
 **iPhone trims (owner 2026-10-15, R44e):** the Deals card has no source column and the
 Profiles card rows (All · Managers · Hedge Funds · Investors) have no HQ; desktop keeps both,

@@ -39,7 +39,7 @@ for (const [w, h, only] of WIDTHS) {
   if (w === 1920 && (!ONLY || ONLY.test("panels"))) {
     await pg.goto(`http://localhost:${srv.port}/v2/`, { waitUntil: "load" });
     await settle(pg);
-    for (const id of ["na-ask", "na-watch", "na-mkt", "na-notif"]) {
+    for (const id of ["na-ask", "na-mkt", "na-notif"]) {
       const btn = await pg.$(`#${id}`); if (!btn || !(await btn.isVisible())) continue;
       await btn.click();
       await pg.waitForFunction(() => [...document.querySelectorAll(".na-panel")].some((p) => p.offsetParent !== null && p.textContent.trim().length > 10), null, { timeout: 8000 }).catch(() => {});

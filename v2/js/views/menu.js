@@ -242,14 +242,30 @@ export function mount(host, ctx) {
     let resolveFollows;
     try { ({ resolveFollows } = await import("/saved.js")); }
     catch { const b = host.querySelector("#v2-menu-watch"); if (b) b.innerHTML = `<p class="watch-empty">Couldn’t load your watchlist.</p>`; return; }
-    const paint = () => { if (tok !== watchToken) return; const b = host.querySelector("#v2-menu-watch"); if (b) b.innerHTML = renderWatch(resolveFollows()); };
-    paint();
+    // An EMPTY watchlist offers suggested European managers + active law firms (committed
+    // data) with a one-tap Follow — moved here from the retired header ☆ panel (owner
+    // 2026-10-16). The suggestions stay up while the reader follows several.
+    let sugMode = false;
+    const paint = async () => {
+      if (tok !== watchToken) return;
+      const rows = resolveFollows();
+      let html;
+      if (rows.length && !sugMode) html = renderWatch(rows);
+      else {
+        try {
+          const [W, cr, lg, T, S] = await Promise.all([import("/v2/js/whatsnew.js"), import("/credit/js/data.js"), import("/legal/js/data.js"), import("/credit/js/target.js"), import("/credit/js/shared.js")]);
+          sugMode = true; html = W.suggestHTML(W.suggestFollows(cr, lg, T.targetFit), S.isFollowed);
+        } catch { html = renderWatch(rows); }
+      }
+      const b = host.querySelector("#v2-menu-watch"); if (b && tok === watchToken) b.innerHTML = html;
+    };
+    await paint();
     // Reconcile with the cloud copy through the ONE shared merge (credit/js/shared.js),
     // then repaint if a follow arrived from another device.
     try {
       const { syncFollows } = await import("/credit/js/shared.js");
       const { changed } = await syncFollows();
-      if (changed) paint();
+      if (changed && !sugMode) paint();
     } catch { /* offline / not on cloud — local follows already painted */ }
   }
 
@@ -288,6 +304,19 @@ export function mount(host, ctx) {
     }
     // What's new: "Mark all as seen" re-baselines the snapshot to the current records.
     if (e.target.closest("#v2-new-seen") && _wnData) { _wnData.W.writeSnap(_wnData.W.currentIds(_wnData.d)); mountWhatsNew(); return; }
+    // One-tap Follow on a suggested manager / law firm (the shared follow store + cloud sync).
+    const sug = e.target.closest("[data-sugg-follow]");
+    if (sug) {
+      e.preventDefault();
+      const [type, id] = sug.dataset.suggFollow.split(":");
+      import("/credit/js/shared.js").then((S) => {
+        const on = S.toggleFollow(type, id);
+        sug.classList.toggle("is-on", on); sug.setAttribute("aria-pressed", on ? "true" : "false");
+        sug.textContent = on ? "Following" : "Follow";
+        sug.setAttribute("aria-label", (on ? "Unfollow " : "Follow ") + ((sug.closest(".wsug-row") || sug).querySelector(".watch-nm") || {}).textContent);
+      }).catch(() => {});
+      return;
+    }
     // A watchlist row → open that profile (cross-page to /v2/profiles/).
     const wrow = e.target.closest("[data-watch-href]");
     if (wrow) { e.preventDefault(); ctx.navigate(wrow.dataset.watchHref); return; }

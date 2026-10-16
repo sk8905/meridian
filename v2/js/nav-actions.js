@@ -29,8 +29,6 @@ function fmtDate(d) { return d ? fmtD(d) : ""; }
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
 const ICO_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>';
 const ICO_ASK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.6a8.5 8.5 0 0 1-.9-3.9A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>';
-// Watchlist (R2): an outline star — the same ☆/★ glyph family as every Follow toggle.
-const ICO_WATCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/></svg>';
 const ICO_MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>';
 
 const isPhone = () => matchMedia("(max-width:760px)").matches;
@@ -784,22 +782,21 @@ export function initNavActions() {
     const wrap = document.createElement("div");
     wrap.className = "na-actions";
     wrap.innerHTML =
-      // Cluster order (left→right): Search (phone only) · Ask Wire · Watchlist ·
+      // Cluster order (left→right): Search (phone only) · Ask Wire ·
       // Markets (desktop) · Notifications · Menu (phone). On PHONES the full-width
       // search band was pulled out of the page body (the .wire-band row under the
       // chips) and lives here as a magnifier that opens the global command palette
       // (data-open-search → the lazy-palette shim in chrome.js), reclaiming a whole
       // row. Tablet + desktop (>760px) keep the body search band, so no magnifier
-      // there. Ask Wire (R16) and Watchlist (R2) sit in the cluster on EVERY size —
-      // five 34px icons still leave the 390px bar clear of the brand. Ask also stays
+      // there. Ask Wire (R16) sits in the cluster on EVERY size. Ask also stays
       // in Menu → Chat. The Theme toggle lives in Menu → Settings (both surfaces;
       // the OS "system" follow is wired below); the refresh-countdown ring moved
       // beside the "Last refresh" marker (status.js).
       (isPhone() ? `<button type="button" class="na-btn" id="na-search" data-open-search aria-label="Search Wire" title="Search Wire">${ICO_SEARCH}</button>` : "") +
       `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire ( ' )">${ICO_ASK}</button>` +
-      // Watchlist + "New since last visit" (R2): the count badge is the number of
-      // records that arrived since the reader last marked them seen (whatsnew.js).
-      `<button type="button" class="na-btn na-watch" id="na-watch" aria-label="Watchlist and new since last visit" aria-haspopup="true" aria-expanded="false" title="New since last visit · Watchlist">${ICO_WATCH}<span class="na-count" hidden></span></button>` +
+      // (The header ☆ Watchlist / "new since last visit" button was removed, owner 2026-10-16:
+      // News ▸ Watchlist, the bell's Watchlist tab, Profiles ▸ ★ Following and Menu ▸ New
+      // already carry it.)
       // Markets panel button: DESKTOP only. On iPhone, Markets is a Home top-nav tab
       // (the full Equities/Macro/Predictions panel lives there), so the header chart
       // icon is dropped — the phone cluster is Search · Notifications · Menu.
@@ -886,7 +883,6 @@ export function initNavActions() {
       return p;
     };
     const askPanel = mkPanel("na-ask-panel", "Ask Wire");
-    const watchPanel = mkPanel("na-watch-panel", "Watchlist");
     const mktPanel = mkPanel("na-mkt-panel", "Markets");
     const notifPanel = mkPanel("na-notif-panel", "Notifications");
     // Register/refresh the service worker on every visit — it carries Web Push
@@ -1033,86 +1029,8 @@ export function initNavActions() {
       const i = p.querySelector(".na-ask-in"); if (i && !isPhone()) setTimeout(() => i.focus(), 40);
     };
 
-    // Watchlist + "New since last visit" (R2): one panel, two chip tabs. "New" is
-    // whatsnew.js (records that arrived since this device last marked them seen);
-    // "Watchlist" is the follow store (meridian.follows ∪ /api/watchlist via the
-    // shared syncFollows) rendered by whatsnew.js watchlistHTML. An EMPTY watchlist
-    // offers suggested European managers + law firms (committed data) with a
-    // one-tap Follow (credit/js/shared.js toggleFollow).
-    const watchBtn = wrap.querySelector("#na-watch");
-    const paintCount = (n) => {
-      const c = watchBtn.querySelector(".na-count"); if (!c) return;
-      if (n > 0) { c.textContent = n > 99 ? "99+" : String(n); c.hidden = false; watchBtn.setAttribute("aria-label", `Watchlist and new since last visit — ${n} new`); }
-      else { c.hidden = true; watchBtn.setAttribute("aria-label", "Watchlist and new since last visit"); }
-    };
-    const loadWN = () => Promise.all([import("/home-data.js"), import("/v2/js/whatsnew.js")]);
-    const refreshCount = () => loadWN().then(([d, W]) => paintCount(W.newCount(d, W.readSnap()))).catch(() => {});
-    let _wTab = "new", _wTok = 0, _sugMode = false;
-    const renderWatchPanel = (body) => {
-      _sugMode = false;
-      body.innerHTML = `<div class="na-chips" role="tablist">`
-        + `<button type="button" class="na-chip" data-wk="new" role="tab">New since last visit</button>`
-        + `<button type="button" class="na-chip" data-wk="watch" role="tab">Watchlist</button>`
-        + `</div><div class="na-tabbody wire-watch na-watch-body"></div>`;
-      const chips = body.querySelector(".na-chips"), tb = body.querySelector(".na-watch-body");
-      const paint = async () => {
-        const tok = ++_wTok;
-        chips.querySelectorAll(".na-chip").forEach((c) => { const on = c.dataset.wk === _wTab; c.classList.toggle("is-on", on); c.setAttribute("aria-selected", on ? "true" : "false"); });
-        tb.innerHTML = '<p class="watch-loading">Loading…</p>';
-        try {
-          if (_wTab === "new") {
-            const [d, W] = await loadWN();
-            const snap = W.readSnap();
-            const html = W.whatsNewHTML(d, snap, { seenId: "na-new-seen" });
-            if (!snap) W.writeSnap(W.currentIds(d));   // first open sets the starting point
-            if (tok === _wTok) tb.innerHTML = html;
-          } else {
-            const [{ resolveFollows }, W, S] = await Promise.all([import("/saved.js"), import("/v2/js/whatsnew.js"), import("/credit/js/shared.js")]);
-            const show = async () => {
-              const rows = resolveFollows();
-              if (rows.length && !_sugMode) { if (tok === _wTok) tb.innerHTML = W.watchlistHTML(rows); return; }
-              const [cr, lg, T] = await Promise.all([import("/credit/js/data.js"), import("/legal/js/data.js"), import("/credit/js/target.js")]);
-              _sugMode = true;   // keep the suggestions up while the reader follows several
-              if (tok === _wTok) tb.innerHTML = W.suggestHTML(W.suggestFollows(cr, lg, T.targetFit), S.isFollowed);
-            };
-            await show();
-            // Union the cloud copy (/api/watchlist) through the ONE shared merge, then
-            // repaint if a follow arrived from another device.
-            S.syncFollows().then(({ changed }) => { if (changed && tok === _wTok && !_sugMode) show(); }).catch(() => {});
-          }
-        } catch { if (tok === _wTok) tb.innerHTML = '<p class="watch-empty">Unavailable right now.</p>'; }
-      };
-      chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.wk !== _wTab) { _wTab = c.dataset.wk; paint(); } });
-      body._wPaint = paint;
-      if (!body._wBound) body.addEventListener("click", async (e) => {
-        const paint = body._wPaint;
-        // "Mark all as seen" re-baselines the snapshot and clears the count badge.
-        if (e.target.closest("[data-wn-seen]")) {
-          e.preventDefault(); e.stopPropagation();
-          const [d, W] = await loadWN(); W.writeSnap(W.currentIds(d)); paintCount(0); paint(); return;
-        }
-        // One-tap Follow on a suggestion (toggle) — the shared follow store + cloud sync.
-        const f = e.target.closest("[data-sugg-follow]");
-        if (f) {
-          e.preventDefault(); e.stopPropagation();
-          const [type, id] = f.dataset.suggFollow.split(":");
-          const S = await import("/credit/js/shared.js");
-          const on = S.toggleFollow(type, id);
-          f.classList.toggle("is-on", on); f.setAttribute("aria-pressed", on ? "true" : "false");
-          f.textContent = on ? "Following" : "Follow";
-          f.setAttribute("aria-label", (on ? "Unfollow " : "Follow ") + ((f.closest(".wsug-row") || f).querySelector(".watch-nm") || {}).textContent);
-        }
-      });
-      body._wBound = true;
-      // Open on "New" when there is something new, else on the Watchlist.
-      const c = watchBtn.querySelector(".na-count");
-      _wTab = c && !c.hidden ? "new" : (_wTab || "new");
-      paint();
-    };
-
     const panels = [
       { btn: wrap.querySelector("#na-ask"), panel: askPanel, onOpen: openAsk },
-      { btn: watchBtn, panel: watchPanel, onOpen: (p) => renderWatchPanel(p.querySelector(".na-body")) },
       // Markets panel: desktop-only (no #na-mkt button on phones — Markets is a Home
       // tab there), so include the rec only when the button exists.
       ...(wrap.querySelector("#na-mkt") ? [{ btn: wrap.querySelector("#na-mkt"), panel: mktPanel, onOpen: (p) => { if (!_mktLoaded) { _mktLoaded = true; loadMarkets(p.querySelector(".na-body")); } } }] : []),
@@ -1199,12 +1117,9 @@ export function initNavActions() {
     // this tab until a full reload. Re-sync the cross-device seen-state and recount
     // whenever the app returns to the foreground, so the badge reflects "new since you
     // were last here". Bounded: it only fires on a visibility/pageshow transition.
-    const onReturn = () => { if (document.visibilityState === "visible") { hydrateSeen().finally(refreshBadge); refreshCount(); } };
+    const onReturn = () => { if (document.visibilityState === "visible") { hydrateSeen().finally(refreshBadge); } };
     document.addEventListener("visibilitychange", onReturn);
     window.addEventListener("pageshow", onReturn);
-    // The Watchlist "new since last visit" count: off the first-paint path (it reads
-    // the tokenless home-data.js slice Home already loads), then on every return.
-    setTimeout(refreshCount, 1500);
   };
   // First-paint reveal: the HTML boot script holds the content area invisible
   // (html.wire-boot) so a page switch never paints the half-built state — the

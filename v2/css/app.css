@@ -283,16 +283,7 @@ html.wr-open, html.wr-open body { overflow: hidden; }
   html.wr-open .mobile-tabbar { display: none !important; }
 }
 
-/* ---- Header Watchlist (R2) ------------------------------------------------------
-   The star button's COUNT badge: unlike the bell's plain unread dot, this carries
-   the number of records new since the last visit — accent orange (R9: orange =
-   new/unread), mono, pinned top-right of the 34px icon. */
-.na-count { position: absolute; top: 1px; right: 0; min-width: 15px; height: 15px; padding: 0 3px; box-sizing: border-box;
-  display: inline-flex; align-items: center; justify-content: center; border-radius: 999px;
-  background: var(--accent, #fb8b1e); color: #000; font-family: var(--t-mono, ui-monospace, monospace);
-  font-size: 9.5px; font-weight:400; line-height: 1; letter-spacing: 0; pointer-events: none; }
-.na-count[hidden] { display: none; }
-/* Watchlist / New-since-last-visit rows — shared by the header panel and Menu ▸
+/* Watchlist / New-since-last-visit rows — shared by Menu ▸
    Watchlist / New: the notification-row anatomy (title line, mono meta line, 12px
    gutters, hairline rule) so every list in the chrome reads the same. */
 .wire-watch .watch-grp-h { padding: 9px 12px 4px; font-size: var(--fs-micro); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #8592ad); background: var(--head, #0a0a0a); border-bottom: 1px solid var(--t-grid); }
@@ -309,8 +300,6 @@ html.wr-open, html.wr-open body { overflow: hidden; }
 .wsug-follow { flex: 0 0 auto; min-width: 84px; height: 30px; padding: 0 10px; border: 1px solid var(--accent, #fb8b1e); border-radius: 0; background: transparent;
   color: var(--accent, #fb8b1e); font-family: var(--t-mono, ui-monospace, monospace); font-size: var(--fs-micro); font-weight:400; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
 .wsug-follow.is-on { background: var(--accent, #fb8b1e); color: #000; }
-/* In the header panel the chip row sits flush under the sticky panel head. */
-#na-watch-panel .na-chip { white-space: nowrap; }
 
 /* ---- Header Ask Wire (R16): suggested questions under the box ------------------- */
 .na-ask-qs { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--t-grid); }

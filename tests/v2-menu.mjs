@@ -304,8 +304,11 @@ async function menuState(pg) {
   await pg.evaluate(() => document.querySelector('.v2-view[data-view="menu"] .na-menu-bar .tchip[data-sec="watchlist"]').click());
   await pg.waitForSelector(".wire-watch", { timeout: 6000 });
   await pg.waitForTimeout(400);
-  const empty = await pg.evaluate(() => ({ hasEmpty: !!document.querySelector(".wire-watch .watch-empty"), grps: document.querySelectorAll(".wire-watch .watch-grp").length }));
-  check(empty.hasEmpty && empty.grps === 0, `Watchlist (no follows): a plain empty state, no group scaffold (empty=${empty.hasEmpty}, grps=${empty.grps})`);
+  // An empty watchlist offers suggestions to follow (moved here from the retired header ☆,
+  // 2026-10-16): the empty note plus ONLY the two suggestion groups — no empty follow-group scaffold.
+  await pg.waitForFunction(() => document.querySelector(".wire-watch .wsug-row"), null, { timeout: 15000 }).catch(() => {});
+  const empty = await pg.evaluate(() => ({ hasEmpty: !!document.querySelector(".wire-watch .watch-empty"), heads: [...document.querySelectorAll(".wire-watch .watch-grp .watch-grp-h")].map((h) => h.textContent.trim()) }));
+  check(empty.hasEmpty && empty.heads.length === 2 && /European managers/.test(empty.heads[0]) && /Law firms/.test(empty.heads[1]), `Watchlist (no follows): the empty note + suggestions to follow, no follow-group scaffold (empty=${empty.hasEmpty}, groups=${empty.heads.join(" · ")})`);
   checkErrs(errs, "watchlist empty");
   await ctx.close();
 }
