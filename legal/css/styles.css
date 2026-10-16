@@ -495,5 +495,5 @@ a.compact-head:hover { text-decoration: none; }
   .lf-g:nth-child(2n) { border-right: 0; }
   .lf-g:nth-child(-n+2) { border-bottom: 1px solid var(--t-grid); }
   .lf-sel { flex: 1 1 0; min-width: 0; }
-  .lf-more-w { padding: 0 16px; }
+  .lf-more-w { padding: 0 var(--m-gutter, 12px); }
 }

@@ -547,11 +547,11 @@
         border:1px solid var(--t-grid2, #262626); background:transparent; color:var(--t-ink, #eaf0fb);
         font-size:var(--fs-title); line-height:1; cursor:pointer; border-radius:0; }
       .g-sv-body { max-height:none; overflow-y:visible; padding:0; margin:0; }
-      .g-sv-item { border-radius:0; padding:11px 14px; border-bottom:1px solid var(--t-grid, #1a1a1a); }
+      .g-sv-item { border-radius:0; padding:11px var(--m-gutter, 12px); border-bottom:1px solid var(--t-grid, #1a1a1a); }
       .g-sv-item:hover { background:var(--t-panel2, #191919); }
       .g-sv-t { color:var(--t-ink, #eaf0fb); }
       .g-sv-m { color:var(--t-mut, #8592ad); }
-      .g-sv-empty { color:var(--t-mut, #8592ad); padding:22px 16px; }
+      .g-sv-empty { color:var(--t-mut, #8592ad); padding:22px var(--m-gutter, 12px); }
     }
     /* Legacy floating-dropdown grid (used only if the panel is ever shown WITHOUT
        the terminal .tui treatment). The full-screen phone panel is always .tui. */
@@ -639,7 +639,7 @@
     .cmdk-results { max-height:56vh; overflow-y:auto; overscroll-behavior:contain; padding:0; }
     .cmdk-empty { color:var(--t-faint, #5c6a86); font-size:var(--fs-head); padding:1.2rem; text-align:center; }
     /* nf-row feed style: headline on top, mono meta line (desk code + sub) below. */
-    .cmdk-row { display:block; padding:9px 14px; border-bottom:1px solid var(--t-grid); cursor:pointer; }
+    .cmdk-row { display:block; padding:9px var(--m-gutter, 12px); border-bottom:1px solid var(--t-grid); cursor:pointer; }
     .cmdk-row.sel, .cmdk-row:hover { background:var(--t-panel2, rgba(255,255,255,.05)); }
     .cmdk-t { display:block; font-weight:400; font-size:var(--fs-head); line-height:1.35; margin-bottom:4px;
       color:var(--t-ink, #eaf0fb); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -702,7 +702,7 @@
         color:var(--t-accent, #fb8b1e); font:inherit; font-size:var(--fs-head); font-weight:400;
         padding:.4rem .35rem; cursor:pointer; white-space:nowrap; }
       .cmdk-results { flex:1 1 auto; max-height:none; padding:0 0 48vh; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
-      .cmdk-row { border-bottom:1px solid var(--t-grid); border-radius:0; padding:9px 14px; }
+      .cmdk-row { border-bottom:1px solid var(--t-grid); border-radius:0; padding:9px var(--m-gutter, 12px); }
       .cmdk-row.sel, .cmdk-row:hover { background:var(--t-panel2, rgba(255,255,255,.05)); }
       .cmdk-t { font-size:var(--fs-head); color:var(--t-ink, #eaf0fb); }
       .cmdk-empty { color:var(--t-faint, #5c6a86); padding:1.4rem; }
@@ -916,7 +916,7 @@
       background:var(--t-head); border-bottom:1px solid var(--t-grid); }
     .g-read-h-t{ font-size:var(--fs-body); font-weight:700; letter-spacing:.01em; color:var(--t-ink); }
     .g-read-h-x{ font-size:var(--fs-micro); color:var(--t-faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
-    .g-read-art{ padding:14px 16px 22px; position:relative; }
+    .g-read-art{ padding:14px var(--m-gutter, 12px) 22px; position:relative; }
     .g-read-kicker{ font-family:var(--t-mono); font-size:var(--fs-micro); letter-spacing:.05em; text-transform:uppercase; color:var(--t-accent); margin-bottom:8px; }
     .g-read-title{ font-family:var(--t-mono); font-size:var(--fs-title); line-height:1.32; font-weight:700; color:var(--t-ink); margin:0 0 9px; }
     .g-read-meta{ font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-mut); padding-bottom:11px; margin-bottom:13px; border-bottom:1px solid var(--t-grid); }
@@ -979,7 +979,7 @@
     .g-read-tw-foot{ display:block; margin-top:8px; font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-link); }
     .g-read-open{ font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-accent); font-weight:700; text-decoration:none; }
     .g-read-open + .g-read-ent{ margin-left:16px; }
-    .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.5; color:var(--t-mut); }
+    .g-read-empty{ padding:16px var(--m-gutter, 12px); font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.5; color:var(--t-mut); }
     /* Reader ⋯ overflow menu — pinned top-right of the article; opens a small feedback
        menu ("Not interested" / "Mute source" / "Manage muted…"). The kicker/title clear it
        via right padding so a long headline never runs under the button. */
@@ -1017,7 +1017,7 @@
     .g-mm-unmute{ flex:0 0 auto; border:1px solid var(--t-grid2); background:transparent; cursor:pointer;
       font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-accent); padding:5px 10px; }
     .g-mm-unmute:hover{ background:var(--t-panel2, var(--t-panel)); }
-    .g-mm-empty{ font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.6; color:var(--t-mut); padding:18px 16px; margin:0; }
+    .g-mm-empty{ font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.6; color:var(--t-mut); padding:18px var(--m-gutter, 12px); margin:0; }
     .tui #g-feed .g-feed-row.is-reading{ background:rgba(127,140,170,.10); box-shadow:inset 2px 0 0 var(--t-accent); }
     /* Feed rows are <a> links, so ↑/↓ keyboard nav would otherwise paint the browser's
        default (thick, light) focus ring. Suppress that outline and let the is-reading
@@ -1125,10 +1125,10 @@
       .tui .g-pred-fchip.on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--chip-ul, #000); }
       [data-theme="dark"] .tui .g-pred-fchip.on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff); }
       .tui .g-pred-fchip:disabled{ opacity:.4; cursor:default; }
-      .tui .g-pred-sec{ font-family:var(--t-mono); font-size:var(--fs-micro); font-weight:400; letter-spacing:.06em; text-transform:uppercase; color:var(--t-ink); padding:9px 14px 3px; background:var(--t-panel); border-bottom:1px solid var(--t-grid); }
+      .tui .g-pred-sec{ font-family:var(--t-mono); font-size:var(--fs-micro); font-weight:400; letter-spacing:.06em; text-transform:uppercase; color:var(--t-ink); padding:9px var(--m-gutter, 12px) 3px; background:var(--t-panel); border-bottom:1px solid var(--t-grid); }
       /* Odds pinned top-right; the daily implied-odds change stacks directly
          beneath it (right-aligned), so each box reads odds-over-change. */
-      .tui .g-pred-list .tui-li{ padding-left:14px; padding-right:14px; }
+      .tui .g-pred-list .tui-li{ padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
       .tui .g-pred-list .g-pred-row{ display:flex; align-items:flex-start; gap:10px; }
       .tui .g-pred-main{ flex:1 1 auto; min-width:0; font-size:var(--fs-micro); }
       .tui .g-pred-nums{ flex:0 0 auto; display:flex; flex-direction:column; align-items:flex-end; gap:1px; }
@@ -1196,7 +1196,7 @@
        if it can't), a "View on X" fallback link stands in its place. */
     .g-x-body{ padding:0; }
     .g-x-list{ display:flex; flex-direction:column; }
-    .g-x-card{ padding:10px 14px 12px; border-bottom:1px solid var(--t-grid); }
+    .g-x-card{ padding:10px var(--m-gutter, 12px) 12px; border-bottom:1px solid var(--t-grid); }
     .g-x-card:last-child{ border-bottom:0; }
     .g-x-rt{ font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); margin-bottom:4px; }
     .g-x-meta{ display:flex; align-items:center; flex-wrap:wrap; gap:2px 7px; margin-bottom:6px; }
@@ -1242,7 +1242,7 @@
     .g-x-permalink{ display:inline-block; margin-top:7px; font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); text-decoration:none; }
     .g-x-permalink:hover{ color:var(--t-ink); text-decoration:none; }
     .g-x-note{ font-size:var(--fs-micro); color:var(--t-mut); margin:-2px 0 7px; }
-    .g-x-open{ padding:8px 14px; border-bottom:1px solid var(--t-grid); }
+    .g-x-open{ padding:8px var(--m-gutter, 12px); border-bottom:1px solid var(--t-grid); }
     .g-x-fallback, .g-x-acct .g-x-fallback{ display:inline-block; font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-mut); text-decoration:none; padding:2px 0; }
     .g-x-fallback:hover{ color:var(--t-ink); text-decoration:none; }
 
@@ -1662,7 +1662,7 @@
     .tui .g-mktpane{ display:none; }
 
     /* ---- briefing bar — a single compact row: greeting · top story · narratives ---- */
-    .tui .g-hello{ display:flex; align-items:baseline; gap:10px; padding:6px 14px; margin:0;
+    .tui .g-hello{ display:flex; align-items:baseline; gap:10px; padding:6px var(--m-gutter, 12px); margin:0;
       background:var(--t-panel); border-bottom:1px solid var(--t-grid); overflow:hidden; }
     .tui .g-hello-main{ display:flex; align-items:baseline; gap:8px; padding:0; flex:0 1 auto; min-width:0; }
     .tui #hello{ font-size:var(--fs-body); letter-spacing:0; color:var(--t-ink); margin:0; font-weight:600; white-space:nowrap; flex:0 0 auto; }
@@ -1688,7 +1688,7 @@
          are Bloomberg-orange; the story/narrative text is grey; each is one
          ellipsised line. */
       .tui .g-hello{ display:flex; flex-direction:column; justify-content:space-between;
-        align-items:stretch; gap:8px; min-height:120px; padding:12px 14px; }
+        align-items:stretch; gap:8px; min-height:120px; padding:12px var(--m-gutter, 12px); }
       .tui .g-hello-main, .tui .g-glance{ display:contents; }
       .tui #hello{ white-space:normal; font-size:var(--fs-title); font-weight:700; color:var(--t-ink); }
       .tui .g-brief{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:var(--fs-head); min-width:0; }

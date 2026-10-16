@@ -51,7 +51,17 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   (Audit 2026-10-16: the Menu pages — Sources, Digest, Settings, the row menu — used
   14px, the law-firm glance and filters 16px, the profile identity header 16px on desktop
   and `.dsh-card` 14px on desktop; all 12px now. Markets' cards stay boxed — the one
-  named exception, so a Markets list starts inside its card, not at 72px.)
+  named exception, so a Markets list starts inside its card, not at 72px.) **Every line of
+  text starts on the gutter** (owner 2026-10-16, a photo of Firm facts): the profile
+  mini-lists (`.tmini-row` — Vehicles, Timeline, Firm facts, Commitments) were 14px, the
+  adviser role ("FUND FORMATION", `.adv-role`) 0px, Investor ▸ Profile's latest line 0px,
+  the borrower facts 24px, Sources' legend 0–15px, the See-all sheet / reading pane /
+  X feed / prediction lists 14–16px — all 12px; Fundraising's ranked LP list puts its rank
+  in the lead column (name at 72px, as League tables). Inside a Markets card everything
+  sits on the card's ONE text line: the news-rail card's edge was 10px (now 12, like every
+  card), a card nested in a card (Rates ▸ Reference) is a plain section of it on iPhone,
+  and the roster / earnings rows lost their 2–4px private insets. Guard: the line-start
+  sweep in `tests/style-consistency.mjs`.
   **(b) Bars fit:** a phone tab/lane bar shows every label on one line inside the screen —
   the News lanes share the width like the Home and Dashboard tabs, and profile sub-tabs
   (`News · Vehicles 32 · Investments 46 · …`) never wrap. **(c) Theme-true colours:** a
@@ -813,7 +823,9 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   **tapping the Home bottom-nav button opens the Briefing pane** (`homeReset` →
   `setWire("brief")`). The news wire + lane selector are the **separate News bottom
   tab** (`showNews` → `setWire("news")`, news mode), not a Home pane. **Inline security pills (both surfaces):** on a
-  recognised security's first mention the name is **REPLACED** by a chip (`.g-hbt-tk`) — the
+  recognised security's first mention **in each desk bullet** (once per desk, not once per
+  brief — owner 2026-10-16: Equities' "The S&P 500 is indicated…" lost its pill because Macro
+  had already pilled the S&P 500) the name is **REPLACED** by a chip (`.g-hbt-tk`) — the
   label stands in for the name, so the security appears **once** (the pill), never as text AND
   a pill — showing its ticker/benchmark + the day's move + a direction arrow (e.g. "Honeywell
   gains" → "`HON 0.07% ↓` gains"; "the US 10-year Treasury yield" → "`US 10Y 3bp ↑`"). A
@@ -1540,9 +1552,12 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   **(h) No colour desk codes on the wire** (owner 2026-10-15): News / Home wire rows read
   time · headline, then the source on line 2 — like every events row. The code stays in
   the markup (the row's desk, for filters and search) but is not drawn. Spec: `tests/phone-trim.mjs`.
-  The same goes for line 2 elsewhere (audit 2026-10-16): a notification's desk code is
-  plain line-2 text (it was a coloured, tinted pill), the search palette's code is the one
-  muted outlined tag, and a People row's "→" takes line 2's grey.
+  The same goes for line 2 elsewhere (audit 2026-10-16): the search palette's code is the
+  one muted outlined tag, and a People row's "→" takes line 2's grey. **Notifications (and
+  saved stories) ARE the News wire row** (owner 2026-10-16): date · headline, the source
+  alone on line 2 — no desk code, no right-hand source column, no tinted / orange-barred
+  "new" rows; "New" / "Earlier" are the wire's day-break band (`--t-day`, R6). Built as the
+  events row's wire variant `.g-ev.g-ev-wire` (feed.css); the desk stays in `data-desk`.
   **(i) Dark only** (owner 2026-10-16: "eliminate light mode from desktop and iPhone — I
   never use it"). The boot script in `v2/index.html` always sets `data-theme="dark"`,
   whatever the OS asks for or an old `m_theme_pref` says; Menu ▸ Settings has no Theme

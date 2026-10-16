@@ -19,7 +19,6 @@ import { esc, MONTHS, fmtD } from "/util.js";
 import { mountAssistant, askSuggestions } from "/v2/js/assistant.js";
 import { FX_KEYMOMENT, OUTLOOK, EARNINGS } from "/macro/js/content.js";
 import { nbNums } from "./nb-format.js";
-import { DESK_CLASS, DESK_CODE as NF_CODE } from "/feed.js";
 const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.abs(v); if (a >= 1000) return v.toLocaleString(undefined, { maximumFractionDigits: a >= 10000 ? 0 : 1 }); if (a >= 100) return v.toFixed(1); if (a >= 1) return v.toFixed(2); return v.toFixed(4); };
 // OAS/bp series carry `value` in PERCENT (0.77 → 77 bp), matching the desktop's
 // fmtRate and rateRow's own change scaling — so bp values are ×100, not raw.
@@ -592,14 +591,8 @@ function naPolicy() {
   return `<div class="na-sec"><span>Policy rate</span><span class="na-sec-x">US · UK</span></div>` + row("US", OUTLOOK.us) + row("UK", OUTLOOK.uk);
 }
 
-// ---- Saved rows — shared news-feed row (headline, then code · date · source) --
-function savedRow(x) {
-  // Every saved story gets a desk code — general wire items (desk "news"/bbg/econ
-  // /substack/…) used to fall through the old m/c/l/n/f-only map and show blank.
-  const code = NF_CODE[x.desk] || "NEWS";
-  const cls = DESK_CLASS[x.desk] || "news";
-  return nfRow(x, code, cls, x.src, "");
-}
+// ---- Saved rows — the News wire row (date · headline, the source beneath) ------
+function savedRow(x) { return nfRow(x, x.src, ""); }
 // ---- Notifications — cross-desk, tagged by desk (MAC / CRD / LEX) -----------
 const ICO_BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>';
 // Two desks only: the bell is limited to Credit + Legal deal-flow (saved.js
@@ -607,19 +600,16 @@ const ICO_BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
 const NOTIF_KEYS = { c: "meridian.credit.notifSeen", l: "meridian.legal.notifSeen" };
 const NOTIF_API = { c: "/api/notif-credit", l: "/api/notif-legal" };
 function readSeen(desk) { try { const p = JSON.parse(localStorage.getItem(NOTIF_KEYS[desk]) || "null"); return Array.isArray(p) ? new Set(p) : null; } catch { return null; } }
-function notifRow(x, fresh) {
-  const cls = DESK_CLASS[x.desk] || "";
-  const code = NF_CODE[x.desk] || "";
-  return nfRow(x, code, cls, x.source ? (x.src || x.source) : "", fresh ? " nf-new" : "");
-}
-// R43: saved stories and notifications are the shared events row — date · headline ·
-// source on line 1, the desk code on line 2; two lines, one height, full text in title.
-function nfRow(x, code, cls, src, extra) {
-  return `<a class="nf-row g-ev${extra}" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""} title="${esc([x.title, src].filter(Boolean).join(" · "))}">`
+function notifRow(x, fresh) { return nfRow(x, x.source ? (x.src || x.source) : "", fresh ? " nf-new" : ""); }
+// Saved stories and notifications read EXACTLY like the News wire (owner 2026-10-16, R44h):
+// lead · headline on line 1, the source alone on line 2 — no desk code, no source column,
+// no tinted "new" row (the New / Earlier day-break bands carry that). Two lines, one height,
+// full text in the title. The desk stays in the markup (data-desk) for filtering.
+function nfRow(x, src, extra) {
+  return `<a class="nf-row g-ev g-ev-wire${extra}" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""} data-desk="${esc(x.desk || "")}" title="${esc([x.title, src].filter(Boolean).join(" · "))}">`
     + `<span class="c-date nf-time">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
-    + `<span class="g-ev-t nf-title">${esc(x.title)}</span><span class="c-tag"></span>`
-    + `<span class="c-src nf-src">${esc(src || "")}</span>`
-    + `<span class="g-ev-m nf-meta">${code ? `<span class="nf-code ${cls}">${esc(code)}</span>` : ""}</span></a>`;
+    + `<span class="g-ev-t nf-title">${esc(x.title)}</span><span class="c-tag"></span><span class="c-src"></span>`
+    + `<span class="g-ev-m nf-meta">${esc(src || "")}</span></a>`;
 }
 let _notifItems = null;
 // Active notifications tab: "all" | "watch" (mirrors the Bookmarks panel).

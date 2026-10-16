@@ -69,17 +69,48 @@ for (const [w, h, scheme] of PHONES) {
     check(!!f && markerOk(f), `${tag} ${name}: one selection marker — 600 + one inset underline, others 400 (${JSON.stringify(f && { on: f.on, off: f.offW })})`);
     checkErrs(errs, `${tag} ${name}`); await ctx.close();
   }
-  // The header notifications panel: its chips are a heading row too.
+  // The header notifications panel: its chips are a heading row too, and its rows read
+  // EXACTLY like the News wire (owner 2026-10-16): measured against a live News row.
   {
-    const { ctx, pg, errs } = await page(w, h, scheme, "/v2/");
+    const { ctx, pg, errs } = await page(w, h, scheme, "/v2/news/");
+    await pg.waitForSelector("#g-feed a.g-feed-row", { timeout: 15000 });
+    const wire = await pg.evaluate(() => {
+      const r = document.querySelector("#g-feed a.g-feed-row"), t = r.querySelector(".g-feed-title"), s = r.querySelector(".g-feed-src"), d = document.querySelector("#g-feed .g-feed-dayhdr");
+      const f = (e) => { const c = getComputedStyle(e); return `${c.fontSize} ${c.color} ${c.fontWeight}`; };
+      return { h: Math.round(r.getBoundingClientRect().height), x: Math.round(t.getBoundingClientRect().left), t: f(t), l2: f(s), day: d ? f(d) + " " + getComputedStyle(d).backgroundColor : null };
+    });
+    // An empty seen-set (not a first visit) makes every notification unseen, so the panel
+    // draws its "New" band.
+    await pg.evaluate(() => { localStorage.setItem("meridian.credit.notifSeen", "[]"); localStorage.setItem("meridian.legal.notifSeen", "[]"); });
+    await pg.reload({ waitUntil: "load" });
+    await pg.waitForSelector("#na-notif", { timeout: 15000 });
     for (const id of ["na-notif"]) {
       await pg.click(`#${id}`);
       await pg.waitForFunction(() => [...document.querySelectorAll(".na-panel .na-chips")].some((p) => p.getClientRects().length), null, { timeout: 8000 });
       const f = (await chipFacts(pg, ".na-panel .na-chips")).find((x) => x.n);
       check(!!f && Math.abs(f.label - 12) <= 1 && markerOk(f), `${tag} panel ${id}: chips on the gutter with one marker (${JSON.stringify(f)})`);
       if (id === "na-notif") {
-        const codes = await pg.evaluate(() => [...document.querySelectorAll(".na-panel .nf-code")].filter((c) => c.getClientRects().length).map((c) => { const s = getComputedStyle(c), m = getComputedStyle(c.closest(".g-ev-m")); return s.color === m.color && s.fontSize === m.fontSize && /rgba\(0, 0, 0, 0\)|transparent/.test(s.backgroundColor); }));
-        check(codes.every(Boolean), `${tag} notifications: line 2's desk code is line 2's size and grey, no fill (${codes.filter((x) => !x).length} off)`);
+        await pg.waitForSelector(".na-panel .nf-row", { timeout: 8000 });
+        const n = await pg.evaluate(() => {
+          const f = (e) => { const c = getComputedStyle(e); return `${c.fontSize} ${c.color} ${c.fontWeight}`; };
+          const rows = [...document.querySelectorAll(".na-panel .nf-row")].filter((r) => r.getClientRects().length).slice(0, 12);
+          const grp = document.querySelector(".na-panel .nf-grp");
+          return {
+            hs: [...new Set(rows.map((r) => Math.round(r.getBoundingClientRect().height)))],
+            xs: [...new Set(rows.map((r) => Math.round(r.querySelector(".g-ev-t").getBoundingClientRect().left)))],
+            t: [...new Set(rows.map((r) => f(r.querySelector(".g-ev-t"))))],
+            l2: [...new Set(rows.map((r) => f(r.querySelector(".g-ev-m"))))],
+            extras: rows.filter((r) => [...r.querySelectorAll(".c-src, .c-tag, .nf-code")].some((e) => e.getClientRects().length && e.textContent.trim())).length,
+            l2IsSource: rows.every((r) => (r.getAttribute("title") || "").endsWith(r.querySelector(".g-ev-m").textContent.trim())),
+            tinted: rows.filter((r) => !/rgba\(0, 0, 0, 0\)/.test(getComputedStyle(r).backgroundColor) || getComputedStyle(r).boxShadow !== "none").length,
+            grp: grp ? f(grp) + " " + getComputedStyle(grp).backgroundColor : null,
+          };
+        });
+        check(n.hs.length === 1 && n.hs[0] === wire.h && n.xs.length === 1 && n.xs[0] === wire.x, `${tag} notifications: the News row's height and headline x (${n.hs}/${n.xs} vs ${wire.h}/${wire.x})`);
+        check(n.t.length === 1 && n.t[0] === wire.t && n.l2.length === 1 && n.l2[0] === wire.l2, `${tag} notifications: headline and line 2 in the News row's size, grey and weight (${n.t} | ${n.l2} vs ${wire.t} | ${wire.l2})`);
+        check(n.extras === 0 && n.l2IsSource, `${tag} notifications: no desk code / source column — the source alone on line 2 (${n.extras} rows with extras)`);
+        check(n.tinted === 0, `${tag} notifications: no tinted or side-barred "new" rows (${n.tinted})`);
+        check(!!wire.day && n.grp === wire.day, `${tag} notifications: New / Earlier read as the wire's day-break band (${n.grp} vs ${wire.day})`);
       }
     }
     checkErrs(errs, `${tag} panels`); await ctx.close();
@@ -122,6 +153,62 @@ for (const [w, h, scheme] of PHONES) {
       check(on, `${tag} Restructuring: the selected Deals chip is scrolled into view (R42b)`);
     }
     checkErrs(errs, `${tag} ${name}`); await ctx.close();
+  }
+  // Every line starts on the 12px gutter (or the 72px list line) — the owner's photo had the
+  // Firm facts "FUND FORMATION" role at 0px and its adviser rows at 14px (2026-10-16); the
+  // sweep covers each profile tab, the borrower page, Fundraising and Menu ▸ Sources.
+  // Allowed insets: the name after the ☆, a summary after its ›, a boxed chip's own text,
+  // and Sources' "Fix" indent.
+  {
+    const LINES = () => {
+      const skip = "table, .tchips, .twire-head, .topbar, .mobile-tabbar, .v2-botmeta, svg, select, input, button, [hidden], .tx-fr-nav, .na-chips, .lf-filt, .dsh-card:not(.rxh-card), .namecell, summary, .tdet-chip, .dsh-tag, .cov-fix, .dsh-sheet";
+      const hidden = (e) => { for (let x = e; x && x !== document.body; x = x.parentElement) { const s = getComputedStyle(x); if (s.display === "none" || s.visibility === "hidden") return true; } return false; };
+      const lines = new Map();
+      const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      for (let t = tw.nextNode(); t; t = tw.nextNode()) {
+        if (!t.textContent.trim()) continue;
+        const e = t.parentElement; if (!e || e.closest(skip) || hidden(e)) continue;
+        const r = document.createRange(); r.selectNodeContents(t);
+        for (const q of r.getClientRects()) {
+          if (q.width < 2 || q.left > innerWidth) continue;
+          const k = Math.round(q.top / 4), p = lines.get(k);
+          if (!p || q.left < p.x) lines.set(k, { x: Math.round(q.left), c: e.className || e.tagName });
+        }
+      }
+      return [...lines.values()].filter((l) => !(l.x === 12 || l.x === 13 || l.x === 72 || l.x > 60)).map((l) => `${l.x}px ${l.c}`);
+    };
+    const states = [
+      ["17Capital", "/v2/profiles/#/manager/m1", true], ["Ares", "/v2/profiles/#/manager/m20", true], ["Investor", "/v2/profiles/#/lp/l1", true],
+      ["Borrower", "/v2/profiles/#/co/Iguanas%20Holdings", false], ["Fundraising", "/v2/transactions/#/fundraising", false], ["Sources", "/v2/menu/coverage", false],
+    ];
+    for (const [name, path, tabs] of states) {
+      const { ctx, pg, errs } = await page(w, h, scheme, path);
+      await pg.waitForFunction((t) => !t || !!document.querySelector("#pf-detail .tdet-tabbed > .twire-head .tchip.is-on"), tabs, { timeout: 15000 });
+      if (name === "Sources") await pg.waitForSelector(".g-feed-codes dl", { timeout: 15000 });
+      const n = tabs ? await pg.evaluate(() => document.querySelectorAll("#pf-detail .tdet-tabbed > .twire-head .tchip").length) : 1;
+      for (let i = 0; i < n; i++) {
+        const lbl = tabs ? await pg.evaluate((i) => { const c = document.querySelectorAll("#pf-detail .tdet-tabbed > .twire-head .tchip")[i]; c.click(); return c.textContent.trim(); }, i) : "";
+        await frames(pg);
+        const bad = await pg.evaluate(LINES);
+        check(!bad.length, `${tag} ${name}${lbl ? " ▸ " + lbl : ""}: every line starts on the 12px gutter (${[...new Set(bad)].slice(0, 4).join(" | ")})`);
+      }
+      checkErrs(errs, `${tag} ${name} lines`); await ctx.close();
+    }
+  }
+  // Markets: every card's edge on the 12px gutter (the news-rail card sat at 10px) and a card
+  // nested in a card reads as a section of it (Rates ▸ Reference drew a second box at 25px).
+  for (const tab of ["credit", "rates", "equities"]) {
+    const { ctx, pg, errs } = await page(w, h, scheme, `/v2/dashboard/${tab}`);
+    await pg.waitForFunction(() => document.querySelectorAll(".dsh-card").length > 3, null, { timeout: 15000 });
+    await frames(pg);
+    const c = await pg.evaluate(() => {
+      const cards = [...document.querySelectorAll(".dsh-card")].filter((e) => e.getClientRects().length);
+      const top = cards.filter((e) => !e.parentElement.closest(".dsh-card")).map((e) => Math.round(e.getBoundingClientRect().left));
+      const nested = cards.filter((e) => e.parentElement.closest(".dsh-card")).map((e) => Math.round(e.getBoundingClientRect().left + parseFloat(getComputedStyle(e).paddingLeft) + parseFloat(getComputedStyle(e).borderLeftWidth)) - Math.round((() => { const p = e.parentElement.closest(".dsh-card"); return p.getBoundingClientRect().left + parseFloat(getComputedStyle(p).paddingLeft) + parseFloat(getComputedStyle(p).borderLeftWidth); })()));
+      return { top: [...new Set(top)], nested: [...new Set(nested)] };
+    });
+    check(c.top.length === 1 && c.top[0] === 12 && c.nested.every((d) => d === 0), `${tag} Markets ${tab}: every card on the 12px gutter, nested cards on their parent's text line (${c.top.join("/")} · ${c.nested.join("/") || "none nested"})`);
+    checkErrs(errs, `${tag} markets ${tab}`); await ctx.close();
   }
   // People: line 2 one grey, the arrow included.
   {

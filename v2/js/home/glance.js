@@ -519,8 +519,11 @@ function renderHomeBriefing() {
   // reported it" attribution ("…, the FT reports") is stripped (_stripReported); instead
   // each desk carries a trailing LINK to every source it compresses (`.g-hbrief-srcs`,
   // middot-joined) — the clickable source, not a textual mention (R7 grounding kept).
-  const secSeen = new Set();   // pill each recognised security ONCE across the whole brief
   const bullets = groups.map((g) => {
+    // Pill each recognised security ONCE PER DESK, not once per brief (owner 2026-10-16): the
+    // Equities bullet's "The S&P 500 …" keeps its pill even when Macro already pilled the S&P
+    // 500 — every desk reads on its own, so each one shows the live level it talks about.
+    const secSeen = new Set();
     // The kicker is the CANONICAL desk name (Macro/Bonds/Equities/Credit) — the bullets
     // were normalised into these buckets above, so the run-in heading is always one of the
     // four, never the raw off-house kicker the refresh may have authored (Oil, UK, …).

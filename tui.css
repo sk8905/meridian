@@ -377,7 +377,7 @@
   .tleague td, .tleague th { padding: 8px; }
   .tleague-full tbody tr { height: 37px; }   /* match the taller chip rows (see above) */
   .tleague .tl-nm { max-width: 52vw; }
-  .tmini-row { padding: 9px 14px; }
+  .tmini-row { padding: 9px var(--m-gutter, 12px); }   /* the one 12px gutter (R2d a) — it was 14px */
 
   /* clear the floating bottom tab bar so the last rows aren't hidden under it */
   .tcol:last-child { padding-bottom: 5rem; }
@@ -714,7 +714,7 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tcr-nr { color: var(--faint); }
 /* Phones: tighter gutters, and hand the rating column enough room for the widest
    badge (+ trend arrow) so nothing clips; the two text columns absorb the rest. */
-.tx-head { padding: 12px 14px; border-bottom: 1px solid var(--t-grid); }
+.tx-head { padding: 12px var(--m-gutter, 12px); border-bottom: 1px solid var(--t-grid); }
 .tx-title { margin: 0; font-size:var(--fs-title); font-weight: 700; color: var(--ink); letter-spacing: -.01em; }
 .tx-blurb { margin: 3px 0 11px; font-size:var(--fs-body); line-height: 1.5; color: var(--muted); max-width: 62ch; }
 .tx-list td.tx-dt { color: var(--t-faint); font-size: var(--fs-micro); font-family: var(--t-mono); white-space: nowrap; }   
@@ -802,7 +802,7 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
    capped so the fields don't sprawl across a wide desktop. Stacks on narrow. */
 /* Expanded deal detail: the sourced narrative at FULL WIDTH (the structured fields
    already live in the row's columns, so there is no snapshot box). */
-.tx-exp-in { padding: 12px 16px 13px; }
+.tx-exp-in { padding: 12px var(--m-gutter, 12px) 13px; }
 /* The narrative reads at the same font + size as the borrower/company name in the
    row above it (.tx-list td.tx-bd — 11.5px, weight 600, --ink). */
 .tx-sum { margin: 0 0 8px; font-size:var(--fs-body); font-weight:400; line-height: 1.5; color: var(--ink); max-width: none; }
@@ -830,6 +830,8 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tbiz { list-style: none; margin: 0; padding: 0; }
 .tbiz li { padding: 7px 12px; border-bottom: 1px solid var(--t-grid); }
 .tbiz li:last-child { border-bottom: 0; }
+/* Facts inside the already-padded identity header (borrower page) sit on its 12px line, not 24px. */
+.tdet-id .tbiz li { padding-left: 0; padding-right: 0; }
 .tbiz-k { display: block; font-family: var(--t-mono); font-size:var(--fs-micro); text-transform: uppercase; letter-spacing: .04em; color: var(--faint); margin-bottom: 2px; }
 .tbiz-v { display: block; font-size:var(--fs-body); line-height: 1.5; color: var(--ink); }
 .tbiz-v a { color: inherit; }
@@ -838,7 +840,7 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 }
 
 /* breadcrumb as the terminal detail's top strip (inside the fixed-height .tdash) */
-.tdash > .breadcrumb { flex: 0 0 auto; margin: 0; padding: 6px 16px; height: auto; background: var(--head); border-bottom: 1px solid var(--t-grid); font-size:var(--fs-body); font-family: var(--t-mono); color: var(--muted); display: flex; align-items: center; gap: 7px; }
+.tdash > .breadcrumb { flex: 0 0 auto; margin: 0; padding: 6px var(--m-gutter, 12px); height: auto; background: var(--head); border-bottom: 1px solid var(--t-grid); font-size:var(--fs-body); font-family: var(--t-mono); color: var(--muted); display: flex; align-items: center; gap: 7px; }
 .tdash > .breadcrumb a { color: var(--muted); } .tdash > .breadcrumb a:hover { color: var(--ink); }
 .tdash > .breadcrumb .sep { color: var(--faint); }
 /* Detail-view section nav: the desk's dashboard chips at the top of a profile,
@@ -923,7 +925,7 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tfacts a.tf-lnk, .tfacts .tf-v a { color: inherit; }
 /* readable article body (legal alert summary etc.) as the centre-stage panel */
 .tcol-c > .tdet-read { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
-.tdet-read { padding: 12px 16px; font-size:var(--fs-head); line-height: 1.6; color: var(--muted); background: var(--surface); }
+.tdet-read { padding: 12px var(--m-gutter, 12px); font-size:var(--fs-head); line-height: 1.6; color: var(--muted); background: var(--surface); }
 .tdet-read p { margin: 0 0 10px; }
 .tdet-read h4 { font-size:var(--fs-body); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 15px 0 6px; font-weight: 600; }
 .tdet-read ul { margin: 0 0 10px; padding-left: 18px; } .tdet-read li { margin: 4px 0; }
@@ -1056,7 +1058,7 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-drawer-x { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 22px; padding: 0; border: 1px solid var(--border); background: transparent; color: var(--ink); font-size: var(--fs-title); line-height: 1; cursor: pointer; border-radius: 0; }
 .tx-drawer-x::after { content: ""; position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); }
 .tx-drawer-x:hover { border-color: var(--accent); color: var(--accent); }
-.tx-drawer-b { padding: 12px 14px 18px; }
+.tx-drawer-b { padding: 12px var(--m-gutter, 12px) 18px; }
 .tx-drawer-t { margin: 0 0 10px; font-size: var(--fs-head); font-weight: 600; line-height: 1.35; color: var(--ink); }
 .tx-drawer-b .tbiz { margin-bottom: 10px; }
 .tx-drawer-b .tpg-h { margin-top: 12px; }
@@ -1073,6 +1075,8 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tcr-n { margin-right: 6px; padding: 0 4px; border: 1px solid var(--border); color: var(--muted); font-size: var(--fs-micro); font-variant-numeric: tabular-nums; }
 /* Profile header: coverage line (count · last 90 days · latest date). */
 .tdet-latest { display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 3px; font-size: var(--fs-micro); color: var(--muted); font-variant-numeric: tabular-nums; }
+/* A "latest" line placed straight in a pane (Investor ▸ Profile) takes the gutter itself. */
+.tpane > .tdet-latest { padding: 0 var(--m-gutter, 12px); }
 .tdet-latest > span + span::before { content: "· "; color: var(--faint); }
 /* Profiles lists: sortable column headers (▲/▼ on the active one). */
 th.pf-sortable { cursor: pointer; user-select: none; }
@@ -1471,4 +1475,4 @@ a.tx-fchip { text-decoration: none; }
   .tx-fr-nav .tx-fchip { flex: 0 0 auto; white-space: nowrap; }
   .tx-fr-hl { white-space: normal; overflow-wrap: anywhere; }
 }
-.tx-fr-hl .tx-lg-rk { display: inline-block; margin-right: 6px; }
+.tx-fr-hl .tx-lg-rk { display: inline-block; width: var(--c-date-w); margin-right: 8px; }   /* the rank is THE lead column (R43c), as in League tables */

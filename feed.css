@@ -228,6 +228,10 @@ body.wire-sliding .g-feed-srcbar { position:static; }
 .g-ev > .c-tag > * { max-width:100%; overflow:hidden; text-overflow:ellipsis; vertical-align:top; }
 .g-ev > .c-src { grid-area:src; justify-self:stretch; }
 .g-ev.g-ev-chips { grid-template-columns:var(--c-date-w) minmax(0,1fr) auto var(--c-chip-w); }
+/* The News-wire variant (notifications, saved): lead · headline, the source alone on line 2 —
+   exactly the narrow wire row (.g-feed-row) — no tag, no source column (owner 2026-10-16). */
+.g-ev.g-ev-wire { grid-template-columns:var(--c-date-w) minmax(0,1fr); grid-template-areas:"date title" "date meta"; }
+.g-ev.g-ev-wire > :is(.c-tag, .c-src) { display:none; }
 @media (hover:hover){ .g-ev > a.g-ev-t:hover, .g-ev > .g-ev-m a:hover { color:var(--t-ink); } }
 
 /* ---- column roles (events rows AND table cells) ------------------------------ */

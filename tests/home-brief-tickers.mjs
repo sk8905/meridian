@@ -170,6 +170,26 @@ check(yldR.us30 && /US 30Y/.test(yldR.us30.txt) && /5\.52%/.test(yldR.us30.lvl) 
 check(yldR.us10 && /US 10Y/.test(yldR.us10.txt) && /5\.31%/.test(yldR.us10.lvl), `a bare "the 10-year" still pills → US 10Y with its 5.31% level (${yldR.us10 && yldR.us10.txt})`);
 check(!/Treasury/.test(yldR.bodyText), `the 30-year phrase is replaced by its pill, not kept as prose (${yldR.bodyText})`);
 
+// Once PER DESK, not once per brief (owner 2026-10-16): when Macro already pilled an index,
+// the Equities bullet's own mention of it still carries a pill — each desk reads on its own
+// (the live brief had "with S&P 500 futures…" pilled in Macro and a bare "The S&P 500 is
+// indicated…" in Equities). Within one desk the second mention stays prose.
+const perDesk = await pg.evaluate(async () => {
+  const m = await import("/briefings.js");
+  const B = m.BRIEFINGS || {};
+  const tgt = Array.isArray(B.bullets) ? B : (() => { const slots = B.slots || {}; const _st = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return (s.date || "") + " " + (t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"); }; const _ord = (B.order || []).filter((k) => slots[k]); return slots[_ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0])]; })();
+  tgt.bullets = [
+    { html: "<strong>Macro &mdash; the dollar slipped</strong> with the Nasdaq the risk gauge.", src: "https://example.com/m", srcName: "Ex" },
+    { html: "<strong>Equities &mdash; tech led</strong> as the Nasdaq rose and the Nasdaq outperformed again.", src: "https://example.com/q", srcName: "Ex" },
+  ];
+  window.__wireRenderBrief();
+  const host = document.getElementById("g-hbrief");
+  const desk = (n) => [...host.querySelectorAll(".g-hbrief-b")].find((x) => new RegExp("^" + n + "$", "i").test(((x.querySelector(".g-hbrief-bk") || {}).textContent || "").trim()));
+  const count = (n) => { const li = desk(n); return li ? li.querySelectorAll('.g-hbt-tk[data-idx="^IXIC"]').length : -1; };
+  return { macro: count("Macro"), eq: count("Equities") };
+});
+check(perDesk.macro === 1 && perDesk.eq === 1, `a security is pilled once in EACH desk that names it — Macro ${perDesk.macro}, Equities ${perDesk.eq} (want 1 and 1)`);
+
 // Entity + desk normalisation (HOUSE_STYLE R28):
 //   • the card shows ONLY the four house desks (Macro/Bonds/Equities/Credit) — an
 //     off-house kicker ("R&D") is folded into a canonical desk (Macro, the catch-all),

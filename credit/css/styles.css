@@ -526,7 +526,7 @@ a.sls-chip:hover { color: var(--t-ink); text-decoration: none; }
 
 /* Book & business / Advisers (manager profile) — small sub-labels + the "inferred"
    confidence tag on an adviser edge derived from public deal coverage. */
-.adv-role { color: var(--muted); font-size:var(--fs-micro); text-transform: uppercase; letter-spacing: .04em; margin: 10px 0 4px; }
+.adv-role { color: var(--muted); font-size:var(--fs-micro); text-transform: uppercase; letter-spacing: .04em; margin: 10px 0 4px; padding: 0 var(--m-gutter, 12px); }   /* on the gutter, like its rows */
 .adv-grp { margin-bottom: 6px; }
 .adv-inf { font-size:var(--fs-micro); text-transform: uppercase; letter-spacing: .03em; color: var(--t-mut, #8592ad); border: 1px solid var(--border, #262626); border-radius: 3px; padding: 0 4px; margin-left: 4px; vertical-align: middle; }
 

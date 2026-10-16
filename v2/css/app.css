@@ -181,8 +181,8 @@ html[data-theme="dark"][data-v2tab="menu"][data-menu-sec="settings"] .v2-botmeta
 [data-theme="dark"] .v2-menu { --cov-good: var(--t-up, #3fc08d); --cov-fail: var(--t-down, #f26d84); --cov-stale: #d9a441; }
 .v2-menu .watch-loading, .v2-menu .watch-empty, .cov-ok, .dg-empty { margin: 0; padding: 12px var(--m-gutter, 12px); color: var(--muted, #5e6a84); font-size: var(--fs-body); }
 .cov-title { padding: 14px var(--m-gutter, 12px) 2px; font-size: var(--fs-title); font-weight: 700; color: var(--ink, #131b2c); }
-.cov-lede { margin: 0; padding: 0 14px 8px; font-size: var(--fs-body); color: var(--muted, #5e6a84); line-height: 1.45; }
-.cov-sum { display: flex; gap: 14px; padding: 0 14px 10px; border-bottom: 1px solid var(--t-grid);
+.cov-lede { margin: 0; padding: 0 var(--m-gutter, 12px) 8px; font-size: var(--fs-body); color: var(--muted, #5e6a84); line-height: 1.45; }
+.cov-sum { display: flex; gap: 14px; padding: 0 var(--m-gutter, 12px) 10px; border-bottom: 1px solid var(--t-grid);
   font-size: var(--fs-micro); font-weight:400; letter-spacing: .05em; text-transform: uppercase; color: var(--muted, #5e6a84); }
 .cov-sum-n.is-fail { color: var(--cov-fail); } .cov-sum-n.is-stale { color: var(--cov-stale); } .cov-sum-n.is-good { color: var(--cov-good); }
 .cov-grp-h a { color: inherit; }
@@ -304,10 +304,10 @@ html.wr-open, html.wr-open body { overflow: hidden; }
 
 /* ---- Feed codes (R3): what the wire's codes mean, on Menu ▸ Sources (feed.js
    feedCodesHTML). Not on the wire itself — owner 2026-10-15 removed the "?". ------- */
-.g-feed-codes { padding: 4px 0 8px; }
+.g-feed-codes { padding: 4px var(--m-gutter, 12px) 8px; }   /* the legend sits on the 12px gutter */
 .g-feed-codes h4 { margin: 8px 0 6px; font-size: var(--fs-micro); letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #8592ad); }
 .g-feed-codes dl { display: grid; grid-template-columns: 44px 1fr; gap: 5px 8px; margin: 0; align-items: center; }
-.g-feed-codes dt.g-feed-code, .g-feed-codes dt { grid-area: auto; margin: 0; text-align: center; padding: 1px 0; font-family: var(--t-mono); font-size: calc(var(--fs-micro) - 1px); font-weight:400; }
+.g-feed-codes dt.g-feed-code, .g-feed-codes dt { grid-area: auto; margin: 0; text-align: left; padding: 1px 0; font-family: var(--t-mono); font-size: calc(var(--fs-micro) - 1px); font-weight:400; }
 .g-feed-codes dd { margin: 0; font-size: var(--fs-body); line-height: 1.35; color: var(--ink, #eaf0fb); }
 .g-feed-codes .g-feed-legend-t { font-family: var(--t-mono); color: var(--muted, #8592ad); }
 
