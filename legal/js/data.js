@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-10-16";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "08:16 BST";
+export const LAST_CHECKED_TIME = "10:16 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -8057,6 +8057,7 @@ export const items = [
   {"id":"u2918","firm":"mayerbrown","date":"2026-10-14","title":"Mayer Brown advises The Smarter Web Company on first-of-its-kind UK preferred share offering","area":"corporate","type":"alert","summary":"Mayer Brown advised The Smarter Web Company PLC on a listed variable-rate perpetual preferred share offering, described as the first of its kind in the UK. The preferred shares were admitted to the Official List of the FCA and to trading on the London Stock Exchange main market on 14 October 2026. The London team was led by Corporate & Securities partner Kate Ball-Dodd.","url":"https://www.mayerbrown.com/en/news/2026/10/mayer-brown-advises-the-smarter-web-company-on-first-of-its-kind-uk-preferred-share-offering"},
   {"id":"u2919","firm":"kirkland","date":"2026-10-15","title":"Kirkland Represents Sterling Investment Partners on Strategic Minority Investment from PACT Capital Partners","area":"corporate","type":"alert","summary":"Kirkland Represents Sterling Investment Partners on Strategic Minority Investment from PACT Capital Partners","url":"https://www.kirkland.com/news/press-release/2026/10/kirkland-represents-sterling-investment-p-on-strategic-minority-investment-from-pact"},
   {"id":"u2920","firm":"reedsmith","date":"2026-10-15","title":"MAS consults on tiered governance rules for banks and insurers","area":"banking","type":"update","summary":"MAS consults on tiered governance rules for banks and insurers","url":"https://www.reedsmith.com/articles/mas-consults-on-tiered-governance-rules-for-banks-and-insurers/"},
+  {"id":"u2921","firm":"hoganlovells","date":"2026-10-14","title":"Hogan Lovells Cadwalader advises DCC Energy on US$725 million sale of Nexora to One Equity Partners","area":"corporate","areas":["corporate"],"type":"alert","summary":"Hogan Lovells Cadwalader advised DCC Energy plc on the sale of Nexora, its technology division, to investment subsidiaries of funds managed or advised by One Equity Partners, at a total enterprise value of US$725 million on a cash-free, debt-free basis. The deal is subject to customary regulatory approvals and is expected to close on or after 1 March 2027. It is linked to the recommended takeover of DCC Energy by Dragon Bidco Limited, backed by Energy Capital Partners and KKR. The London M&A team was led by partners Sarah Shaw and John Connell.","url":"https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-dcc-energy-on-us725-million-sale-of-nexora-to-one-equity-partners"},
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
