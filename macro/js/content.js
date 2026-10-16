@@ -12,8 +12,8 @@ export const UPDATED = "28 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-10-15",
-  lastCheckedTime: "23:15 BST",
+  lastChecked: "2026-10-16",
+  lastCheckedTime: "05:12 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -435,8 +435,9 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-10-12",
+  updated: "2026-10-16",
   us: [
+    { title: "Hot inflation isn’t playing along with Trump", source: "Bloomberg Opinion", author: "John Authers", date: "2026-10-15", url: "https://www.bloomberg.com/opinion/newsletters/2026-10-15/hot-inflation-isn-t-playing-along-with-trump" },
     { title: "The Big One Is Rumbling in the Bond Market", source: "Bloomberg Opinion", author: "John Authers", date: "2026-09-25", url: "https://www.bloomberg.com/opinion/articles/2026-09-25/the-big-one-is-rumbling-in-the-bond-market" },
     { title: "AIndicators: Fed Hiking Cycle Is a Red-Flag Moment", source: "Bloomberg Opinion", author: "John Authers & Richard Abbey", date: "2026-09-21", url: "https://www.bloomberg.com/opinion/newsletters/2026-09-21/aindicators-fed-hiking-cycle-is-a-red-flag-moment" },
     { title: "Goldman Sachs Revises Fed Outlook After Hawkish Meeting, Flags October Rate Increase", source: "Crowdfund Insider", author: "Goldman Sachs — David Mericle", date: "2026-09-17", url: "https://www.crowdfundinsider.com/2026/09/310827-goldman-sachs-revises-fed-outlook-after-hawkish-meeting-flags-october-rate-increase/" },
@@ -1036,20 +1037,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-15",
+  updated: "2026-10-16",
   us: [
+    {title: "Wall Street’s AI wobbles", source: "Financial Times", date: "2026-10-16", time: "05:00", url: "https://www.ft.com/content/6a1ecb1a-a998-4cbb-be54-22df550a66ee"},
     {title: "Global AI sell-off deepens as Asian markets tumble", source: "Financial Times", date: "2026-10-15", time: "05:04", url: "https://www.ft.com/content/cf5f1209-da29-4ce1-b425-0e83818bf9ec"},
     {title: "US inflation jumps to 3.7% as Iran war drives up prices", source: "Financial Times", date: "2026-10-14", time: "21:06", url: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d"},
     {title: "Hot September CPI inflation keeps Fed on course for further tightening", source: "Financial Times", date: "2026-10-14", time: "14:21", url: "https://www.ft.com/content/6934f481-b61c-4ab0-8064-a79493702f2c"},
-    {title: "Oil majors face $32bn dilemma over Iran war windfall", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/9d70cd3f-abd3-4e40-b644-156444cec446"},
     {title: "Investors predict new record price for gold within two years", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/7761de04-7fac-4f7b-bddb-8457e425b642"},
   ],
   uk: [
-    {title: "Minister promises UK private pension proposals by spring", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/c84ce6a3-5724-4b98-a93a-c035d607d90f"},
-    {title: "FCA plans to embrace AI to automate financial regulation", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/3a9364ec-6930-4877-a1a2-c053dd689760"},
+    {title: "‘Early days’ to see full effect of energy prices on inflation, BoE’s Bailey says", source: "Financial Times", date: "2026-10-16", time: "04:12", url: "https://www.ft.com/content/b6255adb-3ce5-4463-92cd-de2f8e9a1f74"},
+    {title: "Young people to get less cash but more job support under Milburn welfare plan", source: "Financial Times", date: "2026-10-16", time: "05:00", url: "https://www.ft.com/content/c6e911dd-440b-4852-925c-448faeb52d98"},
     {title: "UK economy defies contraction fears to grow 0.1% in August", source: "Financial Times", date: "2026-10-15", time: "09:34", url: "https://www.ft.com/content/46708b2a-0392-43f9-b378-de7117febd16"},
-    {title: "Healey set to pay for Budget giveaways without more borrowing", source: "Financial Times", date: "2026-10-14", time: "05:00", url: "https://www.ft.com/content/08b9bbe6-0637-497e-af6d-464dd41e6121"},
     {title: "John Healey promises to ‘stay the path’ on reducing UK deficit", source: "Financial Times", date: "2026-10-15", time: "10:36", url: "https://www.ft.com/content/246e950b-e1e5-4f12-af78-4a13433f3977"},
+    {title: "Healey set to pay for Budget giveaways without more borrowing", source: "Financial Times", date: "2026-10-14", time: "05:00", url: "https://www.ft.com/content/08b9bbe6-0637-497e-af6d-464dd41e6121"},
   ],
 };
 
@@ -1062,8 +1063,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-15",
+  updated: "2026-10-16",
   items: [
+    {"title": "Wall Street’s AI wobbles", "source": "Financial Times", "date": "2026-10-16", "time": "05:00", "url": "https://www.ft.com/content/6a1ecb1a", "blurb": "Wall Street’s AI-linked stocks wobble."},
+    {"title": "‘Early days’ to see full effect of energy prices on inflation, BoE’s Bailey says", "source": "Financial Times", "date": "2026-10-16", "time": "04:12", "url": "https://www.ft.com/content/b6255adb", "blurb": "BoE Governor Bailey says it is early days to judge the full effect of energy prices on inflation."},
+    {"title": "Hot inflation isn’t playing along with Trump", "source": "Bloomberg Opinion", "author": "John Authers", "date": "2026-10-15", "time": "05:08", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-15/hot-inflation-isn-t-playing-along-with-trump", "blurb": "A rate cut appears to be out for now."},
     {"title": "Global AI sell-off deepens as Asian markets tumble", "source": "Financial Times", "date": "2026-10-15", "time": "05:04", "url": "https://www.ft.com/content/cf5f1209-da29-4ce1-b425-0e83818bf9ec", "blurb": "Asian equities slide as the AI-led sell-off extends overnight."},
     {"title": "French debt worries spill into stocks, driving biggest underperformance since 2010", "source": "Financial Times", "date": "2026-10-15", "time": "05:00", "url": "https://www.ft.com/content/69bfdf93-cbba-477c-9fb0-5978d1d4f506", "blurb": "Concerns over French public debt weigh on the equity market."},
     {"title": "Oil majors face $32bn dilemma over Iran war windfall", "source": "Financial Times", "date": "2026-10-15", "time": "05:00", "url": "https://www.ft.com/content/9d70cd3f-abd3-4e40-b644-156444cec446", "blurb": "Oil groups weigh what to do with windfall profits from the Iran war."},

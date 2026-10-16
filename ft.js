@@ -21,6 +21,83 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "6a1ecb1a-a998-4cbb-be54-22df550a66ee",
+    title: "Wall Street’s AI wobbles",
+    date: "2026-10-16",
+    time: "05:00",
+    url: "https://www.ft.com/content/6a1ecb1a-a998-4cbb-be54-22df550a66ee"
+  },
+  {
+    id: "c6e911dd-440b-4852-925c-448faeb52d98",
+    title: "Young people to get less cash but more job support under Milburn welfare plan",
+    date: "2026-10-16",
+    time: "05:00",
+    url: "https://www.ft.com/content/c6e911dd-440b-4852-925c-448faeb52d98"
+  },
+  {
+    id: "0ce2a031-5c81-4b48-a4b1-d19585fd3a66",
+    title: "Why law firms should resist the lure of the AI spin-off",
+    date: "2026-10-16",
+    time: "05:00",
+    url: "https://www.ft.com/content/0ce2a031-5c81-4b48-a4b1-d19585fd3a66"
+  },
+  {
+    id: "5a310aee-f555-4266-874c-b1b4db20186d",
+    title: "Anthropic secured highest junk credit rating in June",
+    date: "2026-10-16",
+    time: "05:00",
+    url: "https://www.ft.com/content/5a310aee-f555-4266-874c-b1b4db20186d"
+  },
+  {
+    id: "1bd1cdc2-9dc1-4538-8820-129e9bd9117b",
+    title: "UK government courted UBS over London HQ move",
+    date: "2026-10-16",
+    time: "05:00",
+    url: "https://www.ft.com/content/1bd1cdc2-9dc1-4538-8820-129e9bd9117b"
+  },
+  {
+    id: "9585ba4d-5036-4f5d-9656-0dc4f6bdee4e",
+    title: "The secret fight around financial flows",
+    date: "2026-10-16",
+    time: "05:00",
+    url: "https://www.ft.com/content/9585ba4d-5036-4f5d-9656-0dc4f6bdee4e"
+  },
+  {
+    id: "586218d3-6943-4690-8dd8-63dd329c781d",
+    title: "US business leaders are waking up to the perils of plutopopulism",
+    date: "2026-10-16",
+    time: "05:00",
+    url: "https://www.ft.com/content/586218d3-6943-4690-8dd8-63dd329c781d"
+  },
+  {
+    id: "7a260d99-c761-4ab1-8185-d7e0225a8472",
+    title: "What do the Houthis want?",
+    date: "2026-10-16",
+    time: "05:00",
+    url: "https://www.ft.com/content/7a260d99-c761-4ab1-8185-d7e0225a8472"
+  },
+  {
+    id: "2839679e-f329-41f0-a252-93444e81252c",
+    title: "Airlines should give up their fuel-hedging dogfight",
+    date: "2026-10-16",
+    time: "05:00",
+    url: "https://www.ft.com/content/2839679e-f329-41f0-a252-93444e81252c"
+  },
+  {
+    id: "4dfcf1ba-0b8e-4198-b0a4-e975ebde9066",
+    title: "Why is the fintech boom failing to improve fin-lit?",
+    date: "2026-10-16",
+    time: "05:00",
+    url: "https://www.ft.com/content/4dfcf1ba-0b8e-4198-b0a4-e975ebde9066"
+  },
+  {
+    id: "b6255adb-3ce5-4463-92cd-de2f8e9a1f74",
+    title: "‘Early days’ to see full effect of energy prices on inflation, BoE’s Bailey says",
+    date: "2026-10-16",
+    time: "04:12",
+    url: "https://www.ft.com/content/b6255adb-3ce5-4463-92cd-de2f8e9a1f74"
+  },
+  {
     id: "50c694da-c485-4176-853b-daf643eabb5c",
     title: "Harvard’s endowment returns surge on back of AI and SpaceX investments",
     date: "2026-10-15",
@@ -222,82 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-15",
     time: "13:00",
     url: "https://www.ft.com/content/0a39fcdb-860c-4739-8454-21fb429f6336"
-  },
-  {
-    id: "fb2110b4-50d2-4ff9-9886-f7b42c5b4579",
-    title: "EU leaders to urge Zelenskyy to rein in criticism of Trump",
-    date: "2026-10-15",
-    time: "11:05",
-    url: "https://www.ft.com/content/fb2110b4-50d2-4ff9-9886-f7b42c5b4579"
-  },
-  {
-    id: "317796f3-af18-4acb-a482-ec0bdd0edf45",
-    title: "Reform UK councillors and candidates filmed making racist remarks",
-    date: "2026-10-15",
-    time: "11:02",
-    url: "https://www.ft.com/content/317796f3-af18-4acb-a482-ec0bdd0edf45"
-  },
-  {
-    id: "825b0ed4-060e-49dd-8199-b6accc393ff1",
-    title: "Macroeconomic policy must now do many things at once",
-    date: "2026-10-15",
-    time: "11:00",
-    url: "https://www.ft.com/content/825b0ed4-060e-49dd-8199-b6accc393ff1"
-  },
-  {
-    id: "481f7865-b6bb-40b8-9ee2-7554f6914007",
-    title: "Republicans fund midterms ad blitz as Democrats gain in polls",
-    date: "2026-10-15",
-    time: "11:00",
-    url: "https://www.ft.com/content/481f7865-b6bb-40b8-9ee2-7554f6914007"
-  },
-  {
-    id: "c8511d8c-4889-4b38-bcce-f31044ef5b30",
-    title: "FirstFT: Ukraine to resume strikes on Russian refineries, Zelenskyy says",
-    date: "2026-10-15",
-    time: "10:57",
-    url: "https://www.ft.com/content/c8511d8c-4889-4b38-bcce-f31044ef5b30"
-  },
-  {
-    id: "72506712-3b5d-4a46-986e-6b06beb06b04",
-    title: "Norway’s $2.3tn oil fund urged to relax nuclear weapons ban",
-    date: "2026-10-15",
-    time: "10:30",
-    url: "https://www.ft.com/content/72506712-3b5d-4a46-986e-6b06beb06b04"
-  },
-  {
-    id: "54353d3a-afed-4fec-985a-50f3dfb9be8e",
-    title: "US floats unfreezing some Russian assets to restart Ukraine peace talks",
-    date: "2026-10-15",
-    time: "10:19",
-    url: "https://www.ft.com/content/54353d3a-afed-4fec-985a-50f3dfb9be8e"
-  },
-  {
-    id: "8171ef4a-b291-4375-bc85-87bee0f8bf7b",
-    title: "CoreWeave better hurry up figuring out how to tap insurers for cash",
-    date: "2026-10-15",
-    time: "10:17",
-    url: "https://www.ft.com/content/8171ef4a-b291-4375-bc85-87bee0f8bf7b"
-  },
-  {
-    id: "46708b2a-0392-43f9-b378-de7117febd16",
-    title: "UK economy defies contraction fears to grow 0.1% in August",
-    date: "2026-10-15",
-    time: "09:34",
-    url: "https://www.ft.com/content/46708b2a-0392-43f9-b378-de7117febd16"
-  },
-  {
-    id: "179f6911-cf9b-4fea-98e4-f635e8e8c563",
-    title: "EQT to acquire US real estate group Stockbridge",
-    date: "2026-10-15",
-    time: "08:27",
-    url: "https://www.ft.com/content/179f6911-cf9b-4fea-98e4-f635e8e8c563"
-  },
-  {
-    id: "bbffeec4-c491-45a3-8df9-7339ddb020e3",
-    title: "India approves biggest foreign takeover of domestic bank",
-    date: "2026-10-15",
-    time: "08:19",
-    url: "https://www.ft.com/content/bbffeec4-c491-45a3-8df9-7339ddb020e3"
   }
 ];

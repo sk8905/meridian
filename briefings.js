@@ -99,13 +99,13 @@
 // =============================================================================
 export const BRIEFINGS = {
   tz: "BST",
-  date: "2026-10-15",
-  time: "23:15 BST",
-    lede: "An AI-led global equity sell-off kept running into Thursday after hot US CPI, with Treasuries holding near 5.2% on doubts over an October Fed hike, while UK growth ticked up 0.1% in August.",
+  date: "2026-10-16",
+  time: "05:12 BST",
+  lede: "Treasuries staged one of their best days in months on Thursday as the AI-led equity rout lost steam in Europe and the US, while BoE Governor Bailey said it is early days to judge the full inflation effect of energy prices.",
   bullets: [
-    { html: "<strong>Macro &mdash; US CPI at 3.7% in September was hotter than expected, and a Fed hike at this month&rsquo;s FOMC is now viewed as a coin-flip,</strong> though Bloomberg&rsquo;s Authers judges a hike still unlikely given buyers for 5.2% 10-year yields.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-15/hot-inflation-isn-t-playing-along-with-trump", srcName: "Bloomberg", date: "2026-10-15" },
-    { html: "<strong>Bonds &mdash; the US 10-year Treasury yield jumped to 5.32% after the CPI print, then slid back to 5.18%</strong> on no new news, as dip-buyers stepped in at the highest yields in decades.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-15/hot-inflation-isn-t-playing-along-with-trump", srcName: "Bloomberg", date: "2026-10-15" },
-    { html: "<strong>Equities &mdash; the global AI sell-off deepened as Asian markets tumbled;</strong> the Nasdaq 100 fell 2.02% on Wednesday, its worst day since July, with Kospi down 7.8% at the time of writing.", src: "https://www.ft.com/content/cf5f1209-da29-4ce1-b425-0e83818bf9ec", srcName: "Financial Times", date: "2026-10-15" },
-    { html: "<strong>Credit &mdash; Blackstone Credit &amp; Insurance led a $1bn financing</strong> to support the combination of Analogic and Leidos&rsquo; Security Enterprise Solutions businesses.", src: "https://blackstone.com/news/press/blackstone-credit-insurance-leads-1-billion-financing-to-support-combination-of-analogic-corporation-and-leidos-security-enterprise-solutions-businesses", srcName: "Blackstone", date: "2026-10-12" },
+    { html: "<strong>Macro &mdash; the US 10-year yield fell 10bp to 5.08% on Thursday</strong> as safe-haven buying met a hot producer-price print, with Wall Street&rsquo;s AI wobbles still the risk gauge for the S&amp;P 500; the Bank of England&rsquo;s Bailey said it is &lsquo;early days&rsquo; to see the full effect of energy prices on inflation.", src: "https://www.reuters.com/newsletters/trading-day", srcName: "Reuters", date: "2026-10-15" },
+    { html: "<strong>Bonds &mdash; the Bund yield dropped 11bp to 3.35%, its lowest in over a month,</strong> and the US 10-year slid to 5.08% with the curve flattening, as Thursday was one of the best days of the year for long-dated Treasuries.", src: "https://www.reuters.com/newsletters/trading-day", srcName: "Reuters", date: "2026-10-15" },
+    { html: "<strong>Equities &mdash; the S&amp;P 500 rose 0.3% and the Dow 1% on Thursday</strong> even as South Korea&rsquo;s Kospi fell 7.5% and Japan&rsquo;s Nikkei 5% in the AI sell-off; chip stocks fell for a seventh day while the Nasdaq edged up 0.1%.", src: "https://www.reuters.com/newsletters/trading-day", srcName: "Reuters", date: "2026-10-15" },
+    { html: "<strong>Credit &mdash; CoreWeave&rsquo;s 2032 bonds, issued four months ago, fell below 80 cents on the dollar,</strong> and the cost of insuring against defaults at major US AI firms hit record levels, per Reuters&rsquo; Trading Day.", src: "https://www.reuters.com/newsletters/trading-day", srcName: "Reuters", date: "2026-10-15" },
   ],
 };

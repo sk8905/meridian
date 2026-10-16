@@ -49,6 +49,18 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-globaltechroutlosessteam-20261015",
+    publication: "Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Global tech rout loses steam",
+    date: "2026-10-15",
+    time: "22:00",
+    summary: "The AI equity rout accelerated in Asia on fears about murky, circular financing, but its force evaporated in European and US hours as Treasuries had one of their best days in months.",
+    url: "https://www.reuters.com/newsletters/trading-day",
+    body: true,
+  },
+  {
     id: "nl-bloomberg-moneystuff-privatemarketsnewai-20261015",
     publication: "Bloomberg",
     author: "Matt Levine",

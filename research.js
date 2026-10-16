@@ -109,6 +109,28 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-guggenheim-fixedincomesectorviews4q26-20261015",
+    publication: "Guggenheim Investments",
+    author: null,
+    series: "Fixed-Income Sector Views",
+    title: "4Q2026 Fixed-Income Sector Views",
+    date: "2026-10-15",
+    time: "22:43",
+    summary: "Yields are at their highest since 2007 with limited scope for Treasury yields to move materially higher, while credit spreads in many sectors remain tight; positioning favours high-carry defensive sectors such as senior commercial ABS and non-Agency RMBS.",
+    url: "https://go.pardot.com/webmail/104832/1471295304/bce5abe43db5a79d28a2e045cb2da4640259f8fb6a6b18515a3e960d2d98d5cc"
+  },
+  {
+    id: "rsch-spdji-indexology-indexingcrypto-20261015",
+    publication: "S&P Dow Jones Indices",
+    author: null,
+    series: "Indexology Blog",
+    title: "The Case for Indexing Cryptocurrencies",
+    date: "2026-10-15",
+    time: "23:01",
+    summary: "While indexing is a core building block in traditional asset classes such as U.S. equities, digital assets continue to be viewed largely through the lens of individual tokens…",
+    url: "https://www.indexologyblog.com/2026/10/14/the-case-for-indexing-cryptocurrencies/"
+  },
+  {
     id: "rsch-fitch-wire-texasdatacentre-20261015",
     publication: "Fitch Ratings",
     author: null,
