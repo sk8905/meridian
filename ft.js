@@ -21,6 +21,69 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "5b9c0cfa-849d-40a2-92bf-0bd2e2b58871",
+    "title": "Olly Robbins wins payout over Mandelson scandal sacking",
+    "date": "2026-10-16",
+    "time": "18:44",
+    "url": "https://www.ft.com/content/5b9c0cfa-849d-40a2-92bf-0bd2e2b58871"
+  },
+  {
+    "id": "ae21e5e0-6696-4cd2-877c-7d269b3bcf48",
+    "title": "Trump urges his new press secretary to ‘reconsider’ the role",
+    "date": "2026-10-16",
+    "time": "18:41",
+    "url": "https://www.ft.com/content/ae21e5e0-6696-4cd2-877c-7d269b3bcf48"
+  },
+  {
+    "id": "30f95850-4ff1-4669-acf8-06edc79c9457",
+    "title": "Fuel-price surge turbocharges global EV sales and spells end for diesel in Europe",
+    "date": "2026-10-16",
+    "time": "18:33",
+    "url": "https://www.ft.com/content/30f95850-4ff1-4669-acf8-06edc79c9457"
+  },
+  {
+    "id": "d2928f6b-b8f2-4651-ac9a-9fc4d8653608",
+    "title": "Italy secures EU deal to lower its electricity prices",
+    "date": "2026-10-16",
+    "time": "18:14",
+    "url": "https://www.ft.com/content/d2928f6b-b8f2-4651-ac9a-9fc4d8653608"
+  },
+  {
+    "id": "2ce007c9-72c4-46bc-88be-fad2dee8986b",
+    "title": "Directors’ Deals: IG Design Group finance boss backs revamp",
+    "date": "2026-10-16",
+    "time": "18:00",
+    "url": "https://www.ft.com/content/2ce007c9-72c4-46bc-88be-fad2dee8986b"
+  },
+  {
+    "id": "3b431be8-e758-42ef-b957-bdf8ef702529",
+    "title": "Stockpickers: Bytes Technology, YouGov, Softcat",
+    "date": "2026-10-16",
+    "time": "18:00",
+    "url": "https://www.ft.com/content/3b431be8-e758-42ef-b957-bdf8ef702529"
+  },
+  {
+    "id": "2b0e3eae-8eae-449e-9492-ac036b0fe143",
+    "title": "Looming UK tax rise puts bankers on edge",
+    "date": "2026-10-16",
+    "time": "17:14",
+    "url": "https://www.ft.com/content/2b0e3eae-8eae-449e-9492-ac036b0fe143"
+  },
+  {
+    "id": "ff9756a6-6339-47ca-ae9b-efd00e019fe3",
+    "title": "Can consultants reinvent themselves once again?",
+    "date": "2026-10-16",
+    "time": "17:11",
+    "url": "https://www.ft.com/content/ff9756a6-6339-47ca-ae9b-efd00e019fe3"
+  },
+  {
+    "id": "155bc83f-655d-4891-a431-aa5e1e1ce96a",
+    "title": "Has London’s £5bn ‘super sewer’ improved water quality in the Thames?",
+    "date": "2026-10-16",
+    "time": "16:28",
+    "url": "https://www.ft.com/content/155bc83f-655d-4891-a431-aa5e1e1ce96a"
+  },
+  {
     "id": "86038629-9b53-4859-bc59-a67fb0059c37",
     "title": "Welfare reform is possible: we did it before, we can do it again",
     "date": "2026-10-16",
@@ -237,67 +300,4 @@ export const FT_ITEMS = [
     "time": "09:30",
     "url": "https://www.ft.com/content/be1019ac-1023-45b0-835f-d111f2b2b741"
   },
-  {
-    "id": "76265c1d-3a38-4d11-8e4a-2a4c1ecfae1c",
-    "title": "From fashion to finca: the McQueen PR who escaped to Ibiza",
-    "date": "2026-10-16",
-    "time": "09:30",
-    "url": "https://www.ft.com/content/76265c1d-3a38-4d11-8e4a-2a4c1ecfae1c"
-  },
-  {
-    "id": "650f6b11-67fb-40cf-baea-cd6c321e51de",
-    "title": "Tim Smit on the glories of the Eden Project – 25 years later",
-    "date": "2026-10-16",
-    "time": "09:30",
-    "url": "https://www.ft.com/content/650f6b11-67fb-40cf-baea-cd6c321e51de"
-  },
-  {
-    "id": "06d33c3b-d06c-47da-837b-a6b1c81f621d",
-    "title": "ELV Denim is bringing a couture touch to Sanderson offcuts",
-    "date": "2026-10-16",
-    "time": "09:30",
-    "url": "https://www.ft.com/content/06d33c3b-d06c-47da-837b-a6b1c81f621d"
-  },
-  {
-    "id": "83a8155d-a4f5-4ef8-96af-502ca8f4a279",
-    "title": "Antoine Billore – the cheekiest boy in antiques",
-    "date": "2026-10-16",
-    "time": "09:30",
-    "url": "https://www.ft.com/content/83a8155d-a4f5-4ef8-96af-502ca8f4a279"
-  },
-  {
-    "id": "fca7f5ff-94c8-4c78-90cb-d458fd27724a",
-    "title": "FTAV’s further reading",
-    "date": "2026-10-16",
-    "time": "06:30",
-    "url": "https://www.ft.com/content/fca7f5ff-94c8-4c78-90cb-d458fd27724a"
-  },
-  {
-    "id": "6533c873-29df-453b-9ac4-7b17e5a3576f",
-    "title": "Hiding from the everything trade",
-    "date": "2026-10-16",
-    "time": "06:30",
-    "url": "https://www.ft.com/content/6533c873-29df-453b-9ac4-7b17e5a3576f"
-  },
-  {
-    "id": "95a8e05d-fc20-441d-b271-64e87fe41f76",
-    "title": "Dollar weakens as Fed chair Kevin Warsh declines to hint at October rate rise",
-    "date": "2026-10-16",
-    "time": "06:25",
-    "url": "https://www.ft.com/content/95a8e05d-fc20-441d-b271-64e87fe41f76"
-  },
-  {
-    "id": "1cda1563-9f99-4993-9373-5d1b4dfe8c98",
-    "title": "EU resists bid to weaken emissions rules as leaders spar over energy costs",
-    "date": "2026-10-16",
-    "time": "06:00",
-    "url": "https://www.ft.com/content/1cda1563-9f99-4993-9373-5d1b4dfe8c98"
-  },
-  {
-    "id": "d36787c1-f0b0-4445-8237-90eb4d521081",
-    "title": "So. About next year’s earnings . . .",
-    "date": "2026-10-16",
-    "time": "06:00",
-    "url": "https://www.ft.com/content/d36787c1-f0b0-4445-8237-90eb4d521081"
-  }
 ];

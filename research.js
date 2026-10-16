@@ -109,6 +109,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-spdji-dailyindexinsights-20261016",
+    publication: "S&P Dow Jones Indices",
+    author: null,
+    series: "Daily Index Insights",
+    title: "Daily Index Insights",
+    date: "2026-10-16",
+    time: "15:31",
+    summary: "Marks the 103rd birthday of The Walt Disney Company, founded on 16 October 1923 as the Disney Brothers Cartoon Studio in Los Angeles.",
+    url: "https://www.spglobal.com/spdji/en/commentary/article/daily-index-insights"
+  },
+  {
     id: "rsch-mandg-bondvigilantes-whatthepastgetswrong-20261016",
     publication: "M&G Bond Vigilantes",
     author: "Luke Coha",
