@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-16T11:49:30.603Z",
+ "generated": "2026-10-16T17:00:13.690Z",
  "since": "2026-10-02",
  "firms": {
   "proskauerrose": {
@@ -32,27 +32,14 @@
    "errors": 0,
    "carried": 0
   },
-  "linklaters": {
-   "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
-   ],
-   "sitemaps": 6,
-   "urls": 17775,
-   "kept": 6,
-   "fetched": 6,
-   "errors": 0,
-   "carried": 0
-  },
   "slaughtermay": {
    "domains": [
     "www.slaughterandmay.com"
    ],
    "sitemaps": 1,
-   "urls": 6289,
-   "kept": 8,
-   "fetched": 8,
+   "urls": 6288,
+   "kept": 9,
+   "fetched": 9,
    "errors": 0,
    "carried": 0
   },
@@ -75,6 +62,19 @@
    ],
    "carried": 0
   },
+  "linklaters": {
+   "domains": [
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
+   ],
+   "sitemaps": 6,
+   "urls": 17776,
+   "kept": 7,
+   "fetched": 7,
+   "errors": 0,
+   "carried": 0
+  },
   "hsf": {
    "domains": [
     "www.hsfkramer.com"
@@ -86,23 +86,23 @@
    "errors": 1,
    "carried": 0
   },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5016,
-   "kept": 5,
-   "fetched": 5,
-   "errors": 0,
-   "carried": 0
-  },
   "macfarlanes": {
    "domains": [
     "www.macfarlanes.com"
    ],
    "sitemaps": 4,
-   "urls": 3566,
+   "urls": 2406,
+   "kept": 3,
+   "fetched": 3,
+   "errors": 0,
+   "carried": 0
+  },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5018,
    "kept": 5,
    "fetched": 5,
    "errors": 0,
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 16539,
+   "urls": 16540,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -150,7 +150,7 @@
     "www.kirkland.com"
    ],
    "sitemaps": 11,
-   "urls": 17411,
+   "urls": 17410,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -167,15 +167,16 @@
    "errors": 0,
    "carried": 0
   },
-  "sidley": {
+  "cleary": {
    "domains": [
-    "www.sidley.com"
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
    ],
-   "sitemaps": 5,
-   "urls": 6770,
-   "kept": 2,
-   "fetched": 2,
-   "errors": 12,
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 2,
    "carried": 0
   },
   "ropesgray": {
@@ -208,16 +209,15 @@
    ],
    "carried": 0
   },
-  "davispolk": {
+  "sidley": {
    "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
+    "www.sidley.com"
    ],
    "sitemaps": 11,
-   "urls": 16200,
-   "kept": 3,
-   "fetched": 3,
-   "errors": 0,
+   "urls": 8591,
+   "kept": 2,
+   "fetched": 2,
+   "errors": 6,
    "carried": 0
   },
   "stephensonharwood": {
@@ -225,7 +225,7 @@
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2854,
+   "urls": 2852,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -244,9 +244,21 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12289,
+   "urls": 12291,
    "kept": 7,
    "fetched": 7,
+   "errors": 0,
+   "carried": 0
+  },
+  "davispolk": {
+   "domains": [
+    "www.davispolk.com",
+    "davispolk.com"
+   ],
+   "sitemaps": 11,
+   "urls": 16200,
+   "kept": 3,
+   "fetched": 3,
    "errors": 0,
    "carried": 0
   },
@@ -255,9 +267,9 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11575,
-   "kept": 5,
-   "fetched": 5,
+   "urls": 11579,
+   "kept": 6,
+   "fetched": 6,
    "errors": 0,
    "carried": 0
   },
@@ -280,22 +292,6 @@
    ],
    "carried": 0
   },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "governance.weil.com",
-    "restructuring.weil.com",
-    "eurorestructuring.weil.com",
-    "tax.weil.com",
-    "european-disputes-blog.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7741,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
   "southsquare": {
    "domains": [
     "southsquare.com"
@@ -315,27 +311,31 @@
    ],
    "carried": 0
   },
+  "weil": {
+   "domains": [
+    "www.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "tax.weil.com",
+    "european-disputes-blog.weil.com"
+   ],
+   "sitemaps": 36,
+   "urls": 7743,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
   "mayerbrown": {
    "domains": [
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16344,
-   "kept": 20,
-   "fetched": 20,
+   "urls": 16348,
+   "kept": 21,
+   "fetched": 21,
    "errors": 0,
-   "carried": 0
-  },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 1,
-   "urls": 18699,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
    "carried": 0
   },
   "cliffordchance": {
@@ -351,6 +351,57 @@
   }
  },
  "items": [
+  {
+   "firm": "slaughtermay",
+   "url": "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/",
+   "title": "Financial Regulation Weekly Bulletin",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-16",
+   "dateProbe": []
+  },
+  {
+   "firm": "slaughtermay",
+   "url": "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/financial-regulation-weekly-bulletin-15-october-2026/",
+   "title": "Financial Regulation Weekly Bulletin - 15 October 2026",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-16",
+   "dateProbe": [
+    "lor\" content=\"#ffffff\"> <title>Financial Regulation Weekly Bulletin - 15 October 2026</title> <meta prope",
+    "a property=\"og:title\" content=\"Financial Regulation Weekly Bulletin - 15 October 2026\"/> <meta property=\"",
+    "__page\"> <span itemprop=\"name\">Financial Regulation Weekly Bulletin - 15 October 2026</span> </span> <met"
+   ]
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-rheinmetall-on-new-syndicated-credit-facility",
+   "title": "Linklaters advises Rheinmetall on new €1.5bn syndicated credit facility",
+   "description": "Linklaters has advised Rheinmetall AG on the establishment of a new €1.5bn syndicated credit facility.",
+   "date": "2026-10-16",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "macfarlanes",
+   "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
+   "title": "Incorporating an LLP: direct tax considerations",
+   "description": "In an article for Tax Journal, Partner Joe Robinson and Associate Harvey Innocent explain how LLP members may defer gains when...",
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "macfarlanes",
+   "url": "https://www.macfarlanes.com/insights/102o5i6/unlocking-db-pension-scheme-surplus-a-new-consideration-for-employers-and-potent",
+   "title": "Unlocking DB pension scheme surplus: a new consideration for employers and potential acquirers",
+   "description": "For many years, the dominant question for employers sponsoring defined benefit (DB) pension schemes, and for the prospective acquirers...",
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
+  },
   {
    "firm": "traverssmith",
    "url": "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-venture-insights-the-changing-shape-of-venture-capital/",
@@ -370,40 +421,22 @@
    "lastmod": "2026-10-07"
   },
   {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
-   "title": "Incorporating an LLP: direct tax considerations",
-   "description": "In an article for Tax Journal, Partner Joe Robinson and Associate Harvey Innocent explain how LLP members may defer gains when...",
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/our-insights/blogs/viewpoints/102o5at/sdaia-consults-on-extensive-amendments-to-the-saudi-pdpl-implementing-regulation/",
+   "title": "SDAIA Consults on Extensive Amendments to the Saudi PDPL Implementing Regulation",
+   "description": "On 6 October 2026 the Saudi Data and Artificial Intelligence Authority (SDAIA) published draft amendments to the Implementing Regulation...",
    "date": "2026-10-16",
    "dateSource": "datePublished",
    "lastmod": "2026-10-16"
   },
   {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o5mh/macfarlanes-advises-mg-investments-on-the-launch-of-its-first-private-credit-foc",
-   "title": "Macfarlanes advises M&G Investments on the launch of its first private credit focussed LTAF",
-   "description": "Macfarlanes has advised M&G Investments on the launch of its first private credit focussed Long-Term Asset Fund (LTAF), the M&G...",
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-london-infrastructure-team-shortlisted-for-legal-adviser-of-the-year-emea",
+   "title": "Weil London Infrastructure Team Shortlisted for Legal Adviser of the Year",
+   "description": "Weil’s London Infrastructure team has been shortlisted for Legal Adviser of the Year – EMEA at the Infra Global Investor Awards 2026.",
    "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
-  },
-  {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o5i6/unlocking-db-pension-scheme-surplus-a-new-consideration-for-employers-and-potent",
-   "title": "Unlocking DB pension scheme surplus: a new consideration for employers and potential acquirers",
-   "description": "For many years, the dominant question for employers sponsoring defined benefit (DB) pension schemes, and for the prospective acquirers...",
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
-   "title": "Capital, regulation and capability in a new era",
-   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
-   "date": "2026-10-15",
    "dateSource": "page date label",
-   "lastmod": "2026-10-15"
+   "lastmod": "2026-10-16"
   },
   {
    "firm": "slaughtermay",
@@ -416,6 +449,15 @@
    "dateProbe": [
     "td style=\"width: 49.9044%; border-style: none; padding: 20px;\"> <p>On 27 February 2026, Canada Pension Pla"
    ]
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
+   "title": "Capital, regulation and capability in a new era",
+   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
+   "date": "2026-10-15",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-15"
   },
   {
    "firm": "reedsmith",
@@ -445,15 +487,6 @@
    "lastmod": "2026-10-15"
   },
   {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
-   "description": null,
-   "date": "2026-10-15",
-   "dateSource": "datePublished",
-   "lastmod": null
-  },
-  {
    "firm": "weil",
    "url": "https://www.weil.com/articles/david-j-cohen-named-to-american-bankruptcy-institutes-2026-40-under-40",
    "title": "David J. Cohen Named to American Bankruptcy Institute’s 2026 40 Under 40",
@@ -470,15 +503,6 @@
    "date": "2026-10-14",
    "dateSource": "page date label",
    "lastmod": "2026-10-14"
-  },
-  {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
-   "title": "Publications",
-   "description": null,
-   "date": "2026-10-14",
-   "dateSource": "datePublished",
-   "lastmod": null
   },
   {
    "firm": "traverssmith",
@@ -518,6 +542,15 @@
   },
   {
    "firm": "mayerbrown",
+   "url": "https://www.mayerbrown.com/en/news/2026/10/ai-financing-is-booming-but-where-are-europes-term-loan-bs",
+   "title": "AI financing is booming, but where are Europe’s term loan Bs?",
+   "description": "Rob Mathews comments on why European AI-related borrowers have barely used broadly syndicated term loan Bs, and the high yield market only a little,",
+   "date": "2026-10-13",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/brazils-mma-regulates-payment-for-environmental-services",
    "title": "Brazil’s MMA Regulates Payment for Environmental Services",
    "description": "On September 16, 2026, Brazil’s Ministry of the Environment and Climate Change ( Ministério do Meio Ambiente e Mudança do Clima – “MMA”) issued",
@@ -551,16 +584,6 @@
    "date": "2026-10-12",
    "dateSource": "page date label",
    "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/",
-   "title": "Financial Regulation Weekly Bulletin",
-   "description": null,
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-09",
-   "dateProbe": []
   },
   {
    "firm": "slaughtermay",
@@ -802,21 +825,21 @@
    "lastmod": "2026-10-12"
   },
   {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/knowledge-container/warfighting-readiness-what-298-billion-in-defence-spending-means-for-the-uk-real-estate-sector/",
-   "title": "\"Warfighting readiness\" - what £298 billion in defence spending means for the UK real estate sector",
-   "description": "Intro: The Government's Defence Investment Plan, published this summer, represents one of the most significant shifts in UK defence spending in a generation. Backed by £298 billion of investment over the next four years and built on the vision of the Strategic Defence Review ('SDR'), the plan signals a decisive move toward \"warfighting readiness\". This briefing examines what that may mean for the UK's real estate sector.",
-   "date": "2026-10-05",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-05"
-  },
-  {
    "firm": "macfarlanes",
    "url": "https://www.macfarlanes.com/insights/102o4fw/employment-tax-update-october-2026",
    "title": "Employment tax update - October 2026",
    "description": "This bulletin follows the release of the August and September Agent Updates (Issue 146 and Issue 147). In this issue we cover the content...",
    "date": "2026-10-05",
    "dateSource": "datePublished",
+   "lastmod": "2026-10-05"
+  },
+  {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/knowledge-container/warfighting-readiness-what-298-billion-in-defence-spending-means-for-the-uk-real-estate-sector/",
+   "title": "\"Warfighting readiness\" - what £298 billion in defence spending means for the UK real estate sector",
+   "description": "Intro: The Government's Defence Investment Plan, published this summer, represents one of the most significant shifts in UK defence spending in a generation. Backed by £298 billion of investment over the next four years and built on the vision of the Strategic Defence Review ('SDR'), the plan signals a decisive move toward \"warfighting readiness\". This briefing examines what that may mean for the UK's real estate sector.",
+   "date": "2026-10-05",
+   "dateSource": "<time datetime>",
    "lastmod": "2026-10-05"
   },
   {
