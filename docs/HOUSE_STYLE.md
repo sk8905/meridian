@@ -1377,13 +1377,18 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   (`tests/notifications-materiality.mjs`). **(f) Who advised / what terms** — the deal drawer
   shows advisers and terms only from the deal's own source or a tracked firm's announcement
   (`v2/js/deal-advisers.js`, `tests/deal-advisers.mjs`). **(g) Borrower pages** at
-  `/v2/profiles/#/co/<name>` gather deals, plans, judgments, alerts and the UK registry
+  `/v2/profiles/#/co/<name>` gather deals, plans, judgments, alerts, a stressed name's
+  **listed bonds — quotes** (R45) and the UK registry
   (public Companies House register, no API key — `tests/borrower-page.mjs`,
-  `tests/companies-house-parse.mjs`). **(i) Everything opens inside Wire** — every external
+  `tests/companies-house-parse.mjs`, `tests/bond-quotes.mjs`). **(i) Everything opens inside Wire** — every external
   link opens the app-wide reader (`v2/js/reader-overlay.js`); only a source that can't be
   read in the app (paywall, bot-wall, PDF, empty extraction) shows its one external link
   (`tests/in-app-reader.mjs`). Paywall / link-out lists live in `v2/js/read-policy.js`. **(j) Dashboard lists preview 10 rows +
-  "See all N" on desktop as well as iPhone** (desktop "See all" is a centred panel);
+  "See all N" on desktop as well as iPhone** (desktop "See all" is a centred panel) —
+  EVERY list, no exceptions: the Credits / BDC rosters included (owner 2026-10-16; they
+  had a desktop 12-row "Show all" / no cut — `tests/credit-rosters.mjs`). A new list
+  card must use the shared preview (`previewList` / `PV_SEL`, or the roster `PREVIEW`)
+  and never invent its own cap or inline expander;
   Home rails keep fixed widths on every screen (`tests/dashboard-desktop-preview.mjs`). **(h) Rates** show a market-implied path from prediction-
   market odds, labelled as crowd probabilities (`tests/rates-implied.mjs`).
 - **R42 — Offering build (owner-approved 2026-10-15).** **(a) Navigation (R13):** **Home · Dashboard · News ·
@@ -1427,8 +1432,9 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   as its title — so 10-row previews and See all line up across cards): stress list ·
   Part 26A plans / Part 26 schemes · R&I case law · rx deals · insolvency stats · hearings
   (public HMCTS Court & Tribunal Hearings Rolls Building cause list via `/api/causelist`,
-  company matters only — personal bankruptcies never shown) · every company links to its
-  borrower page (`tests/restructuring-hub.mjs`, `tests/causelist-parse.mjs`). **(j) Deals
+  company matters only — personal bankruptcies never shown) · **listed bonds — quotes**
+  (R45; stress rows note "N listed bonds") · every company links to its
+  borrower page (`tests/restructuring-hub.mjs`, `tests/causelist-parse.mjs`, `tests/bond-quotes.mjs`). **(j) Deals
   views:** League tables `#/league` (lenders · sponsors · law firms · financial advisers by
   count and disclosed ≈USD; lenders from `d.lenders[]` else `managerId`; a club deal counts
   once per lender) and Fundraising `#/fundraising` (funds in market — shared
@@ -1594,6 +1600,30 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   name and detail line (owner: "don't wrap here"). This is the one exception to R43(c)'s
   two-line, one-height rule; desktop is unchanged. Spec: `tests/phone-wire-wrap.mjs`.
 
+- **R45 — Listed-bond prices for stressed names (owner 2026-10-16).** **(a) Free sources
+  only** — no paid feed. The live price is TradingView's free Mini Symbol Overview widget
+  (§8.1, T21): a **delayed exchange quote on one venue** (Tradegate · gettex · Frankfurt ·
+  Munich …), never called a composite or "market" price — every widget is captioned
+  "delayed <venue> exchange quote, not a composite price" with its TradingView link, and the
+  card header carries a "delayed" badge. Wire never reads, stores or relabels the widget's
+  number. **(b) The bond list** is `dashboard/js/data.js` `CR_BONDS`, keyed by the
+  `CR_STRESS` name: TradingView's record of each issue (ISIN, coupon, maturity, symbol
+  page); a line goes live only after its widget was seen with a CURRENT quote; matured and
+  pre-restructuring (exchanged / cancelled) issues stay out; LSE / LuxSE / SIX / Stuttgart /
+  FINRA / Bonds.com lines are never used (the free widget can't show them). **(c) Keep
+  press prices where that's all there is** — a name with no free live quote keeps its
+  latest press-quoted price, however old, as its own line ("Press" instead of "Quote");
+  a live line may carry one too. Only a number a dated article states (a range as text);
+  never inferred, averaged or taken from a CDS auction / recovery figure; an aggregator
+  is allowed only when nothing better exists and is flagged "(aggregator)". **(d) Always
+  the as-of date, in brackets:** "press 57 (28 Sep 26)" on the row, "Press price 57
+  (28 Sep 26) · Euronews" in the sheet / borrower page; month precision prints "(May
+  2026)" when the article gives no day. **(e) Where:** the Restructuring hub's "Listed
+  bonds — quotes" card (10-row preview + See all; Quote / Press opens the bond sheet), the
+  stress rows' "N listed bonds", and the borrower page's "Listed bonds — quotes" section.
+  Upkeep: refresh-routines §bonds. Spec: `tests/bond-quotes.mjs` (ISIN check digits,
+  venues, sources, "(date)" format, hub + sheet + borrower page, phone and desktop).
+
 ## 7. Technical rules
 
 - **T1 — Cache-busting: code carries a token, data does NOT.**
@@ -1686,6 +1716,15 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   the repo uses (retired BDC / credit tables, the old Transactions type strip and group-by
   buttons, the Home "Saved" panel, theme toggle, Markets slide-over …). When a feature
   leaves, its CSS leaves in the same commit.
+- **T21 — Third-party embeds (2026-10-16).** A third-party widget is embedded as its
+  own **iframe** (e.g. TradingView's `embed-widget/mini-symbol-overview/` frame, config in
+  the URL hash — `v2/js/bonds.js`), never by loading the vendor's loader script into
+  Wire's page: no third-party JS runs in our origin, and a sheet can close mid-load without
+  the loader's console error (T4). The frame carries a `title` (T19), `loading="lazy"`,
+  `referrerpolicy="strict-origin-when-cross-origin"`, and CSS `color-scheme:normal` so
+  Chromium doesn't paint an opaque white backdrop behind a transparent dark widget. Only
+  free, embeddable vendor widgets; the caption states what the number is and links the
+  vendor (R45a).
 
 ---
 

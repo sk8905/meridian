@@ -218,7 +218,10 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   announcing several separate transactions is one record per borrower, R39m). Every record carries an exact ISO date you saw on the source (no
   `dateEstimated`, no blank `date`); cite the specific article, never a homepage, and
   prefer the issuer / filing / tier-1 outlet over an aggregator or republisher
-  (Yahoo, TradingView, MarketScreener, cbonds, Kalkine, Finviz, pulse2 …). The summary
+  (Yahoo, TradingView, MarketScreener, cbonds, Kalkine, Finviz, pulse2 …) — two scoped
+  exceptions for the listed-bond data only (§bonds, HOUSE_STYLE R45): TradingView's symbol
+  page IS the reference record for a bond line, and a press price may come from an
+  aggregator (flagged `aggregator: true`) when no primary outlet carries one. The summary
   states ONLY what the cited source says — no context added from memory. Run
   `node tests/run.mjs data-integrity` with the other gating specs before publishing.
   Nothing dated before 2020-01-01 is added (HOUSE_STYLE R7b); run
@@ -969,6 +972,12 @@ investor AUM is USD by convention — R29.)
   otherwise `isin` null and `bond` = the article's description (`maturity` may be a
   year). Each run, replace a press price only with a newer dated one.
   `tests/bond-quotes.mjs` validates every row (ISIN check digit, venue, source, dates).
+  **Every run:** for each stress name added or updated this run, look up its listed bonds
+  (above); for each name with no live line, look for a newer dated press price; drop the
+  lines of names that left the stress list; re-check that each live line's widget still
+  shows a current quote (else set `tv` null and keep it only with a press price). Never
+  touch a widget price — it is TradingView's. The app prints every press price with its
+  as-of date in brackets, "57 (28 Sep 26)" (HOUSE_STYLE R45d).
 - **LP sweep (every run, budget-capped; a deeper pass weekly on Mondays).** Look for NEW
   public LP commitments to private credit / direct lending / CLO / ABF / special-situations
   / infra & real-estate debt funds since the last run, newest first, Europe-relevant
@@ -1374,7 +1383,8 @@ Claude Code Routines UI and is edited there — it is the executable copy. This
 document is the **authoritative reference** for what that run must do: the
 **Invariants**, **Briefings & Key Moments**, **Health snapshot + credit digest**, **AUM
 currency check** and **Email sweep** sections are the contract; the Routine prompt
-orchestrates them (sync → freshness audit → the desk refreshes → AUM currency check →
+orchestrates them (sync → freshness audit → the desk refreshes (incl. the stress list's
+listed bonds + press prices, §bonds) → AUM currency check →
 briefing → stamps → health snapshot + digest → email sweep → publish → morning digest
 email) and should defer here for the detail
 rather than restating it. Current live behaviour: fires **every ~2
