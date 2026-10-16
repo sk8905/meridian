@@ -80,7 +80,10 @@
 :root[data-theme="light"] .g-feed-dayhdr { background:var(--t-head, #f4f7fb); color:#2f6cae;
   border-bottom:1px solid var(--t-grid); }
 @media (max-width:900px){ .g-feed-dayhdr { top:var(--wire-head-h, 57px); } }
-.g-feed-row { display:grid; grid-template-columns:44px 34px minmax(0,1fr) minmax(0,168px); align-items:baseline;
+/* No colour desk codes on the wire (owner 2026-10-15): the row is time · headline · source,
+   like every list. The code stays in the markup (the row's desk, for filters / search). */
+.g-feed-row > .g-feed-code { display:none; }
+.g-feed-row { display:grid; grid-template-columns:var(--c-date-w) minmax(0,1fr) minmax(0,168px); align-items:baseline;
   gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); text-decoration:none; }
 .g-feed-row:hover { background:var(--t-panel2); }
 /* R43: the wire's leading time reads exactly like every list's leading date (.c-date):
@@ -160,15 +163,16 @@ body.wire-sliding .g-feed-srcbar { position:static; }
   /* R43: the wire keeps its time as the first column — line 1 = time · headline,
      line 2 (under the headline) = code · source; two lines, one fixed height. */
   .g-feed-row { display:grid; align-items:baseline;
-    grid-template-columns:var(--c-date-w) max-content minmax(0,1fr);   /* the one lead column (R43c) */
-    grid-template-areas:"time title title" ". code src";
+    grid-template-columns:var(--c-date-w) minmax(0,1fr);   /* the one lead column (R43c) */
+    grid-template-areas:"time title" ". src";
     column-gap:8px; row-gap:1px; padding:0 12px; align-content:center;
     box-sizing:border-box; height:var(--ev-h); overflow:hidden; }   /* the Deals row's compact height (owner 2026-10-15) */
   .g-feed-title { grid-area:title; font-size:var(--fs-body); line-height:1.35; }
   .g-feed-code { grid-area:code; padding:0 4px; line-height:1.45; }
   .g-feed-time { grid-area:time; white-space:nowrap; }
   /* Source sits flush RIGHT on the meta line. */
-  .g-feed-src { grid-area:src; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; justify-self:end; text-align:right; }
+  /* Line 2 is the source, left under the headline — as a Deals row's meta line. */
+  .g-feed-src { grid-area:src; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; justify-self:start; text-align:left; }
 }
 /* phones: keep the source-filter bar tucked under the fixed chrome. */
 @media (max-width:760px){
@@ -203,7 +207,7 @@ body.wire-sliding .g-feed-srcbar { position:static; }
 /* ONE leading column, every surface and every width (owner 2026-10-15): 64px fits the
    widest lead ("Hedge fund", "28 Sep 26") + an 8px gap, so every headline starts on the
    same line — the wire's time, a deal's date, a profile's type, a person's move date. */
-@media (max-width:760px){ :root { --c-src-w:76px; } }
+@media (max-width:760px){ :root { --c-date-w:52px; --c-src-w:76px; } }   /* iPhone: 52px — "28 Sep 26" (50px); the Profiles type lead uses short labels ("H Fund") */
 :where(b, strong) { font-weight:inherit; }
 
 /* ---- the events row: two single lines, one fixed height ---------------------

@@ -115,9 +115,9 @@ img, svg { max-width: 100%; }
   border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow-lg);
   z-index: 40; padding: .5rem;
 }
-.notif-head { font-weight: 700; font-size:var(--fs-head); padding: .35rem .5rem .5rem; border-bottom: 1px solid var(--line); margin-bottom: .25rem; }
+.notif-head { font-weight: 700; font-size:var(--fs-head); padding: .35rem .5rem .5rem; border-bottom: 1px solid var(--t-grid); margin-bottom: .25rem; }
 .notif-list { list-style: none; margin: 0; padding: 0; }
-.notif-item { padding: .45rem .5rem; border-bottom: 1px solid var(--line); border-radius: 6px; }
+.notif-item { padding: .45rem .5rem; border-bottom: 1px solid var(--t-grid); border-radius: 6px; }
 .notif-item:last-child { border-bottom: none; }
 .notif-empty { padding: .6rem .5rem; }
 .nav-toggle {
@@ -132,7 +132,7 @@ img, svg { max-width: 100%; }
 .container { padding: 1.75rem 2rem 3rem; }
 .footer {
   margin: 1rem 0 0; padding: 1.5rem 2rem;
-  color: var(--muted); font-size:var(--fs-head); border-top: 1px solid var(--line);
+  color: var(--muted); font-size:var(--fs-head); border-top: 1px solid var(--t-grid);
 }
 .footer strong { color: var(--ink-soft); }
 
@@ -196,7 +196,7 @@ img, svg { max-width: 100%; }
 .feed-intro { margin: .25rem 0 .5rem; font-size:var(--fs-head); color: var(--muted); }
 
 /* ---- Feed / list rows (Wire-style) ---- */
-.feed-row { display: flex; gap: .7rem; padding: .8rem 0; border-bottom: 1px solid var(--line); }
+.feed-row { display: flex; gap: .7rem; padding: .8rem 0; border-bottom: 1px solid var(--t-grid); }
 .feed-row:last-child { border-bottom: 0; }
 /* The leading column now holds just the date (area/type chips removed); size it to
    the date so the headline sits right beside it instead of 10rem away. */
@@ -299,12 +299,12 @@ a.firm:hover, a.firm-big:hover { text-decoration: none; }
   border-radius: var(--radius); padding: 1.1rem 1.25rem; box-shadow: var(--shadow); overflow: hidden;
 }
 .feature-card { border-top: 3px solid var(--accent); }
-.card-foot { margin-top: .75rem; padding-top: .6rem; border-top: 1px solid var(--line); font-size:var(--fs-head); font-weight:400; }
+.card-foot { margin-top: .75rem; padding-top: .6rem; border-top: 1px solid var(--t-grid); font-size:var(--fs-head); font-weight:400; }
 /* `.small` size is owned by premium.css (the canonical scale): fine-print / meta
    text at --fs-item-meta, not --fs-head. Re-adding a font-size here would load
    after premium.css in the v2 bundle and inflate every "muted small" caption. */
 .compact-list { list-style: none; margin: .25rem 0 0; padding: 0; }
-.compact-item { padding: .5rem 0; border-bottom: 1px solid var(--line); }
+.compact-item { padding: .5rem 0; border-bottom: 1px solid var(--t-grid); }
 .compact-item:last-child { border-bottom: none; }
 .compact-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; text-decoration: none; }
 a.compact-head:hover { text-decoration: none; }
@@ -374,7 +374,7 @@ a.compact-head:hover { text-decoration: none; }
 .ms-opt input { flex: 0 0 auto; width: 15px; height: 15px; min-width: 0; margin: 0; padding: 0; accent-color: var(--accent); cursor: pointer; }
 .filters-top { display: flex; justify-content: flex-end; margin-bottom: .3rem; }
 .link-btn { background: none; border: 0; color: var(--primary); cursor: pointer; font-size:var(--fs-head); font-weight:400; padding: 0; }
-.filter-group { border: 0; border-top: 1px solid var(--line); margin: 0; padding: .8rem 0 .2rem; }
+.filter-group { border: 0; border-top: 1px solid var(--t-grid); margin: 0; padding: .8rem 0 .2rem; }
 .filter-group legend { font-weight: 700; font-size:var(--fs-body); text-transform: uppercase; letter-spacing: .5px; color: var(--muted); padding: 0; margin-bottom: .4rem; }
 /* Collapsible (folded) filter group — disclosure dropdown to save space. */
 .filter-fold { padding: .55rem 0 .35rem; }
@@ -609,8 +609,8 @@ a.compact-head:hover { text-decoration: none; }
   .lg-sc-tbl { min-width: 980px; }
   .lg-sc-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 }
-.lg-sc-tbl th { text-align: left; font-size:var(--fs-micro); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight:400; padding: 6px 8px; background: var(--head); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2; }
-.lg-sc-tbl td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); line-height: 1.4; }
+.lg-sc-tbl th { text-align: left; font-size:var(--fs-micro); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight:400; padding: 6px 8px; background: var(--head); border-bottom: 1px solid var(--t-grid); position: sticky; top: 0; z-index: 2; }
+.lg-sc-tbl td { padding: 6px 8px; border-bottom: 1px solid var(--t-grid); vertical-align: top; color: var(--ink); line-height: 1.4; }
 .lg-sc-tbl th:nth-child(1), .lg-sc-tbl td:nth-child(1) { width: 12%; }
 .lg-sc-tbl th:nth-child(2), .lg-sc-tbl td:nth-child(2) { width: 10%; }
 .lg-sc-tbl th:nth-child(3), .lg-sc-tbl td:nth-child(3) { width: 8%; }
@@ -664,7 +664,7 @@ a.compact-head:hover { text-decoration: none; }
    the practice / region filter row over the wire, and the Credit deals list (two-line
    rows: deal / side · date · amount · lender · source). Theme comes from the shared
    --ink / --muted / --faint / --border tokens (light + dark via premium.css). */
-.lf-glance { display: grid; grid-template-columns: repeat(4, minmax(0, auto)); justify-content: start; gap: 0; border-bottom: 1px solid var(--border); background: var(--surface); }
+.lf-glance { display: grid; grid-template-columns: repeat(4, minmax(0, auto)); justify-content: start; gap: 0; border-bottom: 1px solid var(--t-grid); background: var(--surface); }
 .lf-g { display: flex; flex-direction: column; gap: 2px; padding: 9px 18px 9px 12px; min-width: 0; border-right: 1px solid var(--border); }
 .lf-g:last-child { border-right: 0; }
 .lf-g-k { font-size: var(--fs-micro); font-weight:400; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); white-space: nowrap; }
@@ -672,7 +672,7 @@ a.compact-head:hover { text-decoration: none; }
 .lf-g-n { color: var(--muted); font-weight: 500; font-size: var(--fs-num); }
 .lf-g-s { font-size: var(--fs-micro); color: var(--faint); white-space: nowrap; }
 .lf-cn { margin-left: 0; }
-.lf-filt { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.lf-filt { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--t-grid); background: var(--surface); }
 .lf-filt[hidden] { display: none; }
 .lf-sel { height: var(--chip-h, 34px); max-width: 100%; padding: 0 8px; font: inherit; font-size: var(--fs-body); font-weight: 500; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: 0; }
 .lf-sel.is-on { color: var(--ink); font-weight: 600; border-color: var(--ink); }
@@ -680,7 +680,7 @@ a.compact-head:hover { text-decoration: none; }
 .lf-clear, .lf-more { font: inherit; font-size: var(--fs-body); font-weight:400; color: var(--muted); background: none; border: 0; padding: 6px 4px; cursor: pointer; }
 .lf-more-w { padding: 0 12px; }
 .lf-more-w:empty { display: none; }
-.lf-more { display: block; width: 100%; text-align: center; padding: 10px 4px; border-top: 1px solid var(--border); }
+.lf-more { display: block; width: 100%; text-align: center; padding: 10px 4px; border-top: 1px solid var(--t-grid); }
 @media (hover: hover) { .lf-clear:hover, .lf-more:hover { color: var(--ink); } }
 .lf-deals { list-style: none; margin: 0; padding: 0; }
 /* Credit-deal rows are the shared R43 events row (.g-ev, feed.css); only the gutter is local. */
@@ -690,7 +690,7 @@ a.compact-head:hover { text-decoration: none; }
   .lf-glance { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .lf-g { padding: 8px 16px; }
   .lf-g:nth-child(2n) { border-right: 0; }
-  .lf-g:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+  .lf-g:nth-child(-n+2) { border-bottom: 1px solid var(--t-grid); }
   .lf-filt { padding: 8px 16px; }
   .lf-sel { flex: 1 1 0; min-width: 0; }
   .lf-more-w { padding: 0 16px; }

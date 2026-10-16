@@ -48,7 +48,7 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
       everyHasMgr: rows.length > 0 && rows.every((a) => a.getAttribute("data-mgr")),
       isFeedRow: !!(first && first.classList.contains("g-feed-row")),
       hasParts: !!(first && first.querySelector(".g-feed-time") && first.querySelector(".g-feed-code") && first.querySelector(".g-feed-title") && first.querySelector(".g-feed-src")),
-      stacked: first ? /title title/.test(getComputedStyle(first).gridTemplateAreas || "") : false,
+      stacked: first ? /"time title" "\. src"/.test(getComputedStyle(first).gridTemplateAreas || "") : false,
       dates: rows.slice(0, 12).map((a) => (a.querySelector(".g-feed-time") || {}).textContent || ""),
       bands: [...document.querySelectorAll("#g-feed .g-mw-month")].map((x) => x.textContent.trim()),
       evSize: feedT ? getComputedStyle(feedT).fontSize : "",

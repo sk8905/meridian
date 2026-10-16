@@ -1,7 +1,10 @@
 // Owner 2026-10-15: "the spacing across these doesn't quite look right" — one iPhone
 // geometry across News, Deals and Profiles (HOUSE_STYLE R43c / R44f):
-//   • ONE leading column (--c-date-w, 64px + 8px gap): every list's headline starts on the
-//     same x — the wire's time, a deal's date, a profile's type, a person's move date;
+//   • ONE leading column (--c-date-w, 52px on iPhone + 8px gap): every list's headline starts
+//     on the same x (72px) — the wire's time, a deal's date, a profile's type ("H Fund" on
+//     iPhone), a person's move date;
+//   • ONE divider: every horizontal line (rows, under the tab and search rows, sections)
+//     is --t-grid — none heavier than another; no colour desk codes on the News wire;
 //   • ONE heading row: the first tab's LABEL on the 12px gutter, its chip (and underline)
 //     from the screen edge, the selected tab at one weight;
 //   • ONE search row: the same height and padding on every page that has one.
@@ -18,8 +21,8 @@ const PAGES = [
   ["Profiles ▸ Managers", "/v2/profiles/#/?tab=managers", "#mgr-rows tr", "td.tl-nm"],
   ["Profiles ▸ People", "/v2/profiles/#/?tab=people", "#pp-rows tr", "td.tl-nm"],
 ];
-for (const width of [390, 430]) {
-  const dev = { viewport: { width, height: 900 }, isMobile: true, hasTouch: true, userAgent: "Mozilla/5.0 (iPhone)" };
+for (const [width, colorScheme] of [[390, "light"], [430, "dark"]]) {
+  const dev = { viewport: { width, height: 900 }, isMobile: true, hasTouch: true, userAgent: "Mozilla/5.0 (iPhone)", colorScheme };
   const seen = [];
   for (const [name, path, rowSel, titleSel] of PAGES) {
     const { ctx, pg, errs } = await open(b, dev, base + path);
@@ -38,12 +41,35 @@ for (const width of [390, 430]) {
         onW: on ? getComputedStyle(on).fontWeight : null, search: sb ? Math.round(sb.getBoundingClientRect().height) : null, sbPad: sb ? getComputedStyle(sb).paddingTop : null };
     }, [rowSel, titleSel]);
     seen.push([name, m]);
+    // Every horizontal divider on screen is ONE colour (field outlines aside).
+    const lines = await pg.evaluate(() => {
+      const out = new Set();
+      for (const e of document.querySelectorAll("body *")) {
+        const r = e.getBoundingClientRect(); if (r.width < 200 || r.top > innerHeight || r.bottom < 50 || !r.height) continue;
+        if (e.matches("input, select, textarea, button, .topbar *")) continue;
+        const cs = getComputedStyle(e);
+        for (const side of ["Top", "Bottom"]) if (parseFloat(cs["border" + side + "Width"]) && cs["border" + side + "Style"] !== "none" && !/, 0\)$/.test(cs["border" + side + "Color"])) out.add(cs["border" + side + "Color"]);
+      }
+      return [...out];
+    });
+    check(lines.length === 1, `${width}px ${name}: every divider is one weight (${lines.join(" | ")})`);
     if (m.chipL <= 1 && name !== "Deals ▸ Fundraising") check(Math.abs(m.labelL - 12) <= 1 && m.chipL === 0, `${width}px ${name}: first tab label on the 12px gutter, chip from the edge (label ${m.labelL}, chip ${m.chipL})`);
     checkErrs(errs, `${width} ${name}`); await ctx.close();
   }
   const xs = new Set(seen.map(([, m]) => m.title));
+  {
+    const { ctx, pg } = await open(b, dev, base + "/v2/news/");
+    await pg.waitForSelector("#g-feed a.g-feed-row", { timeout: 15000 });
+    const codes = await pg.evaluate(() => [...document.querySelectorAll("#g-feed .g-feed-row .g-feed-code")].filter((c) => c.getBoundingClientRect().width > 0).length);
+    check(codes === 0, `${width}px News: no colour desk codes on the wire (${codes} shown)`);
+    await pg.goto(base + "/v2/profiles/#/?tab=hedgefunds");
+    await pg.waitForFunction(() => [...document.querySelectorAll("#hf-rows tr")].some((r) => r.getBoundingClientRect().width), null, { timeout: 15000 });
+    const lead = await pg.evaluate(() => { const tr = [...document.querySelectorAll("#hf-rows tr")].find((r) => r.getBoundingClientRect().width); const b = getComputedStyle(tr, "::before"); return { t: b.content, sw: tr.scrollWidth <= tr.clientWidth + 1 }; });
+    check(lead.t === '"H Fund"', `${width}px Hedge Funds: the lead reads "H Fund" on iPhone (${lead.t})`);
+    await ctx.close();
+  }
   check(xs.size === 1, `${width}px: every list's headline starts on the same x — ${seen.map(([n, m]) => `${n} ${m.title}`).join(", ")}`);
-  check([...xs][0] === 12 + 64 + 8, `${width}px: that x is gutter + the one 64px lead column + 8px (${[...xs][0]})`);
+  check([...xs][0] === 12 + 52 + 8, `${width}px: that x is gutter + the one 52px lead column + 8px (${[...xs][0]})`);
   const ws = new Set(seen.map(([, m]) => m.onW).filter(Boolean));
   check(ws.size === 1, `${width}px: the selected tab has one weight on every page (${[...ws].join(", ")})`);
   const sbs = seen.filter(([, m]) => m.search != null);

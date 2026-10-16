@@ -307,7 +307,7 @@
 .dsh-fl-note { color:var(--t-faint); font-size:var(--fs-micro); line-height:1.5; margin:8px 0 0; }
 /* Geography bands: a small left-aligned label rule introducing each regional
    block (United States, Europe, Asia-Pacific, …), set off by a top rule. */
-.dsh-fl-tbl tr.dsh-georow td.dsh-geo { text-align:left; padding:10px 6px 3px; font-size:var(--fs-micro); font-weight:400; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); border-top:1px solid var(--t-grid2); }
+.dsh-fl-tbl tr.dsh-georow td.dsh-geo { text-align:left; padding:10px 6px 3px; font-size:var(--fs-micro); font-weight:400; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); border-top:1px solid var(--t-grid); }
 .dsh-fl-tbl tbody tr.dsh-georow:first-child td.dsh-geo { border-top:0; padding-top:2px; }
 .dsh-fl-pos { color:var(--t-up); font-weight:400; }
 /* Market-sizes matrix (Macro): the four asset classes laid out SIDE BY SIDE, each
@@ -317,7 +317,7 @@
    right-most (10Y) column of one never crowds the next block's label. */
 .dsh-ms-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(232px, 1fr)); gap:10px 40px; }
 .dsh-ms-col { min-width:0; }
-.dsh-ms-col-h { font-size:var(--fs-micro); font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--t-mut); padding:2px 0 4px; border-bottom:1px solid var(--t-grid2); margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dsh-ms-col-h { font-size:var(--fs-micro); font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--t-mut); padding:2px 0 4px; border-bottom:1px solid var(--t-grid); margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .dsh-ms-tbl { width:100%; }
 .dsh-ms-tbl th, .dsh-ms-tbl td { padding:3px 4px; }
 .dsh-ms-tbl th { color:var(--t-mut); font-weight:400; font-size:var(--fs-micro); }
@@ -360,7 +360,7 @@
 /* IPO / generic table */
 .dsh-scroll { overflow-x:auto; }
 .dsh-tbl { width:100%; border-collapse:collapse; font-size:var(--fs-body); font-family:var(--t-mono); }
-.dsh-tbl th { text-align:left; color:var(--t-mut); font-weight:500; font-size:var(--fs-body); padding:4px 8px; border-bottom:1px solid var(--t-grid2); white-space:nowrap; vertical-align:top; }
+.dsh-tbl th { text-align:left; color:var(--t-mut); font-weight:500; font-size:var(--fs-body); padding:4px 8px; border-bottom:1px solid var(--t-grid); white-space:nowrap; vertical-align:top; }
 /* Top-align cells: a wrapping cell (e.g. the Stress "Note") sets the row height,
    and without this the short single-line cells float in the vertical middle of
    that tall row, reading as big empty gaps ("stretched"). Top keeps every row
@@ -370,7 +370,7 @@
 /* Week sub-header row inside a grouped table (e.g. the earnings calendar's
    "This week" / "Last week" bands). */
 .dsh-tbl .dsh-wkrow td { color:var(--t-ink); font-weight:400; font-size:var(--fs-body); text-transform:uppercase;
-  letter-spacing:.04em; background:var(--t-panel2); border-bottom:1px solid var(--t-grid2); padding-top:7px; padding-bottom:4px; }
+  letter-spacing:.04em; background:var(--t-panel2); border-bottom:1px solid var(--t-grid); padding-top:7px; padding-bottom:4px; }
 /* Dashboard tables read LEFT-ALIGNED throughout (headers + cells), including the
    value columns that .dsh-r used to right-align — a consistent left edge across
    the pipeline, stress, rates, maturity and other tables. */
@@ -381,13 +381,13 @@
 .dsh-tbl td .dsh-src { float:right; margin-left:10px; }
 /* Region separator inside the heatmap tables: a thin grey rule (no label band) —
    the first row of each new region carries a stronger top border + a little space. */
-.dsh-tbl tr.dsh-secbreak td { border-top:1px solid var(--t-grid2); padding-top:11px; }
+.dsh-tbl tr.dsh-secbreak td { border-top:1px solid var(--t-grid); padding-top:11px; }
 /* Earnings calendar — a legible stacked list: week band, then one card per
    release (ticker · company · session · date; sector; forecast→actual measures;
    price reaction; the "why" note). Replaces the old cramped 6-column table. */
 .dsh-earn { display:flex; flex-direction:column; }
 .dsh-earn-wk { font-size:var(--fs-body); font-weight:400; letter-spacing:.04em; text-transform:uppercase;
-  color:var(--t-ink); background:var(--t-panel2); border-bottom:1px solid var(--t-grid2);
+  color:var(--t-ink); background:var(--t-panel2); border-bottom:1px solid var(--t-grid);
   padding:6px 8px; margin:10px -4px 2px; border-radius:0; }
 .dsh-earn-wk:first-child { margin-top:0; }
 .dsh-earn-rel { padding:8px 4px; border-bottom:1px solid var(--t-grid); }
@@ -645,7 +645,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
    narrative below runs the full width of the card. */
 .dsh-cyc-narr { min-width:0; }
 .dsh-cyc-hd { display:flex; align-items:center; flex-wrap:wrap; column-gap:22px; row-gap:6px;
-  margin:0 0 8px; padding-bottom:5px; border-bottom:1px solid var(--t-grid2,#262626); }
+  margin:0 0 8px; padding-bottom:5px; border-bottom:1px solid var(--t-grid); }
 .dsh-cyc-hd-t { font-size:var(--fs-body); font-weight:700; color:var(--t-ink); }
 .dsh-cyc-hd-t span { display:block; font-size:var(--fs-body); font-weight:400; color:var(--t-mut); margin-top:2px; }
 /* The two meters compact into a horizontal row beside the header text (label ·

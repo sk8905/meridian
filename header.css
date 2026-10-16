@@ -110,7 +110,7 @@
 
 /* ---------- Markets ticker strip (MKTS) ---------- */
 .wticker { display: flex; align-items: stretch; height: 26px; flex: 0 0 auto; overflow: hidden;
-  background: var(--head); border-bottom: 1px solid var(--border); }
+  background: var(--head); border-bottom: 1px solid var(--t-grid); }
 .wticker:empty { display: none; }
 /* Dark mode: the desktop-only ticker (MKTS) and briefing strips flatten onto the
    #141414 charcoal ground — with the top bar (--navy, also #141414 in dark) this
@@ -134,7 +134,7 @@
    (same 34px width, same right gutter as .topbar-inner). Dimmed + inert until the
    runtime flags an in-app entry to return to (<html data-can-back>). Phones hide the
    whole row: the iOS left-edge swipe is Back there. */
-.wtk-bar { display: flex; align-items: stretch; flex: 0 0 auto; background: var(--head); border-bottom: 1px solid var(--border); }
+.wtk-bar { display: flex; align-items: stretch; flex: 0 0 auto; background: var(--head); border-bottom: 1px solid var(--t-grid); }
 .wtk-bar > .wticker { flex: 1 1 auto; min-width: 0; border-bottom: 0; }
 .nav-back { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 26px;
   margin: 0 1.5rem 0 auto; padding: 0; background: transparent; border: 0; border-radius: 0; color: var(--muted); cursor: pointer; }
@@ -149,7 +149,7 @@
    Markets · Rates & spreads, ellipsis-clipped. Labels are Wire-orange caps; the
    story/one-liner text is --wb-txt (== terminal --t-dim). Desktop-only. ---------- */
 .wbrief { display: flex; align-items: baseline; gap: 10px; padding: 6px 20px; margin: 0;
-  background: var(--head); border-bottom: 1px solid var(--border); overflow: hidden; }
+  background: var(--head); border-bottom: 1px solid var(--t-grid); overflow: hidden; }
 .wbrief:empty { display: none; }
 .wb-main { flex: 0 0 auto; display: flex; align-items: baseline; gap: 8px; }
 /* Briefing band colour map: the greeting reads ORANGE (--accent), the kicker

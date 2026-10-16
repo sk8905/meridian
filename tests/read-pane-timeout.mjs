@@ -28,7 +28,9 @@ await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
 const clicked = await pg.evaluate((pat) => {
   const re = new RegExp(pat, "i");
   const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
-  const r = rows.find((x) => !x.classList.contains("is-locked") && !re.test((x.querySelector(".g-feed-src") || {}).textContent || ""));
+  // Not the story the pane auto-opened on load (.is-reading): its body is already fetched /
+  // cached, so re-opening it shows no loading note. Pick a story that starts a fresh fetch.
+  const r = rows.find((x) => !x.classList.contains("is-locked") && !x.classList.contains("is-reading") && !x.classList.contains("g-desk-n") && !re.test((x.querySelector(".g-feed-src") || {}).textContent || ""));
   if (!r) return false; (r.querySelector(".g-feed-src") || r).click(); return true;
 }, WALLED_SRC_PATTERN);
 check(clicked, "a readable wire row was opened in the pane");

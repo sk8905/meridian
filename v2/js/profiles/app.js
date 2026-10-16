@@ -73,13 +73,16 @@ export async function mount(host, ctx) {
   // same faint micro style (R43). Carried as data-lead and drawn by CSS (::before), so
   // the table's columns, sort, URL state and CSV are untouched. People keeps its date.
   const LEAD = { managers: "Manager", hedgefunds: "Hedge fund", investors: "Investor", firms: "Law firm" };
+  const LEAD_SHORT = { "Hedge fund": "H Fund" };
   panes.querySelectorAll(".tpane[data-pane]").forEach((p) => {
     const k = p.dataset.pane; if (k === "people") return;
     const t = p.querySelector(".tleague-wrap table"); if (!t) return;
     t.classList.add("pf-lead");
     t.querySelectorAll("tbody tr").forEach((tr) => {
       const lead = k === "all" ? tr.dataset.fType : LEAD[k]; if (!lead) return;
-      tr.dataset.lead = lead; if (tr.cells[0]) tr.cells[0].dataset.lead = lead;
+      // iPhone draws the row's lead (tr) in the narrow 52px column — "Hedge fund" reads
+      // "H Fund" there; desktop draws the first cell's (td) in full.
+      tr.dataset.lead = LEAD_SHORT[lead] || lead; if (tr.cells[0]) tr.cells[0].dataset.lead = lead;
     });
   });
   // The OFR Hedge Fund Monitor is collapsed on open — it loads lazily when the

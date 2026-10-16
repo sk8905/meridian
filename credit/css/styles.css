@@ -73,9 +73,9 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
   border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 24px rgba(15,23,42,.18);
   z-index: 40; padding: .5rem;
 }
-.notif-head { font-weight: 700; font-size:var(--fs-head); padding: .35rem .5rem .5rem; border-bottom: 1px solid var(--border); margin-bottom: .25rem; }
+.notif-head { font-weight: 700; font-size:var(--fs-head); padding: .35rem .5rem .5rem; border-bottom: 1px solid var(--t-grid); margin-bottom: .25rem; }
 .notif-list { list-style: none; margin: 0; padding: 0; }
-.notif-item { padding: .45rem .5rem; border-bottom: 1px solid var(--border); border-radius: 6px; }
+.notif-item { padding: .45rem .5rem; border-bottom: 1px solid var(--t-grid); border-radius: 6px; }
 .notif-item:last-child { border-bottom: none; }
 .notif-empty { padding: .6rem .5rem; }
 
@@ -117,7 +117,7 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 1.1rem 1.25rem; margin-bottom: 1rem; box-shadow: var(--shadow);
 }
-.card-foot { margin-top: .75rem; padding-top: .6rem; border-top: 1px solid var(--border); }
+.card-foot { margin-top: .75rem; padding-top: .6rem; border-top: 1px solid var(--t-grid); }
 
 /* Collapsed-by-default "Key rates & metrics" toggle — a plain text button (no
    card) that reveals the rates band + KPI tiles. Kept compact when collapsed. */
@@ -235,7 +235,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .card-aum { font-size:var(--fs-title); }
 
 /* ---------- deployment / dry powder ---------- */
-.deploy { margin-top: .85rem; padding-top: .75rem; border-top: 1px solid var(--border); }
+.deploy { margin-top: .85rem; padding-top: .75rem; border-top: 1px solid var(--t-grid); }
 .deploy-head { display: flex; justify-content: space-between; gap: 1rem; font-size:var(--fs-head); font-weight: 600; color: var(--muted); margin-bottom: .4rem; }
 .deploy-bar { background: #eef2f7; border: 1px solid var(--border); border-radius: 6px; height: 16px; overflow: hidden; }
 .deploy-fill { height: 100%; background: var(--t-up, #3fc08d); }
@@ -254,7 +254,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .data-meter.dm-hi { color: var(--t-up, #3fc08d); } .data-meter.dm-mid { color: var(--accent); } .data-meter.dm-lo { color: var(--faint, #8b96ac); }
 .fund-sub { display: flex; align-items: center; gap: .35rem; flex-wrap: wrap; }
 .provenance .dim-list { list-style: none; margin: .6rem 0; padding: 0; display: grid; gap: .3rem; }
-.provenance .dim { display: grid; grid-template-columns: 1.4rem 11rem 1fr; align-items: baseline; gap: .5rem; padding: .35rem .2rem; border-bottom: 1px solid var(--border); }
+.provenance .dim { display: grid; grid-template-columns: 1.4rem 11rem 1fr; align-items: baseline; gap: .5rem; padding: .35rem .2rem; border-bottom: 1px solid var(--t-grid); }
 .provenance .dim:last-child { border-bottom: 0; }
 .provenance .dim-icon { font-weight:400; text-align: center; border-radius: 50%; }
 .provenance .dim-key { font-weight:400; }
@@ -295,7 +295,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .data-table thead th.sortable:hover { color: var(--ink); }
 .data-table thead th.sortable.active { color: var(--primary-ink, #1c3a5e); }
 .data-table thead th.sortable:focus-visible { outline: 2px solid #c8d5e6; outline-offset: -2px; }
-.data-table tbody td { padding: .6rem .6rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.data-table tbody td { padding: .6rem .6rem; border-bottom: 1px solid var(--t-grid); vertical-align: middle; }
 .data-table tbody tr.clickable { cursor: pointer; }
 .data-table tbody tr.clickable:hover { background: #f8fafc; }
 .prog-col { min-width: 190px; }
@@ -327,7 +327,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
   padding: 1.1rem; box-shadow: var(--shadow); cursor: pointer; transition: border-color .15s, transform .1s; display: flex; flex-direction: column; gap: .6rem; }
 .manager-card:hover { border-color: var(--ink); }
 .manager-card-head { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; }
-.manager-stats { display: flex; gap: 1.25rem; padding: .5rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.manager-stats { display: flex; gap: 1.25rem; padding: .5rem 0; border-top: 1px solid var(--t-grid); border-bottom: 1px solid var(--t-grid); }
 .manager-stats div { display: flex; flex-direction: column; }
 .manager-stats strong { color: var(--primary-ink); font-size:var(--fs-title); }
 
@@ -340,11 +340,11 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .facts dt { color: var(--muted); }
 .facts dd { margin: 0; font-weight:400; text-align: right; overflow-wrap: anywhere; min-width: 0; }
 .link-list { list-style: none; margin: .25rem 0 0; padding: 0; }
-.link-list li { padding: .45rem 0; border-bottom: 1px solid var(--border); }
+.link-list li { padding: .45rem 0; border-bottom: 1px solid var(--t-grid); }
 .link-list li:last-child { border-bottom: none; }
 
 /* ---------- intelligence rows ---------- */
-.intel-row { display: flex; gap: .7rem; padding: .8rem 0; border-bottom: 1px solid var(--border); }
+.intel-row { display: flex; gap: .7rem; padding: .8rem 0; border-bottom: 1px solid var(--t-grid); }
 .intel-row:last-child { border-bottom: none; }
 /* The leading column now holds just the date (the type chip was removed); size it
    to the date so the headline sits right beside it instead of 10rem away. */
@@ -423,7 +423,7 @@ a.intel-head:hover { text-decoration: none; }
 .legend-pct { color: var(--muted); min-width: 36px; text-align: right; font-variant-numeric: tabular-nums; }
 .chart-legend { display: flex; gap: 1.4rem; justify-content: center; margin: 0 0 .4rem; font-size:var(--fs-head); color: var(--muted); }
 /* Secondary heading stacked inside a card (e.g. a second chart below the first). */
-.card-subhead { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.card-subhead { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--t-grid); }
 /* Quarterly-trend dual-handle range slider (one track, two thumbs). */
 .trend-controls { display: flex; flex-direction: column; gap: .5rem; margin: .35rem 0 1rem; }
 .range-readout { font-size:var(--fs-head); color: var(--muted); }
@@ -451,7 +451,7 @@ a.intel-head:hover { text-decoration: none; }
 #trend-end { z-index: 3; }
 
 /* ---------- footer ---------- */
-.footer { border-top: 1px solid var(--border); background: #fff; padding: 1.25rem 1.5rem; }
+.footer { border-top: 1px solid var(--t-grid); background: #fff; padding: 1.25rem 1.5rem; }
 .footer p { font-size:var(--fs-body); color: var(--muted); }
 
 /* The bottom tab bar (.mobile-tabbar / .mtab) is defined ONCE, in premium.css
@@ -609,7 +609,7 @@ a.intel-head:hover { text-decoration: none; }
 
 /* ---------- dashboard compact feeds ---------- */
 .compact-list { list-style: none; margin: .25rem 0 0; padding: 0; }
-.compact-item { padding: .5rem 0; border-bottom: 1px solid var(--border); }
+.compact-item { padding: .5rem 0; border-bottom: 1px solid var(--t-grid); }
 .compact-item:last-child { border-bottom: none; }
 .compact-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
 a.compact-head:hover { text-decoration: none; }
@@ -728,14 +728,14 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .hf-cons #hf-cons-body:not(:empty) { display: block; margin-top: 14px; }
 .hf-cons .tleague-wrap { margin-top: 0; }
 /* Cross-holdings collapse toolbar. */
-.hf-cons-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 12px; background: var(--head); border-bottom: 1px solid var(--border); }
+.hf-cons-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 12px; background: var(--head); border-bottom: 1px solid var(--t-grid); }
 .hf-cons-h-t { font-size:var(--fs-body); font-weight: 600; color: var(--ink); }
 .hf-cons-x { border: 1px solid var(--border, #262626); background: transparent; color: var(--muted); font-family: var(--t-mono); font-size:var(--fs-micro); font-weight:400; padding: 2px 8px; cursor: pointer; border-radius: 0; }
 .hf-cons-x:hover { color: var(--ink); border-color: var(--muted); }
 
 /* OFR Hedge Fund Monitor — compact industry tiles atop the Hedge Funds pane. */
 .hf-ofr { margin: 14px 0 0; border: 1px solid var(--border); }
-.hf-ofr-h { display: flex; align-items: baseline; gap: 6px; padding: 6px 12px; background: var(--head); border-bottom: 1px solid var(--border); font-size:var(--fs-body); font-weight: 600; color: var(--ink); }
+.hf-ofr-h { display: flex; align-items: baseline; gap: 6px; padding: 6px 12px; background: var(--head); border-bottom: 1px solid var(--t-grid); font-size:var(--fs-body); font-weight: 600; color: var(--ink); }
 .hf-ofr-src { color: var(--muted); font-weight: 400; font-size:var(--fs-micro); }
 .hf-ofr-asof { margin-left: auto; font-weight: 400; }
 .hf-ofr-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 1px; background: var(--border); }
@@ -780,7 +780,7 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
    (see the desktop block below) so only the target list scrolls under them.
    Filters start at the LEFT edge — cancel tui.css's .tsearch margin-left:auto,
    which otherwise shoved the whole row toward the centre. */
-.org-filters { flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); background: var(--head); }
+.org-filters { flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--t-grid); background: var(--head); }
 /* Search spans the full row (forcing the LINE/AUM/TIER selects onto the line below). */
 .org-filters #org-q { margin-left: 0; flex: 1 1 100%; width: 100%; max-width: none; }
 .org-fl { display: inline-flex; align-items: center; gap: 4px; font-size:var(--fs-micro); color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }

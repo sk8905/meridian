@@ -51,9 +51,9 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 .notif-bell:hover { background: rgba(255,255,255,.22); }
 .notif-badge { position: absolute; top: -5px; right: -5px; background: #ef4444; color: #fff; border-radius: 999px; min-width: 16px; height: 16px; padding: 0 4px; font-size:var(--fs-micro); font-weight:400; line-height: 16px; text-align: center; }
 .notif-panel { position: absolute; top: calc(100% + 6px); right: 0; width: 360px; max-width: 92vw; max-height: 70vh; overflow-y: auto; overscroll-behavior: contain; background: var(--surface, #fff); color: var(--ink); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 24px rgba(15,23,42,.18); z-index: 40; padding: .5rem; }
-.notif-head { font-weight: 700; font-size:var(--fs-head); padding: .35rem .5rem .5rem; border-bottom: 1px solid var(--border); margin-bottom: .25rem; }
+.notif-head { font-weight: 700; font-size:var(--fs-head); padding: .35rem .5rem .5rem; border-bottom: 1px solid var(--t-grid); margin-bottom: .25rem; }
 .notif-list { list-style: none; margin: 0; padding: 0; }
-.notif-item { padding: .45rem .5rem; border-bottom: 1px solid var(--border); border-radius: 6px; }
+.notif-item { padding: .45rem .5rem; border-bottom: 1px solid var(--t-grid); border-radius: 6px; }
 .notif-item:last-child { border-bottom: none; }
 .notif-empty { padding: .6rem .5rem; }
 
@@ -77,7 +77,7 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 @media (max-width: 620px) { .rel-dd { align-self: flex-start; } }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; box-shadow: var(--shadow); }
 .feature-card { border-top: 3px solid var(--macro); }
-.footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; color: var(--muted); font-size:var(--fs-body); }
+.footer { border-top: 1px solid var(--t-grid); padding: 1.5rem 2rem; color: var(--muted); font-size:var(--fs-body); }
 .footer code { background: #eef1f5; padding: 0 .25rem; border-radius: 4px; }
 
 /* ---------- macro dashboard ---------- */
@@ -135,7 +135,7 @@ a.macro-tile:hover .macro-src { color: var(--ink); text-decoration: none; }
 /* ---------- key macro headlines (Latest-activity-style, US | UK columns) ---------- */
 .news-cols { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 1.75rem; margin-top: .7rem; }
 .compact-list { list-style: none; margin: .1rem 0 0; padding: 0; }
-.compact-item { padding: .55rem 0; border-bottom: 1px solid var(--border); }
+.compact-item { padding: .55rem 0; border-bottom: 1px solid var(--t-grid); }
 .compact-item:last-child { border-bottom: none; }
 .compact-head { display: block; font-weight: 600; color: var(--ink); line-height: 1.35; overflow-wrap: anywhere; }
 a.compact-head:hover { text-decoration: none; }
@@ -147,7 +147,7 @@ a.compact-head:hover { text-decoration: none; }
    gracefully when a headline is too long for one line. */
 /* News/commentary feed row — matches the home feed: a fixed time column, a bold
    headline that ellipsizes to its content, then a muted inline source. */
-.intel-row { display: flex; align-items: baseline; gap: .7rem; padding: .62rem 0; border-bottom: 1px solid var(--border); flex-wrap: nowrap; }
+.intel-row { display: flex; align-items: baseline; gap: .7rem; padding: .62rem 0; border-bottom: 1px solid var(--t-grid); flex-wrap: nowrap; }
 .intel-row:last-child { border-bottom: none; }
 .intel-date { flex: 0 0 auto; min-width: 4.9rem; white-space: nowrap; font-size:var(--fs-body); }
 .intel-head { flex: 0 1 auto; min-width: 0; font-weight: 600; font-size:var(--fs-head); line-height: 1.35; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -190,7 +190,7 @@ a.intel-head:hover { text-decoration: none; }
 .pw-fill { display: block; height: 100%; background: var(--macro); border-radius: 999px; }
 /* Dot-plot median table. */
 .pw-dots { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; margin: .1rem 0 .3rem; }
-.pw-dots th, .pw-dots td { padding: .34rem .1rem; border-bottom: 1px solid var(--border); font-size:var(--fs-head); }
+.pw-dots th, .pw-dots td { padding: .34rem .1rem; border-bottom: 1px solid var(--t-grid); font-size:var(--fs-head); }
 .pw-dots th { text-align: left; color: var(--muted); font-weight:400; }
 .pw-dots td { text-align: right; font-weight:400; color: var(--ink); }
 .pw-dots tr:last-child th, .pw-dots tr:last-child td { border-bottom: 0; }
@@ -223,7 +223,7 @@ a.intel-head:hover { text-decoration: none; }
 .mac-cockpit { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1px; background: var(--border); }
 .ck-panel { background: var(--surface); min-width: 0; display: flex; flex-direction: column; }
 .ck-span2 { grid-column: 1 / -1; }
-.ck-h { display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; background: var(--head); border-bottom: 1px solid var(--border); flex: 0 0 auto; }
+.ck-h { display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; background: var(--head); border-bottom: 1px solid var(--t-grid); flex: 0 0 auto; }
 .ck-h > span:first-child { font-size:var(--fs-body); font-weight: 600; color: var(--ink); text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ck-h > *:nth-child(2) { margin-left: auto; }
 .ck-x { font-size:var(--fs-micro); color: var(--muted); text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; }
@@ -233,7 +233,7 @@ a.intel-head:hover { text-decoration: none; }
 .ck-sub { font-size:var(--fs-micro); color: var(--muted); margin: 0; }
 .ck-sub strong { color: var(--ink); font-weight:400; }
 .ck-src { color: var(--muted); font-weight:400; }
-.ck-sub2 { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); }
+.ck-sub2 { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--t-grid); }
 .ck-srcs { font-size:var(--fs-micro); color: var(--muted); margin: 3px 0 0; }
 .ck-srcs a { color: var(--muted); }
 .ck-srcs a:hover { text-decoration: none; }
@@ -251,7 +251,7 @@ a.intel-head:hover { text-decoration: none; }
 /* Sub-section menu: house underline chips above the cockpit; groups wrap the
    panels transparently (display:contents keeps the grid intact) and hide as a
    unit when filtered. Dividers only show on the All view. */
-.ck-secbar { height: var(--chip-h, 34px); border-bottom: 1px solid var(--border); background: var(--head); }
+.ck-secbar { height: var(--chip-h, 34px); border-bottom: 1px solid var(--t-grid); background: var(--head); }
 .ck-group { display: contents; }
 .ck-group.ck-off { display: none; }
 /* Overview lays its three clusters side by side across the full width:
@@ -299,7 +299,7 @@ a.intel-head:hover { text-decoration: none; }
 /* Key-value data rows (maturity wall) — grey label, white mono value */
 .ck-kv { display: flex; flex-direction: column; margin-top: 4px; }
 .ck-kv-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
-  padding: 3.5px 0; border-bottom: 1px solid var(--border); font-size:var(--fs-body); }
+  padding: 3.5px 0; border-bottom: 1px solid var(--t-grid); font-size:var(--fs-body); }
 .ck-kv-row:last-child { border-bottom: 0; }
 .ck-kv-l { color: var(--muted); min-width: 0; }
 .ck-kv-v { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums;
@@ -318,7 +318,7 @@ a.intel-head:hover { text-decoration: none; }
 .mw-seg.mw-sg, .mw-dot.mw-sg, .mw-fill-sg { background: color-mix(in srgb, var(--macro, #fb8b1e) 75%, transparent); }
 .mw-legend { display: flex; gap: 14px; font-family: var(--t-mono); font-size:var(--fs-micro); letter-spacing: .04em; color: var(--muted); margin-bottom: 6px; }
 /* Further-reading resources (refi / maturity walls), collapsed by default. */
-.mw-res { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 8px; }
+.mw-res { margin-top: 12px; border-top: 1px solid var(--t-grid); padding-top: 8px; }
 .mw-res > summary { cursor: pointer; font-family: var(--t-mono); font-size:var(--fs-micro); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); list-style: none; }
 .mw-res > summary::-webkit-details-marker { display: none; }
 .mw-res > summary::before { content: "▸ "; }
@@ -351,15 +351,15 @@ a.intel-head:hover { text-decoration: none; }
 /* Full-bleed and flush under the sub-section chips: cancel the panel body's
    padding above and beside it. */
 .ew-body { padding-top: 0; }
-.ew-chipbar { display: flex; height: var(--chip-h, 34px); margin: 0 -12px 8px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.ew-chipbar { display: flex; height: var(--chip-h, 34px); margin: 0 -12px 8px; border-bottom: 1px solid var(--t-grid); background: var(--surface); }
 .ew-off { display: none; }
 /* Day-break header — matches the standard wire day-break (R6): mono,
    10px/600, uppercase, a grey band with the accent label (--macro dark / #2f6cae light). */
-.ew-day { margin: 10px -12px 2px; padding: 6px 12px; font-size:var(--fs-micro); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: var(--head, var(--bg)); border-bottom: 1px solid var(--border); }
+.ew-day { margin: 10px -12px 2px; padding: 6px 12px; font-size:var(--fs-micro); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: var(--head, var(--bg)); border-bottom: 1px solid var(--t-grid); }
 .ew-day:first-child { margin-top: 0; }
 .ew-day strong { color: #2f6cae; font-weight: inherit; }
 [data-theme="dark"] .ew-day strong { color: var(--t-accent, var(--macro)); }
-.ew-row { display: flex; gap: 12px; align-items: flex-start; padding: 8px 0 9px; border-bottom: 1px solid var(--border); }
+.ew-row { display: flex; gap: 12px; align-items: flex-start; padding: 8px 0 9px; border-bottom: 1px solid var(--t-grid); }
 .ew-row:last-of-type { border-bottom: 0; }
 /* Left column: ticker + ETF label / name / tag; right column: the Fcst-Act table */
 .ew-l { flex: 0 0 40%; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
@@ -443,8 +443,8 @@ a.intel-head:hover { text-decoration: none; }
 }
 /* Fed dot plot */
 .ck-dots { width: 100%; border-collapse: collapse; font-family: var(--t-mono); font-variant-numeric: tabular-nums; }
-.ck-dots th { text-align: left; font-weight: 400; color: var(--muted); font-size:var(--fs-body); padding: 3px 0; border-bottom: 1px solid var(--border); }
-.ck-dots td { text-align: right; color: var(--ink); font-size:var(--fs-body); font-weight:400; padding: 3px 0; border-bottom: 1px solid var(--border); }
+.ck-dots th { text-align: left; font-weight: 400; color: var(--muted); font-size:var(--fs-body); padding: 3px 0; border-bottom: 1px solid var(--t-grid); }
+.ck-dots td { text-align: right; color: var(--ink); font-size:var(--fs-body); font-weight:400; padding: 3px 0; border-bottom: 1px solid var(--t-grid); }
 .ck-dots tr:last-child th, .ck-dots tr:last-child td { border-bottom: 0; }
 /* Bubble dimensions */
 .ck-dim { border: 1px solid var(--border); padding: 8px 10px; min-width: 0; }

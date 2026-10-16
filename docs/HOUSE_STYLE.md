@@ -1420,10 +1420,11 @@ notification badge red (`#ef4444`).
   same style, on desktop (inside the first cell, header "Entity") and iPhone (the card
   row's first item, line 2 indented under the name); drawn from `data-lead` by CSS so sort,
   URL state and CSV never see it. People keeps its date. The leading column is also ONE
-  WIDTH: `--c-date-w` = **64px + an 8px gap** at every width (it fits the widest lead,
-  "Hedge fund" / "28 Sep 26"), so on iPhone every list's headline starts at the same x —
-  12px gutter + 64 + 8 = **84px** — on News, Deals, Fundraising, Profiles and People (no
-  page-specific 44 / 58 / 66px lead). **(d) Three
+  WIDTH per form factor: `--c-date-w` = **52px on iPhone** (it fits "28 Sep 26", 50px) and
+  64px on desktop, always with an **8px gap** — so on iPhone every list's headline starts
+  at the same x, 12 + 52 + 8 = **72px**, on News, Deals, Fundraising, Profiles and People
+  (no page-specific lead). Labels shorten to fit on iPhone — **"H Fund"** for Hedge fund
+  (Manager · Investor · Law firm fit whole); desktop keeps the full word. **(d) Three
   text tiers only:** primary `--t-ink` (white in dark, near-black in light) for the
   name / headline / key figure; mid grey `--t-mut` for supporting facts (type, amount,
   court, counterparty); subtle `--t-faint` for dates, sources, counts and labels. `--t-dim`
@@ -1484,8 +1485,17 @@ notification badge red (`#ef4444`).
   R2d b, keep `0 6px` / `0 4px` inside but pad their first label to the gutter) — and the
   selected tab is weight 600 everywhere (the hub's chips no longer drop it). Every search
   row is the same: **8px above and below on iPhone (43px), none on desktop (28px)** — Deals
-  matches Profiles. Lists start their headline at 84px (R43c). Spec:
-  `tests/phone-geometry.mjs` (390px and 430px). Spec: `tests/phone-trim.mjs`.
+  matches Profiles. Lists start their headline at 72px (R43c). Spec:
+  `tests/phone-geometry.mjs` (390px light, 430px dark).
+  **(g) One divider weight** (owner 2026-10-15, "some line breaks are heavier than
+  others"): EVERY horizontal divider — list rows, the line under the header, the tab row,
+  the search row, section heads, table rows, cards, the bottom tab bar — is `1px solid
+  var(--t-grid)` (#212121 dark / #e0e6ef light). `--border` / `--t-grid2` are for OUTLINED
+  boxes only (search fields, buttons, chips), never a divider; and a list never draws a
+  top rule under a bar that already has a bottom one (no doubled line).
+  **(h) No colour desk codes on the wire** (owner 2026-10-15): News / Home wire rows read
+  time · headline, then the source on line 2 — like every events row. The code stays in
+  the markup (the row's desk, for filters and search) but is not drawn. Spec: `tests/phone-trim.mjs`.
 
 ## 7. Technical rules
 

@@ -101,7 +101,7 @@
     .g-footer { display:none; }
     @media (max-width:760px){
       .g-footer { display:flex; flex-direction:column; gap:.3rem; align-items:center; text-align:center;
-        max-width:1500px; margin:0 auto; padding:1rem 1rem 1.2rem; border-top:1px solid var(--line); }
+        max-width:1500px; margin:0 auto; padding:1rem 1rem 1.2rem; border-top:1px solid var(--t-grid); }
       .g-footer .g-idblock { align-items:center; }
       .g-footer .g-user { color:var(--muted); font-size:var(--fs-head); }
       .g-footer .g-user strong { color:var(--ink); }
@@ -120,7 +120,7 @@
     .g-sv-panel { position:absolute; top:calc(100% + 8px); right:0; width:360px; max-width:88vw;
       background:var(--t-ground, #ffffff); color:var(--t-ink, #131b2c); border-radius:0; box-shadow:0 22px 55px rgba(8,20,60,.35); padding:.35rem; z-index:70; }
     .g-sv-panel[hidden] { display:none; }
-    .g-sv-head { font-weight:700; font-size:var(--fs-head); color:var(--t-ink, #131b2c); padding:.45rem .55rem .5rem; border-bottom:1px solid var(--line); margin-bottom:.2rem; }
+    .g-sv-head { font-weight:700; font-size:var(--fs-head); color:var(--t-ink, #131b2c); padding:.45rem .55rem .5rem; border-bottom:1px solid var(--t-grid); margin-bottom:.2rem; }
     .g-sv-body { max-height:62vh; overflow-y:auto; overscroll-behavior:contain; }
     .g-sv-item { display:flex; gap:.55rem; align-items:flex-start; padding:.5rem .55rem; border-radius:0; color:inherit; text-decoration:none; }
     .g-sv-item:hover { background:var(--t-panel2, #eef2fb); }
@@ -228,7 +228,7 @@
     /* A full-width rule separates the header (greeting + one-liners) from the
        data sidebar and news feed below. */
     .g-hello { display:grid; grid-template-columns:minmax(24rem, 30%) minmax(0,1fr); align-items:start; column-gap:1.5rem;
-      margin:0 0 .95rem; padding-bottom:.85rem; border-bottom:1px solid var(--line); }
+      margin:0 0 .95rem; padding-bottom:.85rem; border-bottom:1px solid var(--t-grid); }
     .g-hello-main { grid-column:1; }
     .g-hello h1 { font-size:var(--fs-title); font-weight:800; margin:0 0 .2rem; letter-spacing:-.01em; line-height:1.25; }
     .g-hello p { color:var(--muted); margin:0; }
@@ -391,7 +391,7 @@
     .g-side .rate-chg-line { flex-wrap:nowrap; white-space:nowrap; gap:.25rem; }
     .g-side .mkt-fut { font-size:var(--fs-micro); }
     .g-side .rate-tile:nth-child(even) { border-left:1px solid var(--line); }
-    .g-side .rate-tile:nth-child(n+3) { border-top:1px solid var(--line); }
+    .g-side .rate-tile:nth-child(n+3) { border-top:1px solid var(--t-grid); }
     /* Economic indicators — US then UK, each a 3-col × 2-row grid of tiles styled
        to match the markets/key-rates band: a seamless grid divided by hairlines
        (no per-tile boxes or gaps), name · value · change. */
@@ -407,7 +407,7 @@
     .g-ind { display:flex; flex-direction:column; gap:.06rem; padding:.4rem .5rem; min-width:0; color:inherit;
       text-decoration:none; border-left:1px solid var(--line); }
     .g-ind:nth-child(3n+1) { border-left:none; }
-    .g-ind:nth-child(n+4) { border-top:1px solid var(--line); }
+    .g-ind:nth-child(n+4) { border-top:1px solid var(--t-grid); }
     .g-ind-name { text-transform:uppercase; letter-spacing:.4px; font-size:var(--fs-micro); color:var(--muted); font-weight:400; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .g-ind-val { font-weight:400; font-size:var(--fs-head); color:var(--ink); line-height:1.2; font-variant-numeric:tabular-nums; }
     .g-ind-chg { font-size:var(--fs-micro); font-weight:400; white-space:nowrap; font-variant-numeric:tabular-nums; }
@@ -430,13 +430,13 @@
     .g-fx-tbl th:first-child { width:1.5rem; }
     /* Seamless internal dividers, exactly like the markets/rates tile grid. */
     .g-fx-tbl thead th:not(:first-child), .g-fx-tbl td { border-left:1px solid var(--line); }
-    .g-fx-tbl thead th { border-bottom:1px solid var(--line); }
-    .g-fx-tbl tbody tr + tr th, .g-fx-tbl tbody tr + tr td { border-top:1px solid var(--line); }
+    .g-fx-tbl thead th { border-bottom:1px solid var(--t-grid); }
+    .g-fx-tbl tbody tr + tr th, .g-fx-tbl tbody tr + tr td { border-top:1px solid var(--t-grid); }
     .g-fx-tbl td a { color:inherit; text-decoration:none; display:block; padding:.3rem .4rem; }
     /* Macro snapshot card — policy rate, cycle & bubble read below the bands. */
     .g-snap { background:var(--surface); border:1px solid var(--line); border-radius:0;
       box-shadow:var(--shadow); overflow:hidden; }
-    .g-snap-blk { display:block; padding:.6rem .7rem; border-top:1px solid var(--line); color:inherit; text-decoration:none; }
+    .g-snap-blk { display:block; padding:.6rem .7rem; border-top:1px solid var(--t-grid); color:inherit; text-decoration:none; }
     /* The two gauge blocks (cycle, bubble) sit tighter so the macro-read box ends
        level with the news feed. */
     .g-snap-blk:nth-child(n+2) { padding-top:.14rem; padding-bottom:.14rem; }
@@ -515,7 +515,7 @@
          full-bleed equal-width tabs, 11px title-case labels. */
       .g-mkt-head { position:sticky; top:0; z-index:3; display:flex; align-items:stretch;
         min-height:var(--chip-h, 34px);
-        background:var(--t-head, #0a0a0a); border-bottom:1px solid var(--t-grid2, #262626); }
+        background:var(--t-head, #0a0a0a); border-bottom:1px solid var(--t-grid); }
       /* Markets / Macro toggle — the two rails, one at a time. */
       .g-mkt-chips { display:flex; flex:1 1 auto; align-items:stretch; }
       .g-mkt-chip { flex:1 1 0; display:flex; align-items:center; justify-content:center;
@@ -552,7 +552,7 @@
       .g-sv-panel { background:var(--t-ground, #000000); color:var(--t-ink, #eaf0fb); padding:0 0 calc(2rem + env(safe-area-inset-bottom, 0px)); }
       .g-sv-head { position:sticky; top:0; z-index:3; display:flex; align-items:center; justify-content:space-between;
         gap:10px; min-height:46px; padding:0 4px 0 14px; margin:0; border-radius:0;
-        background:var(--t-head, #0a0a0a); border-bottom:1px solid var(--t-grid2, #262626);
+        background:var(--t-head, #0a0a0a); border-bottom:1px solid var(--t-grid);
         color:var(--t-ink, #eaf0fb); font-weight:600; font-size:var(--fs-body); }
       .g-menu-close { display:grid; width:34px; height:34px; flex:0 0 auto; align-self:center; place-items:center;
         border:1px solid var(--t-grid2, #262626); background:transparent; color:var(--t-ink, #eaf0fb);
@@ -572,7 +572,7 @@
     .g-mkt-panel:not(.tui) .rate-tile { padding:.4rem .38rem; }
     .g-mkt-panel:not(.tui) .rate-tile:nth-child(n+1) { border-left:1px solid var(--line); border-top:0; }
     .g-mkt-panel:not(.tui) .rate-tile:nth-child(4n+1) { border-left:0; }
-    .g-mkt-panel:not(.tui) .rate-tile:nth-child(n+5) { border-top:1px solid var(--line); }
+    .g-mkt-panel:not(.tui) .rate-tile:nth-child(n+5) { border-top:1px solid var(--t-grid); }
 
     /* ---- Cards (legacy; retained for any residual use) ---- */
     .g-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
@@ -600,7 +600,7 @@
     .g-open:hover { text-decoration:none; }
     .g-card-desc { color:var(--muted); font-size:var(--fs-head); margin:.1rem 0 .5rem; }
     .g-list { display:flex; flex-direction:column; }
-    .g-item { display:block; padding:.55rem 0; border-top:1px solid var(--line); }
+    .g-item { display:block; padding:.55rem 0; border-top:1px solid var(--t-grid); }
     .g-sub-h + .g-item { border-top:0; }
     .g-item .t { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
       font-weight:400; color:var(--ink); font-size:var(--fs-head); line-height:1.35; min-height:2.7em; overflow-wrap:anywhere; }
@@ -633,7 +633,7 @@
       font-size:var(--fs-title); font-weight:400; border:1px solid transparent; cursor:pointer; text-align:center; }
     .btn.primary { background:var(--brand-2); color:#fff; }
     .btn.secondary { background:#eef2fb; color:var(--brand); }
-    .divider { border:0; border-top:1px solid var(--line); margin:1.4rem 0 1rem; }
+    .divider { border:0; border-top:1px solid var(--t-grid); margin:1.4rem 0 1rem; }
     .signout { display:inline-block; margin-top:.4rem; color:var(--muted); font-size:var(--fs-head); }
     .hint { color:var(--muted); font-size:var(--fs-body); margin-top:1.2rem; }
     .hint a { color:inherit; }
@@ -655,7 +655,7 @@
     .cmdk-results { max-height:56vh; overflow-y:auto; overscroll-behavior:contain; padding:0; }
     .cmdk-empty { color:var(--t-faint, #5c6a86); font-size:var(--fs-head); padding:1.2rem; text-align:center; }
     /* nf-row feed style: headline on top, mono meta line (desk code + sub) below. */
-    .cmdk-row { display:block; padding:9px 14px; border-bottom:1px solid var(--t-grid2, #262626); cursor:pointer; }
+    .cmdk-row { display:block; padding:9px 14px; border-bottom:1px solid var(--t-grid); cursor:pointer; }
     .cmdk-row.sel, .cmdk-row:hover { background:var(--t-panel2, rgba(255,255,255,.05)); }
     .cmdk-t { display:block; font-weight:400; font-size:var(--fs-head); line-height:1.35; margin-bottom:4px;
       color:var(--t-ink, #eaf0fb); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -676,14 +676,14 @@
     .cmdk-code.bbg { color:var(--t-mac, #9b83e2); background:color-mix(in srgb, var(--t-mac, #9b83e2) 16%, transparent); }
     .cmdk-code.econ { color:var(--t-mac, #9b83e2); background:color-mix(in srgb, var(--t-mac, #9b83e2) 16%, transparent); }
     .cmdk-s { min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .cmdk-foot { border-top:1px solid var(--t-grid2, #262626); padding:.5rem .8rem; color:var(--t-faint, #5c6a86); font-size:var(--fs-body);
+    .cmdk-foot { border-top:1px solid var(--t-grid); padding:.5rem .8rem; color:var(--t-faint, #5c6a86); font-size:var(--fs-body);
       display:flex; gap:1rem; }
     .cmdk-foot kbd { background:var(--t-panel2, rgba(255,255,255,.06)); border-radius:0; padding:.05rem .3rem; font-family:inherit; font-weight:400; }
     /* On touch phones the keyboard-hint footer is irrelevant. */
     @media (max-width:760px){ .cmdk-foot { display:none; } }
     /* Search bar wrapper. On desktop it's just the input (the magnifier + Cancel are
        phone-only), so the palette looks exactly as before. */
-    .cmdk-bar { display:flex; align-items:center; border-bottom:1px solid var(--t-grid2, #262626); padding-right:8px; }
+    .cmdk-bar { display:flex; align-items:center; border-bottom:1px solid var(--t-grid); padding-right:8px; }
     .cmdk-mag, .cmdk-cancel { display:none; }
     /* ✕ clears the typed query (shown only while there's text; [hidden] wins). */
     .cmdk-clear { display:grid; place-items:center; flex:0 0 auto; width:30px; height:30px;
@@ -709,7 +709,7 @@
         background:var(--t-ground, #000000); }
       .cmdk-bar { flex:0 0 auto; gap:9px; padding:6px 8px 6px 13px;
         padding-top:calc(env(safe-area-inset-top, 0px) + 8px);
-        background:var(--t-head, #0a0a0a); border-bottom:1px solid var(--t-grid2, #262626); }
+        background:var(--t-head, #0a0a0a); border-bottom:1px solid var(--t-grid); }
       .cmdk-mag { display:block; flex:0 0 auto; width:18px; height:18px; color:var(--t-faint, #5c6a86); }
       .cmdk-input { flex:1 1 auto; min-width:0; border:0 !important; border-bottom:0 !important;
         background:transparent; padding:.5rem .1rem; font-size:var(--fs-title); color:var(--t-ink, #eaf0fb); }
@@ -718,7 +718,7 @@
         color:var(--t-accent, #fb8b1e); font:inherit; font-size:var(--fs-head); font-weight:400;
         padding:.4rem .35rem; cursor:pointer; white-space:nowrap; }
       .cmdk-results { flex:1 1 auto; max-height:none; padding:0 0 48vh; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
-      .cmdk-row { border-bottom:1px solid var(--t-grid2, #262626); border-radius:0; padding:9px 14px; }
+      .cmdk-row { border-bottom:1px solid var(--t-grid); border-radius:0; padding:9px 14px; }
       .cmdk-row.sel, .cmdk-row:hover { background:var(--t-panel2, rgba(255,255,255,.05)); }
       .cmdk-t { font-size:var(--fs-head); color:var(--t-ink, #eaf0fb); }
       .cmdk-empty { color:var(--t-faint, #5c6a86); padding:1.4rem; }
@@ -795,7 +795,7 @@
 
     /* ---- ticker strip (below the command bar) ---- */
     .g-ticker{ display:flex; align-items:stretch; height:26px; flex:0 0 auto; overflow:hidden;
-      background:var(--t-panel2); border-bottom:1px solid var(--t-grid2); }
+      background:var(--t-panel2); border-bottom:1px solid var(--t-grid); }
     .g-ticker-lbl{ display:flex; align-items:center; gap:6px; padding:0 13px; font-size:var(--fs-body); font-weight:400;
       letter-spacing:.04em; color:var(--t-mut); border-right:1px solid var(--t-grid); white-space:nowrap; }
     .g-ticker-lbl::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--t-accent);
@@ -851,7 +851,7 @@
     /* Range selector — the Google-Finance style: labels spread evenly across the
        full width over a hairline track, the active one blue with a blue underbar
        sitting on the track. */
-    .tui .g-hero-range{ display:flex; justify-content:space-between; gap:0; padding:0 6px; margin-bottom:4px; border-bottom:1px solid var(--t-grid2); }
+    .tui .g-hero-range{ display:flex; justify-content:space-between; gap:0; padding:0 6px; margin-bottom:4px; border-bottom:1px solid var(--t-grid); }
     .tui .g-hero-rg{ flex:1 1 0; text-align:center; font:inherit; font-size:var(--fs-body); font-weight:600; letter-spacing:.01em;
       color:var(--t-mut); background:transparent; border:0; border-bottom:2px solid transparent; margin-bottom:-1px; padding:5px 2px 7px; cursor:pointer; }
     .tui .g-hero-rg:hover{ color:var(--t-ink); }
@@ -893,7 +893,7 @@
        .g-feed-row). Shown on the phone/tablet Chart pane (there's room below the
        chart); on the ≥1201px terminal the full News column already exists, and the
        hero is a height-boxed band, so it's hidden there. */
-    .tui .g-hero-news{ display:none; border-top:1px solid var(--t-grid2); margin-top:2px; padding:0 8px 10px;
+    .tui .g-hero-news{ display:none; border-top:1px solid var(--t-grid); margin-top:2px; padding:0 8px 10px;
       container:feedwrap / inline-size; }   /* so .g-feed-row stacks (news-wire mobile layout) when narrow */
     /* Use the full width: a single small gutter, not the row's 12px on top of the
        container's — headlines run edge-to-edge like the chart above. */
@@ -1048,7 +1048,7 @@
       top:var(--wire-head-h, 57px); bottom:0; }
     .g-reader[hidden]{ display:none; }
     .g-reader-bar{ flex:0 0 auto; display:flex; align-items:center; gap:10px; height:40px; padding:0 12px;
-      background:var(--t-head); border-bottom:1px solid var(--t-grid2); }
+      background:var(--t-head); border-bottom:1px solid var(--t-grid); }
     .g-reader-back{ display:inline-flex; align-items:center; gap:4px; border:0; background:transparent; color:var(--t-accent);
       font:inherit; font-size:var(--fs-body); font-weight:400; letter-spacing:.01em; cursor:pointer; padding:6px 2px; }
     .g-reader-src{ margin-left:auto; font-family:var(--t-mono); font-size:var(--fs-body); letter-spacing:.02em; color:var(--t-faint); }
@@ -1155,7 +1155,7 @@
          body scrolls within the cell, so a long brief never steals height from the
          news wire below it. A hairline underline divides it from the news row. */
       .tui .g-hbrief:not([hidden]){ display:flex; flex-direction:column; min-height:0; height:100%;
-        overflow:hidden; border-bottom:1px solid var(--t-grid2); }
+        overflow:hidden; border-bottom:1px solid var(--t-grid); }
       /* Chart quadrant fills its (taller) row: the plot grows and the SVG stretches to
          fill, so the briefing + chart row reads as ~30% of the height with no dead space. */
       .tui .g-hero{ min-height:0; overflow:hidden; }
@@ -1171,7 +1171,7 @@
       .tui .g-hbrief .g-hbrief-head{ cursor:default; }
       .tui .g-hbrief .g-hbrief-chev{ display:none; }
       /* The chart quadrant sits over the manager wire; divide the two rows to match. */
-      .tui .g-hero{ border-bottom:1px solid var(--t-grid2); }
+      .tui .g-hero{ border-bottom:1px solid var(--t-grid); }
     }
     /* F10 — short-laptop fallback. On a tall viewport the rails fit exactly and
        only their one designated region scrolls; on a SHORT viewport the pinned
@@ -1263,7 +1263,7 @@
        wire (rendered by glance.js renderHomeBriefing). Orange desk kickers (shared
        .nb-topic); numbers read as plain body text (matching the header panel).
        Collapsible via the header row; folds to a single line. ---- */
-    .tui .g-hbrief{ border-bottom:1px solid var(--t-grid2); background:var(--t-panel); }
+    .tui .g-hbrief{ border-bottom:1px solid var(--t-grid); background:var(--t-panel); }
     .tui .g-hbrief[hidden]{ display:none; }
     /* Header row matches the other panes' .tui-ph (Chart / X feed / Policy rate):
        title-case title left, faint timestamp sub-label right, 30px, same ground +
@@ -1349,7 +1349,7 @@
        SIBLING of the scrolling body and holds its height (flex:0 0 auto), so it pins to the
        bottom of the fixed briefing pane — glued just above the bottom nav — for a brief of any
        length. A full-width bar with a hairline above and the panel background behind it. */
-    .tui .g-hbrief-stamp{ display:none; flex:0 0 auto; padding:7px 12px; border-top:1px solid var(--t-grid2);
+    .tui .g-hbrief-stamp{ display:none; flex:0 0 auto; padding:7px 12px; border-top:1px solid var(--t-grid);
       background:var(--t-panel); font-family:var(--t-mono); font-size:var(--fs-micro); letter-spacing:.02em; color:var(--t-faint); }
     /* Inline security pill in the briefing prose (snip-3 style): a small bordered chip right
        after a recognised company / benchmark — ticker + day's move + direction arrow. Stays
@@ -1499,7 +1499,7 @@
       .tui .g-side-x{ order:4; }
       .tui .g-side{ order:5; }
       .tui .g-side2{ order:6; }
-      .tui .g-side,.tui .g-side2,.tui .g-side3,.tui .g-side-x{ border-right:0; border-left:0; border-bottom:1px solid var(--t-grid2); }
+      .tui .g-side,.tui .g-side2,.tui .g-side3,.tui .g-side-x{ border-right:0; border-left:0; border-bottom:1px solid var(--t-grid); }
       /* The sticky stack under the fixed header is, top-to-bottom: the search band
          (.wire-band, --wire-band-h tall), then the News/Watchlist tabs, then the
          feed filter row. Each pins directly beneath the one above, so their `top`
@@ -1517,7 +1517,7 @@
          colour box-shadow above covers any residual sub-pixel seam under the band. */
       .tui .g-wiretabs{ display:flex; order:-1; position:sticky; top:calc(var(--wire-head-h, 57px) + var(--wire-band-h, 43px)); z-index:9;
         height:var(--chip-h, 34px); box-sizing:border-box;
-        background:var(--t-head); border-bottom:1px solid var(--t-grid2); box-shadow:0 -1px 0 var(--t-head); }
+        background:var(--t-head); border-bottom:1px solid var(--t-grid); box-shadow:0 -1px 0 var(--t-head); }   /* the one divider (--t-grid), as every line (R44g) */
       /* All four chips share the row evenly (equal flex tracks), each centred. */
       .tui .g-wiretab{ flex:1 1 0; min-width:0; height:100%; display:flex; align-items:center; justify-content:center;
         gap:4px; padding:0 3px; font:inherit; font-size:var(--fs-body); font-weight:400; letter-spacing:normal; border:0;
@@ -1635,7 +1635,7 @@
       .tui .g-mktpane .na-mktslide{ flex:0 0 100%; width:100%; min-width:0; scroll-snap-align:start; scroll-snap-stop:always;
         overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; }
       .tui .g-mktpane .na-mktdots{ flex:0 0 auto; display:flex; justify-content:center; align-items:center; gap:8px;
-        padding:9px 0 calc(9px + env(safe-area-inset-bottom, 0px)); background:var(--t-head); border-top:1px solid var(--border, #262626); }
+        padding:9px 0 calc(9px + env(safe-area-inset-bottom, 0px)); background:var(--t-head); border-top:1px solid var(--t-grid); }
       .tui .g-mktpane .na-mktdot{ width:7px; height:7px; padding:0; border:0; border-radius:50%; background:var(--t-mut);
         opacity:.38; cursor:pointer; transition:opacity .15s ease, transform .15s ease, background .15s ease; }
       .tui .g-mktpane .na-mktdot.is-on{ opacity:1; background:var(--accent, #fb8b1e); transform:scale(1.18); }
@@ -1674,7 +1674,7 @@
 
     /* ---- briefing bar — a single compact row: greeting · top story · narratives ---- */
     .tui .g-hello{ display:flex; align-items:baseline; gap:10px; padding:6px 14px; margin:0;
-      background:var(--t-panel); border-bottom:1px solid var(--t-grid2); overflow:hidden; }
+      background:var(--t-panel); border-bottom:1px solid var(--t-grid); overflow:hidden; }
     .tui .g-hello-main{ display:flex; align-items:baseline; gap:8px; padding:0; flex:0 1 auto; min-width:0; }
     .tui #hello{ font-size:var(--fs-body); letter-spacing:0; color:var(--t-ink); margin:0; font-weight:600; white-space:nowrap; flex:0 0 auto; }
     .tui .g-brief{ font-size:var(--fs-body); color:var(--t-ink); margin:0; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:0 1 auto; }
@@ -1727,7 +1727,7 @@
     }
 
     /* ---- panels ---- */
-    .tui-pnl{ border-bottom:1px solid var(--t-grid2); background:var(--t-panel); }
+    .tui-pnl{ border-bottom:1px solid var(--t-grid); background:var(--t-panel); }
     .tui-ph{ display:flex; align-items:center; gap:8px; height:30px; padding:0 12px;
       background:var(--t-head); border-bottom:1px solid var(--t-grid); }
     /* Every Home panel title reads at ONE size/font — matching the Markets/Portfolio

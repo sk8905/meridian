@@ -110,11 +110,14 @@ if (rowLocks.freeFound) check(!rowLocks.freeLock, "wire row: an openly-readable 
 // Openly-readable → the reader service body prints in-pane (paragraphs + byline).
 const freeSel = await pg.evaluate((walledPattern) => {
   const walled = new RegExp(walledPattern, "i");
-  const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => { const s = ((r.querySelector(".g-feed-src") || {}).textContent || "").trim(); return s && !walled.test(s); });
+  // Skip the story the pane auto-opened on load (.is-reading) — re-opening it re-uses the
+  // load-time result — and forwarded newsletters (desk n), which link out by design; open
+  // a fresh web story so the reader service body is what renders.
+  const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => { const s = ((r.querySelector(".g-feed-src") || {}).textContent || "").trim(); return s && !walled.test(s) && !r.classList.contains("is-reading") && !r.classList.contains("is-locked") && !r.classList.contains("g-desk-n"); });
   if (!row) return false; row.click(); return true;
 }, WALLED_SRC_PATTERN);
 if (freeSel) {
-  await pg.waitForSelector("#g-readpane .g-read-p", { timeout: 4000 });
+  await pg.waitForSelector("#g-readpane .g-read-p", { timeout: 15000 });   // the load-time auto-open fetch may still be in flight
   const full = await pg.evaluate(() => {
     const p = document.querySelector("#g-readpane .g-read-p");
     const title = document.querySelector("#g-feed .g-feed-title");
@@ -295,7 +298,8 @@ await ctx.close();
     // they render the "open the original" note, not the reader body this spec asserts.
     const walled = new RegExp(walledPattern, "i");
     const src = (r) => ((r.querySelector(".g-feed-src") || {}).textContent || "").trim();
-    const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked") && !walled.test(src(r)));
+    // …and forwarded newsletters (desk n, e.g. Le Monde "Le brief"), which link out by design.
+    const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked") && !r.classList.contains("g-desk-n") && !walled.test(src(r)));
     if (!row) return false; row.click(); return true;
   }, WALLED_SRC_PATTERN);
   check(tapped, "phone: found an openly-readable wire row to tap");
