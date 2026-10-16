@@ -1064,5 +1064,8 @@ const T = {
   d1170: {"c":"US","s":"Financial services","a":null,"m":1,"cs":"https://am.gs.com/en-us/advisors/news/press-release/2025/goldman-sachs-announces-acquisition-of-industry-ventures","cb":"hq"},
   d1171: {"c":"US","s":"Financial services","a":null,"m":1,"cs":"https://am.gs.com/en-ch/advisors/news/press-release/2025/goldman-sachs-announces-agreement-to-acquire-innovator-capital-management","cb":"hq"},
   d1172: {"c":"US","s":"Financial services","a":null,"m":1,"cs":"https://am.gs.com/en-qa/institutions/news/press-release/2026/goldman-sachs-completes-acquisition-of-innovator-capital-management","cb":"hq"},
+  d1175: {"c":"UK","s":"TMT","a":null},
+  d1176: {"c":"UK","s":"TMT","a":null},
+  d1177: {"c":"US","s":"Diversified","a":null},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));

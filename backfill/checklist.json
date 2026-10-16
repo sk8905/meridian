@@ -2676,17 +2676,235 @@
    "kind": "manager",
    "name": "H.I.G. Capital",
    "priority": 42,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-16",
+   "events": [
+    {
+     "key": "whitehorse-principal-lending-1-1bn-close",
+     "date": "2020-01-06",
+     "what": "H.I.G. WhiteHorse closes Principal Lending loan fund at ~$1.1bn",
+     "source": "https://hig.com/news/h-i-g-whitehorse-closes-loan-fund-at-1-1-billion/",
+     "status": "missing",
+     "note": "Held only as fund record f275; needs an intel record with the release summary."
+    },
+    {
+     "key": "europe-capital-partners-iii-1-1bn",
+     "date": "2020-11-24",
+     "what": "H.I.G. Europe Capital Partners III closes at EUR1.1bn",
+     "source": "https://www.businesswire.com/news/home/20201124005262/en/H.I.G.-Capital-Closes-H.I.G.-Europe-Capital-Partners-III-at-%E2%82%AC1.1-Billion",
+     "recordId": "i1271",
+     "status": "present"
+    },
+    {
+     "key": "bayside-loan-opp-vi-1-4bn",
+     "date": "2021-03-08",
+     "what": "H.I.G. Bayside Loan Opportunity Fund VI final close at $1.4bn",
+     "source": "https://www.businesswire.com/news/home/20210308005155/en/H.I.G.-Capital-Closes-%241.4-Billion-Bayside-Loan-Opportunity-Fund",
+     "status": "missing",
+     "note": "Held only as fund record f229; needs an intel record with the release summary."
+    },
+    {
+     "key": "whitehorse-direct-lending-2020-1-65bn",
+     "date": "2021-07-19",
+     "what": "H.I.G. WhiteHorse Direct Lending Fund - 2020 closes at ~$1.65bn",
+     "source": "https://hig.com/news/h-i-g-whitehorse-closes-latest-direct-lending-fund-at-1-65-billion/",
+     "status": "missing",
+     "note": "Held only as fund record f274; needs an intel record with the release summary."
+    },
+    {
+     "key": "europe-middle-market-lbo-2bn",
+     "date": "2021-09-08",
+     "what": "H.I.G. Europe Middle Market LBO Fund closes at EUR2bn",
+     "source": "https://hig.com/news/h-i-g-capital-closes-h-i-g-europe-middle-market-lbo-fund-at-%E2%82%AC2-billion/",
+     "recordId": "i1272",
+     "status": "present"
+    },
+    {
+     "key": "capital-partners-vii-2bn",
+     "date": "2024-10-28",
+     "what": "H.I.G. Capital Partners VII closes at $2bn",
+     "source": "https://hig.com/news/h-i-g-capital-announces-closing-of-significantly-oversubscribed-2-billion-u-s-lower-middle-market-fund-h-i-g-capital-partners-vii/",
+     "recordId": "i1273",
+     "status": "present"
+    },
+    {
+     "key": "bayside-loan-opp-vii-1bn",
+     "date": "2024-12-05",
+     "what": "H.I.G. Bayside Loan Opportunity Fund VII final close at $1bn",
+     "source": "https://hig.com/news/h-i-g-capital-closes-1-billion-bayside-loan-opportunity-fund-vii/",
+     "status": "missing",
+     "note": "Held only as fund record f51; needs an intel record with the release summary."
+    },
+    {
+     "key": "kantar-media-acquisition-complete",
+     "date": "2025-08-04",
+     "what": "H.I.G. completes acquisition of Kantar Media",
+     "source": "https://hig.com/news/h-i-g-capital-completes-acquisition-of-kantar-media/",
+     "recordId": "d1175",
+     "status": "present"
+    },
+    {
+     "key": "whitehorse-mm-lending-iv-5-9bn",
+     "date": "2025-08-12",
+     "what": "H.I.G. WhiteHorse Middle Market Lending Fund IV closes at $5.9bn",
+     "source": "https://hig.com/news/h-i-g-whitehorse-closes-5-9-billion-h-i-g-whitehorse-middle-market-lending-fund-iv/",
+     "status": "missing",
+     "note": "Held only as fund record f273; needs an intel record with the release summary."
+    },
+    {
+     "key": "xtera-sale-agreement",
+     "date": "2025-12-30",
+     "what": "H.I.G. signs binding agreement to sell Xtera",
+     "source": "https://hig.com/news/h-i-g-capital-signs-binding-agreement-for-the-sale-of-xtera/",
+     "recordId": "d1176",
+     "status": "present"
+    },
+    {
+     "key": "europe-capital-partners-iv-1-6bn",
+     "date": "2026-01-15",
+     "what": "H.I.G. Europe Capital Partners IV first and final close at EUR1.6bn",
+     "source": "https://hig.com/news/h-i-g-capital-announces-closing-of-oversubscribed-european-lower-middle-market-private-equity-fund/",
+     "recordId": "i344",
+     "status": "present"
+    },
+    {
+     "key": "brian-schwartz-ceo",
+     "date": "2026-04-07",
+     "what": "Brian Schwartz named CEO; Sami Mnaymneh to Executive Chairman",
+     "source": "https://hig.com/news/h-i-g-capital-appoints-brian-schwartz-as-chief-executive-officer/",
+     "recordId": "i1274",
+     "status": "present"
+    },
+    {
+     "key": "bluebird-stake-sale",
+     "date": "2026-06-16",
+     "what": "H.I.G. sells minority stake in The Bluebird Group",
+     "source": "https://hig.com/news/h-i-g-capital-announces-sale-of-investment-in-the-bluebird-group/",
+     "recordId": "d1177",
+     "status": "present"
+    },
+    {
+     "key": "dyal-minority-stake",
+     "date": "2016-08-03",
+     "what": "Dyal Capital Partners III buys minority stake in H.I.G.",
+     "source": "https://www.privateequitywire.co.uk/dyal-capital-acquires-minority-stake-hig-capital/",
+     "status": "rejected",
+     "note": "Dated 2016-08-03, outside the 2020-today window; no firm stake sale in the window found."
+    }
+   ]
   },
   "m56": {
    "kind": "manager",
    "name": "GoldenTree Asset Management",
    "priority": 43,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-16",
+   "events": [
+    {
+     "key": "glm-eur-clo-4-2020",
+     "date": "2020-07-01",
+     "what": "GLM EUR CLO 4 (EUR374m) closed, AAA at E+155bp",
+     "source": "https://www.globalcapital.com/securitization/article/28mu8lyn6dvrjgojyi6m8/clos/largest-and-lowest-for-goldentree-euro-clo-print",
+     "status": "missing",
+     "note": "Held only as fund record f137; needs an intel record with the release summary."
+    },
+    {
+     "key": "distressed-fund-iv-close-2022",
+     "date": "2022-09-27",
+     "what": "GoldenTree announces oversubscribed Distressed Fund IV at $3bn hard cap",
+     "source": "https://www.businesswire.com/news/home/20220927005350/en/GoldenTree-Announces-Oversubscribed-Distressed-Fund-IV",
+     "recordId": "i1275",
+     "status": "present"
+    },
+    {
+     "key": "kathy-sutherland-ceo-2022",
+     "date": "2022-10-27",
+     "what": "Kathy Sutherland named GoldenTree's first CEO",
+     "source": "https://www.businesswire.com/news/home/20221027005416/en",
+     "recordId": "i1276",
+     "status": "present"
+    },
+    {
+     "key": "head-na-insurance-2023",
+     "date": "2023-12-18",
+     "what": "GoldenTree hires Charlie Fuller as head of North American insurance",
+     "source": "https://www.businesswire.com/news/home/20231218247574/en/GoldenTree-Asset-Management-Hires-Head-of-North-American-Insurance",
+     "recordId": "i1277",
+     "status": "present"
+    },
+    {
+     "key": "private-credit-fund-i-2024",
+     "date": "2024-03-11",
+     "what": "GoldenTree closes debut Private Credit Fund at over $1.35bn",
+     "source": "https://www.businesswire.com/news/home/20240311554400/en/GoldenTree-Announces-over-1.35-Billion-Private-Credit-Fund",
+     "recordId": "i1278",
+     "status": "present"
+    },
+    {
+     "key": "glm-iii-close-2024",
+     "date": "2024-04-01",
+     "what": "GoldenTree closes third CLO equity fund GLM III at $1.3bn",
+     "source": "https://www.businesswire.com/news/home/20240401703161/en/GoldenTree-Asset-Management-Announces-$1.3-",
+     "recordId": "i298",
+     "status": "present"
+    },
+    {
+     "key": "goldenchain-sale-republic-2024",
+     "date": "2024-04-02",
+     "what": "GoldenTree sells digital asset unit GoldenChain to Republic",
+     "source": "https://www.theblock.co/news/deals/2024-04-02-steven-tananbaum-goldentree-sells-crypto-unit-republic-joe-naggar-286056",
+     "status": "missing",
+     "note": "Exact announcement date unconfirmed (The Block 2 Apr vs Business Wire 3 Apr) — not recorded yet."
+    },
+    {
+     "key": "opportunistic-credit-interval-fund-2025",
+     "date": "2025-07-07",
+     "what": "GoldenTree launches Opportunistic Credit interval fund (GTOC)",
+     "source": "https://www.businesswire.com/news/home/20250707320437/en/GoldenTree-Asset-Management-Launches-Interval-Fund-to-Provide-Individual-Investors-Access-to-Opportunistic-Credit",
+     "status": "missing",
+     "note": "Exact date unconfirmed (7 vs 8 Jul 2025) — not recorded yet."
+    },
+    {
+     "key": "tactical-opportunities-close-2026",
+     "date": "2026-04-13",
+     "what": "Tactical Opportunities Fund Series I closes at $3bn hard cap",
+     "source": "https://www.businesswire.com/news/home/20260413859254/en/GoldenTree-Announces-Closing-of-Oversubscribed-Tactical-Opportunities-Fund",
+     "recordId": "i77",
+     "status": "present"
+    },
+    {
+     "key": "japan-bd-hire-2026",
+     "date": "2026-04-16",
+     "what": "Ken Takao hired as Head of Business Development, Japan",
+     "source": "https://www.businesswire.com/news/home/20260415995460/en/GoldenTree-Asset-Management-Hires-Head-of-Business-Development-in-Japan",
+     "recordId": "i534",
+     "status": "present"
+    },
+    {
+     "key": "private-credit-fund-ii-2026",
+     "date": "2026-07-20",
+     "what": "Private Credit Fund II closes at $2.75bn hard cap",
+     "source": "https://www.businesswire.com/news/home/20260720200116/en/GoldenTree-Announces-Closing-of-Oversubscribed-Private-Credit-Fund-II",
+     "recordId": "i505",
+     "status": "present"
+    },
+    {
+     "key": "cfo-ellen-conti-2026",
+     "date": "2026-09-08",
+     "what": "Ellen Conti hired as partner and CFO",
+     "source": "https://www.abfjournal.com/goldentree-asset-management-hires-conti-as-chief-financial-officer",
+     "recordId": "i747",
+     "status": "present"
+    },
+    {
+     "key": "distressed-fund-v",
+     "date": "2026-08-01",
+     "what": "GoldenTree Distressed Fund V (LP commitment only)",
+     "source": "https://www.dakota.com/hubfs/September%202026%20Pension%20Brief.pdf",
+     "status": "rejected",
+     "note": "No GoldenTree close/launch announcement for Distressed Fund V found; no firm stake sale or CIO change found."
+    }
+   ]
   },
   "m173": {
    "kind": "manager",
@@ -2716,9 +2934,106 @@
    "kind": "manager",
    "name": "Barings",
    "priority": 47,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-16",
+   "events": [
+    {
+     "key": "mubadala-bme-partnership-2020",
+     "date": "2020-09-22",
+     "what": "Barings and Mubadala form Barings Mubadala Enterprise (BME)",
+     "source": "https://www.barings.com/guest/contact/media/news/barings-and-mubadala-form-strategic-partnership-focused-on-financing-solutions-for-european-middle-market-businesses",
+     "recordId": "i1284",
+     "status": "present"
+    },
+    {
+     "key": "freno-named-ceo-2020",
+     "date": "2020-11-05",
+     "what": "Mike Freno named Chairman and CEO of Barings",
+     "source": "https://kyodonewsprwire.jp/release/202011066738",
+     "status": "missing",
+     "note": "Exact date unconfirmed on a Barings primary page — not recorded yet."
+    },
+    {
+     "key": "sierra-merger-announced-2021",
+     "date": "2021-09-21",
+     "what": "Sierra Income to merge with Barings BDC",
+     "source": "https://www.barings.com/guest/contact/media/news/sierra-income-corporation-to-merge-with-barings-bdc-inc-and-combined-company-to-be-managed-by-barings-llc",
+     "recordId": "i1285",
+     "status": "present"
+    },
+    {
+     "key": "sierra-merger-completed-2022",
+     "date": "2022-02-25",
+     "what": "Barings BDC completes merger with Sierra Income",
+     "source": "https://ir.barings.com/press-releases/detail/434/barings-bdc-inc-completes-merger-with-sierra-income",
+     "recordId": "i1286",
+     "status": "present"
+    },
+    {
+     "key": "epl-iii-final-close-2022",
+     "date": "2022-07-06",
+     "what": "Barings closes third European Private Loan vintage at EUR7bn",
+     "source": "https://www.prnewswire.com/news-releases/barings-closes-third-vintage-of-european-private-loan-strategy-at-7-billion-301580684.html",
+     "recordId": "i1287",
+     "status": "present"
+    },
+    {
+     "key": "altis-acquisition-2022",
+     "date": "2022-08-11",
+     "what": "Barings agrees to acquire Altis Property Partners",
+     "source": "https://theasset.com/article/47406/barings-to-acquire-australian-real-estate-asset-manager-altis",
+     "recordId": "i1288",
+     "status": "present"
+    },
+    {
+     "key": "gryphon-acquisition-2023",
+     "date": "2023-03-15",
+     "what": "Barings agrees to acquire Gryphon Capital Partners",
+     "source": "https://www.barings.com/guest/contact/media/news/barings-to-acquire-gryphon-capital-investments",
+     "recordId": "i1289",
+     "status": "present"
+    },
+    {
+     "key": "corinthia-team-lift-2024",
+     "date": "2024-03-14",
+     "what": "Barings private finance co-heads and team leave for Corinthia; Barings sues",
+     "source": "https://alternativecreditinvestor.com/2024/03/19/barings-pauses-new-private-credit-deals-amid-corinthia-lawsuit/",
+     "recordId": "i1290",
+     "status": "present"
+    },
+    {
+     "key": "euro-private-credit-clo-2024",
+     "date": "2024-11-21",
+     "what": "Barings launches first European middle-market private credit CLO at EUR380m",
+     "source": "https://www.barings.com/en-us/individual/contact/media/news/barings-launches-first-european-middle-market-private-credit-clo-at-380-million",
+     "recordId": "d303",
+     "status": "present"
+    },
+    {
+     "key": "mubadala-re-debt-jv-2025",
+     "date": "2025-12-15",
+     "what": "Mubadala and Barings launch $500m real estate debt partnership",
+     "source": "https://alternativecreditinvestor.com/2025/12/15/barings-and-mubadala-enter-500m-re-debt-venture/",
+     "status": "missing",
+     "note": "Held only as LP commitment l9; needs an intel record."
+    },
+    {
+     "key": "global-dl-final-close-2026",
+     "date": "2026-05-19",
+     "what": "Barings closes Global Direct Lending strategy at over $19bn",
+     "source": "https://www.businesswire.com/news/home/20260519516470/en/Barings-Closes-Over-$19-Billion-for-Global-Direct-Lending-Strategy",
+     "recordId": "i3",
+     "status": "present"
+    },
+    {
+     "key": "senior-leadership-expansion-2026",
+     "date": "2026-06-09",
+     "what": "Barings adds Brad Finkle as Global COO; Bryan High joins SLT",
+     "source": "https://www.barings.com/guest/contact/media/news/barings-expands-senior-leadership-team-to-accelerate-growth",
+     "recordId": "i1291",
+     "status": "present"
+    }
+   ]
   },
   "m158": {
    "kind": "manager",
@@ -2732,9 +3047,114 @@
    "kind": "manager",
    "name": "CVC (Credit)",
    "priority": 49,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-16",
+   "events": [
+    {
+     "key": "cvc-viii-final-close",
+     "date": "2020-07-01",
+     "what": "CVC Capital Partners VIII closes (July 2020)",
+     "source": "https://www.unquote.com/unquote/official-record/3020118/cvc-hits-eur213bn-close-for-eighth-buyout-fund",
+     "status": "rejected",
+     "note": "Exact day not visible and size conflicts between sources (21.3bn vs 22.3bn); only the month is supported."
+    },
+    {
+     "key": "cvc-credit-private-credit-hires",
+     "date": "2020-12-07",
+     "what": "CVC Credit adds John Empson and Miguel Toney to its private credit team",
+     "source": "https://www.cvc.com/media/news/2020/2020-12-07-cvc-credit-announces-two-senior-hires-to-further-deepen-its-private-credit-team/",
+     "recordId": "i1279",
+     "status": "present"
+    },
+    {
+     "key": "cvc-eudl-iii-final-close",
+     "date": "2022-12-02",
+     "what": "CVC Credit final close of third European Direct Lending fund at EUR6.3bn",
+     "source": "https://cvc.com/media/news/2022/2022-12-02-cvc-credit-raises-its-third-european-direct-lending-fund",
+     "recordId": "i1280",
+     "status": "present"
+    },
+    {
+     "key": "cvc-clo-equity-iii",
+     "date": "2023-07-05",
+     "what": "CVC Credit raises third CLO equity vehicle at $800m hard cap",
+     "source": "https://www.cvc.com/media/news/2023/2023-07-05-cvc-credit-raises-its-third-clo-equity-vehicle/",
+     "recordId": "i1281",
+     "status": "present"
+    },
+    {
+     "key": "cvc-ix-final-close",
+     "date": "2023-07-20",
+     "what": "CVC Capital Partners IX closes at EUR26bn",
+     "source": "https://www.cvc.com/media/news/2023/2023-07-20-cvc-raises-26bn-for-its-ninth-europeamericas-private-equity-fund/",
+     "recordId": "i1282",
+     "status": "present"
+    },
+    {
+     "key": "cvc-euronext-ipo",
+     "date": "2024-04-26",
+     "what": "CVC Capital Partners lists on Euronext Amsterdam at EUR14",
+     "source": "https://www.euronext.com/en/about/media/euronext-press-releases/cvc-capital-partners-lists-euronext-amsterdam",
+     "recordId": "i1283",
+     "status": "present"
+    },
+    {
+     "key": "cvc-eudl-iv-final-close",
+     "date": "2025-10-02",
+     "what": "CVC raises EUR10.4bn for European Direct Lending IV",
+     "source": "https://www.cvc.com/media/news/2025/cvc-raises-104-billion-for-its-european-direct-lending-strategy/",
+     "recordId": "i31",
+     "status": "present"
+    },
+    {
+     "key": "cvc-aig-partnership",
+     "date": "2026-01-20",
+     "what": "CVC strategic partnership of up to USD3.5bn with AIG",
+     "source": "https://www.cvc.com/media/news/2026/",
+     "recordId": "i162",
+     "status": "present"
+    },
+    {
+     "key": "cvc-marathon-announce",
+     "date": "2026-01-26",
+     "what": "CVC agrees to acquire Marathon Asset Management",
+     "source": "https://www.cvc.com/media/news/2026/cvc-acquires-leading-us-credit-manager-marathon-asset-management-marathon/",
+     "recordId": "i1292",
+     "status": "present"
+    },
+    {
+     "key": "cvc-clo-equity-iv",
+     "date": "2026-04-23",
+     "what": "CVC Credit raises $1bn for CVC CLO Equity IV",
+     "source": "https://www.cvc.com/media/news/2026/cvc-credit-raises-fourth-clo-equity-vehicle-with-1-billion-in-commitments/",
+     "recordId": "i503",
+     "status": "present"
+    },
+    {
+     "key": "cvc-marathon-completion",
+     "date": "2026-07-01",
+     "what": "Completion of CVC's acquisition of Marathon",
+     "source": "https://www.cvc.com/media/news/2026/completion-of-cvc-s-acquisition-of-marathon-asset-management/",
+     "recordId": "d866",
+     "status": "present"
+    },
+    {
+     "key": "cvc-standard-life-prt",
+     "date": "2026-08-20",
+     "what": "CVC-led consortium backs Standard Life UK pension risk transfer partnership",
+     "source": "https://www.cvc.com/media/news/2026/",
+     "recordId": "i651",
+     "status": "present"
+    },
+    {
+     "key": "cvc-capsol-iii-close",
+     "date": "2024",
+     "what": "CVC Credit Capital Solutions III final close (reported EUR1.6bn)",
+     "source": "https://www.cvc.com/",
+     "status": "rejected",
+     "note": "No dated source with the exact day found."
+    }
+   ]
   },
   "m169": {
    "kind": "manager",
