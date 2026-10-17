@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-16T21:35:12.209Z",
- "since": "2026-10-02",
+ "generated": "2026-10-17T00:48:32.026Z",
+ "since": "2026-10-03",
  "firms": {
   "proskauerrose": {
    "domains": [
@@ -27,8 +27,8 @@
    ],
    "sitemaps": 5,
    "urls": 7365,
-   "kept": 4,
-   "fetched": 4,
+   "kept": 3,
+   "fetched": 3,
    "errors": 0,
    "carried": 0
   },
@@ -40,8 +40,8 @@
    ],
    "sitemaps": 6,
    "urls": 17776,
-   "kept": 6,
-   "fetched": 6,
+   "kept": 2,
+   "fetched": 2,
    "errors": 0,
    "carried": 0
   },
@@ -86,17 +86,6 @@
    "errors": 1,
    "carried": 0
   },
-  "macfarlanes": {
-   "domains": [
-    "www.macfarlanes.com"
-   ],
-   "sitemaps": 4,
-   "urls": 2406,
-   "kept": 3,
-   "fetched": 3,
-   "errors": 0,
-   "carried": 0
-  },
   "traverssmith": {
    "domains": [
     "www.traverssmith.com"
@@ -105,6 +94,17 @@
    "urls": 5018,
    "kept": 5,
    "fetched": 5,
+   "errors": 0,
+   "carried": 0
+  },
+  "macfarlanes": {
+   "domains": [
+    "www.macfarlanes.com"
+   ],
+   "sitemaps": 4,
+   "urls": 2406,
+   "kept": 3,
+   "fetched": 3,
    "errors": 0,
    "carried": 0
   },
@@ -141,8 +141,8 @@
    "sitemaps": 9,
    "urls": 20128,
    "kept": 11,
-   "fetched": 10,
-   "errors": 1,
+   "fetched": 9,
+   "errors": 2,
    "carried": 0
   },
   "kirkland": {
@@ -156,38 +156,26 @@
    "errors": 0,
    "carried": 0
   },
+  "sidley": {
+   "domains": [
+    "www.sidley.com"
+   ],
+   "sitemaps": 6,
+   "urls": 7191,
+   "kept": 2,
+   "fetched": 2,
+   "errors": 11,
+   "carried": 0
+  },
   "whitecase": {
    "domains": [
     "www.whitecase.com"
    ],
    "sitemaps": 11,
    "urls": 10396,
-   "kept": 28,
-   "fetched": 28,
+   "kept": 27,
+   "fetched": 27,
    "errors": 0,
-   "carried": 0
-  },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 2,
-   "carried": 0
-  },
-  "sidley": {
-   "domains": [
-    "www.sidley.com"
-   ],
-   "sitemaps": 7,
-   "urls": 7587,
-   "kept": 2,
-   "fetched": 2,
-   "errors": 10,
    "carried": 0
   },
   "ropesgray": {
@@ -220,6 +208,18 @@
    ],
    "carried": 0
   },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 2,
+   "carried": 0
+  },
   "stephensonharwood": {
    "domains": [
     "www.shlegal.com"
@@ -239,6 +239,18 @@
    ],
    "carried": 0
   },
+  "davispolk": {
+   "domains": [
+    "www.davispolk.com",
+    "davispolk.com"
+   ],
+   "sitemaps": 11,
+   "urls": 16206,
+   "kept": 6,
+   "fetched": 6,
+   "errors": 0,
+   "carried": 0
+  },
   "klgates": {
    "domains": [
     "www.klgates.com"
@@ -247,18 +259,6 @@
    "urls": 12293,
    "kept": 7,
    "fetched": 7,
-   "errors": 0,
-   "carried": 0
-  },
-  "davispolk": {
-   "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
-   ],
-   "sitemaps": 11,
-   "urls": 16201,
-   "kept": 4,
-   "fetched": 4,
    "errors": 0,
    "carried": 0
   },
@@ -286,9 +286,9 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11579,
-   "kept": 12,
-   "fetched": 12,
+   "urls": 11581,
+   "kept": 14,
+   "fetched": 14,
    "errors": 0,
    "carried": 0
   },
@@ -321,7 +321,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7745,
+   "urls": 7746,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -333,8 +333,8 @@
    ],
    "sitemaps": 9,
    "urls": 16342,
-   "kept": 21,
-   "fetched": 21,
+   "kept": 20,
+   "fetched": 20,
    "errors": 0,
    "carried": 0
   },
@@ -376,24 +376,6 @@
    ]
   },
   {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
-   "title": "Incorporating an LLP: direct tax considerations",
-   "description": "In an article for Tax Journal, Partner Joe Robinson and Associate Harvey Innocent explain how LLP members may defer gains when...",
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
-  },
-  {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o5i6/unlocking-db-pension-scheme-surplus-a-new-consideration-for-employers-and-potent",
-   "title": "Unlocking DB pension scheme surplus: a new consideration for employers and potential acquirers",
-   "description": "For many years, the dominant question for employers sponsoring defined benefit (DB) pension schemes, and for the prospective acquirers...",
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
-  },
-  {
    "firm": "traverssmith",
    "url": "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-venture-insights-the-changing-shape-of-venture-capital/",
    "title": "Travers Smith's Venture Insights: The changing shape of Venture Capital",
@@ -412,6 +394,33 @@
    "lastmod": "2026-10-07"
   },
   {
+   "firm": "macfarlanes",
+   "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
+   "title": "Incorporating an LLP: direct tax considerations",
+   "description": "In an article for Tax Journal, Partner Joe Robinson and Associate Harvey Innocent explain how LLP members may defer gains when...",
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "macfarlanes",
+   "url": "https://www.macfarlanes.com/insights/102o5i6/unlocking-db-pension-scheme-surplus-a-new-consideration-for-employers-and-potent",
+   "title": "Unlocking DB pension scheme surplus: a new consideration for employers and potential acquirers",
+   "description": "For many years, the dominant question for employers sponsoring defined benefit (DB) pension schemes, and for the prospective acquirers...",
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-thoma-bravo-backed-proofpoint-on-$6-3-billion-acquisition-of-varonis",
+   "title": "Kirkland Advises Thoma Bravo-Backed Proofpoint on $6.3 Billion Acquisition of Varonis",
+   "description": null,
+   "date": "2026-10-16",
+   "dateSource": "page date label",
+   "lastmod": null
+  },
+  {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/award/2026/10/lawcom-international-banking-finance-restructuring-team-of-the-year",
    "title": "Kirkland Recognized at Middle East Legal Awards",
@@ -419,6 +428,24 @@
    "date": "2026-10-16",
    "dateSource": "page date label",
    "lastmod": null
+  },
+  {
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/experience/norwegian-cruise-line-950-million-senior-notes-offering-october-2026",
+   "title": "Norwegian Cruise Line $950 million senior notes offering",
+   "description": "We advised the initial purchasers on the offering",
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/insights/articles-books/key-developments-and-trends-dip-financing-2025-2026",
+   "title": "Key developments and trends in DIP financing (2025/2026)",
+   "description": "Davis Polk partner Ken Steinberg, counsel Timothy Oyen and Chris Robertson and associate Daniel Feit authored \"Key developments and trends in DIP...",
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
   },
   {
    "firm": "reedsmith",
@@ -596,6 +623,15 @@
    "dateProbe": []
   },
   {
+   "firm": "sidley",
+   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/california-adopts-regulations-expanding-healthcare-transaction-review",
+   "title": "California Adopts Regulations Expanding Healthcare Transaction Review",
+   "description": null,
+   "date": "2026-10-09",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-09"
+  },
+  {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/publications/insight/financial-regulatory-observer-autumn-2021",
    "title": "Financial Regulatory Observer - Autumn 2021",
@@ -604,15 +640,6 @@
    "dateSource": null,
    "lastmod": "2026-10-09",
    "dateProbe": []
-  },
-  {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/california-adopts-regulations-expanding-healthcare-transaction-review",
-   "title": "California Adopts Regulations Expanding Healthcare Transaction Review",
-   "description": null,
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
   },
   {
    "firm": "mayerbrown",
@@ -661,18 +688,18 @@
   },
   {
    "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/our-insights/blogs/ship-law-log/102o4rx/arrest-of-vessels-under-the-arrest-convention-1952-charterers-debts-and-privile/",
-   "title": "Arrest of Vessels Under the Arrest Convention 1952: Charterer",
-   "description": "The Reed Smith Paris Shipping team includes Andrew Tetley, Ana Atallah, Emmanuelle Faivre, Aurélie Lopez, Antoine Guillemot, Diana...",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "reedsmith",
    "url": "https://www.reedsmith.com/our-insights/blogs/health-industry-washington-watch/102o4v9/new-california-laws-regulate-ai-use-in-health-care/",
    "title": "New California Laws Regulate AI Use in Health Care",
    "description": "Three of the over twenty new AI-related laws that were signed into law in California last week will have significant impacts on the use...",
+   "date": "2026-10-08",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/our-insights/blogs/ship-law-log/102o4rx/arrest-of-vessels-under-the-arrest-convention-1952-charterers-debts-and-privile/",
+   "title": "Arrest of Vessels Under the Arrest Convention 1952: Charterer",
+   "description": "The Reed Smith Paris Shipping team includes Andrew Tetley, Ana Atallah, Emmanuelle Faivre, Aurélie Lopez, Antoine Guillemot, Diana...",
    "date": "2026-10-08",
    "dateSource": "datePublished",
    "lastmod": "2026-10-08"
@@ -798,21 +825,21 @@
    ]
   },
   {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/media/ft-specialist-ignites-earnout-lawsuit-over-acquired-etf",
-   "title": "FT Specialist – Ignites | Earnout lawsuit over acquired ETF",
-   "description": "In an article for Ignites, a Financial Times Specialist publication, White & Case partner Dario de Martino discussed the earnout at the center of Knowledge Leaders Capital’s lawsuit against AXS Investments.",
-   "date": "2026-10-06",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-06"
-  },
-  {
    "firm": "sidley",
    "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/congressional-democrats-propose-first-federal-corporate-practice-of-medicine-law-unlikely-to-pass",
    "title": "Congressional Democrats Propose First Federal Corporate Practice of Medicine Law; Unlikely to Pass",
    "description": null,
    "date": "2026-10-06",
    "dateSource": "datePublished",
+   "lastmod": "2026-10-06"
+  },
+  {
+   "firm": "whitecase",
+   "url": "https://www.whitecase.com/news/media/ft-specialist-ignites-earnout-lawsuit-over-acquired-etf",
+   "title": "FT Specialist – Ignites | Earnout lawsuit over acquired ETF",
+   "description": "In an article for Ignites, a Financial Times Specialist publication, White & Case partner Dario de Martino discussed the earnout at the center of Knowledge Leaders Capital’s lawsuit against AXS Investments.",
+   "date": "2026-10-06",
+   "dateSource": "<time datetime>",
    "lastmod": "2026-10-06"
   },
   {
@@ -825,21 +852,21 @@
    "lastmod": "2026-10-12"
   },
   {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o4fw/employment-tax-update-october-2026",
-   "title": "Employment tax update - October 2026",
-   "description": "This bulletin follows the release of the August and September Agent Updates (Issue 146 and Issue 147). In this issue we cover the content...",
-   "date": "2026-10-05",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-05"
-  },
-  {
    "firm": "traverssmith",
    "url": "https://www.traverssmith.com/knowledge/knowledge-container/warfighting-readiness-what-298-billion-in-defence-spending-means-for-the-uk-real-estate-sector/",
    "title": "\"Warfighting readiness\" - what £298 billion in defence spending means for the UK real estate sector",
    "description": "Intro: The Government's Defence Investment Plan, published this summer, represents one of the most significant shifts in UK defence spending in a generation. Backed by £298 billion of investment over the next four years and built on the vision of the Strategic Defence Review ('SDR'), the plan signals a decisive move toward \"warfighting readiness\". This briefing examines what that may mean for the UK's real estate sector.",
    "date": "2026-10-05",
    "dateSource": "<time datetime>",
+   "lastmod": "2026-10-05"
+  },
+  {
+   "firm": "macfarlanes",
+   "url": "https://www.macfarlanes.com/insights/102o4fw/employment-tax-update-october-2026",
+   "title": "Employment tax update - October 2026",
+   "description": "This bulletin follows the release of the August and September Agent Updates (Issue 146 and Issue 147). In this issue we cover the content...",
+   "date": "2026-10-05",
+   "dateSource": "datePublished",
    "lastmod": "2026-10-05"
   },
   {
@@ -850,33 +877,6 @@
    "date": "2026-10-05",
    "dateSource": "page date label",
    "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/media/cnbc-bargain-britain-lures-foreign-buyers-hostile-takeovers-surge",
-   "title": "CNBC | Bargain Britain lures foreign buyers as hostile takeovers surge",
-   "description": null,
-   "date": "2026-10-02",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-02"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/news/2026/10/trump-administration-further-narrows-path-for-h-1b-hiring",
-   "title": "Trump Administration Further Narrows Path for H-1B Hiring",
-   "description": "The Trump administration has introduced new restrictions and proposed rules that further narrow the use of H-1B visas, including heightened scrutiny",
-   "date": "2026-10-02",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/brazils-ministry-of-ports-and-airports-opens-public-consultation-on-insurance-policy-for-infrastructure-concessions",
-   "title": "Brazil’s Ministry of Ports and Airports Opens Public Consultation on Insurance Policy for Infrastructure Concessions",
-   "description": "The Ministry of Ports and Airports (Ministério de Portos e Aeroportos – MPor) has opened a 30-calendar-day public consultation on a proposed",
-   "date": "2026-10-02",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-02"
   },
   {
    "firm": "kirkland",
