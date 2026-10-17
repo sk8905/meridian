@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-17T07:15:41.376Z",
+ "generated": "2026-10-17T12:28:41.098Z",
  "since": "2026-10-03",
  "firms": {
   "proskauerrose": {
@@ -97,17 +97,6 @@
    "errors": 0,
    "carried": 0
   },
-  "macfarlanes": {
-   "domains": [
-    "www.macfarlanes.com"
-   ],
-   "sitemaps": 4,
-   "urls": 2406,
-   "kept": 3,
-   "fetched": 3,
-   "errors": 0,
-   "carried": 0
-  },
   "simmons": {
    "domains": [
     "www.simmons-simmons.com"
@@ -119,6 +108,17 @@
    "errors": 0,
    "samples": [],
    "disallowed": 1,
+   "carried": 0
+  },
+  "macfarlanes": {
+   "domains": [
+    "www.macfarlanes.com"
+   ],
+   "sitemaps": 4,
+   "urls": 2406,
+   "kept": 3,
+   "fetched": 3,
+   "errors": 0,
    "carried": 0
   },
   "aoshearman": {
@@ -161,21 +161,21 @@
     "www.lw.com"
    ],
    "sitemaps": 9,
-   "urls": 20128,
+   "urls": 20207,
    "kept": 40,
-   "fetched": 38,
-   "errors": 2,
+   "fetched": 39,
+   "errors": 1,
    "carried": 0
   },
   "sidley": {
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 5,
-   "urls": 6772,
+   "sitemaps": 6,
+   "urls": 7188,
    "kept": 2,
    "fetched": 2,
-   "errors": 12,
+   "errors": 11,
    "carried": 0
   },
   "ropesgray": {
@@ -215,8 +215,8 @@
    ],
    "sitemaps": 11,
    "urls": 16209,
-   "kept": 5,
-   "fetched": 5,
+   "kept": 4,
+   "fetched": 4,
    "errors": 0,
    "carried": 0
   },
@@ -244,7 +244,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12293,
+   "urls": 12292,
    "kept": 7,
    "fetched": 7,
    "errors": 0,
@@ -271,7 +271,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7746,
+   "urls": 7747,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -282,7 +282,7 @@
     "www.hoganlovells.com"
    ],
    "sitemaps": 2,
-   "urls": 21407,
+   "urls": 21418,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -315,17 +315,6 @@
    ],
    "carried": 0
   },
-  "mayerbrown": {
-   "domains": [
-    "www.mayerbrown.com"
-   ],
-   "sitemaps": 9,
-   "urls": 16342,
-   "kept": 19,
-   "fetched": 19,
-   "errors": 0,
-   "carried": 0
-  },
   "cleary": {
    "domains": [
     "www.clearygottlieb.com",
@@ -336,6 +325,17 @@
    "kept": 40,
    "fetched": 40,
    "errors": 1,
+   "carried": 0
+  },
+  "mayerbrown": {
+   "domains": [
+    "www.mayerbrown.com"
+   ],
+   "sitemaps": 9,
+   "urls": 16342,
+   "kept": 19,
+   "fetched": 19,
+   "errors": 0,
    "carried": 0
   },
   "cliffordchance": {
@@ -421,12 +421,30 @@
    "lastmod": null
   },
   {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/experience/minority-investment-superfile-trackhouse-motogp-team",
-   "title": "Minority investment in Superfile Trackhouse MotoGP Team",
-   "description": "We advised Trackhouse on the transaction",
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Latin American Development Bank Corporacion Andina de Fomento",
+   "title": "Latham & Watkins Advises Latin American Development Bank Corporación Andina de Fomento in US$2 Billion Bond Financing",
+   "description": "Members of the firm’s Latin America and Capital Markets practices counseled the issuer in its offering.",
    "date": "2026-10-16",
-   "dateSource": "datePublished",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Atlas Warehouse Lending Company in Fixed-to-Floating Rate Senior Notes",
+   "title": "Latham & Watkins Advises Atlas Warehouse Lending Company in US$750 Million Fixed-to-Floating Rate Senior Notes Offering",
+   "description": "Firm represents the warehouse finance and securitized products business in the offering.",
+   "date": "2026-10-16",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Zocdoc on Acquisition of Sohar Health",
+   "title": "Latham & Watkins Advises Zocdoc on Acquisition of Sohar Health",
+   "description": "Firm represents the healthcare access infrastructure company in its first acquisition.",
+   "date": "2026-10-16",
+   "dateSource": "page date label",
    "lastmod": "2026-10-16"
   },
   {
@@ -478,6 +496,24 @@
    ]
   },
   {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Recognized With Two Deal of the Year Honors at TMT Finance Awards USA 2026",
+   "title": "Latham Recognized With Two Deal of the Year Honors at TMT Finance Awards USA 2026",
+   "description": "Latham Recognized With Two Deal of the Year Honors at TMT Finance Awards USA 2026",
+   "date": "2026-10-15",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises AMD in Stability AI Fundraise",
+   "title": "Latham & Watkins Advises AMD in Stability AI’s US$76 Million Fundraise",
+   "description": "Firm represents the high-performance and adaptive computing leader in the AI company’s Series B.",
+   "date": "2026-10-15",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-15"
+  },
+  {
    "firm": "reedsmith",
    "url": "https://www.reedsmith.com/news/chambers-uk-2027-ranks-more-than-30-reed-smith-practices-and-over-60-lawyers/",
    "title": "Chambers UK 2027 ranks more than 30 Reed Smith practices and over 60 lawyers",
@@ -485,6 +521,15 @@
    "date": "2026-10-15",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
+   "title": "News Listing",
+   "description": null,
+   "date": "2026-10-15",
+   "dateSource": "datePublished",
+   "lastmod": null
   },
   {
    "firm": "mayerbrown",
@@ -505,13 +550,43 @@
    "lastmod": "2026-10-15"
   },
   {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
+   "firm": "latham",
+   "url": "https://www.lw.com/en/insights/2026/10/FCA Sets Out Expectations on Firms Governance Arrangements",
+   "title": "FCA Sets Out Expectations on Firms’ Governance Arrangements",
+   "description": "Findings from a multi-firm review in the benchmarks sector can help all firms ensure their governance arrangements are calibrated effectively. By Becky",
+   "date": "2026-10-14",
+   "dateSource": "article:published_time",
+   "lastmod": "2026-10-14"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/insights/2026/10/Financial Regulation October 2026 Edition",
+   "title": "RSVP Form (Blank/Generic)",
    "description": null,
-   "date": "2026-10-15",
-   "dateSource": "datePublished",
-   "lastmod": null
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-14",
+   "dateProbe": [
+    "rt\" content=\"width=device-width, initial-scale=1.0\" /> <title>Webcast 2026-10-14 (LO) Financial Regu"
+   ]
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Earns Four Recognitions at 2026 LatinFinance Project Infrastructure Awards",
+   "title": "Latham & Watkins Earns Four Recognitions at 2026 LatinFinance Project & Infrastructure Awards",
+   "description": "Firm honored for work on two award-winning matters and two transactions receiving honorable mentions across Latin America.",
+   "date": "2026-10-14",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-14"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Bending Spoons on Investment From Berkshire Hathaway",
+   "title": "Latham & Watkins Advises Bending Spoons on US$330 Million Investment From Berkshire Hathaway",
+   "description": "Cross-border Capital Markets team advises the leading technology company in the PIPE offering.",
+   "date": "2026-10-14",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-14"
   },
   {
    "firm": "weil",
@@ -559,6 +634,96 @@
    "lastmod": null
   },
   {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/insights/2026/10/In Focus The FCAs New Guidance on Non-Financial Misconduct",
+   "title": "In Focus: The FCA’s New Guidance on Non-Financial Misconduct",
+   "description": "As firms adjust to the new guidance, we outline key changes in expectations and how firms can approach non-financial misconduct cases.",
+   "date": "2026-10-13",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Ares Management Corporation on Capital Contribution to Plenitude",
+   "title": "Latham & Watkins Advises Ares Management Corporation on €1 Billion Capital Contribution to Plenitude",
+   "description": "Firm represents the global alternative investment manager in the transaction.",
+   "date": "2026-10-13",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Icon on Series D Financing",
+   "title": "Latham & Watkins Advises Icon on US$200 Million Series D Financing",
+   "description": "Firm represents the global leader in advanced construction technology in latest growth financing.",
+   "date": "2026-10-13",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises IKB on Sale to Credit Agricole",
+   "title": "Latham & Watkins Advises IKB on Sale to Crédit Agricole",
+   "description": "Cross-practice team advises established financing partner for German Mittelstand companies on the transaction.",
+   "date": "2026-10-13",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Initial Purchasers on EUR 1 Billion High Yield Bond Issuance by Guala Closures",
+   "title": "Latham & Watkins Advises Initial Purchasers on €1 Billion High-Yield Bond Issuance by Guala Closures",
+   "description": "A cross-border team represented the syndicate of banks in the bond offering.",
+   "date": "2026-10-13",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Magnite on Successful Completion of Term Loan",
+   "title": "Latham & Watkins Advises Magnite on Successful Completion of Term Loan and Revolving Credit Facility Repricing",
+   "description": "Firm represents the leading independent sell-side advertising company in transactions designed to reduce borrowing costs and enhance financial flexibility.",
+   "date": "2026-10-13",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises on Private Credit Financing for AEA Investors",
+   "title": "Latham Advises on Private Credit Financing for AEA Investors and BCI’s Acquisition of Rensa Filtration",
+   "description": "Firm represents the financing sources supporting the acquisition of the provider of highly engineered air filtration solutions.",
+   "date": "2026-10-13",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Represents BlackRock and HPS Investment Partners in New Strategic Joint Venture With Humana",
+   "title": "Latham Represents BlackRock and HPS Investment Partners in New Strategic Joint Venture With Humana to Manage CenterWell Senior Primary Care Clinics",
+   "description": "Multidisciplinary team advises on the transaction.",
+   "date": "2026-10-13",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Partners Group on Investment in Scanntech",
+   "title": "Latham & Watkins Advises Partners Group on Investment in Scanntech",
+   "description": "New York-based private equity M&A team represented the global private markets firm in the transaction.",
+   "date": "2026-10-13",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026",
+   "title": "London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026",
+   "description": "The Global Chair of Latham's Private Capital Practice was recognized in the prestigious list for the fifth consecutive year.",
+   "date": "2026-10-13",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-13"
+  },
+  {
    "firm": "klgates",
    "url": "https://www.klgates.com/thought-leadership/There-Is-a-New-Sheriff-in-Town-Why-Community-Approval-Now-Rules-Major-Project-Development-10-13-2026",
    "title": "There Is a New Sheriff in Town: Why Community Approval Now Rules Major Project Development",
@@ -595,6 +760,60 @@
    "lastmod": "2026-10-13"
   },
   {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Financing Altaris Completed Acquisition Clarivate Life Sciences Healthcare Business",
+   "title": "Latham Advises on Financing for Altaris’ Completed Acquisition of Clarivate’s Life Sciences & Healthcare Business",
+   "description": "Cross-border team represents financing sources supporting the acquisition.",
+   "date": "2026-10-12",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-12"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises on Financing for Teads Holding Co",
+   "title": "Latham Advises on Financing for Teads Holding Co.",
+   "description": "Cross-border team represents funds managed by Sound Point Capital Management, LP, in the financing for the omnichannel advertising platform.",
+   "date": "2026-10-12",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-12"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises on Private Credit Financing for Kohlberg Acquisition of Advanced Industrial Devices",
+   "title": "Latham Advises on Private Credit Financing for Kohlberg’s Acquisition of Advanced Industrial Devices From Black Bay Partners",
+   "description": "Firm represents the private credit financing sources supporting the acquisition to accelerate growth across data center, water, and power infrastructure markets.",
+   "date": "2026-10-12",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-12"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Cheplapharm Term Loan B",
+   "title": "Latham & Watkins Advises Cheplapharm on €1.2 Billion Term Loan B",
+   "description": "Cross-practice team represents European leader in well-established medicines in the transaction.",
+   "date": "2026-10-12",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-12"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Kartesia Acquisition Financing Schlafender Hase",
+   "title": "Latham & Watkins Advises Kartesia on Acquisition Financing for Schlafender Hase",
+   "description": "Finance team represents European capital solutions asset manager in the transaction.",
+   "date": "2026-10-12",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-12"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Partners Group Refinancing DELABO group",
+   "title": "Latham & Watkins Advises Partners Group on Refinancing of DELABO.group",
+   "description": "Finance team represents lender in the transaction.",
+   "date": "2026-10-12",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-12"
+  },
+  {
    "firm": "klgates",
    "url": "https://www.klgates.com/thought-leadership/New-South-Wales-No-Shortcuts-on-Scope-3-High-Court-Puts-Scope-3-Emissions-Back-on-the-Table-for-Resource-Projects-10-12-2026",
    "title": "New South Wales–No Shortcuts on Scope 3: High Court Puts Scope 3 Emissions Back on the Table for Resource Projects",
@@ -625,36 +844,18 @@
   },
   {
    "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/FCA Finalises UK SRS-Aligned Disclosure Rules for UK Listings",
-   "title": "FCA Finalises UK SRS-Aligned Disclosure Rules for UK Listings",
-   "description": "In response to feedback, the FCA has moved to a comply-or-explain model for all of the sustainability disclosure obligations. By Mark Austin CBE, Michael",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Leading On-Demand Pay Provider DailyPay in Asset-Backed Securitization",
+   "title": "Latham & Watkins Advises Leading On-Demand Pay Provider DailyPay in US$200 Million Asset-Backed Securitization",
+   "description": "Firm represents the fintech unicorn in the latest financing, bringing the company’s total funding to approximately US$1.4 billion, the largest for any on-demand pay program.",
    "date": "2026-10-09",
-   "dateSource": "article:published_time",
-   "lastmod": "2026-10-09"
+   "dateSource": "page date label",
+   "lastmod": "2026-10-12"
   },
   {
    "firm": "latham",
    "url": "https://www.lw.com/en/insights/2026/10/Treasury Issues First Ever Enforcement Penalty Under Outbound Investment Security Program",
    "title": "Treasury Issues First-Ever Enforcement Penalty Under Outbound Investment Security Program",
    "description": "Treasury’s first outbound investment penalty demonstrates that the Outbound Program enforcement regime is active and monitoring cross-border investments.",
-   "date": "2026-10-09",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Balerion Space Ventures on Oversubscribed Fund II",
-   "title": "Latham & Watkins Advises Balerion Space Ventures on Oversubscribed Fund II",
-   "description": "Firm represents the space and defense-focused venture capital firm in the transaction.",
-   "date": "2026-10-09",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Consonance Capital Partners on Fund Formation",
-   "title": "Latham & Watkins Advises Consonance Capital Partners on US$1.35 Billion Fund Formation",
-   "description": "Multidisciplinary team led by members of the firm’s Investment Funds Practice represented the healthcare private equity firm in the formation of its oversubscribed third fund.",
    "date": "2026-10-09",
    "dateSource": "page date label",
    "lastmod": "2026-10-09"
@@ -700,60 +901,6 @@
    "url": "https://www.lw.com/en/insights/2026/10/The Growth Rocketship Deep Research Bold Bets AI Inside Maverick Capital Portfolios",
    "title": "The Growth Rocketship: Deep Research, Bold Bets, and AI — Inside Maverick Capital’s US$15 Billion Portfolios",
    "description": "Latham speaks with Maverick Capital’s General Counsel and Chief Compliance Officer about what it takes to oversee legal risk and compliance across a US$15 billion platform spanning public equities, venture capital, and AI-driven semiconductor investing.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises HIG Capital and Medisolve on Refinancing and Growth Financing",
-   "title": "Latham Advises H.I.G. Capital and Medisolve on Refinancing and Growth Financing",
-   "description": "Finance team represents private equity investor in the transaction.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises UL Solutions on Acquisition of Eurofins Scientific Electronics Business",
-   "title": "Latham Advises UL Solutions on Acquisition of Eurofins Scientific’s Electrical & Electronics Business",
-   "description": "Firm represents the global leader in applied safety science in the transaction.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Represents Crescent Energy Acquisition Devon Energy Eagle Ford Assets",
-   "title": "Latham Represents Crescent Energy on Its Net US$3.85 Billion Acquisition of Devon Energy's Eagle Ford Assets",
-   "description": "A Texas-based team advised the energy company on the acquisition of oil and gas assets.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises on Lambda Senior Secured Term Loan Facility",
-   "title": "Latham & Watkins Advises on Lambda’s US$1 Billion Senior Secured Term Loan Facility",
-   "description": "Firm represents the arranging bank in the asset-backed financing supporting the deployment of GPU infrastructure for artificial intelligence workloads.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises on Waymo Debt Financing to Accelerate Business Expansion",
-   "title": "Latham & Watkins Advises on Waymo’s US$5 Billion Debt Financing to Accelerate Business Expansion",
-   "description": "Multidisciplinary team represents the private capital funds and sole lead arranger in financing for the autonomous driving technology company.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Stuut on Series B Financing",
-   "title": "Latham & Watkins Advises Stuut on US$52.5 Million Series B Financing",
-   "description": "Firm represents the AI-powered order-to-cash platform in latest financing supporting the company’s expansion of its enterprise cash-flow optimization technology.",
    "date": "2026-10-08",
    "dateSource": "page date label",
    "lastmod": "2026-10-08"
@@ -843,60 +990,6 @@
    "dateProbe": []
   },
   {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises on Financing for Wittington Acquisition of Boots",
-   "title": "Latham Advises on Financing for Wittington’s US$8.9 Billion Acquisition of Boots",
-   "description": "Cross-border team represents the financing sources in the acquisition of the UK's leading pharmacy and health and beauty retailer.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises on Vaxcyte Concurrent Public Offerings of Common Stock Pre Funded Warrants",
-   "title": "Latham Advises on Vaxcyte’s Concurrent Public Offerings of Common Stock, Pre-Funded Warrants, and Convertible Senior Notes",
-   "description": "Firm represents the underwriters in the offerings by the clinical-stage vaccine innovation company.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Hg Sale Gen II Fund Services KKR",
-   "title": "Latham & Watkins Advises Hg in US$5.1 Billion Sale of Gen II Fund Services to KKR",
-   "description": "New York-based corporate team represents the European and transatlantic technology and services businesses investor.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises The Sterling Group Foundation Fund on Acquisition of Slingmax Group",
-   "title": "Latham & Watkins Advises The Sterling Group Foundation Fund on Acquisition of Slingmax Group",
-   "description": "Multidisciplinary team represents the private equity firm in the transaction.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Wolfspeed on Loan Commitment From US Department of War",
-   "title": "Latham & Watkins Advises Wolfspeed on US$1.5 Billion Loan Commitment From Office of Strategic Capital of the US Department of War, Its Largest Commitment to Date",
-   "description": "Firm represents global leader in silicon carbide technologies in the financing to advance domestic wide bandgap supply chain.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Represents OIC on Credit Income Strategy Launch with Liberty Mutual Investments",
-   "title": "Latham & Watkins Represents OIC on Credit Income Strategy Launch With Liberty Mutual Investments",
-   "description": "Multidisciplinary Investment Funds team across fund formation, tax, and regulatory represented OIC on Credit Income Strategy focused on middle-market infrastructure debt opportunities.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/client-case-studies/john-wood-group-s-highly-complex-acquisition-by-sidara/",
    "title": "John Wood Group's highly complex acquisition by Sidara",
@@ -969,51 +1062,6 @@
    "lastmod": "2026-10-06"
   },
   {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Skydance in Completed Acquisition of Warner Bros Discovery",
-   "title": "Latham Advises Skydance (Formerly Known as Paramount) in Completed Acquisition of Warner Bros. Discovery, Creating a New Global Entertainment Leader",
-   "description": "Multidisciplinary cross-border team represents the next-generation global media and entertainment company in the combination of two of the world’s most recognizable entertainment companies, forming a single creative powerhouse.",
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/Key Regulatory Updates for Hong Kong Listed Companies July August 2026",
-   "title": "Key Regulatory Updates for Hong Kong Listed Companies — July/August 2026",
-   "description": "The updates include the Stock Exchange’s Consultation Conclusions on listing framework competitiveness, new guidance on digital asset-related activities, and a temporary waiver extending the validity period of new listing applications.",
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Represents 5E Advanced Materials Inc in Completed Acquisition of Searles Valley Minerals",
-   "title": "Latham Represents 5E Advanced Materials, Inc. in Completed Acquisition of Searles Valley Minerals",
-   "description": "Multidisciplinary team advises the supplier of refined borates and advanced boron materials in the transformational transaction, transitioning the company from a pre-revenue developer to a revenue-generating US producer of boron and critical industrial minerals.",
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Spectrum Equity on Growth Investment in Symmetric Health Solutions",
-   "title": "Latham & Watkins Advises Spectrum Equity on Growth Investment in Symmetric Health Solutions",
-   "description": "Multidisciplinary team represents the growth equity firm in investment in the healthcare supply chain intelligence provider.",
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Stride Consumer Partners on Fund Formation",
-   "title": "Latham & Watkins Advises Stride Consumer Partners on US$550 Million Fund Formation",
-   "description": "Team led by members of the Investment Funds Practice represented the growth-equity investment firm in the formation of its oversubscribed Stride Consumer Fund II.",
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-06"
-  },
-  {
    "firm": "sidley",
    "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/congressional-democrats-propose-first-federal-corporate-practice-of-medicine-law-unlikely-to-pass",
    "title": "Congressional Democrats Propose First Federal Corporate Practice of Medicine Law; Unlikely to Pass",
@@ -1047,78 +1095,6 @@
    "description": "This bulletin follows the release of the August and September Agent Updates (Issue 146 and Issue 147). In this issue we cover the content...",
    "date": "2026-10-05",
    "dateSource": "datePublished",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Charlesbank in Completed Merger of Spectrotel and AireSpring",
-   "title": "Latham & Watkins Advises Charlesbank in Completed Merger of Spectrotel and AireSpring",
-   "description": "Multidisciplinary team represents the private equity firm in the transaction.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises on Financings Totaling for Lindsay Goldberg Strategic Investment in Alro Steel",
-   "title": "Latham Advises on Financings Totaling US$2.82 Billion for Lindsay Goldberg’s Strategic Investment in Alro Steel",
-   "description": "Multidisciplinary team represents the private investment firm in the financings.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
-   "title": "Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
-   "description": "During the 2026 legislative session, California enacted more than two dozen AI laws regulating transparency, chatbot safety, automated decision-making, and other domains.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/SEC Proposes Sweeping Performance Fee Eligibility Reforms and New Accredited Investor Pathways",
-   "title": "SEC Proposes Sweeping Performance Fee Eligibility Reforms and New Accredited Investor Pathways",
-   "description": "The SEC’s proposals would significantly expand who can enter into performance fee arrangements, while creating new ways to qualify as an accredited investor.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Arsenal Medical in Acquisition by Terumo Neuro",
-   "title": "Latham Advises Arsenal Medical in Acquisition by Terumo Neuro",
-   "description": "Firm represents the clinical-stage biomaterials company in the transaction.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises EMZ Partners on Investment in SBH Tiefbautechnik",
-   "title": "Latham & Watkins Advises EMZ Partners on Investment in SBH Tiefbautechnik",
-   "description": "Private equity team represents leading European investment firm in the transaction.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Sovos on Acquisition of Flowie",
-   "title": "Latham Advises Sovos on Acquisition of Flowie",
-   "description": "Cross-border team represents the agentic tax compliance company in the transaction.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Alta Group on Raiffeisen Bank International Tender Offer for Addiko Bank",
-   "title": "Latham & Watkins Advises Alta Group on Raiffeisen Bank International’s Tender Offer for Addiko Bank",
-   "description": "M&A team represents strategic investor in the complex transaction.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
    "lastmod": "2026-10-05"
   },
   {
