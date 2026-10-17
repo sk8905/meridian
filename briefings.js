@@ -99,8 +99,8 @@
 // =============================================================================
 export const BRIEFINGS = {
   tz: "BST",
-  date: "2026-10-16",
-  time: "23:10 BST",
+  date: "2026-10-17",
+  time: "06:10 BST",
   lede: "Treasuries are heading for their best week since February as the US 10-year sits near 5.10% and S&P 500 futures edge up, after an AI-led selloff that put CoreWeave's debt in distress territory.",
   bullets: [
     { html: "<strong>Macro &mdash; the Bloomberg Dollar Spot Index is down 0.4% and Brent is at $105.72</strong> after Fed chair Kevin Warsh stayed silent on policy in Bangkok, pulling down bets on an October rate rise following September&rsquo;s hot US CPI.", src: "https://www.bloomberg.com/news/newsletters/2026-10-16/coreweave-is-testing-the-limits-of-ai-euphoria", srcName: "Bloomberg", date: "2026-10-16" },

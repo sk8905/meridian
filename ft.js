@@ -21,6 +21,55 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "aef6d0ed-1019-452a-b3f0-3e3dfc9eac05",
+    "title": "What is behind the surprising resilience of the UK economy?",
+    "date": "2026-10-17",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/aef6d0ed-1019-452a-b3f0-3e3dfc9eac05"
+  },
+  {
+    "id": "f5388310-ea4b-47b5-ae9c-7aff01198422",
+    "title": "This earnings season, what CEOs say matters more than what they’ve done",
+    "date": "2026-10-17",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/f5388310-ea4b-47b5-ae9c-7aff01198422"
+  },
+  {
+    "id": "b4996387-0a4a-4f75-b16d-830fbc8c40c3",
+    "title": "HMRC claws back nearly £500mn in underpaid capital gains",
+    "date": "2026-10-17",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/b4996387-0a4a-4f75-b16d-830fbc8c40c3"
+  },
+  {
+    "id": "169bbf6e-d0af-4c8d-afd0-2c561a58c855",
+    "title": "UK dividend payments jump 14% in a year",
+    "date": "2026-10-17",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/169bbf6e-d0af-4c8d-afd0-2c561a58c855"
+  },
+  {
+    "id": "3f982af9-3eec-476f-9d29-39145ac485c4",
+    "title": "The dress rehearsal for an AI reckoning",
+    "date": "2026-10-17",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/3f982af9-3eec-476f-9d29-39145ac485c4"
+  },
+  {
+    "id": "766f613b-7d0d-4f04-ae44-a8c827864932",
+    "title": "Activists highlight a Big Yellow warning sign for the London market",
+    "date": "2026-10-17",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/766f613b-7d0d-4f04-ae44-a8c827864932"
+  },
+  {
+    "id": "60bffbe3-f7aa-4813-b657-a31087e7b116",
+    "title": "The AI El Niño",
+    "date": "2026-10-17",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/60bffbe3-f7aa-4813-b657-a31087e7b116"
+  },
+  {
     "id": "5b9c0cfa-849d-40a2-92bf-0bd2e2b58871",
     "title": "Olly Robbins wins payout over Mandelson scandal sacking",
     "date": "2026-10-16",
@@ -250,54 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-16",
     "time": "11:08",
     "url": "https://www.ft.com/content/4c4f03f4-f878-4bd6-8128-5be7e3bb8ca1"
-  },
-  {
-    "id": "753fa2ed-1763-462b-a4c0-ded9b53baf3c",
-    "title": "Indonesia stocks plunge after MSCI says market could be cut from indices",
-    "date": "2026-10-16",
-    "time": "11:06",
-    "url": "https://www.ft.com/content/753fa2ed-1763-462b-a4c0-ded9b53baf3c"
-  },
-  {
-    "id": "b739fd97-d839-4287-ab91-45fcedaec76a",
-    "title": "‘We’re potty for vintage Polo Ralph Lauren’",
-    "date": "2026-10-16",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/b739fd97-d839-4287-ab91-45fcedaec76a"
-  },
-  {
-    "id": "e2acd655-0a6a-4de6-9404-c838f6e7b8cb",
-    "title": "Republicans turn on Donald Trump’s tariffs in battle for ‘political survival’",
-    "date": "2026-10-16",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/e2acd655-0a6a-4de6-9404-c838f6e7b8cb"
-  },
-  {
-    "id": "c62481a2-eb6c-4ab8-b226-47efd50affcd",
-    "title": "Should I be stockpiling for an emergency?",
-    "date": "2026-10-16",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/c62481a2-eb6c-4ab8-b226-47efd50affcd"
-  },
-  {
-    "id": "ee6dfd48-fa31-4bde-9962-2f9f09c36798",
-    "title": "EU vows to maintain Russia sanctions after US pivot",
-    "date": "2026-10-16",
-    "time": "10:26",
-    "url": "https://www.ft.com/content/ee6dfd48-fa31-4bde-9962-2f9f09c36798"
-  },
-  {
-    "id": "42eb2851-ddc2-4f13-a55b-8f50cf43443b",
-    "title": "No, Sally Rooney’s books are not ‘banned’ from the UK",
-    "date": "2026-10-16",
-    "time": "09:30",
-    "url": "https://www.ft.com/content/42eb2851-ddc2-4f13-a55b-8f50cf43443b"
-  },
-  {
-    "id": "be1019ac-1023-45b0-835f-d111f2b2b741",
-    "title": "Inside this Hudson Valley home, every room is a time capsule",
-    "date": "2026-10-16",
-    "time": "09:30",
-    "url": "https://www.ft.com/content/be1019ac-1023-45b0-835f-d111f2b2b741"
-  },
+  }
 ];
