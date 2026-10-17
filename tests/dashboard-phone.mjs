@@ -10,7 +10,7 @@
 import { serve, launchChromium, PHONE, check, checkEq, checkErrs, finish } from "./lib.mjs";
 import { apis as LIVE } from "./fixtures/dashboard-live.mjs";
 
-const TABS = ["credit", "rates", "legal", "equities", "hedge-funds"];
+const TABS = ["rates", "equities", "credit", "hedge-funds", "legal"];
 const b = await launchChromium();
 const srv = await serve(LIVE);
 for (const theme of ["dark", "light"]) {

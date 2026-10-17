@@ -1,8 +1,8 @@
 // =============================================================================
 // v2/js/dashboard/app.js — the Dashboard tab: the at-a-glance market state for a
 // European credit-fund reader. Five sub-tabs in priority order (HOUSE_STYLE R37):
-// Credit (the default) · Rates (policy, money markets, curves — the old Macro +
-// Bonds tabs merged) · Legal · Equities · Hedge Funds. Curated seed data comes
+// Rates (the default — policy, money markets, curves; the old Macro + Bonds tabs
+// merged) · Equities · Credit · Hedge Funds · Legal. Curated seed data comes
 // from dashboard/js/data.js + the macro desk's content (ONE source of truth);
 // live figures override at runtime from the Worker (/api/rates, /api/eurates,
 // /api/yield-curve, /api/govyields, /api/worldindices, /api/13f). Every figure
@@ -30,10 +30,11 @@ import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, are
 // Third tuple element is an OPTIONAL short label shown on the narrow iPhone tab
 // bar (≤760px) where the full two-word labels wrap to two lines; desktop (the
 // fixed-viewport terminal) keeps the full label.
-const SUBTABS = [["credit", "Credit"], ["rates", "Rates"], ["legal", "Legal"], ["equities", "Equities"], ["hedge-funds", "Hedge Funds", "Hedge"]];
+// Owner 2026-10-17: Rates · Equities · Credit · Hedge · Legal; Rates (the first chip) is the default.
+const SUBTABS = [["rates", "Rates"], ["equities", "Equities"], ["credit", "Credit"], ["hedge-funds", "Hedge Funds", "Hedge"], ["legal", "Legal"]];
 // Retired sub-tab URLs (Macro and Bonds merged into Rates) keep resolving.
 const SUB_ALIAS = { macro: "rates", "fixed-income": "rates", bonds: "rates" };
-const DEFAULT_SUB = "credit";
+const DEFAULT_SUB = "rates";
 const subOf = (k) => { const x = SUB_ALIAS[k] || k; return SUBTABS.some(([s]) => s === x) ? x : DEFAULT_SUB; };
 const pct1 = (n) => (n == null ? "—" : (n > 0 ? "+" : "") + n.toFixed(1) + "%");
 const upcls = (n) => (n == null ? "" : n > 0 ? "up" : n < 0 ? "down" : "");

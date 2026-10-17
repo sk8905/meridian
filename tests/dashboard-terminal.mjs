@@ -84,7 +84,7 @@ await ctx.close();
   for (const w of [1024, 1280, 1440, 1600]) {
     const { ctx: c2, pg: p2, errs: e2 } = await open(b, { viewport: { width: w, height: 900 } }, `http://localhost:${srv2.port}/v2/dashboard/`);
     await p2.waitForSelector(".dsh-3z .dsh-mid > .dsh-card", { timeout: 10000 });
-    for (const key of ["credit", "rates", "legal", "equities", "hedge-funds"]) {
+    for (const key of ["rates", "equities", "credit", "hedge-funds", "legal"]) {
       await p2.evaluate((k) => { const t = document.querySelector(`.dsh-navchip[data-sub="${k}"]`); t && t.click(); }, key);
       await p2.waitForTimeout(700);
       const r = await p2.evaluate(() => {

@@ -32,12 +32,12 @@ async function visibleLabels(dev) {
 
 const phone = await visibleLabels(PHONE);
 checkEq(phone.fi, "Rates", "iPhone top tab bar: the Rates tab reads 'Rates' (one word, no short variant)");
-checkEq(phone.pane, "credit", "Dashboard opens on the Credit sub-tab by default (R37)");
+checkEq(phone.pane, "rates", "Dashboard opens on the Rates sub-tab by default (R37)");
 checkEq(phone.hf, "Hedge", "iPhone top tab bar: Hedge Funds shows 'Hedge'");
 
 const desk = await visibleLabels(DESKTOP);
 checkEq(desk.fi, "Rates", "Desktop rail: the Rates tab reads 'Rates'");
-checkEq(desk.pane, "credit", "Desktop: Dashboard opens on Credit by default");
+checkEq(desk.pane, "rates", "Desktop: Dashboard opens on Rates by default");
 
 // Retired sub-tab URLs (Macro, Bonds) resolve to Rates and canonicalise in place.
 for (const old of ["macro", "fixed-income"]) {

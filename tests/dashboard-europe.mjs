@@ -17,7 +17,7 @@ const go = async (pg, sub) => { await pg.evaluate((k) => { const t = document.qu
 // ---------------------------------------------------------------- LIVE payloads
 {
   const srv = await serve(LIVE);
-  const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/dashboard/`);
+  const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/dashboard/credit/`);
   await pg.waitForTimeout(1600);
 
   const cr = await pg.evaluate(() => {
@@ -45,7 +45,7 @@ const go = async (pg, sub) => { await pg.evaluate((k) => { const t = document.qu
       actRows: act.length,
     };
   });
-  checkEq(cr.pane, "credit", "Dashboard opens on Credit");
+  checkEq(cr.pane, "credit", "/v2/dashboard/credit/ opens the Credit sub-tab (Rates is the default — tests/dashboard-tab-labels.mjs)");
   checkEq(cr.names[0], "Euro HY", `Credit: Euro HY leads the spread stack (${cr.names.join(" · ")})`);
   check(cr.first === "323", `Credit: OAS shown in basis points (3.23% → 323 in the "OAS bp" column; got "${cr.first}")`);
   check(cr.dated, "Credit: every spread tile carries its as-of date");
@@ -116,7 +116,7 @@ const go = async (pg, sub) => { await pg.evaluate((k) => { const t = document.qu
 // time in a plain-language "as of <time>" badge — never LIVE, never an empty card.
 {
   const srv = await serve();
-  const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/dashboard/`);
+  const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/dashboard/credit/`);
   // Wait for the fallback to render (a fixed delay flaked under parallel load).
   await pg.waitForFunction(() => document.querySelectorAll("#dsh-spreads tbody tr").length > 0 && !!((document.querySelector('.dsh-live[data-live="spreads"]') || {}).textContent || "").trim(), null, { timeout: 15000 }).catch(() => {});
   const lk = await pg.evaluate(() => ({
@@ -133,7 +133,7 @@ const go = async (pg, sub) => { await pg.evaluate((k) => { const t = document.qu
 // ------------------------------------- EMPTY payloads AND no snapshot (first run)
 {
   const srv = await serve({ "/dashboard/js/live-snapshot.js": () => [404, "x", "text/plain"] });
-  const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/dashboard/`);
+  const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/dashboard/credit/`);
   await pg.waitForTimeout(1600);
   const empty = await pg.evaluate(() => ({
     spreads: (document.querySelector("#dsh-spreads") || {}).textContent || "",
@@ -150,7 +150,7 @@ const go = async (pg, sub) => { await pg.evaluate((k) => { const t = document.qu
   // textContent concatenates cells, so match a bare year / quarter without \b.
   // R43b: dates read "15 Oct 26" (two-digit year); month / quarter values keep "Oct 2026".
   const DATE = /(?:19|20)\d{2}(?!\d)|Q[1-4]|\b\d{1,2} [A-Z][a-z]{2} \d{2}\b/;
-  for (const sub of ["credit", "rates", "legal", "equities", "hedge-funds"]) {
+  for (const sub of ["rates", "equities", "credit", "hedge-funds", "legal"]) {
     await go(pg, sub);
     await pg.evaluate(() => { const d = document.querySelector("details.dsh-ref"); if (d) d.open = true; });
     const r = await pg.evaluate((src) => {

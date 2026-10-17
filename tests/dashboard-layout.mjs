@@ -12,7 +12,7 @@ import { serve, launchChromium, check, checkEq, finish } from "./lib.mjs";
 import { apis as LIVE } from "./fixtures/dashboard-live.mjs";
 
 const apis = { ...LIVE, "/api/13f": () => [200, JSON.stringify({ asOf: "2026-06-30", source: "https://www.sec.gov/", holdings: [] })] };
-const TABS = ["credit", "rates", "legal", "equities", "hedge-funds"];
+const TABS = ["rates", "equities", "credit", "hedge-funds", "legal"];
 const b = await launchChromium();
 const srv = await serve(apis);
 // Switch tab, then wait for the packed layout to settle (live data lands and the

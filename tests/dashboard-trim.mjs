@@ -9,7 +9,7 @@ const srv = await serve();
 const b = await launchChromium();
 const dated = (commitments || []).filter((c) => c.date && c.sourceUrl).length;
 for (const [name, dev] of [["iPhone", PHONE], ["desktop", DESKTOP]]) {
-  const { ctx, pg, errs } = await open(b, dev, `http://localhost:${srv.port}/v2/dashboard/`);
+  const { ctx, pg, errs } = await open(b, dev, `http://localhost:${srv.port}/v2/dashboard/credit/`);
   await pg.waitForSelector("#dsh-lpc .dsh-seeall", { timeout: 15000 });
   const r = await pg.evaluate(() => {
     const vis = (e) => e && e.getBoundingClientRect().height > 0;

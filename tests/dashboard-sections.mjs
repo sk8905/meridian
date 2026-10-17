@@ -1,4 +1,4 @@
-// Dashboard sections. Sub-tab order is Credit · Rates · Legal · Equities · Hedge
+// Dashboard sections. Sub-tab order is Rates · Equities · Credit · Hedge · Legal
 // Funds (HOUSE_STYLE R37 — Macro + Bonds merged into Rates). Rates shows the
 // policy table (ECB · BoE · Fed), the sovereign curves (G7 + Western Europe only)
 // and the curve-shape / spreads-to-Bund tile; the ICE BofA spread stack lives on
@@ -27,7 +27,7 @@ const fi = await pg.evaluate(() => {
     banks: pol ? [...pol.querySelectorAll("tbody td.dsh-nm")].map((t) => t.textContent.trim()) : [],
   };
 });
-checkEq(fi.tabs.join(","), "credit,rates,legal,equities,hedge-funds", "Dashboard sub-tab order: Credit · Rates · Legal · Equities · Hedge Funds");
+checkEq(fi.tabs.join(","), "rates,equities,credit,hedge-funds,legal", "Dashboard sub-tab order: Rates · Equities · Credit · Hedge Funds · Legal (owner 2026-10-17)");
 check(fi.sovRows >= 6 && fi.noKeys, `Rates: sovereign term-structure table renders (${fi.sovRows} rows, no colour keys)`);
 check(!fi.countries.some((c) => /Brazil|Mexico|China|India|Korea|Australia/.test(c)), `Rates: sovereign table is G7 + Western Europe only (R4c) (${fi.countries.join(", ")})`);
 check(fi.countries.includes("Germany") && fi.countries.includes("Italy"), "Rates: sovereign table carries the Bund and BTP rows");

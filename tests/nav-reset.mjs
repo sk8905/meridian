@@ -25,15 +25,15 @@ check(await vis("#g-hbrief"), "Home tab: the briefing pane is shown");
 check(await pg.evaluate(() => { const l = document.querySelector("#g-wire-lanechips .g-wire-lane.is-on"); return (l && l.textContent || "").trim() === "News"; }), "Home tab: the underlying news lane is reset to All");
 check(!(await vis(".g-side-x")), "Home tab: the X wire is hidden");
 
-// --- Dashboard: non-default sub-tab → tap Dashboard → Credit -----------------
+// --- Dashboard: non-default sub-tab → tap Dashboard → Rates -----------------
 await pg.click('.mtab[data-key="dashboard"]');
 await pg.waitForSelector(".dsh-railnav .dsh-navchip[data-sub]", { timeout: 8000 });
-await pg.evaluate(() => { const c = document.querySelector('.dsh-navchip[data-sub="rates"]') || document.querySelector('.dsh-navchip[data-sub="legal"]'); if (c) c.click(); });
+await pg.evaluate(() => { const c = document.querySelector('.dsh-navchip[data-sub="legal"]') || document.querySelector('.dsh-navchip[data-sub="credit"]'); if (c) c.click(); });
 await pg.waitForTimeout(200);
-check(await pg.evaluate(() => (document.querySelector(".dsh-3z") || {}).getAttribute && document.querySelector(".dsh-3z").getAttribute("data-pane") !== "credit"), "setup: Dashboard is on a non-default sub-tab");
+check(await pg.evaluate(() => (document.querySelector(".dsh-3z") || {}).getAttribute && document.querySelector(".dsh-3z").getAttribute("data-pane") !== "rates"), "setup: Dashboard is on a non-default sub-tab");
 await pg.click('.mtab[data-key="dashboard"]');
 await pg.waitForTimeout(300);
-check(await pg.evaluate(() => document.querySelector(".dsh-3z") && document.querySelector(".dsh-3z").getAttribute("data-pane") === "credit"), "Dashboard tab: resets to the Credit sub-tab (the default)");
+check(await pg.evaluate(() => document.querySelector(".dsh-3z") && document.querySelector(".dsh-3z").getAttribute("data-pane") === "rates"), "Dashboard tab: resets to the Rates sub-tab (the default)");
 
 // --- Profiles: open profile → tap Profiles → back to the list ---------------
 await pg.goto(`${base}/v2/profiles/#/manager/m8`, { waitUntil: "load" });

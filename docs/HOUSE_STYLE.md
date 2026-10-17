@@ -1100,9 +1100,9 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
 
 - **R37 — Dashboard: Europe-first market state (review 2026-10).** The Dashboard is the
   at-a-glance state for a **European credit-fund** reader. **(a) Sub-tabs, in priority
-  order: `Credit · Rates · Legal · Equities · Hedge Funds`** (`SUBTABS` in
-  `v2/js/dashboard/app.js`); **Credit is the default** (cold load and the bottom-nav
-  re-tap, `home()`). Macro and Bonds are **merged into Rates**; the retired
+  order: `Rates · Equities · Credit · Hedge Funds · Legal`** (owner 2026-10-17; `SUBTABS` in
+  `v2/js/dashboard/app.js`; the phone chip reads "Hedge"); **Rates — the first chip — is
+  the default** (cold load and the bottom-nav re-tap, `home()`). Macro and Bonds are **merged into Rates**; the retired
   `/v2/dashboard/macro|fixed-income` URLs resolve to Rates and are canonicalised in place.
   **(b) Credit** leads with the **ICE BofA OAS stack in basis points** (the rates feed
   reports OAS in %, ×100 client-side) — **Euro HY first**, then US HY / IG / CCC — each
