@@ -1,59 +1,53 @@
 {
- "generated": "2026-10-16T09:55:19.146Z",
+ "generated": "2026-10-17T09:27:48.768Z",
  "tracked": 105,
  "filed": 104,
  "panel": {
   "quarter": "Q2 2026",
   "asOf": "2026-06-30",
-  "filed": "Built from 96 tracked funds' own 13F-HR filings for Q2 2026 (SEC EDGAR; latest filed 2026-08-17).",
+  "filed": "Built from 95 tracked funds' own 13F-HR filings for Q2 2026 (SEC EDGAR; latest filed 2026-08-17).",
   "consensus": [
    {
     "t": "AMZN",
     "name": "Amazon.com",
-    "note": "A top-20 holding at 50 of 96 tracked funds (Bridgewater Associates, Man Group, Millennium Management +47 more); $43bn combined.",
+    "note": "A top-20 holding at 50 of 95 tracked funds (Bridgewater Associates, Man Group, Millennium Management +47 more); $43bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1700574/000117266126003735/0001172661-26-003735-index.htm"
    },
    {
     "t": "NVDA",
     "name": "NVIDIA",
-    "note": "A top-20 holding at 37 of 96 tracked funds (Bridgewater Associates, Man Group, Millennium Management +34 more); $44bn combined.",
+    "note": "A top-20 holding at 37 of 95 tracked funds (Bridgewater Associates, Man Group, Millennium Management +34 more); $44bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1167557/000116755726000226/0001167557-26-000226-index.htm"
    },
    {
     "t": "MSFT",
     "name": "Microsoft",
-    "note": "A top-20 holding at 32 of 96 tracked funds (Bridgewater Associates, Man Group, Millennium Management +29 more); $25bn combined.",
+    "note": "A top-20 holding at 32 of 95 tracked funds (Bridgewater Associates, Man Group, Millennium Management +29 more); $25bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1167557/000116755726000226/0001167557-26-000226-index.htm"
    },
    {
     "t": "META",
     "name": "Meta Platforms",
-    "note": "A top-20 holding at 28 of 96 tracked funds (Man Group, Millennium Management, D. E. Shaw & Co. +25 more); $16bn combined.",
+    "note": "A top-20 holding at 28 of 95 tracked funds (Man Group, Millennium Management, D. E. Shaw & Co. +25 more); $16bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1009207/000110465926097217/0001104659-26-097217-index.htm"
    },
    {
     "t": "GOOG",
     "name": "Alphabet",
-    "note": "A top-20 holding at 27 of 96 tracked funds (Bridgewater Associates, Man Group, Citadel +24 more); $21bn combined.",
+    "note": "A top-20 holding at 27 of 95 tracked funds (Bridgewater Associates, Man Group, Citadel +24 more); $21bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1009207/000110465926097217/0001104659-26-097217-index.htm"
    },
    {
     "t": "AMD",
     "name": "Advanced Micro Devices",
-    "note": "A top-20 holding at 25 of 96 tracked funds (Bridgewater Associates, Man Group, Citadel +22 more); $14bn combined.",
+    "note": "A top-20 holding at 25 of 95 tracked funds (Bridgewater Associates, Man Group, Citadel +22 more); $14bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1318757/000131875726000010/0001318757-26-000010-index.htm"
    },
    {
     "t": "TSM",
     "name": "Taiwan Semiconductor Manufactur",
-    "note": "A top-20 holding at 21 of 96 tracked funds (Man Group, Millennium Management, Point72 Asset Management +18 more); $15bn combined.",
+    "note": "A top-20 holding at 21 of 95 tracked funds (Man Group, Millennium Management, Point72 Asset Management +18 more); $15bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1135730/000091957426005478/0000919574-26-005478-index.htm"
-   },
-   {
-    "t": "WBD",
-    "name": "Warner Bros. Discovery",
-    "note": "A top-20 holding at 21 of 96 tracked funds (Millennium Management, Citadel, D. E. Shaw & Co. +18 more); $8.6bn combined.",
-    "src": "https://www.sec.gov/Archives/edgar/data/1273087/000127308726000007/0001273087-26-000007-index.htm"
    }
   ],
   "moves": [
@@ -62,7 +56,7 @@
     "name": "Space Exploration Technologies",
     "dir": "buy",
     "by": "Millennium Management, Citadel, Davidson Kempner Capital +16 more",
-    "note": "New or added to (>50% more shares) by 19 of 96 tracked funds versus their previous filing.",
+    "note": "New or added to (>50% more shares) by 19 of 95 tracked funds versus their previous filing.",
     "src": "https://www.sec.gov/Archives/edgar/data/1747057/000117266126003662/0001172661-26-003662-index.htm"
    },
    {
@@ -70,7 +64,7 @@
     "name": "Amazon.com",
     "dir": "buy",
     "by": "D. E. Shaw & Co., Renaissance Technologies, Rokos Capital Management +11 more",
-    "note": "New or added to (>50% more shares) by 14 of 96 tracked funds versus their previous filing.",
+    "note": "New or added to (>50% more shares) by 14 of 95 tracked funds versus their previous filing.",
     "src": "https://www.sec.gov/Archives/edgar/data/1009207/000110465926097217/0001104659-26-097217-index.htm"
    },
    {
@@ -78,7 +72,7 @@
     "name": "Meta Platforms",
     "dir": "buy",
     "by": "D. E. Shaw & Co., Renaissance Technologies, Squarepoint Capital +10 more",
-    "note": "New or added to (>50% more shares) by 13 of 96 tracked funds versus their previous filing.",
+    "note": "New or added to (>50% more shares) by 13 of 95 tracked funds versus their previous filing.",
     "src": "https://www.sec.gov/Archives/edgar/data/1009207/000110465926097217/0001104659-26-097217-index.htm"
    },
    {
@@ -86,7 +80,7 @@
     "name": "Broadcom",
     "dir": "sell",
     "by": "Millennium Management, D. E. Shaw & Co., Two Sigma Investments +11 more",
-    "note": "Exited or cut by more than half at 14 of 96 tracked funds versus their previous filing.",
+    "note": "Exited or cut by more than half at 14 of 95 tracked funds versus their previous filing.",
     "src": "https://www.sec.gov/Archives/edgar/data/1009207/000110465926097217/0001104659-26-097217-index.htm"
    },
    {
@@ -94,7 +88,7 @@
     "name": "Micron Technology",
     "dir": "sell",
     "by": "Bridgewater Associates, Citadel, D. E. Shaw & Co. +10 more",
-    "note": "Exited or cut by more than half at 13 of 96 tracked funds versus their previous filing.",
+    "note": "Exited or cut by more than half at 13 of 95 tracked funds versus their previous filing.",
     "src": "https://www.sec.gov/Archives/edgar/data/1423053/000110465926097200/0001104659-26-097200-index.htm"
    }
   ]
@@ -5706,61 +5700,61 @@
   },
   "h144": {
    "name": "Trium Capital",
-   "asOf": "2026-06-30",
-   "filedAt": "2026-07-16",
-   "src": "https://www.sec.gov/Archives/edgar/data/1963860/000196386026000010/0001963860-26-000010-index.htm",
-   "total": 162575431,
-   "positions": 50,
+   "asOf": "2026-09-30",
+   "filedAt": "2026-10-16",
+   "src": "https://www.sec.gov/Archives/edgar/data/1963860/000196386026000016/0001963860-26-000016-index.htm",
+   "total": 79448371,
+   "positions": 51,
    "top": [
     {
      "name": "AT&T ORD",
      "cusip": "00206R102",
-     "value": 57766978
+     "value": 32149026
     },
     {
-     "name": "ESPERION THERAPEUTICS ORD",
-     "cusip": "29664W105",
-     "value": 35259754
-    },
-    {
-     "name": "ALUMIS ORD",
-     "cusip": "022307102",
-     "value": 10982142
-    },
-    {
-     "name": "SAPIENS INTERNATIONAL ORD",
-     "cusip": "G7T16G103",
-     "value": 7555260
+     "name": "SIMULATIONS PLUS ORD",
+     "cusip": "829214105",
+     "value": 12406560
     },
     {
      "name": "ELME ORD",
      "cusip": "939653101",
-     "value": 4959912
+     "value": 4673005
     },
     {
-     "name": "WABTEC ORD",
-     "cusip": "929740108",
-     "value": 3357598
+     "name": "GENCO SHIPPING TRADING ORD",
+     "cusip": "Y2685T131",
+     "value": 4571460
     },
     {
-     "name": "LINDE ORD",
-     "cusip": "G54950103",
-     "value": 2110010
+     "name": "BIOLIFE SOLUTIONS ORD",
+     "cusip": "09062W204",
+     "value": 2961613
     },
     {
-     "name": "ROCKWELL AUTOMAT ORD",
-     "cusip": "773903109",
-     "value": 1963487
+     "name": "SNOWFLAKE ORD",
+     "cusip": "833445109",
+     "value": 2954172
     },
     {
-     "name": "OWENS CORNING ORD",
-     "cusip": "690742101",
-     "value": 1928821
+     "name": "ALUMIS ORD",
+     "cusip": "022307102",
+     "value": 1483712
     },
     {
-     "name": "FERGUSON ENTERPRISES ORD",
-     "cusip": "31488V107",
-     "value": 1923322
+     "name": "ELEMENTAL ROYALTY ORD",
+     "cusip": "28620K106",
+     "value": 1246900
+    },
+    {
+     "name": "MIDDLEBY ORD",
+     "cusip": "596278101",
+     "value": 1042326
+    },
+    {
+     "name": "PUBLIC SERVICE ENTERPRISE GROUP ORD",
+     "cusip": "744573106",
+     "value": 1018248
     }
    ]
   },
