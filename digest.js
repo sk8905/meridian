@@ -4,36 +4,25 @@
 // hand-edit; re-run the script. Tokenless + no-cache (see _headers).
 // =============================================================================
 export const DIGEST = {
- "asOf": "2026-10-16",
- "built": "2026-10-16T01:41:41.876Z",
+ "asOf": "2026-10-17",
+ "built": "2026-10-17T01:37:23.002Z",
  "daily": {
   "label": "Daily",
-  "from": "2026-10-15",
-  "to": "2026-10-16",
+  "from": "2026-10-16",
+  "to": "2026-10-17",
   "deals": {
-   "total": 2,
+   "total": 1,
    "items": [
     {
-     "id": "d1150",
-     "date": "2026-10-15",
-     "title": "Castlelake prices $1.1bn commercial real estate CLO, CLCRE 2026-FL1, its first",
-     "url": "https://www.castlelake.com/article/castlelake-prices-1-1-billion-commercial-real-estate-clo-clcre-2026-fl1/",
-     "src": "castlelake.com",
-     "who": "Castlelake, L.P.",
-     "kind": "Financing",
-     "href": "/v2/transactions/#/deal/d1150",
-     "amount": "$1.1bn"
-    },
-    {
-     "id": "d1147",
-     "date": "2026-10-15",
-     "title": "Pemberton provides financing to support Exponent's buyout of Killarney Telecommunications",
-     "url": "https://pembertonam.com/news/pemberton-provides-financing-to-support-exponents-buyout-of-killarney-telecommunications/",
-     "src": "pembertonam.com",
-     "who": "Pemberton Asset Management",
-     "kind": "Financing",
-     "href": "/v2/transactions/#/deal/d1147",
-     "amount": null
+     "id": "d1173",
+     "date": "2026-10-16",
+     "title": "Permira Credit prices Menlo CLO VI at $401.9 million",
+     "url": "https://www.permira.com/news-and-insights/announcements/permira-credit-prices-menlo-clo-vi-at-4019-million",
+     "src": "permira.com",
+     "who": "Permira Credit",
+     "kind": "Structured Credit",
+     "href": "/v2/transactions/#/deal/d1173",
+     "amount": "$401.9 million"
     }
    ]
   },
@@ -42,15 +31,46 @@ export const DIGEST = {
    "items": []
   },
   "legal": {
-   "total": 0,
-   "items": []
+   "total": 3,
+   "items": [
+    {
+     "id": "c296",
+     "date": "2026-10-16",
+     "title": "Stor RB One Ltd v Sripiragash Kanthasamy [2026] EWHC 2625 (Comm)",
+     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2625",
+     "src": "caselaw.nationalarchives.gov.uk",
+     "who": "High Court (Comm)",
+     "kind": "Judgment",
+     "href": null
+    },
+    {
+     "id": "c297",
+     "date": "2026-10-16",
+     "title": "Fairmead Insurance Limited & Ors, Re [2026] EWHC 2644 (BP)",
+     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2644",
+     "src": "caselaw.nationalarchives.gov.uk",
+     "who": "High Court (BP)",
+     "kind": "Judgment",
+     "href": null
+    },
+    {
+     "id": "c298",
+     "date": "2026-10-16",
+     "title": "Amber Construction Services Limited v Ilyrian Construction Ltd [2026] EWHC 2603 (BP)",
+     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2603",
+     "src": "caselaw.nationalarchives.gov.uk",
+     "who": "High Court (BP)",
+     "kind": "Judgment",
+     "href": null
+    }
+   ]
   },
   "people": {
    "total": 0,
    "items": []
   },
   "rates": {
-   "savedAt": "2026-10-15T11:20:40.777Z",
+   "savedAt": "2026-10-16T11:15:07.603Z",
    "items": [
     {
      "label": "SONIA",
@@ -65,34 +85,34 @@ export const DIGEST = {
     },
     {
      "label": "SOFR",
-     "value": 3.89,
+     "value": 3.88,
      "unit": "%",
-     "display": 3.89,
-     "chg": 0.02,
+     "display": 3.88,
+     "chg": -0.01,
      "chgUnit": "pp",
-     "asOf": "2026-10-13",
+     "asOf": "2026-10-14",
      "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
      "src": "newyorkfed.org"
     },
     {
      "label": "US 10Y",
-     "value": 5.19,
+     "value": 5.1,
      "unit": "%",
-     "display": 5.19,
-     "chg": -0.02,
+     "display": 5.1,
+     "chg": -0.09,
      "chgUnit": "pp",
-     "asOf": "2026-10-14",
+     "asOf": "2026-10-15",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
     {
      "label": "US 2Y",
-     "value": 4.82,
+     "value": 4.77,
      "unit": "%",
-     "display": 4.82,
-     "chg": 0.03,
+     "display": 4.77,
+     "chg": -0.05,
      "chgUnit": "pp",
-     "asOf": "2026-10-14",
+     "asOf": "2026-10-15",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
@@ -147,7 +167,7 @@ export const DIGEST = {
      "display": 2.5,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-15",
+     "asOf": "2026-10-16",
      "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
      "src": "data.ecb.europa.eu"
     },
@@ -156,9 +176,9 @@ export const DIGEST = {
      "value": 2.44,
      "unit": "%",
      "display": 2.44,
-     "chg": 0.001,
+     "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-14",
+     "asOf": "2026-10-15",
      "url": "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT",
      "src": "data.ecb.europa.eu"
     },
@@ -178,10 +198,10 @@ export const DIGEST = {
  },
  "weekly": {
   "label": "Weekly",
-  "from": "2026-10-10",
-  "to": "2026-10-16",
+  "from": "2026-10-11",
+  "to": "2026-10-17",
   "deals": {
-   "total": 6,
+   "total": 8,
    "items": [
     {
      "id": "d966",
@@ -206,15 +226,37 @@ export const DIGEST = {
      "amount": "$1.1bn"
     },
     {
-     "id": "d990",
+     "id": "d1166",
      "date": "2026-10-12",
-     "title": "Blackstone Credit & Insurance leads $1bn financing for the combination of Analogic and Leidos' Security Enterprise Solutions businesses",
-     "url": "https://blackstone.com/news/press/blackstone-credit-insurance-leads-1-billion-financing-to-support-combination-of-analogic-corporation-and-leidos-security-enterprise-solutions-businesses",
+     "title": "Blackstone Credit & Insurance leads $1 billion financing for Analogic and Leidos security businesses combination",
+     "url": "https://www.blackstone.com/news/press/blackstone-credit-insurance-leads-1-billion-financing-to-support-combination-of-analogic-corporation-and-leidos-security-enterprise-solutions-businesses/",
      "src": "blackstone.com",
      "who": "Blackstone Credit & Insurance (BXCI)",
-     "kind": "Financing",
-     "href": "/v2/transactions/#/deal/d990",
-     "amount": "$1bn"
+     "kind": "Direct Lending",
+     "href": "/v2/transactions/#/deal/d1166",
+     "amount": "$1 billion"
+    },
+    {
+     "id": "d1173",
+     "date": "2026-10-16",
+     "title": "Permira Credit prices Menlo CLO VI at $401.9 million",
+     "url": "https://www.permira.com/news-and-insights/announcements/permira-credit-prices-menlo-clo-vi-at-4019-million",
+     "src": "permira.com",
+     "who": "Permira Credit",
+     "kind": "Structured Credit",
+     "href": "/v2/transactions/#/deal/d1173",
+     "amount": "$401.9 million"
+    },
+    {
+     "id": "d1174",
+     "date": "2026-10-12",
+     "title": "Investec Real Estate provides £21.3m refinancing for Belfast student scheme",
+     "url": "https://www.estatesgazette.co.uk/news/investec-provides-21-3m-refinancing-for-belfast-student-scheme/",
+     "src": "estatesgazette.co.uk",
+     "who": "Investec",
+     "kind": "Refinancing",
+     "href": "/v2/transactions/#/deal/d1174",
+     "amount": "£21.3m"
     },
     {
      "id": "d1146",
@@ -256,8 +298,48 @@ export const DIGEST = {
    "items": []
   },
   "legal": {
-   "total": 6,
+   "total": 11,
    "items": [
+    {
+     "id": "c296",
+     "date": "2026-10-16",
+     "title": "Stor RB One Ltd v Sripiragash Kanthasamy [2026] EWHC 2625 (Comm)",
+     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2625",
+     "src": "caselaw.nationalarchives.gov.uk",
+     "who": "High Court (Comm)",
+     "kind": "Judgment",
+     "href": null
+    },
+    {
+     "id": "c297",
+     "date": "2026-10-16",
+     "title": "Fairmead Insurance Limited & Ors, Re [2026] EWHC 2644 (BP)",
+     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2644",
+     "src": "caselaw.nationalarchives.gov.uk",
+     "who": "High Court (BP)",
+     "kind": "Judgment",
+     "href": null
+    },
+    {
+     "id": "c298",
+     "date": "2026-10-16",
+     "title": "Amber Construction Services Limited v Ilyrian Construction Ltd [2026] EWHC 2603 (BP)",
+     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2603",
+     "src": "caselaw.nationalarchives.gov.uk",
+     "who": "High Court (BP)",
+     "kind": "Judgment",
+     "href": null
+    },
+    {
+     "id": "c300",
+     "date": "2026-10-15",
+     "title": "Nebahat Evyap İşbilen v Selman Turk & Ors [2026] EWHC 2635 (BP)",
+     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2635",
+     "src": "caselaw.nationalarchives.gov.uk",
+     "who": "High Court (BP)",
+     "kind": "Judgment",
+     "href": null
+    },
     {
      "id": "c283",
      "date": "2026-10-13",
@@ -275,6 +357,16 @@ export const DIGEST = {
      "url": "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2585",
      "src": "caselaw.nationalarchives.gov.uk",
      "who": "High Court (Comm)",
+     "kind": "Judgment",
+     "href": null
+    },
+    {
+     "id": "c301",
+     "date": "2026-10-13",
+     "title": "A & Ors v E [2026] EWHC 2590 (BP)",
+     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2590",
+     "src": "caselaw.nationalarchives.gov.uk",
+     "who": "High Court (BP)",
      "kind": "Judgment",
      "href": null
     },
@@ -307,22 +399,22 @@ export const DIGEST = {
      "who": "A&O Shearman",
      "kind": "R&I alert",
      "href": "/v2/profiles/#/firm/aoshearman"
-    },
-    {
-     "id": "u2085",
-     "date": "2026-10-12",
-     "title": "Brightline Florida chapter 11 filing and restructuring support agreement",
-     "url": "https://www.davispolk.com/experience/brightline-florida-chapter-11-filing-and-restructuring-support-agreement",
-     "src": "davispolk.com",
-     "who": "Davis Polk",
-     "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/davispolk"
     }
    ]
   },
   "people": {
-   "total": 1,
+   "total": 3,
    "items": [
+    {
+     "id": "i1234",
+     "date": "2026-10-14",
+     "title": "ITE Management names Michael Fox to lead its London office",
+     "url": "https://www.alternativeswatch.com/2026/10/14/ite-management-michael-fox-london-office/",
+     "src": "alternativeswatch.com",
+     "who": "ITE Management",
+     "kind": "Credit",
+     "href": "/v2/profiles/#/manager/m437"
+    },
     {
      "id": "i1034",
      "date": "2026-10-12",
@@ -332,11 +424,21 @@ export const DIGEST = {
      "who": "Canyon Partners (Credit)",
      "kind": "Credit",
      "href": "/v2/profiles/#/manager/m183"
+    },
+    {
+     "id": "hi273",
+     "date": "2026-10-12",
+     "title": "Canyon Partners names Chris Hansen chief information officer to expand AI, data capabilities",
+     "url": "https://www.alternativeswatch.com/2026/10/12/canyon-partners-chris-hansen-cio-ai-data/",
+     "src": "alternativeswatch.com",
+     "who": "Canyon Partners",
+     "kind": "Hedge fund",
+     "href": "/v2/profiles/#/hf/h47"
     }
    ]
   },
   "rates": {
-   "savedAt": "2026-10-15T11:20:40.777Z",
+   "savedAt": "2026-10-16T11:15:07.603Z",
    "items": [
     {
      "label": "SONIA",
@@ -351,34 +453,34 @@ export const DIGEST = {
     },
     {
      "label": "SOFR",
-     "value": 3.89,
+     "value": 3.88,
      "unit": "%",
-     "display": 3.89,
-     "chg": -0.01,
+     "display": 3.88,
+     "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-13",
+     "asOf": "2026-10-14",
      "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
      "src": "newyorkfed.org"
     },
     {
      "label": "US 10Y",
-     "value": 5.19,
+     "value": 5.1,
      "unit": "%",
-     "display": 5.19,
-     "chg": -0.09,
+     "display": 5.1,
+     "chg": -0.12,
      "chgUnit": "pp",
-     "asOf": "2026-10-14",
+     "asOf": "2026-10-15",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
     {
      "label": "US 2Y",
-     "value": 4.82,
+     "value": 4.77,
      "unit": "%",
-     "display": 4.82,
-     "chg": 0.05,
+     "display": 4.77,
+     "chg": 0.02,
      "chgUnit": "pp",
-     "asOf": "2026-10-14",
+     "asOf": "2026-10-15",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
@@ -433,7 +535,7 @@ export const DIGEST = {
      "display": 2.5,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-15",
+     "asOf": "2026-10-16",
      "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
      "src": "data.ecb.europa.eu"
     },
@@ -444,7 +546,7 @@ export const DIGEST = {
      "display": 2.44,
      "chg": 0.001,
      "chgUnit": "pp",
-     "asOf": "2026-10-14",
+     "asOf": "2026-10-15",
      "url": "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT",
      "src": "data.ecb.europa.eu"
     },
