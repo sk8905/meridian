@@ -100,12 +100,12 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-17",
-  time: "06:10 BST",
-  lede: "Treasuries are heading for their best week since February as the US 10-year sits near 5.10% and S&P 500 futures edge up, after an AI-led selloff that put CoreWeave's debt in distress territory.",
+  time: "07:13 BST",
+  lede: "Wall Street ended a volatile week lower as AI-debt worries hit tech, with the Nasdaq down 2.1% on Friday, Brent touching $110 and the US 10-year at about 5.10%.",
   bullets: [
-    { html: "<strong>Macro &mdash; the Bloomberg Dollar Spot Index is down 0.4% and Brent is at $105.72</strong> after Fed chair Kevin Warsh stayed silent on policy in Bangkok, pulling down bets on an October rate rise following September&rsquo;s hot US CPI.", src: "https://www.bloomberg.com/news/newsletters/2026-10-16/coreweave-is-testing-the-limits-of-ai-euphoria", srcName: "Bloomberg", date: "2026-10-16" },
-    { html: "<strong>Bonds &mdash; the US 10-year yield is 5.10%, up 4bp in early trading,</strong> even as Treasuries head for their best week since February as AI jitters halt the bond rout.", src: "https://www.ft.com/content/4c4f03f4-f878-4bd6-8128-5be7e3bb8ca1", srcName: "Financial Times", date: "2026-10-16" },
-    { html: "<strong>Equities &mdash; S&amp;P 500 futures are at 7,806.50, up 0.2%, while the Nasdaq has shed 3%</strong> since Monday in an AI rotation, with Indonesian stocks suffering their worst rout in nearly three decades after MSCI&rsquo;s warning.", src: "https://www.bloomberg.com/news/newsletters/2026-10-16/coreweave-is-testing-the-limits-of-ai-euphoria", srcName: "Bloomberg", date: "2026-10-16" },
-    { html: "<strong>Credit &mdash; CoreWeave&rsquo;s credit-default swaps briefly blew out beyond 1,000bp</strong> this week and its 2032 bonds, issued four months ago, fell into distressed territory; investors priced a more than 60% chance of default within five years.", src: "https://www.bloomberg.com/news/newsletters/2026-10-16/coreweave-is-testing-the-limits-of-ai-euphoria", srcName: "Bloomberg", date: "2026-10-16" },
+    { html: "<strong>Macro &mdash; Brent touched $110 a barrel on Friday,</strong> its first time at that level since May, as Iran escalated attacks in the Strait of Hormuz; WTI neared $100, at $99.02 for the November contract, up 2.6%.", src: "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-futures-mixed-amid-volatile-week-112939401.html", srcName: "Yahoo Finance", date: "2026-10-16" },
+    { html: "<strong>Bonds &mdash; the US 10-year Treasury yield was 5.10% at Friday&rsquo;s close, up 1bp,</strong> as the AI-debt tech sell-off capped a volatile week for markets.", src: "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-futures-mixed-amid-volatile-week-112939401.html", srcName: "Yahoo Finance", date: "2026-10-16" },
+    { html: "<strong>Equities &mdash; the Nasdaq Composite fell 2.1% to 26,140 on Friday,</strong> losing 573 points on AI-debt fears and posting its worst week since June; the S&amp;P 500 dropped 1.1% and the Dow 0.3%.", src: "https://www.cbsnews.com/news/tech-stocks-slide-ai-debt-concerns/", srcName: "CBS News", date: "2026-10-16" },
+    { html: "<strong>Credit &mdash; Permira Credit priced Menlo CLO VI, a $401.9m US CLO,</strong> its sixth US CLO and 21st globally, taking Global Liquid Credit assets under management to $9.5bn on closing.", src: "https://www.permira.com/news-and-insights/announcements/permira-credit-prices-menlo-clo-vi-at-4019-million", srcName: "Permira", date: "2026-10-16" },
   ],
 };

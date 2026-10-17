@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-17",
-  lastCheckedTime: "06:10 BST",
+  lastCheckedTime: "07:13 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1037,20 +1037,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-16",
+  updated: "2026-10-17",
   us: [
-    {title: "Wall Street’s AI wobbles", source: "Financial Times", date: "2026-10-16", time: "05:00", url: "https://www.ft.com/content/6a1ecb1a-a998-4cbb-be54-22df550a66ee"},
-    {title: "Global AI sell-off deepens as Asian markets tumble", source: "Financial Times", date: "2026-10-15", time: "05:04", url: "https://www.ft.com/content/cf5f1209-da29-4ce1-b425-0e83818bf9ec"},
-    {title: "US inflation jumps to 3.7% as Iran war drives up prices", source: "Financial Times", date: "2026-10-14", time: "21:06", url: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d"},
+    {title: "Stock market today: Dow, S&P 500, Nasdaq sink as tech sell-off caps volatile week", source: "Yahoo Finance", date: "2026-10-16", time: "21:48", url: "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-futures-mixed-amid-volatile-week-112939401.html"},
+    {title: "Tech stocks tumble as AI debt fears rattle Wall Street", source: "CBS News", date: "2026-10-16", time: "21:39", url: "https://www.cbsnews.com/news/tech-stocks-slide-ai-debt-concerns/"},
+    {title: "The dress rehearsal for an AI reckoning", source: "Financial Times", date: "2026-10-17", time: "05:00", url: "https://www.ft.com/content/3f982af9-3eec-476f-9d29-39145ac485c4"},
     {title: "Treasuries head for best week since February as AI jitters halt bond rout", source: "Financial Times", date: "2026-10-16", time: "12:45", url: "https://www.ft.com/content/4c4f03f4-f878-4bd6-8128-5be7e3bb8ca1"},
     {title: "Dollar weakens as Fed chair Kevin Warsh declines to hint at October rate rise", source: "Financial Times", date: "2026-10-16", time: "06:25", url: "https://www.ft.com/content/95a8e05d-fc20-441d-b271-64e87fe41f76"},
   ],
   uk: [
+    {title: "What is behind the surprising resilience of the UK economy?", source: "Financial Times", date: "2026-10-17", time: "05:00", url: "https://www.ft.com/content/aef6d0ed-1019-452a-b3f0-3e3dfc9eac05"},
+    {title: "UK dividend payments jump 14% in a year", source: "Financial Times", date: "2026-10-17", time: "05:00", url: "https://www.ft.com/content/169bbf6e-d0af-4c8d-afd0-2c561a58c855"},
+    {title: "HMRC claws back nearly £500mn in underpaid capital gains", source: "Financial Times", date: "2026-10-17", time: "05:00", url: "https://www.ft.com/content/b4996387-0a4a-4f75-b16d-830fbc8c40c3"},
     {title: "‘Early days’ to see full effect of energy prices on inflation, BoE’s Bailey says", source: "Financial Times", date: "2026-10-16", time: "04:12", url: "https://www.ft.com/content/b6255adb-3ce5-4463-92cd-de2f8e9a1f74"},
-    {title: "Young people to get less cash but more job support under Milburn welfare plan", source: "Financial Times", date: "2026-10-16", time: "05:00", url: "https://www.ft.com/content/c6e911dd-440b-4852-925c-448faeb52d98"},
     {title: "UK economy defies contraction fears to grow 0.1% in August", source: "Financial Times", date: "2026-10-15", time: "09:34", url: "https://www.ft.com/content/46708b2a-0392-43f9-b378-de7117febd16"},
-    {title: "John Healey promises to ‘stay the path’ on reducing UK deficit", source: "Financial Times", date: "2026-10-15", time: "10:36", url: "https://www.ft.com/content/246e950b-e1e5-4f12-af78-4a13433f3977"},
-    {title: "Healey set to pay for Budget giveaways without more borrowing", source: "Financial Times", date: "2026-10-14", time: "05:00", url: "https://www.ft.com/content/08b9bbe6-0637-497e-af6d-464dd41e6121"},
   ],
 };
 
@@ -1063,8 +1063,12 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-16",
+  updated: "2026-10-17",
   items: [
+    {"title": "What is behind the surprising resilience of the UK economy?", "source": "Financial Times", "date": "2026-10-17", "time": "05:00", "url": "https://www.ft.com/content/aef6d0ed-1019-452a-b3f0-3e3dfc9eac05", "blurb": "FT analysis of the resilience of the UK economy."},
+    {"title": "The dress rehearsal for an AI reckoning", "source": "Financial Times", "date": "2026-10-17", "time": "05:00", "url": "https://www.ft.com/content/3f982af9-3eec-476f-9d29-39145ac485c4", "blurb": "FT on the AI-linked market sell-off."},
+    {"title": "The AI El Niño", "source": "Financial Times", "date": "2026-10-17", "time": "05:00", "url": "https://www.ft.com/content/60bffbe3-f7aa-4813-b657-a31087e7b116", "blurb": "FT on the AI boom and its market consequences."},
+    {"title": "Tech stocks tumble as AI debt fears rattle Wall Street", "source": "CBS News", "date": "2026-10-16", "time": "21:39", "url": "https://www.cbsnews.com/news/tech-stocks-slide-ai-debt-concerns/", "blurb": "The Nasdaq Composite fell 573 points (2.1%) to 26,140, its worst week since June; the S&P 500 dropped 1.1% and the Dow 0.3%."},
     {"title": "Wall Street’s AI wobbles", "source": "Financial Times", "date": "2026-10-16", "time": "05:00", "url": "https://www.ft.com/content/6a1ecb1a", "blurb": "Wall Street’s AI-linked stocks wobble."},
     {"title": "‘Early days’ to see full effect of energy prices on inflation, BoE’s Bailey says", "source": "Financial Times", "date": "2026-10-16", "time": "04:12", "url": "https://www.ft.com/content/b6255adb", "blurb": "BoE Governor Bailey says it is early days to judge the full effect of energy prices on inflation."},
     {"title": "Hot inflation isn’t playing along with Trump", "source": "Bloomberg Opinion", "author": "John Authers", "date": "2026-10-15", "time": "05:08", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-15/hot-inflation-isn-t-playing-along-with-trump", "blurb": "A rate cut appears to be out for now."},
@@ -1103,14 +1107,6 @@ export const ARTICLES = {
     {"title": "Big investors ‘bottom fish’ in Eurozone bond markets after France sell-off", "source": "Financial Times", "date": "2026-10-08", "time": "05:00", "url": "https://www.ft.com/content/9cf103ed-548e-4b06-baed-71632abca961", "blurb": "Fears of a blow-up similar to the Eurozone debt crisis have been overdone, asset managers say."},
     {"title": "What is the real price of oil any more?", "source": "Financial Times", "date": "2026-10-08", "time": "05:00", "url": "https://www.ft.com/content/5cad1f95-b06d-4ee1-b1c7-0244999337d4", "blurb": "Crude futures are no longer a reliable guide to the inflationary impact of fuel prices."},
     {"title": "How a trillion-dollar hedge fund borrowing spree became Wall Street’s cash cow", "source": "Financial Times", "date": "2026-10-08", "time": "05:00", "url": "https://www.ft.com/content/d313d0ce-d552-463e-9e84-6fa8c3efeeec", "blurb": "Banks’ trading businesses are booming, but post-crisis regulation means it is no longer them placing the bets."},
-    {"title": "Oil majors look beyond Middle East war in pursuit of region’s vast reserves", "source": "Financial Times", "date": "2026-10-08", "time": "05:00", "url": "https://www.ft.com/content/3534cf93-be7b-49ec-bf58-cea84e73cb28", "blurb": "Western groups look to new investment opportunities despite the chaos and heightened risks caused by the conflict with Iran."},
-    {"title": "Higher mortgage rates inflict ‘pain’ on UK housing market", "source": "Financial Times", "date": "2026-10-08", "time": "01:01", "url": "https://www.ft.com/content/8d1cb8e2-ed48-4d7c-ac19-2693973894b4", "blurb": "UK housing market feels the effect of higher mortgage rates."},
-    {"title": "Fed minutes indicate broad agreement for another rate rise this year", "source": "Financial Times", "date": "2026-10-07", "time": "21:18", "url": "https://www.ft.com/content/acca8690-c230-4abc-b2c5-4a1d2f082753", "blurb": "Minutes of the September FOMC meeting point to broad support for a further hike this year."},
-    {"title": "Can Wall Street keep partying while bond markets burn?", "source": "Reuters", "date": "2026-10-07", "url": "https://www.reuters.com/commentary/reuters-open-interest/can-wall-street-keep-partying-while-bond-markets-burn-2026-10-07/", "blurb": "Jamie McGeever on record US equity highs alongside 24-year highs in long-dated Treasury yields."},
-    {"title": "IMF chief warns energy shock, growing debt and AI risks threaten global growth", "source": "Reuters", "date": "2026-10-07", "url": "https://www.reuters.com/world/asia-pacific/imf-chief-warns-energy-shock-growing-debt-ai-risks-threaten-global-growth-2026-10-07/", "blurb": "The IMF managing director flags energy, debt and AI-valuation risks to the global outlook."},
-    {"title": "Global bond sell-off resumes as 30-year Treasury yield hits highest since 2002", "source": "Financial Times", "date": "2026-10-07", "time": "17:25", "url": "https://www.ft.com/content/33c67aa0-bfdb-457b-84bb-960b4fed94b6", "blurb": "The global government-bond rout resumes, pushing the US 30-year yield to its highest level since 2002."},
-    {"title": "The important judgments for Healey in the coming Budget", "source": "Financial Times", "date": "2026-10-07", "time": "16:06", "url": "https://www.ft.com/content/b07bd481-a492-4b95-af55-914176f8d2b6", "blurb": "FT analysis of the key choices facing the Chancellor at the Autumn Budget."},
-    {"title": "Billionaire Weston family to buy Boots in $8.9bn deal", "source": "Financial Times", "date": "2026-10-07", "time": "14:50", "url": "https://www.ft.com/content/68c0fcb8-a69e-4767-a7fc-f84acb04cbd7", "blurb": "The UK retailer secures its second new owner in under 18 months."},
   ],
 };
 

@@ -109,6 +109,28 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    "id": "rsch-gs-briefings-oilpricesdecline-20261016",
+    "publication": "Goldman Sachs Research",
+    "author": "Daan Struyven",
+    "series": "Briefings",
+    "title": "Will Oil Prices Decline as Middle East Supply Recovers?",
+    "date": "2026-10-16",
+    "time": "14:53",
+    "summary": "Goldman Sachs Research now expects Brent at $90 a barrel in December 2026 (prior forecast $85) and averaging $80 in 2027, as Persian Gulf exports recover to near 2025 levels.",
+    "url": "https://www.goldmansachs.com/insights"
+  },
+  {
+    "id": "rsch-jpm-tmt-pressure-20261016",
+    "publication": "JPMorgan Private Bank",
+    "author": null,
+    "series": "Top Market Takeaways",
+    "title": "When does the pressure matter?",
+    "date": "2026-10-16",
+    "time": "13:30",
+    "summary": "JP Morgan Private Bank’s weekly note on inflation, yields and equities, with the chart caption: inflation above 2% is not, by itself, a signal for stocks.",
+    "url": "https://www.jpmorgan.com/insights/markets-and-economy/top-market-takeaways"
+  },
+  {
     id: "rsch-spdji-dailyindexinsights-20261016",
     publication: "S&P Dow Jones Indices",
     author: null,

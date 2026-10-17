@@ -22,10 +22,10 @@ export const EQ_INDICES = [
     "stooq": "^spx",
     "source": "https://finance.yahoo.com/quote/%5EGSPC",
     "keyMoment": {
-      "text": "The S&amp;P 500 gained 0.7% on Friday as a weaker-than-expected September jobs report (29,000 payrolls) cemented expectations that the Fed will hold in October, with tech leading.",
-      "src": "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html",
+      "text": "The S&amp;P 500 fell 1.1% on Friday to 7,659.44 as AI-debt worries drove a tech sell-off that capped a volatile week, with Brent touching $110 for the first time since May.",
+      "src": "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-futures-mixed-amid-volatile-week-112939401.html",
       "srcName": "Yahoo Finance",
-      "date": "2026-10-02"
+      "date": "2026-10-16"
     }
   },
   {
@@ -38,10 +38,10 @@ export const EQ_INDICES = [
     "stooq": "^ndq",
     "source": "https://finance.yahoo.com/quote/%5EIXIC",
     "keyMoment": {
-      "text": "The Nasdaq Composite surged 1.2% on Friday, the strongest of the three US benchmarks, as tech led the rally after the soft jobs report cooled Fed rate-hike expectations.",
-      "src": "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html",
+      "text": "The Nasdaq Composite sank 2.1% on Friday, losing 573 points to close at 26,140.03, and fell about 4.5% on the week — its worst since June — on AI-debt fears.",
+      "src": "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-futures-mixed-amid-volatile-week-112939401.html",
       "srcName": "Yahoo Finance",
-      "date": "2026-10-02"
+      "date": "2026-10-16"
     }
   },
   {
@@ -54,10 +54,10 @@ export const EQ_INDICES = [
     "stooq": "^dji",
     "source": "https://finance.yahoo.com/quote/%5EDJI",
     "keyMoment": {
-      "text": "The Dow rose 0.5% on Friday as the weak September payrolls print (29,000 jobs) faded Fed rate-hike expectations.",
-      "src": "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html",
+      "text": "The Dow slipped 0.3% on Friday to 52,002.41, cushioned relative to the tech-heavy indices as the AI-debt sell-off hit the Nasdaq hardest.",
+      "src": "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-futures-mixed-amid-volatile-week-112939401.html",
       "srcName": "Yahoo Finance",
-      "date": "2026-10-02"
+      "date": "2026-10-16"
     }
   },
   {

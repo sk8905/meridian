@@ -49,6 +49,18 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    "id": "nl-economist-worldinbrief-trumpwaivessanctions-20261017",
+    "publication": "The Economist",
+    "author": null,
+    "series": "The World in Brief",
+    "title": "The World in Brief: Trump waives sanctions on Russia",
+    "date": "2026-10-17",
+    "time": "06:19",
+    "summary": "Also: A lousy week for tech stocks",
+    "url": "https://www.economist.com/the-world-in-brief",
+    "body": true
+  },
+  {
     id: "nl-bloomberg-parisedition-checkbookpolitics-20261016",
     publication: "Bloomberg",
     author: "Lionel Laurent",

@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "3a56575e-ecfb-4fa9-af70-01aebd869729",
+    "title": "Are we sleepwalking into World War III?",
+    "date": "2026-10-17",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/3a56575e-ecfb-4fa9-af70-01aebd869729"
+  },
+  {
+    "id": "993940f2-c9a3-4e20-8c0a-f73d448f090d",
+    "title": "‘Inflation will make people poor’: Airlines brace for years of pain",
+    "date": "2026-10-17",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/993940f2-c9a3-4e20-8c0a-f73d448f090d"
+  },
+  {
+    "id": "838428eb-9618-4590-841a-2fccf86fe71f",
+    "title": "The summer that remade the Middle East",
+    "date": "2026-10-17",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/838428eb-9618-4590-841a-2fccf86fe71f"
+  },
+  {
     "id": "aef6d0ed-1019-452a-b3f0-3e3dfc9eac05",
     "title": "What is behind the surprising resilience of the UK economy?",
     "date": "2026-10-17",
@@ -126,18 +147,18 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/ff9756a6-6339-47ca-ae9b-efd00e019fe3"
   },
   {
-    "id": "155bc83f-655d-4891-a431-aa5e1e1ce96a",
-    "title": "Has London’s £5bn ‘super sewer’ improved water quality in the Thames?",
-    "date": "2026-10-16",
-    "time": "16:28",
-    "url": "https://www.ft.com/content/155bc83f-655d-4891-a431-aa5e1e1ce96a"
-  },
-  {
     "id": "86038629-9b53-4859-bc59-a67fb0059c37",
     "title": "Welfare reform is possible: we did it before, we can do it again",
     "date": "2026-10-16",
     "time": "16:53",
     "url": "https://www.ft.com/content/86038629-9b53-4859-bc59-a67fb0059c37"
+  },
+  {
+    "id": "155bc83f-655d-4891-a431-aa5e1e1ce96a",
+    "title": "Has London’s £5bn ‘super sewer’ improved water quality in the Thames?",
+    "date": "2026-10-16",
+    "time": "16:28",
+    "url": "https://www.ft.com/content/155bc83f-655d-4891-a431-aa5e1e1ce96a"
   },
   {
     "id": "d05f87bf-225b-43f9-86e6-2f9537cd75c6",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-16",
     "time": "12:01",
     "url": "https://www.ft.com/content/bc221890-6718-4792-967c-9828e96f38af"
-  },
-  {
-    "id": "4c83ec2c-cd77-4f9b-94e6-fdf70af706ef",
-    "title": "In Bangkok, central bankers push back on market rate-tightening bets",
-    "date": "2026-10-16",
-    "time": "11:51",
-    "url": "https://www.ft.com/content/4c83ec2c-cd77-4f9b-94e6-fdf70af706ef"
-  },
-  {
-    "id": "6b9b0cb6-2d47-46e4-bc00-febb182a5af7",
-    "title": "Sizing that ‘unlimited’ insurance capital",
-    "date": "2026-10-16",
-    "time": "11:24",
-    "url": "https://www.ft.com/content/6b9b0cb6-2d47-46e4-bc00-febb182a5af7"
-  },
-  {
-    "id": "4c4f03f4-f878-4bd6-8128-5be7e3bb8ca1",
-    "title": "Treasuries head for best week since February as AI jitters halt bond rout",
-    "date": "2026-10-16",
-    "time": "11:08",
-    "url": "https://www.ft.com/content/4c4f03f4-f878-4bd6-8128-5be7e3bb8ca1"
   }
 ];
