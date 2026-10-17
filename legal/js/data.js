@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-10-17";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "07:13 BST";
+export const LAST_CHECKED_TIME = "08:13 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -8188,6 +8188,7 @@ export const items = [
   {"id":"u3087","title":"COVID-19: Emergency Closings of New England Banking Offices","area":"banking","areas":["banking"],"type":"insight","firm":"klgates","date":"2020-03-30","summary":"Summary of the legal and regulatory requirements for emergency branch closings by New England banks, including with respect to developments due to COVID-19.","url":"https://www.klgates.com/thought-leadership/COVID-19-Emergency-Closings-of-New-England-Banking-Offices-03-30-2020"},
   {"id":"u3088","title":"Enhanced climate-related financial risk disclosure for companies with UK-listed shares","area":"banking","areas":["banking"],"type":"insight","firm":"aoshearman","date":"2021-02-05","summary":"The Financial Conduct Authority (FCA) has implemented a new Listing Rule applicable to premium listed commercial companies which is designed to help users of their financial statements understand how they are managing climate-related risks. The new Rule (LR 9.8.6(8)) does this by requiring disclosures in annual reports consistent with the recommendations and recommended disclosures of the Task Force on Climate-related Disclosures (TCFD).","url":"https://www.aoshearman.com/en/insights/enhanced-climate-related-financial-risk-disclosure-for-companies-with-uk-listed-shares"},
   {"id":"u3089","title":"Latham Advises Central Bank of Egypt on Establishment of the Republic’s Comprehensive New Banking Law","area":"banking","areas":["banking"],"type":"alert","firm":"latham","date":"2020-10-07","summary":"Law forms a key pillar of Egypt’s ongoing programme of economic reform.","url":"https://www.lw.com/en/news/2020/10/latham-advises-bank-of-egypt-on-new-banking-law"},
+  {"id":"u3091","title":"Latham & Watkins advises Bending Spoons on US$330 million investment from Berkshire Hathaway","area":"corporate","areas":["corporate"],"type":"alert","firm":"latham","date":"2026-10-14","summary":"Bending Spoons announced a US$330 million investment from Berkshire Hathaway, a private placement of 10 million ordinary shares at US$33 per share that raises Berkshire's stake to 4%. Latham & Watkins represented Bending Spoons, with a corporate team led by partners Jenna Gascoyne and Jeff Lawlis.","url":"https://www.lw.com/en/news/2026/10/latham-watkins-advises-bending-spoons-on-investment-from-berkshire-hathaway"},
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
