@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "3d964bed-ed6e-4b15-ade0-f190d2723cac",
+    "title": "Europe Express Weekend: Where are Zelenskyy’s friends (when he needs them)?",
+    "date": "2026-10-17",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/3d964bed-ed6e-4b15-ade0-f190d2723cac"
+  },
+  {
+    "id": "f1ea9968-4f26-4f1c-a3c2-66ec090e3dcd",
+    "title": "Corporate donations flood US attorneys-general election races",
+    "date": "2026-10-17",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/f1ea9968-4f26-4f1c-a3c2-66ec090e3dcd"
+  },
+  {
+    "id": "836eddd7-3adc-4cbb-8527-7a0a7a277e50",
+    "title": "Donald Trump exempts Russia from further sanctions mandated by new law",
+    "date": "2026-10-17",
+    "time": "10:53",
+    "url": "https://www.ft.com/content/836eddd7-3adc-4cbb-8527-7a0a7a277e50"
+  },
+  {
+    "id": "c5ed09fe-dc65-4f05-8c12-8f74f5dc7ccd",
+    "title": "Chart of the Week: The chip stock split",
+    "date": "2026-10-17",
+    "time": "10:30",
+    "url": "https://www.ft.com/content/c5ed09fe-dc65-4f05-8c12-8f74f5dc7ccd"
+  },
+  {
+    "id": "19de89f6-c7b5-4dd7-b4d0-7ae29c6120a5",
+    "title": "Formula 1 bets on Rwanda",
+    "date": "2026-10-17",
+    "time": "09:00",
+    "url": "https://www.ft.com/content/19de89f6-c7b5-4dd7-b4d0-7ae29c6120a5"
+  },
+  {
     "id": "3a56575e-ecfb-4fa9-af70-01aebd869729",
     "title": "Are we sleepwalking into World War III?",
     "date": "2026-10-17",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-16",
     "time": "13:15",
     "url": "https://www.ft.com/content/b3979904-2252-4934-9cff-729a815cb4b0"
-  },
-  {
-    "id": "4dffb678-9d90-46fa-b98e-40f988057984",
-    "title": "World’s oldest gunmaker expands American foothold after boardroom tussle",
-    "date": "2026-10-16",
-    "time": "13:10",
-    "url": "https://www.ft.com/content/4dffb678-9d90-46fa-b98e-40f988057984"
-  },
-  {
-    "id": "247ab744-c56a-41cd-b391-502958c052f7",
-    "title": "Burnham: straight-talker or loose cannon?",
-    "date": "2026-10-16",
-    "time": "12:47",
-    "url": "https://www.ft.com/content/247ab744-c56a-41cd-b391-502958c052f7"
-  },
-  {
-    "id": "d3ebfda8-4580-465a-bfb0-c1f5fe050ff7",
-    "title": "NHS boss Penny Dash: ‘We can’t just blame the politicians’",
-    "date": "2026-10-16",
-    "time": "12:30",
-    "url": "https://www.ft.com/content/d3ebfda8-4580-465a-bfb0-c1f5fe050ff7"
-  },
-  {
-    "id": "8540ec79-705b-4ee0-b7d3-ce041d757ecd",
-    "title": "Shareholders should have a say on making AI safe",
-    "date": "2026-10-16",
-    "time": "12:05",
-    "url": "https://www.ft.com/content/8540ec79-705b-4ee0-b7d3-ce041d757ecd"
-  },
-  {
-    "id": "bc221890-6718-4792-967c-9828e96f38af",
-    "title": "The once-obscure tech at the heart of the green energy trade war",
-    "date": "2026-10-16",
-    "time": "12:01",
-    "url": "https://www.ft.com/content/bc221890-6718-4792-967c-9828e96f38af"
   }
 ];

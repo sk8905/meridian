@@ -109,6 +109,61 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-fitch-wire-gccsovereignbudgets-20261016",
+    publication: "Fitch Ratings",
+    author: null,
+    series: "Fitch Wire Daily",
+    title: "GCC Sovereign Budget Balances Weaken, Balance Sheets Generally Strong",
+    date: "2026-10-16",
+    time: "16:13",
+    summary: "The US-Iran conflict is weighing on the budgetary performance of most Gulf Cooperation Council sovereigns in 2026, but the strong balance sheets of higher-rated sovereigns continue to underpin their ratings.",
+    url: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk5D8CxL0VuJqzQynSdzT1FZj4UPueKXRpjVDv4haftJLXyKMadyvyqeri4hVdMtK3BX6DrqU=#gcc-sovereigns"
+  },
+  {
+    id: "rsch-fitch-wire-chilecopperwindfall-20261016",
+    publication: "Fitch Ratings",
+    author: null,
+    series: "Fitch Wire Daily",
+    title: "Chile's Copper Windfall Prompts Easing of Budget Austerity",
+    date: "2026-10-16",
+    time: "16:13",
+    summary: "Chile's 2027 budget, presented by President José Antonio Kast in September, uses a commodity-driven revenue windfall to relax previously pledged spending austerity to spur economic growth.",
+    url: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk5D8CxL0VuJqzQynSdzT1FZj4UPueKXRpjVDv4haftJLXyKMadyvyqeri4hVdMtK3BX6DrqU=#chile-budget"
+  },
+  {
+    id: "rsch-fitch-wire-gabondatarevisions-20261016",
+    publication: "Fitch Ratings",
+    author: null,
+    series: "Fitch Wire Daily",
+    title: "Validation of Gabon's Data Revisions Are Key to IMF Support Prospects",
+    date: "2026-10-16",
+    time: "16:13",
+    summary: "The Gabonese government's recent revisions to GDP and debt stock statistics imply a notable improvement to the sovereign's debt metrics, but uncertainty over the debt stock persists.",
+    url: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk5D8CxL0VuJqzQynSdzT1FZj4UPueKXRpjVDv4haftJLXyKMadyvyqeri4hVdMtK3BX6DrqU=#gabon-data"
+  },
+  {
+    id: "rsch-fitch-wire-nalodgingleisure-20261016",
+    publication: "Fitch Ratings",
+    author: null,
+    series: "Fitch Wire Daily",
+    title: "N. American Lodging and Leisure Ratings Stable Despite Emerging Cracks",
+    date: "2026-10-16",
+    time: "16:13",
+    summary: "The sector shows mixed operating trends: lodging, regional gaming and cruise companies show strong fundamentals, while the outlook is weaker for Las Vegas Strip and theme park operators.",
+    url: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk5D8CxL0VuJqzQynSdzT1FZj4UPueKXRpjVDv4haftJLXyKMadyvyqeri4hVdMtK3BX6DrqU=#lodging-leisure"
+  },
+  {
+    id: "rsch-fitch-wire-portugal2027budget-20261016",
+    publication: "Fitch Ratings",
+    author: null,
+    series: "Fitch Wire Daily",
+    title: "Portugal's 2027 Budget Consistent with Falling Debt Despite Tax Relief",
+    date: "2026-10-16",
+    time: "16:13",
+    summary: "Portugal's 2027 budget proposal is consistent with government debt remaining on a firm downward path, despite tax relief measures and spending pressures.",
+    url: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk5D8CxL0VuJqzQynSdzT1FZj4UPueKXRpjVDv4haftJLXyKMadyvyqeri4hVdMtK3BX6DrqU=#portugal-budget"
+  },
+  {
     "id": "rsch-gs-briefings-oilpricesdecline-20261016",
     "publication": "Goldman Sachs Research",
     "author": "Daan Struyven",
