@@ -836,33 +836,397 @@
    "kind": "manager",
    "name": "AXA IM Alts",
    "priority": 8,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-17",
+   "events": [
+    {
+     "key": "2020-03-alts-unit-created",
+     "date": "2020-03-10",
+     "what": "AXA IM announces creation of AXA IM Alts (EUR137bn unit combining Real Assets, Structured Finance, Chorus), led by Isabelle Scemama",
+     "source": "https://alts.axa-im.com/axa-im-aims-create-eu137-billion-global-alternative-investment-platform-part-proposed-new-two",
+     "status": "present",
+     "recordId": "i1304"
+    },
+    {
+     "key": "2020-07-eis2-final-close",
+     "date": "2020-07-21",
+     "what": "European Infrastructure Senior (Floating) 2 final close c.EUR1.05bn",
+     "source": "https://alts.axa-im.com/axa-investment-managers-real-assets-raises-over-eu1-billion-second-infrastructure-debt-fund",
+     "status": "present",
+     "recordId": "i1305"
+    },
+    {
+     "key": "2021-04-dev-strategy-first-close",
+     "date": "2021-04-08",
+     "what": "Fifth-generation development strategy first close c.EUR799m",
+     "source": "https://alts.axa-im.com/axa-im-alts-raises-ceu800-million-following-first-closing-fifth-generation-development-strategy",
+     "status": "present",
+     "recordId": "i1306"
+    },
+    {
+     "key": "2022-03-record-2021-fundraising",
+     "date": "2022-03-01",
+     "what": "AXA IM Alts raised record EUR18.2bn in 2021; AUM EUR183bn",
+     "source": "https://alts.axa-im.com/axa-im-alts-raises-record-c-eu18-billion-capital-2021-confirming-position-global-leader-alternative",
+     "status": "present",
+     "recordId": "i1307"
+    },
+    {
+     "key": "2022-09-business-line-reorg",
+     "date": "2022-09-22",
+     "what": "AXA IM Alts reorganises into five business lines; senior promotions",
+     "source": "https://alts.axa-im.com/media-centre/axa-im-alts-prepares-next-stage-growth-through-evolution-its-business-lines",
+     "status": "present",
+     "recordId": "i1308"
+    },
+    {
+     "key": "2024-07-pcs9-final-close",
+     "date": "2024-07-10",
+     "what": "PCS9 / SRT strategy final close, >EUR2.3bn total",
+     "source": "https://alts.axa-im.com/media-centre/axa-im-alts-exceeds-fundraising-target-final-close-its-pcs9-fund-bringing-total-capital-raised-its",
+     "status": "present",
+     "recordId": "i1309"
+    },
+    {
+     "key": "2024-08-bnp-exclusive-talks",
+     "date": "2024-08-01",
+     "what": "BNP Paribas enters exclusive negotiations to acquire AXA IM (EUR5.1bn)",
+     "source": "https://group.bnpparibas/en/press-release/bnp-paribas-enters-into-exclusive-negotiations-with-axa-for-the-acquisition-of-axa-investment-managers-and-a-long-term-partnership-in-asset-management",
+     "status": "present",
+     "recordId": "d1182"
+    },
+    {
+     "key": "2025-01-cre-debt-record-raise",
+     "date": "2025-01-23",
+     "what": "CRE debt platform raised record >EUR4bn in 2024",
+     "source": "https://alts.axa-im.com/media-centre/axa-im-alts-real-estate-debt-platform-raises-record-eu4-billion-and-deploys-ceu3-billion-12-months",
+     "status": "present",
+     "recordId": "i1310"
+    },
+    {
+     "key": "2025-01-eltif-launch",
+     "date": "2025-01-27",
+     "what": "First evergreen private credit fund under ELTIF 2.0, >EUR230m",
+     "source": "https://alts.axa-im.com/media-centre/axa-im-alts-announces-launch-its-first-evergreen-private-credit-fund-under-eltif-20",
+     "status": "present",
+     "recordId": "i524"
+    },
+    {
+     "key": "2025-07-bnp-completion",
+     "date": "2025-07-01",
+     "what": "BNP Paribas Cardif completes acquisition of AXA IM",
+     "source": "https://group.bnpparibas/en/press-release/bnp-paribas-cardif-completes-the-acquisition-of-axa-investment-managers",
+     "status": "present",
+     "recordId": "d1183"
+    },
+    {
+     "key": "2025-07-scemama-combined-alts",
+     "date": "2025-07-01",
+     "what": "Isabelle Scemama to lead combined BNP Paribas / AXA IM alternatives platform",
+     "source": "https://group.bnpparibas/en/press-release/bnp-paribas-axa-investment-managers-and-bnp-paribas-asset-management-announce-the-appointments-of-isabelle-scemama-and-rob-gambi",
+     "status": "present",
+     "recordId": "i138"
+    },
+    {
+     "key": "2025-12-legal-merger",
+     "date": "2025-12-31",
+     "what": "AXA IM legal entities merged into BNP Paribas Asset Management; BNPP AM Alts",
+     "source": "https://alts.axa-im.com/media-centre/axa-im-joins-bnp-paribas",
+     "status": "present",
+     "recordId": "i249"
+    },
+    {
+     "key": "2026-03-scemama-deputy-ceo",
+     "date": "2026-03-24",
+     "what": "Scemama appointed Deputy CEO of BNP Paribas Asset Management, keeps Global Head of Alts",
+     "source": "https://alts.axa-im.com/media-centre/bnp-paribas-asset-management-appoints-isabelle-scemama-deputy-chief-executive-officer-bnp-paribas",
+     "status": "present",
+     "recordId": "i1311"
+    },
+    {
+     "key": "2026-05-enhanced-cre-debt",
+     "date": "2026-05-13",
+     "what": "BNPP AM Alts raises c.EUR3bn for Enhanced CRE Debt strategy",
+     "source": "https://alts.axa-im.com/media-centre/bnpp-am-alts-raises-ceur3-billion-its-dedicated-enhanced-cre-debt-strategy",
+     "status": "present",
+     "recordId": "i590"
+    },
+    {
+     "key": "2026-09-junior-infra-debt-ii-final-close",
+     "date": "2026-09-07",
+     "what": "European Junior Infrastructure Debt II final close c.EUR1.2bn",
+     "source": "https://alternativecreditinvestor.com/2026/09/07/bnp-paribas-am-alts-closes-junior-infra-debt-fund-at-e1-2bn/",
+     "status": "present",
+     "recordId": "i1312"
+    }
+   ]
   },
   "m62": {
    "kind": "manager",
    "name": "Guggenheim Investments",
    "priority": 9,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-17",
+   "events": [
+    {
+     "key": "2021-04-01 co-presidents",
+     "date": "2021-04-01",
+     "what": "Dina DiLorenzo and David Rone named Co-Presidents of Guggenheim Investments; Anne Walsh, DiLorenzo, Rone made Managing Partners; Jerry Miller to Vice Chairman",
+     "source": "https://guggenheiminvestments.com/firm/news/guggenheim-investments-announces-executive-promos",
+     "status": "present",
+     "recordId": "i1313"
+    },
+    {
+     "key": "2022-12-22 Minerd death",
+     "date": "2022-12-22",
+     "what": "Scott Minerd, Guggenheim Partners global CIO, died 21 Dec 2022 aged 63; Anne Walsh took on his responsibilities on an interim basis",
+     "source": "https://www.institutionalinvestor.com/article/b1h7vr5q2imuww/guggenheim-partners-cio-scott-minerd-dies-unexpectedly",
+     "status": "present",
+     "recordId": "i1314"
+    },
+    {
+     "key": "2023-12 Steve Brown CIO Fixed Income",
+     "date": "2023-12",
+     "what": "Steve Brown appointed CIO Fixed Income, GPIM",
+     "source": "https://www.guggenheiminvestments.com/firm/news/steve-brown-appointed-cio-fixed-income-gpim",
+     "status": "rejected",
+     "note": "Release page carries no dateline; date only in a search summary, not seen on the source. Needs a dated source."
+    },
+    {
+     "key": "2024-06-05 $1.2bn Apollo S3 vehicle",
+     "date": "2024-06-05",
+     "what": "Guggenheim closes $1.2bn levered private credit vehicle led by Apollo S3, co-led by Pantheon",
+     "source": "https://www.businesswire.com/news/home/20240605454244/en/Guggenheim-Investments-Closes-%241.2-Billion-Levered-Private-Credit-Vehicle-Led-by-Apollo-S3",
+     "status": "present",
+     "recordId": "i1315"
+    },
+    {
+     "key": "2025-01-22 $400m AllianzGI vehicle",
+     "date": "2025-01-23",
+     "what": "~$400m private debt vehicle led by Allianz GI, co-underwritten by StepStone",
+     "source": "https://alternativecreditinvestor.com/2025/01/23/guggenheim-closes-400m-private-debt-fund-led-by-allianzgi/",
+     "status": "present",
+     "recordId": "i285"
+    },
+    {
+     "key": "2026-01-08 $250m LGT vehicle",
+     "date": "2026-01-08",
+     "what": "$250m private debt vehicle led by LGT Capital Partners",
+     "source": "https://www.guggenheiminvestments.com/firm/news/guggenheim-investments-private-debt-vehicle-lgt",
+     "status": "present",
+     "recordId": "i347"
+    },
+    {
+     "key": "2026-04-02 PDF IV final close",
+     "date": "2026-04-02",
+     "what": "Private Debt Fund IV final close, ~$8.4bn total available capital",
+     "source": "https://www.globenewswire.com/news-release/2026/04/02/3267548/0/en/guggenheim-investments-announces-final-close-of-guggenheim-private-debt-fund-iv-at-8-4-billion-of-total-available-capital.html",
+     "status": "present",
+     "recordId": "i83"
+    },
+    {
+     "key": "2026-07-20 prosecutors probe",
+     "date": "2026-07-20",
+     "what": "Bloomberg reports federal prosecutors probing Mark Walter's insurers and Guggenheim Partners",
+     "source": "https://news.bloomberglaw.com/private-equity/billionaire-mark-walters-firms-probed-by-federal-prosecutors",
+     "status": "present",
+     "recordId": "i1316"
+    },
+    {
+     "key": "2026-08-25 holdco loan buyback",
+     "date": "2026-08-25",
+     "what": "$1.18bn GIH Borrower term loan; affiliates may buy back",
+     "source": "https://www.bloomberg.com/news/articles/2026-08",
+     "status": "present",
+     "recordId": "i673"
+    },
+    {
+     "key": "2026-08-20 GCLO ETF",
+     "date": "2026-08-20",
+     "what": "Investment Grade CLO ETF (GCLO) launch",
+     "source": "https://www.globenewswire.com/news-release/2026/08/20/3348515/16530/en/guggenheim-investments-expands-active-etf-platform-with-launch-of-two-new-etfs.html",
+     "status": "present",
+     "recordId": "i652"
+    },
+    {
+     "key": "2026-05-21 Camacho CSO",
+     "date": "2026-05",
+     "what": "Robert Camacho named Chief Strategy Officer",
+     "source": null,
+     "status": "rejected",
+     "note": "Only on spam/scraper domains, no primary or tier-1 source."
+    }
+   ]
   },
   "m187": {
    "kind": "manager",
    "name": "Royal London Asset Management",
    "priority": 10,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-17",
+   "events": [
+    {
+     "key": "georgeson-ceo-2021",
+     "date": "2021-03-18",
+     "what": "RLAM appoints Hans Georgeson (ex-Architas CEO) as CEO, succeeding Andrew Carter who retires end of June 2021; subject to FCA approval",
+     "source": "https://www.royallondon.com/about-us/media/Media-Centre/press-releases/press-releases-2021/march/rlam-appoints-hans-georgeson-as-ceo/",
+     "status": "present",
+     "recordId": "i1317"
+    },
+    {
+     "key": "nicoll-head-private-assets-2023",
+     "date": "2023-10-02",
+     "what": "RLAM appoints Will Nicoll (ex-M&G CIO Private and Alternative Assets) as Head of Private Assets, starting 3 Oct 2023",
+     "source": "https://www.royallondon.com/about-us/media/media-centre/press-releases/press-releases-2023/october/Royal-London-Asset-Management-appoints-Head-of-Private-Assets",
+     "status": "present",
+     "recordId": "i1318"
+    },
+    {
+     "key": "nicoll-cio-2025",
+     "date": "2025-09-03",
+     "what": "RLAM appoints Will Nicoll as CIO; Piers Hillier (CIO ~10 years) to step down",
+     "source": "https://www.rlam.com/press-centre/2025/royal-london-asset-management-appoints-will-nicoll-as-chief-investment-officer/",
+     "status": "present",
+     "recordId": "i1319"
+    },
+    {
+     "key": "hambridge-clo-i-2025",
+     "date": "2025-09-19",
+     "what": "Inaugural EUR434m Hambridge CLO I",
+     "source": "https://www.rlam.com/uk/institutional-investors/press-centre/2025/royal-london-asset-management-launches-434m-inaugural-hambridge-collateralised-loan-obligation/",
+     "status": "present",
+     "recordId": "d800"
+    },
+    {
+     "key": "hambridge-clo-ii-2026",
+     "date": "2026-03-03",
+     "what": "Upsized EUR500m Hambridge CLO II, largest European CLO YTD",
+     "source": "https://alternativecreditinvestor.com/2026/03/03/rlam-launches-europes-largest-clo-of-2026/",
+     "status": "present",
+     "recordId": "d801"
+    },
+    {
+     "key": "georgeson-steps-down-2026",
+     "date": "2026-09-04",
+     "what": "CEO Hans Georgeson to step down; Daniel Cazeaux interim CEO",
+     "source": "https://www.investmentweek.co.uk/news/4535251/hans-georgeson-resigns-rlam-chief-executive",
+     "status": "present",
+     "recordId": "i776"
+    },
+    {
+     "key": "co-op-acquisition-2013",
+     "date": "2013-07-31",
+     "what": "Royal London completed Co-op life/asset management acquisition (pre-2020, out of window)",
+     "source": "https://covermagazine.co.uk/news/2286241/royal-london-completes-coop-acquisitions",
+     "status": "rejected",
+     "note": "Outside 2020+ window. No RLAM M&A, stake sale or flagship fund first/final close found for 2020-2026 beyond the CLOs."
+    }
+   ]
   },
   "m189": {
    "kind": "manager",
    "name": "Carlyle Global Credit",
    "priority": 11,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-17",
+   "events": [
+    {
+     "key": "fortitude-re-completion-2020",
+     "date": "2020-06-03",
+     "what": "Carlyle and T&D Holdings complete acquisition of 76.6% of Fortitude Re from AIG",
+     "source": "https://www.insurancejournal.com/news/international/2020/06/03/570831.htm",
+     "status": "present",
+     "recordId": "i1320"
+    },
+    {
+     "key": "fly-leasing-announce-2021",
+     "date": "2021-03-30",
+     "what": "Carlyle Aviation Partners affiliate agrees to buy Fly Leasing, $17.05/sh, ~$2.36bn EV",
+     "source": "https://www.equipmentfa.com/news/32102/carlyle-aviation-partners-to-acquire-fly-leasing-in-2-36b-deal",
+     "status": "rejected",
+     "note": "Only a trade-outlet article date seen; no primary announcement verified. Completion row is primary-sourced."
+    },
+    {
+     "key": "fly-leasing-completion-2021",
+     "date": "2021-08-02",
+     "what": "Carlyle Aviation completes acquisition of Fly Leasing (funded from SASOF V)",
+     "source": "https://carlyle.com/ja/node/34161",
+     "status": "present",
+     "recordId": "i1321"
+    },
+    {
+     "key": "cbam-announce-2022",
+     "date": "2022-03-09",
+     "what": "Carlyle agrees to acquire CBAM Partners' portfolio of assets ($615m cash + ~4.2m shares; CLO AUM to ~$48bn)",
+     "source": "https://ir.carlyle.com/node/16876",
+     "status": "present",
+     "recordId": "i1322"
+    },
+    {
+     "key": "cbam-completion-2022",
+     "date": "2022-03",
+     "what": "Completion of CBAM portfolio acquisition",
+     "source": null,
+     "status": "rejected",
+     "note": "Only a secondary aggregator gave a completion date; no primary or tier-1 completion source verified."
+    },
+    {
+     "key": "ccof-ii-final-close-2022",
+     "date": "2022-04-06",
+     "what": "Carlyle Credit Opportunities Fund II final close at $4.6bn hard cap (target $3.5bn)",
+     "source": "https://carlyle.com/ja/node/35246",
+     "status": "present",
+     "recordId": "i1323"
+    },
+    {
+     "key": "ccof-iii-final-close-2024",
+     "date": "2024-12-12",
+     "what": "Carlyle Credit Opportunities Fund III final close, $7.1bn investable capital ($5.7bn commitments)",
+     "source": "https://www.alternativeswatch.com/2024/12/12/carlyle-closes-largest-ever-private-credit-opportunities-fund-ccof-iii/",
+     "status": "present",
+     "recordId": "i1324"
+    },
+    {
+     "key": "trucordia-2025",
+     "date": "2025-06-04",
+     "what": "Carlyle Global Credit $1.3bn strategic investment in Trucordia at $5.7bn valuation",
+     "source": "https://www.lw.com/en/news/2025/06/latham-watkins-represents-carlyle-in-us1-3-billion-strategic-investment-in-trucordia",
+     "status": "present",
+     "recordId": "d1184"
+    },
+    {
+     "key": "jenkins-co-president-2025",
+     "date": "2025-07-28",
+     "what": "Mark Jenkins named Co-President leading Global Credit and Insurance, effective 2026-01-01; Justin Plouffe to become CFO",
+     "source": "https://www.sec.gov/Archives/edgar/data/1527166/000152716625000088/cg202507288-kexx991.htm",
+     "status": "present",
+     "recordId": "i1325"
+    },
+    {
+     "key": "asset-backed-income-first-close-2026",
+     "date": "2026-04-14",
+     "what": "Carlyle Asset-Backed Income Fund first close $1.5bn",
+     "source": "https://www.bloomberg.com/news/articles/2026-04-14/carlyle-draws-1-5-billion-for-asset-backed-fund-in-first-round",
+     "status": "present",
+     "recordId": "i753"
+    },
+    {
+     "key": "infra-credit-ii-final-close-2026",
+     "date": "2026-09-14",
+     "what": "Carlyle Infrastructure Credit Fund II final close ~$2.3bn",
+     "source": "https://www.alternativeswatch.com/2026/09/14/carlyle-infrastructure-credit-fund-ii-close-2-3-billion/",
+     "status": "present",
+     "recordId": "d973"
+    },
+    {
+     "key": "cota-financing-2026",
+     "date": "2026-08-24",
+     "what": "Carlyle credit arm finances Circuit of the Americas expansion",
+     "source": "https://www.alternativeswatch.com/2026/08/24/carlyle-credit-cota-expansion-red-bull-racing/",
+     "status": "present",
+     "recordId": "d803"
+    }
+   ]
   },
   "m31": {
    "kind": "manager",

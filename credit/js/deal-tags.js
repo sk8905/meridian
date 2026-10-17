@@ -1071,5 +1071,8 @@ const T = {
   d1179: {"c":"US","s":"Financial services","a":null,"m":1,"cs":"https://www.man.com/news-centre/completion-of-acquisition-of-varagon-capital-partners","cb":"hq","p":"Varagon Capital Partners","r":"target"},
   d1180: {"c":"US","s":"Financial services","a":null,"m":1,"cs":"https://www.man.com/news-centre/man-group-announces-bardin-hill-acquisition","cb":"hq","p":"Bardin Hill","r":"target"},
   d1181: {"c":"US","s":"Financial services","a":null,"m":1,"cs":"https://www.man.com/news-centre/completion-of-acquisition-of-bardin-hill","cb":"hq","p":"Bardin Hill","r":"target"},
+  d1182: {"c":"France","s":"Financial services","a":null,"m":1,"p":"AXA Investment Managers","r":"target"},
+  d1183: {"c":"France","s":"Financial services","a":null,"m":1,"p":"AXA Investment Managers","r":"target"},
+  d1184: {"c":"US","s":"Financial services","a":"financing","p":"Trucordia","r":"borrower"},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));
