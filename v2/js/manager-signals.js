@@ -49,6 +49,21 @@ const INTEL_CAT = {
   "First Close": "fundraising", "Launch": "fundraising", "Strategy": "strategy",
   "Mandate": "mandate", "Ownership": "m&a", "Structured Credit / CLO": "clo", "Equity / PE": "deal",
 };
+// ONE ITEM, ONE LANE (owner 2026-10-17, HOUSE_STYLE R50): the Home wire lanes never
+// share an item. A deal-type category (a deal, financing, raise, M&A, exit,
+// restructuring, CLO) belongs to the Deals lane; everything else about a firm or its
+// people (team moves, strategy, mandates, press) to the Profiles lane.
+export const DEAL_LANE_CATS = new Set(["fundraising", "deal", "financing", "m&a", "exit", "restructuring", "clo"]);
+/** "deals" | "profiles" for a credit intel record type. */
+export const intelLane = (type, clo) => {
+  const c = INTEL_CAT[type];
+  if (c && !DEAL_LANE_CATS.has(c)) return "profiles";      // a team move stays a team move, CLO desk or not
+  return clo || DEAL_LANE_CATS.has(c || "news") ? "deals" : "profiles";
+};
+/** A law-firm record: an advisory mandate ("X advises Y on …") is a deal; the rest firm news. */
+export const legalLane = (title) => (/\badvis(?:es|ed|ing|ors?|ers?)\b/i.test(String(title || "")) ? "deals" : "profiles");
+/** "deals" | "profiles" for a manager-wire event. */
+export const eventLane = (e) => (e && (e.kind === "deal" || DEAL_LANE_CATS.has(e.cat)) ? "deals" : "profiles");
 // Short pill label per category.
 export const CAT_LABEL = {
   fundraising: "RAISE", deal: "DEAL", financing: "FIN", "m&a": "M&A", exit: "EXIT",

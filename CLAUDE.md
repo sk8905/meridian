@@ -19,7 +19,7 @@ switch that turns the Vite pipeline on.
 
 - **`docs/HOUSE_STYLE.md`** — the agreed rulebook for layout, feed/day-break
   conventions, colour tokens, typography, chrome, behaviour, and engineering
-  discipline (rules **R1–R49, T1–T22**), plus **§8 the canonical data-resource
+  discipline (rules **R1–R50, T1–T22**), plus **§8 the canonical data-resource
   roster**. Every change must conform. When something here and there conflict,
   HOUSE_STYLE wins.
 - **`docs/refresh-routines.md`** — invariants for the ~2-hourly content refresh

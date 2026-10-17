@@ -1256,35 +1256,39 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 
 /* ---- Profiles ▸ People (R11): hires / departures / promotions ---------------------- */
 .pp-tbl td.pp-date { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--t-faint); font-size: var(--fs-micro); }
-.pp-tbl .pp-hl { color: var(--muted); }
+.pp-tbl .pp-unk { color: var(--t-faint); }   /* "Unknown" (no name / firm in the item) reads quieter */
 .pp-tbl .pp-arr { color: inherit; }   /* line 2 is one grey, the arrow included (R43c) */
 .pp-tbl .pp-src { color: var(--t-faint); font-size: var(--fs-micro); white-space: nowrap; text-decoration: none; }
 @media (min-width: 761px) {
   .pp-tbl { table-layout: fixed; width: 100%; }
   .pp-tbl th:nth-child(1) { width: calc(var(--c-date-w) + 16px); } .pp-tbl th:nth-child(2) { width: auto; }   /* date = the one lead column; the person takes the slack */ .pp-tbl th:nth-child(3) { width: 104px; }
-  .pp-tbl th:nth-child(4) { width: 25%; } .pp-tbl th:nth-child(5) { width: 80px; } .pp-tbl th:nth-child(6) { width: 22%; }
-  .pp-tbl th:nth-child(7) { width: 150px; }
+  .pp-tbl th:nth-child(4) { width: 22%; } .pp-tbl th:nth-child(5) { width: 80px; } .pp-tbl th:nth-child(6) { width: 15%; }
+  .pp-tbl th:nth-child(7) { width: 15%; } .pp-tbl th:nth-child(8) { width: 130px; }
   .pp-tbl td { overflow: hidden; text-overflow: ellipsis; }
   .pp-tbl td.tl-nm { max-width: none; white-space: nowrap; }
   .pp-tbl .pp-src { display: inline-block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; }
 }
 @media (max-width: 760px) {
-  /* R43: on iPhone a people move is the shared two-line events row — date · person ·
-     source, then role · from → to. No HIRE / DEPARTURE badge (owner 2026-10-15, R44e):
-     "to / from / at" on line 2 carries the move; the type and seniority ride in the row
-     title, and the Move filter still sorts them. */
-  #pf-panes .pp-tbl.pf-cards tbody tr { display: grid; grid-template-columns: var(--c-date-w) minmax(0,1fr) auto var(--c-src-w);
-    grid-template-areas: "date who who src" "date role fromto fromto"; column-gap: 8px; row-gap: 1px; align-items: baseline; align-content: center;
+  /* On iPhone a people move is a clean two-line row (owner 2026-10-17): line 1 the
+     person's NAME only ("Unknown" when the item names nobody — never a headline); line 2
+     the firm they LEFT on the left and the firm they JOINED on the right. Date leads both
+     lines. Move type, role, seniority and source ride in the row title / desktop columns
+     and the filters; the row opens the firm profile. */
+  #pf-panes .pp-tbl.pf-cards tbody tr { display: grid; grid-template-columns: var(--c-date-w) minmax(0,1fr) minmax(0,1fr);
+    grid-template-areas: "date who who" "date from to"; column-gap: 8px; row-gap: 1px; align-items: baseline; align-content: center;
     box-sizing: border-box; height: var(--ev-h); overflow: hidden; padding: 0 var(--m-gutter, 12px); }
   #pf-panes .pp-tbl.pf-cards tbody tr::after { content: none; }
   #pf-panes .pp-tbl.pf-cards tbody td { display: block; min-width: 0; max-width: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   #pf-panes .pp-tbl.pf-cards tbody td.pp-date { grid-area: date; align-self: start; padding-top: 2px; text-align: left; color: var(--t-faint); font-size: var(--fs-micro); }
   #pf-panes .pp-tbl.pf-cards tbody td.pp-who { grid-area: who; color: var(--t-ink); }
-  #pf-panes .pp-tbl.pf-cards tbody td.pp-move { display: none; }
-  #pf-panes .pp-tbl.pf-cards tbody td.pp-src-c { grid-area: src; text-align: right; }
-  #pf-panes .pp-tbl.pf-cards tbody td.pp-role { grid-area: role; font-size: var(--fs-micro); color: var(--t-mut); }
-  #pf-panes .pp-tbl.pf-cards tbody td.pp-fromto { grid-area: fromto; font-size: var(--fs-micro); color: var(--t-mut); max-width: none; }
-  #pf-panes .pp-tbl.pf-cards tbody td.pp-sen { display: none; }
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-who.pp-unk { color: var(--t-faint); }
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-from { grid-area: from; text-align: left; font-size: var(--fs-micro); color: var(--t-mut); }
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-to { grid-area: to; text-align: right; font-size: var(--fs-micro); color: var(--t-mut); }
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-unk:not(.pp-who) { color: var(--t-faint); }
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-move,
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-role,
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-sen,
+  #pf-panes .pp-tbl.pf-cards tbody td.pp-src-c { display: none; }
   /* Five list chips (… · Law firms · People) — content-sized so every label stays on
      one line inside 390px (R2d b). */
   #pf-chips .tchip { flex: 1 1 auto; white-space: nowrap; padding: 0 4px; }

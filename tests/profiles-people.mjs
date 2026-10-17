@@ -1,7 +1,7 @@
 // Profiles ▸ People (owner review R11): hires, departures and promotions by firm, role
 // and seniority — built from the people-move items already in Wire (credit `intel`
 // typed Personnel, HEDGE_INTEL Personnel, law-firm lateral alerts). Each row: date,
-// person (if named), role, move, seniority, from → to, and a source chip; the row opens
+// person (name, else Unknown), role, move, seniority, from, to, and a source chip; the row opens
 // the firm's profile. Filters: move, seniority (from the title text only), period, type,
 // firm. The chip bar still fits one line on iPhone with the fifth chip.
 import { serve, launchChromium, open, PHONE, check, checkErrs, finish } from "./lib.mjs";
@@ -20,7 +20,7 @@ async function openPeople(dev) {
 const visRows = (pg) => pg.evaluate(() => [...document.querySelectorAll("#pf-panes #pp-rows tr")].filter((r) => r.style.display !== "none").map((r) => ({
   href: r.dataset.href, id: r.dataset.id, move: r.dataset.fMove, sen: r.dataset.fSeniority, period: r.dataset.fPeriod, kind: r.dataset.fKind,
   who: r.querySelector(".pp-who").textContent.trim(), date: r.querySelector(".pp-date").textContent.trim(), ts: +r.querySelector(".pp-date").dataset.sort,
-  role: r.querySelector(".pp-role").textContent.trim(), ft: r.querySelector(".pp-fromto").textContent.replace(/\s+/g, " ").trim(),
+  role: r.querySelector(".pp-role").textContent.trim(), from: r.querySelector(".pp-from").textContent.trim(), to: r.querySelector(".pp-to").textContent.trim(),
   src: (r.querySelector(".pp-src") || {}).href || "",
 })));
 
@@ -41,7 +41,24 @@ const visRows = (pg) => pg.evaluate(() => [...document.querySelectorAll("#pf-pan
   check(rows.every((r) => ["Hire", "Departure", "Promotion", "Other"].includes(r.move)), "move type is hire / departure / promotion (else Other)");
   check(rows.every((r) => ["C-suite", "Partner", "MD", "Head", "Director", "Other"].includes(r.sen)), "seniority is one of the title-derived buckets");
   check(rows.every((r) => /^https?:\/\//.test(r.src)), "every row carries a source chip opening the item");
-  check(rows.every((r) => r.who) && rows.filter((r) => r.move === "Hire").length > 30, "every row leads with the person (or, unnamed, the item's headline)");
+  check(rows.every((r) => r.who) && rows.filter((r) => r.move === "Hire").length > 30, "every row leads with the person");
+  // Owner 2026-10-17: line 1 is a NAME only — "Unknown" when the item names nobody,
+  // never the headline; line 2 is the firm left (left) and the firm joined (right).
+  const heads = await pg.evaluate(async () => { const D = await import("/credit/js/data.js"); return D.intel.map((i) => i.headline); });
+  const headSet = new Set(heads);
+  check(rows.every((r) => !headSet.has(r.who) && r.who.split(/\s+/).length <= 9), "line 1 never shows a headline — a name or Unknown");
+  check(rows.some((r) => r.who === "Unknown") || rows.every((r) => r.who !== "Unknown"), "unnamed moves read Unknown");
+  check(rows.every((r) => r.from && r.to), "line 2 always has both sides (a firm, or Unknown)");
+  check(rows.filter((r) => r.move === "Departure").every((r) => r.from !== "Unknown"), "a departure's left side is the firm the person left");
+  check(rows.filter((r) => r.move === "Hire").every((r) => r.to !== "Unknown"), "a hire's right side is the hiring firm");
+  check(rows.every((r) => !/\(/.test(r.from + r.to)), "firm names drop their desk qualifier (no \"(Credit)\")");
+  const geo = await pg.evaluate(() => [...document.querySelectorAll("#pf-panes #pp-rows tr")].filter((r) => r.getClientRects().length).slice(0, 12).map((r) => {
+    const box = (sel) => { const e = r.querySelector(sel); const b = e.getBoundingClientRect(); return { l: b.left, r: b.right, t: b.top, h: b.height, vis: getComputedStyle(e).display !== "none" }; };
+    return { who: box(".pp-who"), from: box(".pp-from"), to: box(".pp-to"), src: box(".pp-src-c"), role: box(".pp-role"), ta: getComputedStyle(r.querySelector(".pp-to")).textAlign };
+  }));
+  check(geo.length > 5 && geo.every((g) => g.from.t > g.who.t + 4 && Math.abs(g.from.t - g.to.t) < 2 && g.from.l < g.to.l && g.ta === "right"),
+    "phone: line 2 puts the old firm left and the new firm right, under the name");
+  check(geo.every((g) => !g.src.vis && !g.role.vis), "phone: line 1 carries the name only (no source / role clutter)");
   for (const k of ["Credit manager", "Hedge fund", "Law firm"]) check(rows.some((r) => r.kind === k), `includes ${k} moves`);
   // Every row's facts are read from its own item — spot-check against the record.
   const truth = await pg.evaluate(async () => {
@@ -102,7 +119,7 @@ for (const w of [1366, 1920]) {
     const heads = [...wrap.querySelectorAll("thead th")].map((h) => h.textContent.trim());
     return { heads, spill: wrap.scrollWidth > wrap.clientWidth + 1, vis: wrap.getBoundingClientRect().height > 200 };
   });
-  check(d.heads.join("|") === "Date|Person|Move|Role|Seniority|From → to|Source", `desktop ${w}: columns (R43 date first, source last) ${d.heads.join(" · ")}`);
+  check(d.heads.join("|") === "Date|Person|Move|Role|Seniority|From|To|Source", `desktop ${w}: columns (R43 date first, source last) ${d.heads.join(" · ")}`);
   check(d.vis && !d.spill, `desktop ${w}: the table fits without sideways scroll`);
   checkErrs(errs, `profiles people (desktop ${w})`);
   await ctx.close();

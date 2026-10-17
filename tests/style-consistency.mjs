@@ -121,7 +121,9 @@ for (const [w, h, scheme] of PHONES) {
   // Rows carry their full text; the wire and the profile wire.
   {
     const { ctx, pg, errs } = await page(w, h, scheme, "/v2/news/");
-    await pg.waitForSelector("#g-feed a.g-feed-row", { timeout: 15000 });
+    // News is journalism only (R50), so its first paint can be short until the desk data
+    // lands — wait for the wire to fill rather than reading the first row that appears.
+    await pg.waitForFunction(() => document.querySelectorAll("#g-feed a.g-feed-row").length > 5, null, { timeout: 15000 });
     const t = await pg.evaluate(() => [...document.querySelectorAll("#g-feed a.g-feed-row")].slice(0, 30).map((r) => (r.getAttribute("title") || "").includes(r.querySelector(".g-feed-title").textContent.trim())));
     check(t.length > 5 && t.every(Boolean), `${tag} News: every wire row's title carries its full headline (${t.filter((x) => !x).length} of ${t.length} without)`);
     for (const [name, path] of [["manager", "/v2/profiles/#/manager/m20"], ["law firm", "/v2/profiles/#/firm/cliffordchance"]]) {
@@ -217,7 +219,7 @@ for (const [w, h, scheme] of PHONES) {
   {
     const { ctx, pg, errs } = await page(w, h, scheme, "/v2/profiles/#/?tab=people");
     await pg.waitForFunction(() => [...document.querySelectorAll("#pp-rows tr")].some((r) => r.getClientRects().length), null, { timeout: 15000 });
-    const greys = await pg.evaluate(() => { const out = new Set(); for (const r of [...document.querySelectorAll("#pp-rows tr")].filter((x) => x.getClientRects().length).slice(0, 15)) for (const c of r.querySelectorAll("td.pp-role, td.pp-fromto, td.pp-fromto *")) if (c.getClientRects().length && c.textContent.trim()) out.add(getComputedStyle(c).color + " " + getComputedStyle(c).fontSize); return [...out]; });
+    const greys = await pg.evaluate(() => { const out = new Set(); for (const r of [...document.querySelectorAll("#pp-rows tr")].filter((x) => x.getClientRects().length).slice(0, 15)) for (const c of r.querySelectorAll("td.pp-from:not(.pp-unk), td.pp-to:not(.pp-unk)")) if (c.getClientRects().length && c.textContent.trim()) out.add(getComputedStyle(c).color + " " + getComputedStyle(c).fontSize); return [...out]; });
     check(greys.length === 1, `${tag} People: line 2 is one size and one grey (${greys.join(" | ")})`);
     checkErrs(errs, `${tag} people`); await ctx.close();
   }

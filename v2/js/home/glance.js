@@ -2,7 +2,7 @@
 // only the nav-actions boot and glance's own palette are skipped (the shell
 // owns chrome + search), and listeners self-guard on the active tab.
 
-import { managerWire, CAT_LABEL, dedupeEvents, loadManagerData, fundEvents, namedEvents } from "/v2/js/manager-signals.js";
+import { managerWire, CAT_LABEL, dedupeEvents, loadManagerData, fundEvents, namedEvents, intelLane, eventLane, legalLane } from "/v2/js/manager-signals.js";
 // Watchlist read-layer + follow button (shared with the Credit view so the ☆/★
 // and the meridian.follows store are one implementation). The write here mirrors
 // the credit app's localStorage persist; its cloud sync reconciles on next visit.
@@ -1944,7 +1944,7 @@ function renderBrief(byDesk, counts, day) {
 // own desks; Equities and Bonds are keyword VIEWS over the macro stream
 // (equity-index/stock news vs bond/rates news) so the filter set lines up with the
 // dashboard without inventing a separate desk — items keep their real MAC label.
-const FEED_DESK_LABEL = { all: "All news", views: "Views", m: "Macro", eq: "Equities", fi: "Bonds", c: "Credit", hdg: "Hedge Funds", l: "Legal", n: "Newsletters", research: "Research" };
+const FEED_DESK_LABEL = { all: "All news", deals: "Deals", views: "Views", m: "Macro", eq: "Equities", fi: "Bonds", c: "Credit", hdg: "Hedge Funds", l: "Legal", n: "Newsletters", research: "Research" };
 const FEED_EQ_RE = /\b(stocks?|shares?|equit\w+|\bindex\b|indices|nasdaq|s&p ?500|s&p|dow(\s?jones)?|ftse|russell|nikkei|kospi|hang seng|\bdax\b|earnings|\bipo\b|semiconductors?|\bchips?\b|nvidia|mega-?cap|magnificent|rally|sell-?off|bull market|bear market)\b/i;
 const FEED_FI_RE = /\b(bonds?|yields?|treasur\w+|gilts?|bunds?|coupon|duration|yield curve|credit spread|\boas\b|sovereign debt|rate (cut|hike|rise|path|decision)|interest rates?|\bfed\b|\bfomc\b|bank of england|\bboe\b|\becb\b|\bmpc\b|monetary policy|high[- ]yield|investment[- ]grade)\b/i;
 
@@ -2283,8 +2283,8 @@ function renderFeed() {
   ((ARTICLES && ARTICLES.items) || []).forEach(pushMacroItem);
   (((NEWS && NEWS.us) || [])).forEach(pushMacroItem);
   (((NEWS && NEWS.uk) || [])).forEach(pushMacroItem);
-  (((COMMENTARY && COMMENTARY.us) || [])).forEach((n) => macro.push({ ...mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n)), type: "comm" }));
-  (((COMMENTARY && COMMENTARY.uk) || [])).forEach((n) => macro.push({ ...mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n)), type: "comm" }));
+  (((COMMENTARY && COMMENTARY.us) || [])).forEach((n) => macro.push({ ...mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n)), type: "comm", lane: "research" }));
+  (((COMMENTARY && COMMENTARY.uk) || [])).forEach((n) => macro.push({ ...mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n)), type: "comm", lane: "research" }));
   // Live RSS headlines (real publish times) merged in with the curated items; the
   // title-dedupe below collapses any overlap with the static feeds. myFT-flagged
   // items belong to the FT stream and substack-flagged to the Substack desk; the
@@ -2314,17 +2314,19 @@ function renderFeed() {
   // its finer TYPE in `type` (the pill text: DEAL/RAISE/NEWS/…), per HOUSE_STYLE
   // R10a. The feed engine colours by domain and labels by type||desk.
   const credit = [];
-  deals.forEach((d) => credit.push({ ...mk("c", creditItemHref(d), d.headline, creditSource(d), creditItemExt(d), d.date, d.time, "c", d.id), mgr: d.managerId || "", type: d.clo ? "clo" : "deal" }));
-  intel.forEach((i) => credit.push({ ...mk("c", creditItemHref(i), i.headline, creditSource(i), creditItemExt(i), i.date, i.time, "c", i.id), mgr: i.managerId || "", type: i.clo ? "clo" : "fund" }));
+  // `lane` = the ONE Home wire lane the item lives in (R50): deals → Deals; intel by
+  // its category (raises/CLOs → Deals, team/strategy/mandate → Profiles).
+  deals.forEach((d) => credit.push({ ...mk("c", creditItemHref(d), d.headline, creditSource(d), creditItemExt(d), d.date, d.time, "c", d.id), mgr: d.managerId || "", type: d.clo ? "clo" : "deal", lane: "deals" }));
+  intel.forEach((i) => credit.push({ ...mk("c", creditItemHref(i), i.headline, creditSource(i), creditItemExt(i), i.date, i.time, "c", i.id), mgr: i.managerId || "", type: i.clo ? "clo" : "fund", lane: intelLane(i.type, i.clo) }));
   // Credit research / white papers (Commentary) — external pieces, so they open
   // out to the publisher like the macro reading list.
-  (research || []).forEach((r) => credit.push({ ...mk("c", r.url, r.title, r.institution, true, r.date, r.time), type: "comm" }));
+  (research || []).forEach((r) => credit.push({ ...mk("c", r.url, r.title, r.institution, true, r.date, r.time), type: "comm", lane: "research" }));
   // Hedge-fund news — real dated events for the tracked hedge funds, in their own
   // Hedge bucket (its own desk chip; separate from the private-credit stream). Type
   // maps the HEDGE_INTEL kind to the pill: fundraising/launch → RAISE, else NEWS.
   const hdgType = (t) => /fundrais|launch|close|capital rais/i.test(t || "") ? "fund" : "news";
   const hdg = [];
-  (HEDGE_INTEL || []).forEach((h) => hdg.push({ ...mk("hdg", h.url || `/v2/profiles/#/hf/${encodeURIComponent(h.hfId)}`, h.headline, h.outlet || "", !!h.url, h.date, h.time), mgr: "", type: hdgType(h.type) }));
+  (HEDGE_INTEL || []).forEach((h) => hdg.push({ ...mk("hdg", h.url || `/v2/profiles/#/hf/${encodeURIComponent(h.hfId)}`, h.headline, h.outlet || "", !!h.url, h.date, h.time), mgr: "", type: hdgType(h.type), lane: _hfEv(h).cat === "fundraising" ? "deals" : "profiles" }));
   // Live hedge-fund stories from /api/feed (e.g. Nishant Kumar's Bloomberg byline,
   // tagged hdg:true by the Worker) — picked up ~5 min after publication and folded
   // into the SAME Hedge (HDG) bucket; title-dedupe collapses the overlap with the
@@ -2333,9 +2335,9 @@ function renderFeed() {
 
   // `legal` is declared above (the live-wire loop folds The Lawyer / Legal
   // Business items into it); these are the committed Legal-app records.
-  items.forEach((i) => { if (i.date) legal.push({ ...mk("l", i.url || `/v2/profiles/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), !!i.url, i.date, i.time, "l", i.id), firm: i.firm || "", type: i.type === "case" ? "case" : "alert" }); });
+  items.forEach((i) => { if (i.date) legal.push({ ...mk("l", i.url || `/v2/profiles/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), !!i.url, i.date, i.time, "l", i.id), firm: i.firm || "", type: i.type === "case" ? "case" : "alert", lane: i.firm ? legalLane(i.title) : undefined }); });
   cases.forEach((c) => { if (c.date) legal.push({ ...mk("l", c.url || "/v2/profiles/#/?tab=firms", c.name, c.court, !!c.url, c.date, c.time, "l", c.id), type: "case" }); });
-  restructurings.forEach((r) => { if (r.date) legal.push({ ...mk("l", r.judgmentUrl || r.articleUrl || "/v2/profiles/#/?tab=firms", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time, "l", r.id), type: "case" }); });
+  restructurings.forEach((r) => { if (r.date) legal.push({ ...mk("l", r.judgmentUrl || r.articleUrl || "/v2/profiles/#/?tab=firms", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time, "l", r.id), type: "case", lane: "deals" }); });
 
   // Reader's own aggregated email newsletters (Gmail-swept). By the stated
   // precedence these are LTR — even the Bloomberg / Economist ones — and only a
@@ -2435,6 +2437,21 @@ function renderFeed() {
   // Bonds is the DEDICATED fi sources (Bond Vigilantes, badged BND) FIRST,
   // then the bond/rates keyword slice of the macro stream (which keeps its MAC
   // label). An item can match both a keyword view and macro; fine for a filter.
+  // R50 — one item, one lane. Deals = deal-type credit records + restructurings;
+  // Research = house research + strategist commentary + credit white papers; News =
+  // journalism only (everything carrying a lane lives in that lane instead).
+  byDesk.deals = dedupe([...credit, ...legal, ...hdg].filter((x) => x.lane === "deals").sort(byDateDesc));
+  byDesk.research = dedupe([...rschFeed, ...[...credit, ...macro].filter((x) => x.lane === "research").map((x) => ({ ...x, desk: "rsch", type: undefined }))].sort(byDateDesc));
+  // A story carried by two sources is still ONE item: each lane gives up any headline
+  // a higher lane already holds — Deals › Profiles › Research › Newsletters › News.
+  const claimed = new Set(byDesk.deals.map((x) => norm(x.title)));
+  _dealTitles = new Set(claimed);
+  if (_feedDesk === "all" || _feedDesk === "research" || _feedDesk === "n") profilesEvents().forEach((e) => claimed.add(norm(e.title)));
+  byDesk.research = byDesk.research.filter((x) => !claimed.has(norm(x.title)));
+  byDesk.research.forEach((x) => claimed.add(norm(x.title)));
+  byDesk.n = byDesk.n.filter((x) => !claimed.has(norm(x.title)));
+  byDesk.n.forEach((x) => claimed.add(norm(x.title)));
+  const isNews = (x) => !x.lane && !claimed.has(norm(x.title));
   byDesk.eq = byDesk.m.filter((x) => FEED_EQ_RE.test(x.title || ""));
   byDesk.fi = dedupe([...byDesk.fisrc, ...byDesk.m.filter((x) => FEED_FI_RE.test(x.title || ""))].sort(byDateDesc));
   // "Views" — a cross-desk COMMENTARY lane: serious analysis, not headlines. Every
@@ -2493,7 +2510,8 @@ function renderFeed() {
   } else if (_feedDesk === "all") {
     // Today's items lead, interleaved across desks so no single desk dominates.
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
-    const lists = [pick(news), pick(macro), pick(credit), pick(hdg), pick(legal), pick(newsletter), pick(ft), pick(substacks), pick(brew), pick(fixedincome), pick(rschFeed)];
+    // News lane = journalism only (R50): no deals, profile records, newsletters or research.
+    const lists = [pick(news), pick(macro.filter(isNews)), pick(hdg.filter(isNews)), pick(legal.filter(isNews)), pick(ft), pick(substacks), pick(brew), pick(fixedincome)];
     const seen = new Set();
     feed = [];
     for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
@@ -2507,8 +2525,8 @@ function renderFeed() {
     // every other desk WHOLE, so each desk's recent stream survives the merge
     // (the full Credit/Legal history stays one tap away under their own filter).
     const HEAVY = 200;
-    const pool = [byDesk.news, byDesk.m, byDesk.c.slice(0, HEAVY), byDesk.hdg,
-      byDesk.l.slice(0, HEAVY), byDesk.n, byDesk.f, byDesk.s, byDesk.b, byDesk.fisrc, byDesk.research]
+    const pool = [byDesk.news, byDesk.m.filter(isNews), byDesk.hdg.filter(isNews),
+      byDesk.l.filter(isNews).slice(0, HEAVY), byDesk.f, byDesk.s, byDesk.b, byDesk.fisrc]
       .flat().filter((x) => day(x) !== target).sort(byDateDesc);
     const GUARD = 900;   // pathological guard, well above the capped pool (~600)
     for (const x of pool) {
@@ -2563,6 +2581,20 @@ let _wireSetter = null;       // initMobileWireTabs' setWire, hoisted so homeRes
 let _mgrLaneCat = "all";      // manager/watchlist category sub-filter
 let _lastFeed = [];           // last news feed array (for the All interleave)
 let _wirePool = [];           // live/streamed wire items (Watchlist name-matching)
+let _dealTitles = null;       // normalised headlines the Deals lane holds (R50 — Profiles gives them up)
+// The Deals lane's headlines straight from the records (so Profiles can exclude them even
+// before the News/Deals feed has rendered this session).
+function _dealTitleSet() {
+  if (_dealTitles) return _dealTitles;
+  const nt = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const out = new Set();
+  (deals || []).forEach((d) => out.add(nt(d.headline)));
+  (intel || []).forEach((i) => { if (intelLane(i.type, i.clo) === "deals") out.add(nt(i.headline)); });
+  (items || []).forEach((it) => { if (it && it.firm && legalLane(it.title) === "deals") out.add(nt(it.title)); });
+  (HEDGE_INTEL || []).forEach((h) => { if (h && _hfEv(h).cat === "fundraising") out.add(nt(h.headline)); });
+  out.delete("");
+  return out;
+}
 // The wire-lane chips. "News" was retired (the All lane already carries the full
 // news stream, interleaved with manager events); Research sits in its place. The
 // "manager" lane keeps its key but is labelled "Managers" (plural).
@@ -2663,12 +2695,14 @@ function profilesEvents() {
   const nd = new Date(), winStart = Date.UTC(nd.getUTCFullYear(), nd.getUTCMonth() - 1, 1);
   const f = _allFollows();
   const has = (k, id) => Array.isArray(f[k]) && f[k].includes(id);
-  const out = [...managerFlatEvents(false, "all").events];
-  (HEDGE_INTEL || []).forEach((h) => { if (h && h.headline) out.push({ ..._hfEv(h), watched: has("hf", h.hfId) }); });
-  (items || []).forEach((it) => { if (it && it.firm && it.title) out.push({ ..._firmEv(it), watched: has("firm", it.firm) }); });
+  // Deal-type events (deals, raises, CLOs…) live in the Deals lane only (R50).
+  const out = managerFlatEvents(false, "all").events.filter((e) => eventLane(e) === "profiles");
+  (HEDGE_INTEL || []).forEach((h) => { if (h && h.headline && _hfEv(h).cat !== "fundraising") out.push({ ..._hfEv(h), watched: has("hf", h.hfId) }); });
+  (items || []).forEach((it) => { if (it && it.firm && it.title && legalLane(it.title) === "profiles") out.push({ ..._firmEv(it), watched: has("firm", it.firm) }); });
   const lpRe = _termsRe((lps || []).map((l) => l.name));
-  namedEvents(lpRe).forEach((e) => out.push({ ...e, watched: false }));
-  return dedupeEvents(out.filter((e) => e.ts && e.ts >= winStart), { fuzzy: false })
+  namedEvents(lpRe).forEach((e) => { if (eventLane(e) === "profiles") out.push({ ...e, watched: false }); });
+  const dealT = _dealTitleSet(), nt = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+  return dedupeEvents(out.filter((e) => e.ts && e.ts >= winStart && !dealT.has(nt(e.title))), { fuzzy: false })
     .sort((a, b) => (b.ts - a.ts) || String(b.date).localeCompare(String(a.date)));
 }
 // A manager event as a shared .g-feed-row (same markup as the manager wire's flat row).
@@ -2701,35 +2735,10 @@ function renderMgrLane(watchOnly) {
   setHTML("g-feed", out ? `<div class="g-mw-flat">${out}</div>` : empty);
   const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";
 }
-// All lane: interleave the news feed with manager events by recency. Reuses the news
-// feed already painted by renderFeed (stashed in _lastFeed), then repaints #g-feed.
+// A wire item's timestamp (date + publish time) — orders Watchlist rows.
 function _newsTs(x) {
   const d = (x.date || "").slice(0, 10);
   return Date.parse(`${d}T${x.time || "00:00"}:00Z`) || (x.added || 0) || Date.parse(d) || 0;
-}
-function mergeManagersIntoFeed() {
-  const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";
-  const news = (_lastFeed || []).map((x) => ({ it: x, mgr: false, ts: _newsTs(x) }));
-  // DEDUPE manager events against the news feed. The SAME deal is routinely recorded both
-  // as a credit deal (CRD, already in _lastFeed) and as a manager-wire event (e.g. FIN), so
-  // without this the All lane shows it twice (observed: a Hayfin €305m financing as both
-  // CRD and FIN). Keep the news row (richer, desk-coded) and drop any manager event whose
-  // normalised title — or external URL — already appears on the feed.
-  const _ntitle = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
-  const seenT = new Set(news.map((m) => _ntitle(m.it.title)).filter(Boolean));
-  const seenU = new Set(news.map((m) => m.it.href).filter(Boolean));
-  const { events } = managerFlatEvents(false, "all");
-  const mgr = events
-    .filter((e) => !(seenT.has(_ntitle(e.title)) || (e.ext && e.source && seenU.has(e.source))))
-    .map((e) => ({ it: e, mgr: true, ts: e.ts || _newsTs(e) }));
-  const merged = news.concat(mgr).sort((a, b) => b.ts - a.ts);
-  let out = "", lastDay = "";
-  for (const m of merged) {
-    const d = (m.it.date || "").slice(0, 10);
-    if (d && d !== lastDay) { lastDay = d; out += `<div class="g-feed-dayhdr">${esc(fmt(d))}</div>`; }
-    out += m.mgr ? mgrEventRow(m.it) : feedRow(m.it);
-  }
-  setHTML("g-feed", out || feedEmptyHTML("Nothing on the wire yet."));
 }
 const WIRE_LANE_LABEL = Object.fromEntries(WIRE_LANES);
 // Desktop lane chips (#g-wire-lanes) + the phone wire-tab dropdown (label + menu).
@@ -2932,8 +2941,8 @@ function renderWire() {
   else if (lane === "manager") renderMgrLane(false);
   else if (lane === "newsletters") { _feedDesk = "n"; renderFeed(); }
   else if (lane === "research") { _feedDesk = "research"; renderFeed(); }
-  else if (lane === "deals") { _feedDesk = "c"; renderFeed(); }
-  else { _feedDesk = "all"; renderFeed(); if (lane === "all") mergeManagersIntoFeed(); }
+  else if (lane === "deals") { _feedDesk = "deals"; renderFeed(); }
+  else { _feedDesk = "all"; renderFeed(); }   // News: journalism only — profile events live in Profiles (R50)
   _decorateLocks();                                    // flag subscriber-only rows with a padlock
   ensureReadWired();
   _markReadingRow();                                   // keep the open story shaded across this repaint

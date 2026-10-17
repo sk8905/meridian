@@ -984,19 +984,20 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   `null`); coverage must improve or hold each run, never regress. Spec:
   `tests/manager-coverage.mjs` (tool present; profile-feeding records carry real
   date + URL, none future-dated; backfilled reference profiles keep depth).
-- **R33 — Lane-coverage invariant: an item reaches EVERY lane its nature implies.**
+- **R33 — Lane-coverage invariant: an item reaches the lane its nature implies** (and,
+  by R50, ONLY that lane — Watchlist, a follow filter, is the one overlap).
   The Home wire lanes are **News · Deals · Profiles · Watchlist · Newsletters · Research**
   (owner 2026-10-16; `WIRE_LANES` in `glance.js` — keys `all` = News, the full wire;
-  `deals` = the Credit desk's deal flow: deals, fund raises, CLOs; `manager` = **Profiles**,
-  the activity of EVERY profiled entity — managers' deals / intel / web news, hedge-fund
-  intel, law-firm alerts and deal / intel headlines naming a tracked investor — current +
-  previous month, newest first, ★ on followed rows; `profilesEvents()` in `glance.js`,
+  `deals` = deal flow: deals, fund raises (incl. hedge-fund launches/closes), CLOs,
+  restructurings and law-firm advisory mandates; `manager` = **Profiles**, the NON-deal
+  activity of every profiled entity — team moves, strategy, mandates, press, hedge-fund
+  and law-firm news — current + previous month, newest first, ★ on followed rows; `profilesEvents()` in `glance.js`,
   spec `tests/profiles-lane.mjs`). On iPhone the six keep the usual heading-row spacing (chips `0 12px`) and the row scrolls sideways (R42b), the selected lane kept in view (owner 2026-10-16). Each of these MUST catch what belongs to it:
   (a) **research** → the **Research** lane (`RSH` desk code / `research[]`);
   (b) a **newsletter** → the **Newsletters** lane (`LTR` / `newsletters.js`);
-  (c) anything **about a covered manager / fund / hedge fund** → the **Managers**
-  lane (and the All lane) — via a `managerId`-tagged `deals`/`intel`/`webNews`
-  record; (d) anything **about a watchlisted name** → the **Watchlist** lane. The
+  (c) anything **about a covered manager / fund / hedge fund** → the **Deals** lane if
+  it is a deal, else the **Profiles** lane — via a `managerId`-tagged
+  `deals`/`intel`/`webNews` record (never also News, R50); (d) anything **about a watchlisted name** → the **Watchlist** lane. The
   client routes any correctly-TAGGED item automatically (by desk code, `managerId`,
   or the follow set) — so coverage is a **tagging** duty, not a routing one. A story
   that only appears as a raw newswire row but concerns a covered or watchlisted
@@ -1430,7 +1431,14 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   named on its deals) · key people (only named with a role); empty facts are left out
   (`tests/manager-glance.mjs`). **(g) People (R11)** — a Profiles list of hires / departures
   / promotions built only from the items' own text (`v2/js/profiles/people.js`,
-  `tests/profiles-people.mjs`). **(h) Law-firm lens (R10)** — glance strip, Practice +
+  `tests/profiles-people.mjs`). **Row (owner 2026-10-17):** line 1 is the person's
+  **name only** — read from the headline, else the summary's first sentence; **"Unknown"**
+  when the item names nobody, **never the headline**. Line 2 is the firm they **left**
+  (left-aligned) and the firm they **joined** (right-aligned); a promotion reads its firm
+  on both sides; a side the item doesn't state reads "Unknown" (faint). Firm names drop
+  their desk qualifier ("Canyon Partners (Credit)" → "Canyon Partners"). The same named
+  person moving to the same firm within 14 days is one row. Desktop columns: Date ·
+  Person · Move · Role · Seniority · From · To · Source. **(h) Law-firm lens (R10)** — glance strip, Practice +
   Region filters from the item's own areas / tags / jurisdiction, and a Credit deals tab
   with side (lender / borrower / sponsor, else "Side not stated") (`v2/js/legal/firm-lens.js`,
   `tests/lawfirm-lens.mjs`). **(i) Restructuring hub (R6)** `/v2/restructuring/` (part of Deals; no in-page section
@@ -1545,8 +1553,9 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   is the headline / name alone (People keep their date lead). The iPhone bars are **search ·
   Filters** only: Deals' region button (All Europe) and European mid-market, and Profiles'
   Target / $1–15bn, are in the Filters sheet. Profiles ▸ People rows carry **no move badge**
-  (HIRE / DEPARTURE / PROMOTION) on iPhone: line 2's "to / from / at" carries the move, the
-  type rides in the row title, and the Move filter still applies.
+  (HIRE / DEPARTURE / PROMOTION), role or source on iPhone: name, then old firm (left) /
+  new firm (right) — R42(g); the type and role ride in the row title, and the Move filter
+  still applies.
   **(f) One iPhone geometry** (owner 2026-10-15, "the spacing doesn't quite look right"):
   every heading row (News lanes, Deals modes, Profiles lists, the hub, Menu, Markets,
   profile sub-tabs) starts at the screen edge with its **first label on the 12px gutter**
@@ -1581,7 +1590,7 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   the wire row is date · headline only, wrapping to two lines — R44j). The code stays in
   the markup (the row's desk, for filters and search) but is not drawn. Spec: `tests/phone-trim.mjs`.
   The same goes for line 2 elsewhere (audit 2026-10-16): the search palette's code is the
-  one muted outlined tag, and a People row's "→" takes line 2's grey. **Notifications (and
+  one muted outlined tag, and a People row's two firms take line 2's grey. **Notifications (and
   saved stories) ARE the News wire row** (owner 2026-10-16): date · headline, the source
   alone on line 2 on desktop (iPhone: R44j) — no desk code, no right-hand source column, no tinted / orange-barred
   "new" rows; "New" / "Earlier" are the wire's day-break band (`--t-day`, R6). Built as the
@@ -1667,6 +1676,22 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   "price: <outlet>". Upkeep: refresh-routines §bonds. Spec: `tests/bond-quotes.mjs` (ISIN check digits,
   venues, sources, "(date)" format, hub + sheet + borrower page, phone and desktop).
 
+- **R50 — One item, one lane (owner 2026-10-17).** The Home wire lanes never share an
+  item. **News is journalism only** — the live news wire (macro, legal-industry wire,
+  Substack, MailBrew, fixed-income, live hedge-fund reporting) and court-case notices;
+  nothing that carries a lane. Every other item carries exactly one `lane`:
+  **Deals** — credit deals, CLOs, restructurings, intel whose category is deal-type
+  (raise, close, launch, financing, M&A, exit, CLO — `DEAL_LANE_CATS` in
+  `manager-signals.js`), hedge-fund raises, and law-firm advisory mandates ("X advises Y
+  on …", `legalLane()`); **Profiles** — team moves, strategy, mandates, firm press,
+  other hedge-fund and law-firm news (`intelLane()` / `eventLane()`; a Personnel item is a
+  team move even when filed on a CLO desk); **Research** — house research, strategist
+  commentary and credit white papers (drawn with the RSH code); **Newsletters** — the
+  reader's newsletters. The same story from two sources is still ONE item: lanes give up
+  a headline a higher lane holds — **Deals › Profiles › Research › Newsletters › News**.
+  **Watchlist** is a follow FILTER across all of them and is exempt. A new source or
+  record type must declare its lane. Spec: `tests/home-lane-exclusive.mjs` (every pair
+  of lanes disjoint by link and headline; no deal-type rows in News or Profiles).
 - **R46 — Touch feel: no sticky hover, a native press (owner 2026-10-16).** On iPhone a
   `:hover` style latches after a tap (the row stays lit until something else is touched),
   so **every `:hover` rule in the bundled stylesheets sits inside `@media (hover:hover)`**

@@ -133,6 +133,10 @@ function toFirm(...texts) {
   return null;
 }
 
+// A firm as the list shows it: the record's desk qualifier dropped
+// ("Canyon Partners (Credit)" → "Canyon Partners").
+export const firmLabel = (f) => String(f || "").replace(/\s*\([^)]*\)\s*$/, "").trim();
+
 // ---- the moves -------------------------------------------------------------------
 const DAY = 864e5;
 export function periodTags(date, now = Date.now()) {
@@ -151,7 +155,9 @@ export function peopleMoves() {
     const type = moveType(text);
     // A departure's summary "as …" is usually the role it held before — headline only.
     const role = type === "Departure" ? roleOf(text) : roleOf(text, firstSentence(o.summary));
-    const person = personOf(text, [o.firm]);
+    // The name from the headline, else from the summary's first sentence (still read
+    // from the item's own text — never guessed). No name → "Unknown" in the list.
+    const person = personOf(text, [o.firm]) || personOf(firstSentence(o.summary), [o.firm]);
     let from = null, to = null;
     // Filed under the firm the person LEFT ("Oaktree hires Permira Credit's Jens Bauer"
     // on Permira's record): read it as that firm's departure, to the hiring firm.
@@ -185,7 +191,17 @@ export function peopleMoves() {
     const u = it.url || "";
     push({ id: it.id, date: it.date, headline: t, summary: it.summary, url: u, src: srcHost(u) ? tidyDomain(srcHost(u)) : f.name, firm: f.name, href: `#/firm/${encodeURIComponent(f.id)}`, kind: "Law firm" });
   }
-  _moves = out.sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  out.sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  // One row per move: the same named person moving to the same firm, reported by two
+  // outlets within a fortnight, is one story (keep the newest report).
+  const seen = new Map();
+  _moves = out.filter((r) => {
+    if (!r.person) return true;
+    const k = `${r.person.toLowerCase()}|${firmLabel(r.to || r.firm).toLowerCase()}`;
+    const t = Date.parse(r.date) || 0, prev = seen.get(k);
+    if (prev != null && Math.abs(prev - t) <= 14 * DAY) return false;
+    seen.set(k, t); return true;
+  });
   return _moves;
 }
 
@@ -194,21 +210,24 @@ export function peopleMoves() {
 export function peoplePaneHTML() {
   const now = Date.now();
   const rows = peopleMoves().map((r) => {
-    // "A → B" when both firms are written; otherwise "to B" / "from A" — never a blank side.
-    const fromTo = r.type === "Promotion" || r.type === "Other" || (!r.from && !r.to) ? `<span class="pp-arr">at</span> ${esc(r.to || r.firm)}`
-      : r.from && r.to ? `${esc(r.from)} <span class="pp-arr">→</span> ${esc(r.to)}`
-      : r.to ? `<span class="pp-arr">to</span> ${esc(r.to)}` : `<span class="pp-arr">from</span> ${esc(r.from)}`;
-    // R43: a people move is an events row — date first, the move tag beside the name,
-    // the source last; role and from → to on the meta line (phone).
-    return `<tr class="clickable" data-href="${esc(r.href)}" data-id="${esc(r.id)}" title="${esc([r.headline, r.type, r.seniority].filter(Boolean).join(" · "))}"`
+    // Owner 2026-10-17: line 1 is the NAME only ("Unknown" when the item doesn't name
+    // anyone — never the headline); line 2 is the firm they LEFT (left) and the firm they
+    // JOINED (right). A promotion stays within one firm, so both sides read that firm.
+    // A side the item doesn't state reads "Unknown".
+    const same = r.type === "Promotion";
+    const left = firmLabel(same ? (r.to || r.firm) : r.from) || "Unknown";
+    const right = firmLabel(r.type === "Departure" ? r.to : (r.to || r.firm)) || "Unknown";
+    const who = r.person || "Unknown";
+    return `<tr class="clickable" data-href="${esc(r.href)}" data-id="${esc(r.id)}" title="${esc([r.headline, r.role, r.type, r.seniority].filter(Boolean).join(" · "))}"`
       + ` data-name="${esc([r.person, r.role, r.firm, r.from, r.to, r.headline].filter(Boolean).join(" ").toLowerCase())}"`
       + ` data-f-firm="${esc(r.firm)}" data-f-move="${esc(r.type)}" data-f-seniority="${esc(r.seniority)}" data-f-period="${periodTags(r.date, now).join("|")}" data-f-kind="${esc(r.kind)}">`
       + `<td class="pf-c-main pp-date c-date" data-sort="${Date.parse(r.date) || ""}">${esc(fmtDate(r))}</td>`
-      + `<td class="tl-nm pp-who">${r.person ? esc(r.person) : `<span class="pp-hl">${esc(r.headline)}</span>`}</td>`
+      + `<td class="tl-nm pp-who${r.person ? "" : " pp-unk"}">${esc(who)}</td>`
       + `<td class="pf-c-meta pp-move c-tag"><span class="dsh-tag pp-mv pp-mv-${r.type.toLowerCase()}">${esc(r.type)}</span></td>`
       + `<td class="pf-c-meta pp-role">${r.role ? esc(r.role) : "—"}</td>`
       + `<td class="pp-sen">${esc(r.seniority)}</td>`
-      + `<td class="pf-c-meta pp-fromto">${fromTo}</td>`
+      + `<td class="pf-c-meta pp-from${left === "Unknown" ? " pp-unk" : ""}">${esc(left)}</td>`
+      + `<td class="pf-c-meta pp-to${right === "Unknown" ? " pp-unk" : ""}">${esc(right)}</td>`
       + `<td class="pp-src-c c-src">${r.url ? `<a class="pp-src" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.headline)}">${esc(r.src || "source")}</a>` : "—"}</td></tr>`;
   }).join("");
   return `<div class="tpane" data-pane="people" hidden>
@@ -217,7 +236,7 @@ export function peoplePaneHTML() {
               </header>
               <div class="tleague-wrap">
               <table class="tleague tleague-full pf-cards pp-tbl" data-events="1">
-                <thead><tr><th class="c-date">Date</th><th>Person</th><th class="c-tag">Move</th><th>Role</th><th>Seniority</th><th>From → to</th><th class="c-src">Source</th></tr></thead>
+                <thead><tr><th class="c-date">Date</th><th>Person</th><th class="c-tag">Move</th><th>Role</th><th>Seniority</th><th>From</th><th>To</th><th class="c-src">Source</th></tr></thead>
                 <tbody id="pp-rows">${rows}</tbody>
               </table>
               </div>

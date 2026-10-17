@@ -1,5 +1,5 @@
-// Home MERGED WIRE — the News lane (desk sub-filters), the All lane (news + manager
-// interleaved), and the READING PANE (click-to-read, top-story default, paywall vs
+// Home MERGED WIRE — the News lane (journalism only — R50: manager / deal / research
+// items live in their own lanes), and the READING PANE (click-to-read, top-story default, paywall vs
 // openly-readable treatment). Desktop terminal only.
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
@@ -39,7 +39,7 @@ await pg.evaluate(() => { try { localStorage.removeItem("meridian.follows"); loc
 await pg.reload({ waitUntil: "load" });
 await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
 
-// All lane (default): the news stream interleaved with manager events, and NO
+// All lane (default): the news stream ONLY (R50 — no manager events), and NO
 // sub-filter row (the desk chips were removed — the lane tabs are the only control).
 await lane(pg, "News");
 await pg.waitForTimeout(200);
@@ -52,7 +52,7 @@ const news = await pg.evaluate(() => ({
 check(news.subs === 0, "All lane: no desk sub-filter row (removed)");
 check(news.newsRows > 0, `All lane: renders the news stream (${news.newsRows} news rows, ${news.mgrRows} manager events interleaved)`);
 
-// All lane: news + manager interleaved, and still no sub-filters.
+// News lane: journalism only — no manager / profile events (R50), and no sub-filters.
 await lane(pg, "News");
 await pg.waitForTimeout(250);
 const all = await pg.evaluate(() => ({
@@ -61,7 +61,7 @@ const all = await pg.evaluate(() => ({
   total: document.querySelectorAll("#g-feed .g-feed-row").length,
 }));
 check(all.subs === 0, "All lane: no second-level sub-filters");
-check(all.mgrRows > 0 && all.total > all.mgrRows, `All lane: news + manager interleaved (${all.mgrRows} manager of ${all.total} rows)`);
+check(all.mgrRows === 0 && all.total > 0, `News lane: no manager / profile events — those live in Profiles (R50) (${all.mgrRows} manager of ${all.total} rows)`);
 
 // Reading pane: there is NO auto-open (R3a) — the reader opens a story. Open the top
 // readable row (on the News lane, so no manager-event rows) and it renders in reading

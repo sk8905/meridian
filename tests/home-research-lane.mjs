@@ -25,13 +25,13 @@ await pg.waitForTimeout(400);
 const lanes = await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].map((b) => b.textContent.trim()));
 checkEq(lanes.join(" · "), "News · Deals · Profiles · Watchlist · Newsletters · Research", "lane row: News · Deals · Profiles · Watchlist · Newsletters · Research (owner 2026-10-16)");
 
-// Research items fold into the All lane (the default) — tagged RSCH, not culled.
+// One item, one lane (R50): research items live ONLY in the Research lane — never News.
 const inAll = await pg.evaluate(() => {
   const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
   const rsch = rows.filter((r) => /RSH/.test((r.querySelector(".g-feed-code") || {}).textContent || ""));
   return { count: rsch.length, titles: rsch.map((r) => (r.querySelector(".g-feed-title") || {}).textContent || "") };
 });
-check(inAll.count >= 1, `All lane: research items fold in with the RSH code (${inAll.count})`);
+check(inAll.count === 0, `News lane: no research items — they live in Research only (${inAll.count})`);
 
 // Switch to the Research lane → only the research items, each with the teal RSCH pill.
 await pg.evaluate(() => { const b = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === "Research"); if (b) b.click(); });
