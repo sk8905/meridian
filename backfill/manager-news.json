@@ -1,7 +1,18 @@
 {
- "generated": "2026-10-17T12:40:57.960Z",
+ "generated": "2026-10-17T16:11:29.032Z",
  "since": "2026-10-03",
  "managers": {
+  "m233": {
+   "name": "Alinor Capital Management LLP",
+   "domains": [
+    "alinorcapital.com"
+   ],
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 1
+  },
   "m219": {
    "name": "CBPE Capital LLP",
    "domains": [
@@ -13,17 +24,6 @@
    "fetched": 0,
    "errors": 0,
    "samples": []
-  },
-  "m233": {
-   "name": "Alinor Capital Management LLP",
-   "domains": [
-    "alinorcapital.com"
-   ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 1
   },
   "m226": {
    "name": "Situational Awareness",
@@ -74,17 +74,6 @@
    "fetched": 2,
    "errors": 0
   },
-  "m5": {
-   "name": "Permira Credit",
-   "domains": [
-    "www.permira.com"
-   ],
-   "sitemaps": 1,
-   "urls": 1527,
-   "kept": 1,
-   "fetched": 1,
-   "errors": 0
-  },
   "m225": {
    "name": "Andromeda Capital Management",
    "domains": [
@@ -103,6 +92,17 @@
     "https://andromedainvestors.com/team-members/ @2026-08-24",
     "https://andromedainvestors.com/cookies-policy/ @2022-11-09"
    ]
+  },
+  "m5": {
+   "name": "Permira Credit",
+   "domains": [
+    "www.permira.com"
+   ],
+   "sitemaps": 1,
+   "urls": 1527,
+   "kept": 1,
+   "fetched": 1,
+   "errors": 0
   },
   "m6": {
    "name": "Barings",
@@ -358,6 +358,25 @@
    "fetched": 0,
    "errors": 1
   },
+  "m27": {
+   "name": "Crescent Capital Group",
+   "domains": [
+    "www.crescentcap.com"
+   ],
+   "sitemaps": 4,
+   "urls": 206,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [
+    "https://www.crescentcap.com/news-insights/ @2026-09-08",
+    "https://www.crescentcap.com/private-market-qa-liz-samson-and-mark-du-four-q3-2024/ @2025-01-27",
+    "https://www.crescentcap.com/crescent-announces-expansion-of-european-investor-solutions-group/ @2025-01-27",
+    "https://www.crescentcap.com/private-market-qa-felipe-esguerra-and-mark-du-four-q2-2024/ @2025-01-27",
+    "https://www.crescentcap.com/slc-management-2024-mid-year-global-investment-outlook/ @2025-01-27",
+    "https://www.crescentcap.com/slc-management-2023-mid-year-global-investment-outlook/ @2025-01-27"
+   ]
+  },
   "m25": {
    "name": "Kartesia",
    "domains": [
@@ -377,25 +396,6 @@
     "https://kartesia.com/news/kartesia-renews-its-support-to-sewan/ @2023-09-28"
    ],
    "disallowed": 2
-  },
-  "m27": {
-   "name": "Crescent Capital Group",
-   "domains": [
-    "www.crescentcap.com"
-   ],
-   "sitemaps": 4,
-   "urls": 206,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://www.crescentcap.com/news-insights/ @2026-09-08",
-    "https://www.crescentcap.com/private-market-qa-liz-samson-and-mark-du-four-q3-2024/ @2025-01-27",
-    "https://www.crescentcap.com/crescent-announces-expansion-of-european-investor-solutions-group/ @2025-01-27",
-    "https://www.crescentcap.com/private-market-qa-felipe-esguerra-and-mark-du-four-q2-2024/ @2025-01-27",
-    "https://www.crescentcap.com/slc-management-2024-mid-year-global-investment-outlook/ @2025-01-27",
-    "https://www.crescentcap.com/slc-management-2023-mid-year-global-investment-outlook/ @2025-01-27"
-   ]
   },
   "m29": {
    "name": "Arcmont Asset Management",
@@ -484,6 +484,17 @@
     "https://www.hayfin.com/clo-platform-achieves-landmark-tenth-new-issuance/ @2023-09-26"
    ]
   },
+  "m34": {
+   "name": "One Investment Management (OneIM)",
+   "domains": [
+    "www.oneimgroup.com"
+   ],
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 1
+  },
   "m24": {
    "name": "Eurazeo",
    "domains": [
@@ -495,17 +506,6 @@
    "kept": 20,
    "fetched": 20,
    "errors": 0
-  },
-  "m34": {
-   "name": "One Investment Management (OneIM)",
-   "domains": [
-    "www.oneimgroup.com"
-   ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 1
   },
   "m37": {
    "name": "Attestor",
@@ -526,8 +526,8 @@
    "sitemaps": 4,
    "urls": 94,
    "kept": 3,
-   "fetched": 3,
-   "errors": 0
+   "fetched": 2,
+   "errors": 1
   },
   "m39": {
    "name": "Farallon Capital Management",
@@ -539,6 +539,44 @@
    "kept": 0,
    "fetched": 0,
    "errors": 1
+  },
+  "m36": {
+   "name": "Fidera",
+   "domains": [
+    "www.fidera.eu"
+   ],
+   "sitemaps": 7,
+   "urls": 16,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [
+    "https://www.fidera.eu/hello-world/ @2021-02-15",
+    "https://www.fidera.eu/ @2023-09-05",
+    "https://www.fidera.eu/investors/ @2021-02-18",
+    "https://www.fidera.eu/privacy/ @2021-03-11",
+    "https://www.fidera.eu/strategies/ @2023-08-21",
+    "https://www.fidera.eu/contact-2-2/ @2023-09-05"
+   ]
+  },
+  "m38": {
+   "name": "Sona Asset Management",
+   "domains": [
+    "sona-am.com"
+   ],
+   "sitemaps": 10,
+   "urls": 82,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [
+    "https://sona-am.com/sona-credit-master-fund-scmf-has-been-awarded-new-fund-of-the-year-macro-fixed-income-relative-value-at-the-eurohedge-awards-2020/ @2026-09-24",
+    "https://sona-am.com/sona-credit-master-fund-scmf-wins-the-credit-over-500m-category-at-the-hfm-european-performance-awards-2021/ @2026-09-24",
+    "https://sona-am.com/sonas-all-weather-strategy-has-won-the-corporate-long-short-award-at-the-altcredit-european-performance-services-awards-2021/ @2026-09-24",
+    "https://sona-am.com/sona-credit-master-fund-scmf-has-been-awarded-the-2022-investors-choice-award-for-the-emea-event-driven-fund-between-500m-and-1bn/ @2026-09-30",
+    "https://sona-am.com/john-aylward-discusses-sonas-liquid-and-illiquid-credit-strategies-with-the-hedge-fund-journal/ @2026-09-24",
+    "https://sona-am.com/sona-credit-master-fund-scmf-wins-at-the-eurohedge-awards-2022/ @2026-09-24"
+   ]
   },
   "m40": {
    "name": "Arini Capital Management",
@@ -560,25 +598,6 @@
     "https://www.arini.com/disclosures @2025-11-24"
    ]
   },
-  "m36": {
-   "name": "Fidera",
-   "domains": [
-    "www.fidera.eu"
-   ],
-   "sitemaps": 7,
-   "urls": 16,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://www.fidera.eu/hello-world/ @2021-02-15",
-    "https://www.fidera.eu/ @2023-09-05",
-    "https://www.fidera.eu/investors/ @2021-02-18",
-    "https://www.fidera.eu/privacy/ @2021-03-11",
-    "https://www.fidera.eu/strategies/ @2023-08-21",
-    "https://www.fidera.eu/contact-2-2/ @2023-09-05"
-   ]
-  },
   "m43": {
    "name": "Polus Capital Management",
    "domains": [
@@ -589,25 +608,6 @@
    "kept": 0,
    "fetched": 0,
    "errors": 1
-  },
-  "m38": {
-   "name": "Sona Asset Management",
-   "domains": [
-    "sona-am.com"
-   ],
-   "sitemaps": 10,
-   "urls": 82,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://sona-am.com/sona-credit-master-fund-scmf-has-been-awarded-new-fund-of-the-year-macro-fixed-income-relative-value-at-the-eurohedge-awards-2020/ @2026-09-24",
-    "https://sona-am.com/sona-credit-master-fund-scmf-wins-the-credit-over-500m-category-at-the-hfm-european-performance-awards-2021/ @2026-09-24",
-    "https://sona-am.com/sonas-all-weather-strategy-has-won-the-corporate-long-short-award-at-the-altcredit-european-performance-services-awards-2021/ @2026-09-24",
-    "https://sona-am.com/sona-credit-master-fund-scmf-has-been-awarded-the-2022-investors-choice-award-for-the-emea-event-driven-fund-between-500m-and-1bn/ @2026-09-30",
-    "https://sona-am.com/john-aylward-discusses-sonas-liquid-and-illiquid-credit-strategies-with-the-hedge-fund-journal/ @2026-09-24",
-    "https://sona-am.com/sona-credit-master-fund-scmf-wins-at-the-eurohedge-awards-2022/ @2026-09-24"
-   ]
   },
   "m45": {
    "name": "Aurelius",
@@ -651,6 +651,17 @@
    "errors": 0,
    "samples": []
   },
+  "m42": {
+   "name": "NorthWall Capital",
+   "domains": [
+    "northwallcap.com"
+   ],
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 1
+  },
   "m48": {
    "name": "Diameter Capital Partners",
    "domains": [
@@ -667,25 +678,6 @@
     "https://www.diametercap.com/terms-and-conditions @2023-11-15"
    ]
   },
-  "m44": {
-   "name": "Blantyre Capital",
-   "domains": [
-    "blantyrecapital.com"
-   ],
-   "sitemaps": 9,
-   "urls": 50,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://blantyrecapital.com/insights/ @2026-03-24",
-    "https://blantyrecapital.com/mcavoy-receives-multi-million-pound-boost-from-private-equity-investment/ @2024-02-16",
-    "https://blantyrecapital.com/south-african-cinema-group-ster-kinekor-exits-business-rescue-process/ @2024-02-16",
-    "https://blantyrecapital.com/scottish-hotels-paddy-crerar-says-sale-earlier-than-thought/ @2024-02-16",
-    "https://blantyrecapital.com/why-a-comprehensive-restructuring-and-insolvency-ecosystem-is-key-to-building-a-successful-ifc/ @2024-02-16",
-    "https://blantyrecapital.com/fluorsid-announces-agreement-to-sell-its-controlled-company-alkeemia-spa-to-funds-managed-by-blantyre-capital/ @2024-02-20"
-   ]
-  },
   "m49": {
    "name": "Fasanara Capital",
    "domains": [
@@ -696,6 +688,19 @@
    "kept": 0,
    "fetched": 0,
    "errors": 1
+  },
+  "m51": {
+   "name": "Metric Capital Partners",
+   "domains": [
+    "www.metric-capital.com",
+    "metric-capital.com"
+   ],
+   "sitemaps": 2,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": []
   },
   "m52": {
    "name": "Soho Square Capital",
@@ -716,18 +721,24 @@
     "https://www.soho-sq.com/our-team/walid-fakhry @2025-03-05"
    ]
   },
-  "m51": {
-   "name": "Metric Capital Partners",
+  "m44": {
+   "name": "Blantyre Capital",
    "domains": [
-    "www.metric-capital.com",
-    "metric-capital.com"
+    "blantyrecapital.com"
    ],
-   "sitemaps": 2,
-   "urls": 0,
+   "sitemaps": 9,
+   "urls": 50,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
-   "samples": []
+   "samples": [
+    "https://blantyrecapital.com/insights/ @2026-03-24",
+    "https://blantyrecapital.com/mcavoy-receives-multi-million-pound-boost-from-private-equity-investment/ @2024-02-16",
+    "https://blantyrecapital.com/south-african-cinema-group-ster-kinekor-exits-business-rescue-process/ @2024-02-16",
+    "https://blantyrecapital.com/scottish-hotels-paddy-crerar-says-sale-earlier-than-thought/ @2024-02-16",
+    "https://blantyrecapital.com/why-a-comprehensive-restructuring-and-insolvency-ecosystem-is-key-to-building-a-successful-ifc/ @2024-02-16",
+    "https://blantyrecapital.com/fluorsid-announces-agreement-to-sell-its-controlled-company-alkeemia-spa-to-funds-managed-by-blantyre-capital/ @2024-02-20"
+   ]
   },
   "m54": {
    "name": "Palmer Square Capital Management",
@@ -821,34 +832,16 @@
    "fetched": 4,
    "errors": 0
   },
-  "m42": {
-   "name": "NorthWall Capital",
+  "m65": {
+   "name": "Bain Capital Credit",
    "domains": [
-    "northwallcap.com"
+    "www.baincapital.com",
+    "www.baincapitalcredit.com"
    ],
-   "sitemaps": 10,
-   "urls": 156,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://northwallcap.com/news/ @2026-10-13",
-    "https://northwallcap.com/2024/08/22/fabian-chrobog-interviewed-for-bloombergs-the-credit-edge-podcast/ @2024-10-17",
-    "https://northwallcap.com/2024/08/05/northwall-capital-shortlisted-in-alternative-credit-investor-awards/ @2024-10-17",
-    "https://northwallcap.com/2024/08/01/thanking-ian-lokkerbol-for-his-time-at-northwall-as-a-founding-partner-and-chief-operating-officer/ @2024-10-17",
-    "https://northwallcap.com/2024/08/01/northwall-announces-the-promotions-of-claire-gummer-and-alastair-wilson/ @2024-10-17",
-    "https://northwallcap.com/2024/05/19/northwall-team-participates-in-hackney-half-marathon-2024/ @2024-10-17"
-   ]
-  },
-  "m62": {
-   "name": "Guggenheim Investments",
-   "domains": [
-    "www.guggenheiminvestments.com"
-   ],
-   "sitemaps": 7,
-   "urls": 204,
-   "kept": 6,
-   "fetched": 6,
+   "sitemaps": 4,
+   "urls": 2864,
+   "kept": 2,
+   "fetched": 2,
    "errors": 0
   },
   "m66": {
@@ -873,6 +866,17 @@
    "fetched": 0,
    "errors": 0
   },
+  "m62": {
+   "name": "Guggenheim Investments",
+   "domains": [
+    "www.guggenheiminvestments.com"
+   ],
+   "sitemaps": 7,
+   "urls": 204,
+   "kept": 6,
+   "fetched": 6,
+   "errors": 0
+  },
   "m69": {
    "name": "Centerbridge Partners",
    "domains": [
@@ -882,18 +886,6 @@
    "urls": 315,
    "kept": 1,
    "fetched": 1,
-   "errors": 0
-  },
-  "m65": {
-   "name": "Bain Capital Credit",
-   "domains": [
-    "www.baincapital.com",
-    "www.baincapitalcredit.com"
-   ],
-   "sitemaps": 4,
-   "urls": 2864,
-   "kept": 2,
-   "fetched": 2,
    "errors": 0
   },
   "m71": {
@@ -983,6 +975,25 @@
    "fetched": 0,
    "errors": 1
   },
+  "m75": {
+   "name": "CORDET Capital",
+   "domains": [
+    "www.cordet.com"
+   ],
+   "sitemaps": 9,
+   "urls": 108,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [
+    "https://www.cordet.com/internship-and-part-time-positions-available-at-cordet-in-stockholm/ @2022-11-16",
+    "https://www.cordet.com/cdlf-ii-closes-with-over/ @2022-11-16",
+    "https://www.cordet.com/positive-update-from-cordet-charity-partner-zov-3/ @2022-11-16",
+    "https://www.cordet.com/lower-mid-market-lender-of-the-year-second-place-for-cordet-at-the-pdi-awards-for-2020/ @2022-11-16",
+    "https://www.cordet.com/cordet-2020-overview/ @2022-11-16",
+    "https://www.cordet.com/double-win-for-cordet-team/ @2022-11-16"
+   ]
+  },
   "m76": {
    "name": "Gardant",
    "domains": [
@@ -1012,25 +1023,6 @@
    "kept": 0,
    "fetched": 0,
    "errors": 1
-  },
-  "m75": {
-   "name": "CORDET Capital",
-   "domains": [
-    "www.cordet.com"
-   ],
-   "sitemaps": 9,
-   "urls": 108,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://www.cordet.com/internship-and-part-time-positions-available-at-cordet-in-stockholm/ @2022-11-16",
-    "https://www.cordet.com/cdlf-ii-closes-with-over/ @2022-11-16",
-    "https://www.cordet.com/positive-update-from-cordet-charity-partner-zov-3/ @2022-11-16",
-    "https://www.cordet.com/lower-mid-market-lender-of-the-year-second-place-for-cordet-at-the-pdi-awards-for-2020/ @2022-11-16",
-    "https://www.cordet.com/cordet-2020-overview/ @2022-11-16",
-    "https://www.cordet.com/double-win-for-cordet-team/ @2022-11-16"
-   ]
   },
   "m78": {
    "name": "Trinity Capital",
@@ -1246,17 +1238,6 @@
    "errors": 0,
    "samples": []
   },
-  "m64": {
-   "name": "PGIM Private Capital",
-   "domains": [
-    "www.pgim.com"
-   ],
-   "sitemaps": 27,
-   "urls": 51676,
-   "kept": 20,
-   "fetched": 20,
-   "errors": 0
-  },
   "m99": {
    "name": "D. E. Shaw & Co.",
    "domains": [
@@ -1287,21 +1268,16 @@
    "fetched": 3,
    "errors": 0
   },
-  "m102": {
-   "name": "Kimmik Capital",
+  "m101": {
+   "name": "Goldman Sachs Special Situations Group",
    "domains": [
-    "kimmik.capital"
+    "www.goldmansachs.com"
    ],
-   "sitemaps": 4,
-   "urls": 3,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://kimmik.capital/ @2026-09-03",
-    "https://kimmik.capital/e-floating-buttons/phone/ @2025-10-27",
-    "https://kimmik.capital/author/kimmik-capital/"
-   ]
+   "sitemaps": 2,
+   "urls": 6982,
+   "kept": 6,
+   "fetched": 6,
+   "errors": 0
   },
   "m103": {
    "name": "Kinnerton Hill Capital",
@@ -1322,16 +1298,32 @@
     "https://www.kinnertonhill.com/news/Blog Post Title One-3zaa9-zlxng-7me8p @2026-07-08"
    ]
   },
-  "m101": {
-   "name": "Goldman Sachs Special Situations Group",
+  "m64": {
+   "name": "PGIM Private Capital",
    "domains": [
-    "www.goldmansachs.com"
+    "www.pgim.com"
    ],
-   "sitemaps": 2,
-   "urls": 6982,
-   "kept": 6,
-   "fetched": 6,
+   "sitemaps": 27,
+   "urls": 51676,
+   "kept": 20,
+   "fetched": 20,
    "errors": 0
+  },
+  "m102": {
+   "name": "Kimmik Capital",
+   "domains": [
+    "kimmik.capital"
+   ],
+   "sitemaps": 4,
+   "urls": 3,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [
+    "https://kimmik.capital/ @2026-09-03",
+    "https://kimmik.capital/e-floating-buttons/phone/ @2025-10-27",
+    "https://kimmik.capital/author/kimmik-capital/"
+   ]
   },
   "m110": {
    "name": "RoundShield Partners",
@@ -1352,19 +1344,6 @@
     "https://www.roundshield.com/contact-us/ @2025-05-22"
    ]
   },
-  "m79": {
-   "name": "Eiffel Investment Group",
-   "domains": [
-    "admin.eiffel-ig.com",
-    "www.eiffel-ig.com",
-    "eng.admin.eiffel-ig.com"
-   ],
-   "sitemaps": 39,
-   "urls": 1660,
-   "kept": 4,
-   "fetched": 4,
-   "errors": 1
-  },
   "m109": {
    "name": "Arrow Global Group",
    "domains": [
@@ -1384,6 +1363,30 @@
     "https://www.arrowglobal.net/media/arrow-global-insurance-strengthens-specialty-insurance-platform-through-acquisition-of-fusion-specialty-group @2026-07-10"
    ]
   },
+  "m107": {
+   "name": "CapMan",
+   "domains": [
+    "capman.com"
+   ],
+   "sitemaps": 17,
+   "urls": 3617,
+   "kept": 3,
+   "fetched": 3,
+   "errors": 0
+  },
+  "m79": {
+   "name": "Eiffel Investment Group",
+   "domains": [
+    "admin.eiffel-ig.com",
+    "www.eiffel-ig.com",
+    "eng.admin.eiffel-ig.com"
+   ],
+   "sitemaps": 39,
+   "urls": 1660,
+   "kept": 4,
+   "fetched": 4,
+   "errors": 1
+  },
   "m115": {
    "name": "RGreen Invest",
    "domains": [
@@ -1402,17 +1405,6 @@
     "https://www.rgreeninvest.com/2022/12/13/1308/ @2023-01-17",
     "https://www.rgreeninvest.com/2022/11/18/le-fonds-infrabridge-iii-de-rgreen-invest-depasse-largement-son-objectif-de-levee-avec-un-closing-a-231-me-2/ @2023-01-17"
    ]
-  },
-  "m107": {
-   "name": "CapMan",
-   "domains": [
-    "capman.com"
-   ],
-   "sitemaps": 17,
-   "urls": 3617,
-   "kept": 3,
-   "fetched": 3,
-   "errors": 0
   },
   "m116": {
    "name": "Pollen Street Capital",
@@ -1484,6 +1476,22 @@
     "https://www.collereqt.com/superinvestor-2019-lp-asset-allocation/ @2024-06-06"
    ]
   },
+  "m123": {
+   "name": "Orbit Capital",
+   "domains": [
+    "orbitcapital.com"
+   ],
+   "sitemaps": 1,
+   "urls": 3,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [
+    "https://orbitcapital.com/ @2026-07-23",
+    "https://orbitcapital.com/debt/ @2026-07-23",
+    "https://orbitcapital.com/equity/ @2026-07-23"
+   ]
+  },
   "m122": {
    "name": "Investcorp Credit Management",
    "domains": [
@@ -1501,22 +1509,6 @@
     "https://www.investcorp.com/investcorp-hosts-second-annual-credit-symposium-in-new-york-city/ @2019-11-06",
     "https://www.investcorp.com/investcorp-celebrates-u-s-growth-at-second-annual-event-in-new-york/ @2019-11-06",
     "https://www.investcorp.com/investcorps-founder-nemir-kirdar-steps-down-as-chairman-of-the-board-of-directors/ @2019-11-06"
-   ]
-  },
-  "m123": {
-   "name": "Orbit Capital",
-   "domains": [
-    "orbitcapital.com"
-   ],
-   "sitemaps": 1,
-   "urls": 3,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://orbitcapital.com/ @2026-07-23",
-    "https://orbitcapital.com/debt/ @2026-07-23",
-    "https://orbitcapital.com/equity/ @2026-07-23"
    ]
   },
   "m125": {
@@ -1558,18 +1550,18 @@
    "domains": [
     "www.alantra.com"
    ],
-   "sitemaps": 5,
-   "urls": 39,
+   "sitemaps": 4,
+   "urls": 37,
    "kept": 0,
    "fetched": 0,
-   "errors": 1,
+   "errors": 2,
    "samples": [
-    "https://www.alantra.com/ @2026-07-22",
-    "https://www.alantra.com/fr/france/ @2026-09-01",
     "https://www.alantra.com/ @2026-07-22",
     "https://www.alantra.com/de/germany-investment-banking/ @2026-09-01",
     "https://www.alantra.com/ @2026-07-22",
-    "https://www.alantra.com/it/redefining-the-pbm-industry-a-conversation-with-aj-loiacono-ceo-at-capital-rx/ @2025-05-14"
+    "https://www.alantra.com/it/redefining-the-pbm-industry-a-conversation-with-aj-loiacono-ceo-at-capital-rx/ @2025-05-14",
+    "https://www.alantra.com/it/italy-investment-banking/ @2026-09-01",
+    "https://www.alantra.com/ @2026-07-22"
    ]
   },
   "m132": {
@@ -1590,7 +1582,7 @@
     "www.schroderscapital.com"
    ],
    "sitemaps": 40,
-   "urls": 56483,
+   "urls": 56482,
    "kept": 20,
    "fetched": 20,
    "errors": 0
@@ -1636,25 +1628,6 @@
    "fetched": 0,
    "errors": 1
   },
-  "m137": {
-   "name": "Beechbrook Capital",
-   "domains": [
-    "www.beechbrookcapital.com"
-   ],
-   "sitemaps": 4,
-   "urls": 100,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://www.beechbrookcapital.com/beechbrook-capital-supports-labyrinth-dental-to-accelerate-growth/ @2026-08-25",
-    "https://www.beechbrookcapital.com/beechbrook-capital-completes-its-latest-uk-investment-in-lava-advisory-partners/ @2026-08-11",
-    "https://www.beechbrookcapital.com/beechbrook-2026-momentum-continued/ @2026-06-05",
-    "https://www.beechbrookcapital.com/beechbrook-capital-invests-in-intrusted-pensions/ @2026-05-28",
-    "https://www.beechbrookcapital.com/beechbrook-capital-backs-caragh-nurseries-expansion-into-uk-market/ @2026-05-28",
-    "https://www.beechbrookcapital.com/beechbrooks-latest-investment-strong-returns-and-fresh-talent/ @2026-04-13"
-   ]
-  },
   "m130": {
    "name": "Rantum Capital",
    "domains": [
@@ -1674,17 +1647,24 @@
     "https://rantumcapital.de/rantum-capital-reicht-wachstumsfinanzierung-an-marktfuehrer-in-der-ambulanten-pflege-aus/ @2022-01-18"
    ]
   },
-  "m140": {
-   "name": "RBC BlueBay Asset Management",
+  "m137": {
+   "name": "Beechbrook Capital",
    "domains": [
-    "www.rbcbluebay.com",
-    "institutional.rbcgam.com"
+    "www.beechbrookcapital.com"
    ],
-   "sitemaps": 1,
-   "urls": 2255,
-   "kept": 3,
-   "fetched": 3,
-   "errors": 1
+   "sitemaps": 4,
+   "urls": 100,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [
+    "https://www.beechbrookcapital.com/beechbrook-capital-supports-labyrinth-dental-to-accelerate-growth/ @2026-08-25",
+    "https://www.beechbrookcapital.com/beechbrook-capital-completes-its-latest-uk-investment-in-lava-advisory-partners/ @2026-08-11",
+    "https://www.beechbrookcapital.com/beechbrook-2026-momentum-continued/ @2026-06-05",
+    "https://www.beechbrookcapital.com/beechbrook-capital-invests-in-intrusted-pensions/ @2026-05-28",
+    "https://www.beechbrookcapital.com/beechbrook-capital-backs-caragh-nurseries-expansion-into-uk-market/ @2026-05-28",
+    "https://www.beechbrookcapital.com/beechbrooks-latest-investment-strong-returns-and-fresh-talent/ @2026-04-13"
+   ]
   },
   "m134": {
    "name": "Federated Hermes Private Credit",
@@ -1736,12 +1716,24 @@
    "errors": 0,
    "samples": [
     "https://www.fidelis-investors.com/jobs/statement-file @2022-03-07",
-    "https://www.fidelis-investors.com/portfolio-collections/my-portfolio/project-title-4 @2024-12-20",
-    "https://www.fidelis-investors.com/portfolio-collections/my-portfolio/project-title-6 @2024-12-20",
-    "https://www.fidelis-investors.com/portfolio-collections/my-portfolio/project-title-2 @2024-12-20",
     "https://www.fidelis-investors.com/portfolio-collections/my-portfolio/project-title-3 @2024-12-20",
-    "https://www.fidelis-investors.com/portfolio-collections/my-portfolio/project-title-5 @2024-12-20"
+    "https://www.fidelis-investors.com/portfolio-collections/my-portfolio/project-title-2 @2024-12-20",
+    "https://www.fidelis-investors.com/portfolio-collections/my-portfolio/project-title-5 @2024-12-20",
+    "https://www.fidelis-investors.com/portfolio-collections/my-portfolio/project-title-4 @2024-12-20",
+    "https://www.fidelis-investors.com/portfolio-collections/my-portfolio/project-title-6 @2024-12-20"
    ]
+  },
+  "m140": {
+   "name": "RBC BlueBay Asset Management",
+   "domains": [
+    "www.rbcbluebay.com",
+    "institutional.rbcgam.com"
+   ],
+   "sitemaps": 1,
+   "urls": 2255,
+   "kept": 3,
+   "fetched": 3,
+   "errors": 1
   },
   "m145": {
    "name": "Cross Ocean Partners",
@@ -1773,25 +1765,6 @@
    "fetched": 18,
    "errors": 2
   },
-  "m148": {
-   "name": "IPF Partners",
-   "domains": [
-    "ipfpartners.com"
-   ],
-   "sitemaps": 4,
-   "urls": 97,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://ipfpartners.com/feb-2018-ipf-partners-featured-in-private-debt-investor/ @2019-05-29",
-    "https://ipfpartners.com/sept-2017-ipf-partners-announces-successful-dry-closing-of-a-new-debt-fund-ipf-fund-ii/ @2019-05-29",
-    "https://ipfpartners.com/feb-2017-mauna-kea-technologies-secures-a-e7m-senior-debt-financing-with-ipf-partners/ @2019-05-29",
-    "https://ipfpartners.com/nov-2016-neuravi-ltd-secures-e15m-debt-financing-with-ipf-partners/ @2019-05-29",
-    "https://ipfpartners.com/oct-2015-ipf-partners-announces-final-close-of-its-healthcare-growth-debt-fund/ @2019-05-29",
-    "https://ipfpartners.com/oct-2013-ipf-partners-achieves-its-first-closing-at-e80m/ @2019-05-29"
-   ]
-  },
   "m146": {
    "name": "SVP (Strategic Value Partners)",
    "domains": [
@@ -1811,6 +1784,25 @@
     "https://www.svpglobal.com/svp-completes-acquisition-of-revelyst/ @2025-01-08"
    ]
   },
+  "m148": {
+   "name": "IPF Partners",
+   "domains": [
+    "ipfpartners.com"
+   ],
+   "sitemaps": 4,
+   "urls": 97,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [
+    "https://ipfpartners.com/feb-2018-ipf-partners-featured-in-private-debt-investor/ @2019-05-29",
+    "https://ipfpartners.com/sept-2017-ipf-partners-announces-successful-dry-closing-of-a-new-debt-fund-ipf-fund-ii/ @2019-05-29",
+    "https://ipfpartners.com/feb-2017-mauna-kea-technologies-secures-a-e7m-senior-debt-financing-with-ipf-partners/ @2019-05-29",
+    "https://ipfpartners.com/nov-2016-neuravi-ltd-secures-e15m-debt-financing-with-ipf-partners/ @2019-05-29",
+    "https://ipfpartners.com/oct-2015-ipf-partners-announces-final-close-of-its-healthcare-growth-debt-fund/ @2019-05-29",
+    "https://ipfpartners.com/oct-2013-ipf-partners-achieves-its-first-closing-at-e80m/ @2019-05-29"
+   ]
+  },
   "m151": {
    "name": "17Capital",
    "domains": [
@@ -1821,25 +1813,6 @@
    "kept": 1,
    "fetched": 1,
    "errors": 0
-  },
-  "m149": {
-   "name": "Tristan Capital Partners",
-   "domains": [
-    "tristancap.com"
-   ],
-   "sitemaps": 4,
-   "urls": 101,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://tristancap.com/14-february-2023/ @2024-08-05",
-    "https://tristancap.com/tristans-tips-one-debt-fund-delivers-e58m-of-financing-for-self-storage-platform/ @2024-08-05",
-    "https://tristancap.com/tristan-raises-e2bn-for-episo-6/ @2024-08-05",
-    "https://tristancap.com/tristan-fund-acquires-german-resi-portfolio-in-leipzig/ @2024-08-05",
-    "https://tristancap.com/tristan-and-bricks-group-expand-pbsa-portfolio-via-110m-liverpool-acquisition/ @2024-08-05",
-    "https://tristancap.com/tristans-tips-one-debt-fund-provides-80-million-of-financing-for-london-residential-tower/ @2024-08-05"
-   ]
   },
   "m152": {
    "name": "GCM Grosvenor",
@@ -1858,6 +1831,25 @@
     "https://www.gcmgrosvenor.com/technology-solutions/ @2026-09-11",
     "https://www.gcmgrosvenor.com/mac-opportunistic-investing/ @2026-05-06",
     "https://www.gcmgrosvenor.com/uk-scam-alert/ @2025-06-18"
+   ]
+  },
+  "m149": {
+   "name": "Tristan Capital Partners",
+   "domains": [
+    "tristancap.com"
+   ],
+   "sitemaps": 4,
+   "urls": 101,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [
+    "https://tristancap.com/14-february-2023/ @2024-08-05",
+    "https://tristancap.com/tristans-tips-one-debt-fund-delivers-e58m-of-financing-for-self-storage-platform/ @2024-08-05",
+    "https://tristancap.com/tristan-raises-e2bn-for-episo-6/ @2024-08-05",
+    "https://tristancap.com/tristan-fund-acquires-german-resi-portfolio-in-leipzig/ @2024-08-05",
+    "https://tristancap.com/tristan-and-bricks-group-expand-pbsa-portfolio-via-110m-liverpool-acquisition/ @2024-08-05",
+    "https://tristancap.com/tristans-tips-one-debt-fund-provides-80-million-of-financing-for-london-residential-tower/ @2024-08-05"
    ]
   },
   "m153": {
@@ -1898,28 +1890,6 @@
     "https://www.oakhilladvisors.com/member/t-k-narayan/ @2026-04-24"
    ]
   },
-  "m144": {
-   "name": "Sagard Credit Partners",
-   "domains": [
-    "www.sagard.com"
-   ],
-   "sitemaps": 25,
-   "urls": 1975,
-   "kept": 2,
-   "fetched": 2,
-   "errors": 0
-  },
-  "m160": {
-   "name": "Brigade Capital Management",
-   "domains": [
-    "www.brigadecapital.com"
-   ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 1
-  },
   "m141": {
    "name": "Balbec Capital LP",
    "domains": [
@@ -1939,6 +1909,17 @@
     "https://balbec.com/balbec-capital-announces-leadership-transition-and-appointment-of-four-partners/ @2025-11-17"
    ]
   },
+  "m160": {
+   "name": "Brigade Capital Management",
+   "domains": [
+    "www.brigadecapital.com"
+   ],
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 1
+  },
   "m159": {
    "name": "LGT Capital Partners",
    "domains": [
@@ -1956,6 +1937,25 @@
     "https://www.lgtcp.com/domicile @2024-11-19",
     "https://www.lgtcp.com/media-center @2024-11-19",
     "https://www.lgtcp.com/open-funds @2024-11-19"
+   ]
+  },
+  "m162": {
+   "name": "Manulife | Comvest Credit Partners",
+   "domains": [
+    "comvest.com"
+   ],
+   "sitemaps": 6,
+   "urls": 343,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [
+    "https://comvest.com/comvest-credit-partners-provides-237-million-senior-credit-facility-to-oceans-healthcare-a-platform-backed-by-webster-equity-partners/ @2025-04-14",
+    "https://comvest.com/comvest-credit-partners-provides-debt-financing-to-support-merger-of-opexus-and-casepoint-and-majority-investment-from-thoma-bravo/ @2025-04-14",
+    "https://comvest.com/comvest-credit-partners-serves-as-joint-lead-arranger-on-325-million-senior-credit-facility-for-solidcore/ @2025-04-14",
+    "https://comvest.com/comvest-credit-partners-provides-165-million-senior-credit-facility-to-diesco-industries-to-support-strategic-growth/ @2025-04-14",
+    "https://comvest.com/comvest-credit-partners-provides-new-230-million-senior-credit-facility-to-support-the-refinancing-and-growth-of-pollo-tropical/ @2025-04-14",
+    "https://comvest.com/comvest-credit-partners-provides-85-million-senior-credit-facility-to-support-acquisition-of-seatex/ @2025-04-14"
    ]
   },
   "m163": {
@@ -1977,24 +1977,16 @@
     "https://www.audaxcreditbdc.com"
    ]
   },
-  "m162": {
-   "name": "Manulife | Comvest Credit Partners",
+  "m144": {
+   "name": "Sagard Credit Partners",
    "domains": [
-    "comvest.com"
+    "www.sagard.com"
    ],
-   "sitemaps": 6,
-   "urls": 343,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://comvest.com/comvest-credit-partners-provides-237-million-senior-credit-facility-to-oceans-healthcare-a-platform-backed-by-webster-equity-partners/ @2025-04-14",
-    "https://comvest.com/comvest-credit-partners-provides-debt-financing-to-support-merger-of-opexus-and-casepoint-and-majority-investment-from-thoma-bravo/ @2025-04-14",
-    "https://comvest.com/comvest-credit-partners-serves-as-joint-lead-arranger-on-325-million-senior-credit-facility-for-solidcore/ @2025-04-14",
-    "https://comvest.com/comvest-credit-partners-provides-165-million-senior-credit-facility-to-diesco-industries-to-support-strategic-growth/ @2025-04-14",
-    "https://comvest.com/comvest-credit-partners-provides-new-230-million-senior-credit-facility-to-support-the-refinancing-and-growth-of-pollo-tropical/ @2025-04-14",
-    "https://comvest.com/comvest-credit-partners-provides-85-million-senior-credit-facility-to-support-acquisition-of-seatex/ @2025-04-14"
-   ]
+   "sitemaps": 24,
+   "urls": 1944,
+   "kept": 2,
+   "fetched": 2,
+   "errors": 1
   },
   "m165": {
    "name": "Willow Tree Credit Partners",
@@ -2106,18 +2098,6 @@
    "fetched": 10,
    "errors": 0
   },
-  "m164": {
-   "name": "Victory Park Capital",
-   "domains": [
-    "www.victoryparkcapital.com"
-   ],
-   "sitemaps": 40,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": []
-  },
   "m174": {
    "name": "Northleaf Capital Partners",
    "domains": [
@@ -2137,16 +2117,27 @@
     "http://www.northleafcapital.com/media/696/edit @2023-09-18"
    ]
   },
-  "m171": {
-   "name": "Aberdeen Investments",
+  "m164": {
+   "name": "Victory Park Capital",
    "domains": [
-    "www.aberdeeninvestments.com",
-    "www.aberdeenplc.com"
+    "www.victoryparkcapital.com"
    ],
-   "sitemaps": 22,
-   "urls": 32016,
-   "kept": 18,
-   "fetched": 18,
+   "sitemaps": 40,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": []
+  },
+  "m175": {
+   "name": "Channel Capital Advisors",
+   "domains": [
+    "channelcapital.io"
+   ],
+   "sitemaps": 8,
+   "urls": 276,
+   "kept": 1,
+   "fetched": 1,
    "errors": 0
   },
   "m177": {
@@ -2167,6 +2158,18 @@
     "https://www.homesteadcapital.com/insights-and-news/investing-in-us-farmland-x25sg @2023-09-12",
     "https://www.homesteadcapital.com/contact @2023-08-15"
    ]
+  },
+  "m173": {
+   "name": "Janus Henderson Investors",
+   "domains": [
+    "www.janushenderson.com"
+   ],
+   "sitemaps": 40,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": []
   },
   "m178": {
    "name": "Ninety One",
@@ -2198,29 +2201,6 @@
     "https://urban.partners/pl @2026-09-18"
    ]
   },
-  "m173": {
-   "name": "Janus Henderson Investors",
-   "domains": [
-    "www.janushenderson.com"
-   ],
-   "sitemaps": 40,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": []
-  },
-  "m175": {
-   "name": "Channel Capital Advisors",
-   "domains": [
-    "channelcapital.io"
-   ],
-   "sitemaps": 8,
-   "urls": 276,
-   "kept": 1,
-   "fetched": 1,
-   "errors": 0
-  },
   "m184": {
    "name": "Andalusian Credit Partners",
    "domains": [
@@ -2250,6 +2230,18 @@
    "kept": 0,
    "fetched": 0,
    "errors": 1
+  },
+  "m171": {
+   "name": "Aberdeen Investments",
+   "domains": [
+    "www.aberdeeninvestments.com",
+    "www.aberdeenplc.com"
+   ],
+   "sitemaps": 22,
+   "urls": 32016,
+   "kept": 18,
+   "fetched": 18,
+   "errors": 0
   },
   "m185": {
    "name": "Crestline Investors",
@@ -2331,29 +2323,21 @@
     "https://bridgeinvest.com/footer-page/ @2025-12-20"
    ]
   },
-  "m191": {
-   "name": "Cerberus Capital Management",
-   "domains": [
-    "www.cerberus.com"
-   ],
-   "sitemaps": 14,
-   "urls": 965,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://www.cerberus.com/media-center/caritas-christi-health-care-system-to-be-acquired-by-cerberus-capital-management-l-p/ @2015-12-04",
-    "https://www.cerberus.com/media-center/hello-world/ @2015-12-04",
-    "https://www.cerberus.com/media-center/cerberus-acquires-speymill-deutsche-immobilien-assets-out-of-receivership/ @2016-09-29",
-    "https://www.cerberus.com/media-center/cerberus-and-chatham-lodging-trust-win-auction-to-acquire-innkeepers-assets/ @2016-09-29",
-    "https://www.cerberus.com/media-center/cerberus-capital-management-appoints-afsheen-afshar-as-chief-artificial-intelligence-officer/ @2017-10-20",
-    "https://www.cerberus.com/media-center/cerberus-capital-management-acquires-club-exploria-resorts-assets/ @2017-11-02"
-   ]
-  },
   "m194": {
    "name": "Sound Point Capital Management",
    "domains": [
     "www.soundpointcap.com"
+   ],
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 1
+  },
+  "m199": {
+   "name": "Monroe Capital",
+   "domains": [
+    "monroecap.com"
    ],
    "sitemaps": 0,
    "urls": 0,
@@ -2380,16 +2364,24 @@
     "https://faesinvest.com/news/newsandviews4jan2024-9c43k-8z22h-24std-mr2ex @2026-03-13"
    ]
   },
-  "m199": {
-   "name": "Monroe Capital",
+  "m191": {
+   "name": "Cerberus Capital Management",
    "domains": [
-    "monroecap.com"
+    "www.cerberus.com"
    ],
-   "sitemaps": 0,
-   "urls": 0,
+   "sitemaps": 14,
+   "urls": 965,
    "kept": 0,
    "fetched": 0,
-   "errors": 1
+   "errors": 0,
+   "samples": [
+    "https://www.cerberus.com/media-center/caritas-christi-health-care-system-to-be-acquired-by-cerberus-capital-management-l-p/ @2015-12-04",
+    "https://www.cerberus.com/media-center/hello-world/ @2015-12-04",
+    "https://www.cerberus.com/media-center/cerberus-acquires-speymill-deutsche-immobilien-assets-out-of-receivership/ @2016-09-29",
+    "https://www.cerberus.com/media-center/cerberus-and-chatham-lodging-trust-win-auction-to-acquire-innkeepers-assets/ @2016-09-29",
+    "https://www.cerberus.com/media-center/cerberus-capital-management-appoints-afsheen-afshar-as-chief-artificial-intelligence-officer/ @2017-10-20",
+    "https://www.cerberus.com/media-center/cerberus-capital-management-acquires-club-exploria-resorts-assets/ @2017-11-02"
+   ]
   },
   "m206": {
    "name": "Capital Four",
@@ -2482,17 +2474,6 @@
    "fetched": 0,
    "errors": 1
   },
-  "m208": {
-   "name": "Prime Capital AG",
-   "domains": [
-    "www.primecapital-ag.com"
-   ],
-   "sitemaps": 4,
-   "urls": 272,
-   "kept": 8,
-   "fetched": 8,
-   "errors": 0
-  },
   "m176": {
    "name": "BNP Paribas Asset Management (Private Debt & Real Assets)",
    "domains": [
@@ -2506,35 +2487,16 @@
    "errors": 0,
    "samples": []
   },
-  "m222": {
-   "name": "CIFC Asset Management",
+  "m208": {
+   "name": "Prime Capital AG",
    "domains": [
-    "cifc.com"
+    "www.primecapital-ag.com"
    ],
-   "sitemaps": 12,
-   "urls": 96,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://cifc.com/article-contact-media-type/u-s-media @2023-11-14",
-    "https://cifc.com/article-contact-media-type/u-k-media @2023-11-14",
-    "https://cifc.com/article-contact-media-type/cifc-investor-relations @2024-11-25",
-    "https://cifc.com/article-contact-media-type/peregrine @2025-08-14",
-    "https://cifc.com/news @2026-09-23",
-    "https://cifc.com/news/uk-senior-addition-sep-2026 @2026-09-30"
-   ]
-  },
-  "m224": {
-   "name": "Robeco",
-   "domains": [
-    "www.robeco.com"
-   ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 1
+   "sitemaps": 4,
+   "urls": 272,
+   "kept": 8,
+   "fetched": 8,
+   "errors": 0
   },
   "m223": {
    "name": "Rialto Capital",
@@ -2555,16 +2517,35 @@
     "https://rialtocapital.com/about/privacy/ @2025-04-08"
    ]
   },
-  "m230": {
-   "name": "Zencap Asset Management",
+  "m224": {
+   "name": "Robeco",
    "domains": [
-    "www.zencap-am.fr"
+    "www.robeco.com"
    ],
    "sitemaps": 0,
    "urls": 0,
    "kept": 0,
    "fetched": 0,
    "errors": 1
+  },
+  "m222": {
+   "name": "CIFC Asset Management",
+   "domains": [
+    "cifc.com"
+   ],
+   "sitemaps": 12,
+   "urls": 96,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [
+    "https://cifc.com/article-contact-media-type/u-s-media @2023-11-14",
+    "https://cifc.com/article-contact-media-type/u-k-media @2023-11-14",
+    "https://cifc.com/article-contact-media-type/cifc-investor-relations @2024-11-25",
+    "https://cifc.com/article-contact-media-type/peregrine @2025-08-14",
+    "https://cifc.com/news @2026-09-23",
+    "https://cifc.com/news/uk-senior-addition-sep-2026 @2026-09-30"
+   ]
   },
   "m227": {
    "name": "BrightSpire Capital, Inc.",
@@ -2585,6 +2566,17 @@
     "https://www.brightspire.com/portfolio @2018-11-14",
     "https://www.brightspire.com/contact @2024-08-27"
    ]
+  },
+  "m230": {
+   "name": "Zencap Asset Management",
+   "domains": [
+    "www.zencap-am.fr"
+   ],
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 1
   },
   "m232": {
    "name": "LendInvest",
@@ -2614,7 +2606,7 @@
     "www.invesco.com"
    ],
    "sitemaps": 33,
-   "urls": 15352,
+   "urls": 15368,
    "kept": 20,
    "fetched": 20,
    "errors": 7
@@ -2643,6 +2635,16 @@
   {
    "managerId": "m9",
    "manager": "Goldman Sachs Alternatives",
+   "url": "https://www.goldmansachs.com/what-we-do/ayco/insights/year-end-tax-planning",
+   "title": "Year-End Tax Planning Guide",
+   "description": "The tax landscape was relatively calm in 2026, compared to the upheaval caused by the One Big Beautiful Bill Act (OBBBA) last year. However, taxpayers need to be aware of key changes that went into effect this year and could impact tax planning strategies in future years.",
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "managerId": "m101",
+   "manager": "Goldman Sachs Special Situations Group",
    "url": "https://www.goldmansachs.com/what-we-do/ayco/insights/year-end-tax-planning",
    "title": "Year-End Tax Planning Guide",
    "description": "The tax landscape was relatively calm in 2026, compared to the upheaval caused by the One Big Beautiful Bill Act (OBBBA) last year. However, taxpayers need to be aware of key changes that went into effect this year and could impact tax planning strategies in future years.",
@@ -2951,16 +2953,6 @@
    ]
   },
   {
-   "managerId": "m101",
-   "manager": "Goldman Sachs Special Situations Group",
-   "url": "https://www.goldmansachs.com/what-we-do/ayco/insights/year-end-tax-planning",
-   "title": "Year-End Tax Planning Guide",
-   "description": "The tax landscape was relatively calm in 2026, compared to the upheaval caused by the One Big Beautiful Bill Act (OBBBA) last year. However, taxpayers need to be aware of key changes that went into effect this year and could impact tax planning strategies in future years.",
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
-  },
-  {
    "managerId": "m125",
    "manager": "Mubadala Capital",
    "url": "https://www.mubadalacapital.ae/newsroom/",
@@ -3045,9 +3037,24 @@
    "dateSource": null,
    "lastmod": "2026-10-15",
    "dateProbe": [
-    "CA --> <!-- SERVER ADDR : 66.70.178.94 --> <!-- SERVER REQUEST TIME : 2026-10-17 12:33:32 --> <!-- S",
-    " 12:33:32 --> <!-- SERVER TIME ZONE : UTC --> <!-- APP REQUEST TIME : 2026-10-17 08:33:33 --> <!-- A",
-    "8:33:33 --> <!-- APP TIME ZONE : America/Toronto --> <!-- POST DATE : 2026-10-13 15:31:03 --> <!-- C"
+    "CA --> <!-- SERVER ADDR : 66.70.178.94 --> <!-- SERVER REQUEST TIME : 2026-10-17 16:03:35 --> <!-- S",
+    " 16:03:35 --> <!-- SERVER TIME ZONE : UTC --> <!-- APP REQUEST TIME : 2026-10-17 12:03:35 --> <!-- A",
+    "2:03:35 --> <!-- APP TIME ZONE : America/Toronto --> <!-- POST DATE : 2026-10-13 15:31:03 --> <!-- C"
+   ]
+  },
+  {
+   "managerId": "m175",
+   "manager": "Channel Capital Advisors",
+   "url": "https://channelcapital.io/category/news/",
+   "title": "News Archives",
+   "description": "News: Channel Capital Advisors...",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-15",
+   "dateProbe": [
+    "n> <div class=\"article-content-wrap\"> <div class=\"post-header\"> <span>15/10/2026</span> <h3 class=\"t",
+    "n> <div class=\"article-content-wrap\"> <div class=\"post-header\"> <span>30/09/2026</span> <h3 class=\"t",
+    "ss=\"screen-reader-text\">Channel&#8217;s market commentary &#8211; w/c 28 September 2026</span></a> <span cl"
    ]
   },
   {
@@ -3083,21 +3090,6 @@
    "date": "2026-10-15",
    "dateSource": "datePublished",
    "lastmod": "2026-10-14"
-  },
-  {
-   "managerId": "m175",
-   "manager": "Channel Capital Advisors",
-   "url": "https://channelcapital.io/category/news/",
-   "title": "News Archives",
-   "description": "News: Channel Capital Advisors...",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-15",
-   "dateProbe": [
-    "n> <div class=\"article-content-wrap\"> <div class=\"post-header\"> <span>15/10/2026</span> <h3 class=\"t",
-    "n> <div class=\"article-content-wrap\"> <div class=\"post-header\"> <span>30/09/2026</span> <h3 class=\"t",
-    "ss=\"screen-reader-text\">Channel&#8217;s market commentary &#8211; w/c 28 September 2026</span></a> <span cl"
-   ]
   },
   {
    "managerId": "m9",
@@ -3209,9 +3201,9 @@
    "dateSource": null,
    "lastmod": "2026-10-14",
    "dateProbe": [
-    "US --> <!-- SERVER ADDR : 66.70.178.94 --> <!-- SERVER REQUEST TIME : 2026-10-17 12:33:34 --> <!-- S",
-    " 12:33:34 --> <!-- SERVER TIME ZONE : UTC --> <!-- APP REQUEST TIME : 2026-10-17 08:33:35 --> <!-- A",
-    "8:33:35 --> <!-- APP TIME ZONE : America/Toronto --> <!-- POST DATE : 2026-10-14 11:30:52 --> <!-- C"
+    "US --> <!-- SERVER ADDR : 66.70.178.94 --> <!-- SERVER REQUEST TIME : 2026-10-17 16:03:37 --> <!-- S",
+    " 16:03:37 --> <!-- SERVER TIME ZONE : UTC --> <!-- APP REQUEST TIME : 2026-10-17 12:03:38 --> <!-- A",
+    "2:03:38 --> <!-- APP TIME ZONE : America/Toronto --> <!-- POST DATE : 2026-10-14 11:30:52 --> <!-- C"
    ]
   },
   {
@@ -3550,16 +3542,6 @@
    "lastmod": "2026-10-12"
   },
   {
-   "managerId": "m188",
-   "manager": "Invesco Real Estate",
-   "url": "https://www.invesco.com/middle-east/en/insights/capital-markets-assumptions.html",
-   "title": "Capital market assumptions | Q3 2026",
-   "description": "Invesco Solutions develops capital market assumptions (CMAs) that provide long-term estimates for the behaviour of major asset classes globally.",
-   "date": "2026-10-12",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
-  },
-  {
    "managerId": "m9",
    "manager": "Goldman Sachs Alternatives",
    "url": "https://www.goldmansachs.com/insights/the-markets/hedge-funds-are-cautious-on-stocks-amid-rates-and-energy-volatility",
@@ -3668,6 +3650,16 @@
    "lastmod": "2026-10-08"
   },
   {
+   "managerId": "m107",
+   "manager": "CapMan",
+   "url": "https://capman.com/articles/capman-real-estate-and-ap-pension-joint-venture-acquires-hotel-scandic-webers/",
+   "title": "CapMan Real Estate and AP Pension joint venture acquires Hotel Scandic Webers",
+   "description": null,
+   "date": "2026-10-08",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-08"
+  },
+  {
    "managerId": "m79",
    "manager": "Eiffel Investment Group",
    "url": "https://admin.eiffel-ig.com/articles/eiffel-investment-group-supports-the-creation-of-a-european-digital-transformation-leader/",
@@ -3710,26 +3702,6 @@
    "dateSource": null,
    "lastmod": "2026-10-08",
    "dateProbe": []
-  },
-  {
-   "managerId": "m107",
-   "manager": "CapMan",
-   "url": "https://capman.com/articles/capman-real-estate-and-ap-pension-joint-venture-acquires-hotel-scandic-webers/",
-   "title": "CapMan Real Estate and AP Pension joint venture acquires Hotel Scandic Webers",
-   "description": null,
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "managerId": "m188",
-   "manager": "Invesco Real Estate",
-   "url": "https://www.invesco.com/apac/en/institutional/insights/multi-asset/how-sovereign-investors-are-rethinking-long-term-strategies-in-a-less-supportive-world.html",
-   "title": "How sovereign investors are rethinking long-term strategies in a less supportive world - AP Institutional",
-   "description": "Long-term investing is becoming more valuable but harder to maintain in practice, with governance and liquidity discipline increasingly separating institutions that can stay the course from those that cannot.",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
   },
   {
    "managerId": "m24",
@@ -3785,6 +3757,16 @@
    ]
   },
   {
+   "managerId": "m111",
+   "manager": "Schroders Capital",
+   "url": "https://www.schroders.com/en-za/za/intermediary/insights/private-markets-outlook-q4-2026-five-key-takeaways-for-wealth-investors/",
+   "title": "Private Markets Outlook Q4 2026: five key takeaways for wealth investors",
+   "description": "As geopolitical risks, persistent inflation and AI-driven investment reshape the outlook, we see selective opportunities across private equity, credit, infrastructure and real estate.",
+   "date": "2026-10-07",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-13"
+  },
+  {
    "managerId": "m171",
    "manager": "Aberdeen Investments",
    "url": "https://www.aberdeeninvestments.com/en-gb/aaif/news-and-insights/insights/aberdeen-asian-income-fund-uk-investor-magazine-webinar",
@@ -3825,36 +3807,6 @@
    "lastmod": "2026-10-07"
   },
   {
-   "managerId": "m188",
-   "manager": "Invesco Real Estate",
-   "url": "https://www.invesco.com/be/en/insights/digital-investor-intelligence-report.html",
-   "title": "Turning access into action",
-   "description": "How behavioural insights can help Europe’s savers become investors",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07",
-   "dateProbe": [
-    "mn aem-GridColumn--default--12\"> <input name=\"formHandlerDate\" value=\"2026-08-24\" type=\"hidden\"/> </",
-    "t;b>Important information&lt;/b>&lt;/span>&lt;/p>\\r\\n&lt;p>Data as at 19.08.2026, unless otherwise s",
-    "mage-formatter\"><b>Important information</b></span></p> <p>Data as at 19.08.2026, unless otherwise s"
-   ]
-  },
-  {
-   "managerId": "m188",
-   "manager": "Invesco Real Estate",
-   "url": "https://www.invesco.com/ch/en/insights/digital-investor-intelligence-report.html",
-   "title": "Turning access into action",
-   "description": "How behavioural insights can help Europe’s savers become investors",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07",
-   "dateProbe": [
-    "mn aem-GridColumn--default--12\"> <input name=\"formHandlerDate\" value=\"2026-08-24\" type=\"hidden\"/> </",
-    "t;b>Important information&lt;/b>&lt;/span>&lt;/p>\\r\\n&lt;p>Data as at 19.08.2026, unless otherwise s",
-    "mage-formatter\"><b>Important information</b></span></p> <p>Data as at 19.08.2026, unless otherwise s"
-   ]
-  },
-  {
    "managerId": "m9",
    "manager": "Goldman Sachs Alternatives",
    "url": "https://www.goldmansachs.com/insights/goldman-sachs-exchanges/inside-the-revival-of-venture-capital-liquidity-with-an-industry",
@@ -3889,9 +3841,9 @@
    "dateSource": null,
    "lastmod": "2026-10-06",
    "dateProbe": [
-    "CA --> <!-- SERVER ADDR : 66.70.178.94 --> <!-- SERVER REQUEST TIME : 2026-10-17 12:33:36 --> <!-- S",
-    " 12:33:36 --> <!-- SERVER TIME ZONE : UTC --> <!-- APP REQUEST TIME : 2026-10-17 08:33:36 --> <!-- A",
-    "8:33:36 --> <!-- APP TIME ZONE : America/Toronto --> <!-- POST DATE : 2026-10-06 15:57:41 --> <!-- C"
+    "CA --> <!-- SERVER ADDR : 66.70.178.94 --> <!-- SERVER REQUEST TIME : 2026-10-17 16:03:39 --> <!-- S",
+    " 16:03:39 --> <!-- SERVER TIME ZONE : UTC --> <!-- APP REQUEST TIME : 2026-10-17 12:03:39 --> <!-- A",
+    "2:03:39 --> <!-- APP TIME ZONE : America/Toronto --> <!-- POST DATE : 2026-10-06 15:57:41 --> <!-- C"
    ]
   },
   {
@@ -3947,16 +3899,6 @@
    "dateSource": null,
    "lastmod": "2026-10-06",
    "dateProbe": []
-  },
-  {
-   "managerId": "m188",
-   "manager": "Invesco Real Estate",
-   "url": "https://www.invesco.com/be/en/insights/build-efficient-bond-ladders-with-invescos-bulletshares-etfs.html",
-   "title": "Efficient Bond Ladders with BulletShares ETFs",
-   "description": "Bond ladders, portfolios of bonds with staggered maturity dates, can enhance diversification, provide cash flow flexibility, and help reduce exposure to interest rate volatility. Learn how to use Invesco BulletShares ETFs in a bond ladder.",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
   },
   {
    "managerId": "m62",
