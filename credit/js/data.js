@@ -33,7 +33,7 @@ export const LAST_CHECKED = "2026-10-17";
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "09:06 BST";
+export const LAST_CHECKED_TIME = "12:19 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -2326,6 +2326,7 @@ export const intel = [
   {"id":"i1325","date":"2025-07-28","type":"Personnel","managerId":"m189","fundId":null,"headline":"Carlyle names Mark Jenkins Co-President to lead Global Credit and Insurance","summary":"Carlyle announced that Mark Jenkins, Head of Global Credit, will become one of three Co-Presidents alongside John Redett and Jeff Nedelman, leading the Global Credit and Insurance business, effective 1 January 2026. Justin Plouffe, Deputy CIO for Global Credit, becomes Chief Financial Officer.","sourceUrl":"https://www.sec.gov/Archives/edgar/data/1527166/000152716625000088/cg202507288-kexx991.htm","clo":false},
   {"id":"i1326","date":"2026-10-15","time":"07:11","type":"Launch","managerId":"m199","fundId":null,"headline":"Monroe Capital launches exchange-traded note linked to its lower middle-market direct lending strategy","summary":"Monroe Capital, with PM Alpha and EBW Capital, launched an exchange-traded note giving wealth managers, private banks and family offices access to its lower middle-market direct lending strategy, previously available only to institutional investors. PM Alpha Designated Activity Company issues the USD note, listed on the Vienna Stock Exchange; minimum initial investment is $50,000, and it is not offered in the US or to US persons.","sourceUrl":"https://alternativecreditinvestor.com/2026/10/15/monroe-opens-direct-lending-strategy-to-wealth-channel-via-etn/","clo":false},
   {"id":"i1327","date":"2026-10-14","time":"07:11","type":"Personnel","managerId":"m161","fundId":null,"headline":"Star Mountain Capital appoints Comvest co-founder Daniel Lee as managing director","summary":"Star Mountain Capital hired Daniel Lee, a partner and co-founder of Comvest Capital Partners over 14 years, as a managing director focused on investment origination and business development. Star Mountain has $5bn in assets under management across direct investments and secondaries.","sourceUrl":"https://alternativecreditinvestor.com/2026/10/14/comvest-co-founder-daniel-lee-moves-to-star-mountain-capital/","clo":false},
+  {"id":"i1328","date":"2026-10-14","type":"Personnel","managerId":"m437","fundId":null,"headline":"ITE Management names Michael Fox Head of London Office","summary":"ITE Management announced that Michael Fox has joined as Head of its London office. He will focus on deepening ITE's investor and industry relationships and supporting business development, deal origination and capital formation across its markets. He spent 20 years at Goldman Sachs in New York and London before joining.","sourceUrl":"https://www.prnewswire.com/news-releases/ite-management-names-michael-fox-head-of-london-office-302907826.html"},
 ];
 
 // ---------------------------------------------------------------------------
