@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-17T12:28:41.098Z",
+ "generated": "2026-10-17T15:56:37.460Z",
  "since": "2026-10-03",
  "firms": {
   "proskauerrose": {
@@ -208,16 +208,16 @@
    ],
    "carried": 0
   },
-  "davispolk": {
+  "cleary": {
    "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
    ],
-   "sitemaps": 11,
-   "urls": 16209,
-   "kept": 4,
-   "fetched": 4,
-   "errors": 0,
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 2,
    "carried": 0
   },
   "stephensonharwood": {
@@ -250,30 +250,15 @@
    "errors": 0,
    "carried": 0
   },
-  "reedsmith": {
+  "davispolk": {
    "domains": [
-    "www.reedsmith.com"
+    "www.davispolk.com",
+    "davispolk.com"
    ],
-   "sitemaps": 5,
-   "urls": 11581,
-   "kept": 14,
-   "fetched": 14,
-   "errors": 0,
-   "carried": 0
-  },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "governance.weil.com",
-    "restructuring.weil.com",
-    "eurorestructuring.weil.com",
-    "tax.weil.com",
-    "european-disputes-blog.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7747,
-   "kept": 40,
-   "fetched": 40,
+   "sitemaps": 11,
+   "urls": 16209,
+   "kept": 4,
+   "fetched": 4,
    "errors": 0,
    "carried": 0
   },
@@ -296,6 +281,17 @@
    ],
    "carried": 0
   },
+  "reedsmith": {
+   "domains": [
+    "www.reedsmith.com"
+   ],
+   "sitemaps": 5,
+   "urls": 11581,
+   "kept": 14,
+   "fetched": 14,
+   "errors": 0,
+   "carried": 0
+  },
   "southsquare": {
    "domains": [
     "southsquare.com"
@@ -315,16 +311,20 @@
    ],
    "carried": 0
   },
-  "cleary": {
+  "weil": {
    "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
+    "www.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "tax.weil.com",
+    "european-disputes-blog.weil.com"
    ],
-   "sitemaps": 1,
-   "urls": 18703,
+   "sitemaps": 36,
+   "urls": 7747,
    "kept": 40,
    "fetched": 40,
-   "errors": 1,
+   "errors": 0,
    "carried": 0
   },
   "mayerbrown": {
@@ -466,15 +466,6 @@
    "lastmod": "2026-10-16"
   },
   {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
-   "title": "Publications",
-   "description": null,
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": null
-  },
-  {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
    "title": "Capital, regulation and capability in a new era",
@@ -521,15 +512,6 @@
    "date": "2026-10-15",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
-  },
-  {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
-   "description": null,
-   "date": "2026-10-15",
-   "dateSource": "datePublished",
-   "lastmod": null
   },
   {
    "firm": "mayerbrown",
