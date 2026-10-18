@@ -1313,9 +1313,122 @@
    "kind": "manager",
    "name": "IFM Investors",
    "priority": 13,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-18",
+   "events": [
+    {
+     "key": "neal-ceo-2020",
+     "date": "2020-02-04",
+     "what": "IFM Investors appoints Future Fund CEO David Neal as chief executive",
+     "source": "https://www.infrastructureinvestor.com/ifm-investors-appoints-future-funds-david-neal-as-ceo/",
+     "recordId": "i1336",
+     "status": "present"
+    },
+    {
+     "key": "net-zero-fund-2022",
+     "date": "2022-04-07",
+     "what": "IFM Investors seeks $3bn for global net zero infrastructure fund",
+     "source": "https://www.infrastructureinvestor.com/ifm-seeks-3bn-for-global-net-zero-infra-fund/",
+     "recordId": "i1337",
+     "status": "present"
+    },
+    {
+     "key": "nikulina-cso-2022",
+     "date": "2022-09-05",
+     "what": "IFM Investors hires WTW's Luba Nikulina as first chief strategy officer",
+     "source": "https://www.ipe.com/news/wtws-nikulina-joins-ifm-investors-as-chief-strategy-officer/10061922.article",
+     "recordId": "i1338",
+     "status": "present"
+    },
+    {
+     "key": "nest-stake-announce-2025",
+     "date": "2025-02-04",
+     "what": "UK pension fund Nest to buy 10% of IFM's holding company",
+     "source": "https://www.ifminvestors.com/news-and-insights/media-centre/nest-set-to-acquire-10-ownership-stake-in-ifm-investors-to-boost-uk-private-market-investments/",
+     "recordId": "i1339",
+     "status": "present"
+    },
+    {
+     "key": "diab-coo-2025",
+     "date": "2025-04-10",
+     "what": "IFM Investors appoints Amy Diab as chief operating officer",
+     "source": "https://www.ifminvestors.com/news-and-insights/media-centre/ifm-appoints-new-chief-operating-officer/",
+     "recordId": "i1340",
+     "status": "present"
+    },
+    {
+     "key": "nest-stake-complete-2025",
+     "date": "2025-05-13",
+     "what": "IFM Investors finalises Nest as first overseas owner",
+     "source": "https://www.ifminvestors.com/news-and-insights/media-centre/ifm-investors-finalises-strategic-partnership-with-leading-uk-pension-fund/",
+     "recordId": "i1341",
+     "status": "present"
+    },
+    {
+     "key": "nest-debt-fund-2025",
+     "date": "2025-05-20",
+     "what": "Nest commits EUR530m to seed new IFM European infrastructure debt fund",
+     "source": "https://www.nestpensions.org.uk/schemeweb/nest/nestcorporation/news-press-and-policy/press-releases/investment-with-strategic-partner-ifm-investors-.html",
+     "recordId": "i1342",
+     "status": "present"
+    },
+    {
+     "key": "mosely-re-2026",
+     "date": "2026-06-02",
+     "what": "IFM Investors names Mirvac's Scott Mosely head of real estate",
+     "source": "https://www.ifminvestors.com/news-and-insights/media-centre/ifm-investors-announces-the-appointment-of-scott-mosely-as-the-new-head-of-real-estate/",
+     "recordId": "i1343",
+     "status": "present"
+    },
+    {
+     "key": "efa-mandate-2025",
+     "date": "2025-10-27",
+     "what": "Export Finance Australia A$175m for IFM Asia-Pacific private credit",
+     "source": "https://www.pm.gov.au/media/backing-australian-companies-expand-southeast-asia",
+     "recordId": "i874",
+     "status": "present"
+    },
+    {
+     "key": "singapore-office-2026",
+     "date": "2026-09-03",
+     "what": "IFM opens Singapore office",
+     "source": "https://alternativecreditinvestor.com/2026/09/03/ifm-investors-opens-singapore-office-in-asia-credit-push/",
+     "recordId": "i700",
+     "status": "present"
+    },
+    {
+     "key": "misra-product-2023",
+     "date": "2023-12-06",
+     "what": "Rekha Misra appointed Global Head of Product Strategy and Innovation",
+     "source": "https://www.ifminvestors.com/news-and-insights/media-centre/ifm-investors-appoint-rekha-misra-as-global-head-of-product-strategy-and-innovation/",
+     "status": "rejected",
+     "note": "minor hire; not recorded"
+    },
+    {
+     "key": "hastie-cto-2026",
+     "date": "2026-07-22",
+     "what": "Derrick Hastie appointed CTO",
+     "source": "https://www.pensionsage.com/pa/Appointments-update%20-22-July-2026.php",
+     "status": "rejected",
+     "note": "only a trade roundup date found, not the IFM release date"
+    },
+    {
+     "key": "value-add-fund-2026",
+     "date": "2026-09-11",
+     "what": "Connecticut approves up to $250m for IFM Global Value-Add Infrastructure Fund",
+     "source": "https://irei.com/news/crptf-approves-250m-commitment-to-ifm-global-value-add-infrastructure-fund/",
+     "status": "rejected",
+     "note": "LP-side approval, no fund close; not a firm event"
+    },
+    {
+     "key": "no-ma-or-flagship-close",
+     "date": "2020",
+     "what": "Firm stake sale / flagship first-final close",
+     "source": null,
+     "status": "rejected",
+     "note": "searched; none found 2020-2026 (open-ended flagship)"
+    }
+   ]
   },
   "m92": {
    "kind": "manager",
@@ -1765,17 +1878,267 @@
    "kind": "manager",
    "name": "Macquarie Asset Management (Credit & Insurance)",
    "priority": 18,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-18",
+   "events": [
+    {
+     "key": "waddell-announce",
+     "date": "2020-12-02",
+     "what": "Macquarie Group to acquire Waddell & Reed for $1.7bn",
+     "source": "https://www.businesswire.com/news/home/20201202005966/en/Macquarie-Group-to-Acquire-Waddell-Reed-Financial-Inc.-for-1.7-Billion",
+     "recordId": "d1194",
+     "status": "present"
+    },
+    {
+     "key": "waddell-complete",
+     "date": "2021-04-30",
+     "what": "Macquarie Asset Management completes Waddell & Reed acquisition",
+     "source": "https://www.macquarie.com/au/en/about/news/2021/macquarie-group-completes-acquisition-of-waddell-and-reed-financial.html",
+     "recordId": "d1195",
+     "status": "present"
+    },
+    {
+     "key": "glaser-private-credit-head",
+     "date": "2022-09-05",
+     "what": "Macquarie Asset Management appoints Peter Glaser to lead private credit and asset finance",
+     "source": "https://www.macquarie.com/au/en/about/news/2022/macquarie-asset-management-appoints-private-credit-and-asset-finance-head.html",
+     "recordId": "i1332",
+     "status": "present"
+    },
+    {
+     "key": "fund-finance-expansion",
+     "date": "2023-11-13",
+     "what": "Macquarie Asset Management expands private credit into fund finance",
+     "source": "https://www.macquarie.com/about/news/2023/macquarie-asset-management-expands-into-fund-finance.html",
+     "recordId": "i1333",
+     "status": "present"
+    },
+    {
+     "key": "bommi-leveraged-credit",
+     "date": "2023-11-30",
+     "what": "Macquarie Asset Management hires Vivek Bommi as Head of Leveraged Credit",
+     "source": "https://www.macquarie.com/us/en/about/news/2023/macquarie-asset-management-hires-vivek-bommi-as-head-of-leveraged-credit.html",
+     "recordId": "i1334",
+     "status": "present"
+    },
+    {
+     "key": "european-direct-lending-launch",
+     "date": "2025-03-25",
+     "what": "Macquarie launches European direct lending platform",
+     "source": "https://www.macquarie.com/au/en/about/news/2025/macquarie-continues-private-credit-expansion-with-launch-of-european-direct-lending-platform-for-investors.html",
+     "recordId": "i1335",
+     "status": "present"
+    },
+    {
+     "key": "us-clo-debut",
+     "date": "2025-06-02",
+     "what": "Macquarie Asset Management closes debut US CLO, Market Street CLO 1, at $409.2m",
+     "source": "https://www.macquarie.com/au/en/about/news/2025/macquarie-asset-management-announces-closing-of-debut-us-clo-at-409-2-million-usd.html",
+     "recordId": "d1196",
+     "status": "present"
+    },
+    {
+     "key": "meid-final-close",
+     "date": "2025-07-17",
+     "what": "Macquarie closes European Infrastructure Debt Fund at EUR1.2bn, EUR3.5bn with SMAs",
+     "source": "https://www.macquarie.com/at/en/about/news/2025/macquarie-asset-management-raises-3-5-billion-for-european-infrastructure-debt.html",
+     "recordId": "d1197",
+     "status": "present"
+    },
+    {
+     "key": "us-clo-2",
+     "date": "2025-11-13",
+     "what": "Macquarie Asset Management closes second US CLO, Market Street CLO 2, at $410m",
+     "source": "https://www.macquarie.com/au/en/about/news/2025/macquarie-asset-management-closes-second-us-clo-at-us410-million-marking-continued-platform-growth.html",
+     "recordId": "d1198",
+     "status": "present"
+    },
+    {
+     "key": "spire-acquisition",
+     "date": "2026-07-01",
+     "what": "Macquarie Asset Management acquires London CLO manager Spire Partners",
+     "source": "https://imdealsblog.sewkis.com/insights/macquarie-acquires-spire-partners/",
+     "recordId": "d1199",
+     "status": "present"
+    },
+    {
+     "key": "market-street-iii",
+     "date": "2026-07-02",
+     "what": "Market Street CLO III $409m",
+     "source": "https://alternativecreditinvestor.com/2026/07/02/macquarie-hits-1-6bn-for-clo-platform/",
+     "recordId": "d512",
+     "status": "present"
+    },
+    {
+     "key": "lyntia-refi",
+     "date": "2026-04-21",
+     "what": "Lyntia EUR125m refinancing",
+     "source": null,
+     "recordId": "d855",
+     "status": "present"
+    },
+    {
+     "key": "infra-credit-bdc",
+     "date": "2026-08-03",
+     "what": "Infrastructure credit BDC for wealth investors",
+     "source": "https://alternativecreditinvestor.com/2026/08/03/macquarie-targets-wealth-investors-with-infra-credit-bdc/",
+     "recordId": "i557",
+     "status": "present"
+    },
+    {
+     "key": "eurofiber-refi",
+     "date": "2026-08-25",
+     "what": "Eurofiber EUR125m refinancing",
+     "source": "https://www.macquarie.com/au/en/about/news/2026/macquarie-asset-management-provides-125-million-euros-debt-financing-to-eurofiber.html",
+     "recordId": "d856",
+     "status": "present"
+    },
+    {
+     "key": "aurium-xvi",
+     "date": "2026-09-04",
+     "what": "Aurium XVI EUR400m European CLO",
+     "source": "https://alternativecreditinvestor.com/2026/09/04/macquarie-prices-e400m-european-clo/",
+     "recordId": "d837",
+     "status": "present"
+    },
+    {
+     "key": "midis-global-infra-debt-final",
+     "date": "2020-03-19",
+     "what": "Macquarie Global Infrastructure Debt Fund final close $645m",
+     "source": "https://irei.com/news/macquarie-closes-645m-global-infrastructure-debt-fund/",
+     "status": "rejected",
+     "note": "paywalled; close date unconfirmed"
+    }
+   ]
   },
   "m221": {
    "kind": "manager",
    "name": "HarbourVest Partners",
    "priority": 19,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-18",
+   "events": [
+    {
+     "key": "dover-x-final",
+     "date": "2020-10-14",
+     "what": "HarbourVest closes Dover Street X secondaries fund at $8.1bn hard cap",
+     "source": "https://www.businesswire.com/news/home/20201014005298/en/HarbourVest-Partners-Closes-Secondaries-Fund-At-Hard-Cap",
+     "recordId": "d1186",
+     "status": "present"
+    },
+    {
+     "key": "real-assets-iv-final",
+     "date": "2021-02-25",
+     "what": "HarbourVest announces $456m final close of Real Assets Fund IV",
+     "source": "https://www.businesswire.com/news/home/20210225005829/en/",
+     "recordId": "d1187",
+     "status": "present"
+    },
+    {
+     "key": "cof-ii-final",
+     "date": "2021-05-27",
+     "what": "HarbourVest closes Credit Opportunities Fund II at $833m",
+     "source": "https://www.businesswire.com/news/home/20210527005216/en/HarbourVest-Partners-Announces-Close-of-Latest-Credit-Fund",
+     "recordId": "d1188",
+     "status": "present"
+    },
+    {
+     "key": "direct-lending-i-final",
+     "date": "2021-09-23",
+     "what": "HarbourVest closes inaugural direct lending fund with over $892m",
+     "source": "https://www.businesswire.com/news/home/20210923005355/en/HarbourVest-Partners-Announces-Close-of-Direct-Lending-Fund",
+     "recordId": "d1189",
+     "status": "present"
+    },
+    {
+     "key": "fund-xii-final",
+     "date": "2022-09-22",
+     "what": "HarbourVest closes Fund XII above target at over $3.0bn",
+     "source": "https://www.businesswire.com/news/home/20220922005147/en/HarbourVest-Partners-closes-Fund-XII-over-%243.0-billion-exceeding-target",
+     "recordId": "d1190",
+     "status": "present"
+    },
+    {
+     "key": "toomey-ceo",
+     "date": "2024-05-10",
+     "what": "HarbourVest appoints John Toomey as CEO; Pete Wilson to retire in 2025",
+     "source": "https://harbourvest.com/us/en/about-harbourvest/newsroom/press-releases/2024/harbourvest-partners-appoints-john-toomey-as-ceo-co-ceo-peter-wilson-to-retire-in-2025.html",
+     "recordId": "i1329",
+     "status": "present"
+    },
+    {
+     "key": "dover-xi-final",
+     "date": "2024-08-16",
+     "what": "HarbourVest closes Dover Street XI at $15.1bn hard cap, $18.5bn with overflow fund",
+     "source": "https://harbourvest.com/us/en/about-harbourvest/newsroom/press-releases/2024/harbourvest-partners-closes-latest-secondaries-funds-at-record-18-5-billion.html",
+     "recordId": "d1191",
+     "status": "present"
+    },
+    {
+     "key": "credit-secondaries-team",
+     "date": "2025-10-09",
+     "what": "HarbourVest sets up dedicated credit secondaries investment team",
+     "source": "https://www.businesswire.com/news/home/20251009690304/en/HarbourVest-Partners-Expands-Credit-Secondaries-Platform",
+     "recordId": "i1330",
+     "status": "present"
+    },
+    {
+     "key": "structured-solutions-2025",
+     "date": "2026-01-27",
+     "what": "HarbourVest closes $1.1bn Structured Solutions 2025 secondaries vehicle",
+     "source": "https://www.businesswire.com/news/home/20260127442653/en/HarbourVest-Partners-Closes-Structured-Solutions-Vehicle-for-Private-Market-Secondaries",
+     "recordId": "d1192",
+     "status": "present"
+    },
+    {
+     "key": "fund-xiii-final",
+     "date": "2026-04-21",
+     "what": "HarbourVest closes thirteenth US flagship fund at $2.4bn",
+     "source": "https://secure.businesswire.com/news/home/20260421357482/en/HarbourVest-Partners-Closes-Thirteenth-U.S.-Flagship-Fund-at-%242.4-Billion",
+     "recordId": "d1193",
+     "status": "present"
+    },
+    {
+     "key": "taranto-coo",
+     "date": "2026-07-15",
+     "what": "HarbourVest appoints Brian Taranto as COO of Global Private Wealth",
+     "source": "https://secure.businesswire.com/news/home/20260715134585/en/HarbourVest-Partners-Appoints-Industry-Veteran-Brian-Taranto-as-COO-Global-Private-Wealth",
+     "recordId": "i1331",
+     "status": "present"
+    },
+    {
+     "key": "credit-secondaries-initial-closings",
+     "date": "2026-09-11",
+     "what": "$2.4bn credit secondaries initial closings",
+     "source": null,
+     "recordId": "i800",
+     "status": "present"
+    },
+    {
+     "key": "ranaldi-hire",
+     "date": "2026-09-17",
+     "what": "Tony Ranaldi hired from Sixth Street",
+     "source": null,
+     "recordId": "i791",
+     "status": "present"
+    },
+    {
+     "key": "adelaide-core-infra",
+     "date": "2020",
+     "what": "Adelaide core infrastructure vehicle $384m close",
+     "source": "https://www.businesswire.com/news/home/20201113005104/en/HarbourVest-Partners-Closes-Dedicated-Core-Infrastructure-Vehicle",
+     "status": "rejected",
+     "note": "close date ambiguous between sources; not recorded"
+    },
+    {
+     "key": "firm-ma-stake-sale",
+     "date": "2020",
+     "what": "Firm-level M&A / stake sale / CIO change",
+     "source": null,
+     "status": "rejected",
+     "note": "searched; none found 2020-2026"
+    }
+   ]
   },
   "m90": {
    "kind": "manager",
@@ -2160,9 +2523,114 @@
    "kind": "manager",
    "name": "Starwood Capital Group",
    "priority": 23,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-18",
+   "events": [
+    {
+     "key": "SOF XII final close",
+     "date": "2021-10-15",
+     "what": "Starwood Capital closes Starwood Distressed Opportunity Fund XII above $10bn at hard cap",
+     "source": "https://www.stocktitan.net/news/STWD/starwood-capital-group-closes-opportunistic-real-estate-fund-at-10-cg4fx1iqzn6k.html",
+     "recordId": "d1200",
+     "status": "present"
+    },
+    {
+     "key": "Pollack named President (announced)",
+     "date": "2024-02-26",
+     "what": "Starwood Capital to appoint Blackstone's Jonathan Pollack as President from 2025",
+     "source": "https://seekingalpha.com/pr/19634392-starwood-capital-group-appoints-jonathan-pollack-as-president",
+     "recordId": "i1344",
+     "status": "present"
+    },
+    {
+     "key": "ESR 10.7% stake",
+     "date": "2024-03-20",
+     "what": "Starwood Capital agrees to acquire 10.7% stake in ESR Group alongside its co-founders",
+     "source": "https://www.tipranks.com/news/press-releases/starwood-capital-enters-into-partnership-with-esr-group-co-founders-to-acquire-10-7-ownership-stake-2",
+     "recordId": "d1201",
+     "status": "present"
+    },
+    {
+     "key": "ESR take-private offer",
+     "date": "2024-12-04",
+     "what": "Starwood-led consortium proposes HK$55.2bn take-private of ESR Group",
+     "source": "https://sixthstreet.com/investment_announce/consortium-and-esr-jointly-announce-scheme-of-arrangement-to-take-company-private",
+     "recordId": "d1202",
+     "status": "present"
+    },
+    {
+     "key": "Pollack joins as President",
+     "date": "2025-04-01",
+     "what": "Jonathan Pollack joins Starwood Capital Group as President",
+     "source": "https://www.stocktitan.net/news/STWD/jonathan-pollack-joins-starwood-capital-group-as-99xb52cnrq05.html",
+     "recordId": "i1345",
+     "status": "present"
+    },
+    {
+     "key": "ESR take-private completion",
+     "date": "2025-06-30",
+     "what": "ESR Group take-private by Starwood-led consortium becomes effective",
+     "source": "https://www.tipranks.com/news/company-announcements/esr-group-limited-announces-privatization-and-delisting",
+     "recordId": "d1203",
+     "status": "present"
+    },
+    {
+     "key": "SREIT redemptions suspended",
+     "date": "2026-04-30",
+     "what": "Starwood suspends most redemptions at $22bn SREIT",
+     "source": "https://www.bisnow.com/news/national/capital-markets/starwood-halts-redemptions-at-sreit-says-now-is-not-the-time-to-force-sales-134362",
+     "recordId": "i1346",
+     "status": "present"
+    },
+    {
+     "key": "SOF XIII final close",
+     "date": "2026-07-01",
+     "what": "Starwood Capital closes Distressed Opportunity Fund XIII above $10.2bn",
+     "source": "https://www.prnewswire.com/news-releases/starwood-capital-group-raises-10-2-billion-opportunistic-real-estate-fund-302815286.html",
+     "recordId": "d1204",
+     "status": "present"
+    },
+    {
+     "key": "Madhany promoted Head of Acquisitions Americas",
+     "date": "2026-07-13",
+     "what": "Starwood Capital promotes Qahir Madhany to Head of Acquisitions, Americas",
+     "source": "https://finviz.com/news/367519/starwood-capital-promotes-qahir-madhany-to-head-of-acquisitions-americas-reflects-proven-track-record-of-value-creation-and-deal-execution-across-the-us-real-estate-landscape",
+     "recordId": "i1347",
+     "status": "present"
+    },
+    {
+     "key": "Apollo $1bn SREIT affordable-housing JV",
+     "date": "2026-08-05",
+     "what": "Apollo invests $1bn in Starwood REIT affordable-housing portfolio for 41.5% stake",
+     "source": "https://www.bisnow.com/news/national/commercial-real-estate/apollo-gives-starwood-sreit-a-1b-boost-with-affordable-housing-investment",
+     "recordId": "d1205",
+     "status": "present"
+    },
+    {
+     "key": "debt-vehicles-final-close-2025",
+     "date": "2025-06-03",
+     "what": "SREDS / SEREDF II / SAREDF final closes $2.86bn",
+     "source": "https://www.prnewswire.com/news-releases/starwood-capital-group-closes-private-credit-focused-vehicles-at-total-valuation-of-2-86-billion-302471788.html",
+     "recordId": "i883",
+     "status": "present"
+    },
+    {
+     "key": "screit-private-offering-2023",
+     "date": "2023-10-31",
+     "what": "Starwood Credit REIT private offering launch",
+     "source": "https://www.sec.gov/Archives/edgar/data/1986395/000095017023063474/ck0001986395-20230930.htm",
+     "status": "rejected",
+     "note": "date drawn from a quarterly filing summary, not fetched; unconfirmed"
+    },
+    {
+     "key": "firm-stake-sale-spark",
+     "date": "2020",
+     "what": "Firm stake sale / SPARK vehicle",
+     "source": null,
+     "status": "rejected",
+     "note": "none found 2020-2026"
+    }
+   ]
   },
   "m159": {
    "kind": "manager",
