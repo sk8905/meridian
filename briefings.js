@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-18",
-  time: "21:34 BST",
+  time: "23:05 BST",
   bullets: [
     { html: "<strong>Macro &mdash; Brent closed Friday at $109.86 a barrel, up 3.7%,</strong> after touching $110 for the first time since May as Iran stepped up attacks on shipping near the Strait of Hormuz; WTI settled 3.5% higher at $101.41.", src: "https://www.cnbc.com/2026/10/16/oil-price-today-iran-strait-hormuz-ukraine-russia.html", srcName: "CNBC", date: "2026-10-16" },
     { html: "<strong>Bonds &mdash; the US 10-year Treasury yield ended Friday at 5.085%, down less than 1bp,</strong> while the 2-year fell more than 3bp to 4.715% as traders weighed a hotter-than-expected September CPI of 3.7% y/y and comments from Fed Chairman Kevin Warsh.", src: "https://www.cnbc.com/2026/10/16/us-treasury-yields-investors-hot-inflation-data-.html", srcName: "CNBC", date: "2026-10-16" },
