@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-18",
-  time: "19:05 BST",
+  time: "21:05 BST",
   lede: "Wall Street ended a volatile week lower as AI-debt worries hit tech, with the Nasdaq down 2.1% on Friday, Brent touching $110 and the US 10-year at about 5.10%.",
   bullets: [
     { html: "<strong>Macro &mdash; Brent touched $110 a barrel on Friday,</strong> its first time at that level since May, as Iran escalated attacks in the Strait of Hormuz; WTI neared $100, at $99.02 for the November contract, up 2.6%.", src: "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-futures-mixed-amid-volatile-week-112939401.html", srcName: "Yahoo Finance", date: "2026-10-16" },
