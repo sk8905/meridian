@@ -1756,7 +1756,9 @@ function maybeReauth() {
   } catch { /* leave the stale feed rather than loop */ }
 }
 function refreshLiveFeed() {
-  fetch("/api/feed", { headers: { accept: "application/json" } })
+  // no-cache: always revalidate with the Worker (whose edge copy turns over every 5 min)
+  // instead of letting the phone's HTTP cache replay a response up to 5 min old on top.
+  fetch("/api/feed", { headers: { accept: "application/json" }, cache: "no-cache" })
     .then((r) => {
       if ((r.redirected && /cdn-cgi\/access/.test(r.url)) || (r.headers.get("content-type") || "").includes("text/html")) { maybeReauth(); return null; }
       return r.ok ? r.json() : null;
