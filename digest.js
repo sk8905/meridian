@@ -4,73 +4,30 @@
 // hand-edit; re-run the script. Tokenless + no-cache (see _headers).
 // =============================================================================
 export const DIGEST = {
- "asOf": "2026-10-17",
- "built": "2026-10-17T01:37:23.002Z",
+ "asOf": "2026-10-18",
+ "built": "2026-10-18T20:34:35.993Z",
  "daily": {
   "label": "Daily",
-  "from": "2026-10-16",
-  "to": "2026-10-17",
+  "from": "2026-10-17",
+  "to": "2026-10-18",
   "deals": {
-   "total": 1,
-   "items": [
-    {
-     "id": "d1173",
-     "date": "2026-10-16",
-     "title": "Permira Credit prices Menlo CLO VI at $401.9 million",
-     "url": "https://www.permira.com/news-and-insights/announcements/permira-credit-prices-menlo-clo-vi-at-4019-million",
-     "src": "permira.com",
-     "who": "Permira Credit",
-     "kind": "Structured Credit",
-     "href": "/v2/transactions/#/deal/d1173",
-     "amount": "$401.9 million"
-    }
-   ]
+   "total": 0,
+   "items": []
   },
   "closes": {
    "total": 0,
    "items": []
   },
   "legal": {
-   "total": 3,
-   "items": [
-    {
-     "id": "c296",
-     "date": "2026-10-16",
-     "title": "Stor RB One Ltd v Sripiragash Kanthasamy [2026] EWHC 2625 (Comm)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2625",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (Comm)",
-     "kind": "Judgment",
-     "href": null
-    },
-    {
-     "id": "c297",
-     "date": "2026-10-16",
-     "title": "Fairmead Insurance Limited & Ors, Re [2026] EWHC 2644 (BP)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2644",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (BP)",
-     "kind": "Judgment",
-     "href": null
-    },
-    {
-     "id": "c298",
-     "date": "2026-10-16",
-     "title": "Amber Construction Services Limited v Ilyrian Construction Ltd [2026] EWHC 2603 (BP)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2603",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (BP)",
-     "kind": "Judgment",
-     "href": null
-    }
-   ]
+   "total": 0,
+   "items": []
   },
   "people": {
    "total": 0,
    "items": []
   },
   "rates": {
-   "savedAt": "2026-10-16T11:15:07.603Z",
+   "savedAt": "2026-10-17T10:34:08.276Z",
    "items": [
     {
      "label": "SONIA",
@@ -85,34 +42,34 @@ export const DIGEST = {
     },
     {
      "label": "SOFR",
-     "value": 3.88,
+     "value": 3.89,
      "unit": "%",
-     "display": 3.88,
-     "chg": -0.01,
+     "display": 3.89,
+     "chg": 0.01,
      "chgUnit": "pp",
-     "asOf": "2026-10-14",
+     "asOf": "2026-10-15",
      "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
      "src": "newyorkfed.org"
     },
     {
      "label": "US 10Y",
-     "value": 5.1,
+     "value": 5.09,
      "unit": "%",
-     "display": 5.1,
-     "chg": -0.09,
+     "display": 5.09,
+     "chg": -0.01,
      "chgUnit": "pp",
-     "asOf": "2026-10-15",
+     "asOf": "2026-10-16",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
     {
      "label": "US 2Y",
-     "value": 4.77,
+     "value": 4.74,
      "unit": "%",
-     "display": 4.77,
-     "chg": -0.05,
+     "display": 4.74,
+     "chg": -0.03,
      "chgUnit": "pp",
-     "asOf": "2026-10-15",
+     "asOf": "2026-10-16",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
@@ -167,7 +124,7 @@ export const DIGEST = {
      "display": 2.5,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-16",
+     "asOf": "2026-10-17",
      "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
      "src": "data.ecb.europa.eu"
     },
@@ -189,7 +146,7 @@ export const DIGEST = {
      "display": 3.75,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-14",
+     "asOf": "2026-10-15",
      "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
      "src": "bankofengland.co.uk"
     }
@@ -198,10 +155,10 @@ export const DIGEST = {
  },
  "weekly": {
   "label": "Weekly",
-  "from": "2026-10-11",
-  "to": "2026-10-17",
+  "from": "2026-10-12",
+  "to": "2026-10-18",
   "deals": {
-   "total": 8,
+   "total": 9,
    "items": [
     {
      "id": "d966",
@@ -290,6 +247,17 @@ export const DIGEST = {
      "kind": "Acquisition",
      "href": "/v2/transactions/#/deal/d1046",
      "amount": null
+    },
+    {
+     "id": "d1185",
+     "date": "2026-10-13",
+     "title": "AURELIUS to acquire Nokia’s Enterprise Campus Edge business",
+     "url": "https://www.nokia.com/newsroom/nokia-to-sell-enterprise-campus-edge-business-to-aurelius/",
+     "src": "nokia.com",
+     "who": "Aurelius",
+     "kind": "Acquisition",
+     "href": "/v2/transactions/#/deal/d1185",
+     "amount": null
     }
    ]
   },
@@ -298,7 +266,7 @@ export const DIGEST = {
    "items": []
   },
   "legal": {
-   "total": 11,
+   "total": 14,
    "items": [
     {
      "id": "c296",
@@ -331,12 +299,32 @@ export const DIGEST = {
      "href": null
     },
     {
+     "id": "c302",
+     "date": "2026-10-16",
+     "title": "3Kings Holdings Limited v TCF 1 GP Limited [2026] EWHC 2620 (BP)",
+     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2620",
+     "src": "caselaw.nationalarchives.gov.uk",
+     "who": "High Court (BP)",
+     "kind": "Judgment",
+     "href": null
+    },
+    {
      "id": "c300",
      "date": "2026-10-15",
      "title": "Nebahat Evyap İşbilen v Selman Turk & Ors [2026] EWHC 2635 (BP)",
      "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2635",
      "src": "caselaw.nationalarchives.gov.uk",
      "who": "High Court (BP)",
+     "kind": "Judgment",
+     "href": null
+    },
+    {
+     "id": "c303",
+     "date": "2026-10-15",
+     "title": "FW Aviation (Holdings) 1 Limited v VietJet Aviation Joint Stock Company [2026] EWHC 2633 (Comm)",
+     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2633",
+     "src": "caselaw.nationalarchives.gov.uk",
+     "who": "High Court (Commercial Court)",
      "kind": "Judgment",
      "href": null
     },
@@ -371,46 +359,56 @@ export const DIGEST = {
      "href": null
     },
     {
-     "id": "u2350",
-     "date": "2026-10-14",
-     "title": "The Insolvency Administrator's Long Memory – When Gratuitous Benefits Are Reclaimed",
-     "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/the-insolvency-administrators-long-memory-when-gratuitous-benefits-are-reclaimed",
-     "src": "mayerbrown.com",
-     "who": "Mayer Brown",
+     "id": "u3059",
+     "date": "2026-10-16",
+     "title": "Key developments and trends in DIP financing (2025/2026)",
+     "url": "https://www.davispolk.com/insights/articles-books/key-developments-and-trends-dip-financing-2025-2026",
+     "src": "davispolk.com",
+     "who": "Davis Polk",
      "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/mayerbrown"
-    },
-    {
-     "id": "u2180",
-     "date": "2026-10-12",
-     "title": "Weil’s European Restructuring Practice Recognized by Turnarounds & Workouts",
-     "url": "https://www.weil.com/articles/weils-european-restructuring-practice-recognized-by-turnarounds-workouts",
-     "src": "weil.com",
-     "who": "Weil, Gotshal & Manges",
-     "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/weil"
-    },
-    {
-     "id": "u2145",
-     "date": "2026-10-12",
-     "title": "Federal Fiscal Court: Future insolvency administrator’s remuneration may be recognized as provisions",
-     "url": "https://www.aoshearman.com/en/insights/federal-fiscal-court-future-insolvency-administrators-remuneration-may-be-recognized-as-provisions",
-     "src": "aoshearman.com",
-     "who": "A&O Shearman",
-     "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/aoshearman"
+     "href": "/v2/profiles/#/firm/davispolk"
     }
    ]
   },
   "people": {
-   "total": 3,
+   "total": 6,
    "items": [
+    {
+     "id": "i1348",
+     "date": "2026-10-15",
+     "title": "LendInvest adds three portfolio managers to its property development finance team",
+     "url": "https://www.mortgagesolutions.co.uk/specialist-lending/commercial-finance/2026/10/15/lendinvest-strengthens-development-finance-team-with-three-hires/",
+     "src": "mortgagesolutions.co.uk",
+     "who": "LendInvest",
+     "kind": "Credit",
+     "href": "/v2/profiles/#/manager/m232"
+    },
     {
      "id": "i1234",
      "date": "2026-10-14",
      "title": "ITE Management names Michael Fox to lead its London office",
      "url": "https://www.alternativeswatch.com/2026/10/14/ite-management-michael-fox-london-office/",
      "src": "alternativeswatch.com",
+     "who": "ITE Management",
+     "kind": "Credit",
+     "href": "/v2/profiles/#/manager/m437"
+    },
+    {
+     "id": "i1327",
+     "date": "2026-10-14",
+     "title": "Star Mountain Capital appoints Comvest co-founder Daniel Lee as managing director",
+     "url": "https://alternativecreditinvestor.com/2026/10/14/comvest-co-founder-daniel-lee-moves-to-star-mountain-capital/",
+     "src": "alternativecreditinvestor.com",
+     "who": "Star Mountain Capital",
+     "kind": "Credit",
+     "href": "/v2/profiles/#/manager/m161"
+    },
+    {
+     "id": "i1328",
+     "date": "2026-10-14",
+     "title": "ITE Management names Michael Fox Head of London Office",
+     "url": "https://www.prnewswire.com/news-releases/ite-management-names-michael-fox-head-of-london-office-302907826.html",
+     "src": "prnewswire.com",
      "who": "ITE Management",
      "kind": "Credit",
      "href": "/v2/profiles/#/manager/m437"
@@ -438,7 +436,7 @@ export const DIGEST = {
    ]
   },
   "rates": {
-   "savedAt": "2026-10-16T11:15:07.603Z",
+   "savedAt": "2026-10-17T10:34:08.276Z",
    "items": [
     {
      "label": "SONIA",
@@ -453,34 +451,34 @@ export const DIGEST = {
     },
     {
      "label": "SOFR",
-     "value": 3.88,
+     "value": 3.89,
      "unit": "%",
-     "display": 3.88,
-     "chg": 0,
+     "display": 3.89,
+     "chg": 0.02,
      "chgUnit": "pp",
-     "asOf": "2026-10-14",
+     "asOf": "2026-10-15",
      "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
      "src": "newyorkfed.org"
     },
     {
      "label": "US 10Y",
-     "value": 5.1,
+     "value": 5.09,
      "unit": "%",
-     "display": 5.1,
-     "chg": -0.12,
+     "display": 5.09,
+     "chg": -0.15,
      "chgUnit": "pp",
-     "asOf": "2026-10-15",
+     "asOf": "2026-10-16",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
     {
      "label": "US 2Y",
-     "value": 4.77,
+     "value": 4.74,
      "unit": "%",
-     "display": 4.77,
-     "chg": 0.02,
+     "display": 4.74,
+     "chg": -0.06,
      "chgUnit": "pp",
-     "asOf": "2026-10-15",
+     "asOf": "2026-10-16",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
@@ -535,7 +533,7 @@ export const DIGEST = {
      "display": 2.5,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-16",
+     "asOf": "2026-10-17",
      "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
      "src": "data.ecb.europa.eu"
     },
@@ -557,7 +555,7 @@ export const DIGEST = {
      "display": 3.75,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-14",
+     "asOf": "2026-10-15",
      "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
      "src": "bankofengland.co.uk"
     }

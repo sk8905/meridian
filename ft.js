@@ -21,6 +21,146 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "5700f8fb-32b9-4324-972c-9578904ac6e2",
+    "title": "Evercore appoints co-presidents as it sets up CEO succession contest",
+    "date": "2026-10-18",
+    "time": "21:01",
+    "url": "https://www.ft.com/content/5700f8fb-32b9-4324-972c-9578904ac6e2"
+  },
+  {
+    "id": "19495e50-0f55-44b1-8d19-19244163a4e8",
+    "title": "Macron faces political firestorm after riots",
+    "date": "2026-10-18",
+    "time": "20:55",
+    "url": "https://www.ft.com/content/19495e50-0f55-44b1-8d19-19244163a4e8"
+  },
+  {
+    "id": "369eba8b-246d-405f-b0d8-6c676b0b6dab",
+    "title": "France reels after ‘unprecedented’ violent riots",
+    "date": "2026-10-18",
+    "time": "20:52",
+    "url": "https://www.ft.com/content/369eba8b-246d-405f-b0d8-6c676b0b6dab"
+  },
+  {
+    "id": "39a1f29b-1248-4785-8aa3-0e7c29b5bf35",
+    "title": "Trump to begin transforming historic golf course despite court order",
+    "date": "2026-10-18",
+    "time": "20:28",
+    "url": "https://www.ft.com/content/39a1f29b-1248-4785-8aa3-0e7c29b5bf35"
+  },
+  {
+    "id": "4ed89331-df18-4f2d-817b-9a7b304fd4e4",
+    "title": "US army chief in Indo-Pacific calls for display of enhanced military muscle",
+    "date": "2026-10-18",
+    "time": "20:00",
+    "url": "https://www.ft.com/content/4ed89331-df18-4f2d-817b-9a7b304fd4e4"
+  },
+  {
+    "id": "734dad42-2eef-4a70-8947-c73997e49fd1",
+    "title": "St Petersburg endures biggest Ukrainian drone attack",
+    "date": "2026-10-18",
+    "time": "19:30",
+    "url": "https://www.ft.com/content/734dad42-2eef-4a70-8947-c73997e49fd1"
+  },
+  {
+    "id": "37fbe995-df90-429a-bddb-34d14151bf79",
+    "title": "Trump endorses Netanyahu ahead of Israeli elections",
+    "date": "2026-10-18",
+    "time": "19:11",
+    "url": "https://www.ft.com/content/37fbe995-df90-429a-bddb-34d14151bf79"
+  },
+  {
+    "id": "873e7ef2-d3d6-4c30-b8f8-ee3e69d60138",
+    "title": "City of London weighs tax rises and service cuts to plug £70mn budget hole",
+    "date": "2026-10-18",
+    "time": "19:00",
+    "url": "https://www.ft.com/content/873e7ef2-d3d6-4c30-b8f8-ee3e69d60138"
+  },
+  {
+    "id": "783dbcdc-fe1e-4539-a740-3d2e4b3d5fc1",
+    "title": "Crunch time for Brazilian politics",
+    "date": "2026-10-18",
+    "time": "18:15",
+    "url": "https://www.ft.com/content/783dbcdc-fe1e-4539-a740-3d2e4b3d5fc1"
+  },
+  {
+    "id": "d1e28d93-8574-4a46-946a-b261c401d6fa",
+    "title": "US threatens Europe over Starlink restrictions",
+    "date": "2026-10-18",
+    "time": "17:00",
+    "url": "https://www.ft.com/content/d1e28d93-8574-4a46-946a-b261c401d6fa"
+  },
+  {
+    "id": "52a5e9df-cd9a-4951-99b5-2364e575bb44",
+    "title": "Trump’s bid to make America cheap again has failed",
+    "date": "2026-10-18",
+    "time": "16:00",
+    "url": "https://www.ft.com/content/52a5e9df-cd9a-4951-99b5-2364e575bb44"
+  },
+  {
+    "id": "6748e45a-0b1a-43be-b65f-645849af4a57",
+    "title": "Treasury introduces new security measures in bid to stop UK Budget leaks",
+    "date": "2026-10-18",
+    "time": "14:48",
+    "url": "https://www.ft.com/content/6748e45a-0b1a-43be-b65f-645849af4a57"
+  },
+  {
+    "id": "d48c545b-6b41-41e9-a71c-cb2126c76082",
+    "title": "‘The Switzerland of North America’: Albertans vote on leaving Canada",
+    "date": "2026-10-18",
+    "time": "13:00",
+    "url": "https://www.ft.com/content/d48c545b-6b41-41e9-a71c-cb2126c76082"
+  },
+  {
+    "id": "da1dbd0b-4101-4ba8-aa2d-da6fedcb9f23",
+    "title": "Saudi helicopter crash kills two troops near Yemen border",
+    "date": "2026-10-18",
+    "time": "12:38",
+    "url": "https://www.ft.com/content/da1dbd0b-4101-4ba8-aa2d-da6fedcb9f23"
+  },
+  {
+    "id": "2c8c610b-83f3-4cab-b409-bab69f4c2207",
+    "title": "Not every billionaire is a policy failure",
+    "date": "2026-10-18",
+    "time": "12:00",
+    "url": "https://www.ft.com/content/2c8c610b-83f3-4cab-b409-bab69f4c2207"
+  },
+  {
+    "id": "7c2e889e-2eb5-4c62-821b-1a7f88c13d05",
+    "title": "Will Meta’s earnings restore confidence in the AI boom?",
+    "date": "2026-10-18",
+    "time": "12:00",
+    "url": "https://www.ft.com/content/7c2e889e-2eb5-4c62-821b-1a7f88c13d05"
+  },
+  {
+    "id": "b2299174-fb78-4edf-a358-8cae837f8d7b",
+    "title": "Could Republicans prove the pollsters wrong in the midterms?",
+    "date": "2026-10-18",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/b2299174-fb78-4edf-a358-8cae837f8d7b"
+  },
+  {
+    "id": "b263bbe1-cd0c-4508-9ec8-07cb8a9c2a02",
+    "title": "Trump’s losing battle with green energy",
+    "date": "2026-10-18",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/b263bbe1-cd0c-4508-9ec8-07cb8a9c2a02"
+  },
+  {
+    "id": "2dfdd513-26a6-4a10-9cae-5242eb4ee3ed",
+    "title": "Accenture looks to sell Chinese operations for up to $1.5bn",
+    "date": "2026-10-18",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/2dfdd513-26a6-4a10-9cae-5242eb4ee3ed"
+  },
+  {
+    "id": "886006f8-284c-4a20-9411-3cfd9deead3f",
+    "title": "‘Cash is making a comeback’ as India raises fees on digital payments",
+    "date": "2026-10-18",
+    "time": "05:11",
+    "url": "https://www.ft.com/content/886006f8-284c-4a20-9411-3cfd9deead3f"
+  },
+  {
     "id": "3d964bed-ed6e-4b15-ade0-f190d2723cac",
     "title": "Europe Express Weekend: Where are Zelenskyy’s friends (when he needs them)?",
     "date": "2026-10-17",
@@ -159,145 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-16",
     "time": "18:00",
     "url": "https://www.ft.com/content/2ce007c9-72c4-46bc-88be-fad2dee8986b"
-  },
-  {
-    "id": "3b431be8-e758-42ef-b957-bdf8ef702529",
-    "title": "Stockpickers: Bytes Technology, YouGov, Softcat",
-    "date": "2026-10-16",
-    "time": "18:00",
-    "url": "https://www.ft.com/content/3b431be8-e758-42ef-b957-bdf8ef702529"
-  },
-  {
-    "id": "2b0e3eae-8eae-449e-9492-ac036b0fe143",
-    "title": "Looming UK tax rise puts bankers on edge",
-    "date": "2026-10-16",
-    "time": "17:14",
-    "url": "https://www.ft.com/content/2b0e3eae-8eae-449e-9492-ac036b0fe143"
-  },
-  {
-    "id": "ff9756a6-6339-47ca-ae9b-efd00e019fe3",
-    "title": "Can consultants reinvent themselves once again?",
-    "date": "2026-10-16",
-    "time": "17:11",
-    "url": "https://www.ft.com/content/ff9756a6-6339-47ca-ae9b-efd00e019fe3"
-  },
-  {
-    "id": "86038629-9b53-4859-bc59-a67fb0059c37",
-    "title": "Welfare reform is possible: we did it before, we can do it again",
-    "date": "2026-10-16",
-    "time": "16:53",
-    "url": "https://www.ft.com/content/86038629-9b53-4859-bc59-a67fb0059c37"
-  },
-  {
-    "id": "155bc83f-655d-4891-a431-aa5e1e1ce96a",
-    "title": "Has London’s £5bn ‘super sewer’ improved water quality in the Thames?",
-    "date": "2026-10-16",
-    "time": "16:28",
-    "url": "https://www.ft.com/content/155bc83f-655d-4891-a431-aa5e1e1ce96a"
-  },
-  {
-    "id": "d05f87bf-225b-43f9-86e6-2f9537cd75c6",
-    "title": "Apple set for UK legal fight over iPhone tap-to-pay rules",
-    "date": "2026-10-16",
-    "time": "16:21",
-    "url": "https://www.ft.com/content/d05f87bf-225b-43f9-86e6-2f9537cd75c6"
-  },
-  {
-    "id": "cc22b728-dee4-4a3f-a52f-fb3f09aa30e0",
-    "title": "Andy Burnham urges SNP’s John Swinney to team up on devolving jobs support",
-    "date": "2026-10-16",
-    "time": "16:00",
-    "url": "https://www.ft.com/content/cc22b728-dee4-4a3f-a52f-fb3f09aa30e0"
-  },
-  {
-    "id": "f49c8e39-f07f-4177-9948-aabe55e5ed91",
-    "title": "Citi becomes latest US bank to restrict AI agents from accessing accounts",
-    "date": "2026-10-16",
-    "time": "15:58",
-    "url": "https://www.ft.com/content/f49c8e39-f07f-4177-9948-aabe55e5ed91"
-  },
-  {
-    "id": "a0a143ac-6a48-410a-b121-92f293b0ad6d",
-    "title": "Trump has failed to listen to voters on inflation",
-    "date": "2026-10-16",
-    "time": "15:58",
-    "url": "https://www.ft.com/content/a0a143ac-6a48-410a-b121-92f293b0ad6d"
-  },
-  {
-    "id": "5b36d8a4-49f1-4877-8719-2db984c13081",
-    "title": "The hunt for Fed October",
-    "date": "2026-10-16",
-    "time": "15:39",
-    "url": "https://www.ft.com/content/5b36d8a4-49f1-4877-8719-2db984c13081"
-  },
-  {
-    "id": "15922d6d-421a-4b33-a329-45443491e1be",
-    "title": "India police detain ‘Cockroach’ leader again to head off new protests",
-    "date": "2026-10-16",
-    "time": "15:39",
-    "url": "https://www.ft.com/content/15922d6d-421a-4b33-a329-45443491e1be"
-  },
-  {
-    "id": "0c7188db-2ab2-4b41-a7ea-a4e8b795e173",
-    "title": "How to value anything with one simple question",
-    "date": "2026-10-16",
-    "time": "14:57",
-    "url": "https://www.ft.com/content/0c7188db-2ab2-4b41-a7ea-a4e8b795e173"
-  },
-  {
-    "id": "800db28a-9176-4ca3-9334-69ede9a2b3ef",
-    "title": "Lufthansa exploring sale of software assets in €1bn deal",
-    "date": "2026-10-16",
-    "time": "14:56",
-    "url": "https://www.ft.com/content/800db28a-9176-4ca3-9334-69ede9a2b3ef"
-  },
-  {
-    "id": "44934b4f-f01b-45c1-9c51-ec4566e662a9",
-    "title": "UAE had ‘clear incentives’ to influence Telegraph coverage, Ofcom finds",
-    "date": "2026-10-16",
-    "time": "14:44",
-    "url": "https://www.ft.com/content/44934b4f-f01b-45c1-9c51-ec4566e662a9"
-  },
-  {
-    "id": "c36f858f-73e2-478b-9fdb-92b9167ce37f",
-    "title": "France and Germany seal EU car deal",
-    "date": "2026-10-16",
-    "time": "14:42",
-    "url": "https://www.ft.com/content/c36f858f-73e2-478b-9fdb-92b9167ce37f"
-  },
-  {
-    "id": "6fc92bd5-e79f-42a9-833c-74b8fffcf1a7",
-    "title": "Carmakers face smaller cut in UK EV sales targets",
-    "date": "2026-10-16",
-    "time": "14:27",
-    "url": "https://www.ft.com/content/6fc92bd5-e79f-42a9-833c-74b8fffcf1a7"
-  },
-  {
-    "id": "4ad90130-8f3f-4770-8567-f5cb51497386",
-    "title": "FTAV’s Friday charts quiz",
-    "date": "2026-10-16",
-    "time": "14:02",
-    "url": "https://www.ft.com/content/4ad90130-8f3f-4770-8567-f5cb51497386"
-  },
-  {
-    "id": "e3a17496-0dc2-42d8-ba7d-16a013016249",
-    "title": "The new unequivocal Zelenskyy",
-    "date": "2026-10-16",
-    "time": "14:00",
-    "url": "https://www.ft.com/content/e3a17496-0dc2-42d8-ba7d-16a013016249"
-  },
-  {
-    "id": "24ea259d-da7a-4f5e-bb86-86b33e629a48",
-    "title": "Albania PM refuses to resign as student protesters attack government buildings",
-    "date": "2026-10-16",
-    "time": "13:57",
-    "url": "https://www.ft.com/content/24ea259d-da7a-4f5e-bb86-86b33e629a48"
-  },
-  {
-    "id": "b3979904-2252-4934-9cff-729a815cb4b0",
-    "title": "Starlink spectrum deal piles Elon Musk’s plate ever higher",
-    "date": "2026-10-16",
-    "time": "13:15",
-    "url": "https://www.ft.com/content/b3979904-2252-4934-9cff-729a815cb4b0"
   }
 ];

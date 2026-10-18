@@ -109,6 +109,28 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-apollo-investgermanysummit-20261018",
+    publication: "Apollo Academy",
+    author: "Huw van Steenis",
+    series: "The Daily Spark",
+    title: "Invest in Germany Summit, Berlin, October 19–20",
+    date: "2026-10-18",
+    time: "11:46",
+    summary: "German pension reforms could generate around €90bn of new annual funded pension flows, roughly 2% of GDP, as the country seeks capital for AI, infrastructure, defence and energy resilience; funded pension assets are only about 7% of GDP.",
+    url: "https://www.apolloacademy.com/the-daily-spark/",
+  },
+  {
+    id: "rsch-apollo-bondsweakerhedge-20261017",
+    publication: "Apollo Academy",
+    author: "Torsten Slok",
+    series: "The Daily Spark",
+    title: "Bonds Are a Weaker Hedge as Duration Falls",
+    date: "2026-10-17",
+    time: "11:46",
+    summary: "The 30-year Treasury’s duration has fallen from 25 years in 2020 to 14 today on higher yields and coupons, so long Treasuries offer less cushion per dollar in a downturn.",
+    url: "https://www.apolloacademy.com/the-daily-spark/",
+  },
+  {
     id: "rsch-fitch-wire-gccsovereignbudgets-20261016",
     publication: "Fitch Ratings",
     author: null,

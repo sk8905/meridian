@@ -22,9 +22,9 @@ export const EQ_INDICES = [
     "stooq": "^spx",
     "source": "https://finance.yahoo.com/quote/%5EGSPC",
     "keyMoment": {
-      "text": "The S&amp;P 500 fell 1.1% on Friday to 7,659.44 as AI-debt worries drove a tech sell-off that capped a volatile week, with Brent touching $110 for the first time since May.",
-      "src": "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-futures-mixed-amid-volatile-week-112939401.html",
-      "srcName": "Yahoo Finance",
+      "text": "The S&amp;P 500 fell 1.09% on Friday to 7,659.44 as worries that tech companies are borrowing too much for the AI buildout drove a sell-off, with neocloud CoreWeave down nearly 12% and September CPI at 3.7% y/y stoking Fed-hike fears.",
+      "src": "https://www.cnbc.com/2026/10/15/stock-market-today-live-updates.html",
+      "srcName": "CNBC",
       "date": "2026-10-16"
     }
   },
@@ -38,9 +38,9 @@ export const EQ_INDICES = [
     "stooq": "^ndq",
     "source": "https://finance.yahoo.com/quote/%5EIXIC",
     "keyMoment": {
-      "text": "The Nasdaq Composite sank 2.1% on Friday, losing 573 points to close at 26,140.03, and fell about 4.5% on the week — its worst since June — on AI-debt fears.",
-      "src": "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-futures-mixed-amid-volatile-week-112939401.html",
-      "srcName": "Yahoo Finance",
+      "text": "The Nasdaq Composite fell 2.14% on Friday to 26,140.03 and lost 4.5% on the week, breaking a four-week winning streak with its worst weekly decline since June, pressured by the AI sell-off and higher oil prices.",
+      "src": "https://www.cnbc.com/2026/10/15/stock-market-today-live-updates.html",
+      "srcName": "CNBC",
       "date": "2026-10-16"
     }
   },

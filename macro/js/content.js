@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-18",
-  lastCheckedTime: "21:05 BST",
+  lastCheckedTime: "21:34 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1037,20 +1037,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-17",
+  updated: "2026-10-18",
   us: [
-    {title: "Stock market today: Dow, S&P 500, Nasdaq sink as tech sell-off caps volatile week", source: "Yahoo Finance", date: "2026-10-16", time: "21:48", url: "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-futures-mixed-amid-volatile-week-112939401.html"},
-    {title: "Tech stocks tumble as AI debt fears rattle Wall Street", source: "CBS News", date: "2026-10-16", time: "21:39", url: "https://www.cbsnews.com/news/tech-stocks-slide-ai-debt-concerns/"},
-    {title: "The dress rehearsal for an AI reckoning", source: "Financial Times", date: "2026-10-17", time: "05:00", url: "https://www.ft.com/content/3f982af9-3eec-476f-9d29-39145ac485c4"},
-    {title: "Treasuries head for best week since February as AI jitters halt bond rout", source: "Financial Times", date: "2026-10-16", time: "12:45", url: "https://www.ft.com/content/4c4f03f4-f878-4bd6-8128-5be7e3bb8ca1"},
-    {title: "Dollar weakens as Fed chair Kevin Warsh declines to hint at October rate rise", source: "Financial Times", date: "2026-10-16", time: "06:25", url: "https://www.ft.com/content/95a8e05d-fc20-441d-b271-64e87fe41f76"},
+    {title: "Meta Platforms and Tesla are among the companies set to report next week. What to expect", source: "CNBC", date: "2026-10-18", time: "21:34", url: "https://www.cnbc.com/2026/10/18/meta-tesla-netflix-earnings-preview.html"},
+    {title: "Trump’s bid to make America cheap again has failed", source: "Financial Times", date: "2026-10-18", time: "16:00", url: "https://www.ft.com/content/52a5e9df-cd9a-4951-99b5-2364e575bb44"},
+    {title: "These surprising stocks could be some of the biggest drivers of S&P 500 earnings growth", source: "MarketWatch", date: "2026-10-18", time: "15:00", url: "https://www.marketwatch.com/story/these-surprising-stocks-could-be-some-of-the-biggest-drivers-of-s-p-500-earnings-growth-ea073a07"},
+    {title: "Stocks are heading for a high-stakes showdown, as strong earnings collide with rising borrowing costs", source: "MarketWatch", date: "2026-10-18", time: "14:00", url: "https://www.marketwatch.com/story/stocks-are-heading-for-a-high-stakes-showdown-as-strong-earnings-collide-with-rising-borrowing-costs-6f8ea5b8"},
+    {title: "Will Meta’s earnings restore confidence in the AI boom?", source: "Financial Times", date: "2026-10-18", time: "12:00", url: "https://www.ft.com/content/7c2e889e-2eb5-4c62-821b-1a7f88c13d05"},
   ],
   uk: [
+    {title: "City of London weighs tax rises and service cuts to plug £70mn budget hole", source: "Financial Times", date: "2026-10-18", time: "19:00", url: "https://www.ft.com/content/873e7ef2-d3d6-4c30-b8f8-ee3e69d60138"},
+    {title: "Treasury introduces new security measures in bid to stop UK Budget leaks", source: "Financial Times", date: "2026-10-18", time: "14:48", url: "https://www.ft.com/content/6748e45a-0b1a-43be-b65f-645849af4a57"},
     {title: "What is behind the surprising resilience of the UK economy?", source: "Financial Times", date: "2026-10-17", time: "05:00", url: "https://www.ft.com/content/aef6d0ed-1019-452a-b3f0-3e3dfc9eac05"},
     {title: "UK dividend payments jump 14% in a year", source: "Financial Times", date: "2026-10-17", time: "05:00", url: "https://www.ft.com/content/169bbf6e-d0af-4c8d-afd0-2c561a58c855"},
     {title: "HMRC claws back nearly £500mn in underpaid capital gains", source: "Financial Times", date: "2026-10-17", time: "05:00", url: "https://www.ft.com/content/b4996387-0a4a-4f75-b16d-830fbc8c40c3"},
-    {title: "‘Early days’ to see full effect of energy prices on inflation, BoE’s Bailey says", source: "Financial Times", date: "2026-10-16", time: "04:12", url: "https://www.ft.com/content/b6255adb-3ce5-4463-92cd-de2f8e9a1f74"},
-    {title: "UK economy defies contraction fears to grow 0.1% in August", source: "Financial Times", date: "2026-10-15", time: "09:34", url: "https://www.ft.com/content/46708b2a-0392-43f9-b378-de7117febd16"},
   ],
 };
 
@@ -1063,8 +1063,14 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-17",
+  updated: "2026-10-18",
   items: [
+    {"title": "Meta Platforms and Tesla are among the companies set to report next week. What to expect", "source": "CNBC", "date": "2026-10-18", "time": "21:34", "url": "https://www.cnbc.com/2026/10/18/meta-tesla-netflix-earnings-preview.html", "blurb": "CNBC preview of next week's earnings, led by Meta Platforms and Tesla."},
+    {"title": "Stocks are heading for a high-stakes showdown, as strong earnings collide with rising borrowing costs", "source": "MarketWatch", "date": "2026-10-18", "time": "14:00", "url": "https://www.marketwatch.com/story/stocks-are-heading-for-a-high-stakes-showdown-as-strong-earnings-collide-with-rising-borrowing-costs-6f8ea5b8", "blurb": "The idea that the AI trade has been mostly immune to rising bond yields isn’t quite right, one strategist notes."},
+    {"title": "Trump’s bid to make America cheap again has failed", "source": "Financial Times", "date": "2026-10-18", "time": "16:00", "url": "https://www.ft.com/content/52a5e9df-cd9a-4951-99b5-2364e575bb44", "blurb": "FT on the US affordability agenda."},
+    {"title": "Nasdaq slides 2% Friday to post worst week since June, pressured by AI sell-off and oil prices: Live updates", "source": "CNBC", "date": "2026-10-16", "time": "21:34", "url": "https://www.cnbc.com/2026/10/15/stock-market-today-live-updates.html", "blurb": "The S&P 500 fell 1.09% to 7,659.44 and the Nasdaq Composite 2.14% to 26,140.03; the Nasdaq lost 4.5% on the week."},
+    {"title": "U.S. Treasury yields waver as traders wrap up volatile week", "source": "CNBC", "date": "2026-10-16", "time": "21:34", "url": "https://www.cnbc.com/2026/10/16/us-treasury-yields-investors-hot-inflation-data-.html", "blurb": "The 10-year yield fell less than 1bp to 5.085% and the 2-year more than 3bp to 4.715% after September CPI rose 3.7% y/y."},
+    {"title": "Brent oil touches $110 as Iran escalates Hormuz attacks, Ukraine vows to hit Russian refineries", "source": "CNBC", "date": "2026-10-16", "time": "21:34", "url": "https://www.cnbc.com/2026/10/16/oil-price-today-iran-strait-hormuz-ukraine-russia.html", "blurb": "Brent closed at $109.86, up 3.7%, after touching $110 for the first time since May; WTI settled 3.5% higher at $101.41."},
     {"title": "What is behind the surprising resilience of the UK economy?", "source": "Financial Times", "date": "2026-10-17", "time": "05:00", "url": "https://www.ft.com/content/aef6d0ed-1019-452a-b3f0-3e3dfc9eac05", "blurb": "FT analysis of the resilience of the UK economy."},
     {"title": "The dress rehearsal for an AI reckoning", "source": "Financial Times", "date": "2026-10-17", "time": "05:00", "url": "https://www.ft.com/content/3f982af9-3eec-476f-9d29-39145ac485c4", "blurb": "FT on the AI-linked market sell-off."},
     {"title": "The AI El Niño", "source": "Financial Times", "date": "2026-10-17", "time": "05:00", "url": "https://www.ft.com/content/60bffbe3-f7aa-4813-b657-a31087e7b116", "blurb": "FT on the AI boom and its market consequences."},
@@ -1307,7 +1313,7 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "The US 10-year Treasury yield was around 5.26% on Monday, below the 24-year high it touched last week, but the dollar held firm on still-lofty yields even after the weaker-than-expected jobs report dampened bets on a Fed rate hike this month.", src: "https://www.investing.com/news/economy-news/dollar-holds-firm-as-french-fiscal-woes-keep-euro-on-back-foot-4930983", srcName: "Reuters (via Investing.com)", date: "2026-10-05" },
+  "US:two_year": { text: "The 2-year Treasury yield fell more than 3bp to 4.715% on Friday while the 10-year held near 5.085%, down less than 1bp, as traders weighed a hotter-than-expected September CPI (3.7% y/y) and Fed Chairman Kevin Warsh's comments.", src: "https://www.cnbc.com/2026/10/16/us-treasury-yields-investors-hot-inflation-data-.html", srcName: "CNBC", date: "2026-10-16" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
   "UK:base_rate": { text: "The ONS revised UK Q2 GDP growth up to 0.5% q/q from 0.4% (services +0.6%), reaffirming market bets on a 25bp Bank of England hike at the 5 November meeting; sterling rose from a two-month low.", src: "https://www.fxstreet.com/news/british-pound-moves-away-from-two-month-low-after-uk-q2-gdp-as-usd-retreats-ahead-of-pce-202609300731", srcName: "FXStreet", date: "2026-09-30" },
   "UK:two_year": { text: "Gilts led European bonds higher on Tuesday as energy prices retreated, with UK yields dropping as oil and gas hit fresh lows — a pause in a sell-off that had already pared Chancellor Healey's fiscal headroom to roughly £12bn ahead of the 28 October Budget.", src: "https://www.bloomberg.com/news/articles/2026-09-29/gilts-lead-european-bonds-higher-as-energy-prices-retreat", srcName: "Bloomberg", date: "2026-09-29" },
@@ -1337,8 +1343,8 @@ export const EARNINGS = {
         { t: "WFC", n: "Wells Fargo", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: "$1.84 (avg est)", estRev: null, actEps: "$1.87", actRev: "$21.9bn", px: null, note: "Q3 2026. Net income $5.95bn, EPS $1.87 on ~$21.9bn revenue (+2% y/y); shares fell on the revenue read." },
       ] },
       { date: "2026-10-14", rows: [
-        { t: "BAC", n: "Bank of America", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 results scheduled Wed 14 Oct before the open. Consensus not yet verified." },
-        { t: "MS", n: "Morgan Stanley", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 results scheduled Wed 14 Oct before the open. Consensus not yet verified." },
+        { t: "BAC", n: "Bank of America", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: null, estRev: null, actEps: "$0.91", actRev: "$30.0bn", px: null, note: "Q3 2026 (8-K). Net income $6.9bn, diluted EPS $0.91 (vs $1.04 a year earlier) on revenue net of interest expense of $30.0bn, up 3% y/y; net interest income $16.4bn, up 8%. Source: https://www.sec.gov/Archives/edgar/data/0000070858/000007085826000481/bac09302026ex992.htm" },
+        { t: "MS", n: "Morgan Stanley", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: null, estRev: null, actEps: "$3.03", actRev: "$20.3bn", px: null, note: "Q3 2026 (8-K). Net revenues $20.3bn vs $18.2bn a year earlier; net income $4.9bn, diluted EPS $3.03 (vs $2.80); Wealth Management record net revenues $9.1bn; ROTCE 22.6%. Source: https://www.sec.gov/Archives/edgar/data/0000895421/000089542126000288/a3q26msearningsrelease.htm" },
       ] },
     ] },
     { label: "Last week \u00b7 5\u20139 Oct", days: [

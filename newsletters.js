@@ -49,6 +49,18 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bloomberg-thebrink-disneycharacterai-20261017",
+    publication: "Bloomberg",
+    author: "Jonathan Randles",
+    series: "The Brink",
+    title: "The Brink: Disney makes a bid for AI talent",
+    date: "2026-10-17",
+    time: "16:00",
+    summary: "Workers at bankrupt Character.AI are being offered a lifeline from the media giant.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-17/disney-offers-soft-landing-to-staff-at-troubled-character-ai",
+    body: true,
+  },
+  {
     id: "nl-bloomberg-moneystuffpodcast-releasemefromthisdemon-20261016",
     publication: "Bloomberg",
     author: "Matt Levine",

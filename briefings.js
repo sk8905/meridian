@@ -100,12 +100,11 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-18",
-  time: "21:05 BST",
-  lede: "Wall Street ended a volatile week lower as AI-debt worries hit tech, with the Nasdaq down 2.1% on Friday, Brent touching $110 and the US 10-year at about 5.10%.",
+  time: "21:34 BST",
   bullets: [
-    { html: "<strong>Macro &mdash; Brent touched $110 a barrel on Friday,</strong> its first time at that level since May, as Iran escalated attacks in the Strait of Hormuz; WTI neared $100, at $99.02 for the November contract, up 2.6%.", src: "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-futures-mixed-amid-volatile-week-112939401.html", srcName: "Yahoo Finance", date: "2026-10-16" },
-    { html: "<strong>Bonds &mdash; the US 10-year Treasury yield was 5.10% at Friday&rsquo;s close, up 1bp,</strong> as the AI-debt tech sell-off capped a volatile week for markets.", src: "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-futures-mixed-amid-volatile-week-112939401.html", srcName: "Yahoo Finance", date: "2026-10-16" },
-    { html: "<strong>Equities &mdash; the Nasdaq Composite fell 2.1% to 26,140 on Friday,</strong> losing 573 points on AI-debt fears and posting its worst week since June; the S&amp;P 500 dropped 1.1% and the Dow 0.3%.", src: "https://www.cbsnews.com/news/tech-stocks-slide-ai-debt-concerns/", srcName: "CBS News", date: "2026-10-16" },
+    { html: "<strong>Macro &mdash; Brent closed Friday at $109.86 a barrel, up 3.7%,</strong> after touching $110 for the first time since May as Iran stepped up attacks on shipping near the Strait of Hormuz; WTI settled 3.5% higher at $101.41.", src: "https://www.cnbc.com/2026/10/16/oil-price-today-iran-strait-hormuz-ukraine-russia.html", srcName: "CNBC", date: "2026-10-16" },
+    { html: "<strong>Bonds &mdash; the US 10-year Treasury yield ended Friday at 5.085%, down less than 1bp,</strong> while the 2-year fell more than 3bp to 4.715% as traders weighed a hotter-than-expected September CPI of 3.7% y/y and comments from Fed Chairman Kevin Warsh.", src: "https://www.cnbc.com/2026/10/16/us-treasury-yields-investors-hot-inflation-data-.html", srcName: "CNBC", date: "2026-10-16" },
+    { html: "<strong>Equities &mdash; the Nasdaq Composite fell 2.14% on Friday to 26,140.03</strong> and lost 4.5% on the week, its worst since June, as worries over AI-buildout borrowing hit tech; the S&amp;P 500 dropped 1.09% to 7,659.44 and neocloud CoreWeave sank nearly 12%.", src: "https://www.cnbc.com/2026/10/15/stock-market-today-live-updates.html", srcName: "CNBC", date: "2026-10-16" },
     { html: "<strong>Credit &mdash; Permira Credit priced Menlo CLO VI, a $401.9m US CLO,</strong> its sixth US CLO and 21st globally, taking Global Liquid Credit assets under management to $9.5bn on closing.", src: "https://www.permira.com/news-and-insights/announcements/permira-credit-prices-menlo-clo-vi-at-4019-million", srcName: "Permira", date: "2026-10-16" },
   ],
 };
