@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-18T04:58:28.327Z",
+ "generated": "2026-10-18T11:36:06.291Z",
  "since": "2026-10-04",
  "firms": {
   "proskauerrose": {
@@ -86,17 +86,6 @@
    "errors": 1,
    "carried": 0
   },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5018,
-   "kept": 5,
-   "fetched": 5,
-   "errors": 0,
-   "carried": 0
-  },
   "macfarlanes": {
    "domains": [
     "www.macfarlanes.com"
@@ -105,6 +94,17 @@
    "urls": 2406,
    "kept": 3,
    "fetched": 3,
+   "errors": 0,
+   "carried": 0
+  },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5018,
+   "kept": 5,
+   "fetched": 5,
    "errors": 0,
    "carried": 0
   },
@@ -156,17 +156,6 @@
    "errors": 0,
    "carried": 0
   },
-  "sidley": {
-   "domains": [
-    "www.sidley.com"
-   ],
-   "sitemaps": 6,
-   "urls": 7188,
-   "kept": 2,
-   "fetched": 2,
-   "errors": 11,
-   "carried": 0
-  },
   "latham": {
    "domains": [
     "www.lw.com"
@@ -176,6 +165,17 @@
    "kept": 40,
    "fetched": 39,
    "errors": 1,
+   "carried": 0
+  },
+  "sidley": {
+   "domains": [
+    "www.sidley.com"
+   ],
+   "sitemaps": 8,
+   "urls": 7915,
+   "kept": 2,
+   "fetched": 2,
+   "errors": 9,
    "carried": 0
   },
   "ropesgray": {
@@ -214,7 +214,7 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16210,
+   "urls": 16208,
    "kept": 4,
    "fetched": 4,
    "errors": 0,
@@ -271,7 +271,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7747,
+   "urls": 7745,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -294,6 +294,18 @@
     "https://www.hlc.com/es/knowledge @2023-12-08",
     "https://www.hlc.com/en/knowledge/topic-centers/fintech-mentor-program @2026-01-06"
    ],
+   "carried": 0
+  },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 1,
+   "urls": 18703,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
    "carried": 0
   },
   "southsquare": {
@@ -324,18 +336,6 @@
    "kept": 18,
    "fetched": 18,
    "errors": 0,
-   "carried": 0
-  },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 1,
-   "urls": 18703,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
    "carried": 0
   },
   "cliffordchance": {
@@ -376,24 +376,6 @@
    ]
   },
   {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-venture-insights-the-changing-shape-of-venture-capital/",
-   "title": "Travers Smith's Venture Insights: The changing shape of Venture Capital",
-   "description": null,
-   "date": "2026-10-16",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-16"
-  },
-  {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/venture-capital-insights/",
-   "title": "Venture Capital Insights",
-   "description": null,
-   "date": "2026-10-16",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-07"
-  },
-  {
    "firm": "macfarlanes",
    "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
    "title": "Incorporating an LLP: direct tax considerations",
@@ -410,6 +392,24 @@
    "date": "2026-10-16",
    "dateSource": "datePublished",
    "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-venture-insights-the-changing-shape-of-venture-capital/",
+   "title": "Travers Smith's Venture Insights: The changing shape of Venture Capital",
+   "description": null,
+   "date": "2026-10-16",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/venture-capital-insights/",
+   "title": "Venture Capital Insights",
+   "description": null,
+   "date": "2026-10-16",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-07"
   },
   {
    "firm": "kirkland",
@@ -523,6 +523,15 @@
    "lastmod": "2026-10-15"
   },
   {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
+   "title": "News Listing",
+   "description": null,
+   "date": "2026-10-15",
+   "dateSource": "datePublished",
+   "lastmod": null
+  },
+  {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/whats-happening-in-digital-markets-competition-regulation-edition-1",
    "title": "What's happening in Digital Markets Competition Regulation? Edition 1",
@@ -539,15 +548,6 @@
    "date": "2026-10-15",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
-  },
-  {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
-   "description": null,
-   "date": "2026-10-15",
-   "dateSource": "datePublished",
-   "lastmod": null
   },
   {
    "firm": "latham",
@@ -843,15 +843,6 @@
    "dateProbe": []
   },
   {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/california-adopts-regulations-expanding-healthcare-transaction-review",
-   "title": "California Adopts Regulations Expanding Healthcare Transaction Review",
-   "description": null,
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
    "firm": "latham",
    "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Leading On-Demand Pay Provider DailyPay in Asset-Backed Securitization",
    "title": "Latham & Watkins Advises Leading On-Demand Pay Provider DailyPay in US$200 Million Asset-Backed Securitization",
@@ -867,6 +858,15 @@
    "description": "Treasury’s first outbound investment penalty demonstrates that the Outbound Program enforcement regime is active and monitoring cross-border investments.",
    "date": "2026-10-09",
    "dateSource": "page date label",
+   "lastmod": "2026-10-09"
+  },
+  {
+   "firm": "sidley",
+   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/california-adopts-regulations-expanding-healthcare-transaction-review",
+   "title": "California Adopts Regulations Expanding Healthcare Transaction Review",
+   "description": null,
+   "date": "2026-10-09",
+   "dateSource": "datePublished",
    "lastmod": "2026-10-09"
   },
   {
@@ -1080,21 +1080,21 @@
    "lastmod": "2026-10-12"
   },
   {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/knowledge-container/warfighting-readiness-what-298-billion-in-defence-spending-means-for-the-uk-real-estate-sector/",
-   "title": "\"Warfighting readiness\" - what £298 billion in defence spending means for the UK real estate sector",
-   "description": "Intro: The Government's Defence Investment Plan, published this summer, represents one of the most significant shifts in UK defence spending in a generation. Backed by £298 billion of investment over the next four years and built on the vision of the Strategic Defence Review ('SDR'), the plan signals a decisive move toward \"warfighting readiness\". This briefing examines what that may mean for the UK's real estate sector.",
-   "date": "2026-10-05",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-05"
-  },
-  {
    "firm": "macfarlanes",
    "url": "https://www.macfarlanes.com/insights/102o4fw/employment-tax-update-october-2026",
    "title": "Employment tax update - October 2026",
    "description": "This bulletin follows the release of the August and September Agent Updates (Issue 146 and Issue 147). In this issue we cover the content...",
    "date": "2026-10-05",
    "dateSource": "datePublished",
+   "lastmod": "2026-10-05"
+  },
+  {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/knowledge-container/warfighting-readiness-what-298-billion-in-defence-spending-means-for-the-uk-real-estate-sector/",
+   "title": "\"Warfighting readiness\" - what £298 billion in defence spending means for the UK real estate sector",
+   "description": "Intro: The Government's Defence Investment Plan, published this summer, represents one of the most significant shifts in UK defence spending in a generation. Backed by £298 billion of investment over the next four years and built on the vision of the Strategic Defence Review ('SDR'), the plan signals a decisive move toward \"warfighting readiness\". This briefing examines what that may mean for the UK's real estate sector.",
+   "date": "2026-10-05",
+   "dateSource": "<time datetime>",
    "lastmod": "2026-10-05"
   },
   {
