@@ -28,12 +28,12 @@ export const DATA_UPDATED = "2026-10-17";
 
 // When the refresh routine last ran (even if it found nothing new) — shown in the
 // topbar as "Last refresh" so a run can be confirmed regardless of data changes.
-export const LAST_CHECKED = "2026-10-17";
+export const LAST_CHECKED = "2026-10-18";
 // Time-of-day the routine last ran, as a pre-formatted string WITH a timezone
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "12:19 BST";
+export const LAST_CHECKED_TIME = "18:30 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -4128,6 +4128,8 @@ export const HEDGE_INTEL = [
   {"id":"hi300","hfId":"h73","date":"2025-09-12","type":"Strategy","headline":"Taconic Shuttering Flagship Hedge Fund in Broad Shakeup","summary":"Taconic is shutting its $1.8bn flagship multistrategy fund, spinning out its European credit strategy and reworking its C-suite, per an investor letter. The firm shrinks from about $4.5bn in assets to focus on North American credit and merger arbitrage. Frank Brosens moves from co-CIO to chairman; Nate Kempner becomes sole CIO and CEO.","outlet":"Bloomberg","url":"https://www.bloomberg.com/news/articles/2025-09-12/hedge-fund-taconic-shuttering-flagship-vehicle-in-broad-shakeup"},
   {"id":"hi301","hfId":"h122","date":"2025-09-28","type":"Fundraise","headline":"Avenue Sports Fund Closes on Over $1 Billion","summary":"Avenue Capital Group announced final close of the Avenue Sports Fund with over $1bn of capital commitments. The fund launched in November 2023 and invests debt and equity capital in sports teams, leagues and sports-adjacent businesses.","outlet":"Business Wire","url":"https://www.businesswire.com/news/home/20250928580486/en/Avenue-Sports-Fund-Closes-on-Over-%241-Billion"},
   {"id":"hi302","hfId":"h136","date":"2026-03-20","type":"Strategy","headline":"Singapore hedge fund manager FengHe to open Hong Kong office in second half of 2026","summary":"FengHe Fund Management plans to open a Hong Kong office in the second half of 2026, having leased space at Two International Finance Centre in Central and applying for an asset management licence. The firm currently manages about US$9 billion, per a Reuters report citing CEO Kwek Hyen Yong.","outlet":"Asia Asset Management","url":"https://www.asiaasset.com/equities/singapore-hedge-fund-manager-fenghe-to-open-hong-kong-office-in-second-half-of-2026-report-says/"},
+  {"id":"hi303","hfId":"h75","date":"2026-01-05","type":"Launch","headline":"Fulcrum launches new investment brand Horizon Global Partners","summary":"Fulcrum launched Horizon Global Partners, a wholly owned brand representing its equity thematic team. It is led by Fulcrum partner and board member Fawaz Chaudhry as Chief Investment Officer. It will manage a long/short equity strategy aiming to capture alpha across global equity markets with active risk controls.","outlet":"Fulcrum Asset Management","url":"https://fulcrumasset.com/news-media/news/fulcrum-launches-new-investment-brand-horizon-global-partners/"},
+  {"id":"hi304","hfId":"h75","date":"2026-04-20","type":"Hire","headline":"Fulcrum Asset Management names Richard Banh as General Counsel","summary":"Richard Banh has joined Fulcrum as General Counsel, reporting to managing partner Joe Davidson and overseeing the legal function. He joins from Fidante Partners Europe (part of Challenger Limited), where he spent 11 years as Head of Legal and Compliance and COO of the UK office.","outlet":"Fulcrum Asset Management","url":"https://fulcrumasset.com/news-media/news/fulcrum-asset-management-names-richard-banh-as-general-counsel/"},
 ];
 
 // 13F snapshot — the cross-fund read for the Dashboard ▸ Hedge Funds section.
