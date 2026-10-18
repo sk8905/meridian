@@ -2636,9 +2636,138 @@
    "kind": "manager",
    "name": "LGT Capital Partners",
    "priority": 24,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-18",
+   "events": [
+    {
+     "key": "2020-no-verified-event",
+     "date": "2020",
+     "what": "No LGT Capital Partners-specific 2020 event verified",
+     "source": "https://www.lgt.com/en/news/lgt-reports-good-results-and-strong-net-asset-inflows-in-2020/",
+     "status": "rejected",
+     "note": "No dated primary source for a 2020 LGT CP flagship close, M&A or leadership change found."
+    },
+    {
+     "key": "crown-global-secondaries-v-close",
+     "date": "2021-06-15",
+     "what": "Crown Global Secondaries V final close at $4.5bn hard cap",
+     "source": "https://www.debevoise.com/news/2021/06/debevoise-advises-lg",
+     "status": "present",
+     "recordId": "i983"
+    },
+    {
+     "key": "crown-secondaries-special-opportunities-ii-final-close",
+     "date": "2021-06-17",
+     "what": "LGT Capital Partners announces final close of Crown Secondaries Special Opportunities II at USD 1.57 billion",
+     "source": "https://www.lgtcp.com/lgt-capital-partners-announces-final-close-crown-secondaries-special-opportunities-ii-usd-157-0",
+     "recordId": "i1351",
+     "status": "present"
+    },
+    {
+     "key": "crown-impact-final-close-2022",
+     "date": "2022-06-16",
+     "what": "LGT Capital Partners closes debut impact fund Crown Impact at USD 550 million",
+     "source": "https://www.lgtcp.com/lgt-capital-partners-closes-debut-impact-fund-usd-550-million",
+     "recordId": "i1352",
+     "status": "present"
+    },
+    {
+     "key": "cape-v-final-close-2022",
+     "date": "2022-06-23",
+     "what": "LGT Capital Partners announces final close of Crown Asia-Pacific Private Equity V at USD 1.65 billion hard cap",
+     "source": "https://www.lgtcp.com/lgt-capital-partners-announces-final-close-crown-asia-pacific-private-equity-v-usd-165-billion-hard",
+     "recordId": "i1353",
+     "status": "present"
+    },
+    {
+     "key": "crown-co-investment-iii-final-2022",
+     "date": "2022-07-21",
+     "what": "Crown Co-Investment III $2.0bn final close",
+     "source": "https://www.unquote.com/tag/lgt-capital-partners",
+     "status": "present",
+     "recordId": "i974"
+    },
+    {
+     "key": "shell-sam-co-mandate-2023",
+     "date": "2023-05-17",
+     "what": "LGT Capital Partners appointed by Shell pension fund investors to manage private equity and infrastructure assets",
+     "source": "https://www.lgtcp.com/lgt-capital-partners-appointed-shell-pension-fund-investors-manage-private-equity-and",
+     "recordId": "i1354",
+     "status": "present"
+    },
+    {
+     "key": "crown-european-private-debt-iii-final-2023",
+     "date": "2023-07-25",
+     "what": "Crown European Private Debt III EUR1.2bn final close",
+     "source": "https://www.lgtcp.com",
+     "status": "present",
+     "recordId": "i966"
+    },
+    {
+     "key": "25th-anniversary-usd100bn-aum-2024",
+     "date": "2024-01-11",
+     "what": "LGT Capital Partners celebrates 25th anniversary, passes USD 100 billion in assets under management",
+     "source": "https://www.lgtcp.com/lgt-capital-partners-celebrates-25th-anniversary",
+     "recordId": "i1355",
+     "status": "present"
+    },
+    {
+     "key": "crown-global-secondaries-vi-final-close-2024",
+     "date": "2024-10-03",
+     "what": "LGT Capital Partners completes final close of Crown Global Secondaries VI above USD 7 billion",
+     "source": "https://lgtcp.com/files/2024-10/lgt_capital_partners_completes_final_close_of_cgs_vi_0.pdf",
+     "recordId": "i1356",
+     "status": "present"
+    },
+    {
+     "key": "idg-continuation-funds-2025",
+     "date": "2025-06-26",
+     "what": "LGT CP co-leads closing of IDG Capital USD 500m continuation funds",
+     "source": "https://www.lgtcp.com/lgt-capital-partners-co-leads-closing-idg-capitals-usd-500-million-continuation-funds",
+     "status": "missing",
+     "note": null
+    },
+    {
+     "key": "guggenheim-private-debt-vehicle-2026",
+     "date": "2026-01-08",
+     "what": "LGT Capital Partners leads Guggenheim's USD 250 million private debt vehicle",
+     "source": "https://www.guggenheiminvestments.com/firm/news/guggenheim-investments-private-debt-vehicle-lgt/",
+     "recordId": "i1357",
+     "status": "present"
+    },
+    {
+     "key": "sapphire-partners-team-2026",
+     "date": "2026-04-07",
+     "what": "LGT Capital Partners expands US venture platform with core Sapphire Partners fund-investing team",
+     "source": "https://www.lgtcp.com/lgt-capital-partners-expands-us-venture-capital-platform-core-fund-investing-team-sapphire-partners",
+     "recordId": "i1358",
+     "status": "present"
+    },
+    {
+     "key": "bizzozero-managing-partner-2026",
+     "date": "2026-05-28",
+     "what": "Marco Bizzozero to join LGT Capital Partners as Managing Partner and Executive Committee member",
+     "source": "https://www.lgtcp.com/marco-bizzozero-join-lgt-capital-partners-managing-partner-and-member-executive-committee",
+     "recordId": "i1359",
+     "status": "present"
+    },
+    {
+     "key": "legato-iv-clo-2026",
+     "date": "2026-07-29",
+     "what": "Legato IV CLO",
+     "source": "credit/js/data.js",
+     "status": "present",
+     "recordId": "i542"
+    },
+    {
+     "key": "credit-secondaries-launch-2026",
+     "date": "2026-08-04",
+     "what": "Debut credit secondaries strategy launch",
+     "source": "credit/js/data.js",
+     "status": "present",
+     "recordId": "i622"
+    }
+   ]
   },
   "m2": {
    "kind": "manager",
@@ -2911,25 +3040,348 @@
    "kind": "manager",
    "name": "Oak Hill Advisors (OHA)",
    "priority": 27,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-18",
+   "events": [
+    {
+     "key": "oha-2020-event",
+     "date": "2020",
+     "what": "No verifiable 2020 OHA event found",
+     "source": "n/a",
+     "status": "rejected",
+     "note": "Nothing citable for 2020."
+    },
+    {
+     "key": "oha-leadership-change",
+     "date": "2020",
+     "what": "Senior leadership/CIO change at OHA",
+     "source": "n/a",
+     "status": "rejected",
+     "note": "No OHA leadership change found; Glenn August remains founder/CEO."
+    },
+    {
+     "key": "trowe-announces-oha-acquisition",
+     "date": "2021-10-28",
+     "what": "T. Rowe Price to acquire Oak Hill Advisors for up to $4.2bn",
+     "source": "https://investors.troweprice.com/node/22601",
+     "recordId": "i1368",
+     "status": "present"
+    },
+    {
+     "key": "trowe-completes-oha-acquisition",
+     "date": "2021-12-29",
+     "what": "T. Rowe Price completes acquisition of Oak Hill Advisors",
+     "source": "https://www.prnewswire.com/news-releases/t-rowe-price-completes-acquisition-of-oak-hill-advisors-301451583.html",
+     "recordId": "i1369",
+     "status": "present"
+    },
+    {
+     "key": "ocredit-bdc-launch",
+     "date": "2023-10-02",
+     "what": "T. Rowe Price and OHA launch OCREDIT private credit BDC",
+     "source": "https://www.prnewswire.com/news-releases/t-rowe-price-and-oak-hill-advisors-launch-ocredit-private-credit-fund-301944105.html",
+     "recordId": "i1370",
+     "status": "present"
+    },
+    {
+     "key": "oha-strategic-credit-fund-iii-final-close",
+     "date": "2023-10-19",
+     "what": "OHA completes final close of $2.3bn OHA Strategic Credit Fund III",
+     "source": "https://www.prnewswire.com/news-releases/oha-completes-final-close-for-2-3-billion-flagship-distressed-fund-oha-strategic-credit-fund-iii-301961639.html",
+     "recordId": "i1371",
+     "status": "present"
+    },
+    {
+     "key": "oha-oneim-european-private-credit-jv",
+     "date": "2024-07-16",
+     "what": "OHA and OneIM European private credit partnership",
+     "source": "https://www.globenewswire.com/news-release/2024/07/16/2913993/0/en/OHA-and-OneIM-Launch-a-Partnership-to-Invest-in-European-Private-Credit.html",
+     "status": "rejected",
+     "note": "Held as i43 under OneIM (m34); not linked to OHA."
+    },
+    {
+     "key": "oha-clo-enhanced-equity-iii-final-close",
+     "date": "2025-09-03",
+     "what": "OHA announces final close of $1.1bn CLO Enhanced Equity Fund III",
+     "source": "https://www.globenewswire.com/news-release/2025/09/03/3143796/0/en/OHA-Announces-Final-Close-of-1-1-Billion-CLO-Equity-Fund-OHA-CLO-Enhanced-Equity-Fund-III.html",
+     "recordId": "i1372",
+     "status": "present"
+    },
+    {
+     "key": "oha-adia-european-special-situations",
+     "date": "2025-09-08",
+     "what": "ADIA commitment to OHA European Special Situations",
+     "source": "https://www.globenewswire.com/news-release/2025/09/08/3145830/0/en/OHA-Secures-Significant-Commitment-from-ADIA-for-European-Special-Situations-Strategy.html",
+     "status": "present",
+     "recordId": "i10"
+    },
+    {
+     "key": "oha-olend-senior-private-lending-final-close",
+     "date": "2025-12-11",
+     "what": "OHA announces final close of $17.7bn for Senior Private Lending strategy (OLEND)",
+     "source": "https://www.globenewswire.com/news-release/2025/12/11/3204221/0/en/OHA-Announces-Final-Close-of-17-7-Billion-of-Total-Available-Capital-for-Senior-Private-Lending-Strategy.html",
+     "recordId": "i1373",
+     "status": "present"
+    },
+    {
+     "key": "oflex-launch",
+     "date": "2026-03-19",
+     "what": "T. Rowe Price and OHA launch OFLEX",
+     "source": "https://www.prnewswire.com/news-releases/t-rowe-price-and-oak-hill-advisors-launch-multi-strategy-credit-interval-fund-oflex-for-us-wealth-clients-302718952.html",
+     "status": "present",
+     "recordId": "i531"
+    },
+    {
+     "key": "trowe-gsam-private-markets-fund",
+     "date": "2026-07-27",
+     "what": "T. Rowe Price / GSAM Private Markets Fund launch",
+     "source": "credit/js/data.js",
+     "status": "present",
+     "recordId": "i532"
+    },
+    {
+     "key": "crowdstreet-oflex",
+     "date": "2026-08-14",
+     "what": "CrowdStreet adds OFLEX",
+     "source": "credit/js/data.js",
+     "status": "present",
+     "recordId": "i642"
+    },
+    {
+     "key": "oha-hudson-clo-trigger-form-d",
+     "date": "2026-10-08",
+     "what": "Form D OHA Hudson CLO Trigger Fund",
+     "source": "credit/js/data.js",
+     "status": "present",
+     "recordId": "i992"
+    }
+   ]
   },
   "m18": {
    "kind": "manager",
    "name": "AlpInvest (Carlyle)",
    "priority": 28,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-18",
+   "events": [
+    {
+     "key": "asp-vii-final-close-2020",
+     "date": "2020-12-16",
+     "what": "AlpInvest completes ASP VII fundraising at $9bn hard cap",
+     "source": "https://carlyle.com/ja/node/33156",
+     "recordId": "i1360",
+     "status": "present"
+    },
+    {
+     "key": "acf-viii-final-close-2021",
+     "date": "2021-04-22",
+     "what": "AlpInvest closes eighth co-investment fund at $3.5bn",
+     "source": "https://www.carlyle.com/media-room/news-release-archive/alpinvest-partners-completes-fundraising-its-eighth-co-investment",
+     "recordId": "i1361",
+     "status": "present"
+    },
+    {
+     "key": "acf-viii-esg-facility-2021",
+     "date": "2021-05-10",
+     "what": "ESG-linked credit facility for ACF VIII",
+     "source": "https://www.carlyle.com/media-room/news-release-archive/alpinvest-partners-secures-esg-linked-credit-facility-eighth-co",
+     "status": "rejected",
+     "note": "Minor financing, below marquee threshold."
+    },
+    {
+     "key": "2022-events",
+     "date": "2022",
+     "what": "No major 2022 event found",
+     "source": "n/a",
+     "status": "rejected",
+     "note": "Nothing verifiable found for 2022; no verified leadership/ownership event 2020-2026."
+    },
+    {
+     "key": "lgp-continuation-fund-2023",
+     "date": "2023-12-21",
+     "what": "AlpInvest leads Leonard Green continuation fund",
+     "source": "https://carlyle.com/ja/node/37141",
+     "recordId": "i1362",
+     "status": "present"
+    },
+    {
+     "key": "cfo-first-2024",
+     "date": "2024-10-29",
+     "what": "AlpInvest closes $1bn collateralized fund obligation",
+     "source": "https://www.dakota.com/fundraising-news/carlyles-alplnvest-closes-1b-cfo-offering-access-to-four-funds",
+     "status": "missing",
+     "note": null
+    },
+    {
+     "key": "mubadala-partnership-2024",
+     "date": "2024-12-11",
+     "what": "AlpInvest and Mubadala form portfolio senior fund financing partnership",
+     "source": "https://www.mubadala.com/en/news/alpinvest-and-mubadala-establish-new-portfolio-senior-fund-financing-partnership",
+     "recordId": "i291",
+     "status": "present"
+    },
+    {
+     "key": "portfolio-finance-4bn-2025",
+     "date": "2025-04-07",
+     "what": "Portfolio finance platform raises over $4bn",
+     "source": "https://carlyle.com/media-room/news-release-archive/alpinvest-partners-raises-over-4-billion-portfolio-finance-platform",
+     "status": "present",
+     "recordId": "i16"
+    },
+    {
+     "key": "aco-ix-final-close-2025",
+     "date": "2025-06-03",
+     "what": "AlpInvest closes ninth co-investment fund at $4.1bn",
+     "source": "https://www.alternativeswatch.com/2025/06/03/alpinvest-closes-ninth-co-investment-fund/",
+     "recordId": "i1363",
+     "status": "present"
+    },
+    {
+     "key": "cfo-second-2025",
+     "date": "2025-08-11",
+     "what": "Second CFO closes at $1.25bn",
+     "source": "https://pulse2.com/carlyle-alpinvest-closing-of-second-cfo-offering-at-1-25-billion",
+     "status": "rejected",
+     "note": "Only a secondary-source date; not an original release date."
+    },
+    {
+     "key": "asp-viii-final-close-2025",
+     "date": "2025-09-04",
+     "what": "Secondaries Fund VIII $15bn hard cap; $20bn total strategy",
+     "source": "https://www.alternativeswatch.com/2025/09/04/carlyle-alpinvest-secondaries-asp-fund-viii-20-billion/",
+     "status": "present",
+     "recordId": "i58"
+    },
+    {
+     "key": "eldridge-credit-platform-2026",
+     "date": "2026-01-22",
+     "what": "Eldridge and Carlyle AlpInvest close Eldridge Diversified Credit Fund I",
+     "source": "https://alternativecreditinvestor.com/2026/01/22/eldridge-and-carlyle-close-inaugural-diversified-credit-fund/",
+     "recordId": "i1364",
+     "status": "present"
+    },
+    {
+     "key": "q1-2026-record-inflows",
+     "date": "2026-05-07",
+     "what": "Q1 2026 record $6.8bn inflows; AUM $107bn",
+     "source": "https://www.alternativeswatch.com/2026/05/07/carlyle-q1-earnings-alpinvest-wealth-credit/",
+     "status": "rejected",
+     "note": "Earnings coverage, not a firm event."
+    },
+    {
+     "key": "atom-fund-ii-final-close-2026",
+     "date": "2026-07-15",
+     "what": "AlpInvest Atom Fund II final close at $1.7bn hard cap",
+     "source": "https://pulse2.com/carlyle-alpinvest-closes-alpinvest-atom-fund-ii-at-1-7-billion-hard-cap/",
+     "status": "missing",
+     "note": null
+    }
+   ]
   },
   "m82": {
    "kind": "manager",
    "name": "TPG (TPG Angelo Gordon)",
    "priority": 29,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-18",
+   "events": [
+    {
+     "key": "angelo-gordon-leadership-succession-2020",
+     "date": "2020-09-29",
+     "what": "Angelo Gordon co-founder Michael Gordon to step down as CEO; Schwartz and Baumgarten to become co-CEOs",
+     "source": "https://news.bloomberglaw.com/esg/angelo-gordon-chief-executive-to-step-down-succeeded-by-co-cios",
+     "recordId": "i1365",
+     "status": "present"
+    },
+    {
+     "key": "tpg-ipo-pricing-2022",
+     "date": "2022-01-12",
+     "what": "TPG prices Nasdaq IPO at $29.50",
+     "source": "https://shareholders.tpg.com/node/6481/pdf",
+     "status": "missing",
+     "note": null
+    },
+    {
+     "key": "tpg-to-acquire-angelo-gordon-2023",
+     "date": "2023-05-15",
+     "what": "TPG agrees to acquire Angelo Gordon in a deal valued at about $2.7bn",
+     "source": "https://shareholders.tpg.com/news-releases/news-release-details/tpg-acquire-angelo-gordon",
+     "recordId": "i1366",
+     "status": "present"
+    },
+    {
+     "key": "tpg-completes-angelo-gordon-acquisition-2023",
+     "date": "2023-11-02",
+     "what": "TPG completes acquisition of Angelo Gordon, creating TPG Angelo Gordon",
+     "source": "https://shareholders.tpg.com/news-releases/news-release-details/tpg-completes-acquisition-angelo-gordon",
+     "recordId": "i1367",
+     "status": "present"
+    },
+    {
+     "key": "twin-brook-fund-v-final-close-2024",
+     "date": "2024-08-06",
+     "what": "TPG final close of fifth Twin Brook fund at $3.9bn (Q2 2024 earnings call)",
+     "source": "https://shareholders.tpg.com/static-files/8ab43bae-d54c-4ca4-8cbb-7f1b7a898765",
+     "status": "missing",
+     "note": null
+    },
+    {
+     "key": "baumgarten-departs-tpg-ag-2024",
+     "date": "2024-10-09",
+     "what": "Josh Baumgarten leaves TPG role",
+     "source": "https://news.bloomberglaw.com/bankruptcy-law/beach-point-taps-tpg-ag-blackstone-alum-baumgarten-as-cio",
+     "status": "rejected",
+     "note": "No source gives an exact departure date."
+    },
+    {
+     "key": "europe-realty-fund-iv-close-2025",
+     "date": "2025-05-08",
+     "what": "TPG AG Europe Realty Fund IV close",
+     "source": "https://www.tpg.com/news-and-insights/tpg-angelo-gordons-real-estate-platform-in-europe",
+     "status": "present",
+     "recordId": "i332"
+    },
+    {
+     "key": "twin-brook-coller-cv-2025",
+     "date": "2025-08-12",
+     "what": "TPG Twin Brook and Coller $3bn continuation vehicle",
+     "source": "https://www.tpg.com/news-and-insights/tpg-twin-brook-closes-3-billion-continuation-vehicle-led-by-coller-capital",
+     "status": "present",
+     "recordId": "d109"
+    },
+    {
+     "key": "ag-realty-value-fund-xi-close",
+     "date": "2026",
+     "what": "AG Realty Value Fund XI final close",
+     "source": "n/a",
+     "status": "rejected",
+     "note": "No close announcement found; only Form D filings."
+    },
+    {
+     "key": "tpg-advantage-direct-lending-2026",
+     "date": "2026-01-09",
+     "what": "TPG launches upper-middle-market direct lending",
+     "source": "https://www.creditflux.com/Funds/2026-01-09/TPG-to-launch-upper-middle-market-direct-lending-business",
+     "status": "present",
+     "recordId": "i245"
+    },
+    {
+     "key": "tpg-ag-dcm-dutch-ios-2026",
+     "date": "2026-03-01",
+     "what": "TPG AG and DCM EUR 200m Dutch IOS venture",
+     "source": "https://realassets.ipe.com/news/dcm-tpg-angelo-gordon-launch-200m-dut",
+     "status": "present",
+     "recordId": "i148"
+    },
+    {
+     "key": "tpg-q2-2026-results",
+     "date": "2026-08-03",
+     "what": "TPG Q2 2026 results, credit AUM $101bn",
+     "source": "https://www.tpg.com/news-and-insights/tpg-reports-second-quarter-2026-results",
+     "status": "present",
+     "recordId": "i570"
+    }
+   ]
   },
   "m64": {
    "kind": "manager",
