@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-17T22:39:32.225Z",
- "since": "2026-10-03",
+ "generated": "2026-10-18T04:58:28.327Z",
+ "since": "2026-10-04",
  "firms": {
   "proskauerrose": {
    "domains": [
@@ -97,6 +97,17 @@
    "errors": 0,
    "carried": 0
   },
+  "macfarlanes": {
+   "domains": [
+    "www.macfarlanes.com"
+   ],
+   "sitemaps": 4,
+   "urls": 2406,
+   "kept": 3,
+   "fetched": 3,
+   "errors": 0,
+   "carried": 0
+  },
   "simmons": {
    "domains": [
     "www.simmons-simmons.com"
@@ -108,17 +119,6 @@
    "errors": 0,
    "samples": [],
    "disallowed": 1,
-   "carried": 0
-  },
-  "macfarlanes": {
-   "domains": [
-    "www.macfarlanes.com"
-   ],
-   "sitemaps": 4,
-   "urls": 2406,
-   "kept": 3,
-   "fetched": 3,
-   "errors": 0,
    "carried": 0
   },
   "aoshearman": {
@@ -156,6 +156,17 @@
    "errors": 0,
    "carried": 0
   },
+  "sidley": {
+   "domains": [
+    "www.sidley.com"
+   ],
+   "sitemaps": 6,
+   "urls": 7188,
+   "kept": 2,
+   "fetched": 2,
+   "errors": 11,
+   "carried": 0
+  },
   "latham": {
    "domains": [
     "www.lw.com"
@@ -165,17 +176,6 @@
    "kept": 40,
    "fetched": 39,
    "errors": 1,
-   "carried": 0
-  },
-  "sidley": {
-   "domains": [
-    "www.sidley.com"
-   ],
-   "sitemaps": 7,
-   "urls": 7584,
-   "kept": 2,
-   "fetched": 2,
-   "errors": 10,
    "carried": 0
   },
   "ropesgray": {
@@ -214,7 +214,7 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16209,
+   "urls": 16210,
    "kept": 4,
    "fetched": 4,
    "errors": 0,
@@ -296,18 +296,6 @@
    ],
    "carried": 0
   },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 1,
-   "urls": 18703,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
-   "carried": 0
-  },
   "southsquare": {
    "domains": [
     "southsquare.com"
@@ -333,9 +321,21 @@
    ],
    "sitemaps": 9,
    "urls": 16342,
-   "kept": 19,
-   "fetched": 19,
+   "kept": 18,
+   "fetched": 18,
    "errors": 0,
+   "carried": 0
+  },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 1,
+   "urls": 18703,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
    "carried": 0
   },
   "cliffordchance": {
@@ -523,15 +523,6 @@
    "lastmod": "2026-10-15"
   },
   {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
-   "description": null,
-   "date": "2026-10-15",
-   "dateSource": "datePublished",
-   "lastmod": null
-  },
-  {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/whats-happening-in-digital-markets-competition-regulation-edition-1",
    "title": "What's happening in Digital Markets Competition Regulation? Edition 1",
@@ -548,6 +539,15 @@
    "date": "2026-10-15",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
+   "title": "News Listing",
+   "description": null,
+   "date": "2026-10-15",
+   "dateSource": "datePublished",
+   "lastmod": null
   },
   {
    "firm": "latham",
@@ -843,6 +843,15 @@
    "dateProbe": []
   },
   {
+   "firm": "sidley",
+   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/california-adopts-regulations-expanding-healthcare-transaction-review",
+   "title": "California Adopts Regulations Expanding Healthcare Transaction Review",
+   "description": null,
+   "date": "2026-10-09",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-09"
+  },
+  {
    "firm": "latham",
    "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Leading On-Demand Pay Provider DailyPay in Asset-Backed Securitization",
    "title": "Latham & Watkins Advises Leading On-Demand Pay Provider DailyPay in US$200 Million Asset-Backed Securitization",
@@ -858,15 +867,6 @@
    "description": "Treasury’s first outbound investment penalty demonstrates that the Outbound Program enforcement regime is active and monitoring cross-border investments.",
    "date": "2026-10-09",
    "dateSource": "page date label",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/california-adopts-regulations-expanding-healthcare-transaction-review",
-   "title": "California Adopts Regulations Expanding Healthcare Transaction Review",
-   "description": null,
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
    "lastmod": "2026-10-09"
   },
   {
