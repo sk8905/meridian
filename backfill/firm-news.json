@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-18T18:55:48.446Z",
+ "generated": "2026-10-18T22:41:30.580Z",
  "since": "2026-10-04",
  "firms": {
   "proskauerrose": {
@@ -64,17 +64,6 @@
    ],
    "carried": 0
   },
-  "hsf": {
-   "domains": [
-    "www.hsfkramer.com"
-   ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 1,
-   "carried": 0
-  },
   "slaughtermay": {
    "domains": [
     "www.slaughterandmay.com"
@@ -86,15 +75,15 @@
    "errors": 0,
    "carried": 0
   },
-  "traverssmith": {
+  "hsf": {
    "domains": [
-    "www.traverssmith.com"
+    "www.hsfkramer.com"
    ],
-   "sitemaps": 1,
-   "urls": 5018,
-   "kept": 5,
-   "fetched": 5,
-   "errors": 0,
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 1,
    "carried": 0
   },
   "macfarlanes": {
@@ -105,6 +94,17 @@
    "urls": 2406,
    "kept": 3,
    "fetched": 3,
+   "errors": 0,
+   "carried": 0
+  },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5018,
+   "kept": 5,
+   "fetched": 5,
    "errors": 0,
    "carried": 0
   },
@@ -128,21 +128,10 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 16550,
+   "urls": 16540,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
-   "carried": 0
-  },
-  "latham": {
-   "domains": [
-    "www.lw.com"
-   ],
-   "sitemaps": 9,
-   "urls": 20207,
-   "kept": 24,
-   "fetched": 23,
-   "errors": 1,
    "carried": 0
   },
   "kirkland": {
@@ -154,6 +143,17 @@
    "kept": 40,
    "fetched": 40,
    "errors": 0,
+   "carried": 0
+  },
+  "latham": {
+   "domains": [
+    "www.lw.com"
+   ],
+   "sitemaps": 9,
+   "urls": 20207,
+   "kept": 22,
+   "fetched": 21,
+   "errors": 1,
    "carried": 0
   },
   "whitecase": {
@@ -208,16 +208,16 @@
    ],
    "carried": 0
   },
-  "davispolk": {
+  "cleary": {
    "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
    ],
-   "sitemaps": 11,
-   "urls": 16208,
-   "kept": 4,
-   "fetched": 4,
-   "errors": 0,
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 2,
    "carried": 0
   },
   "stephensonharwood": {
@@ -250,30 +250,15 @@
    "errors": 0,
    "carried": 0
   },
-  "reedsmith": {
+  "davispolk": {
    "domains": [
-    "www.reedsmith.com"
+    "www.davispolk.com",
+    "davispolk.com"
    ],
-   "sitemaps": 5,
-   "urls": 11581,
-   "kept": 14,
-   "fetched": 14,
-   "errors": 0,
-   "carried": 0
-  },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "governance.weil.com",
-    "restructuring.weil.com",
-    "eurorestructuring.weil.com",
-    "tax.weil.com",
-    "european-disputes-blog.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7745,
-   "kept": 40,
-   "fetched": 40,
+   "sitemaps": 11,
+   "urls": 16208,
+   "kept": 4,
+   "fetched": 4,
    "errors": 0,
    "carried": 0
   },
@@ -296,16 +281,15 @@
    ],
    "carried": 0
   },
-  "cleary": {
+  "reedsmith": {
    "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
+    "www.reedsmith.com"
    ],
-   "sitemaps": 1,
-   "urls": 18703,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
+   "sitemaps": 5,
+   "urls": 11581,
+   "kept": 14,
+   "fetched": 14,
+   "errors": 0,
    "carried": 0
   },
   "southsquare": {
@@ -333,8 +317,24 @@
    ],
    "sitemaps": 9,
    "urls": 16342,
-   "kept": 18,
-   "fetched": 18,
+   "kept": 17,
+   "fetched": 17,
+   "errors": 0,
+   "carried": 0
+  },
+  "weil": {
+   "domains": [
+    "www.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "tax.weil.com",
+    "european-disputes-blog.weil.com"
+   ],
+   "sitemaps": 36,
+   "urls": 7745,
+   "kept": 40,
+   "fetched": 40,
    "errors": 0,
    "carried": 0
   },
@@ -376,24 +376,6 @@
    ]
   },
   {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-venture-insights-the-changing-shape-of-venture-capital/",
-   "title": "Travers Smith's Venture Insights: The changing shape of Venture Capital",
-   "description": null,
-   "date": "2026-10-16",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-16"
-  },
-  {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/venture-capital-insights/",
-   "title": "Venture Capital Insights",
-   "description": null,
-   "date": "2026-10-16",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-07"
-  },
-  {
    "firm": "macfarlanes",
    "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
    "title": "Incorporating an LLP: direct tax considerations",
@@ -410,6 +392,24 @@
    "date": "2026-10-16",
    "dateSource": "datePublished",
    "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-venture-insights-the-changing-shape-of-venture-capital/",
+   "title": "Travers Smith's Venture Insights: The changing shape of Venture Capital",
+   "description": null,
+   "date": "2026-10-16",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/venture-capital-insights/",
+   "title": "Venture Capital Insights",
+   "description": null,
+   "date": "2026-10-16",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-07"
   },
   {
    "firm": "kirkland",
@@ -437,15 +437,6 @@
    "date": "2026-10-16",
    "dateSource": "page date label",
    "lastmod": "2026-10-16"
-  },
-  {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
-   "title": "Publications",
-   "description": null,
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": null
   },
   {
    "firm": "linklaters",
@@ -485,15 +476,6 @@
    "date": "2026-10-15",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
-  },
-  {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
-   "description": null,
-   "date": "2026-10-15",
-   "dateSource": "datePublished",
-   "lastmod": null
   },
   {
    "firm": "mayerbrown",
@@ -562,15 +544,6 @@
    "lastmod": "2026-10-14"
   },
   {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026",
-   "title": "London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026",
-   "description": "The Global Chair of Latham's Private Capital Practice was recognized in the prestigious list for the fifth consecutive year.",
-   "date": "2026-10-13",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-13"
-  },
-  {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/award/2026/10/american-bankruptcy-institute-40-under-40",
    "title": "Partner Aparna Yenamandra Among American Bankruptcy Institute’s “40 Under 40”",
@@ -587,6 +560,15 @@
    "date": "2026-10-13",
    "dateSource": "page date label",
    "lastmod": null
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026",
+   "title": "London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026",
+   "description": "The Global Chair of Latham's Private Capital Practice was recognized in the prestigious list for the fifth consecutive year.",
+   "date": "2026-10-13",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-13"
   },
   {
    "firm": "klgates",
@@ -690,15 +672,6 @@
    "lastmod": "2026-10-08"
   },
   {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/The Growth Rocketship Deep Research Bold Bets AI Inside Maverick Capital Portfolios",
-   "title": "The Growth Rocketship: Deep Research, Bold Bets, and AI — Inside Maverick Capital’s US$15 Billion Portfolios",
-   "description": "Latham speaks with Maverick Capital’s General Counsel and Chief Compliance Officer about what it takes to oversee legal risk and compliance across a US$15 billion platform spanning public equities, venture capital, and AI-driven semiconductor investing.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/award/2026/10/tmt-finance-awards-digital-infrastructure-legal-advisor-of-the-year",
    "title": "Kirkland’s Digital Infrastructure Practice Honored at TMT Finance Awards",
@@ -706,6 +679,15 @@
    "date": "2026-10-08",
    "dateSource": "page date label",
    "lastmod": null
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/insights/2026/10/The Growth Rocketship Deep Research Bold Bets AI Inside Maverick Capital Portfolios",
+   "title": "The Growth Rocketship: Deep Research, Bold Bets, and AI — Inside Maverick Capital’s US$15 Billion Portfolios",
+   "description": "Latham speaks with Maverick Capital’s General Counsel and Chief Compliance Officer about what it takes to oversee legal risk and compliance across a US$15 billion platform spanning public equities, venture capital, and AI-driven semiconductor investing.",
+   "date": "2026-10-08",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-08"
   },
   {
    "firm": "klgates",
@@ -730,15 +712,6 @@
    "url": "https://www.reedsmith.com/our-insights/blogs/ship-law-log/102o4rx/arrest-of-vessels-under-the-arrest-convention-1952-charterers-debts-and-privile/",
    "title": "Arrest of Vessels Under the Arrest Convention 1952: Charterer",
    "description": "The Reed Smith Paris Shipping team includes Andrew Tetley, Ana Atallah, Emmanuelle Faivre, Aurélie Lopez, Antoine Guillemot, Diana...",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/09/release-of-surplus-from-db-pension-schemes-proposed-new-rules",
-   "title": "Release of Surplus From DB Pension Schemes: Proposed New Rules",
-   "description": "Proposed New Surplus Release Rules The Pension Schemes Act 2026 gives trustees new powers to release surplus from ongoing DB schemes. It also",
    "date": "2026-10-08",
    "dateSource": "datePublished",
    "lastmod": "2026-10-08"
@@ -882,15 +855,6 @@
    "lastmod": "2026-10-12"
   },
   {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/knowledge-container/warfighting-readiness-what-298-billion-in-defence-spending-means-for-the-uk-real-estate-sector/",
-   "title": "\"Warfighting readiness\" - what £298 billion in defence spending means for the UK real estate sector",
-   "description": "Intro: The Government's Defence Investment Plan, published this summer, represents one of the most significant shifts in UK defence spending in a generation. Backed by £298 billion of investment over the next four years and built on the vision of the Strategic Defence Review ('SDR'), the plan signals a decisive move toward \"warfighting readiness\". This briefing examines what that may mean for the UK's real estate sector.",
-   "date": "2026-10-05",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-05"
-  },
-  {
    "firm": "macfarlanes",
    "url": "https://www.macfarlanes.com/insights/102o4fw/employment-tax-update-october-2026",
    "title": "Employment tax update - October 2026",
@@ -900,28 +864,19 @@
    "lastmod": "2026-10-05"
   },
   {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/knowledge-container/warfighting-readiness-what-298-billion-in-defence-spending-means-for-the-uk-real-estate-sector/",
+   "title": "\"Warfighting readiness\" - what £298 billion in defence spending means for the UK real estate sector",
+   "description": "Intro: The Government's Defence Investment Plan, published this summer, represents one of the most significant shifts in UK defence spending in a generation. Backed by £298 billion of investment over the next four years and built on the vision of the Strategic Defence Review ('SDR'), the plan signals a decisive move toward \"warfighting readiness\". This briefing examines what that may mean for the UK's real estate sector.",
+   "date": "2026-10-05",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-05"
+  },
+  {
    "firm": "latham",
    "url": "https://www.lw.com/en/insights/2026/10/Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
    "title": "Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
    "description": "During the 2026 legislative session, California enacted more than two dozen AI laws regulating transparency, chatbot safety, automated decision-making, and other domains.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises ECP on Continuation Vehicle for Next Wave Energy Partners",
-   "title": "Latham & Watkins Advises ECP on US$834 Million Continuation Vehicle for Next Wave Energy Partners",
-   "description": "Multidisciplinary investment funds, M&A, and tax team represented the investment firm in a continuation fund transaction involving energy transition infrastructure.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises MaxSolar Infrastructure Financing",
-   "title": "Latham & Watkins Advises MaxSolar on €155 Million Infrastructure Financing",
-   "description": "Finance team represents leading independent power producer in the transaction.",
    "date": "2026-10-05",
    "dateSource": "page date label",
    "lastmod": "2026-10-05"
