@@ -3884,6 +3884,11 @@ export const FEED_SOURCES = [
   { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 14 }, // Economy
   { url: "https://www.cnbc.com/id/20409666/device/rss/rss.html", source: "CNBC", region: "US", cap: 12 }, // Markets
   { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Finance
+  // Top News + World (owner 2026-10-18: "News hasn't updated since 10am" on a Sunday) —
+  // the trade press and the Economy/Markets/Finance feeds go quiet at weekends, but
+  // CNBC's front page keeps publishing markets/policy stories. Same quality cull applies.
+  { url: "https://www.cnbc.com/id/100003114/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Top News
+  { url: "https://www.cnbc.com/id/100727362/device/rss/rss.html", source: "CNBC", region: "GEN", cap: 6 },  // World
   { url: "https://feeds.content.dowjones.io/public/rss/mw_topstories", source: "MarketWatch", region: "US", cap: 5, core: true },
   { url: "https://www.federalreserve.gov/feeds/press_monetary.xml", source: "Federal Reserve", region: "US", cap: 6, filter: false },
   // OECD — official macro desk (Interim Economic Outlook, growth/inflation
@@ -3979,7 +3984,7 @@ const FEED_MACRO_RE = new RegExp([
   // indices / rates / commodities / FX (macro-level moves)
   "s&p 500|s&p500|\\bs&p\\b", "nasdaq", "dow jones|\\bdow\\b", "\\bftse\\b", "nikkei", "\\bdax\\b", "stoxx",
   "wall street", "stock market|stock-market", "\\bindex\\b|indices|equit", "treasur", "\\byield", "\\bgilt", "\\bbond",
-  "\\bbund", "\\boil\\b|brent|crude|\\bopec\\b", "\\bgold\\b", "dollar|sterling|\\bpound\\b|\\beuro\\b|\\byen\\b",
+  "\\bbunds?\\b", "\\boil\\b|brent|crude|\\bopec\\b", "\\bgold\\b", "dollar|sterling|\\bpound\\b|\\beuro\\b|\\byen\\b",
   // NB: bare move-verbs (rally/slump/sell-off) were removed — index-level moves are
   // caught by the index/Wall-Street terms above, so dropping them keeps single-stock
   // "share rally" notes out.
@@ -4453,12 +4458,21 @@ const FEED_LEGAL_OFFSCOPE_RE = /\bjailed\b|struck off|\bopen thread\b|apprentic|
 // The small-ticket US asset-based-lending wire (ABF Journal): a single-digit / low
 // two-digit "$15MM" facility for an uncovered borrower is below the wire's universe.
 const FEED_SMALL_TICKET_RE = /\$\s?\d{1,2}(?:\.\d+)?\s?MM\b/;
+// Sport (owner 2026-10-18: an AP football round-up — "First Bundesliga loss for Freiburg…"
+// — reached News because "Bundesliga" read as "Bund"). A headline in sport vocabulary is
+// dropped from every source except the reader's own curated streams, UNLESS it is plainly
+// the business of sport — a takeover, stake, valuation, debt or listing (FEED_SPORT_BIZ_RE).
+// "trade" / "deal" alone are player moves here, not finance, so they don't rescue it.
+export const FEED_SPORTS_RE = /\b(?:bundesliga|premier league|la liga|laliga|serie a|ligue 1|eredivisie|champions league|europa league|conference league|uefa|fifa|world cup|euro 20\d\d|six nations|super bowl|\bnfl\b|\bnba\b|\bmlb\b|\bnhl\b|\bmls\b|\bncaa\b|\bwnba\b|\bpga\b|\bufc\b|grand slam|wimbledon|us open (?:tennis|golf)|roland garros|formula (?:1|one)|\bf1\b|grand prix|motogp|nascar|ryder cup|the masters|olympics?|paralympics?|cricket|\bipl\b|test match|rugby|footballers?|soccer|striker|midfielder|goalkeeper|quarterback|touchdown|home runs?|hat[- ]trick|unbeaten|undefeated|relegat\w*|playoffs?|semi-?finals?|quarter-?finals?|derby|coach(?:es|ed)?|manager sacked|transfer window|kick-?off|halftime|stoppage time)\b/i;
+export const FEED_SPORT_BIZ_RE = /\b(?:takeover|buyout|private equity|stake|valuation|valued at|sale of|sells?|acquir\w*|investor|investment|fund|bonds?|debt|loans?|refinanc\w*|ipo|listing|shares|broadcast(?:ing)? rights|media rights|sponsorship|revenue|profit|losses|bankrupt\w*|administration|insolven\w*)\b|[$€£]\s?\d|\b\d+(?:\.\d+)?\s?(?:bn|billion|m|million)\b/i;
+export function feedSport(title) { return FEED_SPORTS_RE.test(String(title || "")) && !FEED_SPORT_BIZ_RE.test(String(title || "")); }
 export function feedQualityKeep(it) {
   const s = it.source || "";
   if (feedBanned(it)) return false;                          // owner-banned outlets — never shown, from any feed
   if (FEED_LOWTIER.has(s)) return false;
   if (FEED_LIFESTYLE_HARD_RE.test(it.title)) return false;   // recipes/obituaries/horoscopes… never finance, even with a stray "gold"
   const ownStream = it.myft || it.substack || it.research;   // the reader's own curated streams
+  if (!ownStream && feedSport(it.title)) return false;       // sport results / transfers — never the wire (business of sport kept)
   if (!ownStream && FEED_PERSONAL_RE.test(it.title)) return false;
   if (!ownStream && FEED_OFFSCOPE_ANY_RE.test(it.title)) return false;
   if (it.legal && FEED_LEGAL_OFFSCOPE_RE.test(it.title)) return false;

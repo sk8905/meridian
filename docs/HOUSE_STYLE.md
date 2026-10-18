@@ -232,7 +232,11 @@ to keep pinned/full-height on these three sections.
   editorial. **When in doubt, leave
   it out** — the wire is a curated universe, not a general feed.
   **Scope gates & audit (2026-10-15).** `feedQualityKeep` also drops, from every source
-  except the reader's own curated streams (myFT / Substack / research): first-person and
+  except the reader's own curated streams (myFT / Substack / research): **sport** — results,
+  fixtures, player moves (`feedSport()` / `FEED_SPORTS_RE`, owner 2026-10-18), checked before
+  the premium bypass, keeping only the business of sport (takeover, stake, valuation, media
+  rights, debt — `FEED_SPORT_BIZ_RE`); a word that merely contains a finance term never
+  qualifies a headline ("Bundesliga" is not "Bund" — the macro gate matches `\bbunds?\b`); first-person and
   personal-finance stories (`FEED_PERSONAL_RE` — "I lost my home … I rent", mortgage /
   401(k) / Social Security / credit-score advice); out-of-scope central banks, EM
   development finance and disaster live blogs named anywhere in a headline
@@ -1942,7 +1946,7 @@ item keeps a real outbound source link (R7).
 > `tests/reader-terms.mjs`. The old ≤30% paywalled-share cap was removed.
 - Associated Press (`apnews.com`) — openly-readable global wire (via Google News bridge)
 - **Added 2026-10 (owner-approved, trialled in-pane by `scripts/source-trial.mjs`):** European Central Bank, Bank of Japan, Bank of Canada (central-bank feeds); Euronews Business; AltAssets (private markets). The Guardian and Above the Law also passed the trial but stay OFF (removed 2026-09; not re-added without the owner's say-so). Law Society Gazette is pending — its feed returned no items in the trial.
-- CNBC (`cnbc.com`)
+- CNBC (`cnbc.com`) — Economy, Markets, Finance, plus **Top News and World** (added 2026-10-18 so the wire keeps flowing at weekends and evenings, when the trade press and the section feeds go quiet; same quality cull)
 - MarketWatch
 - City AM (`cityam.com`)
 - South China Morning Post (`scmp.com`)

@@ -178,4 +178,18 @@ for (const it of [
   { source: "Some Wire", title: "Bank of England holds rates", url: "https://www.channelnewsasia.com/business/y" },
 ]) check(feedBanned(it) && !feedQualityKeep(it), `banned outlet: "${it.source}" / ${new URL(it.url).hostname} is dropped`);
 check(!feedBanned({ source: "CNBC", title: "x", url: "https://www.cnbc.com/x" }), "banned outlet: CNBC is not caught by the CNA ban");
+// Sport (owner 2026-10-18): results, fixtures and player moves never reach the wire —
+// even from premium newsrooms, and even when a word like "Bundesliga" contains "Bund" —
+// but the BUSINESS of sport (takeovers, stakes, media rights, debt) still does.
+for (const [title, source] of [
+  ["First Bundesliga loss for Freiburg, Monaco no longer unbeaten in France and Madrid without Vinícius", "Associated Press"],
+  ["Lakers trade star guard in NBA deal", "Associated Press"],
+  ["Arsenal top the Premier League after win over Chelsea", "Reuters"],
+  ["Real Madrid striker ruled out of derby", "Bloomberg"],
+]) check(!feedQualityKeep({ title, source, url: "https://apnews.com/x" }), `sport is dropped: "${title}" (${source})`);
+for (const [title, source] of [
+  ["Chelsea owners agree £2.5bn sale to private equity group", "Reuters"],
+  ["Bundesliga clubs vote on investor deal for media rights", "Associated Press"],
+  ["German Bund yields rise as ECB signals hike", "Associated Press"],
+]) check(feedQualityKeep({ title, source, url: "https://apnews.com/x" }), `the business of sport / Bunds still pass: "${title}"`);
 finish();
