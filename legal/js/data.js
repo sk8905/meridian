@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-10-18";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "19:05 BST";
+export const LAST_CHECKED_TIME = "20:19 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -241,6 +241,7 @@ export const updateTypes = [
 // area: primary practice-area id. areas: all relevant practice-area ids.
 // For case notes, court/citation are populated.
 export const items = [
+  {"id":"u3207","title":"Unlocking DB pension scheme surplus: a new consideration for employers and potential acquirers","area":"corporate","areas":["corporate"],"type":"insight","firm":"macfarlanes","date":"2026-10-16","summary":"For many years, the dominant question for employers sponsoring defined benefit (DB) pension schemes, and for the prospective acquirers...","url":"https://www.macfarlanes.com/insights/102o5i6/unlocking-db-pension-scheme-surplus-a-new-consideration-for-employers-and-potential-acquirers"},
   {"id":"u3027","title":"White & Case Advises Banks on Sirius' €300 Million Bond Issue","area":"banking","areas":["banking"],"type":"alert","firm":"whitecase","date":"2021-11-25","summary":"Global law firm White & Case LLP has advised Deutsche Bank, HSBC and Morgan Stanley on a €300 million bond issue by Sirius Real Estate Limited (Sirius), a leading operator of branded business and industrial parks in Germany.","url":"https://www.whitecase.com/news/press-release/white-case-advises-banks-sirius-eu300-million-bond-issue"},
   {"id":"u3028","title":"White & Case Advises Banks on ASTM’s €3 Billion Debut Sustainability-Linked Bond Issuance","area":"banking","areas":["banking"],"type":"alert","firm":"whitecase","date":"2021-11-26","summary":"Global law firm White & Case LLP has advised Mediobanca and UniCredit, as arrangers and dealers, and Banca Akros, Banco Santander, BNP Paribas, Caixabank, Crédit Agricole CIB, Credit Suisse, IMI-Intesa Sanpaolo, JP Morgan, Mediobanca, Société Générale and UniCredit, as joint lead managers, on","url":"https://www.whitecase.com/news/press-release/white-case-advises-banks-astms-eu3-billion-debut-sustainability-linked-bond"},
   {"id":"u3029","title":"White & Case Advises Eurazeo Funds and Dassault Group on IPO of Forsee Power on Euronext Paris","area":"corporate","areas":["corporate"],"type":"alert","firm":"whitecase","date":"2021-11-26","summary":"Global law firm White & Case LLP has advised Forsee Power shareholders, funds managed by Eurazeo and Groupe Industriel Marcel Dassault on the initial public offering (IPO) of Forsee Power on Compartment B of Euronext Paris.","url":"https://www.whitecase.com/news/press-release/white-case-advises-eurazeo-funds-and-dassault-group-ipo-forsee-power-euronext"},
