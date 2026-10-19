@@ -3513,9 +3513,74 @@
    "kind": "manager",
    "name": "D. E. Shaw & Co.",
    "priority": 31,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-19",
+   "events": [
+    {
+     "key": "2020-alkali-v-first-raise",
+     "date": "2020-07",
+     "what": "Alkali Fund V first raise (>$618m reported)",
+     "source": "https://www.institutionalinvestor.com/article/b1mj9vbhl96vtv/D-E-Shaw-Debuts-New-Funds",
+     "status": "rejected",
+     "note": "Only month/year from a paywalled snippet; exact date and figures unverified."
+    },
+    {
+     "key": "a5",
+     "date": "2021-04-06",
+     "what": "Alkali Fund V: $1bn commitments (stressed/distressed, special situations)",
+     "source": "https://www.prnewswire.com/news-releases/the-d-e-shaw-group-raises-1-billion-for-fifth-private-credit-fund-301262781.html",
+     "recordId": "i1384",
+     "status": "present"
+    },
+    {
+     "key": "2022-diopter-launch",
+     "date": "2022",
+     "what": "Diopter series launch",
+     "source": null,
+     "status": "rejected",
+     "note": "Year only; no dated primary source found."
+    },
+    {
+     "key": "2023-02-diopter-i",
+     "date": "2023-02-14",
+     "what": "Diopter Fund debut, $650m+ (alongside Voltaic)",
+     "source": "https://www.alternativeswatch.com/2023/02/15/d-e-shaw-raises-two-private-market-funds/",
+     "recordId": "i968",
+     "status": "present"
+    },
+    {
+     "key": "2024-11-alkali-vi",
+     "date": "2024-11-13",
+     "what": "Alkali Fund VI final close, $1bn",
+     "source": "https://www.prnewswire.com/news-releases/the-d-e-shaw-group-raises-1-billion-for-latest-private-credit-fund-302304180.html",
+     "recordId": "i953",
+     "status": "present"
+    },
+    {
+     "key": "2025-05-diopter-ii",
+     "date": "2025-05-01",
+     "what": "Diopter Fund II $1.3bn",
+     "source": "https://www.prnewswire.com/news-releases/the-d-e-shaw-group-raises-1-3-billion-for-second-capital-optimization-fund-302443219.html",
+     "recordId": "i945",
+     "status": "present"
+    },
+    {
+     "key": "credit-leadership",
+     "date": "2020",
+     "what": "CIO / head-of-credit changes",
+     "source": null,
+     "status": "rejected",
+     "note": "No dated announcement found. (no event date: searched 2020→2026)"
+    },
+    {
+     "key": "ma-stake-sales",
+     "date": "2020",
+     "what": "M&A / stake sales / marquee financings",
+     "source": null,
+     "status": "rejected",
+     "note": "Nothing verifiable surfaced. (no event date: searched 2020→2026)"
+    }
+   ]
   },
   "m15": {
    "kind": "manager",
@@ -3658,25 +3723,412 @@
    "kind": "manager",
    "name": "GCM Grosvenor",
    "priority": 33,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-19",
+   "events": [
+    {
+     "key": "labor",
+     "date": "2020-09-14",
+     "what": "Labor Impact Fund final close, $893m",
+     "source": "https://www.gcmgrosvenor.com/2020/09/14/gcm-grosvenor-closes-its-labor-impact-fund/",
+     "recordId": "i1386",
+     "status": "present"
+    },
+    {
+     "key": "spac",
+     "date": "2020-11-17",
+     "what": "Business combination with CF Finance Acquisition Corp completed; Nasdaq listing as GCMG",
+     "source": "https://www.gcmgrosvenor.com/2020/11/17/gcm-grosvenor-announces-completion-of-business-combination",
+     "recordId": "i1385",
+     "status": "present"
+    },
+    {
+     "key": "ins",
+     "date": "2021-11-08",
+     "what": "Raises $500m under GCM Grosvenor Insurance Solutions",
+     "source": "https://www.gcmgrosvenor.com/2021/11/08/gcm-grosvenor-raises-500-million-to-invest-in-alternative-strategies-as-part-of-gcm-grosvenor-insurance-solutions/",
+     "recordId": "i1387",
+     "status": "present"
+    },
+    {
+     "key": "adv",
+     "date": "2022-02-11",
+     "what": "Inaugural Advance Fund $770m final close and $1.5bn diverse-manager raise",
+     "source": "https://www.gcmgrosvenor.com/2022/02/11/gcm-grosvenor-raised-1-5-billion-for-diverse-manager-investment-mandates-in-2021-increasing-its-diverse-manager-aum-to-approximately-11-billion/",
+     "recordId": "i1388",
+     "status": "present"
+    },
+    {
+     "key": "hall",
+     "date": "2022-07-05",
+     "what": "GCM Grosvenor and Blue Wolf acquire Hallcon from Novacap",
+     "source": "https://www.millerthomson.com/en/deals-cases/gcm-grosvenor-and-blue-wolf-capital-acquire-hallcon-corporation/",
+     "recordId": "i1389",
+     "status": "present"
+    },
+    {
+     "key": "sof3",
+     "date": "2023-01-26",
+     "what": "Secondary Opportunities Fund III final close, $972m",
+     "source": "https://www.globenewswire.com/news-release/2023/01/26/2596113/0/en/GCM-Grosvenor-Secondary-Opportunities-Fund-III-Holds-Final-Close-With-38-Greater-Commitments-Than-Predecessor-Fund.html",
+     "recordId": "i1390",
+     "status": "present"
+    },
+    {
+     "key": "exc",
+     "date": "2023-10-25",
+     "what": "Elevate strategic investment in launch of Excolere Equity Partners",
+     "source": "https://www.gcmgrosvenor.com/2023/10/25/excolere-equity-partners-announces-firms-launch-and-strategic-investment-from-gcm-grosvenor/",
+     "recordId": "i1391",
+     "status": "present"
+    },
+    {
+     "key": "cis3",
+     "date": "2023-10-31",
+     "what": "Customized Infrastructure Strategies III final close, $882m",
+     "source": "https://www.gcmgrosvenor.com/2023/10/31/gcm-grosvenor-customized-infrastructure-strategies-iii-fund-holds-final-close-as-firm-continues-to-see-strong-demand-for-infrastructure-investments-2/",
+     "recordId": "i1392",
+     "status": "present"
+    },
+    {
+     "key": "cion",
+     "date": "2024-09-18",
+     "what": "CION Investments and GCM Grosvenor strategic partnership",
+     "source": "https://www.businesswire.com/news/home/20240918565835/en/CION-Investments-and-GCM-Grosvenor-Form-Strategic-Partnership-Focused-on-Developing-Private-Market-Investment-Solutions",
+     "recordId": "i1393",
+     "status": "present"
+    },
+    {
+     "key": "elev",
+     "date": "2025-01-23",
+     "what": "Elevate Fund final close at nearly $800m",
+     "source": "https://www.gcmgrosvenor.com/2025/01/23/gcm-grosvenor-elevate-fund-holds-final-close-at-nearly-800-million-the-largest-debut-private-equity-seeding-fund-of-its-kind-signaling-strong-continued-support-for-small-and-emerging-firm-founders/",
+     "recordId": "i1394",
+     "status": "present"
+    },
+    {
+     "key": "grove",
+     "date": "2025-03-18",
+     "what": "Grove Lane Partners joint venture for individual-investor distribution",
+     "source": "https://www.stocktitan.net/news/GCMG/gcm-grosvenor-expands-individual-investor-distribution-platform-with-5iwkstpvfcwv.html",
+     "recordId": "i1395",
+     "status": "present"
+    },
+    {
+     "key": "sumi",
+     "date": "2025-04-14",
+     "what": "SuMi TRUST and GCM Grosvenor strategic partnership and investment",
+     "source": "https://www.gcmgrosvenor.com/2025/04/14/sumi-trust-and-gcm-grosvenor-announce-strategic-partnership-and-investment-to-expand-private-markets-offerings/",
+     "recordId": "i1396",
+     "status": "present"
+    },
+    {
+     "key": "iaf2",
+     "date": "2025-04-22",
+     "what": "Infrastructure Advantage Fund II final close, $1.3bn",
+     "source": "https://www.globenewswire.com/news-release/2025/04/22/3065482/0/en/GCM-Grosvenor-Announces-1-3-Billion-Final-Close-for-Infrastructure-Advantage-Fund-II-a-Nearly-50-Increase-Over-its-Predecessor-Fund.html",
+     "recordId": "i1397",
+     "status": "present"
+    },
+    {
+     "key": "banner",
+     "date": "2026-06-25",
+     "what": "Banner Capital strategic partnership with GCM Grosvenor (Elevate)",
+     "source": "https://www.globenewswire.com/news-release/2026/06/25/3317585/0/en/banner-capital-announces-strategic-partnership-with-gcm-grosvenor.html",
+     "recordId": "i1398",
+     "status": "present"
+    },
+    {
+     "key": "2026-credit-secondaries",
+     "date": "2026-07-23",
+     "what": "Inaugural Credit Secondaries Fund final close, $1.2bn",
+     "source": "https://www.gcmgrosvenor.com/2026/07/23/gcm-grosvenor-raises-1-2-billion-across-inaugural-credit-secondaries-fund-and-related-strategies/",
+     "recordId": "i518",
+     "status": "present"
+    },
+    {
+     "key": "acquisitions",
+     "date": "2020",
+     "what": "Acquisitions of Aksia / Revolution / infrastructure platform",
+     "source": null,
+     "status": "rejected",
+     "note": "No source found. (no event date: searched 2020→2026)"
+    },
+    {
+     "key": "leadership",
+     "date": "2020",
+     "what": "Leadership changes",
+     "source": null,
+     "status": "rejected",
+     "note": "No dated announcement found. (no event date: searched 2020→2026)"
+    }
+   ]
   },
   "m63": {
    "kind": "manager",
    "name": "Nuveen Private Capital",
    "priority": 34,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-19",
+   "events": [
+    {
+     "key": "mmslf2",
+     "date": "2020-03-25",
+     "what": "Churchill Middle Market Senior Loan Fund II completes fundraising at $2bn",
+     "source": "https://www.sfnet.com/home/chapters/canada/news-detail/2020/03/25/churchill-asset-management-completes-fundraising",
+     "recordId": "i1399",
+     "status": "present"
+    },
+    {
+     "key": "green",
+     "date": "2021-04-12",
+     "what": "Nuveen acquires Greenworks Lending (C-PACE), later Nuveen Green Capital",
+     "source": "https://www.nuveen.com/greencapital/news-and-blog/greenworks-lending-acquisition-underscores-c-pace-industry-growth",
+     "recordId": "i1400",
+     "status": "present"
+    },
+    {
+     "key": "secco",
+     "date": "2021-10-06",
+     "what": "Churchill closes Secondaries Partners and Co-Investment Partners (~$1.5bn)",
+     "source": "https://www.businesswire.com/news/home/20211006005240/en",
+     "recordId": "i1401",
+     "status": "present"
+    },
+    {
+     "key": "2022-01-green-rebrand",
+     "date": "2022-01",
+     "what": "Greenworks rebranded Nuveen Green Capital",
+     "source": "https://www.esgtoday.com/nuveen-launches-new-brand-for-its-sustainable-commercial-real-estate-financing-business/",
+     "status": "rejected",
+     "note": "Only year-month known."
+    },
+    {
+     "key": "2022-10-12bn-senior",
+     "date": "2022-10",
+     "what": "Churchill raises over $12bn for senior lending program",
+     "source": "https://www.businesswire.com/news/home/20221010005106/en/Churchill-Raises-Over-12-Billion-for-its-Senior-Lending-Program",
+     "status": "rejected",
+     "note": "Exact release date unverified (10 vs 11 Oct)."
+    },
+    {
+     "key": "arcagree",
+     "date": "2022-10-27",
+     "what": "Nuveen agrees to acquire controlling interest in Arcmont",
+     "source": "https://www.nuveen.com/en-us/about-us/about-nuveen/nuveen-to-acquire-arcmont",
+     "recordId": "i1402",
+     "status": "present"
+    },
+    {
+     "key": "pcap",
+     "date": "2023-02-09",
+     "what": "Nuveen Churchill Private Capital Income Fund (PCAP) launch",
+     "source": "https://www.abladvisor.com/news/35938/nuveen-and-churchill-launch-bdc-offering-individual-investors-private-capital-opp",
+     "recordId": "i1403",
+     "status": "present"
+    },
+    {
+     "key": "arcclose",
+     "date": "2023-03-01",
+     "what": "Nuveen closes Arcmont acquisition; Nuveen Private Capital formed",
+     "source": "https://arcmont.com/news/nuveen-closes-acquisition-of-arcmont",
+     "recordId": "i1404",
+     "status": "present"
+    },
+    {
+     "key": "2023-12-cfo2",
+     "date": "2023-12-18",
+     "what": "Churchill second collateralized fund obligation",
+     "source": "Wire",
+     "recordId": "d651",
+     "status": "present"
+    },
+    {
+     "key": "ncdl",
+     "date": "2024-01-24",
+     "what": "Nuveen Churchill Direct Lending prices NYSE IPO",
+     "source": "https://www.sec.gov/Archives/edgar/data/1737924/000162828024002126/ncdl-497adxpricingpressrel.htm",
+     "recordId": "i1405",
+     "status": "present"
+    },
+    {
+     "key": "2025-03-cfo3",
+     "date": "2025-03-27",
+     "what": "Churchill third collateralized fund obligation $750m",
+     "source": "Wire",
+     "recordId": "d89",
+     "status": "present"
+    },
+    {
+     "key": "coinv2",
+     "date": "2025-06-10",
+     "what": "Churchill Co-Investment Fund II final close, $1.5bn",
+     "source": "https://www.businesswire.com/news/home/20250610465576/en",
+     "recordId": "i1406",
+     "status": "present"
+    },
+    {
+     "key": "2025-09-hunter-temasek",
+     "date": "2025-09-03",
+     "what": "Hunter Point / Temasek minority investments",
+     "source": "Wire",
+     "recordId": "i261",
+     "status": "present"
+    },
+    {
+     "key": "2025-10-arcmont-eu-dl",
+     "date": "2025-10-24",
+     "what": "Nuveen/Arcmont European direct lending strategy",
+     "source": "Wire",
+     "recordId": "i142",
+     "status": "present"
+    },
+    {
+     "key": "sl5",
+     "date": "2026-01-21",
+     "what": "Churchill raises over $16bn for fifth-vintage senior lending program",
+     "source": "https://www.businesswire.com/news/home/20260121411398/en",
+     "recordId": "i1407",
+     "status": "present"
+    },
+    {
+     "key": "2026-02-schroders",
+     "date": "2026-02-12",
+     "what": "Nuveen recommended cash acquisition of Schroders",
+     "source": "Wire",
+     "recordId": "d281",
+     "status": "present"
+    },
+    {
+     "key": "leadership",
+     "date": "2020",
+     "what": "Leadership changes",
+     "source": null,
+     "status": "rejected",
+     "note": "No dated announcement found. (no event date: searched 2020→2026)"
+    }
+   ]
   },
   "m73": {
    "kind": "manager",
    "name": "Antares Capital",
    "priority": 35,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-19",
+   "events": [
+    {
+     "key": "2020-wendel-cpi",
+     "date": "2020-01-09",
+     "what": "Wendel/CPI unitranche",
+     "source": "Wire",
+     "recordId": "d147",
+     "status": "present"
+    },
+    {
+     "key": "slf1",
+     "date": "2020-09-16",
+     "what": "Final close of inaugural Senior Loan Fund (~$3bn)",
+     "source": "https://www.businesswire.com/news/home/20200916005535/en/Antares-Capital-Announces-Final-Close-of-Inaugural-Senior-Loan-Fund",
+     "recordId": "i1408",
+     "status": "present"
+    },
+    {
+     "key": "ceo",
+     "date": "2021-10-11",
+     "what": "Tim Lyne named CEO succeeding David Brackett",
+     "source": "https://www.businesswire.com/news/home/20211011005489/en",
+     "recordId": "i1409",
+     "status": "present"
+    },
+    {
+     "key": "eu",
+     "date": "2023-06-05",
+     "what": "Sheila Brown appointed Head of UK/Europe Investor Coverage",
+     "source": "https://www.businesswire.com/news/home/20230605005223/en",
+     "recordId": "i1410",
+     "status": "present"
+    },
+    {
+     "key": "slf2",
+     "date": "2023-07-11",
+     "what": "Final close of Senior Loan Fund II (~$6bn)",
+     "source": "https://www.businesswire.com/news/home/20230711853784/en",
+     "recordId": "i1411",
+     "status": "present"
+    },
+    {
+     "key": "2023-bsl-clo1",
+     "date": "2023-10-24",
+     "what": "First BSL CLO $450m",
+     "source": "Wire",
+     "recordId": "d391",
+     "status": "present"
+    },
+    {
+     "key": "2024-bsl-clo3",
+     "date": "2024-06-17",
+     "what": "Third BSL CLO $400m",
+     "source": "https://www.businesswire.com/news/home/20240617433185/en/Antares-Capital-Continues-Liquid-Credit-Momentum-with-Closing-of-Third-BSL-CLO-at-400-million",
+     "recordId": "d416",
+     "status": "present"
+    },
+    {
+     "key": "2025-private-credit-fund",
+     "date": "2025-02-13",
+     "what": "Antares Private Credit Fund launches with $1.4bn+",
+     "source": "https://www.businesswire.com/news/home/20250213618230/en",
+     "recordId": "i282",
+     "status": "present"
+    },
+    {
+     "key": "2025-restructuring",
+     "date": "2025-03-03",
+     "what": "Debt-for-equity restructuring of insurance claims manager",
+     "source": "Wire",
+     "recordId": "d877",
+     "status": "present"
+    },
+    {
+     "key": "2025-cv-ares",
+     "date": "2025-06-02",
+     "what": "$1.2bn continuation vehicle led by Ares",
+     "source": "https://www.businesswire.com/news/home/20250602355071/en",
+     "recordId": "d107",
+     "status": "present"
+    },
+    {
+     "key": "2026-cv",
+     "date": "2026-03-30",
+     "what": "$1.7bn continuation vehicle",
+     "source": "Wire",
+     "recordId": "d108",
+     "status": "present"
+    },
+    {
+     "key": "2026-slf3",
+     "date": "2026-05-12",
+     "what": "Senior Loan Fund III final close ~$8.5bn",
+     "source": "https://pulse2.com/antares-capital-8-5-billion-raised-for-senior-loan-fund-iii/",
+     "recordId": "i85",
+     "status": "present"
+    },
+    {
+     "key": "2023-liquid-credit-launch",
+     "date": "2020",
+     "what": "Antares Liquid Credit launch",
+     "source": null,
+     "status": "rejected",
+     "note": "No single dated launch release found. (no event date: searched 2020→2026)"
+    },
+    {
+     "key": "2024-hayfin",
+     "date": "2020",
+     "what": "Hayfin acquisition explored",
+     "source": null,
+     "status": "rejected",
+     "note": "No source links Antares to Hayfin talks. (no event date: searched 2020→2026)"
+    }
+   ]
   },
   "m93": {
    "kind": "manager",
