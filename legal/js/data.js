@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-10-19";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "05:10 BST";
+export const LAST_CHECKED_TIME = "06:15 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -241,6 +241,8 @@ export const updateTypes = [
 // area: primary practice-area id. areas: all relevant practice-area ids.
 // For case notes, court/citation are populated.
 export const items = [
+  {"id":"u3257","title":"London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026","area":"funds","areas":["funds"],"type":"update","firm":"latham","date":"2026-10-13","summary":"The Global Chair of Latham's Private Capital Practice was recognized in the prestigious list for the fifth consecutive year.","url":"https://www.lw.com/en/news/2026/10/London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026"},
+  {"id":"u3256","title":"David J. Cohen Named to American Bankruptcy Institute’s 2026 40 Under 40","area":"ri","areas":["ri"],"type":"update","firm":"weil","date":"2026-10-14","summary":"Weil Restructuring partner David J. Cohen was named to the American Bankruptcy Institute’s 2026 40 Under 40, recognizing rising leaders in bankruptcy and insolvency.","url":"https://www.weil.com/articles/david-j-cohen-named-to-american-bankruptcy-institutes-2026-40-under-40"},
   {"id":"u3211","title":"Stephenson Harwood appoints James Linforth as Chief Executive","area":"banking","areas":["banking"],"type":"update","firm":"stephensonharwood","date":"2026-10-14","summary":"Stephenson Harwood announced that James Linforth, its global head of banking and finance, has been appointed Chief Executive, effective 1 January 2027, succeeding Eifion Morris.","url":"https://www.stephensonharwood.com/news/stephenson-harwood-appoints-james-linforth-as-chief-executive/"},
   {"id":"u3210","title":"Latham & Watkins Advises ECP on US$834 Million Continuation Vehicle for Next Wave Energy Partners","area":"funds","areas":["funds"],"type":"alert","firm":"latham","date":"2026-10-05","summary":"Multidisciplinary investment funds, M&A, and tax team represented the investment firm in a continuation fund transaction involving energy transition infrastructure.","url":"https://www.lw.com/en/news/2026/10/Latham Watkins Advises ECP on Continuation Vehicle for Next Wave Energy Partners"},
   {"id":"u3209","title":"Latham & Watkins Advises MaxSolar on €155 Million Infrastructure Financing","area":"banking","areas":["banking"],"type":"alert","firm":"latham","date":"2026-10-05","summary":"Finance team represents leading independent power producer in the transaction.","url":"https://www.lw.com/en/news/2026/10/Latham Watkins Advises MaxSolar Infrastructure Financing"},
