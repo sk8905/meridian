@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-19T14:05:55.868Z",
+ "generated": "2026-10-19T20:13:41.644Z",
  "since": "2026-10-05",
  "firms": {
   "proskauerrose": {
@@ -32,17 +32,6 @@
    "errors": 0,
    "carried": 0
   },
-  "slaughtermay": {
-   "domains": [
-    "www.slaughterandmay.com"
-   ],
-   "sitemaps": 1,
-   "urls": 6289,
-   "kept": 10,
-   "fetched": 10,
-   "errors": 0,
-   "carried": 0
-  },
   "linklaters": {
    "domains": [
     "www.linklaters.com",
@@ -50,9 +39,9 @@
     "sustainablefutures.linklaters.com"
    ],
    "sitemaps": 6,
-   "urls": 17780,
-   "kept": 4,
-   "fetched": 4,
+   "urls": 17803,
+   "kept": 3,
+   "fetched": 3,
    "errors": 0,
    "carried": 0
   },
@@ -75,6 +64,17 @@
    ],
    "carried": 0
   },
+  "slaughtermay": {
+   "domains": [
+    "www.slaughterandmay.com"
+   ],
+   "sitemaps": 1,
+   "urls": 6289,
+   "kept": 10,
+   "fetched": 10,
+   "errors": 0,
+   "carried": 0
+  },
   "hsf": {
    "domains": [
     "www.hsfkramer.com"
@@ -91,9 +91,20 @@
     "www.macfarlanes.com"
    ],
    "sitemaps": 4,
-   "urls": 2406,
+   "urls": 2407,
    "kept": 2,
    "fetched": 2,
+   "errors": 0,
+   "carried": 0
+  },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5020,
+   "kept": 7,
+   "fetched": 7,
    "errors": 0,
    "carried": 0
   },
@@ -110,17 +121,6 @@
    "disallowed": 1,
    "carried": 0
   },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5020,
-   "kept": 7,
-   "fetched": 7,
-   "errors": 0,
-   "carried": 0
-  },
   "aoshearman": {
    "domains": [
     "www.aoshearman.com",
@@ -128,7 +128,18 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 16566,
+   "urls": 16571,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
+  "kirkland": {
+   "domains": [
+    "www.kirkland.com"
+   ],
+   "sitemaps": 11,
+   "urls": 17414,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -143,17 +154,6 @@
    "kept": 19,
    "fetched": 18,
    "errors": 1,
-   "carried": 0
-  },
-  "kirkland": {
-   "domains": [
-    "www.kirkland.com"
-   ],
-   "sitemaps": 11,
-   "urls": 17407,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
    "carried": 0
   },
   "whitecase": {
@@ -171,11 +171,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 7,
-   "urls": 7571,
+   "sitemaps": 6,
+   "urls": 7176,
    "kept": 2,
    "fetched": 2,
-   "errors": 10,
+   "errors": 11,
    "carried": 0
   },
   "ropesgray": {
@@ -214,7 +214,7 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16210,
+   "urls": 16212,
    "kept": 4,
    "fetched": 4,
    "errors": 0,
@@ -225,7 +225,7 @@
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2854,
+   "urls": 2855,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -244,7 +244,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12286,
+   "urls": 12293,
    "kept": 7,
    "fetched": 7,
    "errors": 0,
@@ -255,9 +255,9 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11583,
-   "kept": 15,
-   "fetched": 15,
+   "urls": 11586,
+   "kept": 14,
+   "fetched": 14,
    "errors": 0,
    "carried": 0
   },
@@ -271,7 +271,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7749,
+   "urls": 7751,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -296,6 +296,18 @@
    ],
    "carried": 0
   },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 1,
+   "urls": 18706,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
+   "carried": 0
+  },
   "southsquare": {
    "domains": [
     "southsquare.com"
@@ -315,26 +327,14 @@
    ],
    "carried": 0
   },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 1,
-   "urls": 18704,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
-   "carried": 0
-  },
   "mayerbrown": {
    "domains": [
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16345,
-   "kept": 19,
-   "fetched": 19,
+   "urls": 16348,
+   "kept": 21,
+   "fetched": 21,
    "errors": 0,
    "carried": 0
   },
@@ -352,30 +352,21 @@
  },
  "items": [
   {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/new-insights/tax-and-the-city-october-2026/",
-   "title": "Tax and the city - October 2026",
-   "description": "Tax and the City - October 2026",
-   "date": "2026-10-19",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-19"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-dbs-on-its-triple-tranche-bond-issuance",
-   "title": "Linklaters advises DBS on its US$1.5bn triple-tranche bond issuance",
-   "description": "Linklaters has advised DBS Group Holdings Ltd (DBS) on its US$1.5bn triple-tranche senior unsecured bond issuance under its US$30bn Global Medium Term Note (GMTN) Programme.",
-   "date": "2026-10-19",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-19"
-  },
-  {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/insights/blogs/pensionlinks/2026/october/from-surplus-to-security-navigating-the-next-phase-for-defined-benefit-pension-schemes",
    "title": "From surplus to security: Navigating the next phase for defined benefit pension schemes",
    "description": "Explore key issues for defined benefit pension schemes, including surplus, endgame planning, Virgin Media, cyber risk and trustee governance.",
    "date": "2026-10-19",
    "dateSource": "page date label",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "slaughtermay",
+   "url": "https://www.slaughterandmay.com/insights/new-insights/tax-and-the-city-october-2026/",
+   "title": "Tax and the city - October 2026",
+   "description": "Tax and the City - October 2026",
+   "date": "2026-10-19",
+   "dateSource": "<time datetime>",
    "lastmod": "2026-10-19"
   },
   {
@@ -389,9 +380,9 @@
   },
   {
    "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-bolsters-corporate-offering-with-capital-markets-partner-dan-oshea-in-new-york",
-   "title": "Dan O'Shea joins A&O Shearman as Capital Markets partner",
-   "description": "Dan O'Shea joins A&O Shearman as a capital markets partner in New York, bringing 30+ years of experience in securities offerings and public company advisory.",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-welcomes-debt-finance-partner-christopher-kwan-in-new-york",
+   "title": "AO Shearman welcomes debt finance partner Christopher Kwan in New York",
+   "description": "Christopher Kwan joins A&O Shearman's New York Debt Finance practice, bringing over a decade of leveraged finance and private credit experience.",
    "date": "2026-10-19",
    "dateSource": "datePublished",
    "lastmod": "2026-10-19"
@@ -406,19 +397,28 @@
    "lastmod": "2026-10-19"
   },
   {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/news/reed-smith-advises-sp-angel-and-hannam-partners-on-7-million-serval-resources-fundraise/",
-   "title": "Reed Smith advises SP Angel and Hannam & Partners on £7 million Serval Resources fundraise",
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-forward-consumer-partners-on-acquisition-of-welly",
+   "title": "Kirkland Advises Forward Consumer Partners on Acquisition of Welly",
    "description": null,
    "date": "2026-10-19",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-19"
+   "dateSource": "page date label",
+   "lastmod": null
+  },
+  {
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-encap-investments-on-largest-capital-raise-for-upstream-energy-continuation-vehicle",
+   "title": "Kirkland Advises EnCap Investments on Largest Capital Raise for Upstream Energy Continuation Vehicle",
+   "description": null,
+   "date": "2026-10-19",
+   "dateSource": "page date label",
+   "lastmod": null
   },
   {
    "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-adds-antitrust-partner-yuni-yan-sobel-deepening-capabilities-across-ma-and-private-equity",
-   "title": "Weil Adds Antitrust Partner Yuni Yan Sobel, Deepening Capabilities across M&A and Private Equity Practices",
-   "description": "International law firm Weil, Gotshal & Manges LLP announced today that leading antitrust lawyer Yuni Yan Sobel has joined the Firm as a partner in the U.S. Antitrust practice, based in New York.",
+   "url": "https://www.weil.com/articles/weil-achieves-chapter-11-resolution-for-thrill-holdings-sponsor-following-attempted-proxy-exercise",
+   "title": "Weil Achieves Successful Chapter 11 Resolution for Sponsor of Thrill Holdings Following Successful Challenge to Attempted Proxy Exercise and Board Sweep",
+   "description": "Weil advised Estremo and MTV Networks on the successful resolution of Thrill Holdings’ chapter 11 cases, including a global settlement and confirmed restructuring plan.",
    "date": "2026-10-19",
    "dateSource": "page date label",
    "lastmod": "2026-10-19"
@@ -445,6 +445,15 @@
     " Member States Update EU List of Non-Cooperative Tax Jurisdictions on 17 February 2026 </a> <div class=\"fo",
     " <span class=\"f-book green-text font-small relative padding-right-5\"> January 27, 2026<span class=\"divider"
    ]
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
+   "title": "News Listing",
+   "description": null,
+   "date": "2026-10-19",
+   "dateSource": "datePublished",
+   "lastmod": null
   },
   {
    "firm": "slaughtermay",
@@ -534,6 +543,15 @@
    "lastmod": null
   },
   {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
+   "title": "Capital, regulation and capability in a new era",
+   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
+   "date": "2026-10-15",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-15"
+  },
+  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/client-case-studies/cpp-investments-and-equinix-s-us-4bn-joint-acquisition/",
    "title": "CPP Investments and Equinix’s US$4bn joint acquisition",
@@ -544,15 +562,6 @@
    "dateProbe": [
     "td style=\"width: 49.9044%; border-style: none; padding: 20px;\"> <p>On 27 February 2026, Canada Pension Pla"
    ]
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
-   "title": "Capital, regulation and capability in a new era",
-   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
-   "date": "2026-10-15",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-15"
   },
   {
    "firm": "latham",
@@ -571,15 +580,6 @@
    "date": "2026-10-15",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
-  },
-  {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
-   "description": null,
-   "date": "2026-10-15",
-   "dateSource": "datePublished",
-   "lastmod": null
   },
   {
    "firm": "mayerbrown",
@@ -794,6 +794,15 @@
    "lastmod": "2026-10-08"
   },
   {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-on-santander-consumer-banks",
+   "title": "A&O Sherman advises on Santander Consumer Bank’s cash SRT securitization of approximately EUR700 million",
+   "description": "A&O Shearman advises Santander Consumer Bank on a EUR700m STS auto loan securitization, marking S&P's first AAA-rated Italian ABS transaction since 2012.",
+   "date": "2026-10-07",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-19"
+  },
+  {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/media/cnbc-uk-leading-destination-defense-tech-investment",
    "title": "CNBC | UK is a leading destination for defense tech investment",
@@ -831,6 +840,15 @@
    "dateSource": null,
    "lastmod": "2026-10-07",
    "dateProbe": []
+  },
+  {
+   "firm": "mayerbrown",
+   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/receivables-finance-recent-developments",
+   "title": "Receivables finance: recent developments",
+   "description": "Matthew Mortimer and Elmira Jazottes assess the impact of recent VAT decisions and changes to the UK tax net on the taxation of receivables finance",
+   "date": "2026-10-07",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-19"
   },
   {
    "firm": "slaughtermay",
