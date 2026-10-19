@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-19",
-  lastCheckedTime: "11:10 BST",
+  lastCheckedTime: "13:25 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1051,7 +1051,7 @@ export const NEWS = {
     {title: "BoE scrutinises Barclays over claim traders misrepresented private credit exposure", source: "Financial Times", date: "2026-10-19", time: "05:00", url: "https://www.ft.com/content/f3127b4f-d33a-4431-acff-021829f3aa72"},
     {title: "FTSE as Hedge", source: "Financial Times", date: "2026-10-19", time: "07:30", url: "https://www.ft.com/content/cce1d9b5-5f36-4c42-ab7b-1b74fc788773"},
     {title: "The five things business wants from the Budget", source: "Financial Times", date: "2026-10-19", time: "05:00", url: "https://www.ft.com/content/af6f84d7-b134-4181-84f3-7811c369f306"},
-    {title: "First-Time UK Homeowners Are Facing Mortgage Payments That Cost More Than Rent", source: "Bloomberg", date: "2026-10-18", url: "https://www.bloomberg.com/news/articles/2026-10-18/first-time-uk-homeowners-are-facing-mortgage-payments-that-cost-more-than-rent"},
+    {title: "UK Debt Is a Buy for Traders Betting on a Play-It-Safe Budget", source: "Bloomberg", date: "2026-10-19", url: "https://www.bloomberg.com/news/articles/2026-10-19/uk-debt-is-a-buy-for-traders-betting-on-a-play-it-safe-budget"},
     {title: "City of London weighs tax rises and service cuts to plug £70mn budget hole", source: "Financial Times", date: "2026-10-18", time: "19:00", url: "https://www.ft.com/content/873e7ef2-d3d6-4c30-b8f8-ee3e69d60138"},
   ],
 };

@@ -49,6 +49,30 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    "id": "nl-bloomberg-economicsdaily-shoppingsurprise-20261019",
+    "publication": "Bloomberg",
+    "author": "Ben Holland",
+    "series": "Economics Daily",
+    "title": "Economics Daily: Shopping surprise",
+    "date": "2026-10-19",
+    "time": "12:00",
+    "summary": "Chinese retail sales rose at double the expected pace, as growth stayed on track to hit targets.",
+    "url": "https://www.bloomberg.com/news/newsletters/2026-10-19/china-growth-stays-on-track-as-retail-sales-beat-forecasts",
+    "body": true
+  },
+  {
+    "id": "nl-bloomberg-marketsdaily-francebesieged-20261019",
+    "publication": "Bloomberg",
+    "author": null,
+    "series": "Markets Daily",
+    "title": "Markets Daily: France besieged",
+    "date": "2026-10-19",
+    "time": "11:36",
+    "summary": "Plus, a big week of earnings",
+    "url": "https://www.bloomberg.com/news/newsletters/2026-10-19/french-stocks-and-bonds-retreat-as-government-comes-under-pressure",
+    "body": true
+  },
+  {
     "id": "nl-bloomberg-morningbriefingeurope-ukraineunderpressure-20261019",
     "publication": "Bloomberg",
     "author": "Joe Flynn",

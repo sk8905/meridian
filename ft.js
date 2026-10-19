@@ -21,6 +21,55 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "aeb432cd-5d95-4062-b7a8-f494592adb34",
+    "title": "Is smart farming really smart business?",
+    "date": "2026-10-19",
+    "time": "13:02",
+    "url": "https://www.ft.com/content/aeb432cd-5d95-4062-b7a8-f494592adb34"
+  },
+  {
+    "id": "b9d270a8-738b-41cb-9c3c-5fa5ac0c2325",
+    "title": "KKR accused by EU of misleading regulators over €22bn telecoms deal",
+    "date": "2026-10-19",
+    "time": "12:32",
+    "url": "https://www.ft.com/content/b9d270a8-738b-41cb-9c3c-5fa5ac0c2325"
+  },
+  {
+    "id": "7dbe983c-fcd2-41dd-bbe4-9f38a489e6c2",
+    "title": "The self-destructive wishful thinking about European autos and trade",
+    "date": "2026-10-19",
+    "time": "12:31",
+    "url": "https://www.ft.com/content/7dbe983c-fcd2-41dd-bbe4-9f38a489e6c2"
+  },
+  {
+    "id": "92f271fd-f96c-4723-91f2-48363b98127f",
+    "title": "Zelenskyy, Europe and the end of Trump whispering",
+    "date": "2026-10-19",
+    "time": "12:21",
+    "url": "https://www.ft.com/content/92f271fd-f96c-4723-91f2-48363b98127f"
+  },
+  {
+    "id": "6075e0ec-9116-4de4-84e6-d50b5ed1d47a",
+    "title": "Freshfields apologises ‘unreservedly’ over Middle East comments in email leak",
+    "date": "2026-10-19",
+    "time": "12:09",
+    "url": "https://www.ft.com/content/6075e0ec-9116-4de4-84e6-d50b5ed1d47a"
+  },
+  {
+    "id": "a381df3f-a1bf-4889-aa5d-e4e594a3ea33",
+    "title": "Ukraine receives partial intelligence on Russian ballistic missile strikes",
+    "date": "2026-10-19",
+    "time": "11:40",
+    "url": "https://www.ft.com/content/a381df3f-a1bf-4889-aa5d-e4e594a3ea33"
+  },
+  {
+    "id": "96d88d61-002d-4b5c-8e0b-4f50577518c5",
+    "title": "CME plans tungsten futures as demand for weapons rises",
+    "date": "2026-10-19",
+    "time": "11:30",
+    "url": "https://www.ft.com/content/96d88d61-002d-4b5c-8e0b-4f50577518c5"
+  },
+  {
     "id": "865b3d6b-cb2b-44c2-893d-8b5bf5846b80",
     "title": "Do your jewels tell a story?",
     "date": "2026-10-19",
@@ -250,54 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-18",
     "time": "21:01",
     "url": "https://www.ft.com/content/5700f8fb-32b9-4324-972c-9578904ac6e2"
-  },
-  {
-    "id": "19495e50-0f55-44b1-8d19-19244163a4e8",
-    "title": "Macron faces political firestorm after riots",
-    "date": "2026-10-18",
-    "time": "20:55",
-    "url": "https://www.ft.com/content/19495e50-0f55-44b1-8d19-19244163a4e8"
-  },
-  {
-    "id": "369eba8b-246d-405f-b0d8-6c676b0b6dab",
-    "title": "France reels after ‘unprecedented’ violent riots",
-    "date": "2026-10-18",
-    "time": "20:52",
-    "url": "https://www.ft.com/content/369eba8b-246d-405f-b0d8-6c676b0b6dab"
-  },
-  {
-    "id": "39a1f29b-1248-4785-8aa3-0e7c29b5bf35",
-    "title": "Trump to begin transforming historic golf course despite court order",
-    "date": "2026-10-18",
-    "time": "20:28",
-    "url": "https://www.ft.com/content/39a1f29b-1248-4785-8aa3-0e7c29b5bf35"
-  },
-  {
-    "id": "4ed89331-df18-4f2d-817b-9a7b304fd4e4",
-    "title": "US army chief in Indo-Pacific calls for display of enhanced military muscle",
-    "date": "2026-10-18",
-    "time": "20:00",
-    "url": "https://www.ft.com/content/4ed89331-df18-4f2d-817b-9a7b304fd4e4"
-  },
-  {
-    "id": "734dad42-2eef-4a70-8947-c73997e49fd1",
-    "title": "St Petersburg endures biggest Ukrainian drone attack",
-    "date": "2026-10-18",
-    "time": "19:30",
-    "url": "https://www.ft.com/content/734dad42-2eef-4a70-8947-c73997e49fd1"
-  },
-  {
-    "id": "37fbe995-df90-429a-bddb-34d14151bf79",
-    "title": "Trump endorses Netanyahu ahead of Israeli elections",
-    "date": "2026-10-18",
-    "time": "19:11",
-    "url": "https://www.ft.com/content/37fbe995-df90-429a-bddb-34d14151bf79"
-  },
-  {
-    "id": "873e7ef2-d3d6-4c30-b8f8-ee3e69d60138",
-    "title": "City of London weighs tax rises and service cuts to plug £70mn budget hole",
-    "date": "2026-10-18",
-    "time": "19:00",
-    "url": "https://www.ft.com/content/873e7ef2-d3d6-4c30-b8f8-ee3e69d60138"
   }
 ];

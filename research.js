@@ -109,6 +109,28 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    "id": "rsch-preqin-firstclose-stoporgoforipos-20261019",
+    "publication": "Preqin",
+    "author": "Shaun Beaney",
+    "series": "First Close",
+    "title": "Stop or go for IPOs?",
+    "date": "2026-10-19",
+    "time": "12:22",
+    "summary": "A pipeline of IPOs and ‘supportive’ conditions could be good news for private markets; EY tracked 908 IPOs in January–September with proceeds of $290bn, and the Preqin Venture Capital index returned 16.4% over the 12 months to Q1 2026.",
+    "url": "https://go.preqin.com/webmail/909852/2211402970/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665"
+  },
+  {
+    "id": "rsch-apollo-ma-boom-20261019",
+    "publication": "Apollo Academy",
+    "author": "Huw van Steenis, Torsten Slok",
+    "series": "The Daily Spark",
+    "title": "M&A Is Booming Because Rapid Change Is Forcing Firms to Rethink Their Business",
+    "date": "2026-10-19",
+    "time": "11:47",
+    "summary": "M&A is on pace for a near-record year, with 42 deals above $10bn worth over $1.1tn in the first nine months; sponsor tech deal value fell 67% while non-tech PE rose 17%.",
+    "url": "https://www.apolloacademy.com/the-daily-spark/"
+  },
+  {
     "id": "rsch-ubs-donovan-scapegoateconomics-20261019",
     "publication": "UBS CIO",
     "author": "Paul Donovan",
