@@ -21,6 +21,55 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "865b3d6b-cb2b-44c2-893d-8b5bf5846b80",
+    "title": "Do your jewels tell a story?",
+    "date": "2026-10-19",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/865b3d6b-cb2b-44c2-893d-8b5bf5846b80"
+  },
+  {
+    "id": "086e66dd-1e1b-4279-ae6b-2ac88757998f",
+    "title": "US grocery giants head to court in $9bn battle over failed merger",
+    "date": "2026-10-19",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/086e66dd-1e1b-4279-ae6b-2ac88757998f"
+  },
+  {
+    "id": "1f23e859-5e70-4d99-8f9b-56de3d0ae43e",
+    "title": "Iranian hardliners say the time for nuclear weapons has come",
+    "date": "2026-10-19",
+    "time": "10:55",
+    "url": "https://www.ft.com/content/1f23e859-5e70-4d99-8f9b-56de3d0ae43e"
+  },
+  {
+    "id": "cc7e577a-db7a-4e12-9a42-443696b98ec5",
+    "title": "Emmanuel Macron rejects interior minister’s resignation after French riots",
+    "date": "2026-10-19",
+    "time": "10:48",
+    "url": "https://www.ft.com/content/cc7e577a-db7a-4e12-9a42-443696b98ec5"
+  },
+  {
+    "id": "eaa86af0-5183-4c3c-a697-c55fc04e4147",
+    "title": "And the FTAV charts quiz winner is . . .",
+    "date": "2026-10-19",
+    "time": "10:43",
+    "url": "https://www.ft.com/content/eaa86af0-5183-4c3c-a697-c55fc04e4147"
+  },
+  {
+    "id": "77b859ab-e380-413d-894b-2fe3cf6417c5",
+    "title": "Flight from Israel diverted after ‘threat’ reported",
+    "date": "2026-10-19",
+    "time": "10:08",
+    "url": "https://www.ft.com/content/77b859ab-e380-413d-894b-2fe3cf6417c5"
+  },
+  {
+    "id": "d98a97e4-5ba4-481e-af20-35dcb2fc3a14",
+    "title": "John Swinney tests limits of Andy Burnham’s devolution pitch to Scotland",
+    "date": "2026-10-19",
+    "time": "09:30",
+    "url": "https://www.ft.com/content/d98a97e4-5ba4-481e-af20-35dcb2fc3a14"
+  },
+  {
     "id": "f5ee9924-0509-4a34-a347-c22278f023c6",
     "title": "FTAV’s further reading",
     "date": "2026-10-19",
@@ -250,54 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-18",
     "time": "19:00",
     "url": "https://www.ft.com/content/873e7ef2-d3d6-4c30-b8f8-ee3e69d60138"
-  },
-  {
-    "id": "783dbcdc-fe1e-4539-a740-3d2e4b3d5fc1",
-    "title": "Crunch time for Brazilian politics",
-    "date": "2026-10-18",
-    "time": "18:15",
-    "url": "https://www.ft.com/content/783dbcdc-fe1e-4539-a740-3d2e4b3d5fc1"
-  },
-  {
-    "id": "d1e28d93-8574-4a46-946a-b261c401d6fa",
-    "title": "US threatens Europe over Starlink restrictions",
-    "date": "2026-10-18",
-    "time": "17:00",
-    "url": "https://www.ft.com/content/d1e28d93-8574-4a46-946a-b261c401d6fa"
-  },
-  {
-    "id": "52a5e9df-cd9a-4951-99b5-2364e575bb44",
-    "title": "Trump’s bid to make America cheap again has failed",
-    "date": "2026-10-18",
-    "time": "16:00",
-    "url": "https://www.ft.com/content/52a5e9df-cd9a-4951-99b5-2364e575bb44"
-  },
-  {
-    "id": "6748e45a-0b1a-43be-b65f-645849af4a57",
-    "title": "Treasury introduces new security measures in bid to stop UK Budget leaks",
-    "date": "2026-10-18",
-    "time": "14:48",
-    "url": "https://www.ft.com/content/6748e45a-0b1a-43be-b65f-645849af4a57"
-  },
-  {
-    "id": "d48c545b-6b41-41e9-a71c-cb2126c76082",
-    "title": "‘The Switzerland of North America’: Albertans vote on leaving Canada",
-    "date": "2026-10-18",
-    "time": "13:00",
-    "url": "https://www.ft.com/content/d48c545b-6b41-41e9-a71c-cb2126c76082"
-  },
-  {
-    "id": "da1dbd0b-4101-4ba8-aa2d-da6fedcb9f23",
-    "title": "Saudi helicopter crash kills two troops near Yemen border",
-    "date": "2026-10-18",
-    "time": "12:38",
-    "url": "https://www.ft.com/content/da1dbd0b-4101-4ba8-aa2d-da6fedcb9f23"
-  },
-  {
-    "id": "2c8c610b-83f3-4cab-b409-bab69f4c2207",
-    "title": "Not every billionaire is a policy failure",
-    "date": "2026-10-18",
-    "time": "12:00",
-    "url": "https://www.ft.com/content/2c8c610b-83f3-4cab-b409-bab69f4c2207"
   }
 ];
