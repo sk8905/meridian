@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-19T05:07:06.205Z",
+ "generated": "2026-10-19T13:52:35.678Z",
  "since": "2026-10-05",
  "firms": {
   "proskauerrose": {
@@ -39,9 +39,9 @@
     "sustainablefutures.linklaters.com"
    ],
    "sitemaps": 6,
-   "urls": 17776,
-   "kept": 2,
-   "fetched": 2,
+   "urls": 17778,
+   "kept": 4,
+   "fetched": 4,
    "errors": 0,
    "carried": 0
   },
@@ -64,6 +64,17 @@
    ],
    "carried": 0
   },
+  "slaughtermay": {
+   "domains": [
+    "www.slaughterandmay.com"
+   ],
+   "sitemaps": 1,
+   "urls": 6289,
+   "kept": 10,
+   "fetched": 10,
+   "errors": 0,
+   "carried": 0
+  },
   "hsf": {
    "domains": [
     "www.hsfkramer.com"
@@ -75,25 +86,14 @@
    "errors": 1,
    "carried": 0
   },
-  "slaughtermay": {
-   "domains": [
-    "www.slaughterandmay.com"
-   ],
-   "sitemaps": 1,
-   "urls": 6288,
-   "kept": 9,
-   "fetched": 9,
-   "errors": 0,
-   "carried": 0
-  },
   "macfarlanes": {
    "domains": [
     "www.macfarlanes.com"
    ],
    "sitemaps": 4,
    "urls": 2406,
-   "kept": 3,
-   "fetched": 3,
+   "kept": 2,
+   "fetched": 2,
    "errors": 0,
    "carried": 0
   },
@@ -115,9 +115,9 @@
     "www.traverssmith.com"
    ],
    "sitemaps": 1,
-   "urls": 5018,
-   "kept": 5,
-   "fetched": 5,
+   "urls": 5020,
+   "kept": 7,
+   "fetched": 7,
    "errors": 0,
    "carried": 0
   },
@@ -128,10 +128,21 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 16563,
+   "urls": 16566,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
+   "carried": 0
+  },
+  "latham": {
+   "domains": [
+    "www.lw.com"
+   ],
+   "sitemaps": 9,
+   "urls": 20207,
+   "kept": 19,
+   "fetched": 18,
+   "errors": 1,
    "carried": 0
   },
   "kirkland": {
@@ -145,37 +156,27 @@
    "errors": 0,
    "carried": 0
   },
-  "latham": {
-   "domains": [
-    "www.lw.com"
-   ],
-   "sitemaps": 9,
-   "urls": 20207,
-   "kept": 22,
-   "fetched": 21,
-   "errors": 1,
-   "carried": 0
-  },
   "whitecase": {
    "domains": [
     "www.whitecase.com"
    ],
    "sitemaps": 11,
    "urls": 10399,
-   "kept": 27,
-   "fetched": 27,
+   "kept": 26,
+   "fetched": 26,
    "errors": 0,
    "carried": 0
   },
-  "sidley": {
+  "cleary": {
    "domains": [
-    "www.sidley.com"
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
    ],
-   "sitemaps": 5,
-   "urls": 6760,
-   "kept": 2,
-   "fetched": 2,
-   "errors": 12,
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 2,
    "carried": 0
   },
   "ropesgray": {
@@ -187,6 +188,17 @@
    "kept": 0,
    "fetched": 0,
    "errors": 1,
+   "carried": 0
+  },
+  "sidley": {
+   "domains": [
+    "www.sidley.com"
+   ],
+   "sitemaps": 5,
+   "urls": 6759,
+   "kept": 2,
+   "fetched": 2,
+   "errors": 12,
    "carried": 0
   },
   "simpsonthacher": {
@@ -208,24 +220,12 @@
    ],
    "carried": 0
   },
-  "davispolk": {
-   "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
-   ],
-   "sitemaps": 11,
-   "urls": 16208,
-   "kept": 4,
-   "fetched": 4,
-   "errors": 0,
-   "carried": 0
-  },
   "stephensonharwood": {
    "domains": [
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2853,
+   "urls": 2854,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -244,36 +244,21 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12292,
+   "urls": 12286,
    "kept": 7,
    "fetched": 7,
    "errors": 0,
    "carried": 0
   },
-  "reedsmith": {
+  "davispolk": {
    "domains": [
-    "www.reedsmith.com"
+    "www.davispolk.com",
+    "davispolk.com"
    ],
-   "sitemaps": 5,
-   "urls": 11581,
-   "kept": 14,
-   "fetched": 14,
-   "errors": 0,
-   "carried": 0
-  },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "governance.weil.com",
-    "restructuring.weil.com",
-    "eurorestructuring.weil.com",
-    "tax.weil.com",
-    "european-disputes-blog.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7745,
-   "kept": 40,
-   "fetched": 40,
+   "sitemaps": 11,
+   "urls": 16210,
+   "kept": 4,
+   "fetched": 4,
    "errors": 0,
    "carried": 0
   },
@@ -282,7 +267,7 @@
     "www.hoganlovells.com"
    ],
    "sitemaps": 2,
-   "urls": 21418,
+   "urls": 21417,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -294,6 +279,17 @@
     "https://www.hlc.com/es/knowledge @2023-12-08",
     "https://www.hlc.com/en/knowledge/topic-centers/fintech-mentor-program @2026-01-06"
    ],
+   "carried": 0
+  },
+  "reedsmith": {
+   "domains": [
+    "www.reedsmith.com"
+   ],
+   "sitemaps": 5,
+   "urls": 11583,
+   "kept": 15,
+   "fetched": 15,
+   "errors": 0,
    "carried": 0
   },
   "southsquare": {
@@ -315,26 +311,30 @@
    ],
    "carried": 0
   },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 1,
-   "urls": 18703,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
-   "carried": 0
-  },
   "mayerbrown": {
    "domains": [
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16342,
-   "kept": 17,
-   "fetched": 17,
+   "urls": 16345,
+   "kept": 19,
+   "fetched": 19,
+   "errors": 0,
+   "carried": 0
+  },
+  "weil": {
+   "domains": [
+    "www.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "tax.weil.com",
+    "european-disputes-blog.weil.com"
+   ],
+   "sitemaps": 36,
+   "urls": 7749,
+   "kept": 40,
+   "fetched": 40,
    "errors": 0,
    "carried": 0
   },
@@ -351,6 +351,101 @@
   }
  },
  "items": [
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-dbs-on-its-triple-tranche-bond-issuance",
+   "title": "Linklaters advises DBS on its US$1.5bn triple-tranche bond issuance",
+   "description": "Linklaters has advised DBS Group Holdings Ltd (DBS) on its US$1.5bn triple-tranche senior unsecured bond issuance under its US$30bn Global Medium Term Note (GMTN) Programme.",
+   "date": "2026-10-19",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/insights/blogs/pensionlinks/2026/october/from-surplus-to-security-navigating-the-next-phase-for-defined-benefit-pension-schemes",
+   "title": "From surplus to security: Navigating the next phase for defined benefit pension schemes",
+   "description": "Explore key issues for defined benefit pension schemes, including surplus, endgame planning, Virgin Media, cyber risk and trustee governance.",
+   "date": "2026-10-19",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "slaughtermay",
+   "url": "https://www.slaughterandmay.com/insights/new-insights/tax-and-the-city-october-2026/",
+   "title": "Tax and the city - October 2026",
+   "description": "Tax and the City - October 2026",
+   "date": "2026-10-19",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/knowledge-container/tax-focus-income-or-capital-hmrcs-consultation-on-modernising-the-distributions-framework/",
+   "title": "Tax Focus podcast: Income or capital? HMRC's consultation on modernising the distributions framework",
+   "description": "During 2025, HMRC paused their concessionary treatment for administrative errors relating to withholding tax on cross-border interest payments. The concession is paused while HMRC review the UK's procedures for claiming relief under a double tax treaty. In this podcast, we discuss the background, the principles involved, and the practical implications of HMRC's decision to pause the concession and conduct the review.",
+   "date": "2026-10-19",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-bolsters-corporate-offering-with-capital-markets-partner-dan-oshea-in-new-york",
+   "title": "Dan O'Shea joins A&O Shearman as Capital Markets partner",
+   "description": "Dan O'Shea joins A&O Shearman as a capital markets partner in New York, bringing 30+ years of experience in securities offerings and public company advisory.",
+   "date": "2026-10-19",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-raises-over-gbp66000-for-northern-ireland-hospice-beating-fundraising-target",
+   "title": "A&O Shearman raises GBP66,000 for Northern Ireland Hospice",
+   "description": "A&O Shearman raised over GBP66,000 for Northern Ireland Hospice, exceeding its target through fundraising and volunteering.",
+   "date": "2026-10-19",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/news/reed-smith-advises-sp-angel-and-hannam-partners-on-7-million-serval-resources-fundraise/",
+   "title": "Reed Smith advises SP Angel and Hannam & Partners on £7 million Serval Resources fundraise",
+   "description": null,
+   "date": "2026-10-19",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-adds-antitrust-partner-yuni-yan-sobel-deepening-capabilities-across-ma-and-private-equity",
+   "title": "Weil Adds Antitrust Partner Yuni Yan Sobel, Deepening Capabilities across M&A and Private Equity Practices",
+   "description": "International law firm Weil, Gotshal & Manges LLP announced today that leading antitrust lawyer Yuni Yan Sobel has joined the Firm as a partner in the U.S. Antitrust practice, based in New York.",
+   "date": "2026-10-19",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "weil",
+   "url": "https://tax.weil.com/insights/member-states-update-eu-list-of-non-cooperative-tax-jurisdictions-on-9-october-2026/",
+   "title": "Member States Update EU List of Non-Cooperative Tax Jurisdictions on 9 October 2026",
+   "description": "On 9 October 2026, the EU Council published an update to its so-called “Blacklist” of jurisdictions that are not cooperative for tax purposes and “Grey List” of cooperative jurisdictions that have not yet fully met their commitments to comply with tax good governance standards. The Blacklist and Grey List were last revised on 17 February",
+   "date": "2026-10-19",
+   "dateSource": "article:published_time",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "weil",
+   "url": "https://tax.weil.com/category/insights/",
+   "title": "Insights Archives",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-19",
+   "dateProbe": [
+    " Member States Update EU List of Non-Cooperative Tax Jurisdictions on 9 October 2026 </a> <div class=\"fo",
+    " Member States Update EU List of Non-Cooperative Tax Jurisdictions on 17 February 2026 </a> <div class=\"fo",
+    " <span class=\"f-book green-text font-small relative padding-right-5\"> January 27, 2026<span class=\"divider"
+   ]
+  },
   {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/",
@@ -380,15 +475,6 @@
    "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
    "title": "Incorporating an LLP: direct tax considerations",
    "description": "In an article for Tax Journal, Partner Joe Robinson and Associate Harvey Innocent explain how LLP members may defer gains when...",
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
-  },
-  {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o5i6/unlocking-db-pension-scheme-surplus-a-new-consideration-for-employers-and-potent",
-   "title": "Unlocking DB pension scheme surplus: a new consideration for employers and potential acquirers",
-   "description": "For many years, the dominant question for employers sponsoring defined benefit (DB) pension schemes, and for the prospective acquirers...",
    "date": "2026-10-16",
    "dateSource": "datePublished",
    "lastmod": "2026-10-16"
@@ -439,15 +525,6 @@
    "lastmod": "2026-10-16"
   },
   {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
-   "title": "Publications",
-   "description": null,
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": null
-  },
-  {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
    "title": "Capital, regulation and capability in a new era",
@@ -485,15 +562,6 @@
    "date": "2026-10-15",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
-  },
-  {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
-   "description": null,
-   "date": "2026-10-15",
-   "dateSource": "datePublished",
-   "lastmod": null
   },
   {
    "firm": "mayerbrown",
@@ -536,15 +604,6 @@
   },
   {
    "firm": "weil",
-   "url": "https://www.weil.com/articles/david-j-cohen-named-to-american-bankruptcy-institutes-2026-40-under-40",
-   "title": "David J. Cohen Named to American Bankruptcy Institute’s 2026 40 Under 40",
-   "description": "Weil Restructuring partner David J. Cohen was named to the American Bankruptcy Institute’s 2026 40 Under 40, recognizing rising leaders in bankruptcy and insolvency.",
-   "date": "2026-10-14",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-15"
-  },
-  {
-   "firm": "weil",
    "url": "https://www.weil.com/articles/weil-wins-summary-judgment-for-nycrc-defeating-all-remaining-claims-in-eb5-investor-mass-action",
    "title": "Weil Wins Summary Judgment for NYCRC Defeating All Remaining Claims in EB-5 Investor “Mass Action”",
    "description": "Weil Wins Summary Judgment for NYCRC Defeating All Remaining Claims in EB-5 Investor “Mass Action”",
@@ -578,15 +637,6 @@
    "date": "2026-10-13",
    "dateSource": "page date label",
    "lastmod": null
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026",
-   "title": "London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026",
-   "description": "The Global Chair of Latham's Private Capital Practice was recognized in the prestigious list for the fifth consecutive year.",
-   "date": "2026-10-13",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-13"
   },
   {
    "firm": "klgates",
@@ -644,15 +694,6 @@
    "dateProbe": []
   },
   {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/Treasury Issues First Ever Enforcement Penalty Under Outbound Investment Security Program",
-   "title": "Treasury Issues First-Ever Enforcement Penalty Under Outbound Investment Security Program",
-   "description": "Treasury’s first outbound investment penalty demonstrates that the Outbound Program enforcement regime is active and monitoring cross-border investments.",
-   "date": "2026-10-09",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-09"
-  },
-  {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/publications/insight/financial-regulatory-observer-autumn-2021",
    "title": "Financial Regulatory Observer - Autumn 2021",
@@ -697,15 +738,6 @@
    "date": "2026-10-08",
    "dateSource": "page date label",
    "lastmod": null
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/The Growth Rocketship Deep Research Bold Bets AI Inside Maverick Capital Portfolios",
-   "title": "The Growth Rocketship: Deep Research, Bold Bets, and AI — Inside Maverick Capital’s US$15 Billion Portfolios",
-   "description": "Latham speaks with Maverick Capital’s General Counsel and Chief Compliance Officer about what it takes to oversee legal risk and compliance across a US$15 billion platform spanning public equities, venture capital, and AI-driven semiconductor investing.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
   },
   {
    "firm": "klgates",
@@ -844,15 +876,6 @@
    "dateProbe": [
     "ion of its FY25 accounts, Synthomer needed to publish its accounts by 30 April 2026 or risk suspension "
    ]
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/media/ft-specialist-ignites-earnout-lawsuit-over-acquired-etf",
-   "title": "FT Specialist – Ignites | Earnout lawsuit over acquired ETF",
-   "description": "In an article for Ignites, a Financial Times Specialist publication, White & Case partner Dario de Martino discussed the earnout at the center of Knowledge Leaders Capital’s lawsuit against AXS Investments.",
-   "date": "2026-10-06",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-06"
   },
   {
    "firm": "sidley",
