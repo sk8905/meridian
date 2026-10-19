@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-10-19";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "06:15 BST";
+export const LAST_CHECKED_TIME = "08:13 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -241,6 +241,8 @@ export const updateTypes = [
 // area: primary practice-area id. areas: all relevant practice-area ids.
 // For case notes, court/citation are populated.
 export const items = [
+  {"id":"u3285","title":"Unlocking DB pension scheme surplus: a new consideration for employers and potential acquirers","area":"corporate","areas":["corporate"],"type":"insight","firm":"macfarlanes","date":"2026-10-16","summary":"For many years, the dominant question for employers sponsoring defined benefit (DB) pension schemes, and for the prospective acquirers...","url":"https://www.macfarlanes.com/insights/102o5i6/unlocking-db-pension-scheme-surplus-a-new-consideration-for-employers-and-potent"},
+  {"id":"u3286","title":"Treasury Issues First-Ever Enforcement Penalty Under Outbound Investment Security Program","area":"corporate","areas":["corporate"],"type":"insight","firm":"latham","date":"2026-10-09","summary":"Treasury’s first outbound investment penalty demonstrates that the Outbound Program enforcement regime is active and monitoring cross-border investments.","url":"https://www.lw.com/en/insights/2026/10/Treasury Issues First Ever Enforcement Penalty Under Outbound Investment Security Program"},
   {"id":"u3257","title":"London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026","area":"funds","areas":["funds"],"type":"update","firm":"latham","date":"2026-10-13","summary":"The Global Chair of Latham's Private Capital Practice was recognized in the prestigious list for the fifth consecutive year.","url":"https://www.lw.com/en/news/2026/10/London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026"},
   {"id":"u3256","title":"David J. Cohen Named to American Bankruptcy Institute’s 2026 40 Under 40","area":"ri","areas":["ri"],"type":"update","firm":"weil","date":"2026-10-14","summary":"Weil Restructuring partner David J. Cohen was named to the American Bankruptcy Institute’s 2026 40 Under 40, recognizing rising leaders in bankruptcy and insolvency.","url":"https://www.weil.com/articles/david-j-cohen-named-to-american-bankruptcy-institutes-2026-40-under-40"},
   {"id":"u3211","title":"Stephenson Harwood appoints James Linforth as Chief Executive","area":"banking","areas":["banking"],"type":"update","firm":"stephensonharwood","date":"2026-10-14","summary":"Stephenson Harwood announced that James Linforth, its global head of banking and finance, has been appointed Chief Executive, effective 1 January 2027, succeeding Eifion Morris.","url":"https://www.stephensonharwood.com/news/stephenson-harwood-appoints-james-linforth-as-chief-executive/"},
