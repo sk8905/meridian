@@ -284,7 +284,7 @@ html[data-theme="dark"][data-v2tab="menu"][data-menu-sec="settings"] .v2-botmeta
 .wr-p { font-size: var(--fs-body, 12.5px); line-height: 1.72; margin: 0 0 12px; text-align: left; hyphens: none; overflow-wrap: break-word; }
 .wr-p a { text-decoration: underline; }
 .wr-fig { margin: 12px 0; } .wr-fig img { max-width: 100%; height: auto; } .wr-fig figcaption { color: var(--muted, #5e6a84); font-size: var(--fs-micro, 10.5px); }
-.wr-open { display: inline-block; margin-top: 10px; color: var(--accent, #fb8b1e); font-weight: 600; font-size: var(--fs-body, 12.5px); }
+.wr-open { display: inline-block; margin-top: 10px; color: var(--accent, #fb8b1e); font-weight: 600; font-size: var(--fs-body, 12.5px); text-decoration: none; }
 .wr-diag { opacity: .7; }
 html.wr-open, html.wr-open body { overflow: hidden; }
 @media (max-width: 760px) {

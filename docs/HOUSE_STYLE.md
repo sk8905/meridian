@@ -1251,8 +1251,12 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   (`--t-link`). Everywhere else links keep their own style: a source stays the subtle grey
   source name or the boxed SRC tag (briefings, Dashboard, profile news rows, table Source
   columns), and a name in a table or list is plain text (still clickable). The reader's
-  "Open original" stays orange, bold, no underline. (The `!important` on these underlines
-  only beats premium.css's global `a { text-decoration: none !important }`.) Spec:
+  "Open original" stays orange, bold, no underline. premium.css's global
+  `a { text-decoration: none !important }` EXCLUDES reading content (`.g-read-art`,
+  `.g-read-p`, `.wr-art` — both readers), so the reader underlines need no `!important`
+  (owner 2026-10-19: external links in a Legal Cheek round-up showed un-underlined because
+  the global rule out-ranked the reader's own); the deal card's `!important` underlines
+  remain until that card is exempted the same way. Spec:
   `tests/link-convention.mjs`. The newswire's "Open original" stays
   orange, bold, no underline. (The `!important` on these underlines exists only to beat
   premium.css's global `a { text-decoration: none !important }`.)

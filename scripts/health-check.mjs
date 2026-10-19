@@ -220,6 +220,42 @@ for (const m of MODULES) {
   });
 }
 
+// ---- 4. CI (the automated test suite on main) ------------------------------
+// The refresh routines gate only on the data specs before publishing, so a change can
+// leave the FULL suite (.github/workflows/tests.yml, run on every push) red for a day
+// without anyone noticing (owner 2026-10-19: six specs failed silently). Read the latest
+// completed run on main and surface a red one. Tries the authenticated `gh` CLI first,
+// then a GITHUB_TOKEN / GH_TOKEN, then the public API; if none answer, it says so rather
+// than guessing. --no-ci (or WIRE_HEALTH_NO_CI=1) skips it offline; WIRE_HEALTH_CI_STUB
+// injects a run JSON for the spec.
+const CI_API = "repos/sk8905/meridian/actions/workflows/tests.yml/runs?branch=main&status=completed&per_page=1";
+let ci = null;
+async function readCi() {
+  if (process.env.WIRE_HEALTH_CI_STUB) return { ...JSON.parse(process.env.WIRE_HEALTH_CI_STUB), via: "stub" };
+  const pick = (j) => { const r = j && j.workflow_runs && j.workflow_runs[0]; return r ? { conclusion: r.conclusion, sha: String(r.head_sha || "").slice(0, 7), at: r.updated_at || r.created_at, url: r.html_url, title: r.display_title || "" } : null; };
+  const g = spawnSync("gh", ["api", CI_API], { encoding: "utf8", timeout: 15000 });
+  if (g.status === 0) { try { const r = pick(JSON.parse(g.stdout)); if (r) return { ...r, via: "gh" }; } catch { /* fall through */ } }
+  const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+  try {
+    const res = await fetch(`https://api.github.com/${CI_API}`, { headers: { "user-agent": "wire-health-check", accept: "application/vnd.github+json", ...(token ? { authorization: `Bearer ${token}` } : {}) }, signal: AbortSignal.timeout(10000) });
+    if (res.ok) { const r = pick(await res.json()); if (r) return { ...r, via: token ? "token" : "public" }; }
+    return { unavailable: `GitHub API ${res.status}` };
+  } catch (e) { return { unavailable: e.message }; }
+}
+if (!process.argv.includes("--no-ci") && process.env.WIRE_HEALTH_NO_CI !== "1") {
+  ci = await readCi();
+  if (ci && ci.unavailable) issues.push({
+    area: "ci:tests", severity: "attention",
+    detail: `could not read the automated test result for main (${ci.unavailable})`,
+    solution: "Check the latest 'tests' run at https://github.com/sk8905/meridian/actions/workflows/tests.yml — and make sure this environment has the gh CLI or a GITHUB_TOKEN so the health check can read it.",
+  });
+  else if (ci && ci.conclusion && ci.conclusion !== "success" && ci.conclusion !== "skipped") issues.push({
+    area: "ci:tests", severity: "attention",
+    detail: `the automated test suite is ${ci.conclusion.toUpperCase()} on main (commit ${ci.sha}, ${ci.at}) — something a recent change or data edit broke is live`,
+    solution: `Open ${ci.url}, read which specs failed, fix them and run the full suite (node tests/run.mjs) before pushing. Routines only gate on the data specs, so this is the only place a red suite surfaces.`,
+  });
+}
+
 // ---- Verdict --------------------------------------------------------------
 const fails = issues.filter((i) => i.severity === "fail");
 const attention = issues.filter((i) => i.severity === "attention");
@@ -259,7 +295,7 @@ if (doWrite) {
 }
 
 if (asJson) {
-  console.log(JSON.stringify({ generated: new Date().toISOString(), verdict, ok, fails, attention, coverage, cadenceHours: lastCommitAgeH, newRecords24h: yield24, backfill, lanes }, null, 2));
+  console.log(JSON.stringify({ generated: new Date().toISOString(), verdict, ok, fails, attention, coverage, cadenceHours: lastCommitAgeH, newRecords24h: yield24, backfill, lanes, ci }, null, 2));
 } else {
   const date = new Date().toISOString().slice(0, 10);
   console.log(`WIRE HEALTH CHECK — ${date}`);
@@ -279,6 +315,7 @@ if (asJson) {
   if (lanes) console.log(`Newswire lanes: Managers ${lanes.managers} events (this + last month) · Research ${lanes.research14} (14d) · Newsletters ${lanes.newsletters7} (7d) · Watchlist depth — hedge funds with news ${lanes.hfCovered}/${lanes.hfTotal}, law firms active in 30d ${lanes.firmRecent}/${lanes.firmTotal}.`);
   if (backfill) console.log(`2020 backfill (checklist): ${backfill.present}/${backfill.events} events present = ${backfill.pct}% · ${backfill.built}/${backfill.entities} priority entities researched.`);
   if (yield24) console.log(`New records published in the last 24h: ${yieldTotal} (deals ${yield24.deals} · intel ${yield24.intel} · hedge ${yield24.hedge} · legal ${yield24.legal}).`);
+  if (ci && !ci.unavailable && ci.conclusion) console.log(`Automated tests on main: ${ci.conclusion === "success" ? "PASSING" : ci.conclusion.toUpperCase()} (commit ${ci.sha}, ${ci.at}).`);
   if (lastCommitAgeH != null) console.log(`Last publish to this checkout: ${lastCommitAgeH.toFixed(1)}h ago — "${lastCommitSubject}".`);
   if (ok) console.log("\nAll content surfaces fresh, the refresh is publishing on cadence, and every module builds cleanly.");
 }

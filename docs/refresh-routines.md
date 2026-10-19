@@ -1024,6 +1024,28 @@ to `backfill/` (never to the data files):
   the notice URL and its published date. Never record personal-insolvency notices or
   individuals' names (the OGL excludes personal data).
 
+## Restructurings — Part 26A plans & Part 26 schemes (`backfill/rx-candidates.json`)
+
+**Use this, not general web search** (owner 2026-10-19: the lane sat "34 days stale" while
+every run reported "nothing verifiable found" — web search is stale for this niche, BAILII
+is behind a bot wall, and the National Archives lag hand-down by weeks). A daily GitHub
+Action (`.github/workflows/collect-rx.yml` → `scripts/collect-rx.mjs`) writes:
+- **`judgments`** — National Archives Find Case Law hits in the Chancery / B&P / Court of
+  Appeal lists (last 120 days), each CONFIRMED from its own judgment text (`data.xml`) as a
+  creditor Part 26A plan or Part 26 creditor scheme — solvent takeover (members') schemes,
+  FSMA Part VII insurance transfers and passing mentions are excluded — and not already
+  held (by citation, judgment URL, or the same company within ±10 days). Each carries
+  `company`, `date` (hand-down), `citation`, `court`, `judgmentUrl`. Record it in legal
+  `restructurings` from the judgment itself (type, outcome, creditors/classes, features);
+  unknown fields `null` / `[]`.
+- **`leads`** — South Square judgment notes and GRR Part 26A / scheme topic articles. GRR
+  is paywalled: a lead to confirm against the judgment, a firm's own note or the company's
+  RNS — never the citation. Leads for matters not yet in court (a launched plan, a
+  "judgment reserved" hearing) are watched, not recorded.
+A month with nothing new is normal — the freshness audit judges this lane on 45 days.
+Known open leads (Oct 2026): Schleich sanction judgment (reserved), Thames Water RP2,
+Agile Group's English plan, Arxada's TNA judgment (fills its `judgmentUrl`).
+
 ## Deterministic candidate collector (`scripts/collect-candidates.mjs`) — run it FIRST
 
 The routines' hunt used to be free-form web search, and it under-collected badly (in
@@ -1311,6 +1333,12 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 ---
 
 ## Health snapshot + credit digest (every run; digest emailed each morning)
+
+The health check also reads the **automated test suite** on `main` (the `tests` workflow):
+a red suite surfaces as an issue in the daily health email (`ci:tests`, with the run link),
+because the routines gate only on the data specs before publishing. It reads GitHub via
+the `gh` CLI, else `GITHUB_TOKEN` / `GH_TOKEN`, else the public API, and says so if none
+answers.
 
 Two generated, **tokenless + no-cache** data modules (listed in `_headers`, copied into
 `dist/` by `scripts/postbuild.mjs` like every root data file) are rebuilt on **every**

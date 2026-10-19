@@ -948,18 +948,18 @@
        just a faint link-coloured underline so they're discoverable without overwhelming the
        text; hover brings up the full link colour. */
     .g-read-p a.g-ent, .g-read-art a.g-ent{ color:inherit; font-weight:inherit;
-      text-decoration-line:underline !important; text-decoration-style:solid; text-decoration-thickness:1px;
-      text-underline-offset:2px; text-decoration-color:var(--t-link) !important; }
+      text-decoration-line:underline; text-decoration-style:solid; text-decoration-thickness:1px;
+      text-underline-offset:2px; text-decoration-color:var(--t-link); }
     /* Internal (entity) links read as white body prose with a BLUE underline; hover keeps
        the text white and just thickens the underline (never recolours the text). */
     @media (hover:hover) { .g-read-p a.g-ent:hover, .g-read-art a.g-ent:hover{ text-decoration-thickness:2px; } }
     /* External publisher links preserved from the article body (e.g. a newsletter round-up's
        "[ Source ]" links) — white text with an ORANGE underline, so an outbound link is
        visually distinct from a blue-underlined internal entity link. */
-    .g-read-p a:not(.g-ent), .g-read-art a:not(.g-ent):not(.g-read-open){ color:var(--t-ink);
+    .g-read-p a:not(.g-ent), .g-read-art a:not(.g-ent):not(.g-read-open), .wr-art .wr-p a{ color:var(--t-ink);
       text-decoration-line:underline; text-decoration-style:solid; text-decoration-thickness:1px;
       text-underline-offset:2px; text-decoration-color:var(--t-accent); }
-    @media (hover:hover) { .g-read-p a:not(.g-ent):hover, .g-read-art a:not(.g-ent):not(.g-read-open):hover{ text-decoration-thickness:2px; } }
+    @media (hover:hover) { .g-read-p a:not(.g-ent):hover, .g-read-art a:not(.g-ent):not(.g-read-open):hover, .wr-art .wr-p a:hover{ text-decoration-thickness:2px; } }
     .g-read-h:first-child{ margin-top:0; }
     /* Content images pulled from the article, shown inline in reading order. The image
        sits in a figure with an optional caption; it scales to the text column and never

@@ -126,6 +126,7 @@ function macroEditorialSurface() {
 // ---- Surfaces the newest-date check alone can't judge (added by the 2026-10-13 audit,
 // which found these rotting unseen) ------------------------------------------------
 const DAY_MS = 86400000;
+const _fitchPcdrDate = (((DASH.PRIVATE_CREDIT || {}).reports || []).filter((r) => /fitch/i.test(r.srcName || r.title || "") && /default rate/i.test(r.title || "")).map((r) => r.date).sort().pop()) || null;
 const startOfWeekUTC = () => { const d = new Date(); d.setUTCHours(0, 0, 0, 0); const dow = (d.getUTCDay() + 6) % 7; return d.getTime() - dow * DAY_MS; };
 // A one-off "as of" stamp judged on its own window (13F quarter, dashboard snapshot …).
 function stampSurface(key, label, stamp, windowDays, count = 1, note) {
@@ -177,7 +178,11 @@ const SURFACES = [
   surface("hedge_intel", "Hedge-fund intel", CR.HEDGE_INTEL),
   surface("legal_items", "Legal updates", LG.items),
   surface("legal_cases", "Case law", LG.cases),
-  surface("legal_rx", "Restructurings", LG.restructurings),
+  // English schemes / Part 26A plans reach court in bursts — a genuine month-long lull is
+  // normal (Sep–Oct 2026: nothing between Arxada on 15 Sep and mid-Oct, confirmed against
+  // TNA, GRR and South Square). Judge on 45 days; the daily collect-rx collector
+  // (backfill/rx-candidates.json) is what catches new hearings promptly.
+  surface("legal_rx", "Restructurings", LG.restructurings, "date", 45),
   surface("macro_news", "Macro headlines", _NEWS),
   macroCommentarySurface(),
   surface("macro_articles", "Macro reading list", _ART),
@@ -194,7 +199,10 @@ const SURFACES = [
   stampSurface("hf_13f", "Hedge-fund 13F panel (quarter end)", _13F, 135),
   stampSurface("dashboard_snapshot", "Dashboard fallback snapshot (DASH_ASOF)", DASH.DASH_ASOF, 45),
   // Dashboard curated panels (R37) — each a single as-of stamp on its source's cadence.
-  stampSurface("dashboard_pc", "Dashboard ▸ US private credit (Fitch PCDR, monthly)", (DASH.PRIVATE_CREDIT || {}).asOf, 45),
+  // Fitch publishes each month's PCDR mid-next-month, so judge it on the PUBLICATION date
+  // of the latest Fitch report held (not the "2026-09" month stamp, which reads as the
+  // 1st and flagged a release that wasn't due yet): stale once the next one is overdue.
+  stampSurface("dashboard_pc", "Dashboard ▸ US private credit (Fitch PCDR, monthly)", _fitchPcdrDate || (DASH.PRIVATE_CREDIT || {}).asOf, 40),
   stampSurface("dashboard_eu_distress", "Dashboard ▸ Europe defaults & distress", (DASH.EU_DISTRESS || {}).asOf, 45),
   stampSurface("dashboard_regcal", "Dashboard ▸ Legal regulatory calendar", (DASH.REG_CALENDAR || {}).asOf, 90),
   stampSurface("dashboard_fedwatch", "Dashboard ▸ Rates CME FedWatch / SONIA odds", _isoDay((((MAC.OUTLOOK || {}).us || {}).fedwatch || {}).asOf), 14),

@@ -67,7 +67,10 @@ export async function open(browser, dev, url) {
   const pg = await ctx.newPage();
   const errs = [];
   pg.on("pageerror", (e) => errs.push(String(e.message).slice(0, 160)));
-  pg.on("console", (m) => { if (m.type() === "error" && !/net::|404|Failed to load resource/.test(m.text())) errs.push("console: " + m.text().slice(0, 160)); });
+  // Console errors raised INSIDE a third-party frame (e.g. the TradingView quote widget's own
+  // telemetry fetches, HOUSE_STYLE T21) are the vendor's, not Wire's — only our origin counts.
+  const ours = (m) => { try { const u = (m.location() || {}).url || ""; return !u || /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/)/.test(u); } catch { return true; } };
+  pg.on("console", (m) => { if (m.type() === "error" && ours(m) && !/net::|404|Failed to load resource/.test(m.text())) errs.push("console: " + m.text().slice(0, 160)); });
   await pg.goto(url, { waitUntil: "load" });
   return { ctx, pg, errs };
 }

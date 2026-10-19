@@ -65,7 +65,8 @@ check(/3 new stories/.test((await pill()) || ""), `a "3 new stories" pill appear
 
 // Tapping the pill goes back to the top and clears it.
 await pg.click(".wire-new-pill");
-await pg.waitForFunction(() => window.scrollY < 40, null, { timeout: 5000 });
+// Wait for the smooth scroll to land fully at the top (a slow CI box can still be gliding).
+await pg.waitForFunction(() => window.scrollY === 0, null, { timeout: 5000 });
 check((await pill()) === null, "the pill clears once back at the top");
 
 // At the top, another refresh just shows the new story — no pill.

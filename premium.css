@@ -1146,4 +1146,8 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 57px) + v
 
 /* ---- House rule: NO hyperlink underlines anywhere on the platform — links
         read by colour and context (hover keeps its colour shift only). ---- */
-a, a:focus { text-decoration: none !important; }   /* covers :hover too — an !important on `a` beats every non-important hover underline */
+/* Links are never underlined by default — EXCEPT inside reading content (the newswire
+   reader's article body and the app-wide reader overlay), whose own rules draw the
+   orange (external) / blue (internal) underline (HOUSE_STYLE R39l). Excluding them here,
+   rather than out-shouting this rule with !important there, keeps the cascade honest. */
+a:not(:is(.g-read-art, .g-read-p, .wr-art) a), a:focus:not(:is(.g-read-art, .g-read-p, .wr-art) a) { text-decoration: none !important; }   /* covers :hover too */

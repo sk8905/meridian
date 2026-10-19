@@ -23,6 +23,8 @@ const READ = { source: "The Guardian", title: "Oil slips below $100 as Iran sign
   { embed: { handle: "Barrister7", name: "Gareth Weetman KC", avatar: "https://pbs.twimg.com/b.jpg", text: "Lawyers who didn't feature grabbed the popcorn across social media...", media: ["https://pbs.twimg.com/media/legal500.jpg"], url: "https://x.com/Barrister7/status/1973500000000000001", date: "Wed Oct 01 12:00:00 +0000 2026" } },
   { t: "The move came as UK borrowing overshot the OBR's forecast, with gilt yields ticking higher across the curve.", h: false },
   { t: ENTITY_PARA, h: false },
+  // A round-up paragraph with a publisher link preserved (Legal Cheek-style "[Financial Times]").
+  { html: 'Anthropic turns to lawyers to help AI agents strike deals <a href="https://www.ft.com/content/abc">[Financial Times]</a>' },
 ] };
 const srv = await serve({ "/api/read": () => [200, JSON.stringify(READ)] });
 const b = await launchChromium();
@@ -137,6 +139,7 @@ if (freeSel) {
       headText: (h || {}).textContent || "",
       headWeight: h && getComputedStyle(h).fontWeight,
       headDecoration: h && getComputedStyle(h).textDecorationLine,
+      ext: [...document.querySelectorAll("#g-readpane .g-read-p a:not(.g-ent)")].map((a) => { const c = getComputedStyle(a); return { decoLine: c.textDecorationLine, decoColor: c.textDecorationColor, color: c.color }; }),
       ents: [...document.querySelectorAll("#g-readpane .g-read-p a.g-ent")].map((a) => { const c = getComputedStyle(a); return { t: a.textContent, href: a.getAttribute("href"), weight: c.fontWeight, color: c.color, decoLine: c.textDecorationLine, decoColor: c.textDecorationColor }; }),
       pColor: p && getComputedStyle(p).color,
       // An embedded tweet renders as a card: author, text, media, linking to the post.
@@ -193,6 +196,9 @@ if (freeSel) {
   check(cit.weight < 700 && cit.color === full.pColor, `reading pane: entity links are NOT bold/blue — they read as body prose (${cit.weight}/${cit.color} vs body ${full.pColor})`);
   check(/underline/.test(cit.decoLine || "") && cit.decoColor && cit.decoColor !== cit.color, `reading pane: entity links carry a faint link-coloured underline (${cit.decoLine}/${cit.decoColor})`);
   // A lower-case common word is NOT linked, even when it matches a fund's one-word alias.
+  // R39l: an external publisher link in the article body is underlined in ORANGE (white text).
+  check(full.ext.length >= 1 && full.ext.every((x) => x.decoLine === "underline" && x.decoColor === "rgb(251, 139, 30)"), `reading pane: external links in the body carry the orange underline (${JSON.stringify(full.ext)})`);
+  check(full.ents.length > 0 && full.ents.every((e) => e.decoLine === "underline"), "reading pane: entity links keep their underline without !important");
   check(!full.ents.some((e) => /^sector$/i.test(e.t)), `reading pane: a lower-case common word ("sector") is not mis-linked as an entity (${full.ents.map((e) => e.t).join(", ")})`);
   // Entity linking is READING-PANE ONLY — the wire feed itself never gets .g-ent links.
   check(await pg.evaluate(() => document.querySelectorAll("#g-feed .g-ent").length === 0), "wire feed: no entity auto-links (reading pane only)");

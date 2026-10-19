@@ -9,7 +9,8 @@ import path from "node:path";
 
 check(fs.existsSync(path.join(ROOT, "scripts/health-check.mjs")), "health-check: scripts/health-check.mjs exists");
 
-const r = spawnSync("node", [path.join(ROOT, "scripts/health-check.mjs"), "--json"], { cwd: ROOT, encoding: "utf8", maxBuffer: 8 << 20 });
+// Offline + deterministic: skip the live CI lookup here (its own cases are stubbed below).
+const r = spawnSync("node", [path.join(ROOT, "scripts/health-check.mjs"), "--json"], { cwd: ROOT, encoding: "utf8", maxBuffer: 8 << 20, env: { ...process.env, WIRE_HEALTH_NO_CI: "1" } });
 let j = null;
 try { j = JSON.parse(r.stdout); } catch { /* reported below */ }
 check(!!j, "health-check: --json emits parseable JSON");
@@ -28,5 +29,15 @@ if (j) {
   // Exit code is 0 only on a clean bill of health, so a routine/CI can branch on it.
   check((r.status === 0) === j.ok, `health-check: exit code reflects the verdict (status ${r.status}, ok ${j.ok})`);
 }
+
+// CI (owner 2026-10-19): a red automated test suite on main surfaces as an issue with a fix,
+// a green one adds nothing, and the result is reported in the ci field.
+const runCi = (stub) => { const x = spawnSync("node", [path.join(ROOT, "scripts/health-check.mjs"), "--json"], { cwd: ROOT, encoding: "utf8", maxBuffer: 8 << 20, env: { ...process.env, WIRE_HEALTH_NO_CI: "", WIRE_HEALTH_CI_STUB: JSON.stringify(stub) } }); try { return JSON.parse(x.stdout); } catch { return null; } };
+const red = runCi({ conclusion: "failure", sha: "abc1234", at: "2026-10-19T16:09:13Z", url: "https://github.com/sk8905/meridian/actions/runs/1" });
+const redCi = red && [...red.fails, ...red.attention].find((i) => i.area === "ci:tests");
+check(!!redCi && /FAILURE/.test(redCi.detail) && /actions\/runs\/1/.test(redCi.solution), "health-check: a failing test run on main is reported, with the run link in the fix");
+check(!!red && red.verdict !== "GOOD", "health-check: a red suite never reads GOOD");
+const green = runCi({ conclusion: "success", sha: "def5678", at: "2026-10-19T17:00:00Z", url: "https://github.com/sk8905/meridian/actions/runs/2" });
+check(!!green && ![...green.fails, ...green.attention].some((i) => i.area === "ci:tests") && green.ci && green.ci.conclusion === "success", "health-check: a passing run adds no issue and is reported in the ci field");
 
 finish();
