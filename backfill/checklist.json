@@ -5209,17 +5209,323 @@
    "kind": "manager",
    "name": "Cerberus Capital Management",
    "priority": 45,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-19",
+   "events": [
+    {
+     "key": "hsbc-france-retail-sale-announced-2021-06",
+     "date": "2021-06-21",
+     "what": "HSBC agrees to sell French retail bank to Cerberus-backed My Money Group for EUR1 (244 branches, ~800k customers)",
+     "source": "https://www.bankingdive.com/news/hsbc-to-sell-french-retail-banking-operations-to-cerberus-backed-entity/602072/",
+     "status": "rejected",
+     "note": "Source page seen is dated 21 Jun 2021, but the announcement itself was reported as 18 Jun 2021 in secondary search results. Exact announcement date not verified on a primary source. No ready record."
+    },
+    {
+     "key": "cirep-v-close-2021-03",
+     "date": "2021-03-29",
+     "what": "Cerberus closes flagship real estate strategy at ~$2.8bn (CIREP V >$2.5bn plus $300m dedicated investor fund)",
+     "source": "https://www.cerberus.com/media/cerberus-raises-2-8-billion-for-flagship-global-opportunistic-real-estate-strategy/",
+     "recordId": "i1438",
+     "status": "present"
+    },
+    {
+     "key": "cbf-lloc-iv-final-close-2021-03",
+     "date": "2021-03-09",
+     "what": "Cerberus Business Finance closes Levered Loan Opportunities Fund IV at $2.4bn; >$4.4bn raised in total",
+     "source": "https://www.businesswire.com/news/home/20210309005246/en",
+     "recordId": "i855",
+     "status": "present"
+    },
+    {
+     "key": "red-river-majority-stake-2021-06",
+     "date": "2021-06-01",
+     "what": "Cerberus affiliate acquires majority stake in Red River Technology",
+     "source": "https://www.cerberus.com/media/cerberus-acquires-leading-technology-provider-red-river/",
+     "recordId": "d1238",
+     "status": "present"
+    },
+    {
+     "key": "pq-performance-chemicals-completion-2021-08",
+     "date": "2021-08-02",
+     "what": "Cerberus and Koch Minerals & Trading complete acquisition of PQ Performance Chemicals from Ecovyst",
+     "source": "https://www.cerberus.com/media/cerberus-and-koch-complete-acquisition-of-pq-performance-chemicals/",
+     "recordId": "d1239",
+     "status": "present"
+    },
+    {
+     "key": "intrum-asset-sale-announced-2024-01",
+     "date": "2024-01-22",
+     "what": "Intrum agrees to sell SEK 11.5bn (EUR1.0bn book) investment portfolio to Cerberus affiliates; Cerberus 65% / Intrum 35% JV",
+     "source": "https://news.cision.com/intrum/r/intrum-announces-sek-11-5-billion-asset-sale-to-cerberus--raising-liquidity-and-progressing-toward-c,c3912832",
+     "recordId": "d1240",
+     "status": "present"
+    },
+    {
+     "key": "hsbc-france-completion-2024-01",
+     "date": "2024-01-01",
+     "what": "HSBC completes sale of French retail banking business to CCF (My Money Group)",
+     "source": "https://www.hsbc.com/-/files/hsbc/media/media-release/2024/240101-hsbc-press-release-completion-of-the-sale-of-retail-banking-business-in-france.pdf",
+     "status": "rejected",
+     "note": "The PDF body could not be decoded. The date comes from the PDF file metadata and filename (240101) plus secondary reports. Cerberus's EUR225m investment is not confirmed on the primary page. Not safe to publish without a readable primary source."
+    },
+    {
+     "key": "intrum-asset-sale-completed-2024-07",
+     "date": "2024-07-01",
+     "what": "Intrum completes asset sale to Cerberus; net proceeds SEK 7.2bn",
+     "source": "https://inderes.dk/releases/intrum-completes-asset-sale-to-cerberus-with-net-proceeds-of-sek-72bn-to-reduce-leverage-and-progress-towards-a-capital-light-business-model",
+     "recordId": "d1241",
+     "status": "present"
+    },
+    {
+     "key": "velobank-acquisition-completed-2024-08",
+     "date": "2024-08-01",
+     "what": "Cerberus, EBRD and IFC complete acquisition of 100% of VeloBank from Poland's Bank Guarantee Fund",
+     "source": "https://www.ebrd.com/news/2024/cerberus-ebrd-and-ifc-finalise-acquisition-of-polands-velobank.html",
+     "status": "rejected",
+     "note": "Only an aggregator (privsource) carries the date; primary EBRD/Cerberus page not fetched."
+    },
+    {
+     "key": "cip-vii-raise-2024-09",
+     "date": "2024-09-17",
+     "what": "Cerberus Institutional Partners VII (seventh flagship fund) being raised",
+     "source": "https://www.mcdermottlaw.com/news/schulte-advises-cerberus-as-it-raises-its-seventh-institutional-partners-fund/",
+     "status": "rejected",
+     "note": "Law-firm notice only. It gives no fund size or close, so it is not a first or final close. CIP VII and predecessors have raised over $18bn in total. Final close not found."
+    },
+    {
+     "key": "zolva-npl-spain-portugal-2024",
+     "date": "2024-10-03",
+     "what": "Cerberus wins EUR6bn unsecured NPL portfolio plus Zolva servicer in Spain and Portugal",
+     "source": "https://www.cuatrecasas.com/en/global/art/zolva-sells-servicer-in-spain-and-portugal-and-eur6-billion-npl-portfolio-t",
+     "recordId": "d954",
+     "status": "present"
+    },
+    {
+     "key": "feinberg-pentagon-leadership-2025-03",
+     "date": "2025-03-14",
+     "what": "Stephen Feinberg confirmed as Deputy Secretary of Defense (59-40); Frank Bruno, co-CEO since 2018, to lead Cerberus as CEO",
+     "source": "https://www.defensenews.com/pentagon/2025/03/14/senate-confirms-trumps-pick-for-deputy-secretary-of-defense/",
+     "recordId": "i1439",
+     "status": "present"
+    },
+    {
+     "key": "velobank-handlowy-announced-2025-05",
+     "date": "2025-05-28",
+     "what": "VeloBank (Cerberus 80.2%, EBRD 9.9%, IFC 9.9%) signs preliminary agreement to acquire Citi Handlowy retail operations",
+     "source": "https://www.velobank.pl/klienci-indywidualni/biuro-prasowe/velobank-to-acquire-citi-handlowy-retail-operations.html",
+     "recordId": "d1242",
+     "status": "present"
+    },
+    {
+     "key": "eci-sale-rosebank-2025-08",
+     "date": "2025-08-20",
+     "what": "Cerberus completes sale of Electrical Components International to Rosebank Industries for ~$1.9bn",
+     "source": "https://www.cerberus.com/media/cerberus-completes-sale-of-eci-to-rosebank-industries/",
+     "recordId": "d1243",
+     "status": "present"
+    },
+    {
+     "key": "cerberus-maritime-hd-hyundai-2025-08",
+     "date": "2025-08-25",
+     "what": "Cerberus and HD Hyundai announce strategic partnership to launch Cerberus Maritime",
+     "source": "https://www.cerberus.com/media/cerberus-and-hd-hyundai-announce-strategic-partnership-to-launch-cerberus-maritime/",
+     "recordId": "i1440",
+     "status": "present"
+    },
+    {
+     "key": "brocc-finance-acquisition-2025-10",
+     "date": "2025-10-30",
+     "what": "Cerberus completes acquisition of BROCC Finance AB (European NPL platform)",
+     "source": "https://www.cerberus.com/media/cerberus-acquires-brocc-finance-to-support-growth-and-strate",
+     "recordId": "d951",
+     "status": "present"
+    },
+    {
+     "key": "subcom-cv-2026-04",
+     "date": "2026-04-20",
+     "what": "Cerberus closes ~$2.3bn single-asset continuation vehicle for SubCom",
+     "source": "https://www.kirkland.com/news/press-release/2026/04/kirkland-advises-cerberus-on-close-of-single-asset-continuation-vehicle-for-subcom",
+     "recordId": "d949",
+     "status": "present"
+    },
+    {
+     "key": "velobank-handlowy-completed-2026-06",
+     "date": "2026-06-15",
+     "what": "Cerberus, EBRD and IFC complete VeloBank's acquisition of Bank Handlowy retail operations (closed 12 Jun 2026)",
+     "source": "https://www.cerberus.com/media/cerberus-ebrd-and-ifc-complete-velobanks-acquisition-of-bank-handlowy-retail-operations/",
+     "recordId": "d1244",
+     "status": "present"
+    },
+    {
+     "key": "tenet-equity-sale-cbre-2026-09",
+     "date": "2026-09-08",
+     "what": "Cerberus sells Tenet Equity to CBRE Investment Management for $1.6bn",
+     "source": "https://www.cerberus.com/media/cerberus-sells-tenet-equity-to-cbre-investment-management-for-1-6-billion/",
+     "recordId": "d1245",
+     "status": "present"
+    },
+    {
+     "key": "goodwin-mechanical-engineering-2026-09",
+     "date": "2026-09-09",
+     "what": "Cerberus to acquire substantial part of Goodwin plc's Mechanical Engineering Division for up to ~GBP1.1bn",
+     "source": "https://www.cerberus.com/media/cerberus-to-acquire-substantial-part-of-the-mechanical-engineering-division-of-goodwin-plc/",
+     "recordId": "d1246",
+     "status": "present"
+    },
+    {
+     "key": "2020-events",
+     "date": "2020",
+     "what": "No verified 2020 major event found (only a Jan 2020 report of CIREP V launch; Bluestem Brands acquisition 7 Jul 2020 seen only on mergr.com, an aggregator)",
+     "source": null,
+     "status": "rejected",
+     "note": "No primary or tier-1 source with an exact date was found for any 2020 event. 2022 has Torngat investment (9 Nov 2022, businesswire 20221109005422) and the Subic Bay shipyard purchase (year only), but no major event with a verified date."
+    }
+   ]
   },
   "m171": {
    "kind": "manager",
    "name": "Aberdeen Investments",
    "priority": 46,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-19",
+   "events": [
+    {
+     "key": "bird-named-ceo-2020",
+     "date": "2020-06-30",
+     "what": "Standard Life Aberdeen names Stephen Bird CEO to succeed Keith Skeoch",
+     "source": "https://scottishfinancialreview.com/2020/06/30/ceo-skeoch-to-step-down-at-standard-life-aberdeen",
+     "recordId": "i1441",
+     "status": "present"
+    },
+    {
+     "key": "standard-life-brand-sale-phoenix-2021",
+     "date": "2021-02-24",
+     "what": "Standard Life Aberdeen agrees to sell Standard Life brand to Phoenix Group",
+     "source": "https://www.scottishfinancialnews.com/articles/standard-life-aberdeen-to-sell-standard-life-brand-to-phoenix-group",
+     "recordId": "i1442",
+     "status": "present"
+    },
+    {
+     "key": "abrdn-rename-announced-2021",
+     "date": "2021-04-26",
+     "what": "Standard Life Aberdeen announces rename to abrdn plc",
+     "source": "https://scottishfinancialreview.com/2021/04/26/standard-life-aberdeen-rebranded-as-abrdn",
+     "recordId": "i1443",
+     "status": "present"
+    },
+    {
+     "key": "interactive-investor-agreed-2021",
+     "date": "2021-12-02",
+     "what": "abrdn agrees to buy interactive investor for £1.49bn",
+     "source": "https://scottishfinancialreview.com/2021/12/02/abrdn-to-buy-interactive-investor-for-1-49bn",
+     "recordId": "d1247",
+     "status": "present"
+    },
+    {
+     "key": "cred-ii-first-close-2022",
+     "date": "2022-03-31",
+     "what": "abrdn raises £205m at first close of UK Commercial Real Estate Debt fund II (CRED II)",
+     "source": "https://scottishfinancialreview.com/2022/03/31/abrdn-targets-1bn-with-real-estate-debt-fund",
+     "recordId": "i1444",
+     "status": "present"
+    },
+    {
+     "key": "interactive-investor-completed-2022",
+     "date": "2022-05-30",
+     "what": "abrdn completes interactive investor acquisition",
+     "source": "https://scottishfinancialreview.com/2022/05/30/abrdn-completes-1-5bn-interactive-investor-deal",
+     "recordId": "d1248",
+     "status": "present"
+    },
+    {
+     "key": "us-private-markets-sale-highvista-2023",
+     "date": "2023-07-21",
+     "what": "abrdn agrees to sell US private markets business to HighVista Strategies",
+     "source": "https://www.ai-cio.com/news/abrdn-sells-u-s-private-markets-business-to-highvista-strategies/",
+     "recordId": "d1249",
+     "status": "present"
+    },
+    {
+     "key": "european-pe-sale-patria-agreed-2023",
+     "date": "2023-10-16",
+     "what": "abrdn agrees to sell European private equity business to Patria Investments",
+     "source": "https://scottishfinancialreview.com/2023/10/16/abrdn-sells-7-5bn-asset-european-private-equity-unit",
+     "recordId": "d1250",
+     "status": "present"
+    },
+    {
+     "key": "european-pe-sale-patria-completed-2024",
+     "date": "2024-04-29",
+     "what": "abrdn completes sale of European private equity business to Patria for up to £100m",
+     "source": "https://www.aberdeenplc.com/en-gb/news/all-news/abrdn-completes-sale-of-its-european-headquartered-private-equity-business",
+     "recordId": "d1251",
+     "status": "present"
+    },
+    {
+     "key": "bird-steps-down-2024",
+     "date": "2024-05-24",
+     "what": "abrdn CEO Stephen Bird steps down; CFO Jason Windsor interim CEO",
+     "source": "https://www.investegate.co.uk/announcement/rns/aberdeen-group-plc--abdn/abrdn-launches-ceo-succession-plan/8219098",
+     "recordId": "i1445",
+     "status": "present"
+    },
+    {
+     "key": "windsor-confirmed-ceo-2024",
+     "date": "2024-09-10",
+     "what": "abrdn appoints Jason Windsor permanent Group CEO",
+     "source": "https://scottishfinancialnews.com/articles/abrdn-confirms-jason-windsor-as-group-ceo",
+     "recordId": "i1446",
+     "status": "present"
+    },
+    {
+     "key": "aberdeen-group-rename-2025",
+     "date": "2025-03-04",
+     "what": "abrdn announces change of name to aberdeen group plc",
+     "source": "https://www.financialplanningtoday.co.uk/news/abrdn-rebrands-to-the-aberdeen-name",
+     "recordId": "i1448",
+     "status": "present"
+    },
+    {
+     "key": "asci-iii-final-close-2025",
+     "date": "2025-02-06",
+     "what": "Aberdeen announces final close of ASCI III core/core+ infrastructure fund at about €585m",
+     "source": "https://www.aberdeenplc.com/en-gb/news/all-news/abrdn-announces-final-close-of-its-third-core-core-plus-infrastructure-fund",
+     "recordId": "i1447",
+     "status": "present"
+    },
+    {
+     "key": "global-fund-finance-first-close-2025",
+     "date": "2025-07-23",
+     "what": "Aberdeen raises £233m at first close of Global Fund Finance Fund",
+     "source": "https://scottishfinancialreview.com/2025/07/23/aberdeen-raises-233m-for-private-credit-fund/",
+     "recordId": "i880",
+     "status": "present"
+    },
+    {
+     "key": "morrison-head-private-credit-2026",
+     "date": "2026-06-03",
+     "what": "Aberdeen appoints Shelley Morrison Head of Private Credit and Fund Finance",
+     "source": "https://www.aberdeenplc.com/en-gb/news/all-news/aberdeen-appoints-shelley-morrison-as-head-of-private-credit-and-fund-finance",
+     "recordId": "i1449",
+     "status": "present"
+    },
+    {
+     "key": "utmost-re-debt-mandate-2026",
+     "date": "2026-08-12",
+     "what": "Utmost appoints Aberdeen to manage commercial real-estate debt mandate",
+     "source": "https://alternativecreditinvestor.com/2026/08/12/utmost-appoints-aberdeen-to-manage-re-debt-mandate/",
+     "recordId": "i605",
+     "status": "present"
+    },
+    {
+     "key": "standard-life-stake-placing-2026",
+     "date": "2026-10-08",
+     "what": "Aberdeen Group sells half its Standard Life stake for about £436m",
+     "source": "https://www.scottishfinancialnews.com/articles/aberdeen-cuts-stake-in-standard-life-via-placing",
+     "recordId": "i1450",
+     "status": "present"
+    }
+   ]
   },
   "m6": {
    "kind": "manager",
@@ -5330,9 +5636,178 @@
    "kind": "manager",
    "name": "Churchill Asset Management",
    "priority": 48,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-19",
+   "events": [
+    {
+     "key": "senior-loan-fund-ii-final-close-2bn",
+     "date": "2020-03-25",
+     "what": "Middle Market Senior Loan Fund II final close, $2bn LP commitments",
+     "source": "https://www.sfnet.com/home/chapters/canada/news-detail/2020/03/25/churchill-asset-management-completes-fundraising",
+     "status": "rejected",
+     "note": "Wire holds this event under Nuveen Private Capital (m63), not this entity."
+    },
+    {
+     "key": "record-2020-fundraising-6-4bn",
+     "date": "2021-01",
+     "what": "Record 2020 capital raising/investment (over $6.4bn raised) annual release",
+     "source": "https://www.sfnet.com/home/chapters/canada/news-detail/2021/01/18/churchill-asset-management-achieves-record-capital-raising-and-investment-activity-in-2020",
+     "status": "rejected",
+     "note": "Release found via SFNet repost 2021-01-18 but original release date and body not verified (fetch not done); low significance, annual stat."
+    },
+    {
+     "key": "secondaries-coinvestment-funds-close-1-5bn",
+     "date": "2021-10-06",
+     "what": "Secondaries Partners and Co-Investment Partners funds close, ~$1.5bn",
+     "source": "https://www.businesswire.com/news/home/20211006005240/en",
+     "status": "rejected",
+     "note": "Wire holds this event under Nuveen Private Capital (m63), not this entity."
+    },
+    {
+     "key": "clo-iii-750m-2021",
+     "date": "2021-11-29",
+     "what": "Churchill Middle Market CLO III Ltd., $750m CLO (closed 4 Nov 2021)",
+     "source": "https://www.businesswire.com/news/home/20211129005372/en",
+     "recordId": "d1235",
+     "status": "present"
+    },
+    {
+     "key": "record-2021-13bn-raised",
+     "date": "2022-01-13",
+     "what": "Record 2021: $13bn capital raised, $11bn invested, $37bn committed capital",
+     "source": "https://businesswire.com/news/home/20220113005204/en/Churchill-Asset-Management-Announces-Record-Breaking-2021-With-11-Billion-of-Private-Capital-Invested-13-Billion-of-Capital-Raised",
+     "recordId": "i1435",
+     "status": "present"
+    },
+    {
+     "key": "inaugural-cfo-700m",
+     "date": "2022-06-30",
+     "what": "Inaugural $700m collateralized fund obligation",
+     "source": "https://www.businesswire.com/news/home/20220706005434/en/Churchill-Asset-Management-Raises-%24700-Million-Collateralized-Fund-Obligation",
+     "recordId": "i712",
+     "status": "present"
+    },
+    {
+     "key": "senior-lending-12bn-2022",
+     "date": "2022-10-10",
+     "what": "Raises over $12bn for senior lending program (Senior Loan Fund III/IV, ~150 investors)",
+     "source": "https://www.businesswire.com/news/home/20221010005106/en/Churchill-Raises-Over-12-Billion-for-its-Senior-Lending-Program",
+     "recordId": "i1436",
+     "status": "present"
+    },
+    {
+     "key": "nuveen-arcmont-acquisition-announced",
+     "date": "2022-10-27",
+     "what": "Nuveen to acquire controlling interest in Arcmont (later Nuveen Private Capital)",
+     "source": "see Wire record",
+     "status": "rejected",
+     "note": "Wire holds this event under Nuveen Private Capital (m63), not this entity."
+    },
+    {
+     "key": "pcap-launch",
+     "date": "2023-02-09",
+     "what": "Nuveen and Churchill launch Private Capital Income Fund (PCAP)",
+     "source": "https://www.abladvisor.com/news/35938/nuveen-and-churchill-launch-bdc-offering-individual-investors-private-capital-opp",
+     "status": "rejected",
+     "note": "Wire holds this event under Nuveen Private Capital (m63), not this entity."
+    },
+    {
+     "key": "arcmont-acquisition-closed-npc",
+     "date": "2023-03-01",
+     "what": "Nuveen closes Arcmont acquisition forming Nuveen Private Capital",
+     "source": "https://arcmont.com/news/nuveen-closes-acquisition-of-arcmont",
+     "status": "rejected",
+     "note": "Wire holds this event under another entity (m63), not this one."
+    },
+    {
+     "key": "second-cfo-190m",
+     "date": "2023-12-18",
+     "what": "Second CFO, $190m",
+     "source": "https://www.businesswire.com/news/home/20231218205808/en/Churchill-Asset-Management-Closes-Second-Collateralized-Fund-Obligation-Investing-in-Nuveen-Private-Capital-Flagship-Strategies",
+     "recordId": "i713",
+     "status": "present"
+    },
+    {
+     "key": "ncdl-nyse-ipo",
+     "date": "2024-01-24",
+     "what": "Nuveen Churchill Direct Lending Corp prices NYSE IPO",
+     "source": "https://www.sec.gov/Archives/edgar/data/1737924/000162828024002126/ncdl-497adxpricingpressrel.htm",
+     "status": "rejected",
+     "note": "Wire holds this event under another entity (m63), not this one."
+    },
+    {
+     "key": "mmslf-clo-iii-400m-mubadala",
+     "date": "2024-01-25",
+     "what": "Churchill MMSLF CLO III, $400m CLO tied to >$1bn Mubadala co-investment partnership (closed 24 Jan 2024)",
+     "source": "https://www.sfnet.com/home/chapters/canada/news-detail/2024/01/30/churchill-asset-management-completes-$400-million-middle-market-clo-offering",
+     "recordId": "d1236",
+     "status": "present"
+    },
+    {
+     "key": "clo-v-750m-2025",
+     "date": "2025-02-26",
+     "what": "Churchill Middle Market CLO V, $750m CLO (closed 25 Feb 2025; 15th Churchill CLO; tightest pricing to date)",
+     "source": "https://www.sfnet.com/home/chapters/canada/news-detail/2025/02/26/churchill-asset-management-completes-$750-million-middle-market-clo-offering",
+     "recordId": "d1237",
+     "status": "present"
+    },
+    {
+     "key": "third-cfo-750m",
+     "date": "2025-03-27",
+     "what": "Third CFO, 30-year $750m",
+     "source": "https://www.businesswire.com/news/home/20250327737923/en/Churchill-Asset-Management-Closes-Third-Collateralized-Fund-Obligation-a-30year-$750-Million-Transaction-Investing-across-Nuveen-Private-Capital-Strategies",
+     "recordId": "i714",
+     "status": "present"
+    },
+    {
+     "key": "co-investment-fund-ii-final-close-1-5bn",
+     "date": "2025-06-10",
+     "what": "Co-Investment Fund II final close, $1.5bn (hard cap)",
+     "source": "https://www.businesswire.com/news/home/20250610465576/en",
+     "status": "rejected",
+     "note": "Wire holds this event under another entity (m63), not this one."
+    },
+    {
+     "key": "foley-head-of-institutional",
+     "date": "2025-08-27",
+     "what": "Michael Foley appointed Senior Managing Director, Head of Institutional",
+     "source": "https://www.ai-cio.com/news/churchill-asset-management-names-michael-foley-head-of-institutional/",
+     "recordId": "i1437",
+     "status": "present"
+    },
+    {
+     "key": "hunter-point-temasek-minority",
+     "date": "2025-09-03",
+     "what": "Nuveen Private Capital minority investments from Hunter Point and Temasek",
+     "source": "https://www.prnewswire.com/news-releases/nuveen-private-capital-hunter-point-capital-and-temasek-announce-strategic-partnership-302544469.html",
+     "status": "rejected",
+     "note": "Wire holds this event under another entity (m63), not this one."
+    },
+    {
+     "key": "senior-lending-16bn-fifth-vintage",
+     "date": "2026-01-21",
+     "what": "Raises over $16bn, fifth senior loan vintage, largest raise",
+     "source": "https://www.businesswire.com/news/home/20260121411398/en/Churchill-Asset-Management-Raises-over-$16-Billion-for-Senior-Lending-Program",
+     "recordId": "i573",
+     "status": "present"
+    },
+    {
+     "key": "seviora-cfo-400m",
+     "date": "2026-07-12",
+     "what": "~$400m CFO with Seviora (Temasek)",
+     "source": "https://www.businesswire.com/news/home/20260712336679/en/Churchill-Asset-Management-and-Seviora-Close-Approximately-$400-Million-Collateralized-Fund-Obligation-Combining-U.S.-and-Asian-Private-Capital-Strategies",
+     "recordId": "d654",
+     "status": "present"
+    },
+    {
+     "key": "capital-solutions-launch",
+     "date": "2026-08-12",
+     "what": "Launch of capital solutions strategy (Noah Charney)",
+     "source": "https://alternativecreditinvestor.com/2026/08/12/churchill-launches-capital-solutions-strategy-backed-by-tiaa/",
+     "recordId": "i617",
+     "status": "present"
+    }
+   ]
   },
   "m21": {
    "kind": "manager",
@@ -5540,9 +6015,170 @@
    "kind": "hf",
    "name": "Man Group",
    "priority": 51,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-19",
+   "events": [
+    {
+     "key": "fy2020-record-fum",
+     "date": "2021-03-02",
+     "what": "FY2020 results: record FUM $123.6bn (2019: $117.7bn), net inflows $1.8bn",
+     "source": "https://www.investegate.co.uk/announcement/rns/man-group--emg/final-results/6490370",
+     "recordId": "hi309",
+     "status": "present"
+    },
+    {
+     "key": "fy2021-record-aum",
+     "date": "2022-03-01",
+     "what": "FY2021 results: record AUM $148.6bn (+20%), net inflows $13.7bn",
+     "source": "https://www.man.com/news-centre/results-for-the-financial-year-ended-31-december-2021",
+     "recordId": "hi310",
+     "status": "present"
+    },
+    {
+     "key": "fy2022-results-perf-fees",
+     "date": "2023-02-28",
+     "what": "FY2022 results: AUM $143.3bn, net inflows $3.1bn, core performance fees $779m, core EPS highest in over a decade",
+     "source": "https://www.man.com/news-centre/results-for-the-financial-year-ended-31-december-2022",
+     "recordId": "hi311",
+     "status": "present"
+    },
+    {
+     "key": "chair-succession-wade",
+     "date": "2023-02-28",
+     "what": "Announces John Cryan to retire as Chair and Anne Wade to succeed him",
+     "source": "https://www.man.com/news-centre/man-group-announces-anne-wade-to-take-over-as-chair-in-late-2023",
+     "recordId": "hi312",
+     "status": "present"
+    },
+    {
+     "key": "ceo-succession-grew",
+     "date": "2023-05-11",
+     "what": "Luke Ellis to retire as CEO; Robyn Grew to become CEO on 1 Sep 2023",
+     "source": "https://www.thetradenews.com/man-group-appoints-new-ceo-as-luke-ellis-announces-retirement/",
+     "recordId": "hi313",
+     "status": "present"
+    },
+    {
+     "key": "asteria-51pct-announce",
+     "date": "2023-07-03",
+     "what": "Agrees to acquire 51% of Geneva-based Asteria Investment Managers (Fideuram-ISPB keeps 49%)",
+     "source": "https://www.hedgeweek.com/man-group-takes-majority-stake-boutique-money-manager-asteria/",
+     "status": "rejected",
+     "note": "Date is Hedgeweek article date; Man Group own release date unverified (a search snippet suggested a different day)."
+    },
+    {
+     "key": "varagon-announce",
+     "date": "2023-07-06",
+     "what": "Agrees to acquire controlling interest in Varagon Capital Partners for $183m cash",
+     "source": "https://www.man.com/news-centre/man-group-to-acquire-varagon-capital-partners",
+     "status": "rejected",
+     "note": "Wire holds this event under another entity (m169), not this one."
+    },
+    {
+     "key": "varagon-complete",
+     "date": "2023-09-07",
+     "what": "Completes Varagon acquisition",
+     "source": "https://www.man.com/news-centre/completion-of-acquisition-of-varagon-capital-partners",
+     "status": "rejected",
+     "note": "Wire holds this event under another entity (m169), not this one."
+    },
+    {
+     "key": "asteria-complete",
+     "date": "2023-11-02",
+     "what": "Asteria 51% acquisition cleared by FINMA and antitrust authorities",
+     "source": "https://www.hedgeweek.com/man-group-acquires-majority-stake-in-impact-investor-asteria/",
+     "status": "rejected",
+     "note": "Date is the Hedgeweek byline only; no primary completion release seen. The article date may not be the completion date."
+    },
+    {
+     "key": "glg-varagon-brand-retire",
+     "date": "2024-02-02",
+     "what": "Retires GLG and Varagon brands in credit push",
+     "source": "https://alternativecreditinvestor.com/2024/02/02/man-group-drops-glg-varagon-brands-amid-credit-push/",
+     "status": "rejected",
+     "note": "Wire holds this event under another entity (m169), not this one."
+    },
+    {
+     "key": "q3-2024-redemption",
+     "date": "2024-10-17",
+     "what": "Q3 2024 trading statement: $5.5bn net outflows on a $7.0bn single-client systematic long-only redemption; AUM $174.9bn",
+     "source": "https://www.ticker.app/lse/EMG/rns/2024-10-17/Trading-Statement-Q3-2024/4873I",
+     "recordId": "hi314",
+     "status": "present"
+    },
+    {
+     "key": "fy2024-results",
+     "date": "2025-02-27",
+     "what": "FY2024 results: AUM $168.6bn, core PBT +39% to $473m, credit AUM $35.0bn, net outflows $3.3bn",
+     "source": "https://www.man.com/news-centre/results-for-the-financial-year-ended-31-december-2024",
+     "recordId": "hi315",
+     "status": "present"
+    },
+    {
+     "key": "bardin-hill-announce",
+     "date": "2025-07-16",
+     "what": "Agrees to acquire Bardin Hill (about $3.0bn AUM US private credit)",
+     "source": "https://www.man.com/news-centre/man-group-announces-bardin-hill-acquisition",
+     "status": "rejected",
+     "note": "Wire holds this event under another entity (m169), not this one."
+    },
+    {
+     "key": "h1-2025-record-aum",
+     "date": "2025-07-30",
+     "what": "Record AUM $193.3bn at mid-2025",
+     "source": "https://www.man.com/news-centre/half-year-results-for-the-six-months-ended-30-june-2025",
+     "recordId": "hi2",
+     "status": "present"
+    },
+    {
+     "key": "first-etfs",
+     "date": "2025-09-18",
+     "what": "Launches first standalone ETFs: Man Active High Yield ETF (MHY) and Man Active Income ETF (MANI)",
+     "source": "https://www.man.com/news-centre/man-group-launches-first-standalone-etfs",
+     "recordId": "hi316",
+     "status": "present"
+    },
+    {
+     "key": "bardin-hill-complete",
+     "date": "2025-10-01",
+     "what": "Completes Bardin Hill acquisition",
+     "source": "https://www.man.com/news-centre/completion-of-acquisition-of-bardin-hill",
+     "status": "rejected",
+     "note": "Wire holds this event under another entity (m169), not this one."
+    },
+    {
+     "key": "anthropic-partnership",
+     "date": "2026-02-11",
+     "what": "Anthropic AI partnership",
+     "source": "https://www.man.com/news-centre/man-group-anthropic-partnership",
+     "recordId": "hi192",
+     "status": "present"
+    },
+    {
+     "key": "fy2025-record",
+     "date": "2026-02-26",
+     "what": "FY2025 results: AUM $227.6bn, net inflows $28.7bn",
+     "source": "https://www.man.com/news-centre/results-for-the-financial-year-ended-31-december-2025",
+     "recordId": "hi3",
+     "status": "present"
+    },
+    {
+     "key": "h1-2026-record-aum",
+     "date": "2026-07-28",
+     "what": "Record AUM $253.6bn at H1 2026",
+     "source": "https://www.man.com/news-centre/trading-statement-30-june-2026",
+     "recordId": "hi236",
+     "status": "present"
+    },
+    {
+     "key": "fifth-us-etf",
+     "date": "2026-09-24",
+     "what": "Fifth US ETF (MGIN)",
+     "source": "https://www.man.com/news-centre/man-group-expands-us-wealth-offering-with-launch-of-fifth-etf",
+     "recordId": "hi222",
+     "status": "present"
+    }
+   ]
   },
   "h9": {
    "kind": "hf",
