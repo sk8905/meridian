@@ -21,6 +21,55 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "472ad6cf-438f-4d62-a41c-8725cbf53383",
+    "title": "Indonesia expels tightly held companies from Jakarta index in bid to avoid MSCI downgrade",
+    "date": "2026-10-19",
+    "time": "16:59",
+    "url": "https://www.ft.com/content/472ad6cf-438f-4d62-a41c-8725cbf53383"
+  },
+  {
+    "id": "8b1990d1-b4b2-4147-ba4b-76d1869ee2db",
+    "title": "EU drops push for global ban on Arctic drilling",
+    "date": "2026-10-19",
+    "time": "16:36",
+    "url": "https://www.ft.com/content/8b1990d1-b4b2-4147-ba4b-76d1869ee2db"
+  },
+  {
+    "id": "1faf0ed7-53ce-46a4-99c8-216e8e28b9ea",
+    "title": "Former chair of Monte dei Paschi accused of role in executive’s death",
+    "date": "2026-10-19",
+    "time": "16:10",
+    "url": "https://www.ft.com/content/1faf0ed7-53ce-46a4-99c8-216e8e28b9ea"
+  },
+  {
+    "id": "8848d06c-c0fa-49ff-af08-880ef4f3ff21",
+    "title": "India’s democracy once went looking for voters. Not any more",
+    "date": "2026-10-19",
+    "time": "15:46",
+    "url": "https://www.ft.com/content/8848d06c-c0fa-49ff-af08-880ef4f3ff21"
+  },
+  {
+    "id": "15a049f3-b62e-40ed-b304-8a2452713338",
+    "title": "Data centres need protection from drone warfare",
+    "date": "2026-10-19",
+    "time": "15:31",
+    "url": "https://www.ft.com/content/15a049f3-b62e-40ed-b304-8a2452713338"
+  },
+  {
+    "id": "8cdf338e-d472-460c-8642-a8f033b99462",
+    "title": "Submit a question: Could Anthropic’s IPO be a turning point for AI?",
+    "date": "2026-10-19",
+    "time": "15:10",
+    "url": "https://www.ft.com/content/8cdf338e-d472-460c-8642-a8f033b99462"
+  },
+  {
+    "id": "ef0f6d42-4759-4ce8-8e40-acd83f0c64f1",
+    "title": "The best art exhibitions to see in London right now",
+    "date": "2026-10-19",
+    "time": "14:48",
+    "url": "https://www.ft.com/content/ef0f6d42-4759-4ce8-8e40-acd83f0c64f1"
+  },
+  {
     "id": "f3127b4f-d33a-4431-acff-021829f3aa72",
     "title": "BoE scrutinises Barclays over claim traders misrepresented private credit exposure",
     "date": "2026-10-19",
@@ -250,54 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-19",
     "time": "05:00",
     "url": "https://www.ft.com/content/e09b009c-7ba1-4bf6-a329-937d38110ab4"
-  },
-  {
-    "id": "441501cc-e88b-45aa-81d2-864d76971dec",
-    "title": "A mother’s quest to find out how her daughter was poisoned by lead",
-    "date": "2026-10-19",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/441501cc-e88b-45aa-81d2-864d76971dec"
-  },
-  {
-    "id": "3dae6c98-afeb-4b4c-9996-4279d4e2e3b2",
-    "title": "Luxury ‘dupe’ retailer Quince enters UK market",
-    "date": "2026-10-19",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/3dae6c98-afeb-4b4c-9996-4279d4e2e3b2"
-  },
-  {
-    "id": "5483aa1b-7380-45d6-be0f-1a4b2098c903",
-    "title": "Hollywood recasts tech tycoons as bad billionaires",
-    "date": "2026-10-19",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/5483aa1b-7380-45d6-be0f-1a4b2098c903"
-  },
-  {
-    "id": "ffb638bf-6b1d-4b16-bdd2-ddfb89103d1b",
-    "title": "How to downsize your kitchen",
-    "date": "2026-10-19",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/ffb638bf-6b1d-4b16-bdd2-ddfb89103d1b"
-  },
-  {
-    "id": "2f5e68e3-240d-4b77-87fe-2875932c0788",
-    "title": "Which is worse for the planet, your kitchen extension or your 4x4?",
-    "date": "2026-10-19",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/2f5e68e3-240d-4b77-87fe-2875932c0788"
-  },
-  {
-    "id": "c2018783-5a7a-4caf-99a8-69ea90ddc16d",
-    "title": "Order in disorder: the meaning of stripes",
-    "date": "2026-10-19",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/c2018783-5a7a-4caf-99a8-69ea90ddc16d"
-  },
-  {
-    "id": "85545be4-6f36-4ac6-9185-e715ccd5fab3",
-    "title": "Degree apprenticeships plateau as employers confront increased hiring costs",
-    "date": "2026-10-19",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/85545be4-6f36-4ac6-9185-e715ccd5fab3"
   }
 ];
