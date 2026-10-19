@@ -577,7 +577,14 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   raising its own fund → `p` = itself, `r` = issuer / fund.
 - **Tag every new deal (HOUSE_STYLE R39).** Each deal you add to `credit/js/data.js`
   gets an entry in `credit/js/deal-tags.js` (`T` map, compact keys) in the same commit:
-  `c` country of the borrower / asset / target (from the allowed list in the file header;
+  `c` country of the borrower / asset / target — ONLY one of the exact values in
+  `credit/js/tx.js` `REGIONS` (UK, Ireland, Germany, Austria, Switzerland, France, Belgium,
+  Netherlands, Luxembourg, Spain, Portugal, Italy, Greece, Denmark, Sweden, Norway,
+  Finland, Pan-European, Poland, Other Europe, US, Canada, Cayman Islands, Jersey,
+  Guernsey, Bermuda, Australia, Asia, Middle East, Latin America, Africa, Global). Never
+  "Europe" (→ Pan-European), a country code ("CH" → Switzerland) or an unlisted Asian
+  country ("Japan" → Asia) — `tests/transactions.mjs` fails on anything else (Oct 2026:
+  several runs wrote "Europe" / "Japan" and left the suite red). (Allowed list also in the file header;
   when the text doesn't say, WebSearch the borrower's headquarters (else country of
   incorporation) and record it with `cs` (the source URL — company site, registry, filing
   or reputable press) and `cb` (`"hq"` | `"incorporated"`). With no single borrower, record the vehicle instead:
