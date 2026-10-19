@@ -109,6 +109,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    "id": "rsch-pimco-creditmarketlens-softwareloans-20261019",
+    "publication": "PIMCO",
+    "author": "Lotfi Karoui",
+    "series": "The Credit Market Lens",
+    "title": "Improved Optics But Unchanged Economics in Software Loans",
+    "date": "2026-10-19",
+    "time": "18:15",
+    "summary": "Software loan spreads have widened again since early September after tightening over the summer; the average bid is still about 8 points below non-software peers (about 10 in June), and PIMCO expects the valuation gap and issuer dispersion to persist amid AI disruption risk and elevated refinancing costs.",
+    "url": "https://mktg-alerts.pimco.com/v/ODc5LUFFTC0xNTgAAAGk9CIEuGemg7TnLUblRGqSR2lbSiXpZtF78FjA6hB-XhMcT5lZHnCpcEzVQoEn3E-wOnBbpzI="
+  },
+  {
     "id": "rsch-spdji-dailyindexinsights-20261019",
     "publication": "S&P Dow Jones Indices",
     "author": null,
