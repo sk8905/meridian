@@ -4255,9 +4255,98 @@
    "kind": "manager",
    "name": "Invesco Real Estate",
    "priority": 37,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-19",
+   "events": [
+    {
+     "key": "gam-european-re-debt-transfer",
+     "date": "2020-10-21",
+     "what": "Invesco Real Estate to take over GAM's European real estate debt business",
+     "source": "https://irei.com/news/invesco-real-estate-establishes-new-european-debt-platform/",
+     "recordId": "d1222",
+     "status": "present"
+    },
+    {
+     "key": "european-living-fund-launch",
+     "date": "2020-11-13",
+     "what": "Invesco Real Estate launches open-ended European Living Fund targeting EUR500m",
+     "source": "https://realassetinsight.com/2020/11/13/invesco-targets-e500m-with-open-ended-residential-fund/",
+     "recordId": "d1223",
+     "status": "present"
+    },
+    {
+     "key": "inreit-public-offering",
+     "date": "2021-05-24",
+     "what": "Invesco launches Invesco Real Estate Income Trust, a non-traded REIT targeting up to $3bn",
+     "source": "https://altswire.com/invesco-launches-first-non-traded-reit/",
+     "recordId": "d1224",
+     "status": "present"
+    },
+    {
+     "key": "cmi-europe-launch",
+     "date": "2022-06-07",
+     "what": "Invesco Real Estate launches first European debt fund with EUR1bn initial target",
+     "source": "https://irei.com/news/invesco-real-estate-launches-first-european-debt-fund-initial-e1b-fundraise-target/",
+     "recordId": "d1225",
+     "status": "present"
+    },
+    {
+     "key": "incref-launch",
+     "date": "2023-07-07",
+     "what": "Invesco Real Estate launches Invesco Commercial Real Estate Finance Trust (INCREF)",
+     "source": "https://irei.com/news/invesco-real-estate-launches-invesco-commercial-real-estate-finance-trust/",
+     "recordId": "d1226",
+     "status": "present"
+    },
+    {
+     "key": "europe-fund-iii-first-close",
+     "date": "2023-10-11",
+     "what": "Invesco Real Estate holds EUR400m first close for Europe Fund III",
+     "source": "https://www.pei-privaterealestate.com/equity/invesco-off-the-mark-fundraising-for-third-european-value-add-fund",
+     "recordId": "d1227",
+     "status": "present"
+    },
+    {
+     "key": "bozzuto-multifamily-program",
+     "date": "2025-07-17",
+     "what": "Invesco Real Estate and Bozzuto form $330m East Coast multifamily program",
+     "source": "https://www.bozzuto.com/news/2025/invesco-real-estate-and-bozzuto-establish-investment-program-with-1b-deployment-capacity-for-east-coast-multifamily-assets",
+     "recordId": "d1228",
+     "status": "present"
+    },
+    {
+     "key": "hourihan-head-global-strategy",
+     "date": "2025-07-31",
+     "what": "Invesco Real Estate hires Kim Hourihan from CBRE IM as head of global strategy",
+     "source": "https://commercialobserver.com/2025/07/invesco-real-estate-kim-hourihan-cbre/",
+     "recordId": "i1423",
+     "status": "present"
+    },
+    {
+     "key": "bolding-head-north-america",
+     "date": "2025-10-21",
+     "what": "Invesco Real Estate names Chase Bolding head of North America, Charlie Rose CEO of INCREF",
+     "source": "https://www.bisnow.com/news/national/top-talent/apollo-hires-former-invesco-exec-invesco-immediately-names-replacements-131459",
+     "recordId": "i1424",
+     "status": "present"
+    },
+    {
+     "key": "lgps-central-cmi-europe",
+     "date": "2026-07-22",
+     "what": "LGPS Central backs Invesco European real estate debt fund as CMI Europe reaches EUR500m",
+     "source": "https://realassets.ipe.com/news/lgps-central-backs-invesco-european-real-estate-debt-fund/10137865.article",
+     "recordId": "i656",
+     "status": "present"
+    },
+    {
+     "key": "grundy-stampa-europe-leadership",
+     "date": "2026-10-14",
+     "what": "Invesco Real Estate names Kevin Grundy head of Europe and Cristiano Stampa European CIO",
+     "source": "https://realassets.ipe.com/news/people-moves-lærernes-pension-lasalle-invesco-real-estate-appoint-platform-heads/10138889.article",
+     "recordId": "i1425",
+     "status": "present"
+    }
+   ]
   },
   "m20": {
    "kind": "manager",
@@ -4514,17 +4603,243 @@
    "kind": "manager",
    "name": "M&G Investments",
    "priority": 40,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-19",
+   "events": [
+    {
+     "key": "infracapital-greenfield-ii-final-close",
+     "date": "2021-11-09",
+     "what": "Infracapital reaches EUR1.5bn final close for greenfield infrastructure strategy",
+     "source": "https://www.mandg.com/news-and-media/press-releases/mandg-plc/2021/09-11-2021",
+     "recordId": "d1208",
+     "status": "present"
+    },
+    {
+     "key": "responsability-majority-stake-agreed",
+     "date": "2022-01-27",
+     "what": "M&G agrees to acquire majority stake in impact investor responsAbility Investments AG",
+     "source": "https://www.mandg.com/~/media/Files/M/MandG-Plc/documents/press-kit/2022/27-01-2022-mandg-acquires-leading-impact-investor-responsability-investments-ag.pdf",
+     "recordId": "d1207",
+     "status": "present"
+    },
+    {
+     "key": "pinto-ceo-asset-management",
+     "date": "2023-01-17",
+     "what": "M&G names Joseph Pinto CEO of Asset Management",
+     "source": "https://www.mandg.com/~/media/Files/M/MandG-Plc/documents/press-kit/2023/17-01-2023-mg-ceo-asset-management-announcement.pdf",
+     "recordId": "i1416",
+     "status": "present"
+    },
+    {
+     "key": "first-eltif-corporate-credit-opportunities",
+     "date": "2023-11-06",
+     "what": "M&G launches first ELTIF, EUR500m Corporate Credit Opportunities strategy",
+     "source": "https://www.mandg.com/news-and-media/press-releases/asset-management/2023/06-11-2023",
+     "recordId": "d1209",
+     "status": "present"
+    },
+    {
+     "key": "deblanc-cio-private-markets",
+     "date": "2024-01-31",
+     "what": "M&G appoints Emmanuel Deblanc as CIO of Private Markets",
+     "source": "https://www.mandg.com/~/media/Files/M/MandG-Plc/documents/mandg-investments/2024/31-01-2024-emmanuel-deblanc-appointed-as-chief-investments-officer.pdf",
+     "recordId": "i1417",
+     "status": "present"
+    },
+    {
+     "key": "real-estate-debt-funds-first-close-2024",
+     "date": "2024-03-11",
+     "what": "M&G launches latest Real Estate Debt Funds with GBP350m at first close",
+     "source": "https://www.mandg.com/news-and-media/press-releases/asset-management/2024/11-03-2024",
+     "recordId": "d1210",
+     "status": "present"
+    },
+    {
+     "key": "baumont-65-stake",
+     "date": "2024-11-04",
+     "what": "M&G Real Estate acquires 65% stake in BauMont",
+     "source": "https://www.mandg.com/news-and-media/press-releases/mandg-plc/2024/04-11-2024",
+     "recordId": "d1211",
+     "status": "present"
+    },
+    {
+     "key": "p-capital-partners-stake-announced",
+     "date": "2025-02-06",
+     "what": "M&G agrees majority stake in P Capital Partners",
+     "source": "https://alternativecreditinvestor.com/2025/02/06/mg-buys-majority-stake-in-private-credit-firm/",
+     "recordId": "i206",
+     "status": "present"
+    },
+    {
+     "key": "private-credit-ltaf-approved",
+     "date": "2025-03-10",
+     "what": "Private credit LTAF approved",
+     "source": null,
+     "recordId": "i103",
+     "status": "present"
+    },
+    {
+     "key": "dai-ichi-life-partnership-15pc",
+     "date": "2025-05-30",
+     "what": "Dai-ichi Life and M&G form strategic partnership; Dai-ichi to take c.15% stake in M&G plc",
+     "source": "https://www.mandg.com/news-and-media/press-releases/mandg-plc/2025/30-05-2025",
+     "recordId": "d1212",
+     "status": "present"
+    },
+    {
+     "key": "p-capital-partners-completion",
+     "date": "2025-06-03",
+     "what": "M&G completes acquisition of majority stake in P Capital Partners",
+     "source": "https://www.mandg.com/news-and-media/press-releases/mandg-plc/2025/03-06-2025",
+     "recordId": "d1213",
+     "status": "present"
+    },
+    {
+     "key": "impact-debt-strategy-300m",
+     "date": "2025-10-01",
+     "what": "EUR300m impact debt strategy",
+     "source": null,
+     "recordId": "i104",
+     "status": "present"
+    },
+    {
+     "key": "cvc-1-1bn-secondary",
+     "date": "2026-02-16",
+     "what": "M&G and CVC agree $1.1bn private equity secondary transaction",
+     "source": "https://www.mandg.com/~/media/Files/M/MandG-Plc/documents/press-kit/2026/16-02-2026-mandg-and-cvc-agree-landmark-1-point-1-billion-private-equity-transaction.pdf",
+     "recordId": "d1214",
+     "status": "present"
+    },
+    {
+     "key": "otpp-margay-clo-jv",
+     "date": "2026-07-28",
+     "what": "OTPP Margay CLO JV",
+     "source": null,
+     "recordId": "i529",
+     "status": "present"
+    },
+    {
+     "key": "braswell-global-head-impact",
+     "date": "2026-09-08",
+     "what": "Jen Braswell global head of impact",
+     "source": null,
+     "recordId": "i732",
+     "status": "present"
+    },
+    {
+     "key": "batty-rehired-head-re-finance",
+     "date": "2026-10-07",
+     "what": "Duncan Batty rehired as head of real estate finance",
+     "source": null,
+     "recordId": "i847",
+     "status": "present"
+    }
+   ]
   },
   "m17": {
    "kind": "manager",
    "name": "L&G Asset Management (LGIM)",
    "priority": 41,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-19",
+   "events": [
+    {
+     "key": "secure-income-assets-launch-2020",
+     "date": "2020-08-03",
+     "what": "LGIM launches Secure Income Assets range for UK DB pension schemes",
+     "source": "https://group.legalandgeneral.com/media/fwmbfwyw/lgim-secure-income-fund-press-release.pdf",
+     "status": "rejected",
+     "note": "Release PDF not machine-readable; exact date not confirmed on the source."
+    },
+    {
+     "key": "lg-lgim-lgc-merger-scrimgeour-stepdown-2024",
+     "date": "2024-06-12",
+     "what": "L&G to merge LGIM and Legal & General Capital; LGIM CEO Scrimgeour to step down",
+     "source": "https://www.ipe.com/news/landg-merges-asset-management-units-lgim-and-lgc/10073775.article",
+     "recordId": "i1426",
+     "status": "present"
+    },
+    {
+     "key": "private-markets-access-fund-launch-2024",
+     "date": "2024-07-01",
+     "what": "L&G launches Private Markets Access Fund for 5.2 million DC members",
+     "source": "https://group.legalandgeneral.com/en/newsroom/press-releases/l-g-unlocks-private-markets-access-for-5-2-million-dc-members-through-launch-of-private-markets-access-fund",
+     "recordId": "d1229",
+     "status": "present"
+    },
+    {
+     "key": "eric-adler-ceo-asset-management-2024",
+     "date": "2024-09-24",
+     "what": "L&G appoints Eric Adler as CEO of Asset Management",
+     "source": "https://group.legalandgeneral.com/en/newsroom/press-releases/legal-general-appoints-new-asset-management-chief-executive",
+     "recordId": "i1427",
+     "status": "present"
+    },
+    {
+     "key": "taurus-equity-stake-2024",
+     "date": "2024-10-25",
+     "what": "L&G takes equity stake in Taurus, commits up to $200m to US real estate",
+     "source": "https://group.legalandgeneral.com/en/newsroom/press-releases/l-g-bolsters-private-markets-platform-with-equity-stake-in-taurus-and-commits-up-to-200m-to-high-growth-real-estate-sectors-in-the-us",
+     "recordId": "d1230",
+     "status": "present"
+    },
+    {
+     "key": "meiji-yasuda-us-sale-signing-2025",
+     "date": "2025-02-07",
+     "what": "L&G agrees $2.3bn US protection sale to Meiji Yasuda and long-term private assets partnership",
+     "source": "https://group.legalandgeneral.com/en/newsroom/press-releases/l-g-announces-the-sale-of-its-us-protection-business-to-meiji-yasuda-and-the-creation-of-a-long-term-strategic-partnership-for-a-valuation-of-2-3bn",
+     "recordId": "d1231",
+     "status": "present"
+    },
+    {
+     "key": "proprium-75pct-stake",
+     "date": "2025-05-19",
+     "what": "L&G acquires 75% stake in Proprium Capital Partners",
+     "source": "https://news.bloomberglaw.com/insurance/l-g-buys-majority-stake-in-real-estate-investor-proprium-capital",
+     "recordId": "i139",
+     "status": "present"
+    },
+    {
+     "key": "proprium-leaders-global-co-heads-real-assets-2026",
+     "date": "2026-01-28",
+     "what": "L&G names Proprium's Morris and Westermann Global Co-Heads of Real Assets",
+     "source": "https://group.legalandgeneral.com/en/newsroom/press-releases/l-g-appoints-tim-morris-and-philipp-westermann-as-global-co-heads-of-real-assets-in-asset-management-global-growth-drive",
+     "recordId": "i1428",
+     "status": "present"
+    },
+    {
+     "key": "meiji-yasuda-us-sale-completion-2026",
+     "date": "2026-02-02",
+     "what": "L&G completes US insurance sale to Meiji Yasuda",
+     "source": "https://group.legalandgeneral.com/en/newsroom/press-releases/l-g-completes-transaction-with-meiji-yasuda",
+     "recordId": "d1232",
+     "status": "present"
+    },
+    {
+     "key": "cio-van-den-heiligenberg-2026",
+     "date": "2026-04-02",
+     "what": "L&G appoints Emiel van den Heiligenberg as CIO of Asset Management",
+     "source": "https://group.legalandgeneral.com/newsroom/press-releases/2026/4/lg-appoints-emiel-van-den-heiligenberg-as-cio-for-the-asset-management-business/",
+     "recordId": "i1429",
+     "status": "present"
+    },
+    {
+     "key": "h1-2026-results",
+     "date": "2026-08-05",
+     "what": "L&G H1 2026 results",
+     "source": null,
+     "recordId": "i592",
+     "status": "present"
+    },
+    {
+     "key": "fim-texel-debt-issuance-platform-2026",
+     "date": "2026-08-06",
+     "what": "L&G and Finance in Motion complete debt issuance transaction via FiM platform",
+     "source": "https://www.newprivatemarkets.com/lg-finance-in-motion-complete-novel-debt-issuance-transaction/",
+     "recordId": "i572",
+     "status": "present"
+    }
+   ]
   },
   "m41": {
    "kind": "manager",
@@ -4765,9 +5080,130 @@
    "kind": "manager",
    "name": "Janus Henderson Investors",
    "priority": 44,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-19",
+   "events": [
+    {
+     "key": "jaaa-clo-etf-launch",
+     "date": "2020-10-19",
+     "what": "Janus Henderson launches actively managed AAA CLO ETF (JAAA)",
+     "source": "https://www.businesswire.com/news/home/20201019005101/en/Janus-Henderson-Investors-Launches-Pioneering-Floating-Rate-AAA-CLO-ETF",
+     "recordId": "i1418",
+     "status": "present"
+    },
+    {
+     "key": "jbbb-clo-etf-launch",
+     "date": "2022-01-12",
+     "what": "Janus Henderson launches B-BBB CLO ETF (JBBB)",
+     "source": "https://www.etf.com/sections/daily-etf-watch/janus-launches-b-rated-clo-etf",
+     "recordId": "i1419",
+     "status": "present"
+    },
+    {
+     "key": "dibadj-ceo-named",
+     "date": "2022-03-23",
+     "what": "Janus Henderson names Ali Dibadj as CEO",
+     "source": "https://www.fundssociety.com/en/news/appointments/janus-henderson-announces-ali-dibadj-as-next-chief-executive-officer",
+     "recordId": "i1420",
+     "status": "present"
+    },
+    {
+     "key": "tabula-acquisition-announced",
+     "date": "2024-05-02",
+     "what": "Janus Henderson to acquire European ETF provider Tabula Investment Management",
+     "source": "https://fi-desk.com/?p=16997",
+     "recordId": "d1215",
+     "status": "present"
+    },
+    {
+     "key": "jaaa-10bn",
+     "date": "2024-06-10",
+     "what": "Janus Henderson AAA CLO ETF (JAAA) passes $10bn in AUM",
+     "source": "https://www.janushenderson.com/en-us/advisor/press-releases/janus-hendersons-pioneering-aaa-clo-etf-jaaa-surpasses-10-billion-in-aum",
+     "recordId": "i1421",
+     "status": "present"
+    },
+    {
+     "key": "vpc-acquisition-announced",
+     "date": "2024-08-12",
+     "what": "Janus Henderson to buy majority stake in private credit manager Victory Park Capital",
+     "source": "https://alternativecreditinvestor.com/2024/08/12/janus-henderson-buys-majority-stake-in-victory-park-capital/",
+     "recordId": "d1216",
+     "status": "present"
+    },
+    {
+     "key": "vpc-acquisition-completed",
+     "date": "2024-10-02",
+     "what": "Janus Henderson completes Victory Park Capital acquisition",
+     "source": "https://www.janushenderson.com/corporate/press-releases/janus-henderson-completes-victory-park-capital-acquisition/",
+     "recordId": "d1217",
+     "status": "present"
+    },
+    {
+     "key": "jaaa-20bn",
+     "date": "2025-02-06",
+     "what": "Janus Henderson AAA CLO ETF (JAAA) surpasses $20bn",
+     "source": "https://alternativecreditinvestor.com/2025/02/06/janus-henderson-clo-etf-surpasses-20bn-of-assets/",
+     "recordId": "i1422",
+     "status": "present"
+    },
+    {
+     "key": "guardian-partnership-announced",
+     "date": "2025-04-08",
+     "what": "Guardian and Janus Henderson announce strategic partnership",
+     "source": "https://www.guardianlife.com/news/release/guardian-and-janus-henderson-announce-multifaceted-strategic-partnership",
+     "recordId": "d1218",
+     "status": "present"
+    },
+    {
+     "key": "guardian-partnership-closed",
+     "date": "2025-07-01",
+     "what": "Guardian and Janus Henderson close strategic partnership",
+     "source": "https://www.janushenderson.com/corporate/press-releases/guardian-and-janus-henderson-close-on-multifaceted-strategic-partnership/",
+     "recordId": "d1219",
+     "status": "present"
+    },
+    {
+     "key": "cno-minority-stake-vpc",
+     "date": "2025-09-24",
+     "what": "CNO Financial takes minority stake in Victory Park Capital",
+     "source": "https://alternativecreditinvestor.com/2025/09/24/cno-financial-group-buys-minority-stake-in-victory-park-capital/",
+     "recordId": "d1220",
+     "status": "present"
+    },
+    {
+     "key": "take-private-announced",
+     "date": "2025-12-22",
+     "what": "Janus Henderson agrees $7.4bn take-private by Trian and General Catalyst",
+     "source": "https://www.investmentnews.com/etfs/janus-henderson-agrees-to-trian-general-catalyst-buyout-for-74b/263661",
+     "recordId": "d1221",
+     "status": "present"
+    },
+    {
+     "key": "vpc-emea-strategies",
+     "date": "2026-05-21",
+     "what": "Victory Park strategies available in EMEA",
+     "source": null,
+     "recordId": "i679",
+     "status": "present"
+    },
+    {
+     "key": "take-private-completed",
+     "date": "2026-06-30",
+     "what": "Take-private completed with Trian, General Catalyst, QIA",
+     "source": null,
+     "recordId": "i801",
+     "status": "present"
+    },
+    {
+     "key": "jaaa-30bn",
+     "date": "2026-08-13",
+     "what": "JAAA CLO ETF exceeds $30bn",
+     "source": null,
+     "recordId": "i613",
+     "status": "present"
+    }
+   ]
   },
   "m191": {
    "kind": "manager",
