@@ -1139,7 +1139,7 @@ const T = {
   d1247: {"c":"UK","s":"Financial services","a":"aum"},
   d1248: {"c":"UK","s":"Financial services","a":"aum"},
   d1249: {"c":"US","s":"Financial services","a":"aum"},
-  d1250: {"c":"Europe","s":"Financial services","a":"aum"},
-  d1251: {"c":"Europe","s":"Financial services","a":"aum"},
+  d1250: {"c":"Pan-European","s":"Financial services","a":"aum"},
+  d1251: {"c":"Pan-European","s":"Financial services","a":"aum"},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));
