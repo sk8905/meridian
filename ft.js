@@ -21,6 +21,69 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "f7b5695c-d326-427c-91a5-18b5a9e4567f",
+    "title": "Private equity group Charlesbank closes one of the biggest law firm deals",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/f7b5695c-d326-427c-91a5-18b5a9e4567f"
+  },
+  {
+    "id": "f3127b4f-d33a-4431-acff-021829f3aa72",
+    "title": "BoE scrutinises Barclays over claim traders misrepresented private credit exposure",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/f3127b4f-d33a-4431-acff-021829f3aa72"
+  },
+  {
+    "id": "af6f84d7-b134-4181-84f3-7811c369f306",
+    "title": "Five things business wants from the Budget",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/af6f84d7-b134-4181-84f3-7811c369f306"
+  },
+  {
+    "id": "d375cde1-ec37-4c5e-87ab-a3a655e879d8",
+    "title": "Americans are unhappy. How will they vote?",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/d375cde1-ec37-4c5e-87ab-a3a655e879d8"
+  },
+  {
+    "id": "997a975e-dd70-4935-b2b8-2ba5bafa62d5",
+    "title": "Rise of crypto vaults channels billions of dollars into risky lending",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/997a975e-dd70-4935-b2b8-2ba5bafa62d5"
+  },
+  {
+    "id": "aef890f1-e3f5-4add-b1fc-6187e2658106",
+    "title": "Rising interest rates derail property recovery as buyers recut deals",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/aef890f1-e3f5-4add-b1fc-6187e2658106"
+  },
+  {
+    "id": "cf113314-1077-4ab4-b667-9912656684f1",
+    "title": "China’s economy expands 4.5% in third quarter",
+    "date": "2026-10-19",
+    "time": "04:05",
+    "url": "https://www.ft.com/content/cf113314-1077-4ab4-b667-9912656684f1"
+  },
+  {
+    "id": "3beab58d-4269-4722-b299-8fa5a93f5a52",
+    "title": "Anthropic commits 5% of shares to ‘public benefit’ fund",
+    "date": "2026-10-19",
+    "time": "02:31",
+    "url": "https://www.ft.com/content/3beab58d-4269-4722-b299-8fa5a93f5a52"
+  },
+  {
+    "id": "0f857d6a-646d-4d19-bcdd-a0f0b4e8585c",
+    "title": "Private equity looks to South Korea as next Asian frontier",
+    "date": "2026-10-19",
+    "time": "02:30",
+    "url": "https://www.ft.com/content/0f857d6a-646d-4d19-bcdd-a0f0b4e8585c"
+  },
+  {
     "id": "5700f8fb-32b9-4324-972c-9578904ac6e2",
     "title": "Evercore appoints co-presidents as it sets up CEO succession contest",
     "date": "2026-10-18",
@@ -236,68 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-17",
     "time": "05:00",
     "url": "https://www.ft.com/content/b4996387-0a4a-4f75-b16d-830fbc8c40c3"
-  },
-  {
-    "id": "169bbf6e-d0af-4c8d-afd0-2c561a58c855",
-    "title": "UK dividend payments jump 14% in a year",
-    "date": "2026-10-17",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/169bbf6e-d0af-4c8d-afd0-2c561a58c855"
-  },
-  {
-    "id": "3f982af9-3eec-476f-9d29-39145ac485c4",
-    "title": "The dress rehearsal for an AI reckoning",
-    "date": "2026-10-17",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/3f982af9-3eec-476f-9d29-39145ac485c4"
-  },
-  {
-    "id": "766f613b-7d0d-4f04-ae44-a8c827864932",
-    "title": "Activists highlight a Big Yellow warning sign for the London market",
-    "date": "2026-10-17",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/766f613b-7d0d-4f04-ae44-a8c827864932"
-  },
-  {
-    "id": "60bffbe3-f7aa-4813-b657-a31087e7b116",
-    "title": "The AI El Niño",
-    "date": "2026-10-17",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/60bffbe3-f7aa-4813-b657-a31087e7b116"
-  },
-  {
-    "id": "5b9c0cfa-849d-40a2-92bf-0bd2e2b58871",
-    "title": "Olly Robbins wins payout over Mandelson scandal sacking",
-    "date": "2026-10-16",
-    "time": "18:44",
-    "url": "https://www.ft.com/content/5b9c0cfa-849d-40a2-92bf-0bd2e2b58871"
-  },
-  {
-    "id": "ae21e5e0-6696-4cd2-877c-7d269b3bcf48",
-    "title": "Trump urges his new press secretary to ‘reconsider’ the role",
-    "date": "2026-10-16",
-    "time": "18:41",
-    "url": "https://www.ft.com/content/ae21e5e0-6696-4cd2-877c-7d269b3bcf48"
-  },
-  {
-    "id": "30f95850-4ff1-4669-acf8-06edc79c9457",
-    "title": "Fuel-price surge turbocharges global EV sales and spells end for diesel in Europe",
-    "date": "2026-10-16",
-    "time": "18:33",
-    "url": "https://www.ft.com/content/30f95850-4ff1-4669-acf8-06edc79c9457"
-  },
-  {
-    "id": "d2928f6b-b8f2-4651-ac9a-9fc4d8653608",
-    "title": "Italy secures EU deal to lower its electricity prices",
-    "date": "2026-10-16",
-    "time": "18:14",
-    "url": "https://www.ft.com/content/d2928f6b-b8f2-4651-ac9a-9fc4d8653608"
-  },
-  {
-    "id": "2ce007c9-72c4-46bc-88be-fad2dee8986b",
-    "title": "Directors’ Deals: IG Design Group finance boss backs revamp",
-    "date": "2026-10-16",
-    "time": "18:00",
-    "url": "https://www.ft.com/content/2ce007c9-72c4-46bc-88be-fad2dee8986b"
   }
 ];
