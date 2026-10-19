@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-10-19";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "09:15 BST";
+export const LAST_CHECKED_TIME = "09:14 UTC";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -241,6 +241,8 @@ export const updateTypes = [
 // area: primary practice-area id. areas: all relevant practice-area ids.
 // For case notes, court/citation are populated.
 export const items = [
+  {"id":"u3287","title":"The Growth Rocketship: Deep Research, Bold Bets, and AI — Inside Maverick Capital’s US$15 Billion Portfolios","area":"funds","areas":["funds"],"type":"insight","firm":"latham","date":"2026-10-08","summary":"Latham speaks with Maverick Capital’s General Counsel and Chief Compliance Officer about what it takes to oversee legal risk and compliance across a US$15 billion platform spanning public equities, venture capital, and AI-driven semiconductor investing.","url":"https://www.lw.com/en/insights/2026/10/The Growth Rocketship Deep Research Bold Bets AI Inside Maverick Capital Portfolios"},
+  {"id":"u3288","title":"FT Specialist – Ignites | Earnout lawsuit over acquired ETF","area":"corporate","areas":["corporate"],"type":"update","firm":"whitecase","date":"2026-10-06","summary":"In an article for Ignites, a Financial Times Specialist publication, White & Case partner Dario de Martino discussed the earnout at the center of Knowledge Leaders Capital’s lawsuit against AXS Investments.","url":"https://www.whitecase.com/news/media/ft-specialist-ignites-earnout-lawsuit-over-acquired-etf"},
   {"id":"u3285","title":"Unlocking DB pension scheme surplus: a new consideration for employers and potential acquirers","area":"corporate","areas":["corporate"],"type":"insight","firm":"macfarlanes","date":"2026-10-16","summary":"For many years, the dominant question for employers sponsoring defined benefit (DB) pension schemes, and for the prospective acquirers...","url":"https://www.macfarlanes.com/insights/102o5i6/unlocking-db-pension-scheme-surplus-a-new-consideration-for-employers-and-potent"},
   {"id":"u3286","title":"Treasury Issues First-Ever Enforcement Penalty Under Outbound Investment Security Program","area":"corporate","areas":["corporate"],"type":"insight","firm":"latham","date":"2026-10-09","summary":"Treasury’s first outbound investment penalty demonstrates that the Outbound Program enforcement regime is active and monitoring cross-border investments.","url":"https://www.lw.com/en/insights/2026/10/Treasury Issues First Ever Enforcement Penalty Under Outbound Investment Security Program"},
   {"id":"u3257","title":"London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026","area":"funds","areas":["funds"],"type":"update","firm":"latham","date":"2026-10-13","summary":"The Global Chair of Latham's Private Capital Practice was recognized in the prestigious list for the fifth consecutive year.","url":"https://www.lw.com/en/news/2026/10/London Partner Yen Sum Named to 100 Most Influential Women in European Finance List 2026"},
