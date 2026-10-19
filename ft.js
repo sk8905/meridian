@@ -21,6 +21,111 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "915ea7ca-1f35-4847-810a-fb29e8344496",
+    "title": "US stocks set for rebound after AI sell-off",
+    "date": "2026-10-19",
+    "time": "06:34",
+    "url": "https://www.ft.com/content/915ea7ca-1f35-4847-810a-fb29e8344496"
+  },
+  {
+    "id": "cce1d9b5-5f36-4c42-ab7b-1b74fc788773",
+    "title": "FTSE as Hedge",
+    "date": "2026-10-19",
+    "time": "06:30",
+    "url": "https://www.ft.com/content/cce1d9b5-5f36-4c42-ab7b-1b74fc788773"
+  },
+  {
+    "id": "c5bbb2a7-e00e-4e20-9db3-f4d00504857a",
+    "title": "‘Frenzy’ in Australian deals as investors swoop on cheap assets",
+    "date": "2026-10-19",
+    "time": "06:28",
+    "url": "https://www.ft.com/content/c5bbb2a7-e00e-4e20-9db3-f4d00504857a"
+  },
+  {
+    "id": "280637e2-72f7-46c0-8fc4-3532032287da",
+    "title": "US envoy hopes for ‘prosperous’ Europe",
+    "date": "2026-10-19",
+    "time": "06:00",
+    "url": "https://www.ft.com/content/280637e2-72f7-46c0-8fc4-3532032287da"
+  },
+  {
+    "id": "5970614a-b1f7-4b4e-b1e5-6038e1dde654",
+    "title": "Investors turn on data centres",
+    "date": "2026-10-19",
+    "time": "06:00",
+    "url": "https://www.ft.com/content/5970614a-b1f7-4b4e-b1e5-6038e1dde654"
+  },
+  {
+    "id": "ba3b9244-bf94-4c3f-a89b-b761488fd71d",
+    "title": "Has America’s wave of anti-globalisation populism peaked?",
+    "date": "2026-10-19",
+    "time": "06:00",
+    "url": "https://www.ft.com/content/ba3b9244-bf94-4c3f-a89b-b761488fd71d"
+  },
+  {
+    "id": "76117a3b-2cd6-481b-b485-4b743627589d",
+    "title": "FirstFT: Bank of England scrutinises Barclays",
+    "date": "2026-10-19",
+    "time": "05:32",
+    "url": "https://www.ft.com/content/76117a3b-2cd6-481b-b485-4b743627589d"
+  },
+  {
+    "id": "e09b009c-7ba1-4bf6-a329-937d38110ab4",
+    "title": "The sushi restaurant Tokyoites travel three hours to for lunch",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/e09b009c-7ba1-4bf6-a329-937d38110ab4"
+  },
+  {
+    "id": "441501cc-e88b-45aa-81d2-864d76971dec",
+    "title": "A mother’s quest to find out how her daughter was poisoned by lead",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/441501cc-e88b-45aa-81d2-864d76971dec"
+  },
+  {
+    "id": "3dae6c98-afeb-4b4c-9996-4279d4e2e3b2",
+    "title": "Luxury ‘dupe’ retailer Quince enters UK market",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/3dae6c98-afeb-4b4c-9996-4279d4e2e3b2"
+  },
+  {
+    "id": "5483aa1b-7380-45d6-be0f-1a4b2098c903",
+    "title": "Hollywood recasts tech tycoons as bad billionaires",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/5483aa1b-7380-45d6-be0f-1a4b2098c903"
+  },
+  {
+    "id": "ffb638bf-6b1d-4b16-bdd2-ddfb89103d1b",
+    "title": "How to downsize your kitchen",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/ffb638bf-6b1d-4b16-bdd2-ddfb89103d1b"
+  },
+  {
+    "id": "2f5e68e3-240d-4b77-87fe-2875932c0788",
+    "title": "Which is worse for the planet, your kitchen extension or your 4x4?",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/2f5e68e3-240d-4b77-87fe-2875932c0788"
+  },
+  {
+    "id": "c2018783-5a7a-4caf-99a8-69ea90ddc16d",
+    "title": "Order in disorder: the meaning of stripes",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/c2018783-5a7a-4caf-99a8-69ea90ddc16d"
+  },
+  {
+    "id": "85545be4-6f36-4ac6-9185-e715ccd5fab3",
+    "title": "Degree apprenticeships plateau as employers confront increased hiring costs",
+    "date": "2026-10-19",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/85545be4-6f36-4ac6-9185-e715ccd5fab3"
+  },
+  {
     "id": "f7b5695c-d326-427c-91a5-18b5a9e4567f",
     "title": "Private equity group Charlesbank closes one of the biggest law firm deals",
     "date": "2026-10-19",
@@ -194,110 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-18",
     "time": "12:00",
     "url": "https://www.ft.com/content/7c2e889e-2eb5-4c62-821b-1a7f88c13d05"
-  },
-  {
-    "id": "b2299174-fb78-4edf-a358-8cae837f8d7b",
-    "title": "Could Republicans prove the pollsters wrong in the midterms?",
-    "date": "2026-10-18",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/b2299174-fb78-4edf-a358-8cae837f8d7b"
-  },
-  {
-    "id": "b263bbe1-cd0c-4508-9ec8-07cb8a9c2a02",
-    "title": "Trump’s losing battle with green energy",
-    "date": "2026-10-18",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/b263bbe1-cd0c-4508-9ec8-07cb8a9c2a02"
-  },
-  {
-    "id": "2dfdd513-26a6-4a10-9cae-5242eb4ee3ed",
-    "title": "Accenture looks to sell Chinese operations for up to $1.5bn",
-    "date": "2026-10-18",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/2dfdd513-26a6-4a10-9cae-5242eb4ee3ed"
-  },
-  {
-    "id": "886006f8-284c-4a20-9411-3cfd9deead3f",
-    "title": "‘Cash is making a comeback’ as India raises fees on digital payments",
-    "date": "2026-10-18",
-    "time": "05:11",
-    "url": "https://www.ft.com/content/886006f8-284c-4a20-9411-3cfd9deead3f"
-  },
-  {
-    "id": "3d964bed-ed6e-4b15-ade0-f190d2723cac",
-    "title": "Europe Express Weekend: Where are Zelenskyy’s friends (when he needs them)?",
-    "date": "2026-10-17",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/3d964bed-ed6e-4b15-ade0-f190d2723cac"
-  },
-  {
-    "id": "f1ea9968-4f26-4f1c-a3c2-66ec090e3dcd",
-    "title": "Corporate donations flood US attorneys-general election races",
-    "date": "2026-10-17",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/f1ea9968-4f26-4f1c-a3c2-66ec090e3dcd"
-  },
-  {
-    "id": "836eddd7-3adc-4cbb-8527-7a0a7a277e50",
-    "title": "Donald Trump exempts Russia from further sanctions mandated by new law",
-    "date": "2026-10-17",
-    "time": "10:53",
-    "url": "https://www.ft.com/content/836eddd7-3adc-4cbb-8527-7a0a7a277e50"
-  },
-  {
-    "id": "c5ed09fe-dc65-4f05-8c12-8f74f5dc7ccd",
-    "title": "Chart of the Week: The chip stock split",
-    "date": "2026-10-17",
-    "time": "10:30",
-    "url": "https://www.ft.com/content/c5ed09fe-dc65-4f05-8c12-8f74f5dc7ccd"
-  },
-  {
-    "id": "19de89f6-c7b5-4dd7-b4d0-7ae29c6120a5",
-    "title": "Formula 1 bets on Rwanda",
-    "date": "2026-10-17",
-    "time": "09:00",
-    "url": "https://www.ft.com/content/19de89f6-c7b5-4dd7-b4d0-7ae29c6120a5"
-  },
-  {
-    "id": "3a56575e-ecfb-4fa9-af70-01aebd869729",
-    "title": "Are we sleepwalking into World War III?",
-    "date": "2026-10-17",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/3a56575e-ecfb-4fa9-af70-01aebd869729"
-  },
-  {
-    "id": "993940f2-c9a3-4e20-8c0a-f73d448f090d",
-    "title": "‘Inflation will make people poor’: Airlines brace for years of pain",
-    "date": "2026-10-17",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/993940f2-c9a3-4e20-8c0a-f73d448f090d"
-  },
-  {
-    "id": "838428eb-9618-4590-841a-2fccf86fe71f",
-    "title": "The summer that remade the Middle East",
-    "date": "2026-10-17",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/838428eb-9618-4590-841a-2fccf86fe71f"
-  },
-  {
-    "id": "aef6d0ed-1019-452a-b3f0-3e3dfc9eac05",
-    "title": "What is behind the surprising resilience of the UK economy?",
-    "date": "2026-10-17",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/aef6d0ed-1019-452a-b3f0-3e3dfc9eac05"
-  },
-  {
-    "id": "f5388310-ea4b-47b5-ae9c-7aff01198422",
-    "title": "This earnings season, what CEOs say matters more than what they’ve done",
-    "date": "2026-10-17",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/f5388310-ea4b-47b5-ae9c-7aff01198422"
-  },
-  {
-    "id": "b4996387-0a4a-4f75-b16d-830fbc8c40c3",
-    "title": "HMRC claws back nearly £500mn in underpaid capital gains",
-    "date": "2026-10-17",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/b4996387-0a4a-4f75-b16d-830fbc8c40c3"
   }
 ];
