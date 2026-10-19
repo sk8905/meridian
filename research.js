@@ -109,6 +109,28 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    "id": "rsch-spdji-dailyindexinsights-20261019",
+    "publication": "S&P Dow Jones Indices",
+    "author": null,
+    "series": "Daily Index Insights",
+    "title": "Daily Index Insights",
+    "date": "2026-10-19",
+    "time": "14:31",
+    "summary": "39 years ago today, the Dow Jones Industrial Average hosted its largest ever one-day percentage drop, falling 22.6%, while stocks from Mexico to New Zealand fell by...",
+    "url": "https://www.spglobal.com/spdji/en/commentary/article/daily-index-insights"
+  },
+  {
+    "id": "rsch-withintelligence-weekly-yorkville-20261019",
+    "publication": "With Intelligence",
+    "author": null,
+    "series": "Weekly roundup",
+    "title": "Yorkville America plans $1.3bn acquisition | Plus more intel",
+    "date": "2026-10-19",
+    "time": "15:06",
+    "summary": "Weekly roundup of investor and manager updates: Yorkville America plans a $1.3bn acquisition of an SMA-only adviser platform; MFS to shake up value-focused teams as a PM exits; Vest Financial to make a CIT push.",
+    "url": "https://pardot.withintelligence.com/webmail/284832/3606501481/23fcdd7c20d30df223e97a343c7c91b872fd93050b0c889e2b0abf0950a7caa2"
+  },
+  {
     "id": "rsch-preqin-firstclose-stoporgoforipos-20261019",
     "publication": "Preqin",
     "author": "Shaun Beaney",

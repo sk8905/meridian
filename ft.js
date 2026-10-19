@@ -21,11 +21,81 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "f3127b4f-d33a-4431-acff-021829f3aa72",
+    "title": "BoE scrutinises Barclays over claim traders misrepresented private credit exposure",
+    "date": "2026-10-19",
+    "time": "14:54",
+    "url": "https://www.ft.com/content/f3127b4f-d33a-4431-acff-021829f3aa72"
+  },
+  {
+    "id": "5f595355-caca-4951-8170-91bb513f7aa9",
+    "title": "Australian MP struck by car in alleged attack",
+    "date": "2026-10-19",
+    "time": "14:52",
+    "url": "https://www.ft.com/content/5f595355-caca-4951-8170-91bb513f7aa9"
+  },
+  {
+    "id": "d8df36c2-7e8c-4cfb-ad9e-e6e954fea4b9",
+    "title": "Violent protests spread from France to Italy and Belgium",
+    "date": "2026-10-19",
+    "time": "14:50",
+    "url": "https://www.ft.com/content/d8df36c2-7e8c-4cfb-ad9e-e6e954fea4b9"
+  },
+  {
+    "id": "2ad6e5dd-b8c2-4186-a6e2-ba27f222e1f0",
+    "title": "FTSE 100 newcomer Ithaca warns of halt to investment if Rosebank blocked",
+    "date": "2026-10-19",
+    "time": "14:37",
+    "url": "https://www.ft.com/content/2ad6e5dd-b8c2-4186-a6e2-ba27f222e1f0"
+  },
+  {
+    "id": "915ea7ca-1f35-4847-810a-fb29e8344496",
+    "title": "US stocks rebound after AI sell-off",
+    "date": "2026-10-19",
+    "time": "14:37",
+    "url": "https://www.ft.com/content/915ea7ca-1f35-4847-810a-fb29e8344496"
+  },
+  {
+    "id": "22290706-ab59-4766-b604-ddff94a71bcf",
+    "title": "Uber defeats High Court lawsuit brought by London’s black-cab drivers",
+    "date": "2026-10-19",
+    "time": "14:19",
+    "url": "https://www.ft.com/content/22290706-ab59-4766-b604-ddff94a71bcf"
+  },
+  {
+    "id": "e73d0106-486b-4382-8ecc-5c96ac44fdff",
+    "title": "US defence stocks tumble as investors bet on Democratic election sweep",
+    "date": "2026-10-19",
+    "time": "14:04",
+    "url": "https://www.ft.com/content/e73d0106-486b-4382-8ecc-5c96ac44fdff"
+  },
+  {
+    "id": "6b460256-2f85-485f-ba99-45f270fe3cad",
+    "title": "Indonesia’s market is dysfunctional, not uninvestable",
+    "date": "2026-10-19",
+    "time": "13:55",
+    "url": "https://www.ft.com/content/6b460256-2f85-485f-ba99-45f270fe3cad"
+  },
+  {
+    "id": "3beab58d-4269-4722-b299-8fa5a93f5a52",
+    "title": "Anthropic commits 5% of shares to ‘public benefit’ fund",
+    "date": "2026-10-19",
+    "time": "13:17",
+    "url": "https://www.ft.com/content/3beab58d-4269-4722-b299-8fa5a93f5a52"
+  },
+  {
     "id": "aeb432cd-5d95-4062-b7a8-f494592adb34",
     "title": "Is smart farming really smart business?",
     "date": "2026-10-19",
     "time": "13:02",
     "url": "https://www.ft.com/content/aeb432cd-5d95-4062-b7a8-f494592adb34"
+  },
+  {
+    "id": "9da32f56-9024-4940-b7f0-ebfb200a7c15",
+    "title": "Angel’s Bone review — a brilliant, bruising season opener for the beleaguered ENO",
+    "date": "2026-10-19",
+    "time": "13:00",
+    "url": "https://www.ft.com/content/9da32f56-9024-4940-b7f0-ebfb200a7c15"
   },
   {
     "id": "b9d270a8-738b-41cb-9c3c-5fa5ac0c2325",
@@ -42,6 +112,13 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/7dbe983c-fcd2-41dd-bbe4-9f38a489e6c2"
   },
   {
+    "id": "cc7e577a-db7a-4e12-9a42-443696b98ec5",
+    "title": "Emmanuel Macron rejects interior minister’s resignation after French riots",
+    "date": "2026-10-19",
+    "time": "12:29",
+    "url": "https://www.ft.com/content/cc7e577a-db7a-4e12-9a42-443696b98ec5"
+  },
+  {
     "id": "92f271fd-f96c-4723-91f2-48363b98127f",
     "title": "Zelenskyy, Europe and the end of Trump whispering",
     "date": "2026-10-19",
@@ -54,6 +131,13 @@ export const FT_ITEMS = [
     "date": "2026-10-19",
     "time": "12:09",
     "url": "https://www.ft.com/content/6075e0ec-9116-4de4-84e6-d50b5ed1d47a"
+  },
+  {
+    "id": "19495e50-0f55-44b1-8d19-19244163a4e8",
+    "title": "Emmanuel Macron faces political firestorm after riots",
+    "date": "2026-10-19",
+    "time": "11:42",
+    "url": "https://www.ft.com/content/19495e50-0f55-44b1-8d19-19244163a4e8"
   },
   {
     "id": "a381df3f-a1bf-4889-aa5d-e4e594a3ea33",
@@ -91,13 +175,6 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/1f23e859-5e70-4d99-8f9b-56de3d0ae43e"
   },
   {
-    "id": "cc7e577a-db7a-4e12-9a42-443696b98ec5",
-    "title": "Emmanuel Macron rejects interior minister’s resignation after French riots",
-    "date": "2026-10-19",
-    "time": "10:48",
-    "url": "https://www.ft.com/content/cc7e577a-db7a-4e12-9a42-443696b98ec5"
-  },
-  {
     "id": "eaa86af0-5183-4c3c-a697-c55fc04e4147",
     "title": "And the FTAV charts quiz winner is . . .",
     "date": "2026-10-19",
@@ -124,13 +201,6 @@ export const FT_ITEMS = [
     "date": "2026-10-19",
     "time": "08:13",
     "url": "https://www.ft.com/content/f5ee9924-0509-4a34-a347-c22278f023c6"
-  },
-  {
-    "id": "915ea7ca-1f35-4847-810a-fb29e8344496",
-    "title": "US stocks set for rebound after AI sell-off",
-    "date": "2026-10-19",
-    "time": "06:34",
-    "url": "https://www.ft.com/content/915ea7ca-1f35-4847-810a-fb29e8344496"
   },
   {
     "id": "cce1d9b5-5f36-4c42-ab7b-1b74fc788773",
@@ -229,75 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-19",
     "time": "05:00",
     "url": "https://www.ft.com/content/85545be4-6f36-4ac6-9185-e715ccd5fab3"
-  },
-  {
-    "id": "f7b5695c-d326-427c-91a5-18b5a9e4567f",
-    "title": "Private equity group Charlesbank closes one of the biggest law firm deals",
-    "date": "2026-10-19",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/f7b5695c-d326-427c-91a5-18b5a9e4567f"
-  },
-  {
-    "id": "f3127b4f-d33a-4431-acff-021829f3aa72",
-    "title": "BoE scrutinises Barclays over claim traders misrepresented private credit exposure",
-    "date": "2026-10-19",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/f3127b4f-d33a-4431-acff-021829f3aa72"
-  },
-  {
-    "id": "af6f84d7-b134-4181-84f3-7811c369f306",
-    "title": "Five things business wants from the Budget",
-    "date": "2026-10-19",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/af6f84d7-b134-4181-84f3-7811c369f306"
-  },
-  {
-    "id": "d375cde1-ec37-4c5e-87ab-a3a655e879d8",
-    "title": "Americans are unhappy. How will they vote?",
-    "date": "2026-10-19",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/d375cde1-ec37-4c5e-87ab-a3a655e879d8"
-  },
-  {
-    "id": "997a975e-dd70-4935-b2b8-2ba5bafa62d5",
-    "title": "Rise of crypto vaults channels billions of dollars into risky lending",
-    "date": "2026-10-19",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/997a975e-dd70-4935-b2b8-2ba5bafa62d5"
-  },
-  {
-    "id": "aef890f1-e3f5-4add-b1fc-6187e2658106",
-    "title": "Rising interest rates derail property recovery as buyers recut deals",
-    "date": "2026-10-19",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/aef890f1-e3f5-4add-b1fc-6187e2658106"
-  },
-  {
-    "id": "cf113314-1077-4ab4-b667-9912656684f1",
-    "title": "China’s economy expands 4.5% in third quarter",
-    "date": "2026-10-19",
-    "time": "04:05",
-    "url": "https://www.ft.com/content/cf113314-1077-4ab4-b667-9912656684f1"
-  },
-  {
-    "id": "3beab58d-4269-4722-b299-8fa5a93f5a52",
-    "title": "Anthropic commits 5% of shares to ‘public benefit’ fund",
-    "date": "2026-10-19",
-    "time": "02:31",
-    "url": "https://www.ft.com/content/3beab58d-4269-4722-b299-8fa5a93f5a52"
-  },
-  {
-    "id": "0f857d6a-646d-4d19-bcdd-a0f0b4e8585c",
-    "title": "Private equity looks to South Korea as next Asian frontier",
-    "date": "2026-10-19",
-    "time": "02:30",
-    "url": "https://www.ft.com/content/0f857d6a-646d-4d19-bcdd-a0f0b4e8585c"
-  },
-  {
-    "id": "5700f8fb-32b9-4324-972c-9578904ac6e2",
-    "title": "Evercore appoints co-presidents as it sets up CEO succession contest",
-    "date": "2026-10-18",
-    "time": "21:01",
-    "url": "https://www.ft.com/content/5700f8fb-32b9-4324-972c-9578904ac6e2"
   }
 ];
