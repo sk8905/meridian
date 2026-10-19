@@ -1338,10 +1338,10 @@ export const EARNINGS = {
   weeks: [
     { label: "This week \u00b7 19\u201323 Oct", days: [
       { date: "2026-10-20", rows: [
-        { t: "NFLX", n: "Netflix", tag: "Media \u00b7 Nasdaq", when: "After close", held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026. Date per Netflix’s own results announcement (release c.1:01pm PT / 21:01 BST, followed by a live management interview); consensus not captured." },
+        { t: "NFLX", n: "Netflix", tag: "Media \u00b7 Nasdaq", when: "After close", held: [], estEps: "$0.82 (Zacks consensus; guidance $0.82)", estRev: "$12.87bn (Zacks consensus)", actEps: null, actRev: null, px: null, note: "Q3 2026. Date per Netflix’s own results announcement (release c.1:01pm PT / 21:01 BST, followed by a live management interview); consensus not captured." },
       ] },
       { date: "2026-10-22", rows: [
-        { t: "TSLA", n: "Tesla", tag: "Autos \u00b7 Nasdaq", when: "Time TBC", held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026. Date per the Forex.com earnings calendar; consensus not captured." },
+        { t: "TSLA", n: "Tesla", tag: "Autos \u00b7 Nasdaq", when: "Time TBC", held: [], estEps: "$0.44 adj. (Visible Alpha via S&P Global)", estRev: "$28.04bn (Visible Alpha via S&P Global)", actEps: null, actRev: null, px: null, note: "Q3 2026. Date per the Forex.com earnings calendar; consensus not captured." },
         { t: "PG", n: "Procter & Gamble", tag: "Consumer staples \u00b7 NYSE", when: "Time TBC", held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q1 FY2027 (Sept quarter). Date per the Forex.com earnings calendar; consensus not captured." },
       ] },
       { date: "2026-10-23", rows: [
@@ -1362,6 +1362,9 @@ export const EARNINGS = {
     ] },
   ],
   srcs: [
+    { name: "Hudson Labs — Netflix (NFLX) Q3 2026 earnings preview (consensus revenue ~$12.88bn)", url: "https://www.hudson-labs.com/research/netflix-q3-2026-earnings-preview-nflx-revenue-guidance" },
+    { name: "AAII / Zacks — What you need to know about Netflix's Q3 earnings (EPS 82c, revenue $12.87bn consensus)", url: "https://www.aaii.com/investingideas/article/515592-what-you-need-to-know-about-netflix-incs-q3-earnings" },
+    { name: "S&P Global Market Intelligence — Tesla's revenue, earnings expected to edge lower despite delivery beat (15 Oct 2026)", url: "https://www.spglobal.com/market-intelligence/en/news-insights/research/2026/10/tesla-s-revenue-earnings-expected-to-edge-lower-despite-delivery-beat" },
     { name: "CNBC \u2014 Bank earnings live updates: JPMorgan, Goldman, Wells Fargo and Citi in Q3", url: "https://www.cnbc.com/2026/10/13/bank-earnings-live-updates.html" },
     { name: "Goldman Sachs \u2014 Form 8-K, third quarter 2026 earnings results", url: "https://www.sec.gov/Archives/edgar/data/0000886982/000088698226000529/a3q26gsearningsresults.htm" },
     { name: "Fortune \u2014 JPMorgan, Goldman Sachs, Citigroup and Wells Fargo post strong profits", url: "https://fortune.com/2026/10/13/jpmorgan-goldman-sachs-citigroup-wells-fargo-interest-inflation/" },

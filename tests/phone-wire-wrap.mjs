@@ -50,8 +50,9 @@ for (const [name, url, rowSel, tSel, act] of [
   ["law firm Alerts", "/v2/profiles/#/firm/kirkland", ".tw-row.g-ev-story", ".tw-head", null],
   ["borrower page", "/v2/profiles/#/co/Thames%20Water", "li.g-ev-story", ".g-ev-t", null],
   ["deal drawer More from", "/v2/transactions/", "#tx-drawer li.g-ev-story", ".g-ev-t", async (pg) => { await pg.waitForSelector("#tx-body .tx-card", { timeout: 15000 }); await pg.evaluate(() => document.querySelector("#tx-body .tx-card").click()); await pg.waitForSelector("#tx-drawer:not([hidden]) li.g-ev-story", { timeout: 10000 }); }],
-  ["Dashboard news cards", "/v2/dashboard/", "li.g-ev-story", ".g-ev-t", null],
-  ["Digest", "/v2/menu/digest", "li.g-ev-story", ".g-ev-t", null],
+  ["Dashboard news cards", "/v2/dashboard/credit/", "li.g-ev-story", ".g-ev-t", null],
+  // Weekly: a daily digest can be empty after a quiet weekend (nothing to measure).
+  ["Digest", "/v2/menu/digest/weekly", "li.g-ev-story", ".g-ev-t", null],
 ]) {
   const { ctx, pg, errs } = await open(b, PHONE, base + url);
   if (act) await act(pg); else await pg.waitForFunction((s) => [...document.querySelectorAll(s)].some((r) => r.getBoundingClientRect().height > 0), rowSel, { timeout: 15000 });

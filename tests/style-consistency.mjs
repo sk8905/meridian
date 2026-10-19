@@ -143,9 +143,10 @@ for (const [w, h, scheme] of PHONES) {
     }
     checkErrs(errs, `${tag} rows`); await ctx.close();
   }
-  // One 72px headline line: Restructuring hub, Digest, League ranks.
+  // One 72px headline line: Restructuring hub, Digest (the WEEKLY digest — a daily window can
+  // legitimately be empty on a Monday after a quiet weekend), League ranks.
   for (const [name, path, sel, ttl] of [
-    ["Restructuring", "/v2/restructuring/", ".rxh-card .g-ev", ".g-ev-t"], ["Digest", "/v2/menu/digest", ".dg-list > .g-ev", ".g-ev-t"],
+    ["Restructuring", "/v2/restructuring/", ".rxh-card .g-ev", ".g-ev-t"], ["Digest", "/v2/menu/digest/weekly", ".dg-list > .g-ev", ".g-ev-t"],
     ["League tables", "/v2/transactions/#/league", ".tx-lg-card", ".tx-lg-cn"],
   ]) {
     const { ctx, pg, errs } = await page(w, h, scheme, path);

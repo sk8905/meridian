@@ -2513,7 +2513,7 @@ function renderFeed() {
     // Today's items lead, interleaved across desks so no single desk dominates.
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
     // News lane = journalism only (R50): no deals, profile records, newsletters or research.
-    const lists = [pick(news), pick(macro.filter(isNews)), pick(hdg.filter(isNews)), pick(legal.filter(isNews)), pick(ft), pick(substacks), pick(brew), pick(fixedincome)];
+    const lists = [news, macro, hdg, legal, ft, substacks, brew, fixedincome].map((l) => pick(l.filter(isNews)));
     const seen = new Set();
     feed = [];
     for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
@@ -2527,8 +2527,8 @@ function renderFeed() {
     // every other desk WHOLE, so each desk's recent stream survives the merge
     // (the full Credit/Legal history stays one tap away under their own filter).
     const HEAVY = 200;
-    const pool = [byDesk.news, byDesk.m.filter(isNews), byDesk.hdg.filter(isNews),
-      byDesk.l.filter(isNews).slice(0, HEAVY), byDesk.f, byDesk.s, byDesk.b, byDesk.fisrc]
+    const pool = [byDesk.news, byDesk.m, byDesk.hdg, byDesk.l.filter(isNews).slice(0, HEAVY), byDesk.f, byDesk.s, byDesk.b, byDesk.fisrc]
+      .map((l) => l.filter(isNews))
       .flat().filter((x) => day(x) !== target).sort(byDateDesc);
     const GUARD = 900;   // pathological guard, well above the capped pool (~600)
     for (const x of pool) {
