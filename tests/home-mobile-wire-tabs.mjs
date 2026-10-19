@@ -85,6 +85,7 @@ const b = await launchChromium();
     const sl = [...track.querySelectorAll(".na-mktslide")];
     const pad = document.createElement("div"); pad.style.height = "3000px"; sl[0].appendChild(pad);   // a long Equities view
     const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    await wait(100);                                            // the track re-fits to the taller slide
     window.scrollTo({ top: 1500, behavior: "instant" }); await wait(200);
     const before = window.scrollY;
     const chrome = (document.querySelector(".g-wiretabs") || {}).getBoundingClientRect?.().bottom || 0;
@@ -92,9 +93,10 @@ const b = await launchChromium();
     const midTop = Math.round(sl[1].getBoundingClientRect().top - chrome);   // incoming slide's top vs the chrome, mid-swipe
     track.scrollTo({ left: track.clientWidth, behavior: "instant" });
     await wait(450);
-    return { before, midTop, after: window.scrollY, macroTop: Math.round(sl[1].getBoundingClientRect().top - chrome), shifted: sl.some((x) => x.style.transform), idx: Math.round(track.scrollLeft / track.clientWidth) };
+    return { before, midTop, after: window.scrollY, macroTop: Math.round(sl[1].getBoundingClientRect().top - chrome), shifted: sl.some((x) => x.style.transform), idx: Math.round(track.scrollLeft / track.clientWidth), trackH: track.offsetHeight, macroH: sl[1].offsetHeight, eqH: sl[0].offsetHeight };
   });
   check(swipe.before > 500 && Math.abs(swipe.midTop) <= 2, `phone: mid-swipe, the incoming Markets view shows from its top — no blank band (top ${swipe.midTop}px from the tab bar)`);
+  check(swipe.trackH === swipe.macroH && swipe.macroH < swipe.eqH, `phone: the carousel is as tall as the view in it — no blank band below a short view (track ${swipe.trackH}px, Macro ${swipe.macroH}px, Equities ${swipe.eqH}px)`);
   check(swipe.idx === 1 && swipe.after < swipe.before && Math.abs(swipe.macroTop) <= 2 && !swipe.shifted, `phone: a swipe lands at the top of the next view (scroll ${swipe.before} → ${swipe.after}, view top ${swipe.macroTop}px)`);
 
   // Tap CHART → hero chart (feed + manager hidden), all instruments plotted, no left border.

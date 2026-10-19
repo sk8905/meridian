@@ -196,6 +196,15 @@ export function loadMarkets(body, opts = {}) {
       const r = tabs && tabs.getBoundingClientRect();
       return r && r.height ? Math.max(0, r.bottom) : 0;
     };
+    // The track is as tall as the slide in view, not the tallest one — so the page ends
+    // where the current view ends (no blank band to scroll into). Mid-swipe it keeps the
+    // outgoing slide's height (the page can't jump under the finger).
+    const fit = () => {
+      const s = slides[swiping ? anchor : cur]; if (!s) return;
+      const h = s.offsetHeight;
+      if (h) track.style.height = h + "px";
+    };
+    if (typeof ResizeObserver === "function") { const ro = new ResizeObserver(() => fit()); slides.forEach((s) => ro.observe(s)); }
     const setShift = (keep, px) => slides.forEach((s, j) => { s.style.transform = j !== keep && px ? `translateY(${px}px)` : ""; });
     const beginSwipe = () => {
       if (swiping) return;
@@ -209,6 +218,7 @@ export function loadMarkets(body, opts = {}) {
     const settle = () => {
       swiping = false; settleT = 0;
       setShift(-1, 0);
+      fit();
       if (cur !== anchor) {
         if (shift) window.scrollTo({ top: target, behavior: "instant" });
         slides[cur].scrollTop = 0; slides[anchor].scrollTop = 0;

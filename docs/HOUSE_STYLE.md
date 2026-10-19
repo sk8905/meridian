@@ -1734,7 +1734,9 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   vertical scroll (Home ▸ Markets) shows the incoming slide from its top *while the finger
   is still dragging* (the other slides are shifted down by the page scroll — no blank
   band), and on settle the page snaps to the carousel top so the new view starts at its
-  first row (`nav-actions.js` `loadMarkets` beginSwipe/settle). Specs:
+  first row (`nav-actions.js` `loadMarkets` beginSwipe/settle). The track is sized to
+  the slide in view (`fit()`), so a short view ends where its content ends — never a
+  blank band left by a taller neighbour. Specs:
   `tests/home-brief-freshness.mjs`, `tests/home-live-anchor.mjs`, `tests/v2-parity.mjs`,
   `tests/home-mobile-wire-tabs.mjs`.
 - **R49 — Native-feel checklist for any new UI (owner 2026-10-16).** The bar is "feels

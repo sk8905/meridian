@@ -1623,7 +1623,10 @@
          the pane is a flex column (track fills, dot strip pinned beneath), so each
          slide scrolls vertically inside the track while the track scroll-snaps across. */
       .tui .g-layout.wire-markets .g-mktpane{ display:flex; flex-direction:column; min-height:0; overflow:hidden; }
-      .tui .g-mktpane .na-mktswipe{ flex:1 1 auto; min-height:0; display:flex; overflow-x:auto; overflow-y:hidden;
+      /* align-items:flex-start keeps each slide at its OWN height; nav-actions sizes the
+         track to the slide in view, so a short view never scrolls on into a blank band
+         left by a taller neighbour (owner 2026-10-19). */
+      .tui .g-mktpane .na-mktswipe{ flex:1 1 auto; min-height:0; display:flex; align-items:flex-start; overflow-x:auto; overflow-y:hidden;
         scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
       .tui .g-mktpane .na-mktswipe::-webkit-scrollbar{ display:none; }
       .tui .g-mktpane .na-mktslide{ flex:0 0 100%; width:100%; min-width:0; scroll-snap-align:start; scroll-snap-stop:always;
