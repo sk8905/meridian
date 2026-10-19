@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-19",
-  time: "19:15 BST",
+  time: "21:15 BST",
   lede: "French bonds and stocks stayed under pressure after the weekend's unrest while US futures rebounded from last week's chip rout, leaving risk appetite fragile and AI-linked credit under watch.",
   bullets: [
     { html: "<strong>Macro &mdash; Brent slipped 1.1% to $108.62 from a five-month high,</strong> as signs that Middle East supply is holding up outweighed the latest fighting, while China's September retail sales beat forecasts and Q3 growth came in at 4.5%.", src: "https://www.bloomberg.com/news/newsletters/2026-10-19/china-growth-stays-on-track-as-retail-sales-beat-forecasts", srcName: "Bloomberg", date: "2026-10-19" },
