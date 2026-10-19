@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-18T22:41:30.580Z",
- "since": "2026-10-04",
+ "generated": "2026-10-19T05:07:06.205Z",
+ "since": "2026-10-05",
  "firms": {
   "proskauerrose": {
    "domains": [
@@ -64,17 +64,6 @@
    ],
    "carried": 0
   },
-  "slaughtermay": {
-   "domains": [
-    "www.slaughterandmay.com"
-   ],
-   "sitemaps": 1,
-   "urls": 6288,
-   "kept": 9,
-   "fetched": 9,
-   "errors": 0,
-   "carried": 0
-  },
   "hsf": {
    "domains": [
     "www.hsfkramer.com"
@@ -86,6 +75,17 @@
    "errors": 1,
    "carried": 0
   },
+  "slaughtermay": {
+   "domains": [
+    "www.slaughterandmay.com"
+   ],
+   "sitemaps": 1,
+   "urls": 6288,
+   "kept": 9,
+   "fetched": 9,
+   "errors": 0,
+   "carried": 0
+  },
   "macfarlanes": {
    "domains": [
     "www.macfarlanes.com"
@@ -94,17 +94,6 @@
    "urls": 2406,
    "kept": 3,
    "fetched": 3,
-   "errors": 0,
-   "carried": 0
-  },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5018,
-   "kept": 5,
-   "fetched": 5,
    "errors": 0,
    "carried": 0
   },
@@ -121,6 +110,17 @@
    "disallowed": 1,
    "carried": 0
   },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5018,
+   "kept": 5,
+   "fetched": 5,
+   "errors": 0,
+   "carried": 0
+  },
   "aoshearman": {
    "domains": [
     "www.aoshearman.com",
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 16540,
+   "urls": 16563,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -161,7 +161,7 @@
     "www.whitecase.com"
    ],
    "sitemaps": 11,
-   "urls": 10398,
+   "urls": 10399,
    "kept": 27,
    "fetched": 27,
    "errors": 0,
@@ -208,16 +208,16 @@
    ],
    "carried": 0
   },
-  "cleary": {
+  "davispolk": {
    "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
+    "www.davispolk.com",
+    "davispolk.com"
    ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 2,
+   "sitemaps": 11,
+   "urls": 16208,
+   "kept": 4,
+   "fetched": 4,
+   "errors": 0,
    "carried": 0
   },
   "stephensonharwood": {
@@ -250,15 +250,30 @@
    "errors": 0,
    "carried": 0
   },
-  "davispolk": {
+  "reedsmith": {
    "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
+    "www.reedsmith.com"
    ],
-   "sitemaps": 11,
-   "urls": 16208,
-   "kept": 4,
-   "fetched": 4,
+   "sitemaps": 5,
+   "urls": 11581,
+   "kept": 14,
+   "fetched": 14,
+   "errors": 0,
+   "carried": 0
+  },
+  "weil": {
+   "domains": [
+    "www.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "tax.weil.com",
+    "european-disputes-blog.weil.com"
+   ],
+   "sitemaps": 36,
+   "urls": 7745,
+   "kept": 40,
+   "fetched": 40,
    "errors": 0,
    "carried": 0
   },
@@ -281,17 +296,6 @@
    ],
    "carried": 0
   },
-  "reedsmith": {
-   "domains": [
-    "www.reedsmith.com"
-   ],
-   "sitemaps": 5,
-   "urls": 11581,
-   "kept": 14,
-   "fetched": 14,
-   "errors": 0,
-   "carried": 0
-  },
   "southsquare": {
    "domains": [
     "southsquare.com"
@@ -311,6 +315,18 @@
    ],
    "carried": 0
   },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 1,
+   "urls": 18703,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
+   "carried": 0
+  },
   "mayerbrown": {
    "domains": [
     "www.mayerbrown.com"
@@ -319,22 +335,6 @@
    "urls": 16342,
    "kept": 17,
    "fetched": 17,
-   "errors": 0,
-   "carried": 0
-  },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "governance.weil.com",
-    "restructuring.weil.com",
-    "eurorestructuring.weil.com",
-    "tax.weil.com",
-    "european-disputes-blog.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7745,
-   "kept": 40,
-   "fetched": 40,
    "errors": 0,
    "carried": 0
   },
@@ -439,6 +439,15 @@
    "lastmod": "2026-10-16"
   },
   {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
+   "title": "Publications",
+   "description": null,
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
+   "lastmod": null
+  },
+  {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
    "title": "Capital, regulation and capability in a new era",
@@ -476,6 +485,15 @@
    "date": "2026-10-15",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
+   "title": "News Listing",
+   "description": null,
+   "date": "2026-10-15",
+   "dateSource": "datePublished",
+   "lastmod": null
   },
   {
    "firm": "mayerbrown",
