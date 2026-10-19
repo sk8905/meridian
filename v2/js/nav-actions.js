@@ -180,12 +180,52 @@ export function loadMarkets(body, opts = {}) {
       if (i !== cur) { cur = i; dots.forEach((d, j) => { const on = j === i; d.classList.toggle("is-on", on); d.setAttribute("aria-selected", on ? "true" : "false"); }); }
       if (track.scrollLeft > 0) loadPredict();
     };
-    track.addEventListener("scroll", sync, { passive: true });
+    // Every swipe lands at the TOP of the next view (owner 2026-10-19). The slides share the
+    // PAGE's vertical scroll (the track is as tall as its tallest slide), so swiping from
+    // deep in Equities used to show a blank band (the shorter Macro slide has nothing at
+    // that depth) and then leave the reader mid-way down. Now, when a horizontal gesture
+    // starts while the page is scrolled into the pane, the OTHER slides are shifted down by
+    // that scroll depth so their tops sit right under the sticky chrome while they slide
+    // in; when the swipe settles on a new slide, the shift is removed and the page is
+    // scrolled to the pane's top in the same frame — the new slide doesn't move on screen,
+    // it is simply now the top of the page. (Slides that scroll on their own, in a
+    // fixed-height layout, are reset to their top as well.)
+    let anchor = 0, swiping = false, settleT = 0, target = 0, shift = 0;
+    const chromeBottom = () => {
+      const tabs = document.querySelector(".g-wiretabs");
+      const r = tabs && tabs.getBoundingClientRect();
+      return r && r.height ? Math.max(0, r.bottom) : 0;
+    };
+    const setShift = (keep, px) => slides.forEach((s, j) => { s.style.transform = j !== keep && px ? `translateY(${px}px)` : ""; });
+    const beginSwipe = () => {
+      if (swiping) return;
+      swiping = true; anchor = cur;
+      slides.forEach((s, j) => { if (j !== anchor && s.scrollTop) s.scrollTop = 0; });
+      const y = window.scrollY || 0;
+      target = Math.max(0, Math.round(y + track.getBoundingClientRect().top - chromeBottom()));
+      shift = y > target ? y - target : 0;
+      setShift(anchor, shift);
+    };
+    const settle = () => {
+      swiping = false; settleT = 0;
+      setShift(-1, 0);
+      if (cur !== anchor) {
+        if (shift) window.scrollTo({ top: target, behavior: "instant" });
+        slides[cur].scrollTop = 0; slides[anchor].scrollTop = 0;
+        anchor = cur;
+      }
+      shift = 0;
+    };
+    // A new touch re-measures (a vertical-only drag never settles a swipe), unless a
+    // horizontal swipe is still settling.
+    track.addEventListener("touchstart", () => { if (!settleT) swiping = false; beginSwipe(); }, { passive: true });
+    track.addEventListener("scroll", () => { beginSwipe(); sync(); clearTimeout(settleT); settleT = setTimeout(settle, 140); }, { passive: true });
     // Tapping a dot jumps to its slide.
     body.querySelector(".na-mktdots").addEventListener("click", (e) => {
       const d = e.target.closest(".na-mktdot"); if (!d) return;
       const i = KEYS.indexOf(d.dataset.k); if (i < 0) return;
       if (d.dataset.k === "predict") loadPredict();
+      beginSwipe();
       track.scrollTo({ left: i * (track.clientWidth || 0), behavior: "smooth" });
     });
     // Delegated in-pane Predictions controls (super-filter chips / mover direction).

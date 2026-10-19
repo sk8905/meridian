@@ -1729,8 +1729,14 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   stories land above it shows **"↑ N new stories"** (tap → top). At the top of the feed new
   stories simply appear. **(c) Placeholders, not spinners.** A not-yet-mounted tab paints a
   content-shaped grey skeleton (chip strip + list rows; tiles for the Dashboard) that
-  fades in after 150ms, so a fast load never flashes it. Specs:
-  `tests/home-brief-freshness.mjs`, `tests/home-live-anchor.mjs`, `tests/v2-parity.mjs`.
+  fades in after 150ms, so a fast load never flashes it. **(d) A swipe lands at the
+  top (owner 2026-10-19).** A horizontal swipe carousel whose slides share the page's
+  vertical scroll (Home ▸ Markets) shows the incoming slide from its top *while the finger
+  is still dragging* (the other slides are shifted down by the page scroll — no blank
+  band), and on settle the page snaps to the carousel top so the new view starts at its
+  first row (`nav-actions.js` `loadMarkets` beginSwipe/settle). Specs:
+  `tests/home-brief-freshness.mjs`, `tests/home-live-anchor.mjs`, `tests/v2-parity.mjs`,
+  `tests/home-mobile-wire-tabs.mjs`.
 - **R49 — Native-feel checklist for any new UI (owner 2026-10-16).** The bar is "feels
   like an App Store app", not "works". Every new or changed surface: **(a)** follows
   R46–R48 (fenced hover + touch press; `dvh`/`svh`; no reloads, no repaint under the
