@@ -1101,7 +1101,7 @@ const T = {
   d1209: {"c":"Pan-European","s":"Diversified","a":"fund"},
   d1210: {"c":"Pan-European","s":"Real estate","a":"fund"},
   d1211: {"c":"Pan-European","s":"Financial services","a":"aum","m":1},
-  d1212: {"c":"Japan","s":"Financial services","a":"other"},
+  d1212: {"c":"UK","s":"Financial services","a":"other","m":1},
   d1213: {"c":"Sweden","s":"Financial services","a":"aum","m":1},
   d1214: {"c":"US","s":"Financial services","a":"portfolio"},
   d1215: {"c":"Pan-European","s":"Financial services","a":null,"m":1},
