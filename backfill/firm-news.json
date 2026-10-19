@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-19T13:52:35.678Z",
+ "generated": "2026-10-19T14:05:55.868Z",
  "since": "2026-10-05",
  "firms": {
   "proskauerrose": {
@@ -32,6 +32,17 @@
    "errors": 0,
    "carried": 0
   },
+  "slaughtermay": {
+   "domains": [
+    "www.slaughterandmay.com"
+   ],
+   "sitemaps": 1,
+   "urls": 6289,
+   "kept": 10,
+   "fetched": 10,
+   "errors": 0,
+   "carried": 0
+  },
   "linklaters": {
    "domains": [
     "www.linklaters.com",
@@ -39,7 +50,7 @@
     "sustainablefutures.linklaters.com"
    ],
    "sitemaps": 6,
-   "urls": 17778,
+   "urls": 17780,
    "kept": 4,
    "fetched": 4,
    "errors": 0,
@@ -62,17 +73,6 @@
     "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/secondment-experience-in-japan-insights-by-georgia-bertoloni/ @2026-06-18",
     "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/trainee-insights-by-kelsey-reid-jones/ @2026-06-18"
    ],
-   "carried": 0
-  },
-  "slaughtermay": {
-   "domains": [
-    "www.slaughterandmay.com"
-   ],
-   "sitemaps": 1,
-   "urls": 6289,
-   "kept": 10,
-   "fetched": 10,
-   "errors": 0,
    "carried": 0
   },
   "hsf": {
@@ -167,16 +167,15 @@
    "errors": 0,
    "carried": 0
   },
-  "cleary": {
+  "sidley": {
    "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
+    "www.sidley.com"
    ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 2,
+   "sitemaps": 7,
+   "urls": 7571,
+   "kept": 2,
+   "fetched": 2,
+   "errors": 10,
    "carried": 0
   },
   "ropesgray": {
@@ -188,17 +187,6 @@
    "kept": 0,
    "fetched": 0,
    "errors": 1,
-   "carried": 0
-  },
-  "sidley": {
-   "domains": [
-    "www.sidley.com"
-   ],
-   "sitemaps": 5,
-   "urls": 6759,
-   "kept": 2,
-   "fetched": 2,
-   "errors": 12,
    "carried": 0
   },
   "simpsonthacher": {
@@ -218,6 +206,18 @@
     "https://www.stblaw.com/our-team @2025-03-20",
     "https://www.stblaw.com/client-services/practices/corporate @2025-03-20"
    ],
+   "carried": 0
+  },
+  "davispolk": {
+   "domains": [
+    "www.davispolk.com",
+    "davispolk.com"
+   ],
+   "sitemaps": 11,
+   "urls": 16210,
+   "kept": 4,
+   "fetched": 4,
+   "errors": 0,
    "carried": 0
   },
   "stephensonharwood": {
@@ -250,15 +250,30 @@
    "errors": 0,
    "carried": 0
   },
-  "davispolk": {
+  "reedsmith": {
    "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
+    "www.reedsmith.com"
    ],
-   "sitemaps": 11,
-   "urls": 16210,
-   "kept": 4,
-   "fetched": 4,
+   "sitemaps": 5,
+   "urls": 11583,
+   "kept": 15,
+   "fetched": 15,
+   "errors": 0,
+   "carried": 0
+  },
+  "weil": {
+   "domains": [
+    "www.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "tax.weil.com",
+    "european-disputes-blog.weil.com"
+   ],
+   "sitemaps": 36,
+   "urls": 7749,
+   "kept": 40,
+   "fetched": 40,
    "errors": 0,
    "carried": 0
   },
@@ -281,17 +296,6 @@
    ],
    "carried": 0
   },
-  "reedsmith": {
-   "domains": [
-    "www.reedsmith.com"
-   ],
-   "sitemaps": 5,
-   "urls": 11583,
-   "kept": 15,
-   "fetched": 15,
-   "errors": 0,
-   "carried": 0
-  },
   "southsquare": {
    "domains": [
     "southsquare.com"
@@ -311,6 +315,18 @@
    ],
    "carried": 0
   },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 1,
+   "urls": 18704,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
+   "carried": 0
+  },
   "mayerbrown": {
    "domains": [
     "www.mayerbrown.com"
@@ -319,22 +335,6 @@
    "urls": 16345,
    "kept": 19,
    "fetched": 19,
-   "errors": 0,
-   "carried": 0
-  },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "governance.weil.com",
-    "restructuring.weil.com",
-    "eurorestructuring.weil.com",
-    "tax.weil.com",
-    "european-disputes-blog.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7749,
-   "kept": 40,
-   "fetched": 40,
    "errors": 0,
    "carried": 0
   },
@@ -352,6 +352,15 @@
  },
  "items": [
   {
+   "firm": "slaughtermay",
+   "url": "https://www.slaughterandmay.com/insights/new-insights/tax-and-the-city-october-2026/",
+   "title": "Tax and the city - October 2026",
+   "description": "Tax and the City - October 2026",
+   "date": "2026-10-19",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-19"
+  },
+  {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-dbs-on-its-triple-tranche-bond-issuance",
    "title": "Linklaters advises DBS on its US$1.5bn triple-tranche bond issuance",
@@ -367,15 +376,6 @@
    "description": "Explore key issues for defined benefit pension schemes, including surplus, endgame planning, Virgin Media, cyber risk and trustee governance.",
    "date": "2026-10-19",
    "dateSource": "page date label",
-   "lastmod": "2026-10-19"
-  },
-  {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/new-insights/tax-and-the-city-october-2026/",
-   "title": "Tax and the city - October 2026",
-   "description": "Tax and the City - October 2026",
-   "date": "2026-10-19",
-   "dateSource": "<time datetime>",
    "lastmod": "2026-10-19"
   },
   {
@@ -525,13 +525,13 @@
    "lastmod": "2026-10-16"
   },
   {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
-   "title": "Capital, regulation and capability in a new era",
-   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
-   "date": "2026-10-15",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-15"
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
+   "title": "Publications",
+   "description": null,
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
+   "lastmod": null
   },
   {
    "firm": "slaughtermay",
@@ -544,6 +544,15 @@
    "dateProbe": [
     "td style=\"width: 49.9044%; border-style: none; padding: 20px;\"> <p>On 27 February 2026, Canada Pension Pla"
    ]
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
+   "title": "Capital, regulation and capability in a new era",
+   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
+   "date": "2026-10-15",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-15"
   },
   {
    "firm": "latham",
@@ -562,6 +571,15 @@
    "date": "2026-10-15",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
+   "title": "News Listing",
+   "description": null,
+   "date": "2026-10-15",
+   "dateSource": "datePublished",
+   "lastmod": null
   },
   {
    "firm": "mayerbrown",
