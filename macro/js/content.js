@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-19",
-  lastCheckedTime: "07:10 BST",
+  lastCheckedTime: "09:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -435,8 +435,9 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-10-16",
+  updated: "2026-10-19",
   us: [
+    { title: "France May Wait for Le Pen, But Markets Won’t", source: "Bloomberg Opinion", author: "John Authers", date: "2026-10-19", url: "https://www.bloomberg.com/opinion/newsletters/2026-10-19/france-may-wait-for-le-pen-but-markets-won-t" },
     { title: "Hot inflation isn’t playing along with Trump", source: "Bloomberg Opinion", author: "John Authers", date: "2026-10-15", url: "https://www.bloomberg.com/opinion/newsletters/2026-10-15/hot-inflation-isn-t-playing-along-with-trump" },
     { title: "The Big One Is Rumbling in the Bond Market", source: "Bloomberg Opinion", author: "John Authers", date: "2026-09-25", url: "https://www.bloomberg.com/opinion/articles/2026-09-25/the-big-one-is-rumbling-in-the-bond-market" },
     { title: "AIndicators: Fed Hiking Cycle Is a Red-Flag Moment", source: "Bloomberg Opinion", author: "John Authers & Richard Abbey", date: "2026-09-21", url: "https://www.bloomberg.com/opinion/newsletters/2026-09-21/aindicators-fed-hiking-cycle-is-a-red-flag-moment" },
@@ -445,6 +446,7 @@ export const COMMENTARY = {
     { title: "America Added Just 29,000 Jobs in September. Did the Fed Just Get Its First Warning That It Went Too Far?", source: "24/7 Wall St.", author: null, date: "2026-10-04", url: "https://247wallst.com/investing/2026/10/04/america-added-just-29000-jobs-in-september-did-the-fed-just-get-its-first-warning-that-it-went-too-far/" },
   ],
   uk: [
+    { title: "Scapegoat economics", source: "UBS CIO", author: "Paul Donovan (UBS)", date: "2026-10-19", url: "https://www.ubs.com/global/en/wealth-management/insights/chief-investment-office/market-insights/paul-donovan.html" },
     { title: "Morgan Stanley now expects two quarterly BoE hikes amid tough fiscal backdrop", source: "Reuters (via Investing.com)", author: "Morgan Stanley — Bruna Skarica", date: "2026-09-25", url: "https://www.investing.com/news/economy-news/morgan-stanley-now-expects-two-quarterly-boe-hikes-amid-tough-fiscal-backdrop-4917094" },
     { title: "BofA forecasts two BoE rate hikes as energy prices stoke inflation concerns", source: "Reuters (via Investing.com)", author: "BofA Global Research", date: "2026-09-23", url: "https://www.investing.com/news/economy-news/bofa-forecasts-two-boe-rate-hikes-as-energy-prices-stoke-inflation-concerns-4912807" },
     { title: "Pound Sterling Today: PMI Slowdown Leaves November BoE Hike In Play", source: "Exchange Rates UK", author: "Pantheon Macroeconomics", date: "2026-09-23", url: "https://www.exchangerates.org.uk/news/47257/2026-09-23-pound-sterling-today-pmi-slowdown-leaves-november-boe-hike-in-play.html" },
@@ -1037,20 +1039,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-18",
+  updated: "2026-10-19",
   us: [
+    {title: "US stocks set for rebound after AI sell-off", source: "Financial Times", date: "2026-10-19", time: "07:34", url: "https://www.ft.com/content/915ea7ca-1f35-4847-810a-fb29e8344496"},
+    {title: "Investors turn on data centres", source: "Financial Times", date: "2026-10-19", time: "07:00", url: "https://www.ft.com/content/5970614a-b1f7-4b4e-b1e5-6038e1dde654"},
+    {title: "Billionaires Warn of a Bubble Yet Howard Marks Is Unconvinced", source: "Bloomberg", date: "2026-10-18", url: "https://www.bloomberg.com/news/articles/2026-10-18/billionaires-warn-of-a-bubble-yet-howard-marks-is-unconvinced"},
     {title: "Meta Platforms and Tesla are among the companies set to report next week. What to expect", source: "CNBC", date: "2026-10-18", time: "21:34", url: "https://www.cnbc.com/2026/10/18/meta-tesla-netflix-earnings-preview.html"},
-    {title: "Trump’s bid to make America cheap again has failed", source: "Financial Times", date: "2026-10-18", time: "16:00", url: "https://www.ft.com/content/52a5e9df-cd9a-4951-99b5-2364e575bb44"},
-    {title: "These surprising stocks could be some of the biggest drivers of S&P 500 earnings growth", source: "MarketWatch", date: "2026-10-18", time: "15:00", url: "https://www.marketwatch.com/story/these-surprising-stocks-could-be-some-of-the-biggest-drivers-of-s-p-500-earnings-growth-ea073a07"},
     {title: "Stocks are heading for a high-stakes showdown, as strong earnings collide with rising borrowing costs", source: "MarketWatch", date: "2026-10-18", time: "14:00", url: "https://www.marketwatch.com/story/stocks-are-heading-for-a-high-stakes-showdown-as-strong-earnings-collide-with-rising-borrowing-costs-6f8ea5b8"},
-    {title: "Will Meta’s earnings restore confidence in the AI boom?", source: "Financial Times", date: "2026-10-18", time: "12:00", url: "https://www.ft.com/content/7c2e889e-2eb5-4c62-821b-1a7f88c13d05"},
   ],
   uk: [
+    {title: "BoE scrutinises Barclays over claim traders misrepresented private credit exposure", source: "Financial Times", date: "2026-10-19", time: "05:00", url: "https://www.ft.com/content/f3127b4f-d33a-4431-acff-021829f3aa72"},
+    {title: "FTSE as Hedge", source: "Financial Times", date: "2026-10-19", time: "07:30", url: "https://www.ft.com/content/cce1d9b5-5f36-4c42-ab7b-1b74fc788773"},
+    {title: "The five things business wants from the Budget", source: "Financial Times", date: "2026-10-19", time: "05:00", url: "https://www.ft.com/content/af6f84d7-b134-4181-84f3-7811c369f306"},
+    {title: "First-Time UK Homeowners Are Facing Mortgage Payments That Cost More Than Rent", source: "Bloomberg", date: "2026-10-18", url: "https://www.bloomberg.com/news/articles/2026-10-18/first-time-uk-homeowners-are-facing-mortgage-payments-that-cost-more-than-rent"},
     {title: "City of London weighs tax rises and service cuts to plug £70mn budget hole", source: "Financial Times", date: "2026-10-18", time: "19:00", url: "https://www.ft.com/content/873e7ef2-d3d6-4c30-b8f8-ee3e69d60138"},
-    {title: "Treasury introduces new security measures in bid to stop UK Budget leaks", source: "Financial Times", date: "2026-10-18", time: "14:48", url: "https://www.ft.com/content/6748e45a-0b1a-43be-b65f-645849af4a57"},
-    {title: "What is behind the surprising resilience of the UK economy?", source: "Financial Times", date: "2026-10-17", time: "05:00", url: "https://www.ft.com/content/aef6d0ed-1019-452a-b3f0-3e3dfc9eac05"},
-    {title: "UK dividend payments jump 14% in a year", source: "Financial Times", date: "2026-10-17", time: "05:00", url: "https://www.ft.com/content/169bbf6e-d0af-4c8d-afd0-2c561a58c855"},
-    {title: "HMRC claws back nearly £500mn in underpaid capital gains", source: "Financial Times", date: "2026-10-17", time: "05:00", url: "https://www.ft.com/content/b4996387-0a4a-4f75-b16d-830fbc8c40c3"},
   ],
 };
 
@@ -1063,8 +1065,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-18",
+  updated: "2026-10-19",
   items: [
+    {"title": "France May Wait for Le Pen, But Markets Won’t", "source": "Bloomberg Opinion", "date": "2026-10-19", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-19/france-may-wait-for-le-pen-but-markets-won-t", "blurb": "John Authers on French bond-market stress after the weekend’s violence, and on the credit market’s growing concern over AI debt."},
+    {"title": "Has America’s wave of anti-globalisation populism peaked?", "source": "Financial Times", "date": "2026-10-19", "url": "https://www.ft.com/content/ba3b9244-bf94-4c3f-a89b-b761488fd71d", "blurb": "FT analysis of whether US anti-globalisation populism has peaked."},
+    {"title": "China’s economy picks up pace at 4.5% growth", "source": "Financial Times", "date": "2026-10-19", "url": "https://www.ft.com/content/cf113314-1077-4ab4-b667-9912656684f1", "blurb": "FT on China’s third-quarter GDP growth of 4.5%."},
     {"title": "Meta Platforms and Tesla are among the companies set to report next week. What to expect", "source": "CNBC", "date": "2026-10-18", "time": "21:34", "url": "https://www.cnbc.com/2026/10/18/meta-tesla-netflix-earnings-preview.html", "blurb": "CNBC preview of next week's earnings, led by Meta Platforms and Tesla."},
     {"title": "Stocks are heading for a high-stakes showdown, as strong earnings collide with rising borrowing costs", "source": "MarketWatch", "date": "2026-10-18", "time": "14:00", "url": "https://www.marketwatch.com/story/stocks-are-heading-for-a-high-stakes-showdown-as-strong-earnings-collide-with-rising-borrowing-costs-6f8ea5b8", "blurb": "The idea that the AI trade has been mostly immune to rising bond yields isn’t quite right, one strategist notes."},
     {"title": "Trump’s bid to make America cheap again has failed", "source": "Financial Times", "date": "2026-10-18", "time": "16:00", "url": "https://www.ft.com/content/52a5e9df-cd9a-4951-99b5-2364e575bb44", "blurb": "FT on the US affordability agenda."},
@@ -1123,10 +1128,6 @@ export const ARTICLES = {
 // the ~2-hourly routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-10-14", country: "US", title: "CPI (September)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
-  { date: "2026-10-15", country: "US", title: "PPI (September)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
-  { date: "2026-10-15", country: "US", title: "Retail sales (September)", url: "https://www.census.gov/retail/marts/www/marts_current.pdf" },
-  { date: "2026-10-15", country: "UK", title: "GDP monthly estimate (August)", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/previousreleases" },
   { date: "2026-10-20", country: "UK", title: "Labour market overview (three months to August)", url: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/previousreleases" },
   { date: "2026-10-21", country: "UK", title: "CPI inflation (September)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukseptember2026" },
   { date: "2026-10-21", country: "UK", title: "Public sector finances (September)", url: "https://www.ons.gov.uk/releases/publicsectorfinancesukseptember2026" },
@@ -1335,7 +1336,19 @@ export const EARNINGS = {
   // EPS $1.83-1.94 and revenue $17.6-17.7bn). None had reported as of the sweep, so
   // each carries a forecast (Est) and an awaiting state \u2014 outcomes backfill on print.
   weeks: [
-    { label: "This week \u00b7 12\u201316 Oct", days: [
+    { label: "This week \u00b7 19\u201323 Oct", days: [
+      { date: "2026-10-20", rows: [
+        { t: "NFLX", n: "Netflix", tag: "Media \u00b7 Nasdaq", when: "After close", held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026. Date per Netflix’s own results announcement (release c.1:01pm PT / 21:01 BST, followed by a live management interview); consensus not captured." },
+      ] },
+      { date: "2026-10-22", rows: [
+        { t: "TSLA", n: "Tesla", tag: "Autos \u00b7 Nasdaq", when: "Time TBC", held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026. Date per the Forex.com earnings calendar; consensus not captured." },
+        { t: "PG", n: "Procter & Gamble", tag: "Consumer staples \u00b7 NYSE", when: "Time TBC", held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q1 FY2027 (Sept quarter). Date per the Forex.com earnings calendar; consensus not captured." },
+      ] },
+      { date: "2026-10-23", rows: [
+        { t: "INTC", n: "Intel", tag: "Semiconductors \u00b7 Nasdaq", when: "Time TBC", held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026. Date per the Forex.com earnings calendar; consensus not captured." },
+      ] },
+    ] },
+    { label: "Last week \u00b7 12\u201316 Oct", days: [
       { date: "2026-10-13", rows: [
         { t: "JPM", n: "JPMorgan Chase", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: "$5.93 (LSEG consensus)", estRev: "$51.23bn (LSEG consensus)", actEps: "$5.57", actRev: "$50.2bn", px: null, note: "Q3 2026. Reported diluted EPS $5.57 on $50.2bn revenue \u2014 below consensus; $5.75 ex $658m securities losses. Equities trading revenue strong, fixed income softer; buybacks reduced." },
         { t: "GS", n: "Goldman Sachs", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: "$13.65 (avg est)", estRev: null, actEps: "$17.01", actRev: "$18.68bn", px: null, note: "Q3 2026 (8-K). Net earnings $5.29bn, diluted EPS $17.01 on $18.68bn revenue; equities revenue $6.44bn, up 72% y/y." },
@@ -1345,17 +1358,6 @@ export const EARNINGS = {
       { date: "2026-10-14", rows: [
         { t: "BAC", n: "Bank of America", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: null, estRev: null, actEps: "$0.91", actRev: "$30.0bn", px: null, note: "Q3 2026 (8-K). Net income $6.9bn, diluted EPS $0.91 (vs $1.04 a year earlier) on revenue net of interest expense of $30.0bn, up 3% y/y; net interest income $16.4bn, up 8%. Source: https://www.sec.gov/Archives/edgar/data/0000070858/000007085826000481/bac09302026ex992.htm" },
         { t: "MS", n: "Morgan Stanley", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: null, estRev: null, actEps: "$3.03", actRev: "$20.3bn", px: null, note: "Q3 2026 (8-K). Net revenues $20.3bn vs $18.2bn a year earlier; net income $4.9bn, diluted EPS $3.03 (vs $2.80); Wealth Management record net revenues $9.1bn; ROTCE 22.6%. Source: https://www.sec.gov/Archives/edgar/data/0000895421/000089542126000288/a3q26msearningsrelease.htm" },
-      ] },
-    ] },
-    { label: "Last week \u00b7 5\u20139 Oct", days: [
-      { date: "2026-10-06", rows: [
-        { t: "STZ", n: "Constellation Brands", tag: "Beer, wine & spirits \u00b7 NYSE", when: "After close", held: [], estEps: "$3.55-3.62 (avg est)", estRev: "$2.54-2.57bn (avg est; ~3-4% y/y)", actEps: null, actRev: null, px: null, note: "Q2 FY2027 (quarter ended Aug). Consensus ~$3.55-3.62 EPS, broadly flat to slightly down y/y, on ~$2.54-2.57bn revenue; beer depletions and aluminium-tariff cost pressure in focus. Conference call 8:00am ET on 7 Oct." },
-      ] },
-      { date: "2026-10-08", rows: [
-        { t: "PEP", n: "PepsiCo", tag: "Food & beverage \u00b7 Nasdaq", when: "Before open", held: [], estEps: "$2.30 (avg est)", estRev: "$24.98bn (avg est; ~4.4% y/y)", actEps: null, actRev: null, px: null, note: "Q3 2026. Consensus ~$2.30 EPS (vs $2.29 a year ago) on ~$24.98bn revenue; North America beverage volumes and Frito-Lay pricing/elasticity in focus." },
-      ] },
-      { date: "2026-10-09", rows: [
-        { t: "DAL", n: "Delta Air Lines", tag: "Airlines \u00b7 NYSE", when: "Before open", held: [], estEps: "$1.83-1.94 (avg est)", estRev: "$17.6-17.7bn (avg est; ~6% y/y)", actEps: null, actRev: null, px: null, note: "Q3 2026, the unofficial start of Q3 airline earnings. Street consensus ~$1.83-1.94 EPS on ~$17.6-17.7bn revenue; premium-cabin and loyalty demand set against a sharp y/y rise in jet-fuel costs." },
       ] },
     ] },
   ],

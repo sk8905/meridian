@@ -49,6 +49,78 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    "id": "nl-bloomberg-morningbriefingeurope-ukraineunderpressure-20261019",
+    "publication": "Bloomberg",
+    "author": "Joe Flynn",
+    "series": "Morning Briefing Europe",
+    "title": "Ukraine under pressure",
+    "date": "2026-10-19",
+    "time": "07:23",
+    "summary": "Zelenskyy says Trump is pushing Ukraine to yield to Russia; US equity futures rebound after last week’s chip rout.",
+    "url": "https://www.bloomberg.com/news/newsletters/2026-10-19/zelenskyy-says-trump-is-pushing-ukraine-to-yield-to-russia",
+    "body": true
+  },
+  {
+    "id": "nl-bloomberg-pointsofreturn-francemarketswont-20261019",
+    "publication": "Bloomberg",
+    "author": "John Authers",
+    "series": "Points of Return",
+    "title": "France may wait for Le Pen, but markets won’t",
+    "date": "2026-10-19",
+    "time": "05:38",
+    "summary": "Bond sentiment had been stabilizing.",
+    "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-19/france-may-wait-for-le-pen-but-markets-won-t",
+    "body": true
+  },
+  {
+    "id": "nl-economist-worldinbrief-francesweekendshame-20261019",
+    "publication": "The Economist",
+    "author": null,
+    "series": "The World in Brief",
+    "title": "The World in Brief: France’s weekend of “shame”",
+    "date": "2026-10-19",
+    "time": "05:58",
+    "summary": "Also: Europe's voice in the Middle East",
+    "url": "https://www.economist.com/the-world-in-brief",
+    "body": true
+  },
+  {
+    "id": "nl-nonbillable-kirklandpartners-20261019",
+    "publication": "Non-Billable",
+    "author": null,
+    "series": null,
+    "title": "Ssssh... Kirkland just made up nearly 200 partners",
+    "date": "2026-10-19",
+    "time": "09:06",
+    "summary": "And Paul Weiss and Clifford Chance set to cash in from Apollo's easyJet takeover.",
+    "url": "https://non-billable.beehiiv.com/p/freshfields-has-big-ideas-1",
+    "body": true
+  },
+  {
+    "id": "nl-thelawyer-newsdaily-burgessalmontraining-20261019",
+    "publication": "The Lawyer",
+    "author": null,
+    "series": "News Daily",
+    "title": "Burges Salmon to pilot sector-specific training contracts",
+    "date": "2026-10-19",
+    "time": "08:16",
+    "summary": "Burges Salmon is to introduce training contracts that focus entirely on certain key sectors.",
+    "url": "https://r.mail2.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/0PxzSYxMgzzs",
+    "body": true
+  },
+  {
+    "id": "nl-businesspost-cre-dublinaiboom-20261019",
+    "publication": "Business Post",
+    "author": "Tina-Marie O’Neill",
+    "series": "CRE newsletter",
+    "title": "Dublin's AI boom",
+    "date": "2026-10-19",
+    "time": "08:01",
+    "summary": "Plus: A new hotel opposite Meta's Dublin HQ.",
+    "url": "https://bpm.businesspost.ie/w/axhNScGGU9435d89200FnGng/Pe5PTEw0pLHXiV2kox0pPw/yanedAPzSKtqHaR3d8eLbA",
+    "body": true
+  },
+  {
     id: "nl-bloomberg-thebrink-disneycharacterai-20261017",
     publication: "Bloomberg",
     author: "Jonathan Randles",

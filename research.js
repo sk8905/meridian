@@ -109,6 +109,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    "id": "rsch-ubs-donovan-scapegoateconomics-20261019",
+    "publication": "UBS CIO",
+    "author": "Paul Donovan",
+    "series": "Morning audio comment",
+    "title": "Scapegoat economics",
+    "date": "2026-10-19",
+    "time": "07:53",
+    "summary": "China’s Q3 GDP grew 4.5% y/y, so reported 2026 growth is likely to meet the target, though the domestic economy remains lackluster and exports remain the growth driver; weekend violent protests in France may sharpen focus on next year’s presidential elections.",
+    "url": "https://www.ubs.com/global/en/wealth-management/insights/chief-investment-office/market-insights/paul-donovan.html"
+  },
+  {
     id: "rsch-apollo-investgermanysummit-20261018",
     publication: "Apollo Academy",
     author: "Huw van Steenis",

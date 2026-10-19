@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "f5ee9924-0509-4a34-a347-c22278f023c6",
+    "title": "FTAV’s further reading",
+    "date": "2026-10-19",
+    "time": "08:13",
+    "url": "https://www.ft.com/content/f5ee9924-0509-4a34-a347-c22278f023c6"
+  },
+  {
     "id": "915ea7ca-1f35-4847-810a-fb29e8344496",
     "title": "US stocks set for rebound after AI sell-off",
     "date": "2026-10-19",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-18",
     "time": "12:00",
     "url": "https://www.ft.com/content/2c8c610b-83f3-4cab-b409-bab69f4c2207"
-  },
-  {
-    "id": "7c2e889e-2eb5-4c62-821b-1a7f88c13d05",
-    "title": "Will Meta’s earnings restore confidence in the AI boom?",
-    "date": "2026-10-18",
-    "time": "12:00",
-    "url": "https://www.ft.com/content/7c2e889e-2eb5-4c62-821b-1a7f88c13d05"
   }
 ];
