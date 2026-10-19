@@ -4,12 +4,12 @@
 // hand-edit; re-run the script. Tokenless + no-cache (see _headers).
 // =============================================================================
 export const DIGEST = {
- "asOf": "2026-10-18",
- "built": "2026-10-18T20:34:35.993Z",
+ "asOf": "2026-10-19",
+ "built": "2026-10-19T01:36:28.171Z",
  "daily": {
   "label": "Daily",
-  "from": "2026-10-17",
-  "to": "2026-10-18",
+  "from": "2026-10-18",
+  "to": "2026-10-19",
   "deals": {
    "total": 0,
    "items": []
@@ -155,10 +155,10 @@ export const DIGEST = {
  },
  "weekly": {
   "label": "Weekly",
-  "from": "2026-10-12",
-  "to": "2026-10-18",
+  "from": "2026-10-13",
+  "to": "2026-10-19",
   "deals": {
-   "total": 9,
+   "total": 6,
    "items": [
     {
      "id": "d966",
@@ -183,17 +183,6 @@ export const DIGEST = {
      "amount": "$1.1bn"
     },
     {
-     "id": "d1166",
-     "date": "2026-10-12",
-     "title": "Blackstone Credit & Insurance leads $1 billion financing for Analogic and Leidos security businesses combination",
-     "url": "https://www.blackstone.com/news/press/blackstone-credit-insurance-leads-1-billion-financing-to-support-combination-of-analogic-corporation-and-leidos-security-enterprise-solutions-businesses/",
-     "src": "blackstone.com",
-     "who": "Blackstone Credit & Insurance (BXCI)",
-     "kind": "Direct Lending",
-     "href": "/v2/transactions/#/deal/d1166",
-     "amount": "$1 billion"
-    },
-    {
      "id": "d1173",
      "date": "2026-10-16",
      "title": "Permira Credit prices Menlo CLO VI at $401.9 million",
@@ -203,28 +192,6 @@ export const DIGEST = {
      "kind": "Structured Credit",
      "href": "/v2/transactions/#/deal/d1173",
      "amount": "$401.9 million"
-    },
-    {
-     "id": "d1174",
-     "date": "2026-10-12",
-     "title": "Investec Real Estate provides £21.3m refinancing for Belfast student scheme",
-     "url": "https://www.estatesgazette.co.uk/news/investec-provides-21-3m-refinancing-for-belfast-student-scheme/",
-     "src": "estatesgazette.co.uk",
-     "who": "Investec",
-     "kind": "Refinancing",
-     "href": "/v2/transactions/#/deal/d1174",
-     "amount": "£21.3m"
-    },
-    {
-     "id": "d1146",
-     "date": "2026-10-12",
-     "title": "Investec Real Estate refinances Belfast student housing scheme with £21.3m loan",
-     "url": "https://realassets.ipe.com/news/investec-real-estate-refinances-belfast-student-housing-scheme/10138874.article",
-     "src": "realassets.ipe.com",
-     "who": "Investec",
-     "kind": "Financing",
-     "href": "/v2/transactions/#/deal/d1146",
-     "amount": "£21.3m"
     },
     {
      "id": "d1147",
@@ -266,7 +233,7 @@ export const DIGEST = {
    "items": []
   },
   "legal": {
-   "total": 14,
+   "total": 11,
    "items": [
     {
      "id": "c296",
@@ -371,7 +338,7 @@ export const DIGEST = {
    ]
   },
   "people": {
-   "total": 6,
+   "total": 3,
    "items": [
     {
      "id": "i1348",
@@ -382,16 +349,6 @@ export const DIGEST = {
      "who": "LendInvest",
      "kind": "Credit",
      "href": "/v2/profiles/#/manager/m232"
-    },
-    {
-     "id": "i1234",
-     "date": "2026-10-14",
-     "title": "ITE Management names Michael Fox to lead its London office",
-     "url": "https://www.alternativeswatch.com/2026/10/14/ite-management-michael-fox-london-office/",
-     "src": "alternativeswatch.com",
-     "who": "ITE Management",
-     "kind": "Credit",
-     "href": "/v2/profiles/#/manager/m437"
     },
     {
      "id": "i1327",
@@ -412,26 +369,6 @@ export const DIGEST = {
      "who": "ITE Management",
      "kind": "Credit",
      "href": "/v2/profiles/#/manager/m437"
-    },
-    {
-     "id": "i1034",
-     "date": "2026-10-12",
-     "title": "Canyon Partners appoints Chris Hansen as Partner and Chief Information Officer",
-     "url": "https://www.prnewswire.com/news-releases/canyon-partners-appoints-chris-hansen-as-partner-and-chief-information-officer-302905633.html",
-     "src": "prnewswire.com",
-     "who": "Canyon Partners (Credit)",
-     "kind": "Credit",
-     "href": "/v2/profiles/#/manager/m183"
-    },
-    {
-     "id": "hi273",
-     "date": "2026-10-12",
-     "title": "Canyon Partners names Chris Hansen chief information officer to expand AI, data capabilities",
-     "url": "https://www.alternativeswatch.com/2026/10/12/canyon-partners-chris-hansen-cio-ai-data/",
-     "src": "alternativeswatch.com",
-     "who": "Canyon Partners",
-     "kind": "Hedge fund",
-     "href": "/v2/profiles/#/hf/h47"
     }
    ]
   },
