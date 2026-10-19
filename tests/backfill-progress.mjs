@@ -6,8 +6,8 @@
 import { loadChecklist, progress, recordById } from "../scripts/backfill-progress.mjs";
 import { check, finish } from "./lib.mjs";
 
-const MIN_PRESENT = 872;   // 2026-10-18: +42 (m159, m155, m18, m82 built)
-const MIN_BUILT = 87;      // entities whose 2020→today checklist has been researched
+const MIN_PRESENT = 890;   // 2026-10-19: +18 (m64 built; m18, m82, m159 filled)
+const MIN_BUILT = 88;      // entities whose 2020→today checklist has been researched
 
 const cl = loadChecklist();
 const DATE = /^\d{4}(-\d{2}(-\d{2})?)?$/;

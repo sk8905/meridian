@@ -2724,8 +2724,9 @@
      "date": "2025-06-26",
      "what": "LGT CP co-leads closing of IDG Capital USD 500m continuation funds",
      "source": "https://www.lgtcp.com/lgt-capital-partners-co-leads-closing-idg-capitals-usd-500-million-continuation-funds",
-     "status": "missing",
-     "note": null
+     "status": "present",
+     "note": null,
+     "recordId": "i1376"
     },
     {
      "key": "guggenheim-private-debt-vehicle-2026",
@@ -3208,9 +3209,10 @@
      "key": "cfo-first-2024",
      "date": "2024-10-29",
      "what": "AlpInvest closes $1bn collateralized fund obligation",
-     "source": "https://www.dakota.com/fundraising-news/carlyles-alplnvest-closes-1b-cfo-offering-access-to-four-funds",
-     "status": "missing",
-     "note": null
+     "source": "https://www.carlyle.com/media-room/news-release-archive/alpinvest-successfully-closes-1-billion-collateralized-fund",
+     "status": "present",
+     "note": null,
+     "recordId": "d21"
     },
     {
      "key": "mubadala-partnership-2024",
@@ -3273,8 +3275,9 @@
      "date": "2026-07-15",
      "what": "AlpInvest Atom Fund II final close at $1.7bn hard cap",
      "source": "https://pulse2.com/carlyle-alpinvest-closes-alpinvest-atom-fund-ii-at-1-7-billion-hard-cap/",
-     "status": "missing",
-     "note": null
+     "status": "present",
+     "note": null,
+     "recordId": "i1383"
     }
    ]
   },
@@ -3298,8 +3301,9 @@
      "date": "2022-01-12",
      "what": "TPG prices Nasdaq IPO at $29.50",
      "source": "https://shareholders.tpg.com/node/6481/pdf",
-     "status": "missing",
-     "note": null
+     "status": "present",
+     "note": null,
+     "recordId": "i1374"
     },
     {
      "key": "tpg-to-acquire-angelo-gordon-2023",
@@ -3322,8 +3326,9 @@
      "date": "2024-08-06",
      "what": "TPG final close of fifth Twin Brook fund at $3.9bn (Q2 2024 earnings call)",
      "source": "https://shareholders.tpg.com/static-files/8ab43bae-d54c-4ca4-8cbb-7f1b7a898765",
-     "status": "missing",
-     "note": null
+     "status": "present",
+     "note": null,
+     "recordId": "i1375"
     },
     {
      "key": "baumgarten-departs-tpg-ag-2024",
@@ -3387,9 +3392,122 @@
    "kind": "manager",
    "name": "PGIM Private Capital",
    "priority": 30,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-19",
+   "events": [
+    {
+     "key": "pgim-capital-partners-vi-final-close-2020",
+     "date": "2020-12-18",
+     "what": "PGIM Private Capital completes fundraising for sixth mezzanine fund PGIM Capital Partners VI at $2.23bn",
+     "source": "https://www.businesswire.com/news/home/20201218005162/en/",
+     "status": "present",
+     "recordId": "i1377"
+    },
+    {
+     "key": "montana-capital-partners-acquisition-2021",
+     "date": "2021-07-13",
+     "what": "PGIM agrees to acquire Montana Capital Partners (Swiss-based PE secondaries manager)",
+     "source": "https://www.privateequitywire.co.uk/pgim-acquire-montana-capital-partners/",
+     "status": "present",
+     "recordId": "d1206"
+    },
+    {
+     "key": "pgim-private-capital-record-14-5bn-2021",
+     "date": "2022-02-10",
+     "what": "PGIM Private Capital provides record $14.5bn of private debt globally in 2021",
+     "source": "https://www.businesswire.com/news/home/20220210005335/en/PGIM-Private-Capital-provided-record-%2414.5B-in-private-debt-globally-in-2021",
+     "status": "present",
+     "recordId": "i1378"
+    },
+    {
+     "key": "pslo-i-final-close-2022",
+     "date": "2022-02-16",
+     "what": "PGIM Private Capital raises $2.4bn for inaugural direct lending fund PGIM Senior Loan Opportunities I",
+     "source": "https://www.businesswire.com/news/home/20220216005005/en/PGIM-Private-Capital-raises-2.4-billion-for-Direct-Lending-fund-PGIM-Senior-Loan-Opportunities-I-L.P.",
+     "status": "present",
+     "recordId": "i1379"
+    },
+    {
+     "key": "matt-douglass-head-of-ppc-2022",
+     "date": "2022-12-07",
+     "what": "PGIM appoints Matt Douglass head of PGIM Private Capital, succeeding Allen Weaver",
+     "source": "https://www.pgim.com/press-release/pgim-appoints-matt-douglass-new-head-pgim-private-capital",
+     "status": "present",
+     "recordId": "i1380"
+    },
+    {
+     "key": "pgim-private-capital-record-16-1bn-2022",
+     "date": "2023-02-09",
+     "what": "PGIM Private Capital provides record $16.1bn of private debt globally in 2022",
+     "source": "https://www.pgim.com/at/en/borrower/about/newsroom/press-releases/pgim-private-capital-provided-record-16-1b-private-debt-globally-2022.html",
+     "status": "present",
+     "recordId": "i1381"
+    },
+    {
+     "key": "deerpath-majority-acquisition-2023",
+     "date": "2023-05-02",
+     "what": "PGIM agrees to acquire majority interest in Deerpath Capital",
+     "source": "https://www.businesswire.com/news/home/20230502005415/en/PGIM-Strengthens-Alternatives-Offering-With-Agreement-to-Acquire-Majority-Interest-in-Deerpath-Capital",
+     "status": "present",
+     "recordId": "d669"
+    },
+    {
+     "key": "pgim-private-capital-13-7bn-2023",
+     "date": "2024-02-20",
+     "what": "PGIM Private Capital provides nearly $13.7bn of senior debt and junior capital globally in 2023",
+     "source": "https://www.pgim.com/de/press-release/pgim-private-capital-provides-nearly-137b-senior-debt-and-junior-capital-globally",
+     "status": "present",
+     "recordId": "i1382"
+    },
+    {
+     "key": "windhill-clo-launch-2023",
+     "date": "2023",
+     "what": "Windhill CLO 1, PGIM's first middle-market CLO",
+     "source": "https://www.pgim.com/gb/en/borrower/insights/more-insights/case-studies/windhill-middle-market-clo",
+     "status": "rejected",
+     "note": "Exact issuance date and size not verified in sources (case study undated)"
+    },
+    {
+     "key": "pgim-private-capital-eltif-launch-2024",
+     "date": "2024-05-29",
+     "what": "PGIM Private Capital launches first European ELTIF to support direct lending",
+     "source": "https://alternativecreditinvestor.com/2024/05/29/pgim-launches-direct-lending-eltif/",
+     "status": "present",
+     "recordId": "i296"
+    },
+    {
+     "key": "pslo-ii-final-close-2025",
+     "date": "2025-08-01",
+     "what": "PGIM announces $4.2bn final close of PSLO II middle-market direct lending fund",
+     "source": "https://www.businesswire.com/news/home/20250801507800/en/PGIM-announces-$4.2B-final-close-of-middle-market-direct-lending-fund",
+     "status": "present",
+     "recordId": "i84"
+    },
+    {
+     "key": "private-credit-secondaries-platform-2026",
+     "date": "2026-01-21",
+     "what": "PGIM announces strategic expansion into private credit secondaries (up to $1bn)",
+     "source": "https://www.pgim.com/us/en/borrower/about/newsroom/press-releases/pgim-announces-strategic-expansion-into-private-credit-secondaries",
+     "status": "present",
+     "recordId": "i479"
+    },
+    {
+     "key": "first-private-credit-cit-2026",
+     "date": "2026-05-14",
+     "what": "PGIM launches first private credit CIT for defined-contribution plans",
+     "source": "https://www.pgim.com/be/en/institutional/about/newsroom/press-releases/pgim-launches-first-private-credit-CIT-to-broaden-defined-contribution-market-access",
+     "status": "present",
+     "recordId": "i565"
+    },
+    {
+     "key": "deerpath-remaining-stake-2026",
+     "date": "2026-07-27",
+     "what": "PGIM agrees to acquire remaining 25% of Deerpath Capital",
+     "source": "https://alternativecreditinvestor.com/2026/07/27/pgim-acquires-remaining-stake-in-deerpath-capital/",
+     "status": "present",
+     "recordId": "d670"
+    }
+   ]
   },
   "m99": {
    "kind": "manager",
