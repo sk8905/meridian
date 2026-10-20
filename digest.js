@@ -4,30 +4,76 @@
 // hand-edit; re-run the script. Tokenless + no-cache (see _headers).
 // =============================================================================
 export const DIGEST = {
- "asOf": "2026-10-19",
- "built": "2026-10-19T01:36:28.171Z",
+ "asOf": "2026-10-20",
+ "built": "2026-10-20T01:38:34.860Z",
  "daily": {
   "label": "Daily",
-  "from": "2026-10-18",
-  "to": "2026-10-19",
+  "from": "2026-10-19",
+  "to": "2026-10-20",
   "deals": {
-   "total": 0,
-   "items": []
+   "total": 1,
+   "items": [
+    {
+     "id": "d1233",
+     "date": "2026-10-19",
+     "title": "CIC Private Debt prices Victory Street CLO III at €403.75m",
+     "url": "https://alternativecreditinvestor.com/2026/10/19/cic-private-debt-prices-victory-street-clo-iii-at-e403-75m/",
+     "src": "alternativecreditinvestor.com",
+     "who": "CIC Private Debt",
+     "kind": "Structured Credit",
+     "href": "/v2/transactions/#/deal/d1233",
+     "amount": "€403.75m"
+    }
+   ]
   },
   "closes": {
-   "total": 0,
-   "items": []
+   "total": 1,
+   "items": [
+    {
+     "id": "i1414",
+     "date": "2026-10-19",
+     "title": "Nuveen Private Capital surpasses $100 billion in committed capital",
+     "url": "https://arcmont.com/news-and-insights/nuveen-private-capital-surpasses-100-billion-in-committed-capital/",
+     "src": "arcmont.com",
+     "who": "Arcmont Asset Management",
+     "kind": "Fundraising",
+     "href": "/v2/profiles/#/manager/m29",
+     "amount": "$100 billion"
+    }
+   ]
   },
   "legal": {
-   "total": 0,
-   "items": []
+   "total": 1,
+   "items": [
+    {
+     "id": "u3390",
+     "date": "2026-10-19",
+     "title": "Weil Achieves Successful Chapter 11 Resolution for Sponsor of Thrill Holdings Following Successful Challenge to Attempted Proxy Exercise and Board Sweep",
+     "url": "https://www.weil.com/articles/weil-achieves-chapter-11-resolution-for-thrill-holdings-sponsor-following-attempted-proxy-exercise",
+     "src": "weil.com",
+     "who": "Weil, Gotshal & Manges",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/weil"
+    }
+   ]
   },
   "people": {
-   "total": 0,
-   "items": []
+   "total": 1,
+   "items": [
+    {
+     "id": "i1430",
+     "date": "2026-10-19",
+     "title": "HCOB hires Fabrizio Sicilia as head of NPL financing to expand private credit platform",
+     "url": "https://alternativecreditinvestor.com/2026/10/19/hcob-expands-private-credit-platform-with-new-hire/",
+     "src": "alternativecreditinvestor.com",
+     "who": "Hamburg Commercial Bank",
+     "kind": "Credit",
+     "href": "/v2/profiles/#/manager/m318"
+    }
+   ]
   },
   "rates": {
-   "savedAt": "2026-10-17T10:34:08.276Z",
+   "savedAt": "2026-10-19T13:00:08.998Z",
    "items": [
     {
      "label": "SONIA",
@@ -42,12 +88,12 @@ export const DIGEST = {
     },
     {
      "label": "SOFR",
-     "value": 3.89,
+     "value": 3.88,
      "unit": "%",
-     "display": 3.89,
-     "chg": 0.01,
+     "display": 3.88,
+     "chg": -0.01,
      "chgUnit": "pp",
-     "asOf": "2026-10-15",
+     "asOf": "2026-10-16",
      "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
      "src": "newyorkfed.org"
     },
@@ -124,18 +170,18 @@ export const DIGEST = {
      "display": 2.5,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-17",
+     "asOf": "2026-10-19",
      "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
      "src": "data.ecb.europa.eu"
     },
     {
      "label": "€STR",
-     "value": 2.44,
+     "value": 2.441,
      "unit": "%",
-     "display": 2.44,
-     "chg": 0,
+     "display": 2.441,
+     "chg": 0.001,
      "chgUnit": "pp",
-     "asOf": "2026-10-15",
+     "asOf": "2026-10-16",
      "url": "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT",
      "src": "data.ecb.europa.eu"
     },
@@ -146,7 +192,7 @@ export const DIGEST = {
      "display": 3.75,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-15",
+     "asOf": "2026-10-16",
      "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
      "src": "bankofengland.co.uk"
     }
@@ -155,21 +201,21 @@ export const DIGEST = {
  },
  "weekly": {
   "label": "Weekly",
-  "from": "2026-10-13",
-  "to": "2026-10-19",
+  "from": "2026-10-14",
+  "to": "2026-10-20",
   "deals": {
    "total": 6,
    "items": [
     {
-     "id": "d966",
-     "date": "2026-10-13",
-     "title": "Humana forms CenterWell senior-clinic JV with HPS-managed funds; BlackRock buys WCAS stake for ~$2.8bn",
-     "url": "https://www.sec.gov/Archives/edgar/data/0000049071/000004907126000060/blackrockstrategicjvpressr.htm",
-     "src": "sec.gov",
-     "who": "HPS Investment Partners (BlackRock)",
-     "kind": "Partnership",
-     "href": "/v2/transactions/#/deal/d966",
-     "amount": "$2.8bn"
+     "id": "d1234",
+     "date": "2026-10-16",
+     "title": "Carlyle to acquire $7.7bn consumer loan portfolio from Truist",
+     "url": "https://alternativecreditinvestor.com/2026/10/16/carlyle-to-acquire-7-7bn-consumer-loan-portfolio-from-truist/",
+     "src": "alternativecreditinvestor.com",
+     "who": "Carlyle Global Credit",
+     "kind": "NPL / Portfolio",
+     "href": "/v2/transactions/#/deal/d1234",
+     "amount": "$7.7bn"
     },
     {
      "id": "d1150",
@@ -181,6 +227,17 @@ export const DIGEST = {
      "kind": "Financing",
      "href": "/v2/transactions/#/deal/d1150",
      "amount": "$1.1bn"
+    },
+    {
+     "id": "d1233",
+     "date": "2026-10-19",
+     "title": "CIC Private Debt prices Victory Street CLO III at €403.75m",
+     "url": "https://alternativecreditinvestor.com/2026/10/19/cic-private-debt-prices-victory-street-clo-iii-at-e403-75m/",
+     "src": "alternativecreditinvestor.com",
+     "who": "CIC Private Debt",
+     "kind": "Structured Credit",
+     "href": "/v2/transactions/#/deal/d1233",
+     "amount": "€403.75m"
     },
     {
      "id": "d1173",
@@ -214,26 +271,27 @@ export const DIGEST = {
      "kind": "Acquisition",
      "href": "/v2/transactions/#/deal/d1046",
      "amount": null
-    },
-    {
-     "id": "d1185",
-     "date": "2026-10-13",
-     "title": "AURELIUS to acquire Nokia’s Enterprise Campus Edge business",
-     "url": "https://www.nokia.com/newsroom/nokia-to-sell-enterprise-campus-edge-business-to-aurelius/",
-     "src": "nokia.com",
-     "who": "Aurelius",
-     "kind": "Acquisition",
-     "href": "/v2/transactions/#/deal/d1185",
-     "amount": null
     }
    ]
   },
   "closes": {
-   "total": 0,
-   "items": []
+   "total": 1,
+   "items": [
+    {
+     "id": "i1414",
+     "date": "2026-10-19",
+     "title": "Nuveen Private Capital surpasses $100 billion in committed capital",
+     "url": "https://arcmont.com/news-and-insights/nuveen-private-capital-surpasses-100-billion-in-committed-capital/",
+     "src": "arcmont.com",
+     "who": "Arcmont Asset Management",
+     "kind": "Fundraising",
+     "href": "/v2/profiles/#/manager/m29",
+     "amount": "$100 billion"
+    }
+   ]
   },
   "legal": {
-   "total": 11,
+   "total": 10,
    "items": [
     {
      "id": "c296",
@@ -296,34 +354,14 @@ export const DIGEST = {
      "href": null
     },
     {
-     "id": "c283",
-     "date": "2026-10-13",
-     "title": "Central Térmica de Temane SA & Anor v Banco Santander SA [2026] EWHC 2587 (Comm)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2587",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (Comm)",
-     "kind": "Judgment",
-     "href": null
-    },
-    {
-     "id": "c292",
-     "date": "2026-10-13",
-     "title": "STN v POR [2026] EWHC 2585 (Comm)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2585",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (Comm)",
-     "kind": "Judgment",
-     "href": null
-    },
-    {
-     "id": "c301",
-     "date": "2026-10-13",
-     "title": "A & Ors v E [2026] EWHC 2590 (BP)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2590",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (BP)",
-     "kind": "Judgment",
-     "href": null
+     "id": "u3390",
+     "date": "2026-10-19",
+     "title": "Weil Achieves Successful Chapter 11 Resolution for Sponsor of Thrill Holdings Following Successful Challenge to Attempted Proxy Exercise and Board Sweep",
+     "url": "https://www.weil.com/articles/weil-achieves-chapter-11-resolution-for-thrill-holdings-sponsor-following-attempted-proxy-exercise",
+     "src": "weil.com",
+     "who": "Weil, Gotshal & Manges",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/weil"
     },
     {
      "id": "u3059",
@@ -334,12 +372,52 @@ export const DIGEST = {
      "who": "Davis Polk",
      "kind": "R&I alert",
      "href": "/v2/profiles/#/firm/davispolk"
+    },
+    {
+     "id": "u3256",
+     "date": "2026-10-14",
+     "title": "David J. Cohen Named to American Bankruptcy Institute’s 2026 40 Under 40",
+     "url": "https://www.weil.com/articles/david-j-cohen-named-to-american-bankruptcy-institutes-2026-40-under-40",
+     "src": "weil.com",
+     "who": "Weil, Gotshal & Manges",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/weil"
+    },
+    {
+     "id": "u2350",
+     "date": "2026-10-14",
+     "title": "The Insolvency Administrator's Long Memory – When Gratuitous Benefits Are Reclaimed",
+     "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/the-insolvency-administrators-long-memory-when-gratuitous-benefits-are-reclaimed",
+     "src": "mayerbrown.com",
+     "who": "Mayer Brown",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/mayerbrown"
     }
    ]
   },
   "people": {
-   "total": 3,
+   "total": 6,
    "items": [
+    {
+     "id": "i1430",
+     "date": "2026-10-19",
+     "title": "HCOB hires Fabrizio Sicilia as head of NPL financing to expand private credit platform",
+     "url": "https://alternativecreditinvestor.com/2026/10/19/hcob-expands-private-credit-platform-with-new-hire/",
+     "src": "alternativecreditinvestor.com",
+     "who": "Hamburg Commercial Bank",
+     "kind": "Credit",
+     "href": "/v2/profiles/#/manager/m318"
+    },
+    {
+     "id": "i1413",
+     "date": "2026-10-16",
+     "title": "Blackstone makes marquee hire for new European credit platform",
+     "url": "https://greenstreetnews.com/article/blackstone-makes-marquee-hire-for-new-european-lending-platform/",
+     "src": "greenstreetnews.com",
+     "who": "Blackstone (funds managed by Blackstone)",
+     "kind": "Credit",
+     "href": "/v2/profiles/#/manager/m438"
+    },
     {
      "id": "i1348",
      "date": "2026-10-15",
@@ -369,11 +447,21 @@ export const DIGEST = {
      "who": "ITE Management",
      "kind": "Credit",
      "href": "/v2/profiles/#/manager/m437"
+    },
+    {
+     "id": "i1425",
+     "date": "2026-10-14",
+     "title": "Invesco Real Estate names Kevin Grundy head of Europe and Cristiano Stampa European CIO",
+     "url": "https://realassets.ipe.com/news/people-moves-lærernes-pension-lasalle-invesco-real-estate-appoint-platform-heads/10138889.article",
+     "src": "realassets.ipe.com",
+     "who": "Invesco Real Estate",
+     "kind": "Credit",
+     "href": "/v2/profiles/#/manager/m188"
     }
    ]
   },
   "rates": {
-   "savedAt": "2026-10-17T10:34:08.276Z",
+   "savedAt": "2026-10-19T13:00:08.998Z",
    "items": [
     {
      "label": "SONIA",
@@ -388,12 +476,12 @@ export const DIGEST = {
     },
     {
      "label": "SOFR",
-     "value": 3.89,
+     "value": 3.88,
      "unit": "%",
-     "display": 3.89,
-     "chg": 0.02,
+     "display": 3.88,
+     "chg": 0.01,
      "chgUnit": "pp",
-     "asOf": "2026-10-15",
+     "asOf": "2026-10-16",
      "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
      "src": "newyorkfed.org"
     },
@@ -470,18 +558,18 @@ export const DIGEST = {
      "display": 2.5,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-17",
+     "asOf": "2026-10-19",
      "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
      "src": "data.ecb.europa.eu"
     },
     {
      "label": "€STR",
-     "value": 2.44,
+     "value": 2.441,
      "unit": "%",
-     "display": 2.44,
-     "chg": 0.001,
+     "display": 2.441,
+     "chg": 0.004,
      "chgUnit": "pp",
-     "asOf": "2026-10-15",
+     "asOf": "2026-10-16",
      "url": "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT",
      "src": "data.ecb.europa.eu"
     },
@@ -492,7 +580,7 @@ export const DIGEST = {
      "display": 3.75,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-15",
+     "asOf": "2026-10-16",
      "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
      "src": "bankofengland.co.uk"
     }
