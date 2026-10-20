@@ -6184,25 +6184,276 @@
    "kind": "hf",
    "name": "AQR Capital Management",
    "priority": 52,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "aqr-cuts-up-to-10-of-staff-after-fund-lo",
+     "date": "2020-01-08",
+     "what": "AQR cuts up to 10% of staff after fund losses",
+     "source": "https://www.bloomberg.com/news/articles/2020-01-08/aqr-capital-cuts-jobs-after-quant-firm-sees-assets-decline",
+     "recordId": "hi317",
+     "status": "present"
+    },
+    {
+     "key": "2022-record-performance",
+     "date": "2022-02-14",
+     "what": "AQR Absolute Return posts record January 2022",
+     "source": "https://www.hedgeweek.com/2022/02/14/312106/aqr-sees-strong-start-2022",
+     "status": "rejected",
+     "note": "Date seen only in URL path and figures unconfirmed on source; held back."
+    },
+    {
+     "key": "aqr-absolute-return-posts-record-2022-wi",
+     "date": "2023-01-06",
+     "what": "AQR Absolute Return posts record 2022 with 43.5% net gain",
+     "source": "https://www.bloomberg.com/news/articles/2023-01-06/aqr-s-longest-running-fund-has-a-record-year-posting-43-5-gain",
+     "recordId": "hi318",
+     "status": "present"
+    },
+    {
+     "key": "aqr-absolute-return-fund-returns-18-5-in",
+     "date": "2024-01-04",
+     "what": "AQR Absolute Return fund returns 18.5% in 2023",
+     "source": "https://www.cnbc.com/2024/01/04/cliff-asness-aqr-absolute-return-fund-returns-18point5percent-in-2023-boosted-by-value-picks.html",
+     "recordId": "hi319",
+     "status": "present"
+    },
+    {
+     "key": "2025-q1-returns",
+     "date": "2025-04-01",
+     "what": "AQR Apex and Delphi Q1 2025 returns",
+     "source": "https://finance.yahoo.com/news/aqr-capital-management-posts-q1-181506137.html",
+     "status": "rejected",
+     "note": "No exact publication date seen on source."
+    },
+    {
+     "key": "2025-h1-performance",
+     "date": "2025-07-01",
+     "what": "AQR H1 2025 performance",
+     "source": "https://www.hedgeweek.com/aqr-strategies-post-double-digit-h1-gains/",
+     "recordId": "hi14",
+     "status": "present"
+    },
+    {
+     "key": "2025-apex-full-year",
+     "date": "2026-01-02",
+     "what": "Apex fund +19.6% in 2025",
+     "source": "https://www.nbcnewyork.com/news/business/money-report/cliff-asness-aqr-sees-multiple-hedge-funds-up-double-digits-in-2025-beating-the-market/6322103/",
+     "recordId": "hi15",
+     "status": "present"
+    }
+   ]
   },
   "h8": {
    "kind": "hf",
    "name": "Renaissance Technologies",
    "priority": 53,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "board-revamp-nat-simons-2020",
+     "date": "2020-01-23",
+     "what": "Jim Simons revamps Renaissance board, naming Nathaniel Simons co-chair",
+     "source": "https://www.bloomberg.com/news/articles/2020-01-23/jim-simons-revamps-renaissance-board-in-nod-to-new-generation",
+     "status": "rejected",
+     "note": "Only headline/URL seen; body not verified."
+    },
+    {
+     "key": "medallion-2020-ytd-surge",
+     "date": "2020-04-17",
+     "what": "Medallion reportedly up 24% YTD (CNBC citing WSJ)",
+     "source": "https://www.cnbc.com/2020/04/17/renaissance-hedge-fund-reportedly-having-one-of-its-best-years-ever.html",
+     "status": "rejected",
+     "note": "Superseded by the full-year 2020 result in the Jan 2021 item; date from URL only."
+    },
+    {
+     "key": "simons-hands-renaissance-chairmanship-to",
+     "date": "2021-01-14",
+     "what": "Simons hands Renaissance chairmanship to Peter Brown",
+     "source": "https://investing.com/news/stock-market-news/simons-taps-brown-as-chair-of-renaissance-board-after-mixed-2020-2389630",
+     "recordId": "hi320",
+     "status": "present"
+    },
+    {
+     "key": "redemptions-2021-02",
+     "date": "2021-02-07",
+     "what": "Renaissance hit with $5bn redemptions since Dec 1",
+     "source": "https://www.bloomberg.com/news/articles/2021-02-07/renaissance-hit-with-5-billion-in-redemptions-since-dec-1",
+     "status": "rejected",
+     "note": "Only headline/URL seen; superseded by the Jan 2022 outflow total."
+    },
+    {
+     "key": "renaissance-executives-agree-to-pay-abou",
+     "date": "2021-09-03",
+     "what": "Renaissance executives agree to pay about $7bn to settle IRS tax dispute",
+     "source": "https://www.cnbc.com/2021/09/03/renaissance-executives-agree-to-pay-7-billion-to-settle-tax-dispute.html",
+     "recordId": "hi321",
+     "status": "present"
+    },
+    {
+     "key": "renaissance-investor-redemptions-near-15",
+     "date": "2022-01-20",
+     "what": "Renaissance investor redemptions near $15bn despite 2021 gains",
+     "source": "https://www.bnnbloomberg.ca/renaissance-investor-exodus-nears-15-billion-despite-2021-gains-1.1710487.amp.html",
+     "recordId": "hi322",
+     "status": "present"
+    },
+    {
+     "key": "renaissance-names-david-lippe-co-ceo-alo",
+     "date": "2023-12-07",
+     "what": "Renaissance names David Lippe co-CEO alongside Peter Brown",
+     "source": "https://www.bloomberg.com/news/articles/2023-12-07/renaissance-technologies-names-longtime-employee-lippe-as-co-ceo",
+     "recordId": "hi323",
+     "status": "present"
+    },
+    {
+     "key": "renaissance-founder-jim-simons-dies-at-8",
+     "date": "2024-05-10",
+     "what": "Renaissance founder Jim Simons dies at 86",
+     "source": "https://fortune.com/2024/05/10/jim-simons-obituary-renaissance-technologies-quant-king",
+     "recordId": "hi324",
+     "status": "present"
+    },
+    {
+     "key": "quant-gains-2024",
+     "date": "2025-01-14",
+     "what": "Renaissance public funds post strong 2024",
+     "source": "https://www.hedgeweek.com/renaissance-tech-and-two-sigma-lead-2024-quant-gains/",
+     "status": "rejected",
+     "note": "Publication date inferred from a listing page, not confirmed on the article."
+    },
+    {
+     "key": "tariff-selloff-2025-04",
+     "date": "2025-04-08",
+     "what": "Renaissance quant funds hit steep losses in April tariff selloff",
+     "source": null,
+     "recordId": "hi115",
+     "status": "present"
+    },
+    {
+     "key": "renaissance-public-funds-suffer-worst-mo",
+     "date": "2025-11-12",
+     "what": "Renaissance public funds suffer worst monthly losses in October",
+     "source": "https://www.institutionalinvestor.com/article/renaissance-suffers-huge-losses-october",
+     "recordId": "hi325",
+     "status": "present"
+    }
+   ]
   },
   "h1": {
    "kind": "hf",
    "name": "Bridgewater Associates",
    "priority": 54,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "murray-exit",
+     "date": "2019-12-03",
+     "what": "Co-CEO Eileen Murray to leave end of Q1 2020",
+     "source": "https://www.cnbc.com/2019/12/03/bridgewaters-co-ceo-eileen-murray-leaving-worlds-largest-hedge-fund.html",
+     "status": "rejected",
+     "note": "Announcement predates 2020 window; page not readable."
+    },
+    {
+     "key": "returns-2020-2023",
+     "date": "2020-12-31",
+     "what": "2020 Pure Alpha losses and 2023 loss",
+     "source": null,
+     "status": "rejected",
+     "note": "Exact publication dates not confirmed on source pages."
+    },
+    {
+     "key": "bridgewater-names-nir-bar-dea-and-mark-b",
+     "date": "2022-01-04",
+     "what": "Bridgewater names Nir Bar Dea and Mark Bertolini co-CEOs",
+     "source": "https://www.hedgeweek.com/new-co-chief-executives-appointed-run-worlds-largest-hedge-fund/",
+     "recordId": "hi326",
+     "status": "present"
+    },
+    {
+     "key": "ray-dalio-gives-up-control-of-bridgewate",
+     "date": "2022-10-04",
+     "what": "Ray Dalio gives up control of Bridgewater",
+     "source": "https://fortune.com/2022/10/04/ray-dalio-gives-up-control-bridgewater-capital",
+     "recordId": "hi327",
+     "status": "present"
+    },
+    {
+     "key": "bridgewater-names-karen-karniol-tambour-",
+     "date": "2023-02-03",
+     "what": "Bridgewater names Karen Karniol-Tambour third co-CIO",
+     "source": "https://ai-cio.com/news/bridgewater-promotes-karniol-tambour-to-co-cio",
+     "recordId": "hi328",
+     "status": "present"
+    },
+    {
+     "key": "bridgewater-launches-2bn-machine-learnin",
+     "date": "2024-07-01",
+     "what": "Bridgewater launches ~$2bn machine-learning fund",
+     "source": "https://fortune.com/2024/07/01/bridgewater-2-billion-fund-machine-learning-decision-making-openai-anthropic-perplexity/",
+     "recordId": "hi329",
+     "status": "present"
+    },
+    {
+     "key": "bridgewater-aum-fell-18-1-in-2024-to-92-",
+     "date": "2025-04-01",
+     "what": "Bridgewater AUM fell 18.1% in 2024 to $92.1bn; Pure Alpha +11.3%",
+     "source": "https://www.nst.com.my/amp/business/corporate/2025/04/1195812/bridgewater-assets-down-18pct-2024-amid-revamp",
+     "recordId": "hi330",
+     "status": "present"
+    },
+    {
+     "key": "dalio-sells-remaining-bridgewater-stake-",
+     "date": "2025-07-31",
+     "what": "Dalio sells remaining Bridgewater stake; Brunei fund buys minority stake",
+     "source": "https://finance.yahoo.com/news/ray-dalio-sells-remaining-stake-214411051.html",
+     "recordId": "hi331",
+     "status": "present"
+    },
+    {
+     "key": "brunei-investment-agency-owns-just-under",
+     "date": "2025-08-07",
+     "what": "Brunei Investment Agency owns just under a fifth of Bridgewater",
+     "source": "https://www.asiaasset.com/sovereign-wealth-funds/brunei-investment-agency-buys-nearly-20-stake-in-bridgewater-associates-report-says/",
+     "recordId": "hi332",
+     "status": "present"
+    },
+    {
+     "key": "pa-2025-33",
+     "date": "2026-01-02",
+     "what": "Pure Alpha +33% in 2025",
+     "source": "https://www.hedgeweek.com/news/bridgewaters-pure-alpha-outpaces-peers-with-33-2025-gain",
+     "recordId": "hi1",
+     "status": "present"
+    },
+    {
+     "key": "bridgewater-pure-alpha-gains-8-1-in-h1-2",
+     "date": "2026-07-02",
+     "what": "Bridgewater Pure Alpha gains 8.1% in H1 2026",
+     "source": "https://www.thestar.com.my/tech/tech-news/2026/07/02/bridgewater039s-flagship-macro-fund-gains-81-in-first-half-amid-market-volatility-sources-say",
+     "recordId": "hi333",
+     "status": "present"
+    },
+    {
+     "key": "platt-hire",
+     "date": "2026-07-08",
+     "what": "Hires Brevan Howard commodities strategist Kobi Platt",
+     "source": null,
+     "recordId": "hi104",
+     "status": "present"
+    },
+    {
+     "key": "pa-9m-2026",
+     "date": "2026-10-01",
+     "what": "Pure Alpha +18.4% first nine months 2026",
+     "source": null,
+     "recordId": "hi219",
+     "status": "present"
+    }
+   ]
   },
   "h3": {
    "kind": "hf",
@@ -6346,9 +6597,114 @@
    "kind": "hf",
    "name": "Tiger Global Management",
    "priority": 57,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "tiger-global-flagship-returned-48-4-in-2",
+     "date": "2021-03-17",
+     "what": "Tiger Global flagship returned 48.4% in 2020",
+     "source": "https://www.thetrustedinsight.com/investment-news/inside-tiger-globals-performance-according-to-investor-letter-20210317470/",
+     "recordId": "hi334",
+     "status": "present"
+    },
+    {
+     "key": "tiger-global-raises-8-8bn-in-first-close",
+     "date": "2021-10-25",
+     "what": "Tiger Global raises $8.8bn in first close of biggest fund",
+     "source": "https://www.bloomberg.com/news/articles/2021-10-25/tiger-global-raises-8-8-billion-in-first-close-of-biggest-fund",
+     "recordId": "hi335",
+     "status": "present"
+    },
+    {
+     "key": "tiger-global-raises-11bn-for-latest-priv",
+     "date": "2022-02-04",
+     "what": "Tiger Global raises $11bn for latest private fund",
+     "source": "https://www.bloomberg.com/news/articles/2022-02-04/tiger-global-raises-11-billion-for-latest-private-fund",
+     "recordId": "hi336",
+     "status": "present"
+    },
+    {
+     "key": "tiger-global-hedge-fund-drops-14-in-may-",
+     "date": "2022-06-02",
+     "what": "Tiger Global hedge fund drops 14% in May, 2022 loss tops 50%",
+     "source": "https://www.cnbc.com/2022/06/02/tiger-global-drops-14percent-in-may-during-the-tech-sell-off-pushing-hedge-funds-2022-losses-to-over-50percent.html",
+     "recordId": "hi337",
+     "status": "present"
+    },
+    {
+     "key": "2022-full-year-56",
+     "date": "2023-01-11",
+     "what": "Long/short hedge fund lost 56% and long-only 67% in 2022",
+     "source": "https://www.institutionalinvestor.com/article/b8wyx2hx9lc7nl/it-was-a-tough-year-to-be-a-tiger",
+     "status": "rejected",
+     "note": "Date taken from a search summary, not confirmed on the article page."
+    },
+    {
+     "key": "scott-shleifer-steps-down-as-head-of-tig",
+     "date": "2023-11-21",
+     "what": "Scott Shleifer steps down as head of Tiger Global private investing",
+     "source": "https://www.bloomberg.com/news/articles/2023-11-21/tiger-global-s-scott-shleifer-steps-down-as-head-of-privates",
+     "recordId": "hi338",
+     "status": "present"
+    },
+    {
+     "key": "tiger-global-hedge-fund-gained-28-5-in-2",
+     "date": "2024-01-05",
+     "what": "Tiger Global hedge fund gained 28.5% in 2023",
+     "source": "https://www.bloomberg.com/news/articles/2024-01-05/tiger-global-hedge-fund-gained-29-in-2023-after-two-year-slump",
+     "recordId": "hi339",
+     "status": "present"
+    },
+    {
+     "key": "tiger-global-vc-fund-closes-63-below-tar",
+     "date": "2024-04-01",
+     "what": "Tiger Global VC fund closes 63% below target at $2.2bn",
+     "source": "https://www.bloomberg.com/news/articles/2024-04-01/tiger-global-vc-fund-closes-63-below-target-with-2-2-billion",
+     "recordId": "hi340",
+     "status": "present"
+    },
+    {
+     "key": "delhi-hc-2024",
+     "date": "2024-08-01",
+     "what": "Delhi High Court grants Tiger Global Flipkart treaty exemption",
+     "source": "https://www.taxmann.com/post/blog/delhi-hc-overrules-aar-ruling-allows-capital-gain-exemption-to-tiger-global-on-sale-of-its-stake-in-flipkart/",
+     "status": "rejected",
+     "note": "Exact day not seen on source; later overturned by the Supreme Court."
+    },
+    {
+     "key": "2024-gain-24",
+     "date": "2025-01-07",
+     "what": "Gained about 24% in 2024",
+     "source": null,
+     "recordId": "hi116",
+     "status": "present"
+    },
+    {
+     "key": "pip17-launch",
+     "date": "2025-12-08",
+     "what": "Launches new fund targeting $2.2bn",
+     "source": null,
+     "recordId": "hi117",
+     "status": "present"
+    },
+    {
+     "key": "india-supreme-court-tiger-global-liable-",
+     "date": "2026-01-15",
+     "what": "India Supreme Court: Tiger Global liable for tax on Flipkart exit",
+     "source": "https://moneylife.in/article/supreme-court-orders-tiger-global-to-pay-capital-gains-tax-on-us16bn-flipkart-deal/79394.html",
+     "recordId": "hi341",
+     "status": "present"
+    },
+    {
+     "key": "openai-paper-gain",
+     "date": "2026-10-08",
+     "what": "About $5bn paper gain on OpenAI",
+     "source": null,
+     "recordId": "hi214",
+     "status": "present"
+    }
+   ]
   },
   "h14": {
    "kind": "hf",
