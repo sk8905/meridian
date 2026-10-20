@@ -1,9 +1,9 @@
 // =============================================================================
 // nav-r13.mjs — the owner-approved navigation (R13, 2026-10-15).
-//   iPhone bottom bar AND desktop header: Home · Dashboard · News · Deals · Profiles (Restructuring and
+//   iPhone/iPad bottom bar: Home · Dashboard · News · Deals · Profiles (Restructuring and
 //     Fundraising are chips inside Deals, so Deals stays lit on the Restructuring hub).
 //   Desktop header: the same without News — desktop Home is the news wire (owner
-//   2026-10-15). Restructuring and
+//   2026-10-20). Restructuring and
 //   Fundraising are folded into Deals, which stays lit on both.
 //   iPhone section heading rows are ONE sideways-scrolling row (no clipped chips).
 // =============================================================================
@@ -41,12 +41,12 @@ const lit = (pg, sel) => pg.evaluate((s) => [...document.querySelectorAll(s)].fi
   await pg.close();
 }
 
-// ---- Desktop: the SAME nav (owner 2026-10-15) --------------------------------
+// ---- Desktop: the same nav WITHOUT News (owner 2026-10-20) --------------------
 {
   const { pg, errs } = await open(browser, DESKTOP, base + "/v2/transactions/");
   await pg.waitForSelector("#wire-header .ps-btn");
   const pills = await pg.$$eval("#wire-header .ps-btn", (els) => els.map((e) => e.textContent.trim()));
-  checkEq(pills.join(" · "), "Home · Dashboard · News · Deals · Profiles", "desktop: header pills = the same nav as iPhone (owner 2026-10-16)");
+  checkEq(pills.join(" · "), "Home · Dashboard · Deals · Profiles", "desktop: header pills have no News — desktop Home carries the news wire (owner 2026-10-20)");
   checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "transactions", "desktop: Deals lit on the deal list");
   await pg.goto(base + "/v2/transactions/#/fundraising"); await pg.waitForSelector("#wire-header .ps-btn"); await pg.waitForTimeout(400);
   checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "transactions", "desktop: Fundraising is part of Deals (Deals lit)");
@@ -56,6 +56,9 @@ const lit = (pg, sel) => pg.evaluate((s) => [...document.querySelectorAll(s)].fi
   await pg.click('#wire-header .ps-btn[data-key="dashboard"]');
   await pg.waitForFunction(() => location.pathname.startsWith("/v2/dashboard"));
   checkEq(await pg.title(), "Wire Dashboard", "desktop: Dashboard title");
+  // A /v2/news/ link on desktop still resolves (the Home news wire) and lights Home.
+  await pg.goto(base + "/v2/news/"); await pg.waitForSelector("#wire-header .ps-btn"); await pg.waitForTimeout(400);
+  checkEq((await lit(pg, "#wire-header .ps-btn")).join(), "home", "desktop: /v2/news/ lights Home (no News pill)");
   checkErrs(errs, "desktop nav");
   await pg.close();
 }

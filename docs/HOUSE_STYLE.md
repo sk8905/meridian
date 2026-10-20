@@ -1407,9 +1407,11 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   Home rails keep fixed widths on every screen (`tests/dashboard-desktop-preview.mjs`). **(h) Rates** show a market-implied path from prediction-
   market odds, labelled as crowd probabilities (`tests/rates-implied.mjs`).
 - **R42 — Offering build (owner-approved 2026-10-15).** **(a) Navigation (R13):** **Home · Dashboard · News ·
-  Deals · Profiles** on BOTH iPhone and desktop (owner 2026-10-16 — supersedes the
-  2026-10-15 "Markets" label and the desktop nav without News; on desktop, News opens the
-  news wire view).
+  Deals · Profiles** on the iPhone/iPad bottom bar; the **desktop header has no News**
+  — **Home · Dashboard · Deals · Profiles** (owner 2026-10-20 — supersedes 2026-10-16's
+  desktop News pill): the desktop Home page already carries the full news wire with its
+  lanes, so a News tab only duplicated it. `/v2/news/` still resolves on desktop and
+  lights Home. (`PLATFORMS` in `chrome.js`; spec `tests/nav-r13.mjs`.)
   Route keys are unchanged (`dashboard` reads **Dashboard** — page title "Wire Dashboard" —
   `transactions` reads **Deals**).
   Restructuring and Fundraising are folded into Deals: both are chips in the Deals mode bar

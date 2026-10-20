@@ -83,11 +83,14 @@ function setupLazyPalette() {
 // bar (Fundraising = /v2/transactions/#/fundraising; Restructuring = the hub at
 // /v2/restructuring/, which carries the same mode bar), so Deals stays lit on both.
 // Owner 2026-10-16: Home · Dashboard · News · Deals · Profiles, on desktop AND iPhone
-// (the dashboard route reads "Dashboard"; desktop carries News again).
+// (the dashboard route reads "Dashboard").
+// Owner 2026-10-20 (R13): the DESKTOP header has no News pill — the desktop Home page
+// already carries the full news wire and its lanes. The bottom tab bar (iPhone/iPad)
+// keeps News. /v2/news/ still resolves; on desktop it lights Home.
 const TABS = [
   ["home", "Home"], ["dashboard", "Dashboard"], ["news", "News"], ["transactions", "Deals"], ["profiles", "Profiles"],
 ];
-const PLATFORMS = TABS;
+const PLATFORMS = TABS.filter(([k]) => k !== "news");
 // Which header pill / bottom tab is lit for the current view key.
 const navKeyFor = (key) => (key === "restructuring" ? "transactions" : key);
 
@@ -156,7 +159,7 @@ export function initChrome({ onTab }) {
   // Update the active marker on both the bottom bar and the header switch.
   return setActive;
   function setActive(key) {
-    const tabKey = navKeyFor(key), deskKey = tabKey;
+    const tabKey = navKeyFor(key), deskKey = tabKey === "news" ? "home" : tabKey;
     tabbar.querySelectorAll(".mtab").forEach((b) => {
       const on = b.dataset.key === tabKey;
       b.classList.toggle("is-active", on);
