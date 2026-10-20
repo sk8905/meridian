@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-20T00:01:06.631Z",
- "since": "2026-10-05",
+ "generated": "2026-10-20T05:14:10.213Z",
+ "since": "2026-10-06",
  "firms": {
   "proskauerrose": {
    "domains": [
@@ -50,12 +50,12 @@
     "www.ashurst.com"
    ],
    "sitemaps": 1,
-   "urls": 5640,
+   "urls": 5649,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
    "samples": [
-    "https://www.ashurstperkinscoie.com/ @2026-10-12",
+    "https://www.ashurstperkinscoie.com/ @2026-10-19",
     "https://www.ashurstperkinscoie.com/en/careers/ @2026-07-27",
     "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/ @2026-07-30",
     "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/commercial-awareness-and-legal-tech/ @2026-06-26",
@@ -92,19 +92,8 @@
    ],
    "sitemaps": 4,
    "urls": 2407,
-   "kept": 2,
-   "fetched": 2,
-   "errors": 0,
-   "carried": 0
-  },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5020,
-   "kept": 7,
-   "fetched": 7,
+   "kept": 1,
+   "fetched": 1,
    "errors": 0,
    "carried": 0
   },
@@ -119,6 +108,17 @@
    "errors": 0,
    "samples": [],
    "disallowed": 1,
+   "carried": 0
+  },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5020,
+   "kept": 6,
+   "fetched": 6,
+   "errors": 0,
    "carried": 0
   },
   "aoshearman": {
@@ -140,9 +140,9 @@
    ],
    "sitemaps": 9,
    "urls": 20207,
-   "kept": 19,
-   "fetched": 18,
-   "errors": 1,
+   "kept": 14,
+   "fetched": 14,
+   "errors": 0,
    "carried": 0
   },
   "kirkland": {
@@ -150,7 +150,7 @@
     "www.kirkland.com"
    ],
    "sitemaps": 11,
-   "urls": 17414,
+   "urls": 17418,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -161,9 +161,9 @@
     "www.whitecase.com"
    ],
    "sitemaps": 11,
-   "urls": 10399,
-   "kept": 26,
-   "fetched": 26,
+   "urls": 10403,
+   "kept": 27,
+   "fetched": 27,
    "errors": 0,
    "carried": 0
   },
@@ -171,11 +171,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 6,
-   "urls": 7178,
+   "sitemaps": 7,
+   "urls": 7574,
    "kept": 2,
    "fetched": 2,
-   "errors": 11,
+   "errors": 10,
    "carried": 0
   },
   "ropesgray": {
@@ -214,9 +214,9 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16212,
-   "kept": 4,
-   "fetched": 4,
+   "urls": 16219,
+   "kept": 9,
+   "fetched": 9,
    "errors": 0,
    "carried": 0
   },
@@ -225,7 +225,7 @@
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2855,
+   "urls": 2856,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -415,6 +415,60 @@
    "lastmod": null
   },
   {
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/award/2026/10/international-financial-law-review-best-in-state-texas-deal-of-the-year",
+   "title": "Kirkland Honored With “Best in State – Texas” and Two “Deal of the Year” Awards by IFLR",
+   "description": null,
+   "date": "2026-10-19",
+   "dateSource": "page date label",
+   "lastmod": null
+  },
+  {
+   "firm": "whitecase",
+   "url": "https://www.whitecase.com/news/press-release/white-case-advises-new-private-equity-strategic-investment-one-group-solutions",
+   "title": "White & Case advises New Private Equity on strategic investment in ONE group solutions",
+   "description": "Global law firm White & Case LLP has advised New Private Equity Management (NPE), a US technology-focused private equity firm, on its acquisition of a strategic stake in ONE group solutions, a Luxembourg-based fund governance solutions provider.",
+   "date": "2026-10-19",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/experience/natwest-group-1-billion-senior-notes-offering-october-2026",
+   "title": "NatWest Group $1 billion senior notes offering",
+   "description": "We advised NatWest Group on the offering",
+   "date": "2026-10-19",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/insights/client-update/hong-kong-sfc-recognises-sponsor-progress-sharpens-its-focus-ipo-misconduct",
+   "title": "Hong Kong SFC recognises sponsor progress but sharpens its focus on IPO misconduct",
+   "description": "Last week, the Hong Kong Securities and Futures Commission (SFC) has acknowledged improvements in sponsor work since its circular in January identifying...",
+   "date": "2026-10-19",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/news/brian-hirsch-profiled-financier-worldwide-s-power-players-real-estate",
+   "title": "Brian Hirsch profiled in Financier Worldwide’s “Power Players: Real Estate”",
+   "description": "Davis Polk partner Brian Hirsch was profiled by Financer Worldwide as part of the publication's \"Power Players: Real Estate\" issue. In the Q&A, Brian...",
+   "date": "2026-10-19",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/news/maurice-blanco-and-john-meade-discuss-q3-ipo-market-activity-law360",
+   "title": "Maurice Blanco and John Meade discuss Q3 IPO market activity with Law360",
+   "description": "Davis Polk partners and Capital Markets practice co-heads Maurice Blanco and John Meade discussed IPO activity in the third quarter of 2026 with...",
+   "date": "2026-10-19",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-19"
+  },
+  {
    "firm": "weil",
    "url": "https://tax.weil.com/insights/member-states-update-eu-list-of-non-cooperative-tax-jurisdictions-on-9-october-2026/",
    "title": "Member States Update EU List of Non-Cooperative Tax Jurisdictions on 9 October 2026",
@@ -505,6 +559,15 @@
    "date": "2026-10-16",
    "dateSource": "page date label",
    "lastmod": null
+  },
+  {
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/experience/banco-de-credito-del-peru-500-million-subordinated-notes-offering-october-2026",
+   "title": "Banco de Crédito del Perú $500 million subordinated notes offering",
+   "description": "We advised BCP on the takedown under its MTN program",
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-19"
   },
   {
    "firm": "reedsmith",
@@ -912,33 +975,6 @@
    "date": "2026-10-06",
    "dateSource": "datePublished",
    "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o4fw/employment-tax-update-october-2026",
-   "title": "Employment tax update - October 2026",
-   "description": "This bulletin follows the release of the August and September Agent Updates (Issue 146 and Issue 147). In this issue we cover the content...",
-   "date": "2026-10-05",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/knowledge-container/warfighting-readiness-what-298-billion-in-defence-spending-means-for-the-uk-real-estate-sector/",
-   "title": "\"Warfighting readiness\" - what £298 billion in defence spending means for the UK real estate sector",
-   "description": "Intro: The Government's Defence Investment Plan, published this summer, represents one of the most significant shifts in UK defence spending in a generation. Backed by £298 billion of investment over the next four years and built on the vision of the Strategic Defence Review ('SDR'), the plan signals a decisive move toward \"warfighting readiness\". This briefing examines what that may mean for the UK's real estate sector.",
-   "date": "2026-10-05",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
-   "title": "Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
-   "description": "During the 2026 legislative session, California enacted more than two dozen AI laws regulating transparency, chatbot safety, automated decision-making, and other domains.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
   },
   {
    "firm": "kirkland",
