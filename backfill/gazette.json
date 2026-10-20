@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-19T08:08:44.072Z",
+ "generated": "2026-10-20T07:57:59.127Z",
  "source": "The Gazette (OGL v3.0; personal data excluded) — https://www.thegazette.co.uk/insolvency/notice/data.json",
  "companies": {
   "Iguanas Holdings Limited": {
@@ -534,7 +534,7 @@
   "Miller Homes": {
    "name": "Miller Homes",
    "from": "credits",
-   "error": "The operation was aborted due to timeout"
+   "notices": []
   },
   "OCS Group": {
    "name": "OCS Group",
@@ -569,7 +569,7 @@
  },
  "summary": {
   "targets": 93,
-  "queried": 92,
+  "queried": 93,
   "notices": 13
  }
 }
