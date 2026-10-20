@@ -31,7 +31,7 @@ const lanes = await pg.evaluate(() => ({
   headVisible: (() => { const h = document.getElementById("g-feed-head"); return !!h && getComputedStyle(h).display !== "none" && h.getBoundingClientRect().height > 1; })(),
   deskChips: document.querySelectorAll("#g-wire-lanes .g-feed-deskchip, #g-wire-lanes .g-feed-grpbtn, #g-wire-lanes [data-mglcat], #g-feed-head .g-feed-deskchip, #g-feed-head .g-feed-grpbtn, #g-feed-head [data-mglcat]").length,
 }));
-check(lanes.tabs.join(" · ") === "News · Deals · Profiles · Watchlist · Newsletters · Research", `lane tabs are News · Deals · Profiles · Watchlist · Newsletters · Research (${lanes.tabs.join(" · ")})`);
+check(lanes.tabs.join(" · ") === "News · Deals · Profiles · Research · Newsletters · Watchlist", `lane tabs are News · Deals · Profiles · Research · Newsletters · Watchlist (${lanes.tabs.join(" · ")})`);
 check(!lanes.hasSubsSlot, "no inline sub-filter slot (#g-wire-subs) exists");
 check(!lanes.headVisible, "the #g-feed-head sub-filter band takes no space");
 check(lanes.deskChips === 0, `no desk / category / group sub-filter chips anywhere (${lanes.deskChips})`);

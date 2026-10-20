@@ -990,8 +990,8 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   date + URL, none future-dated; backfilled reference profiles keep depth).
 - **R33 — Lane-coverage invariant: an item reaches the lane its nature implies** (and,
   by R50, ONLY that lane — Watchlist, a follow filter, is the one overlap).
-  The Home wire lanes are **News · Deals · Profiles · Watchlist · Newsletters · Research**
-  (owner 2026-10-16; `WIRE_LANES` in `glance.js` — keys `all` = News, the full wire;
+  The Home wire lanes are **News · Deals · Profiles · Research · Newsletters · Watchlist**
+  (owner 2026-10-16, reordered 2026-10-20; `WIRE_LANES` in `glance.js` — keys `all` = News, the full wire;
   `deals` = deal flow: deals, fund raises (incl. hedge-fund launches/closes), CLOs,
   restructurings and law-firm advisory mandates; `manager` = **Profiles**, the NON-deal
   activity of every profiled entity — team moves, strategy, mandates, press, hedge-fund
@@ -1037,7 +1037,7 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   own bottom tab** — `/v2/news/` resolves to the **Home view in news mode** (so the
   feed engine is never double-mounted): the runtime flags `data-v2tab="news"` and calls
   `ctrl.showNews()` (`setWire("news")` → `.wire-newsmode`), which shows the aggregated
-  feed + the lane selector (`News · Deals · Profiles · Watchlist · Newsletters · Research`) and
+  feed + the lane selector (`News · Deals · Profiles · Research · Newsletters · Watchlist`) and
   **hides the four home tabs**. The desktop terminal is untouched (all of this is
   `≤1200px` / phone-gated). Specs: `tests/v2-shell.mjs`, `tests/v2-header.mjs`,
   `tests/home-mobile-wire-tabs.mjs`, `tests/markets-panel.mjs`.

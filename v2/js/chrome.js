@@ -73,7 +73,7 @@ function setupLazyPalette() {
 // Bottom tab bar (iPhone): Home · News · Dashboard · Profiles · Transactions. Menu
 // left the bottom bar — its hamburger now lives in the top-right header cluster (shown
 // on phones too; see header.css). "News" is the aggregated news wire with its lane
-// selector (News · Deals · Profiles · Watchlist · Newsletters · Research — a sideways-scrolling row); it routes to /v2/news/,
+// selector (News · Deals · Profiles · Research · Newsletters · Watchlist — a sideways-scrolling row); it routes to /v2/news/,
 // which the runtime resolves to the Home view in "news mode" (so the feed engine isn't
 // double-mounted) — Home itself now carries Briefing · Markets · Chart · X Feed.
 // Navigation (R13, owner 2026-10-16): Home · Dashboard · News · Deals · Profiles on BOTH

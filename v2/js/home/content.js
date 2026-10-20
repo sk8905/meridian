@@ -22,7 +22,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <button type="button" class="g-wiretab" data-wire="markets" role="tab" aria-selected="false">Markets</button>
           <button type="button" class="g-wiretab" data-wire="chart" role="tab" aria-selected="false">Chart</button>
           <button type="button" class="g-wiretab" data-wire="x" role="tab" aria-selected="false">X Feed</button>
-          <!-- NEWS MODE lane chips (All · Research · Managers · Watchlist · Newsletters),
+          <!-- NEWS MODE lane chips (News · Deals · Profiles · Research · Newsletters · Watchlist),
                a horizontally-scrollable chip strip — replaces the old lane dropdown.
                Rendered by glance.js renderWireLanes(); shown only in news mode, where the
                four home tabs above are hidden. -->

@@ -1,7 +1,7 @@
 // Home on mobile (iPhone nav reorg): the multi-column terminal collapses to one
 // column. HOME top nav = Briefing (default, always expanded) · Markets (the full
 // Equities/Macro/Predictions panel) · Chart · X Feed. The aggregated NEWS wire + its
-// lane selector (News · Deals · Profiles · Watchlist · Newsletters · Research) is the separate
+// lane selector (News · Deals · Profiles · Research · Newsletters · Watchlist) is the separate
 // NEWS bottom tab (news mode): there the four home tabs hide and only the lane chip
 // shows, over the feed. On desktop the lane chips + reading pane show and these tabs
 // are hidden.
@@ -49,7 +49,7 @@ const b = await launchChromium();
   check(labels.join(" · ") === "Briefing · Markets · Chart · X Feed", `phone: home top nav — Briefing · Markets · Chart · X Feed (${labels.join(", ")})`);
   check(!(await chipVisible("#g-wire-lanechips")), "phone: the news lane chip row is hidden in home mode");
   const laneChips = await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanechips .g-wire-lane")].map((i) => i.textContent.trim()));
-  check(laneChips.join(" · ") === "News · Deals · Profiles · Watchlist · Newsletters · Research", `phone: the news lane chip row carries the six lanes (${laneChips.join(", ")})`);
+  check(laneChips.join(" · ") === "News · Deals · Profiles · Research · Newsletters · Watchlist", `phone: the news lane chip row carries the six lanes (${laneChips.join(", ")})`);
 
   // DEFAULT home pane = the Market Briefing (always expanded), feed/markets/chart/x hidden.
   check(await vis("#g-hbrief"), "phone: the Market Briefing pane is the default (shown on load)");
