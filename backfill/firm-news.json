@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-20T12:04:11.168Z",
+ "generated": "2026-10-20T17:33:12.778Z",
  "since": "2026-10-06",
  "firms": {
   "proskauerrose": {
@@ -39,9 +39,9 @@
     "sustainablefutures.linklaters.com"
    ],
    "sitemaps": 6,
-   "urls": 17805,
-   "kept": 5,
-   "fetched": 5,
+   "urls": 17806,
+   "kept": 3,
+   "fetched": 3,
    "errors": 0,
    "carried": 0
   },
@@ -97,6 +97,17 @@
    "errors": 0,
    "carried": 0
   },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5021,
+   "kept": 6,
+   "fetched": 6,
+   "errors": 0,
+   "carried": 0
+  },
   "simmons": {
    "domains": [
     "www.simmons-simmons.com"
@@ -110,17 +121,6 @@
    "disallowed": 1,
    "carried": 0
   },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5021,
-   "kept": 7,
-   "fetched": 7,
-   "errors": 0,
-   "carried": 0
-  },
   "aoshearman": {
    "domains": [
     "www.aoshearman.com",
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 16576,
+   "urls": 16581,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -150,7 +150,7 @@
     "www.kirkland.com"
    ],
    "sitemaps": 11,
-   "urls": 17418,
+   "urls": 17420,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -171,11 +171,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 7,
-   "urls": 7573,
+   "sitemaps": 8,
+   "urls": 7925,
    "kept": 2,
    "fetched": 2,
-   "errors": 10,
+   "errors": 9,
    "carried": 0
   },
   "ropesgray": {
@@ -208,16 +208,16 @@
    ],
    "carried": 0
   },
-  "davispolk": {
+  "cleary": {
    "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
    ],
-   "sitemaps": 11,
-   "urls": 16221,
-   "kept": 6,
-   "fetched": 6,
-   "errors": 0,
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 2,
    "carried": 0
   },
   "stephensonharwood": {
@@ -239,41 +239,26 @@
    ],
    "carried": 0
   },
+  "davispolk": {
+   "domains": [
+    "www.davispolk.com",
+    "davispolk.com"
+   ],
+   "sitemaps": 11,
+   "urls": 16222,
+   "kept": 6,
+   "fetched": 6,
+   "errors": 0,
+   "carried": 0
+  },
   "klgates": {
    "domains": [
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12295,
+   "urls": 12296,
    "kept": 7,
    "fetched": 7,
-   "errors": 0,
-   "carried": 0
-  },
-  "reedsmith": {
-   "domains": [
-    "www.reedsmith.com"
-   ],
-   "sitemaps": 5,
-   "urls": 11583,
-   "kept": 14,
-   "fetched": 14,
-   "errors": 0,
-   "carried": 0
-  },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "governance.weil.com",
-    "restructuring.weil.com",
-    "eurorestructuring.weil.com",
-    "tax.weil.com",
-    "european-disputes-blog.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7753,
-   "kept": 40,
-   "fetched": 40,
    "errors": 0,
    "carried": 0
   },
@@ -296,16 +281,15 @@
    ],
    "carried": 0
   },
-  "cleary": {
+  "reedsmith": {
    "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
+    "www.reedsmith.com"
    ],
-   "sitemaps": 1,
-   "urls": 18708,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
+   "sitemaps": 5,
+   "urls": 11593,
+   "kept": 14,
+   "fetched": 14,
+   "errors": 0,
    "carried": 0
   },
   "southsquare": {
@@ -327,14 +311,30 @@
    ],
    "carried": 0
   },
+  "weil": {
+   "domains": [
+    "www.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "tax.weil.com",
+    "european-disputes-blog.weil.com"
+   ],
+   "sitemaps": 36,
+   "urls": 7754,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
   "mayerbrown": {
    "domains": [
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16352,
-   "kept": 20,
-   "fetched": 20,
+   "urls": 16355,
+   "kept": 19,
+   "fetched": 19,
    "errors": 0,
    "carried": 0
   },
@@ -352,29 +352,21 @@
  },
  "items": [
   {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-joint-bookrunners-on-dfmg-holdings-1bn-euro-inaugural-public-bond-issuance",
-   "title": "DFMG Holding’s €1bn inaugural public bond issuance",
-   "description": "Linklaters advises the Joint Bookrunners on DFMG Holding’s inaugural €1bn dual-tranche public bond issuance and debut in the public debt capital markets.",
-   "date": "2026-10-20",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-20"
+   "firm": "slaughtermay",
+   "url": "https://www.slaughterandmay.com/insights/expertise-in-practice/",
+   "title": "Expertise in practice",
+   "description": "Standout case studies and perspectives",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-20",
+   "dateProbe": []
   },
   {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/knowledge-container/uk-fca-guidance-on-ai-in-financial-services-good-practices-and-areas-for-improvement/",
-   "title": "UK FCA Guidance on AI in Financial Services: Good Practices and Areas for Improvement",
-   "description": "Recently, the seemingly unstoppable march of AI deployment across the world economy has rarely been out of the news. As financial services firms increasingly adopt AI-driven tools within their businesses, a key question has been how regulators will respond and whether they have clearly articulated their expectations for AI usage and governance across the sector.",
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-charlesbank-capital-partners-on-strategic-investment-in-wshb-support-services",
+   "title": "Weil Advises Charlesbank Capital Partners on Strategic Investment in Newly Formed WSHB Support Services",
+   "description": "Weil advised Charlesbank Capital Partners on its strategic investment in WSHB Support Services, supporting expansion, technology innovation and growth.",
    "date": "2026-10-20",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-20"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-on-tap-issuance-of-mercury-finance-company",
-   "title": "Linklaters advises on tap issuance of Mercury Finance Company’s senior secured repack high-yield notes",
-   "description": "Linklaters advises the placement agent on Mercury Finance Company’s US$125m tap issuance of senior secured repack high-yield notes due 2029.",
-   "date": "2026-10-19",
    "dateSource": "page date label",
    "lastmod": "2026-10-20"
   },
@@ -465,15 +457,6 @@
    ]
   },
   {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
-   "description": null,
-   "date": "2026-10-19",
-   "dateSource": "datePublished",
-   "lastmod": null
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/",
    "title": "Financial Regulation Weekly Bulletin",
@@ -552,15 +535,6 @@
    "lastmod": "2026-10-16"
   },
   {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
-   "title": "Publications",
-   "description": null,
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": null
-  },
-  {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
    "title": "Capital, regulation and capability in a new era",
@@ -595,15 +569,6 @@
    "url": "https://www.reedsmith.com/news/chambers-uk-2027-ranks-more-than-30-reed-smith-practices-and-over-60-lawyers/",
    "title": "Chambers UK 2027 ranks more than 30 Reed Smith practices and over 60 lawyers",
    "description": "Firm’s UK Band 1 rankings span commodities, insurance and shipping",
-   "date": "2026-10-15",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-15"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/whats-happening-in-digital-markets-competition-regulation-edition-1",
-   "title": "What's happening in Digital Markets Competition Regulation? Edition 1",
-   "description": "As digital markets regulation evolves, products and services must be designed with applicable and future rules in mind. From interim measures against",
    "date": "2026-10-15",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
@@ -718,16 +683,6 @@
    "date": "2026-10-12",
    "dateSource": "page date label",
    "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/expertise-in-practice/",
-   "title": "Expertise in practice",
-   "description": "Standout case studies and perspectives",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-09",
-   "dateProbe": []
   },
   {
    "firm": "whitecase",
