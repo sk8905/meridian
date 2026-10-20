@@ -118,13 +118,13 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   const wl = await pg.evaluate(({ id, acc }) => {
     const rows = [...document.querySelectorAll("#g-feed .g-mw-fev[data-mgr]")];
     const st = rows[0] && rows[0].querySelector(".g-mw-fev-star");
-    return { total: rows.length, mine: rows.filter((r) => r.dataset.mgr === id).length, star: !!st,
+    return { total: rows.length, mine: rows.filter((r) => r.dataset.mgr === id).length, star: !!st, starText: rows.some((r) => /★/.test(r.textContent)),
       starAccent: st ? getComputedStyle(st).color === acc : false,
       titleNotAccent: rows[0] ? getComputedStyle(rows[0].querySelector(".g-feed-title")).color !== acc : false };
   }, { id: mgr, acc: ACC });
   check(wl.total > 0 && wl.mine === wl.total, `Watchlist lane: shows only the followed manager's activity (${wl.mine}/${wl.total})`);
-  check(wl.star && wl.starAccent, "Watchlist lane: each row carries an orange ★");
-  check(wl.titleNotAccent, "Watchlist lane: the headline itself is not orange (the ★ carries the flag)");
+  check(!wl.star && !wl.starText, "Watchlist lane: no ★ on the rows (owner 2026-10-20 — the lane itself is the flag)");
+  check(wl.titleNotAccent, "Watchlist lane: the headline itself is not orange");
   await pg.evaluate(() => { try { localStorage.removeItem("meridian.follows"); } catch {} });
   checkErrs(errs, "merged wire watchlist lane");
   await ctx.close();

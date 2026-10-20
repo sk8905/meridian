@@ -2710,11 +2710,10 @@ function profilesEvents() {
 // A manager event as a shared .g-feed-row (same markup as the manager wire's flat row).
 function mgrEventRow(x) {
   const to = x._href || (x.ext ? x.source : `/v2/profiles/#/manager/${encodeURIComponent(x.mgrId)}`);
-  const star = x.watched ? `<span class="g-mw-fev-star" title="On your watchlist" aria-label="Watchlisted">★</span> ` : "";
   return `<a class="g-feed-row g-mw-fev" data-mgr="${esc(x.mgrId)}" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}${rowTip(x.title, CAT_LABEL[x.cat], _mwSrc(x))}>`
     + `<span class="g-feed-time">${_mwWhen(x.date)}</span>`
     + `<span class="g-feed-code ${_catCls(x.cat)}">${CAT_LABEL[x.cat] || "NEWS"}</span>`
-    + `<span class="g-feed-title">${star}${esc(x.title)}</span>`
+    + `<span class="g-feed-title">${esc(x.title)}</span>`
     + `<span class="g-feed-src">${esc(_mwSrc(x))}</span></a>`;
 }
 // Manager / Watchlist lane: flat month-banded manager events into #g-feed. The

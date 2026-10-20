@@ -8,8 +8,8 @@
 // hedge-fund items, law-firm alerts, cases and schemes/RPs — each with its REAL
 // publication date. It diffs record ids against a snapshot (not dates), so a
 // verified item backfilled today with a 2021 date still shows up as new; the bell's
-// 3-day publication window can't do that. Followed entities are starred and sort
-// first. "Mark all as seen" re-baselines. Snapshot lives on the device only.
+// 3-day publication window can't do that. Followed entities sort first (no ★ marker —
+// owner 2026-10-20). "Mark all as seen" re-baselines. Snapshot lives on the device only.
 import { esc } from "/util.js";
 import { fmtDay } from "/feed.js";
 
@@ -87,7 +87,7 @@ export function whatsNewHTML(d, snap, opts = {}) {
       + arr.slice(0, CAP).map((r) => {
         // A row with no destination (a case with no judgment link) is shown as plain
         // text — never a dead link that does nothing on tap.
-        const inner = `<span class="watch-nm">${r.star ? "★ " : ""}${esc(r.t || "")}</span>`
+        const inner = `<span class="watch-nm">${esc(r.t || "")}</span>`
           + `<span class="watch-sub">${r.date ? (r.est ? "c. " : "") + esc(fmtDay(r.date)) : "undated"}${r.sub ? " · " + esc(r.sub) : ""}</span>`;
         if (!r.href) return `<div class="watch-row watch-row-nolink">${inner}</div>`;
         return `<a class="watch-row" href="${esc(r.href)}"${r.ext ? ' target="_blank" rel="noopener noreferrer"' : ` data-watch-href="${esc(r.href)}"`}>${inner}</a>`;

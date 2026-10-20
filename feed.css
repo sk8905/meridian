@@ -246,7 +246,7 @@ body.wire-sliding .g-feed-srcbar { position:static; }
   a.g-feed-row > .g-feed-title, li.g-ev.g-ev-story > .g-ev-t, .twire .tw-row.g-ev-story .tw-head {
     white-space:normal; text-overflow:clip; overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; line-height:1.35; }
   a.g-feed-row > .g-feed-time, li.g-ev.g-ev-story > .c-date, .twire .tw-row.g-ev-story > .tw-date { padding-top:1px; }
-  a.g-feed-row > :is(.g-feed-src, .g-feed-lock), a.g-feed-row .g-mw-fev-star,
+  a.g-feed-row > :is(.g-feed-src, .g-feed-lock),
   li.g-ev.g-ev-story > :is(.c-tag, .c-src, .g-ev-m), .twire .tw-row.g-ev-story :is(.tw-tag, .tw-src, .tw-mgr-w) { display:none; }
 }
 @media (hover:hover){ .g-ev > a.g-ev-t:hover, .g-ev > .g-ev-m a:hover { color:var(--t-ink); } }

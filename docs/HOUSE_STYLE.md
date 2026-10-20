@@ -1697,7 +1697,10 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   commentary and credit white papers (drawn with the RSH code); **Newsletters** — the
   reader's newsletters. The same story from two sources is still ONE item: lanes give up
   a headline a higher lane holds — **Deals › Profiles › Research › Newsletters › News**.
-  **Watchlist** is a follow FILTER across all of them and is exempt. A new source or
+  **Watchlist** is a follow FILTER across all of them and is exempt. Followed items carry
+  **no ★ marker** anywhere — not in the Watchlist lane, the wire, or Menu ▸ What's new
+  (owner 2026-10-20); the ☆/★ follow toggle and the "★ Following" filter are controls,
+  not markers, and stay. A new source or
   record type must declare its lane. Spec: `tests/home-lane-exclusive.mjs` (every pair
   of lanes disjoint by link and headline; no deal-type rows in News or Profiles).
 - **R46 — Touch feel: no sticky hover, a native press (owner 2026-10-16).** On iPhone a
