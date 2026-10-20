@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-20T17:33:12.778Z",
+ "generated": "2026-10-20T21:56:18.636Z",
  "since": "2026-10-06",
  "firms": {
   "proskauerrose": {
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 16581,
+   "urls": 9625,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -150,7 +150,7 @@
     "www.kirkland.com"
    ],
    "sitemaps": 11,
-   "urls": 17420,
+   "urls": 17432,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -171,11 +171,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 8,
-   "urls": 7925,
-   "kept": 2,
-   "fetched": 2,
-   "errors": 9,
+   "sitemaps": 17,
+   "urls": 8806,
+   "kept": 3,
+   "fetched": 3,
+   "errors": 0,
    "carried": 0
   },
   "ropesgray": {
@@ -208,16 +208,16 @@
    ],
    "carried": 0
   },
-  "cleary": {
+  "davispolk": {
    "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
+    "www.davispolk.com",
+    "davispolk.com"
    ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 2,
+   "sitemaps": 11,
+   "urls": 16222,
+   "kept": 6,
+   "fetched": 6,
+   "errors": 0,
    "carried": 0
   },
   "stephensonharwood": {
@@ -239,26 +239,41 @@
    ],
    "carried": 0
   },
-  "davispolk": {
-   "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
-   ],
-   "sitemaps": 11,
-   "urls": 16222,
-   "kept": 6,
-   "fetched": 6,
-   "errors": 0,
-   "carried": 0
-  },
   "klgates": {
    "domains": [
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12296,
+   "urls": 12300,
    "kept": 7,
    "fetched": 7,
+   "errors": 0,
+   "carried": 0
+  },
+  "reedsmith": {
+   "domains": [
+    "www.reedsmith.com"
+   ],
+   "sitemaps": 5,
+   "urls": 11595,
+   "kept": 14,
+   "fetched": 14,
+   "errors": 0,
+   "carried": 0
+  },
+  "weil": {
+   "domains": [
+    "www.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "tax.weil.com",
+    "european-disputes-blog.weil.com"
+   ],
+   "sitemaps": 36,
+   "urls": 7751,
+   "kept": 40,
+   "fetched": 40,
    "errors": 0,
    "carried": 0
   },
@@ -281,15 +296,16 @@
    ],
    "carried": 0
   },
-  "reedsmith": {
+  "cleary": {
    "domains": [
-    "www.reedsmith.com"
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
    ],
-   "sitemaps": 5,
-   "urls": 11593,
-   "kept": 14,
-   "fetched": 14,
-   "errors": 0,
+   "sitemaps": 1,
+   "urls": 18715,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
    "carried": 0
   },
   "southsquare": {
@@ -311,30 +327,14 @@
    ],
    "carried": 0
   },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "governance.weil.com",
-    "restructuring.weil.com",
-    "eurorestructuring.weil.com",
-    "tax.weil.com",
-    "european-disputes-blog.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7754,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
   "mayerbrown": {
    "domains": [
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16355,
-   "kept": 19,
-   "fetched": 19,
+   "urls": 16359,
+   "kept": 20,
+   "fetched": 20,
    "errors": 0,
    "carried": 0
   },
@@ -362,13 +362,31 @@
    "dateProbe": []
   },
   {
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-sound-inpatient-physicians-on-refinancing",
+   "title": "Kirkland Advises Sound Inpatient Physicians on $1 Billion Refinancing",
+   "description": null,
+   "date": "2026-10-20",
+   "dateSource": "page date label",
+   "lastmod": null
+  },
+  {
    "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-charlesbank-capital-partners-on-strategic-investment-in-wshb-support-services",
-   "title": "Weil Advises Charlesbank Capital Partners on Strategic Investment in Newly Formed WSHB Support Services",
-   "description": "Weil advised Charlesbank Capital Partners on its strategic investment in WSHB Support Services, supporting expansion, technology innovation and growth.",
+   "url": "https://www.weil.com/articles/weil-advised-trive-capital-in-sale-of-earthlink-to-consortium-led-by-wavedivision-capital",
+   "title": "Weil Advised Trive Capital in Sale of EarthLink to Consortium Led by WaveDivision Capital",
+   "description": "Weil advised Trive Capital on the sale of EarthLink to a consortium led by WaveDivision Capital, the Pritzker Organization and Stephens Capital Partners.",
    "date": "2026-10-20",
    "dateSource": "page date label",
    "lastmod": "2026-10-20"
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
+   "title": "News Listing",
+   "description": null,
+   "date": "2026-10-20",
+   "dateSource": "datePublished",
+   "lastmod": null
   },
   {
    "firm": "linklaters",
@@ -535,6 +553,15 @@
    "lastmod": "2026-10-16"
   },
   {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
+   "title": "Publications",
+   "description": null,
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
+   "lastmod": null
+  },
+  {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
    "title": "Capital, regulation and capability in a new era",
@@ -674,6 +701,16 @@
    "date": "2026-10-12",
    "dateSource": "datePublished",
    "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "sidley",
+   "url": "https://www.sidley.com/en/insights/resources/sidley-ai-monitor-laws-and-regulations",
+   "title": "Laws and Regulations | Resources",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-12",
+   "dateProbe": []
   },
   {
    "firm": "klgates",
