@@ -99,13 +99,13 @@
 // =============================================================================
 export const BRIEFINGS = {
   tz: "BST",
-  date: "2026-10-19",
-  time: "21:15 BST",
-  lede: "French bonds and stocks stayed under pressure after the weekend's unrest while US futures rebounded from last week's chip rout, leaving risk appetite fragile and AI-linked credit under watch.",
+  date: "2026-10-20",
+  time: "05:10 BST",
+  lede: "Asian shares fell on Tuesday and the 10-year Treasury yield pushed back above 5.1% as markets waited on AI-sector earnings, with French unrest and rising oil keeping risk appetite fragile.",
   bullets: [
-    { html: "<strong>Macro &mdash; Brent slipped 1.1% to $108.62 from a five-month high,</strong> as signs that Middle East supply is holding up outweighed the latest fighting, while China's September retail sales beat forecasts and Q3 growth came in at 4.5%.", src: "https://www.bloomberg.com/news/newsletters/2026-10-19/china-growth-stays-on-track-as-retail-sales-beat-forecasts", srcName: "Bloomberg", date: "2026-10-19" },
-    { html: "<strong>Bonds &mdash; France's 10-year yield rose 8bp to 4.88%,</strong> among the highest in Western Europe, with the premium over Bunds widening after the weekend's riots; the US 10-year Treasury yield held at 5.08%.", src: "https://www.bloomberg.com/news/newsletters/2026-10-19/french-stocks-and-bonds-retreat-as-government-comes-under-pressure", srcName: "Bloomberg", date: "2026-10-19" },
-    { html: "<strong>Equities &mdash; the CAC 40 fell 1.5% to 7,840.64,</strong> the worst performer among European indices, while Nasdaq 100 futures rose 1.1% to 29,702.5 ahead of a heavy earnings week including Tesla, Meta and Blackstone.", src: "https://www.bloomberg.com/news/newsletters/2026-10-19/french-stocks-and-bonds-retreat-as-government-comes-under-pressure", srcName: "Bloomberg", date: "2026-10-19" },
+    { html: "<strong>Macro &mdash; oil resumed its climb,</strong> Reuters reported, as markets weighed a Trump executive order waiving some sanctions and tariffs on Russian energy, while riots in France lifted safe-haven demand and helped the dollar hold firm against the euro.", src: "https://www.investing.com/news/economy-news/asian-shares-tumble-oil-rises-as-markets-await-ai-sector-results-4958677", srcName: "Reuters via Investing.com", date: "2026-10-20" },
+    { html: "<strong>Bonds &mdash; the US 10-year Treasury yield climbed to 5.14%</strong> from 5.09% at Friday's close, according to AP, as stocks slipped across Asia.", src: "https://www.kark.com/news/business/ap-asian-shares-mostly-decline-after-ai-stocks-lead-a-rebound-on-wall-street/", srcName: "https://www.kark.com/news/business/ap-asian-shares-mostly-decline-after-ai-stocks-lead-a-rebound-on-wall-street/", date: "2026-10-20" },
+    { html: "<strong>Equities &mdash; Japan's Nikkei 225 fell about 0.6% and South Korea's KOSPI about 2.8%</strong> in early trading after AI stocks led a rebound on Wall Street; Reuters had the KOSPI down 3.61% later in the session ahead of key AI-bellwether results.", src: "https://www.kark.com/news/business/ap-asian-shares-mostly-decline-after-ai-stocks-lead-a-rebound-on-wall-street/", srcName: "AP", date: "2026-10-20" },
     { html: "<strong>Credit &mdash; CoreWeave's debt now yields about 15%</strong> and Bloomberg's US high-yield spread gauge has risen sharply over the past couple of weeks, with data-centre borrowers' spreads widening as AI-debt concerns build.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-19/france-may-wait-for-le-pen-but-markets-won-t", srcName: "Bloomberg", date: "2026-10-19" },
     { html: "<strong>Credit &mdash; CVC Credit priced Cordatus XXXIX, a roughly &euro;400m European CLO,</strong> at a weighted average cost of debt of 181bp over base, with its single-A tranche at 180bp.", src: "https://www.cvc.com/media/news/2026/cvc-credit-prices-second-european-clo-of-2026/", srcName: "CVC Credit", date: "2026-10-09" },
   ],
