@@ -6710,33 +6710,445 @@
    "kind": "hf",
    "name": "Marshall Wace",
    "priority": 58,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "mw-global-opps-record-loss-2021-01",
+     "date": "2021-02-03",
+     "what": "MW Global Opportunities Fund posts record monthly loss (est. -7% in Jan 2021)",
+     "source": "https://www.bloomberg.com/news/articles/2021-02-03/marshall-wace-long-short-fund-slumps-to-record-loss-in-january",
+     "status": "present",
+     "recordId": "hi343"
+    },
+    {
+     "key": "mw-credit-suisse-archegos-2021",
+     "date": "2021",
+     "what": "Marshall Wace scales back Credit Suisse prime-brokerage ties after Archegos",
+     "source": "https://www.bnnbloomberg.ca/marshall-wace-ties-with-credit-suisse-reduced-after-archegos-1.1594286",
+     "status": "rejected",
+     "note": "No exact publication date visible on the source."
+    },
+    {
+     "key": "mw-shatz-leaves-citadel-2023-06",
+     "date": "2023-06-26",
+     "what": "Citadel credit PM Daniel Shatz moves to Marshall Wace",
+     "source": "https://www.hedgeweek.com/2023/06/26/321068/top-citadel-credit-pm-jumps-ship-marshall-wace",
+     "status": "present",
+     "recordId": "hi344"
+    },
+    {
+     "key": "mw-profit-fall-fy2024",
+     "date": "2024",
+     "what": "Pre-tax profit falls 64% to GBP192m in year to Feb 2024",
+     "source": "https://www.hedgeweek.com/profits-plunge-at-marshall-wace/",
+     "status": "rejected",
+     "note": "No exact publication date visible on the source."
+    },
+    {
+     "key": "mw-northridge-1bn-2024-12",
+     "date": "2024-12-20",
+     "what": "Marshall Wace allocates $1bn to ex-Citadel PM Richard Northridge inside Eureka",
+     "source": "https://bnnbloomberg.ca/business/company-news/2024/12/20/ex-citadel-trader-northridge-gets-1-billion-from-marshall-wace",
+     "status": "present",
+     "recordId": "hi345"
+    },
+    {
+     "key": "mw-eureka-2024-return",
+     "date": "2025-01",
+     "what": "Eureka returned about 14% in 2024; Market Neutral TOPS above 22%",
+     "source": "https://theglobeandmail.com/investing/article-hedge-funds-deliver-double-digit-returns-in-2024",
+     "status": "rejected",
+     "note": "Exact publication day not visible on the source."
+    },
+    {
+     "key": "mw-return-3-1bn-2025-11",
+     "date": "2025-11-18",
+     "what": "Marshall Wace to return $3.1bn to investors (Eureka and TOPS)",
+     "source": "https://www.bloomberg.com/news/articles/2025-11-18/marshall-wace-to-return-3-1-billion-to-investors-to-curb-growth",
+     "status": "present",
+     "recordId": "hi69"
+    },
+    {
+     "key": "mw-citadel-subpoena-quash-2026-02",
+     "date": "2026-02",
+     "what": "Marshall Wace asks NY court to quash Citadel subpoenas; June 2026 order to hand over documents",
+     "source": "https://news.bgov.com/securities-law/citadel-wins-access-to-marshall-wace-records-on-credit-head-hire",
+     "status": "rejected",
+     "note": "Only months visible, no exact days; later stage held as hi162."
+    },
+    {
+     "key": "mw-tokyo-office-2026-08",
+     "date": "2026-08-28",
+     "what": "Marshall Wace plans Tokyo office",
+     "source": "https://www.hedgeweek.com/marshall-wace-plans-tokyo-office/",
+     "status": "present",
+     "recordId": "hi108"
+    },
+    {
+     "key": "mw-citadel-shatz-stonewalling-2026-08",
+     "date": "2026-08-31",
+     "what": "Citadel accuses Marshall Wace of stonewalling in Shatz dispute",
+     "source": "https://news.bgov.com/new-york-brief/citadel-says-marshall-wace-stonewalling-in-recruitment-spat",
+     "status": "present",
+     "recordId": "hi162"
+    }
+   ]
   },
   "h32": {
    "kind": "hf",
    "name": "TCI Fund Management",
    "priority": 59,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "2019-return-41pct",
+     "date": "2020-01-03",
+     "what": "TCI posts 40.6% gain for 2019, best year since 2013",
+     "source": "https://www.institutionalinvestor.com/article/b1jr5n2zqb47qd/TCI-Posts-Best-Gains-Since-2013",
+     "status": "present",
+     "recordId": "hi362"
+    },
+    {
+     "key": "say-on-climate-us-resolutions",
+     "date": "2020-11-27",
+     "what": "TCI expands 'say on climate' campaign with resolutions at seven US-listed issuers",
+     "source": "https://www.ir-impact.com/2020/11/tci-goes-global-say-climate-campaign/",
+     "status": "present",
+     "recordId": "hi363"
+    },
+    {
+     "key": "2020-return-14pct",
+     "date": "2021-01",
+     "what": "TCI gains about 14% in 2020 after pandemic losses",
+     "source": "https://www.bloomberg.com/news/articles/2021-01-06/hohn-hedge-fund-bounces-back-from-pandemic-with-14-gain-in-2020",
+     "status": "rejected",
+     "note": "Source page not accessible; date only from URL/excerpt, not verified on page."
+    },
+    {
+     "key": "cn-rail-proxy-fight-continues",
+     "date": "2021-09-15",
+     "what": "TCI vows to keep pushing CN Rail leadership change after KCS bid dropped",
+     "source": "https://news.bloomberglaw.com/esg/tci-presses-on-with-cn-rail-proxy-fight-after-bidding-war-ends",
+     "status": "present",
+     "recordId": "hi364"
+    },
+    {
+     "key": "2021-nine-month-cn-ruest",
+     "date": "2021-10-20",
+     "what": "TCI up over 17% in first nine months of 2021; CN CEO Ruest to retire",
+     "source": "https://theglobeandmail.com/investing/investment-ideas/article-hedge-fund-tci-up-17-over-first-nine-months-of-2021-helped-by-cn-rail/",
+     "status": "present",
+     "recordId": "hi365"
+    },
+    {
+     "key": "2021-return-23pct",
+     "date": "2022-01-10",
+     "what": "TCI gains 23.3% in 2021",
+     "source": "https://www.institutionalinvestor.com/article/b1w8hfvw9mz06f/TCI-Posts-Another-Double-Digit-Gain",
+     "status": "present",
+     "recordId": "hi366"
+    },
+    {
+     "key": "cn-resolution-agreement",
+     "date": "2022-01-25",
+     "what": "CN and TCI reach Resolution Agreement",
+     "source": "https://www.stocktitan.net/news/CNI/cn-reaches-resolution-agreement-with-v269sbiwo7h6.html",
+     "status": "present",
+     "recordId": "hi367"
+    },
+    {
+     "key": "alphabet-cost-letter",
+     "date": "2022-11-15",
+     "what": "TCI urges Alphabet to cut headcount and costs and reduce Waymo losses",
+     "source": "https://www.irishtimes.com/technology/big-tech/2022/11/15/investor-tci-urges-alphabet-to-cut-excessive-head-count-and-costs/",
+     "status": "present",
+     "recordId": "hi368"
+    },
+    {
+     "key": "airbus-evidian-letter",
+     "date": "2023-02-20",
+     "what": "Hohn demands Airbus drop Atos Evidian stake deal",
+     "source": "https://www.kitco.com/news/off-the-wire/2023-02-20/hedge-fund-manager-chris-hohn-demands-airbus-drop-atos-deal-letter",
+     "status": "present",
+     "recordId": "hi369"
+    },
+    {
+     "key": "dividend-halved-2022-loss",
+     "date": "2023-12-07",
+     "what": "TCI Fund Management halves dividend to parent as profit falls",
+     "source": "https://www.hedgeweek.com/tci-halves-hohns-dividend-payment-as-profits-fall/",
+     "status": "present",
+     "recordId": "hi370"
+    },
+    {
+     "key": "2023-top-earner-12-9bn",
+     "date": "2024-01-22",
+     "what": "TCI earns $12.9bn in 2023, most of any hedge fund (LCH Investments)",
+     "source": "https://www.cityam.com/?p=2105597",
+     "status": "present",
+     "recordId": "hi371"
+    },
+    {
+     "key": "2023-return-33pct",
+     "date": "2024-01-31",
+     "what": "TCI up 32.7% in 2023",
+     "source": "https://www.insidermonkey.com/blog/here-is-how-billionaire-chris-hohns-hedge-fund-beat-the-market-with-33-gain-1245276/",
+     "status": "present",
+     "recordId": "hi372"
+    },
+    {
+     "key": "2024-return-15pct",
+     "date": "2025-01-30",
+     "what": "TCI gains 15% in 2024",
+     "source": "https://institutionalinvestor.com/article/2ecrz2s6w3g2k4h9soo3k/hedge-funds/how-chris-hohns-concentrated-portfolio-fared-last-year",
+     "status": "present",
+     "recordId": "hi373"
+    },
+    {
+     "key": "2025-sep-performance",
+     "date": "2025-10-09",
+     "what": "TCI extends lead with September gain on aerospace bets",
+     "source": null,
+     "status": "present",
+     "recordId": "hi177"
+    },
+    {
+     "key": "2025-record-profit",
+     "date": "2026-01-18",
+     "what": "TCI record $18.9bn profit in 2025",
+     "source": "https://www.forbes.com/sites/hanktucker/2026/01/18/hedge-fund-billionaire-chris-hohns-tci-profited-by-a-record-189-billion-in-2025/",
+     "status": "present",
+     "recordId": "hi122"
+    },
+    {
+     "key": "march-2026-losses",
+     "date": "2026-04-14",
+     "what": "TCI falls 11.9% in March 2026",
+     "source": null,
+     "status": "present",
+     "recordId": "hi173"
+    },
+    {
+     "key": "microsoft-stake-cut",
+     "date": "2026-05-08",
+     "what": "TCI cuts $8bn Microsoft stake",
+     "source": "https://www.hedgeweek.com/tci-slashes-8bn-microsoft-position-amid-ai-disruption-concerns/",
+     "status": "present",
+     "recordId": "hi168"
+    }
+   ]
   },
   "h33": {
    "kind": "hf",
    "name": "Squarepoint Capital",
    "priority": 60,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "arini-partnership-2021",
+     "date": "2021-10-05",
+     "what": "Arini announces strategic partnership with Squarepoint Capital",
+     "source": "https://www.businesswire.com/news/home/20211005005298/en/Arini-Announces-Strategic-Partnership-With-Squarepoint-Capital",
+     "status": "present",
+     "recordId": "hi346"
+    },
+    {
+     "key": "decagon-seed",
+     "date": "2022",
+     "what": "Squarepoint seed investment in Decagon Asset Management",
+     "source": "https://www.hedgeweek.com/decagon-asset-management-forms-strategic-partnership-squarepoint-capital/",
+     "status": "rejected",
+     "note": "Exact announcement date not verified."
+    },
+    {
+     "key": "hull-partners-acquisition-2025",
+     "date": "2025-09-30",
+     "what": "STG Securities Holdings purchased broker-dealer Hull Partners (now STG Securities)",
+     "source": "https://www.sec.gov/Archives/edgar/data/1934396/000193439626000006/STG_Securities_2025_public.pdf",
+     "status": "present",
+     "recordId": "hi347"
+    },
+    {
+     "key": "invictus-anchor-2026",
+     "date": "2026-01-12",
+     "what": "Squarepoint gives at least $200m anchor to Invictus Investment Partners",
+     "source": "https://www.bloomberg.com/news/articles/2026-01-12/citadel-point72-alumni-get-200-million-in-squarepoint-backing",
+     "status": "present",
+     "recordId": "hi348"
+    },
+    {
+     "key": "clo-platform-lead-2026",
+     "date": "2026-01-23",
+     "what": "Squarepoint appoints industry veteran to lead CLO platform",
+     "source": "https://www.structuredcreditinvestor.com/market-moves/structured-finance/84515/job-swaps-weekly:-squarepoint-appoints-industry-vet-to-lead-clo-platform",
+     "status": "present",
+     "recordId": "hi349"
+    },
+    {
+     "key": "stg-securities-launch-2026",
+     "date": "2026-03-04",
+     "what": "STG Group launches STG Securities market-making broker-dealer",
+     "source": "https://www.alternativeswatch.com/2026/03/04/squarepoint-stg-group-launches-broker-dealer-securities/",
+     "status": "present",
+     "recordId": "hi118"
+    },
+    {
+     "key": "adv-aum-2026",
+     "date": "2026-04-28",
+     "what": "Form ADV regulatory AUM $227.0bn",
+     "source": "https://altss.com/profile/squarepoint-ops-llc",
+     "status": "present",
+     "recordId": "hi179"
+    }
+   ]
   },
   "h4": {
    "kind": "hf",
    "name": "Citadel",
    "priority": 61,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "citadel-securities-2020-record-revenue",
+     "date": "2021-01-22",
+     "what": "Citadel Securities record 2020 net trading revenue $6.7bn",
+     "source": "https://www.infobae.com/en/2021/01/22/citadel-securities-reaps-record-67-billion-on-volatility",
+     "status": "present",
+     "recordId": "hi351"
+    },
+    {
+     "key": "citadel-melvin-2-75bn",
+     "date": "2021-01-25",
+     "what": "Citadel and Point72 invest $2.75bn in Melvin Capital",
+     "source": "https://www.prnewswire.com/news-releases/melvin-announces-2-75-billion-investment-from-citadel-and-point72--301214477.html",
+     "status": "present",
+     "recordId": "hi352"
+    },
+    {
+     "key": "citadel-2021-wellington-26pct",
+     "date": "2022-01-06",
+     "what": "Wellington fund finished 2021 up 26.26% (24.47% in 2020)",
+     "source": "https://www.institutionalinvestor.com/article/b1w6lkgxdqknxq/citadel-led-the-multistrategy-crowd-in-2021",
+     "status": "present",
+     "recordId": "hi350"
+    },
+    {
+     "key": "citadel-securities-sequoia-paradigm",
+     "date": "2022-01-12",
+     "what": "Citadel Securities takes $1.15bn from Sequoia and Paradigm",
+     "source": "https://www.cfo.com/news/citadel-gets-11b-in-first-outside-investment/655182/",
+     "status": "present",
+     "recordId": "hi353"
+    },
+    {
+     "key": "citadel-miami-hq-move",
+     "date": "2022-06-23",
+     "what": "Griffin announces Citadel HQ move to Miami",
+     "source": "https://fortune.com/2022/06/23/read-the-memo-ken-griffin-sent-to-citadels-employees-outlining-the-companys-plan-to-leave-chicago-for-miami",
+     "status": "present",
+     "recordId": "hi354"
+    },
+    {
+     "key": "citadel-2022-record-16bn",
+     "date": "2023-01-23",
+     "what": "Citadel made ~$16bn for clients in 2022, a record",
+     "source": "https://www.hedgeweek.com/citadel-makes-record-16bn-profit/",
+     "status": "present",
+     "recordId": "hi355"
+    },
+    {
+     "key": "citadel-2023-return-7bn",
+     "date": "2023-12-12",
+     "what": "Citadel to return ~$7bn to clients",
+     "source": "https://fortune.com/2023/12/12/ken-griffins-citadel-return-7-billion-to-clients",
+     "status": "present",
+     "recordId": "hi356"
+    },
+    {
+     "key": "citadel-2023-wellington-15-3pct",
+     "date": "2024-01",
+     "what": "Wellington fund 2023 return 15.3%",
+     "source": "https://www.cnbc.com/2024/01/04/ken-griffins-hedge-fund-citadel-posts-double-digit-returns-in-2023-but-lags-the-broader-market.html",
+     "status": "rejected",
+     "note": "Source page not accessible; exact date not seen on source."
+    },
+    {
+     "key": "citadel-2024-wellington-15-1pct",
+     "date": "2025-01-02",
+     "what": "Wellington fund returned 15.1% in 2024",
+     "source": "https://nbcnewyork.com/news/business/money-report/ken-griffins-flagship-hedge-fund-at-citadel-climbs-15-1-in-2024/6092185",
+     "status": "present",
+     "recordId": "hi357"
+    },
+    {
+     "key": "citadel-securities-2024-record-9-7bn",
+     "date": "2025-03-10",
+     "what": "Citadel Securities record 2024 trading revenue $9.7bn",
+     "source": "https://www.hedgeweek.com/griffins-citadel-securities-reports-record-9-7bn-trading-revenue/",
+     "status": "present",
+     "recordId": "hi358"
+    },
+    {
+     "key": "citadel-2025-h1-wellington",
+     "date": "2025-07-01",
+     "what": "Wellington fund up 2.5% in H1 2025",
+     "source": "https://www.nbcchicago.com/news/business/money-report/billionaire-ken-griffins-hedge-funds-at-citadel-are-all-in-the-green-for-2025/3780143/",
+     "status": "present",
+     "recordId": "hi359"
+    },
+    {
+     "key": "citadel-securities-ripple-nov-2025",
+     "date": "2025-11-05",
+     "what": "Citadel Securities affiliates co-lead $500m Ripple round",
+     "source": "https://ledgerinsights.com/citadel-securities-co-leads-500m-strategic-funding-of-ripple-at-40-bn-valuation",
+     "status": "present",
+     "recordId": "hi360"
+    },
+    {
+     "key": "citadel-2025-return-5bn",
+     "date": "2025-12-23",
+     "what": "Citadel to return ~$5bn of 2025 profits",
+     "source": "https://www.cnbc.com/2025/12/23/citadel-to-return-5-billion-in-profit-to-investors-source-says.html",
+     "status": "present",
+     "recordId": "hi6"
+    },
+    {
+     "key": "citadel-2025-wellington-10-2pct",
+     "date": "2026-01-02",
+     "what": "Wellington fund rose 10.2% in 2025",
+     "source": "https://www.cnbc.com/2026/01/02/ken-griffins-flagship-hedge-fund-at-citadel-rises-10point2percent-in-volatile-2025.html",
+     "status": "present",
+     "recordId": "hi7"
+    },
+    {
+     "key": "citadel-securities-2025-record-12-2bn",
+     "date": "2026-03-24",
+     "what": "Citadel Securities record 2025 trading revenue $12.2bn",
+     "source": "https://news.bgov.com/international-trade/citadel-securities-nets-record-12-billion-trading-haul-1",
+     "status": "present",
+     "recordId": "hi361"
+    },
+    {
+     "key": "citadel-toms-500m",
+     "date": "2026-06-12",
+     "what": "Citadel backs Toms Capital with ~$500m",
+     "source": "https://www.bloomberg.com/news/articles/2026-06-12/citadel-backs-hedge-fund-toms-with-500-million-in-rare-move",
+     "status": "present",
+     "recordId": "hi46"
+    },
+    {
+     "key": "citadel-situational-awareness-aug-2026",
+     "date": "2026-08-05",
+     "what": "Wellington surges 5.9% in July after Situational Awareness bet",
+     "source": null,
+     "status": "present",
+     "recordId": "hi75"
+    }
+   ]
   },
   "h7": {
    "kind": "hf",
