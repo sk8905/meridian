@@ -1480,7 +1480,12 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   or table of dated items** (deals, alerts, cases, plans & schemes, hearings, fund closes,
   LP commitments, people moves, news / digest rows). Not dated market data (rates, spreads,
   index levels). **(b) Column order:** an events row/table LEADS with the date and ENDS with
-  the source (the SRC chip or outlet name) — except on iPhone: the Deals card drops the
+  the source (the SRC chip or outlet name). **A source is only ever shown by its NAME
+  ("AP", "Reuters via Investing.com", "Bloomberg") — never the full URL** (owner
+  2026-10-20: a briefing printed a kark.com URL as its source line). The URL lives behind
+  the name as its link. Name fields (`srcName`, `sourceName`, `outlet`) never hold a URL,
+  and the briefing, Key Moment and feed renderers pass names through `srcLabel()` (`util.js`), which falls back to the
+  outlet name of the link. Spec: `tests/source-names.mjs`. Column order holds everywhere except on iPhone: the Deals card drops the
   source column (R44e; the source stays in the deal drawer), and every STORY list reads
   date · headline only (R44j; the source stays in the row's title and the opened story). Date format "15 Oct 26" everywhere; on the news
   wire, already grouped under day headers, the first column stays the time ("13:46").

@@ -15,7 +15,7 @@
 // here; the bell keeps its own per-app content/seen-state but is layered with
 // the same full-screen presentation on mobile.
 // =============================================================================
-import { esc, MONTHS, fmtD } from "/util.js";
+import { esc, MONTHS, fmtD, srcLabel } from "/util.js";
 import { feedRow } from "/feed.js";
 import { mountAssistant, askSuggestions } from "/v2/js/assistant.js";
 import { FX_KEYMOMENT, OUTLOOK, EARNINGS } from "/macro/js/content.js";
@@ -471,7 +471,7 @@ function naFxMatrix(d) {
     return `<tr><th>${esc(base)}</th>${cells}</tr>`;
   }).join("");
   const km = (FX_KEYMOMENT && FX_KEYMOMENT.text)
-    ? `<div class="na-fx-km"><span class="na-fx-km-l">Key moment</span> ${nbNums(esc(FX_KEYMOMENT.text))}${FX_KEYMOMENT.src ? ` <a class="na-brief-src" href="${esc(FX_KEYMOMENT.src)}" target="_blank" rel="noopener noreferrer">${esc(FX_KEYMOMENT.srcName || "source")}</a>` : ""}</div>`
+    ? `<div class="na-fx-km"><span class="na-fx-km-l">Key moment</span> ${nbNums(esc(FX_KEYMOMENT.text))}${FX_KEYMOMENT.src ? ` <a class="na-brief-src" href="${esc(FX_KEYMOMENT.src)}" target="_blank" rel="noopener noreferrer">${esc(srcLabel(FX_KEYMOMENT.srcName, FX_KEYMOMENT.src))}</a>` : ""}</div>`
     : "";
   return naSec("FX matrix", "1D cross") + `<div class="na-fx-wrap"><table class="na-fx-tbl"><thead>${head}</thead><tbody>${body}</tbody></table>${km}</div>`;
 }

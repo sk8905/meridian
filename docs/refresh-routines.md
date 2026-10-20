@@ -1202,7 +1202,10 @@ quiet slot gets a short output, not padding.
   each `{ html, src, srcName }` where `html` is authored markup
   (e.g. `<strong>…</strong>`) and `src` links the wire/desk item it summarises.
   **State the news, never narrate the reporting (HOUSE_STYLE R28).** The bullet prose
-  states the fact directly; the outlet is the `srcName` link only. NEVER write "the FT
+  states the fact directly; the outlet is the `srcName` link only. `srcName` is the
+  outlet's NAME ("AP", "Reuters via Investing.com") — never the URL; a URL there
+  is shown to the reader as a raw link and fails `tests/source-names.mjs` (owner
+  2026-10-20, HOUSE_STYLE R43b). NEVER write "the FT
   reports/explains", "Bloomberg notes", "according to …", "<byline> says/writes/warns
   that", and never fold a second outlet's claim into a bullet ("… Bloomberg's Markets
   Daily notes …") — a bullet carries ONE `src`, so keep only what that source supports

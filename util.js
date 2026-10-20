@@ -101,6 +101,14 @@ export const outletOf = (url) => {
   const k = Object.keys(NEWS_SOURCES).find((d) => h === d || h.endsWith("." + d)) || Object.keys(JUDGMENT_SOURCES).find((d) => h === d || h.endsWith("." + d));
   return k ? (NEWS_SOURCES[k] || JUDGMENT_SOURCES[k]) : tidyDomain(h);
 };
+// A source LABEL is only ever a source name, never a URL (owner 2026-10-20, HOUSE_STYLE
+// R43b). If a stored name is missing or is itself a URL, fall back to the outlet name of
+// the link (outletOf), so a raw URL can never be printed as the source.
+export const srcLabel = (name, url) => {
+  const n = String(name || "").trim();
+  if (n && !/^(https?:\/\/|www\.)/i.test(n) && !/^[\w-]+(\.[\w-]+)+\/\S*/.test(n)) return n;
+  return outletOf(url || n) || "source";
+};
 
 // Sync the browser-chrome theme-color meta tag to the resolved theme ("dark"/
 // "light"). Shared by the desktop nav-bar theme toggle and the phone Menu

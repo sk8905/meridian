@@ -18,7 +18,7 @@ import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
 import { BRIEFINGS } from "/briefings.js";
 import { nbNums } from "/v2/js/nb-format.js";
 import { h, Fragment, signal, effect, batch, mount } from "/v2/js/ui.js";
-import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, isOwnSite, MONTHS, fmtD } from "/util.js";
+import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, isOwnSite, MONTHS, fmtD, srcLabel } from "/util.js";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt, rowTip } from "/feed.js";
 
@@ -549,7 +549,7 @@ function renderHomeBriefing() {
     // joined), labelled by outlet — the source as a LINK, replacing the old inline "…X
     // reports" mention. Opens the publisher in a new tab. (The old per-desk data badge was
     // retired — the inline pills + top strip now carry the live prices/levels.)
-    const _srcLink = (b) => b.src ? `<a class="g-hbrief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : "";
+    const _srcLink = (b) => b.src ? `<a class="g-hbrief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(srcLabel(b.srcName, b.src))}</a>` : "";
     const srcs = g.items.map(_srcLink).filter(Boolean).join('<span class="g-hbrief-srcsep" aria-hidden="true"> · </span>');
     return `<li class="g-hbrief-b">${desk ? `<span class="g-hbrief-bk">${esc(desk)}</span> ` : ""}<span class="g-hbrief-bt">${text}</span>${srcs ? `<span class="g-hbrief-srcs">${srcs}</span>` : ""}</li>`;
   }).filter(Boolean).join("");
@@ -1678,7 +1678,7 @@ function heroNewsWhen(iso) {
 }
 function heroNewsRow(it) {
   const c = heroColor(it.key, 0);
-  const src = it.source ? `<span class="g-feed-src">${esc(it.source)}</span>` : "";
+  const src = it.source ? `<span class="g-feed-src">${esc(srcLabel(it.source, it.url))}</span>` : "";
   return `<a class="g-feed-row g-hero-news-row" href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">`
     + `<span class="g-feed-time">${esc(heroNewsWhen(it.date))}</span>`
     + `<span class="g-feed-code" style="color:${c};background:color-mix(in srgb, ${c} 15%, transparent)">${esc(it.code || "")}</span>`
