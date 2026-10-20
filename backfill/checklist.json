@@ -7154,33 +7154,494 @@
    "kind": "hf",
    "name": "Two Sigma Investments",
    "priority": 62,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "2020-returns-reported-2021",
+     "date": "2021-12-21",
+     "what": "Two Sigma 2020 returns reported by Institutional Investor",
+     "source": "https://www.institutionalinvestor.com/article/2bswrhqnqgdyo779uscg0/portfolio/two-sigma-renaissance-rebound-in-2021",
+     "status": "rejected",
+     "note": "Article dated Dec 2021 reporting 2020 figures; framing ambiguous — not recorded"
+    },
+    {
+     "key": "material-risk-filing-2023",
+     "date": "2023-06-20",
+     "what": "Two Sigma cites founders' rift as material risk in filing",
+     "source": "https://fortune.com/2023/06/20/two-sigma-cofounders-hedge-fund-material-risk",
+     "status": "present",
+     "recordId": "hi406"
+    },
+    {
+     "key": "jian-wu-leave-2023",
+     "date": "2023-10-30",
+     "what": "Researcher Jian Wu placed on leave over alleged model tampering",
+     "source": "https://www.efinancialcareers.com/news/2023/10/jian-wu-two-sigma-quant-hedge-fund-bonus",
+     "status": "present",
+     "recordId": "hi407"
+    },
+    {
+     "key": "2023-fund-returns-2024",
+     "date": "2024-01-08",
+     "what": "Absolute Return Enhanced +12%, Spectrum +8.6% in 2023",
+     "source": "https://hedgeweek.com/two-sigma-posts-solid-gains-despite-year-of-drama",
+     "status": "present",
+     "recordId": "hi408"
+    },
+    {
+     "key": "compass-enhanced-loss-2024",
+     "date": "2024-01-31",
+     "what": "Compass Enhanced -16% in 2023",
+     "source": "https://www.hedgeweek.com/two-sigma-records-16-loss-for-compass-enhanced-fund/",
+     "status": "present",
+     "recordId": "hi409"
+    },
+    {
+     "key": "new-co-ceos-2024",
+     "date": "2024-08-28",
+     "what": "Overdeck and Siegel step down as co-CEOs; Lyons and Hoffman named",
+     "source": "https://www.silicon.co.uk/press-release/two-sigma-announces-leadership-changes",
+     "status": "present",
+     "recordId": "hi410"
+    },
+    {
+     "key": "founders-arbitration-2025",
+     "date": "2025-01-09",
+     "what": "Founders head to arbitration; compliance chief and co-GC depart",
+     "source": "https://www.bloomberg.com/news/articles/2025-01-09/two-sigma-founders-head-to-arbitration-after-years-long-feud",
+     "status": "present",
+     "recordId": "hi411"
+    },
+    {
+     "key": "sec-settlement-2025",
+     "date": "2025-01-16",
+     "what": "SEC charges Two Sigma, $90m penalty",
+     "source": "https://www.sec.gov/newsroom/press-releases/2025-15",
+     "status": "present",
+     "recordId": "hi12"
+    },
+    {
+     "key": "overdeck-returns-2025",
+     "date": "2025-04-01",
+     "what": "Overdeck returns to management committee",
+     "source": "https://news.bloomberglaw.com/private-equity/two-sigmas-john-overdeck-returns-to-management-committee",
+     "status": "present",
+     "recordId": "hi412"
+    },
+    {
+     "key": "wu-sec-charges-2025",
+     "date": "2025-09-11",
+     "what": "SEC charges Jian Wu",
+     "source": "https://www.sec.gov/enforcement-litigation/litigation-releases/lr-26398",
+     "status": "present",
+     "recordId": "hi413"
+    },
+    {
+     "key": "new-funds-record-aum-2025",
+     "date": "2025-12-04",
+     "what": "Three new funds, $1.1bn raised, record AUM",
+     "source": "https://www.hedgeweek.com/two-sigma-raises-1-1bn-across-new-funds-as-assets-hit-record-70bn/",
+     "status": "present",
+     "recordId": "hi13"
+    },
+    {
+     "key": "hoffman-resigns-2026",
+     "date": "2026-04-02",
+     "what": "Co-CEO Scott Hoffman resigns citing governance challenges",
+     "source": "https://news.bgov.com/securities-law/two-sigma-co-ceo-scott-hoffman-quits-as-infighting-divides-firm",
+     "status": "present",
+     "recordId": "hi414"
+    },
+    {
+     "key": "lost-major-investor-2026",
+     "date": "2026-08-19",
+     "what": "Overdeck says Two Sigma lost a major investor in founders' feud",
+     "source": "https://www.hedgeweek.com/two-sigma-lost-major-investor-amid-founders-long-running-dispute/",
+     "status": "present",
+     "recordId": "hi89"
+    },
+    {
+     "key": "new-arbitration-2026",
+     "date": "2026-08-27",
+     "what": "Founders in new arbitration rounds",
+     "source": "https://news.bgov.com/new-york-brief/two-sigmas-feuding-founders-head-to-arbitration-in-fresh-battle",
+     "status": "present",
+     "recordId": "hi230"
+    }
+   ]
   },
   "h6": {
    "kind": "hf",
    "name": "D. E. Shaw & Co.",
    "priority": 63,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "composite-raise-2b-2020",
+     "date": "2020-03-23",
+     "what": "Composite Fund raises $2B from existing investors, effective April 1",
+     "source": "https://www.bloomberg.com/news/articles/2020-03-23/d-e-shaw-raises-2-billion-for-flagship-composite-hedge-fund",
+     "status": "present",
+     "recordId": "hi383"
+    },
+    {
+     "key": "2020-returns-2021",
+     "date": "2021-01-12",
+     "what": "Composite +19.4% and Oculus +25.4% net in 2020",
+     "source": "https://www.hedgeweek.com/de-shaw-delivers-strong-returns-2020/",
+     "status": "present",
+     "recordId": "hi384"
+    },
+    {
+     "key": "2021-returns-2022",
+     "date": "2022-01-04",
+     "what": "Composite ~18.5% and Oculus ~15% estimated net in 2021",
+     "source": "https://www.institutionalinvestor.com/article/b1w5st46q5b0r4/D-E-Shaw-s-Two-Largest-Funds-Saw-Gains-in-2021",
+     "status": "present",
+     "recordId": "hi385"
+    },
+    {
+     "key": "2022-returns-2023",
+     "date": "2023-01-04",
+     "what": "Composite +24.7% and Oculus +20% in 2022",
+     "source": "https://www.hedgeweek.com/flagship-de-shaw-hedge-fund-chalks-247-gain-2022/",
+     "status": "present",
+     "recordId": "hi386"
+    },
+    {
+     "key": "sec-whistleblower-2023",
+     "date": "2023-09-29",
+     "what": "SEC settles whistleblower-rule case, $10M penalty",
+     "source": "https://www.sec.gov/news/press-release/2023-213",
+     "status": "present",
+     "recordId": "hi387"
+    },
+    {
+     "key": "gaudio-jager-exec-committee-2023",
+     "date": "2023-12-13",
+     "what": "Gaudio to leave Executive Committee Dec 31; Edwin Jager takes seat",
+     "source": "https://www.efinancialcareers.com/news/2023/12/de-shaw-hedge-fund",
+     "status": "present",
+     "recordId": "hi388"
+    },
+    {
+     "key": "2023-returns-2024",
+     "date": "2024-01-02",
+     "what": "Composite +9.6% and Oculus +7.8% net in 2023",
+     "source": "https://investing.com/news/economy/de-shaws-biggest-hedge-fund-up-about-10-in-2023--source-3265701",
+     "status": "rejected",
+     "note": "Only available via a low-grade aggregator (investing.com); original not verified"
+    },
+    {
+     "key": "deaton-prasad-exec-committee-2024",
+     "date": "2024-01-04",
+     "what": "Deaton and Prasad join Executive Committee; Wepsic to leave",
+     "source": "https://www.bnnbloomberg.ca/d-e-shaw-promotes-deaton-prasad-to-top-posts-as-wepsic-departs-1.2018039",
+     "status": "rejected",
+     "note": "Date and facts only from a search snippet; page not fetchable — not verified"
+    },
+    {
+     "key": "air-products-stake-2024",
+     "date": "2024-10-10",
+     "what": "~$1B Air Products stake, plans to nominate three directors",
+     "source": "https://www.nbcnewyork.com/news/business/money-report/hedge-fund-d-e-shaw-nominates-three-directors-at-air-products-has-1-billion-stake/5875706/",
+     "status": "present",
+     "recordId": "hi390"
+    },
+    {
+     "key": "air-products-mantle-ridge-2024",
+     "date": "2024-10-24",
+     "what": "Backs Mantle Ridge slate at Air Products instead of own nominees",
+     "source": "https://www.tipranks.com/news/the-fly/d-e-shaw-supporting-mantle-ridge-slate-for-air-products-board-cnbc-says",
+     "status": "present",
+     "recordId": "hi391"
+    },
+    {
+     "key": "alkali-vi-2024",
+     "date": "2024-11-14",
+     "what": "Alkali Fund VI closes with $1B",
+     "source": "https://www.opalesque.com/706208/Shaw_nabs_for_latest_private_credit620.html",
+     "status": "present",
+     "recordId": "hi392"
+    },
+    {
+     "key": "2024-returns-2025",
+     "date": "2025-01-02",
+     "what": "Composite +18%, Oculus +36% in 2024; billions to be returned",
+     "source": "https://bnnbloomberg.ca/business/company-news/2025/01/02/de-shaw-to-return-billions-after-flagship-hedge-fund-gains-18",
+     "status": "present",
+     "recordId": "hi393"
+    },
+    {
+     "key": "diopter-ii-2025",
+     "date": "2025-05-01",
+     "what": "Diopter Fund II closes with $1.3B",
+     "source": "https://www.deshaw.com/assets/articles/D_E_Shaw_Group_Diopter_Fund_II.pdf",
+     "status": "rejected",
+     "note": "Date only from a search snippet; release PDF unreadable — exact date not verified"
+    },
+    {
+     "key": "oculus-28pct-2025",
+     "date": "2026-01-15",
+     "what": "Oculus returned 28.2% in 2025",
+     "source": "https://www.disruptionbanking.com/2026/01/15/d-e-shaw-oculus-soars-28-2-in-2025/",
+     "status": "present",
+     "recordId": "hi10"
+    },
+    {
+     "key": "pauses-cash-returns-2026",
+     "date": "2026-01-02",
+     "what": "Pauses cash returns after 2025 gains",
+     "source": "https://www.bloomberg.com/news/articles/2026-01-02/d-e-shaw-pauses-cash-returns-as-hedge-funds-soar-up-to-28",
+     "status": "present",
+     "recordId": "hi11"
+    }
+   ]
   },
   "h34": {
    "kind": "hf",
    "name": "GoldenTree Asset Management",
    "priority": 64,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "talen-energy-first-lien-2021",
+     "date": "2021-12-02",
+     "what": "GoldenTree and Silver Point lead $788m first-lien financing commitment for Talen Energy Supply",
+     "source": "https://www.sfnet.com/home/chapters/canada/news-detail/2021/12/03/talen-energy-supply-secures-788-million-financing-commitment-led-by-goldentree-asset-management-and-silver-point-finance",
+     "status": "present",
+     "recordId": "hi375"
+    },
+    {
+     "key": "distressed-fund-iv-2022",
+     "date": "2022-09-27",
+     "what": "Distressed Fund IV closes oversubscribed at $3bn hard cap",
+     "source": "https://www.businesswire.com/news/home/20220927005350/en/GoldenTree-Announces-Oversubscribed-Distressed-Fund-IV",
+     "status": "present",
+     "recordId": "hi376"
+    },
+    {
+     "key": "sutherland-first-ceo-2022",
+     "date": "2022-10-27",
+     "what": "Kathy Sutherland named GoldenTree's first CEO; Tananbaum remains Managing Partner and CIO",
+     "source": "https://www.goldentree.com/documents/FG/goldentree/videos/621547_10.27.22_GoldenTree_CEO_Announcement.pdf",
+     "status": "present",
+     "recordId": "hi377"
+    },
+    {
+     "key": "taubert-germany-office-2024",
+     "date": "2024-01-05",
+     "what": "Hires Markus Taubert (Principal, Munich), opens Germany office",
+     "source": "https://www.businesswire.com/news/home/20240104454416/en/GoldenTree-Asset-Management-Hires-Markus-Taubert-and-Establishes-Office-in-Germany",
+     "status": "present",
+     "recordId": "hi378"
+    },
+    {
+     "key": "private-credit-fund-i-2024",
+     "date": "2024-03-11",
+     "what": "Debut Private Credit Fund closes at over $1.35bn",
+     "source": "https://www.businesswire.com/news/home/20240311554400/en/GoldenTree-Announces-over-1.35-Billion-Private-Credit-Fund",
+     "status": "present",
+     "recordId": "hi379"
+    },
+    {
+     "key": "glm-iii-clo-equity-fund-2024",
+     "date": "2024-04-01",
+     "what": "Third CLO equity fund (GLM III) closes with $1.3bn commitments",
+     "source": "https://www.businesswire.com/news/home/20240401703161/en/GoldenTree-Asset-Management-Announces-%241.3-Billion-in-Commitments-for-Third-CLO-Equity-Fund",
+     "status": "present",
+     "recordId": "hi380"
+    },
+    {
+     "key": "opportunistic-credit-interval-fund-2025",
+     "date": "2025-07-07",
+     "what": "Launches GoldenTree Opportunistic Credit Fund (GTOC) interval fund",
+     "source": "https://www.businesswire.com/news/home/20250707320437/en/GoldenTree-Asset-Management-Launches-Interval-Fund-to-Provide-Individual-Investors-Access-to-Opportunistic-Credit",
+     "status": "present",
+     "recordId": "hi381"
+    },
+    {
+     "key": "glm-clo-753m-2025",
+     "date": "2025-12-05",
+     "what": "Closes $753m GLM US CLO 27",
+     "source": "https://www.businesswire.com/news/home/20251205678916/en/GoldenTree-Asset-Management-Announces-Closing-of-%24753-Million-CLO-Under-GLM-Strategy",
+     "status": "present",
+     "recordId": "hi382"
+    },
+    {
+     "key": "private-credit-fund-ii-2026",
+     "date": "2026-07-20",
+     "what": "Private Credit Fund II closes at $2.75bn hard cap",
+     "source": "https://www.businesswire.com/news/home/20260720200116/en/",
+     "status": "present",
+     "recordId": "hi239"
+    },
+    {
+     "key": "tactical-opportunities-2026",
+     "date": "2026-04-13",
+     "what": "Tactical Opportunities Fund $3B close",
+     "source": "https://www.goldentree.com/newsroom",
+     "status": "present",
+     "recordId": "hi131"
+    },
+    {
+     "key": "conti-cfo-2026",
+     "date": "2026-09-10",
+     "what": "Ellen Conti hired as partner and CFO",
+     "source": "https://www.abfjournal.com/goldentree-asset-management-hires-conti-as-chief-financial-officer",
+     "status": "present",
+     "recordId": "hi225"
+    },
+    {
+     "key": "qvc-chapter11-2026",
+     "date": "2026-04-16",
+     "what": "QVC Group Chapter 11; no source linking GoldenTree",
+     "source": "https://www.spokesman.com/stories/2026/apr/16/qvc-says-it-will-file-for-bankruptcy/",
+     "status": "rejected",
+     "note": "GoldenTree role not verified; hi178 (stake) already exists"
+    }
+   ]
   },
   "h35": {
    "kind": "hf",
    "name": "Viking Global Investors",
    "priority": 65,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "march-2020-loss-2020",
+     "date": "2020-04-08",
+     "what": "Viking Global Equities lost 3.1% in March 2020",
+     "source": "https://www.institutionalinvestor.com/article/2bsx74xioud4q3s52fi80/premium/vikings-hedge-fund-breaks-even",
+     "status": "present",
+     "recordId": "hi394"
+    },
+    {
+     "key": "q3-2020-gains-2020",
+     "date": "2020-10-08",
+     "what": "Viking's three main funds post strong Q3 2020",
+     "source": "https://www.institutionalinvestor.com/article/2bsx81qp5g2t3adxss074/premium/whats-behind-vikings-strong-gains",
+     "status": "present",
+     "recordId": "hi395"
+    },
+    {
+     "key": "vgo-hybrid-2020",
+     "date": "2021-01-12",
+     "what": "Viking Global Opportunities hybrid fund gained 51.6% in 2020",
+     "source": "https://www.institutionalinvestor.com/article/2bswmh848i74fdobx21a8/premium/health-care-ipos-boost-vikings-hybrid-fund",
+     "status": "present",
+     "recordId": "hi396"
+    },
+    {
+     "key": "hedge-fund-2021-loss-2022",
+     "date": "2022-02-01",
+     "what": "Viking hedge fund fell 4.5% in 2021",
+     "source": "https://www.thewealthadvisor.com/article/viking-hedge-fund-blames-2021-losses-underestimating-covid",
+     "status": "present",
+     "recordId": "hi397"
+    },
+    {
+     "key": "h1-2022-loss-2022",
+     "date": "2022-07-13",
+     "what": "Viking flagship down 7.4% in H1 2022",
+     "source": "https://www.bnnbloomberg.ca/viking-hedge-fund-s-7-loss-in-first-half-still-beats-its-tiger-cub-peers-1.1791431",
+     "status": "present",
+     "recordId": "hi398"
+    },
+    {
+     "key": "2022-small-loss-2023",
+     "date": "2023-01-12",
+     "what": "Viking emerges relatively unscathed from 2022",
+     "source": "https://www.institutionalinvestor.com/article/b8wz3lv0tlhgy5/Viking-Emerges-Relatively-Unscathed-From-a-Bleak-2022",
+     "status": "present",
+     "recordId": "hi399"
+    },
+    {
+     "key": "reopens-flagship-2023",
+     "date": "2023-08-09",
+     "what": "Viking reopens flagship long/short fund to new capital",
+     "source": "https://investing.com/news/stock-market-news/hedge-fund-viking-reopens-flagship-fund-after-a-decade-sources-3149047",
+     "status": "rejected",
+     "note": "Only available via a low-grade aggregator (investing.com); original not verified"
+    },
+    {
+     "key": "2023-returns-2024",
+     "date": "2024-01-29",
+     "what": "2023 returns: VGE +13.8%, Viking Long +29.3%",
+     "source": "https://www.institutionalinvestor.com/article/2cs1lore04sn2p9e1998g/premium/defying-vc-downturn-tiger-cub-viking-globals-hybrid-and-private-funds-surge",
+     "status": "present",
+     "recordId": "hi401"
+    },
+    {
+     "key": "q1-2024-2024",
+     "date": "2024-04-30",
+     "what": "Q1 2024 returns; AUM over $46bn",
+     "source": "https://www.institutionalinvestor.com/article/2d6919dc7kmoxuuuxdk3k/hedge-funds/viking-globals-fund-focused-on-private-investments-is-off-to-a-strong-start",
+     "status": "present",
+     "recordId": "hi402"
+    },
+    {
+     "key": "h1-2024-private-2024",
+     "date": "2024-08-05",
+     "what": "H1 2024; AUM about $48bn, $15bn+ private",
+     "source": "https://www.institutionalinvestor.com/article/2dl8t5dzzzaswm29jvtvk/hedge-funds/inside-vikings-private-investment-strategy",
+     "status": "present",
+     "recordId": "hi403"
+    },
+    {
+     "key": "q3-2024-private-2024",
+     "date": "2024-11-12",
+     "what": "Through Sept 2024 returns; private investments profitable",
+     "source": "https://www.institutionalinvestor.com/article/2e0jojfnjk2eg8ea5an0g/hedge-funds/vikings-private-company-investments-turn-profitable",
+     "status": "present",
+     "recordId": "hi404"
+    },
+    {
+     "key": "q2-2025-hybrid-2025",
+     "date": "2025-07-30",
+     "what": "Opportunity Hybrid fund +9% in Q2 2025",
+     "source": "https://www.institutionalinvestor.com/index%2ephp/article/premium/vikings-private-equity-funds-moved-black-q2",
+     "status": "present",
+     "recordId": "hi405"
+    },
+    {
+     "key": "ning-jin-avantyr-2025",
+     "date": "2025-05-13",
+     "what": "Ex-Viking CIO Ning Jin's Avantyr Capital expected to top $1bn",
+     "source": "https://www.bloomberg.com/news/articles/2025-05-13/ex-viking-cio-s-hedge-fund-expected-to-top-1-billion-in-debut",
+     "status": "present",
+     "recordId": "hi123"
+    },
+    {
+     "key": "ning-jin-exit-2024",
+     "date": "2024-08-01",
+     "what": "Ning Jin leaves Viking",
+     "source": "https://www.aol.com/articles/viking-globals-longtime-head-trading-175726792.html",
+     "status": "present",
+     "note": "No exact-day dated source found; covered contextually by hi123",
+     "recordId": "hi124"
+    },
+    {
+     "key": "stuart-brown-2026",
+     "date": "2026-01-09",
+     "what": "Stuart Brown to step down as head of trading",
+     "source": "https://www.aol.com/articles/viking-globals-longtime-head-trading-175726792.html",
+     "status": "present",
+     "recordId": "hi124"
+    },
+    {
+     "key": "h1-2026-gain-2026",
+     "date": "2026-07-24",
+     "what": "H1 2026 2.6% gain; AI 'missed opportunity'",
+     "source": null,
+     "status": "present",
+     "recordId": "hi176"
+    }
+   ]
   },
   "h36": {
    "kind": "hf",
