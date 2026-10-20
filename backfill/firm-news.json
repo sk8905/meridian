@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-20T05:14:10.213Z",
+ "generated": "2026-10-20T12:04:11.168Z",
  "since": "2026-10-06",
  "firms": {
   "proskauerrose": {
@@ -39,9 +39,9 @@
     "sustainablefutures.linklaters.com"
    ],
    "sitemaps": 6,
-   "urls": 17803,
-   "kept": 3,
-   "fetched": 3,
+   "urls": 17805,
+   "kept": 5,
+   "fetched": 5,
    "errors": 0,
    "carried": 0
   },
@@ -115,9 +115,9 @@
     "www.traverssmith.com"
    ],
    "sitemaps": 1,
-   "urls": 5020,
-   "kept": 6,
-   "fetched": 6,
+   "urls": 5021,
+   "kept": 7,
+   "fetched": 7,
    "errors": 0,
    "carried": 0
   },
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 16572,
+   "urls": 16576,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -162,8 +162,8 @@
    ],
    "sitemaps": 11,
    "urls": 10403,
-   "kept": 27,
-   "fetched": 27,
+   "kept": 26,
+   "fetched": 26,
    "errors": 0,
    "carried": 0
   },
@@ -172,7 +172,7 @@
     "www.sidley.com"
    ],
    "sitemaps": 7,
-   "urls": 7574,
+   "urls": 7573,
    "kept": 2,
    "fetched": 2,
    "errors": 10,
@@ -214,9 +214,9 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16219,
-   "kept": 9,
-   "fetched": 9,
+   "urls": 16221,
+   "kept": 6,
+   "fetched": 6,
    "errors": 0,
    "carried": 0
   },
@@ -225,12 +225,12 @@
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2856,
+   "urls": 2857,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
    "samples": [
-    "https://www.stephensonharwood.com/ @2026-10-16",
+    "https://www.stephensonharwood.com/ @2026-10-20",
     "https://www.stephensonharwood.com/expertise/ @2025-10-24",
     "https://www.stephensonharwood.com/expertise/sectors/ @2025-12-02",
     "https://www.stephensonharwood.com/expertise/sectors/energy-transition-infrastructure/ @2026-08-14",
@@ -271,7 +271,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7751,
+   "urls": 7753,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -282,7 +282,7 @@
     "www.hoganlovells.com"
    ],
    "sitemaps": 2,
-   "urls": 21417,
+   "urls": 21426,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -332,9 +332,9 @@
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16349,
-   "kept": 21,
-   "fetched": 21,
+   "urls": 16352,
+   "kept": 20,
+   "fetched": 20,
    "errors": 0,
    "carried": 0
   },
@@ -351,6 +351,33 @@
   }
  },
  "items": [
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-joint-bookrunners-on-dfmg-holdings-1bn-euro-inaugural-public-bond-issuance",
+   "title": "DFMG Holding’s €1bn inaugural public bond issuance",
+   "description": "Linklaters advises the Joint Bookrunners on DFMG Holding’s inaugural €1bn dual-tranche public bond issuance and debut in the public debt capital markets.",
+   "date": "2026-10-20",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-20"
+  },
+  {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/knowledge-container/uk-fca-guidance-on-ai-in-financial-services-good-practices-and-areas-for-improvement/",
+   "title": "UK FCA Guidance on AI in Financial Services: Good Practices and Areas for Improvement",
+   "description": "Recently, the seemingly unstoppable march of AI deployment across the world economy has rarely been out of the news. As financial services firms increasingly adopt AI-driven tools within their businesses, a key question has been how regulators will respond and whether they have clearly articulated their expectations for AI usage and governance across the sector.",
+   "date": "2026-10-20",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-20"
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-on-tap-issuance-of-mercury-finance-company",
+   "title": "Linklaters advises on tap issuance of Mercury Finance Company’s senior secured repack high-yield notes",
+   "description": "Linklaters advises the placement agent on Mercury Finance Company’s US$125m tap issuance of senior secured repack high-yield notes due 2029.",
+   "date": "2026-10-19",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-20"
+  },
   {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/insights/blogs/pensionlinks/2026/october/from-surplus-to-security-navigating-the-next-phase-for-defined-benefit-pension-schemes",
@@ -380,15 +407,6 @@
   },
   {
    "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/insights/sec-proposal-expanded-accredited-investor-eligibility-for-natural-persons",
-   "title": "SEC proposal: expanded accredited investor eligibility for natural persons",
-   "description": "The SEC proposes letting CPAs, CFA charterholders, CFPs and certain FINRA licence holders qualify as accredited investors. Comments due 4 December 2026.",
-   "date": "2026-10-19",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-19"
-  },
-  {
-   "firm": "aoshearman",
    "url": "https://www.aoshearman.com/en/news/ao-shearman-raises-over-gbp66000-for-northern-ireland-hospice-beating-fundraising-target",
    "title": "A&O Shearman raises GBP66,000 for Northern Ireland Hospice",
    "description": "A&O Shearman raised over GBP66,000 for Northern Ireland Hospice, exceeding its target through fundraising and volunteering.",
@@ -398,57 +416,12 @@
   },
   {
    "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-charlesbank-on-debt-backing-mso-and-strategic-growth-investment",
-   "title": "Kirkland Advises Charlesbank on Debt Backing MSO and Strategic Growth Investment",
-   "description": null,
-   "date": "2026-10-19",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-ares-on-acquisition-of-infinity-transportation-from-kkr",
-   "title": "Kirkland Advises Ares on $2.9 Billion Acquisition of Infinity Transportation from KKR",
-   "description": null,
-   "date": "2026-10-19",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
    "url": "https://www.kirkland.com/news/award/2026/10/international-financial-law-review-best-in-state-texas-deal-of-the-year",
    "title": "Kirkland Honored With “Best in State – Texas” and Two “Deal of the Year” Awards by IFLR",
    "description": null,
    "date": "2026-10-19",
    "dateSource": "page date label",
    "lastmod": null
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/press-release/white-case-advises-new-private-equity-strategic-investment-one-group-solutions",
-   "title": "White & Case advises New Private Equity on strategic investment in ONE group solutions",
-   "description": "Global law firm White & Case LLP has advised New Private Equity Management (NPE), a US technology-focused private equity firm, on its acquisition of a strategic stake in ONE group solutions, a Luxembourg-based fund governance solutions provider.",
-   "date": "2026-10-19",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-19"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/experience/natwest-group-1-billion-senior-notes-offering-october-2026",
-   "title": "NatWest Group $1 billion senior notes offering",
-   "description": "We advised NatWest Group on the offering",
-   "date": "2026-10-19",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-19"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/insights/client-update/hong-kong-sfc-recognises-sponsor-progress-sharpens-its-focus-ipo-misconduct",
-   "title": "Hong Kong SFC recognises sponsor progress but sharpens its focus on IPO misconduct",
-   "description": "Last week, the Hong Kong Securities and Futures Commission (SFC) has acknowledged improvements in sponsor work since its circular in January identifying...",
-   "date": "2026-10-19",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-19"
   },
   {
    "firm": "davispolk",
@@ -559,15 +532,6 @@
    "date": "2026-10-16",
    "dateSource": "page date label",
    "lastmod": null
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/experience/banco-de-credito-del-peru-500-million-subordinated-notes-offering-october-2026",
-   "title": "Banco de Crédito del Perú $500 million subordinated notes offering",
-   "description": "We advised BCP on the takedown under its MTN program",
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-19"
   },
   {
    "firm": "reedsmith",
@@ -885,15 +849,6 @@
    "dateSource": null,
    "lastmod": "2026-10-07",
    "dateProbe": []
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/receivables-finance-recent-developments",
-   "title": "Receivables finance: recent developments",
-   "description": "Matthew Mortimer and Elmira Jazottes assess the impact of recent VAT decisions and changes to the UK tax net on the taxation of receivables finance",
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-19"
   },
   {
    "firm": "slaughtermay",
