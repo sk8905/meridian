@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-20",
-  lastCheckedTime: "19:05 BST",
+  lastCheckedTime: "21:10 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1039,20 +1039,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-19",
+  updated: "2026-10-20",
   us: [
+    {title: "US pending home sales fall to record low as mortgage rates surge", source: "Financial Times", date: "2026-10-20", time: "16:47", url: "https://www.ft.com/content/42ed6778-d350-48a6-ba3d-99efca3cd276"},
     {title: "US stocks set for rebound after AI sell-off", source: "Financial Times", date: "2026-10-19", time: "07:34", url: "https://www.ft.com/content/915ea7ca-1f35-4847-810a-fb29e8344496"},
     {title: "Investors turn on data centres", source: "Financial Times", date: "2026-10-19", time: "07:00", url: "https://www.ft.com/content/5970614a-b1f7-4b4e-b1e5-6038e1dde654"},
     {title: "Billionaires Warn of a Bubble Yet Howard Marks Is Unconvinced", source: "Bloomberg", date: "2026-10-18", url: "https://www.bloomberg.com/news/articles/2026-10-18/billionaires-warn-of-a-bubble-yet-howard-marks-is-unconvinced"},
     {title: "Meta Platforms and Tesla are among the companies set to report next week. What to expect", source: "CNBC", date: "2026-10-18", time: "21:34", url: "https://www.cnbc.com/2026/10/18/meta-tesla-netflix-earnings-preview.html"},
-    {title: "Stocks are heading for a high-stakes showdown, as strong earnings collide with rising borrowing costs", source: "MarketWatch", date: "2026-10-18", time: "14:00", url: "https://www.marketwatch.com/story/stocks-are-heading-for-a-high-stakes-showdown-as-strong-earnings-collide-with-rising-borrowing-costs-6f8ea5b8"},
   ],
   uk: [
+    {title: "Gilt market catches up with peers as investor worries over Budget ease", source: "Financial Times", date: "2026-10-20", time: "17:10", url: "https://www.ft.com/content/31f86452-c16a-4fbf-b393-bb5282c1cb59"},
+    {title: "UK jobs market stabilises before Budget", source: "Financial Times", date: "2026-10-20", time: "16:59", url: "https://www.ft.com/content/2d20b09b-6565-4253-a809-8a0542e6770a"},
+    {title: "Britain’s budget should build on its economic resilience", source: "Financial Times", date: "2026-10-20", time: "17:15", url: "https://www.ft.com/content/8be29348-e112-462f-96eb-44a699ca61a6"},
     {title: "BoE scrutinises Barclays over claim traders misrepresented private credit exposure", source: "Financial Times", date: "2026-10-19", time: "05:00", url: "https://www.ft.com/content/f3127b4f-d33a-4431-acff-021829f3aa72"},
     {title: "FTSE as Hedge", source: "Financial Times", date: "2026-10-19", time: "07:30", url: "https://www.ft.com/content/cce1d9b5-5f36-4c42-ab7b-1b74fc788773"},
-    {title: "The five things business wants from the Budget", source: "Financial Times", date: "2026-10-19", time: "05:00", url: "https://www.ft.com/content/af6f84d7-b134-4181-84f3-7811c369f306"},
-    {title: "UK Debt Is a Buy for Traders Betting on a Play-It-Safe Budget", source: "Bloomberg", date: "2026-10-19", url: "https://www.bloomberg.com/news/articles/2026-10-19/uk-debt-is-a-buy-for-traders-betting-on-a-play-it-safe-budget"},
-    {title: "City of London weighs tax rises and service cuts to plug £70mn budget hole", source: "Financial Times", date: "2026-10-18", time: "19:00", url: "https://www.ft.com/content/873e7ef2-d3d6-4c30-b8f8-ee3e69d60138"},
   ],
 };
 

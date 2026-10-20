@@ -21,6 +21,132 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "c335e978-1ceb-4254-8c71-793a41e6d0b3",
+    "title": "Donald Trump pledges to spend $400mn on Republican Party midterm campaigns",
+    "date": "2026-10-20",
+    "time": "20:02",
+    "url": "https://www.ft.com/content/c335e978-1ceb-4254-8c71-793a41e6d0b3"
+  },
+  {
+    "id": "765cb887-05da-4971-9f28-bcf5430f09ac",
+    "title": "UAE official emerges as late contender to lead UN",
+    "date": "2026-10-20",
+    "time": "19:32",
+    "url": "https://www.ft.com/content/765cb887-05da-4971-9f28-bcf5430f09ac"
+  },
+  {
+    "id": "33573324-6eb8-447c-934d-5a992872509a",
+    "title": "Two rearrested over RAF Fairford incident on suspicion of helping Iranian intelligence",
+    "date": "2026-10-20",
+    "time": "19:19",
+    "url": "https://www.ft.com/content/33573324-6eb8-447c-934d-5a992872509a"
+  },
+  {
+    "id": "f97755f2-8b07-47bf-9c14-7963a701c9c3",
+    "title": "Who are the Black Bloc?",
+    "date": "2026-10-20",
+    "time": "19:15",
+    "url": "https://www.ft.com/content/f97755f2-8b07-47bf-9c14-7963a701c9c3"
+  },
+  {
+    "id": "7bd4ac59-61e6-4604-a96a-26e7096bf768",
+    "title": "France extends curfews in some cities as restrictions quell unrest",
+    "date": "2026-10-20",
+    "time": "18:58",
+    "url": "https://www.ft.com/content/7bd4ac59-61e6-4604-a96a-26e7096bf768"
+  },
+  {
+    "id": "eb8c6c38-3362-49cb-bfd6-4e164d82966d",
+    "title": "Audit regulator takes control of inquiry into Man City accounts",
+    "date": "2026-10-20",
+    "time": "18:21",
+    "url": "https://www.ft.com/content/eb8c6c38-3362-49cb-bfd6-4e164d82966d"
+  },
+  {
+    "id": "82f99b04-144d-4f2a-b23e-d5a3c0674f3b",
+    "title": "Merz warns over Berlin plans to seize landlords’ property",
+    "date": "2026-10-20",
+    "time": "17:49",
+    "url": "https://www.ft.com/content/82f99b04-144d-4f2a-b23e-d5a3c0674f3b"
+  },
+  {
+    "id": "8be29348-e112-462f-96eb-44a699ca61a6",
+    "title": "Britain’s budget should build on its economic resilience",
+    "date": "2026-10-20",
+    "time": "17:15",
+    "url": "https://www.ft.com/content/8be29348-e112-462f-96eb-44a699ca61a6"
+  },
+  {
+    "id": "31f86452-c16a-4fbf-b393-bb5282c1cb59",
+    "title": "Gilt market catches up with peers as investor worries over Budget ease",
+    "date": "2026-10-20",
+    "time": "17:10",
+    "url": "https://www.ft.com/content/31f86452-c16a-4fbf-b393-bb5282c1cb59"
+  },
+  {
+    "id": "2d20b09b-6565-4253-a809-8a0542e6770a",
+    "title": "UK jobs market stabilises before Budget",
+    "date": "2026-10-20",
+    "time": "16:59",
+    "url": "https://www.ft.com/content/2d20b09b-6565-4253-a809-8a0542e6770a"
+  },
+  {
+    "id": "179172c2-7f3a-49f1-90fb-1551c35768d7",
+    "title": "Romania forms a government after six months of crisis",
+    "date": "2026-10-20",
+    "time": "16:56",
+    "url": "https://www.ft.com/content/179172c2-7f3a-49f1-90fb-1551c35768d7"
+  },
+  {
+    "id": "42ed6778-d350-48a6-ba3d-99efca3cd276",
+    "title": "US pending home sales fall to record low as mortgage rates surge",
+    "date": "2026-10-20",
+    "time": "16:47",
+    "url": "https://www.ft.com/content/42ed6778-d350-48a6-ba3d-99efca3cd276"
+  },
+  {
+    "id": "29f1af13-ecc3-4f26-a479-e6088c67231b",
+    "title": "US midterm elections 2026: The FT’s guide",
+    "date": "2026-10-20",
+    "time": "16:33",
+    "url": "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b"
+  },
+  {
+    "id": "616c796b-a288-4013-a363-70e94429b60e",
+    "title": "Is France spinning out of control?",
+    "date": "2026-10-20",
+    "time": "16:22",
+    "url": "https://www.ft.com/content/616c796b-a288-4013-a363-70e94429b60e"
+  },
+  {
+    "id": "a068036c-a752-4267-9a2f-a95190ef619f",
+    "title": "Finnish president hails progress in talks about ending Russia’s war in Ukraine",
+    "date": "2026-10-20",
+    "time": "16:11",
+    "url": "https://www.ft.com/content/a068036c-a752-4267-9a2f-a95190ef619f"
+  },
+  {
+    "id": "f2020597-aec5-4de4-a169-c89ecb7246ca",
+    "title": "Sullivan & Cromwell to double London office space as US firms shake up UK legal market",
+    "date": "2026-10-20",
+    "time": "16:06",
+    "url": "https://www.ft.com/content/f2020597-aec5-4de4-a169-c89ecb7246ca"
+  },
+  {
+    "id": "85fb6c79-d1fd-493b-9ef5-597400919252",
+    "title": "NatWest tells 30,000 staff to spend more time in office",
+    "date": "2026-10-20",
+    "time": "15:21",
+    "url": "https://www.ft.com/content/85fb6c79-d1fd-493b-9ef5-597400919252"
+  },
+  {
+    "id": "f8ea12f4-a55d-4f46-a409-5cffd093ab6a",
+    "title": "Activist Starboard targets Honeywell spin-off Solstice after failed megadeal",
+    "date": "2026-10-20",
+    "time": "15:04",
+    "url": "https://www.ft.com/content/f8ea12f4-a55d-4f46-a409-5cffd093ab6a"
+  },
+  {
     "id": "4bc3dcfd-bf93-4809-b6b3-f2e8742a396f",
     "title": "Divisions are growing under Trump. For 14 Americans, will it change their vote?",
     "date": "2026-10-20",
@@ -47,13 +173,6 @@ export const FT_ITEMS = [
     "date": "2026-10-20",
     "time": "13:03",
     "url": "https://www.ft.com/content/c88b07df-d30e-401a-aca9-4b054d6dfd7b"
-  },
-  {
-    "id": "31f86452-c16a-4fbf-b393-bb5282c1cb59",
-    "title": "Gilt market catches up with peers as investor worries over Budget ease",
-    "date": "2026-10-20",
-    "time": "12:54",
-    "url": "https://www.ft.com/content/31f86452-c16a-4fbf-b393-bb5282c1cb59"
   },
   {
     "id": "4fb42dd7-a72c-4e20-9e7c-cdc9d3215159",
@@ -147,13 +266,6 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/581d8a59-b128-4f68-9f34-6c066b36ca5b"
   },
   {
-    "id": "7bd4ac59-61e6-4604-a96a-26e7096bf768",
-    "title": "France considers new curfews as restrictions quell unrest",
-    "date": "2026-10-20",
-    "time": "09:40",
-    "url": "https://www.ft.com/content/7bd4ac59-61e6-4604-a96a-26e7096bf768"
-  },
-  {
     "id": "472ad6cf-438f-4d62-a41c-8725cbf53383",
     "title": "Indonesia expels tightly held companies from Jakarta index in bid to avoid MSCI downgrade",
     "date": "2026-10-20",
@@ -187,117 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-19",
     "time": "15:31",
     "url": "https://www.ft.com/content/15a049f3-b62e-40ed-b304-8a2452713338"
-  },
-  {
-    "id": "8cdf338e-d472-460c-8642-a8f033b99462",
-    "title": "Submit a question: Could Anthropic’s IPO be a turning point for AI?",
-    "date": "2026-10-19",
-    "time": "15:10",
-    "url": "https://www.ft.com/content/8cdf338e-d472-460c-8642-a8f033b99462"
-  },
-  {
-    "id": "f3127b4f-d33a-4431-acff-021829f3aa72",
-    "title": "BoE scrutinises Barclays over claim traders misrepresented private credit exposure",
-    "date": "2026-10-19",
-    "time": "14:54",
-    "url": "https://www.ft.com/content/f3127b4f-d33a-4431-acff-021829f3aa72"
-  },
-  {
-    "id": "5f595355-caca-4951-8170-91bb513f7aa9",
-    "title": "Australian MP struck by car in alleged attack",
-    "date": "2026-10-19",
-    "time": "14:52",
-    "url": "https://www.ft.com/content/5f595355-caca-4951-8170-91bb513f7aa9"
-  },
-  {
-    "id": "d8df36c2-7e8c-4cfb-ad9e-e6e954fea4b9",
-    "title": "Violent protests spread from France to Italy and Belgium",
-    "date": "2026-10-19",
-    "time": "14:50",
-    "url": "https://www.ft.com/content/d8df36c2-7e8c-4cfb-ad9e-e6e954fea4b9"
-  },
-  {
-    "id": "ef0f6d42-4759-4ce8-8e40-acd83f0c64f1",
-    "title": "The best art exhibitions to see in London right now",
-    "date": "2026-10-19",
-    "time": "14:48",
-    "url": "https://www.ft.com/content/ef0f6d42-4759-4ce8-8e40-acd83f0c64f1"
-  },
-  {
-    "id": "2ad6e5dd-b8c2-4186-a6e2-ba27f222e1f0",
-    "title": "FTSE 100 newcomer Ithaca warns of halt to investment if Rosebank blocked",
-    "date": "2026-10-19",
-    "time": "14:37",
-    "url": "https://www.ft.com/content/2ad6e5dd-b8c2-4186-a6e2-ba27f222e1f0"
-  },
-  {
-    "id": "915ea7ca-1f35-4847-810a-fb29e8344496",
-    "title": "US stocks rebound after AI sell-off",
-    "date": "2026-10-19",
-    "time": "14:37",
-    "url": "https://www.ft.com/content/915ea7ca-1f35-4847-810a-fb29e8344496"
-  },
-  {
-    "id": "22290706-ab59-4766-b604-ddff94a71bcf",
-    "title": "Uber defeats High Court lawsuit brought by London’s black-cab drivers",
-    "date": "2026-10-19",
-    "time": "14:19",
-    "url": "https://www.ft.com/content/22290706-ab59-4766-b604-ddff94a71bcf"
-  },
-  {
-    "id": "e73d0106-486b-4382-8ecc-5c96ac44fdff",
-    "title": "US defence stocks tumble as investors bet on Democratic election sweep",
-    "date": "2026-10-19",
-    "time": "14:04",
-    "url": "https://www.ft.com/content/e73d0106-486b-4382-8ecc-5c96ac44fdff"
-  },
-  {
-    "id": "6b460256-2f85-485f-ba99-45f270fe3cad",
-    "title": "Indonesia’s market is dysfunctional, not uninvestable",
-    "date": "2026-10-19",
-    "time": "13:55",
-    "url": "https://www.ft.com/content/6b460256-2f85-485f-ba99-45f270fe3cad"
-  },
-  {
-    "id": "3beab58d-4269-4722-b299-8fa5a93f5a52",
-    "title": "Anthropic commits 5% of shares to ‘public benefit’ fund",
-    "date": "2026-10-19",
-    "time": "13:17",
-    "url": "https://www.ft.com/content/3beab58d-4269-4722-b299-8fa5a93f5a52"
-  },
-  {
-    "id": "aeb432cd-5d95-4062-b7a8-f494592adb34",
-    "title": "Is smart farming really smart business?",
-    "date": "2026-10-19",
-    "time": "13:02",
-    "url": "https://www.ft.com/content/aeb432cd-5d95-4062-b7a8-f494592adb34"
-  },
-  {
-    "id": "9da32f56-9024-4940-b7f0-ebfb200a7c15",
-    "title": "Angel’s Bone review — a brilliant, bruising season opener for the beleaguered ENO",
-    "date": "2026-10-19",
-    "time": "13:00",
-    "url": "https://www.ft.com/content/9da32f56-9024-4940-b7f0-ebfb200a7c15"
-  },
-  {
-    "id": "b9d270a8-738b-41cb-9c3c-5fa5ac0c2325",
-    "title": "KKR accused by EU of misleading regulators over €22bn telecoms deal",
-    "date": "2026-10-19",
-    "time": "12:32",
-    "url": "https://www.ft.com/content/b9d270a8-738b-41cb-9c3c-5fa5ac0c2325"
-  },
-  {
-    "id": "7dbe983c-fcd2-41dd-bbe4-9f38a489e6c2",
-    "title": "The self-destructive wishful thinking about European autos and trade",
-    "date": "2026-10-19",
-    "time": "12:31",
-    "url": "https://www.ft.com/content/7dbe983c-fcd2-41dd-bbe4-9f38a489e6c2"
-  },
-  {
-    "id": "cc7e577a-db7a-4e12-9a42-443696b98ec5",
-    "title": "Emmanuel Macron rejects interior minister’s resignation after French riots",
-    "date": "2026-10-19",
-    "time": "12:29",
-    "url": "https://www.ft.com/content/cc7e577a-db7a-4e12-9a42-443696b98ec5"
   }
 ];

@@ -109,6 +109,28 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    "id": "rsch-mandg-bondvigilantes-riendrien-20261020",
+    "publication": "M&G Bond Vigilantes",
+    "author": "Richard Woolnough",
+    "series": "Bond Vigilantes",
+    "title": "Rien de rien (Absolutely nothing)",
+    "date": "2026-10-20",
+    "time": "16:10",
+    "summary": "One of the major economic events this quarter has been the move in French government bonds.",
+    "url": "https://bondvigilantes.com/blog/2026/10/rien-de-rien-absolutely-nothing/"
+  },
+  {
+    "id": "rsch-spdji-dailyindexinsights-20261020",
+    "publication": "S&P Dow Jones Indices",
+    "author": null,
+    "series": "Daily Index Insights",
+    "title": "Daily Index Insights",
+    "date": "2026-10-20",
+    "time": "14:30",
+    "summary": "Happy Birthday to the Sydney Opera House: on this day in 1973, Queen Elizabeth II officially opened the landmark.",
+    "url": "https://www.spglobal.com/spdji/en/commentary/article/daily-index-insights"
+  },
+  {
     "id": "rsch-pimco-creditmarketlens-softwareloans-20261019",
     "publication": "PIMCO",
     "author": "Lotfi Karoui",

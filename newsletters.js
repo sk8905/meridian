@@ -49,6 +49,42 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    "id": "nl-bloomberg-moneystuff-someonehastotaketheairisk-20261020",
+    "publication": "Bloomberg",
+    "author": "Matt Levine",
+    "series": "Money Stuff",
+    "title": "Money Stuff: Someone Has to Take the AI Risk",
+    "date": "2026-10-20",
+    "time": "19:32",
+    "summary": "CDS, rolls, evergreen CVs, founders.",
+    "url": "https://bloom.bg/4z1tpy0",
+    "body": true
+  },
+  {
+    "id": "nl-bloomberg-thebrink-brazilianlimbo-20261020",
+    "publication": "Bloomberg",
+    "author": "Giovanna Bellotti Azevedo, Rachel Gamarski",
+    "series": "The Brink",
+    "title": "The Brink: Brazilian limbo",
+    "date": "2026-10-20",
+    "time": "16:19",
+    "summary": "Oncoclinicas gets more time after debt deadline comes, and goes.",
+    "url": "https://www.bloomberg.com/news/newsletters/2026-10-20/a-90-day-rule-tests-limits-of-brazil-s-out-of-court-debt-reworks",
+    "body": true
+  },
+  {
+    "id": "nl-legalbusiness-alert-weilpartnermeeting-20261020",
+    "publication": "Legal Business",
+    "author": null,
+    "series": "Legal Business Alert",
+    "title": "Weil to hold all-partner meeting as merger speculation grows",
+    "date": "2026-10-20",
+    "time": "15:51",
+    "summary": "Partners set to join virtual meeting at 4pm UK time amid merger rumours and partner exits.",
+    "url": "https://www.legalbusiness.co.uk/law-firms/weil-to-hold-all-partner-meeting-as-merger-speculation-grows/",
+    "body": true
+  },
+  {
     "id": "nl-bloomberg-economicsdaily-shoppingsurprise-20261019",
     "publication": "Bloomberg",
     "author": "Ben Holland",
