@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-10-20";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "17:05 BST";
+export const LAST_CHECKED_TIME = "18:15 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -241,6 +241,7 @@ export const updateTypes = [
 // area: primary practice-area id. areas: all relevant practice-area ids.
 // For case notes, court/citation are populated.
 export const items = [
+  {"id":"u3493","title":"Ashurst Perkins Coie advises C1.ai on Workday acquisition","area":"corporate","areas":["corporate"],"type":"alert","firm":"ashurst","date":"2026-10-13","summary":"Workday signed a definitive agreement to acquire C1.ai, an agentic identity platform. Financial terms were not disclosed. Qatalyst is financial advisor to C1.ai with Ashurst Perkins Coie as its legal advisor; BofA Securities is financial advisor to Workday with Orrick as its legal advisor.","url":"https://newsroom.workday.com/2026-10-13-Workday-to-Acquire-C1-ai,-a-Leading-Agentic-Identity-Platform-for-People-and-Agents"},
   {"id":"u3423","title":"CFIUS Issues Final FIRRMA Regulations","area":"ri","areas":["ri"],"type":"insight","firm":"davispolk","date":"2020-01-22","summary":"On January 13, 2020, the U.S. Treasury Department promulgated its final regulations implementing the Foreign Investment Risk Review Modernization Act of","url":"https://www.davispolk.com/insights/client-update/cfius-issues-final-firrma-regulations"},
   {"id":"u3424","title":"SFTR reporting update – regulatory forbearance for backloading obligation for all phases","area":"ri","areas":["ri"],"type":"insight","firm":"macfarlanes","date":"2020-03-27","summary":"As noted in our SFTR reporting update for buy-side firms, one of the obligations under SFTR is the need to report certain historic SFTs","url":"https://www.macfarlanes.com/insights/102g390/sftr-reporting-update-regulatory-forbearance-for-backloading-obligation-for-all"},
   {"id":"u3425","title":"Hong Kong Law Chapter in Chambers Securitisation Guide 2021","area":"banking","areas":["banking"],"type":"insight","firm":"mayerbrown","date":"2021-01-12","summary":"Hong Kong law chapter contributed by Banking & Finance partner Vincent Sum.","url":"https://www.mayerbrown.com/en/insights/publications/2021/01/hong-kong-law-chapter-in-chambers-securitisation-guide-2021"},
