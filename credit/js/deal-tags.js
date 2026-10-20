@@ -1143,5 +1143,6 @@ const T = {
   d1251: {"c":"Pan-European","s":"Financial services","a":"aum"},
   d1252: {"c":"Global","s":"Diversified","a":"other"},
   d1253: {"c":"US","s":"Industrials","a":"financing"},
+  d1254: {"c":"US","s":"Asset-backed / specialty finance","a":"portfolio","p":"Encina Lender Finance","r":"seller"},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));
