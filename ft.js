@@ -21,6 +21,62 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "f2a2a578-5a2e-42ff-b4c9-8bafff271b37",
+    "title": "SpaceX and Tesla boards are exploring potential merger",
+    "date": "2026-10-20",
+    "time": "22:56",
+    "url": "https://www.ft.com/content/f2a2a578-5a2e-42ff-b4c9-8bafff271b37"
+  },
+  {
+    "id": "850f15c9-5833-4acb-a65c-c17ca88a5fde",
+    "title": "Joel Kaplan to step down as Meta global affairs chief",
+    "date": "2026-10-20",
+    "time": "22:30",
+    "url": "https://www.ft.com/content/850f15c9-5833-4acb-a65c-c17ca88a5fde"
+  },
+  {
+    "id": "e2bce5a9-0cb2-4166-8a14-3adeb5af6545",
+    "title": "Lula fast-tracks Brazil welfare payments days before run-off vote",
+    "date": "2026-10-20",
+    "time": "22:23",
+    "url": "https://www.ft.com/content/e2bce5a9-0cb2-4166-8a14-3adeb5af6545"
+  },
+  {
+    "id": "9cfa52b2-77cb-4b53-ad74-badd53f24fc6",
+    "title": "UK to approve development of Jackdaw gasfield in North Sea",
+    "date": "2026-10-20",
+    "time": "22:20",
+    "url": "https://www.ft.com/content/9cfa52b2-77cb-4b53-ad74-badd53f24fc6"
+  },
+  {
+    "id": "8cdf338e-d472-460c-8642-a8f033b99462",
+    "title": "Submit a question: Could Anthropic’s IPO be a turning point for AI?",
+    "date": "2026-10-20",
+    "time": "21:57",
+    "url": "https://www.ft.com/content/8cdf338e-d472-460c-8642-a8f033b99462"
+  },
+  {
+    "id": "0e99c2bc-873c-4d2d-b5c9-a0876faeb9ed",
+    "title": "Boeing wins approval for Max 10 jet in boost for turnaround efforts",
+    "date": "2026-10-20",
+    "time": "21:43",
+    "url": "https://www.ft.com/content/0e99c2bc-873c-4d2d-b5c9-a0876faeb9ed"
+  },
+  {
+    "id": "1b5d97dc-535a-42d9-ac0e-2c00e91c0aed",
+    "title": "Netflix gives downbeat outlook as streaming hits dry up",
+    "date": "2026-10-20",
+    "time": "21:32",
+    "url": "https://www.ft.com/content/1b5d97dc-535a-42d9-ac0e-2c00e91c0aed"
+  },
+  {
+    "id": "50be6960-c609-4849-94bc-7084afc89255",
+    "title": "UK bets on a boring budget",
+    "date": "2026-10-20",
+    "time": "21:00",
+    "url": "https://www.ft.com/content/50be6960-c609-4849-94bc-7084afc89255"
+  },
+  {
     "id": "c335e978-1ceb-4254-8c71-793a41e6d0b3",
     "title": "Donald Trump pledges to spend $400mn on Republican Party midterm campaigns",
     "date": "2026-10-20",
@@ -243,61 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-20",
     "time": "11:07",
     "url": "https://www.ft.com/content/92a2e2a4-356a-4aa3-9d1e-8b4fbaf1c365"
-  },
-  {
-    "id": "ff5859fb-dfa6-4fe5-a5cf-824a98ad32d4",
-    "title": "The hidden water crisis beneath the American west",
-    "date": "2026-10-20",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/ff5859fb-dfa6-4fe5-a5cf-824a98ad32d4"
-  },
-  {
-    "id": "5131563e-8fa6-4383-aee4-6cdd6daf25bc",
-    "title": "Five gadgets to keep your home safe",
-    "date": "2026-10-20",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/5131563e-8fa6-4383-aee4-6cdd6daf25bc"
-  },
-  {
-    "id": "581d8a59-b128-4f68-9f34-6c066b36ca5b",
-    "title": "Trump envoys to hold fresh Ukraine talks in Norway",
-    "date": "2026-10-20",
-    "time": "10:31",
-    "url": "https://www.ft.com/content/581d8a59-b128-4f68-9f34-6c066b36ca5b"
-  },
-  {
-    "id": "472ad6cf-438f-4d62-a41c-8725cbf53383",
-    "title": "Indonesia expels tightly held companies from Jakarta index in bid to avoid MSCI downgrade",
-    "date": "2026-10-20",
-    "time": "09:34",
-    "url": "https://www.ft.com/content/472ad6cf-438f-4d62-a41c-8725cbf53383"
-  },
-  {
-    "id": "8b1990d1-b4b2-4147-ba4b-76d1869ee2db",
-    "title": "EU drops push for global ban on Arctic drilling",
-    "date": "2026-10-19",
-    "time": "16:36",
-    "url": "https://www.ft.com/content/8b1990d1-b4b2-4147-ba4b-76d1869ee2db"
-  },
-  {
-    "id": "1faf0ed7-53ce-46a4-99c8-216e8e28b9ea",
-    "title": "Former chair of Monte dei Paschi accused of role in executive’s death",
-    "date": "2026-10-19",
-    "time": "16:10",
-    "url": "https://www.ft.com/content/1faf0ed7-53ce-46a4-99c8-216e8e28b9ea"
-  },
-  {
-    "id": "8848d06c-c0fa-49ff-af08-880ef4f3ff21",
-    "title": "India’s democracy once went looking for voters. Not any more",
-    "date": "2026-10-19",
-    "time": "15:46",
-    "url": "https://www.ft.com/content/8848d06c-c0fa-49ff-af08-880ef4f3ff21"
-  },
-  {
-    "id": "15a049f3-b62e-40ed-b304-8a2452713338",
-    "title": "Data centres need protection from drone warfare",
-    "date": "2026-10-19",
-    "time": "15:31",
-    "url": "https://www.ft.com/content/15a049f3-b62e-40ed-b304-8a2452713338"
   }
 ];

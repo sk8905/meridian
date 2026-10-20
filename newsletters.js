@@ -49,6 +49,18 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    "id": "nl-reuters-tradingday-oilreversalliftsspirits-20261020",
+    "publication": "Reuters",
+    "author": "Jamie McGeever",
+    "series": "Trading Day",
+    "title": "Oil reversal lifts spirits",
+    "date": "2026-10-20",
+    "time": "22:00",
+    "summary": "US stocks rose as oil pulled back from six-month highs and longer-dated Treasury yields fell.",
+    "url": "https://www.reuters.com/newsletters/trading-day",
+    "body": true
+  },
+  {
     "id": "nl-bloomberg-moneystuff-someonehastotaketheairisk-20261020",
     "publication": "Bloomberg",
     "author": "Matt Levine",
