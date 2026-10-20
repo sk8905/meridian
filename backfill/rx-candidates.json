@@ -1,9 +1,9 @@
 {
- "generated": "2026-10-19T19:25:16.870Z",
+ "generated": "2026-10-20T08:52:00.520Z",
  "windowDays": 120,
  "summary": {
   "judgments": 0,
-  "leads": 22,
+  "leads": 21,
   "tnaHits": 9,
   "held": 78,
   "errors": []
@@ -122,11 +122,6 @@
   {
    "title": "swiss chemicals group arxada secures english scheme sanction",
    "url": "https://globalrestructuringreview.com/article/swiss-chemicals-group-arxada-secures-english-scheme-sanction",
-   "source": "grr"
-  },
-  {
-   "title": "e house seeks chapter 15 recognition of third cayman scheme in four years",
-   "url": "https://globalrestructuringreview.com/article/e-house-seeks-chapter-15-recognition-of-third-cayman-scheme-in-four-years",
    "source": "grr"
   }
  ]
