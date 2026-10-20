@@ -28,6 +28,22 @@ if (D) {
   check(SECS.some((k) => D.weekly[k].items.length > 0), "weekly: the committed data yields at least one item to show");
 }
 
+// The morning email's HTML body (owner rule 2026-10-20, HOUSE_STYLE R39m): each item
+// ends in a short "[link]" — the long source URL sits behind it, never printed.
+{
+  const h = spawnSync(process.execPath, [path.join(ROOT, "scripts/build-digest.mjs"), "--email=weekly", "--html", "--asof=" + ASOF, "--origin=https://wire.example"], { cwd: ROOT, encoding: "utf8", maxBuffer: 16 << 20 });
+  const [subject, ...body] = (h.stdout || "").split("\n");
+  const html = body.join("\n");
+  check(/^Wire weekly credit digest — /.test(subject), `email --html: line 1 is the subject (${subject})`);
+  const links = [...html.matchAll(/<a href="([^"]+)"[^>]*>([^<]*)<\/a>/g)];
+  const items = (html.match(/<li /g) || []).length - (html.match(/Nothing new in this window/g) || []).length;
+  check(items > 0 && links.filter((m) => m[2] === "[link]").length === items, `email --html: every item ends in a "[link]" (${items} items)`);
+  check(links.every((m) => /^https?:\/\//.test(m[1])), "email --html: every [link] points at a real http(s) source");
+  const textOnly = html.replace(/<[^>]+>/g, " ");
+  check(!/https?:\/\//.test(textOnly), "email --html: no bare URL is printed in the text");
+  check(/open the digest/.test(html) && html.includes('href="https://wire.example/v2/menu/digest/weekly"'), "email --html: the In Wire line is a short link to the app digest");
+}
+
 const srv = await serve();
 const b = await launchChromium();
 const base = `http://localhost:${srv.port}`;

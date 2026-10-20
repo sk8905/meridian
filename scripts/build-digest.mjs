@@ -25,7 +25,9 @@
 //   node scripts/build-digest.mjs --asof=2026-10-15
 //   node scripts/build-digest.mjs --dry-run       # print the JSON, write nothing
 //   node scripts/build-digest.mjs --email[=weekly] [--origin=https://<live host>]
-//                                  # print a plain-text email (subject on line 1)
+//                                  # print the plain-text email (subject on line 1)
+//   node scripts/build-digest.mjs --email[=weekly] --html [--origin=…]
+//                                  # print the HTML body (subject on line 1) — "[link]"s
 // The refresh routine runs it (docs/refresh-routines.md ▸ Morning digest). It is NOT
 // in `npm run build`: its windows move with the calendar, so it is not deterministic
 // per commit the way gen-home-data is.
@@ -182,34 +184,66 @@ function render(d) {
     + "export const DIGEST = " + JSON.stringify(d, null, 1) + ";\n";
 }
 
-// Plain-text email for the routine to send via the Gmail connector.
-function emailText(d, which) {
+// The morning email, as rows → rendered two ways. Owner rule 2026-10-20 (HOUSE_STYLE
+// R39m): the HTML body shows a short "[link]" after each item — the long source URL
+// sits behind it, never printed in the text. The plain-text body is only the fallback
+// part for mail clients that cannot show HTML (there the bare URL is the only way to
+// link, so it stays).
+export function emailRows(d, which) {
   const W = d[which];
   const fmt = (s) => new Date(s + "T12:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
   const range = W.from === W.to ? fmt(W.to) : `${fmt(W.from)} – ${fmt(W.to)}`;
-  const lines = [`Wire ${W.label.toLowerCase()} credit digest — ${range}`, ""];
-  const sec = (title, block, line) => {
-    lines.push(title.toUpperCase());
-    if (!block.items.length) lines.push("  Nothing new in this window.");
-    for (const x of block.items) lines.push(...line(x));
-    lines.push("");
+  const rows = [];
+  const sec = (title, block, text) => {
+    rows.push({ h: title.toUpperCase() });
+    if (!block.items.length) rows.push({ empty: "Nothing new in this window." });
+    for (const x of block.items) rows.push({ text: text(x), url: x.url });
   };
-  sec("Top deals by size", W.deals, (x) => [`• ${x.title}${x.who ? ` (${x.who})` : ""} — ${x.date}`, `  ${x.url}`]);
-  sec("Fund closes & fundraising", W.closes, (x) => [`• ${x.title} — ${x.date}`, `  ${x.url}`]);
-  sec("Restructuring & legal", W.legal, (x) => [`• ${x.title}${x.who ? ` — ${x.who}` : ""} — ${x.date}`, `  ${x.url}`]);
-  sec("People moves", W.people, (x) => [`• ${x.title} — ${x.date}`, `  ${x.url}`]);
-  if (W.rates.items.length) sec(`Rates & spreads (${which === "daily" ? "1-day" : "1-week"} change)`, W.rates, (x) => [`• ${x.label} ${x.display}${x.unit === "bp" ? "bp" : "%"} (${x.chg > 0 ? "+" : ""}${x.chg}${x.chgUnit}, as of ${x.asOf}) — ${x.url}`]);
+  sec("Top deals by size", W.deals, (x) => `${x.title}${x.who ? ` (${x.who})` : ""} — ${x.date}`);
+  sec("Fund closes & fundraising", W.closes, (x) => `${x.title} — ${x.date}`);
+  sec("Restructuring & legal", W.legal, (x) => `${x.title}${x.who ? ` — ${x.who}` : ""} — ${x.date}`);
+  sec("People moves", W.people, (x) => `${x.title} — ${x.date}`);
+  if (W.rates.items.length) sec(`Rates & spreads (${which === "daily" ? "1-day" : "1-week"} change)`, W.rates, (x) => `${x.label} ${x.display}${x.unit === "bp" ? "bp" : "%"} (${x.chg > 0 ? "+" : ""}${x.chg}${x.chgUnit}, as of ${x.asOf})`);
   // The live origin is not in the repo, so it is passed in (--origin= / WIRE_ORIGIN);
   // without one the in-app path alone is printed.
   const origin = String(opt("--origin") || process.env.WIRE_ORIGIN || "").replace(/\/+$/, "");
-  lines.push(`In Wire: ${origin}/v2/menu/digest${which === "weekly" ? "/weekly" : ""}`);
+  return { subject: `Wire ${W.label.toLowerCase()} credit digest — ${range}`, rows, app: `${origin}/v2/menu/digest${which === "weekly" ? "/weekly" : ""}` };
+}
+// Plain-text fallback part (subject on line 1).
+export function emailText(d, which) {
+  const { subject, rows, app } = emailRows(d, which);
+  const lines = [subject, ""];
+  rows.forEach((r, i) => {
+    if (r.h) { if (i) lines.push(""); lines.push(r.h); }
+    else if (r.empty) lines.push("  " + r.empty);
+    else lines.push(`• ${r.text} — ${r.url}`);
+  });
+  lines.push("", `In Wire: ${app}`);
   return lines.join("\n");
+}
+const escH = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+// HTML body: each item ends in a short orange-underlined "[link]" (the house link style).
+export function emailHtml(d, which) {
+  const { subject, rows, app } = emailRows(d, which);
+  const a = (u, t = "[link]") => `<a href="${escH(u)}" style="color:#fb8b1e;text-decoration:underline">${t}</a>`;
+  const out = [];
+  let open = false;
+  const close = () => { if (open) { out.push("</ul>"); open = false; } };
+  for (const r of rows) {
+    if (r.h) { close(); out.push(`<p style="margin:18px 0 6px;font-weight:bold;letter-spacing:.04em">${escH(r.h)}</p>`); continue; }
+    if (!open) { out.push('<ul style="margin:0;padding-left:18px">'); open = true; }
+    out.push(r.empty ? `<li style="margin:3px 0;color:#777">${escH(r.empty)}</li>` : `<li style="margin:3px 0">${escH(r.text)} ${a(r.url)}</li>`);
+  }
+  close();
+  out.push(`<p style="margin:18px 0 0">In Wire: ${/^https?:/.test(app) ? a(app, "open the digest") : escH(app)}</p>`);
+  return `${escH(subject)}\n<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.45;color:#222">${out.join("")}</div>`;
 }
 
 const D = build();
 const email = opt("--email");
 if (email) {
-  console.log(emailText(D, email === "weekly" ? "weekly" : "daily"));
+  const which = email === "weekly" ? "weekly" : "daily";
+  console.log(opt("--html") ? emailHtml(D, which) : emailText(D, which));
 } else if (opt("--dry-run")) {
   console.log(JSON.stringify(D, null, 2));
 } else {

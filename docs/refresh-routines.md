@@ -1381,8 +1381,12 @@ prints, so that read-only task can send it). On **Mondays** it sends the weekly 
 1. `node scripts/build-digest.mjs --email` (the `WIRE_ORIGIN` environment variable, or
    `--origin=https://<live host>`, supplies the app link; without it the in-app path
    alone is printed). Line 1 of the output is the subject; the rest is the plain-text
-   body, every item followed by its source link.
-2. Send it with the **Gmail connector** (`send_message`) to **`skaidrive2@gmail.com`**
+   body, every item followed by its source link — this is the **fallback** part only.
+   Then run the same command with **`--html`** for the body that is actually read: line 1
+   is the subject again, the rest is the HTML, where every item ends in a short orange
+   **"[link]"** and the long URL never shows (owner rule 2026-10-20, HOUSE_STYLE **R51**).
+2. Send it with the **Gmail connector** (`send_message`, `htmlBody` = the `--html`
+   body, `body` = the plain-text body) to **`skaidrive2@gmail.com`**
    (owner-confirmed 2026-10-15) — the same connector the Email sweep above uses. If the connector offers no send tool
    this run, create a **draft** for the owner instead (`create_draft`) and say so in the
    run summary. Never invent items to pad an empty section: the script already prints

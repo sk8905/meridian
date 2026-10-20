@@ -1752,6 +1752,14 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   tab, chip or open-reader state; **(f)** the change gets a spec proving it doesn't jump
   (layout position before/after, as in `tests/home-live-anchor.mjs`). Review the change
   on the 390px phone viewport before pushing.
+- **R51 — Emails show "[link]", never a bare URL (owner 2026-10-20).** Every email Wire
+  sends that carries links (the morning credit digest, and the health email or any
+  routine report when it links anything) is sent as **HTML** (Gmail `send_message` `htmlBody`, with the plain text as `body` fallback). Each
+  item ends in a short **"[link]"** whose `href` is the item's real source URL, styled as
+  the house link: orange (`#fb8b1e`) and underlined. The long URL is never printed in the
+  text. The app link reads "open the digest" (or similar short words), not the URL. The
+  digest's HTML comes from `node scripts/build-digest.mjs --email --html`; the plain-text
+  `--email` output is only the fallback part. Spec: `tests/digest.mjs`.
 
 ## 7. Technical rules
 
