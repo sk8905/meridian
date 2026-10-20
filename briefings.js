@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-20",
-  time: "13:10 BST",
+  time: "15:06 BST",
   lede: "Asian shares fell on Tuesday and the 10-year Treasury yield pushed back above 5.1% as markets waited on AI-sector earnings, with French unrest and rising oil keeping risk appetite fragile.",
   bullets: [
     { html: "<strong>Macro &mdash; oil resumed its climb,</strong> Reuters reported, as markets weighed a Trump executive order waiving some sanctions and tariffs on Russian energy, while riots in France lifted safe-haven demand and helped the dollar hold firm against the euro.", src: "https://www.investing.com/news/economy-news/asian-shares-tumble-oil-rises-as-markets-await-ai-sector-results-4958677", srcName: "Reuters via Investing.com", date: "2026-10-20" },
