@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-19T20:13:41.644Z",
+ "generated": "2026-10-20T00:01:06.631Z",
  "since": "2026-10-05",
  "firms": {
   "proskauerrose": {
@@ -69,7 +69,7 @@
     "www.slaughterandmay.com"
    ],
    "sitemaps": 1,
-   "urls": 6289,
+   "urls": 6306,
    "kept": 10,
    "fetched": 10,
    "errors": 0,
@@ -128,18 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 16571,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
-  "kirkland": {
-   "domains": [
-    "www.kirkland.com"
-   ],
-   "sitemaps": 11,
-   "urls": 17414,
+   "urls": 16572,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -154,6 +143,17 @@
    "kept": 19,
    "fetched": 18,
    "errors": 1,
+   "carried": 0
+  },
+  "kirkland": {
+   "domains": [
+    "www.kirkland.com"
+   ],
+   "sitemaps": 11,
+   "urls": 17414,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
    "carried": 0
   },
   "whitecase": {
@@ -172,7 +172,7 @@
     "www.sidley.com"
    ],
    "sitemaps": 6,
-   "urls": 7176,
+   "urls": 7178,
    "kept": 2,
    "fetched": 2,
    "errors": 11,
@@ -244,7 +244,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12293,
+   "urls": 12295,
    "kept": 7,
    "fetched": 7,
    "errors": 0,
@@ -255,7 +255,7 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11586,
+   "urls": 11583,
    "kept": 14,
    "fetched": 14,
    "errors": 0,
@@ -302,7 +302,7 @@
     "content.clearygottlieb.com"
    ],
    "sitemaps": 1,
-   "urls": 18706,
+   "urls": 18708,
    "kept": 40,
    "fetched": 40,
    "errors": 1,
@@ -332,7 +332,7 @@
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16348,
+   "urls": 16349,
    "kept": 21,
    "fetched": 21,
    "errors": 0,
@@ -380,9 +380,9 @@
   },
   {
    "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-welcomes-debt-finance-partner-christopher-kwan-in-new-york",
-   "title": "AO Shearman welcomes debt finance partner Christopher Kwan in New York",
-   "description": "Christopher Kwan joins A&O Shearman's New York Debt Finance practice, bringing over a decade of leveraged finance and private credit experience.",
+   "url": "https://www.aoshearman.com/en/insights/sec-proposal-expanded-accredited-investor-eligibility-for-natural-persons",
+   "title": "SEC proposal: expanded accredited investor eligibility for natural persons",
+   "description": "The SEC proposes letting CPAs, CFA charterholders, CFPs and certain FINRA licence holders qualify as accredited investors. Comments due 4 December 2026.",
    "date": "2026-10-19",
    "dateSource": "datePublished",
    "lastmod": "2026-10-19"
@@ -398,8 +398,8 @@
   },
   {
    "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-forward-consumer-partners-on-acquisition-of-welly",
-   "title": "Kirkland Advises Forward Consumer Partners on Acquisition of Welly",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-charlesbank-on-debt-backing-mso-and-strategic-growth-investment",
+   "title": "Kirkland Advises Charlesbank on Debt Backing MSO and Strategic Growth Investment",
    "description": null,
    "date": "2026-10-19",
    "dateSource": "page date label",
@@ -407,21 +407,12 @@
   },
   {
    "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-encap-investments-on-largest-capital-raise-for-upstream-energy-continuation-vehicle",
-   "title": "Kirkland Advises EnCap Investments on Largest Capital Raise for Upstream Energy Continuation Vehicle",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-ares-on-acquisition-of-infinity-transportation-from-kkr",
+   "title": "Kirkland Advises Ares on $2.9 Billion Acquisition of Infinity Transportation from KKR",
    "description": null,
    "date": "2026-10-19",
    "dateSource": "page date label",
    "lastmod": null
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-achieves-chapter-11-resolution-for-thrill-holdings-sponsor-following-attempted-proxy-exercise",
-   "title": "Weil Achieves Successful Chapter 11 Resolution for Sponsor of Thrill Holdings Following Successful Challenge to Attempted Proxy Exercise and Board Sweep",
-   "description": "Weil advised Estremo and MTV Networks on the successful resolution of Thrill Holdings’ chapter 11 cases, including a global settlement and confirmed restructuring plan.",
-   "date": "2026-10-19",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-19"
   },
   {
    "firm": "weil",
@@ -792,15 +783,6 @@
    "date": "2026-10-08",
    "dateSource": "datePublished",
    "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-on-santander-consumer-banks",
-   "title": "A&O Sherman advises on Santander Consumer Bank’s cash SRT securitization of approximately EUR700 million",
-   "description": "A&O Shearman advises Santander Consumer Bank on a EUR700m STS auto loan securitization, marking S&P's first AAA-rated Italian ABS transaction since 2012.",
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-19"
   },
   {
    "firm": "whitecase",
