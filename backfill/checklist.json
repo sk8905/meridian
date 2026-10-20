@@ -7647,33 +7647,419 @@
    "kind": "hf",
    "name": "Coatue Management",
    "priority": 66,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "tiger-cubs-november-gains-2020",
+     "date": "2020-12-08",
+     "what": "Coatue among Tiger-related funds extending 2020 gains in November",
+     "status": "present",
+     "recordId": "hi438"
+    },
+    {
+     "key": "ventures-ii-filing-2021",
+     "date": "2021-03-09",
+     "what": "Coatue files to raise Coatue Ventures II venture fund",
+     "status": "present",
+     "recordId": "hi439"
+    },
+    {
+     "key": "asia-fund-2021",
+     "date": "2021-08-16",
+     "what": "Coatue planning Asia-focused fund (fourth new fund in under two years)",
+     "status": "present",
+     "recordId": "hi440"
+    },
+    {
+     "key": "structured-fund-2022",
+     "date": "2022-06-14",
+     "what": "Coatue launches Coatue Structured Fund (seventh launch in three years)",
+     "status": "present",
+     "recordId": "hi441"
+    },
+    {
+     "key": "ytd-loss-2022",
+     "date": "2022-07-20",
+     "what": "Coatue down 17% gross YTD to end-May 2022; long book -45%",
+     "status": "present",
+     "recordId": "hi442"
+    },
+    {
+     "key": "2023-annual",
+     "date": "2023-12-31",
+     "what": "2023 return / major event",
+     "source": "none",
+     "status": "rejected",
+     "note": "No source with verifiable date and Coatue-specific 2023 return found."
+    },
+    {
+     "key": "structured-equity-3bn-2024",
+     "date": "2024-01-12",
+     "what": "Coatue raises about $3bn structured equity fund",
+     "status": "present",
+     "recordId": "hi443"
+    },
+    {
+     "key": "flagship-raise-2024",
+     "date": "2024-11-05",
+     "what": "Coatue targets $1bn raise for flagship fund, Raymond James channel",
+     "status": "present",
+     "recordId": "hi444"
+    },
+    {
+     "key": "rich-list-2024-return-2025",
+     "date": "2025-03-21",
+     "what": "Main fund gained 18.7% in 2024; Laffont earned $1.9bn, 4th on Rich List",
+     "status": "present",
+     "recordId": "hi445"
+    },
+    {
+     "key": "tariff-turmoil-2025",
+     "date": "2025-04-14",
+     "what": "Coatue Qualified Partners down 1.56% YTD amid tariff selloff",
+     "status": "present",
+     "recordId": "hi446"
+    },
+    {
+     "key": "ctek-launch-2025",
+     "date": "2025-05-05",
+     "what": "Coatue launches CTEK tender offer fund with $1bn anchor from Bezos and Dell family offices",
+     "status": "present",
+     "recordId": "hi447"
+    },
+    {
+     "key": "new-ai-fund-2026",
+     "date": "2026-03-20",
+     "what": "Coatue ($70bn) looks to launch new AI/tech long-biased crossover fund",
+     "status": "present",
+     "recordId": "hi448"
+    },
+    {
+     "key": "june-rally-2026",
+     "date": "2026-07-02",
+     "what": "June +4.7%, 2026 gain 24.5%; May +14.2% best month in 25+ years",
+     "source": "Bloomberg",
+     "status": "present",
+     "recordId": "hi241"
+    },
+    {
+     "key": "july-sink-2026",
+     "date": "2026-08-03",
+     "what": "Flagship loses 8.3% in July amid AI rout; YTD gain 14.3%",
+     "source": "Bloomberg",
+     "status": "present",
+     "recordId": "hi80"
+    }
+   ]
   },
   "h37": {
    "kind": "hf",
    "name": "Adage Capital Management",
    "priority": 67,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "year-end-13f-2020",
+     "date": "2021-02-16",
+     "what": "Year-end 2020 13F: $45.9bn disclosed US equity book, 801 positions",
+     "source": "SEC EDGAR 13F-HR 000117266121000679",
+     "status": "present",
+     "recordId": "hi416"
+    },
+    {
+     "key": "year-end-13f-2021",
+     "date": "2022-02-14",
+     "what": "Year-end 2021 13F: $55.5bn disclosed US equity book, 1,018 positions",
+     "source": "SEC EDGAR 13F-HR 000117266122000453",
+     "status": "present",
+     "recordId": "hi417"
+    },
+    {
+     "key": "adage-tiverton-quant-2023",
+     "date": "2023",
+     "what": "Adage Tiverton quant arm first full year",
+     "source": "aggregator only",
+     "status": "rejected",
+     "note": "Single-sourced from a non-primary aggregator with no date; not corroborated."
+    },
+    {
+     "key": "year-end-13f-2022",
+     "date": "2023-02-14",
+     "what": "Year-end 2022 13F: $41.8bn disclosed US equity book, 973 positions",
+     "source": "SEC EDGAR 13F-HR 000117266123000817",
+     "status": "present",
+     "recordId": "hi418"
+    },
+    {
+     "key": "year-end-13f-2023",
+     "date": "2024-02-14",
+     "what": "Year-end 2023 13F: $48.3bn disclosed US equity book, 842 positions",
+     "source": "SEC EDGAR 13F-HR 000117266124000953",
+     "status": "present",
+     "recordId": "hi419"
+    },
+    {
+     "key": "flagship-returns-2020-2025",
+     "date": "2025",
+     "what": "Annual flagship returns / big raises 2020-2025",
+     "source": "none found",
+     "status": "rejected",
+     "note": "No tier-1 article with a dated, verifiable return, raise, leadership or regulatory event found via search."
+    },
+    {
+     "key": "year-end-13f-2024",
+     "date": "2025-02-14",
+     "what": "Year-end 2024 13F: $57.2bn disclosed US equity book, 869 positions",
+     "source": "SEC EDGAR 13F-HR 000117266125000948",
+     "status": "present",
+     "recordId": "hi420"
+    },
+    {
+     "key": "adv-aum-2025",
+     "date": "2026",
+     "what": "Form ADV regulatory AUM as of 31 Dec 2025",
+     "source": "aggregators",
+     "status": "rejected",
+     "note": "Conflicting aggregator figures, no primary ADV page fetched."
+    },
+    {
+     "key": "year-end-13f-2025",
+     "date": "2026-02-17",
+     "what": "Year-end 2025 13F: $66.1bn disclosed US equity book, 905 positions",
+     "source": "SEC EDGAR 13F-HR 000117266126000912",
+     "status": "present",
+     "recordId": "hi421"
+    },
+    {
+     "key": "gross-boston-foundation-board-2026",
+     "date": "2026-06-02",
+     "what": "Boston Foundation names co-founder Phill Gross to its Board of Directors (effective 1 Jul 2026)",
+     "source": "https://www.tbf.org/news-and-insights/press-releases/2026/june/phill-gross-to-join-board-of-directors",
+     "status": "present",
+     "recordId": "hi422"
+    },
+    {
+     "key": "q2-13f-2026",
+     "date": "2026-08-14",
+     "what": "Q2 2026 13F: $71.3bn US equity book",
+     "source": "SEC EDGAR 13F-HR 0001172661-26-003503",
+     "status": "present",
+     "recordId": "hi232"
+    }
+   ]
   },
   "h38": {
    "kind": "hf",
    "name": "Element Capital Management",
    "priority": 68,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "element-2020-performance-aum",
+     "date": "2020-12-31",
+     "what": "2020 gain 18.8%, AUM peak ~$18-20bn",
+     "source": "thewealthadvisor.com (2023-03-29)",
+     "status": "rejected",
+     "note": "No contemporaneous 2020 article with an exact date found; the 2020 return is covered in the 2023-03-29 record."
+    },
+    {
+     "key": "element-return-2bn-2021",
+     "date": "2021-01-08",
+     "what": "Return of ~$2bn of 2020 profits to clients",
+     "source": "Wikipedia (cites FT)",
+     "status": "rejected",
+     "note": "No dated primary source seen; exact date unverified."
+    },
+    {
+     "key": "element-vlieghe-hire-2021",
+     "date": "2021-09",
+     "what": "Hire of Gertjan Vlieghe as chief economist",
+     "source": "Wikipedia only",
+     "status": "rejected",
+     "note": "No tier-1 confirmation found."
+    },
+    {
+     "key": "element-q4-equity-bet-2022",
+     "date": "2022-02-10",
+     "what": "Q4 2021 13F: US equities expanded to >$1.55bn, 36 new longs",
+     "status": "present",
+     "recordId": "hi423"
+    },
+    {
+     "key": "element-downsizing-2023",
+     "date": "2023-03-29",
+     "what": "Forced ~$3bn downsizing; 2020 +18.8%, 2021 -8.9%, 2022 -3.4%",
+     "status": "present",
+     "recordId": "hi424"
+    },
+    {
+     "key": "element-return-4bn-2024",
+     "date": "2024-04-16",
+     "what": "Plan to return ~$4bn external capital",
+     "status": "present",
+     "recordId": "hi425"
+    },
+    {
+     "key": "element-returns-6bn-2025",
+     "date": "2025-01-21",
+     "what": "Returned >$6bn in 2024, AUM ~$3bn, 2024 +22.5%",
+     "source": "Bloomberg / Hedgeweek",
+     "status": "present",
+     "recordId": "hi119"
+    },
+    {
+     "key": "element-q4-equity-exit-2025",
+     "date": "2025-02-12",
+     "what": "Sold nearly all ~$2.2bn US equity portfolio in Q4 2024",
+     "status": "present",
+     "recordId": "hi426"
+    },
+    {
+     "key": "element-rich-list-2025",
+     "date": "2025-03-21",
+     "what": "Rich List: 2024 +22.5%, Talpins earned $405m",
+     "status": "present",
+     "recordId": "hi427"
+    },
+    {
+     "key": "element-q1-equity-buying-2025",
+     "date": "2025-05-14",
+     "what": "Bought ~$400m of stocks in Q1 2025 per 13F",
+     "status": "present",
+     "recordId": "hi428"
+    },
+    {
+     "key": "element-slashes-us-stocks-2025",
+     "date": "2025-08-13",
+     "what": "Cut US stock portfolio ~90% in Q2 2025",
+     "source": "Institutional Investor",
+     "status": "present",
+     "recordId": "hi120"
+    },
+    {
+     "key": "element-rich-list-2026",
+     "date": "2026-03-26",
+     "what": "Rich List: 2025 +24%, Talpins earned $900m",
+     "status": "present",
+     "recordId": "hi429"
+    },
+    {
+     "key": "element-arbitration-win-2026",
+     "date": "2026-06-25",
+     "what": "Arbitration win vs ex-trader",
+     "source": "held by Wire",
+     "status": "present",
+     "recordId": "hi197"
+    },
+    {
+     "key": "element-q2-13f-2026",
+     "date": "2026-08-14",
+     "what": "Q2 13F",
+     "source": "held by Wire",
+     "status": "present",
+     "recordId": "hi233"
+    }
+   ]
   },
   "h11": {
    "kind": "hf",
    "name": "Farallon Capital Management",
    "priority": 69,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-20",
+   "events": [
+    {
+     "key": "toshiba-agm-proposals-2020",
+     "date": "2020-07-22",
+     "what": "Farallon announces it will vote for shareholder proposals Nos. 3 and 4 at Toshiba's 181st AGM",
+     "status": "present",
+     "recordId": "hi430"
+    },
+    {
+     "key": "toshiba-egm-request-2020",
+     "date": "2020-12-25",
+     "what": "Farallon affiliate requests Toshiba convene an EGM over the Toshiba Next Plan and its one trillion yen M&A plan",
+     "status": "present",
+     "recordId": "hi431"
+    },
+    {
+     "key": "toshiba-shareholder-letter-2021",
+     "date": "2021-03-02",
+     "what": "Farallon letter to Toshiba shareholders ahead of 18 March EGM on capital policy",
+     "status": "present",
+     "recordId": "hi432"
+    },
+    {
+     "key": "healthcare-fund-2021",
+     "date": "2021-07-19",
+     "what": "Farallon launches Farallon Healthcare Partners, raised $335M per regulatory filing",
+     "status": "present",
+     "recordId": "hi433"
+    },
+    {
+     "key": "acceleron-merck-2021",
+     "date": "2021-11-03",
+     "what": "Farallon (>4% holder) opposes Merck's $11.5B Acceleron takeover",
+     "status": "present",
+     "recordId": "hi434"
+    },
+    {
+     "key": "toshiba-buyout-offers-2022",
+     "date": "2022-03-11",
+     "what": "Farallon urges Toshiba to solicit buy-out offers, opposes break-up plan",
+     "status": "present",
+     "recordId": "hi435"
+    },
+    {
+     "key": "toshiba-board-seat-2022",
+     "date": "2022-06-28",
+     "what": "Farallon's Eijiro Imai elected to Toshiba board at AGM",
+     "status": "present",
+     "recordId": "hi436"
+    },
+    {
+     "key": "toshiba-jip-buyout-2023",
+     "date": "2023-09-20",
+     "what": "Toshiba JIP tender offer closes",
+     "source": "https://www.theregister.com/2023/09/21/toshiba_tender_offer_succeeds/",
+     "status": "rejected",
+     "note": "Farallon's own role (tender, exit) not verified in any source."
+    },
+    {
+     "key": "no-verified-2023-2024-2026",
+     "date": "2024",
+     "what": "AUM/fund/performance events 2023, 2024 and 2026",
+     "source": "n/a",
+     "status": "rejected",
+     "note": "No dated tier-1 source found."
+    },
+    {
+     "key": "spokes-steps-down-2025",
+     "date": "2025",
+     "what": "Andrew Spokes steps down; Nicolas Giauque becomes Managing Partner/CIO",
+     "source": "https://en.wikipedia.org/wiki/Farallon_Capital",
+     "status": "rejected",
+     "note": "Only a Wikipedia claim; no exact date, tier-1 or firm release found."
+    },
+    {
+     "key": "astellas-stake-2025",
+     "date": "2025-02-12",
+     "what": "Farallon builds >3% stake in Astellas, FT reports",
+     "status": "present",
+     "recordId": "hi437"
+    },
+    {
+     "key": "astellas-ceo-engagement-2025",
+     "date": "2025-05-07",
+     "what": "Astellas CEO confirms engagement with activist Farallon",
+     "source": "https://www.bloomberg.com/news/articles/2025-05-07/astellas-ceo-says-engaging-with-activist-investor-farallon",
+     "status": "present",
+     "recordId": "hi125"
+    }
+   ]
   },
   "h39": {
    "kind": "hf",
