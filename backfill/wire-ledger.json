@@ -2718,6 +2718,30 @@
    "status": "rejected",
    "reason": "newsletter issue could not be verified; no primary source for tracked-entity facts",
    "at": "2026-10-21T19:14:51.815Z"
+  },
+  {
+   "url": "https://www.cnbc.com/2026/10/21/rick-rieder-investment-grade-bonds.html",
+   "status": "recorded",
+   "recordId": "webNews:m310",
+   "at": "2026-10-21T21:16:26.126Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxOYWFfZ0tmMEhnMkJLbTFpWXhEYjZoNU00Wk9BdFdTcExwSlQzQVlIYmpDcnBjR1RtaEE3bkpHSXQySjNOZEEzb2pZRjk0THc0UTZPRXlBcjFIMmYwU2t3UWprblk3OVBXS0tPdUxRZEppQ0t5RnJwNDFGa3IxdXFTaG5iV3pLSHVEazlnX3VFT2JzcXNrSWtQQS12LTBjTzVWd013b0stU3Jkd1pKWWxGVVBXc2JhVjZMU3Nfc0pyNnBzM0NUY1c0RWhCOHpIal9JcXVxbEFsUnIxWVNnSHhYOUhtSzVmT0hYS3BjZ2oyMkRjWUpKeDFJ?oc=5",
+   "status": "recorded",
+   "recordId": "webNews:m263",
+   "at": "2026-10-21T21:16:26.126Z"
+  },
+  {
+   "url": "https://iberianlawyer.com/linklaters-advises-ares-sale-granaita-retail-park/",
+   "status": "recorded",
+   "recordId": "u3767",
+   "at": "2026-10-21T21:17:12.054Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNQUNDYnNrQlZhSEVjQU8yN0ZEbThpdGI2UENmcGJaWlVrQTBraVhTaWROMmNhUVpLMUEwc2RJaTVxV2pWS1lTRGctOWYtTGdwdmw2eFFjY0tfX3RqTUZXNzlQbVptX2ZCbWN0Ri1VQ01rdVZ0WlRPczRKaUJXWGZCMnlFbTFRMVFOaElNejRwd3YxMmYtcUxtcmtsN2FXLWtlV3NzTlU0d0FwVjk0MTlqZGRJbUdiYk91ZTZxZDhuY1U4ZGxwNVVnbGZlMUlBTzR5QWc1RnJEandpNTA?oc=5",
+   "status": "rejected",
+   "reason": "about a former BlackRock executive joining another firm's advisory board; not a BlackRock capital event, hire or credit item",
+   "at": "2026-10-21T21:17:50.287Z"
   }
  ]
 }
