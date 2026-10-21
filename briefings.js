@@ -99,8 +99,8 @@
 // =============================================================================
 export const BRIEFINGS = {
   tz: "BST",
-  date: "2026-10-20",
-  time: "23:06 BST",
+  date: "2026-10-21",
+  time: "05:05 BST",
   lede: "US stocks rose on Tuesday as oil reversed from six-month highs and longer-dated Treasury yields fell about 5bp, while demand for AI-linked credit protection pushed Oracle's five-year CDS to about 3.3% a year.",
   bullets: [
     { html: "<strong>Macro &mdash; US pending home sales fell to a record low</strong> as mortgage rates surged, the FT reported, with the 10-year Treasury yield having pushed back above 5.1% earlier in the day.", src: "https://www.ft.com/content/42ed6778-d350-48a6-ba3d-99efca3cd276", srcName: "Financial Times", date: "2026-10-20" },

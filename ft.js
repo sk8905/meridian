@@ -21,6 +21,104 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "be6fa6df-cea1-4e99-8b8d-5ad5a17a3474",
+    "title": "Who’s merging with Weil?",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/be6fa6df-cea1-4e99-8b8d-5ad5a17a3474"
+  },
+  {
+    "id": "4e402323-c3f8-4aa6-9eba-0c8c9e478b4a",
+    "title": "Milan riots test Giorgia Meloni’s law and order credentials",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/4e402323-c3f8-4aa6-9eba-0c8c9e478b4a"
+  },
+  {
+    "id": "f06bdefd-bbc6-4a33-9884-09daa15752a9",
+    "title": "UK’s top banking regulator to set targets with five-year strategy",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/f06bdefd-bbc6-4a33-9884-09daa15752a9"
+  },
+  {
+    "id": "600ae6ad-ea09-4deb-ad55-10513e78a44e",
+    "title": "Netflix’s $300bn problem: lack of hits piles pressure on streaming giant",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/600ae6ad-ea09-4deb-ad55-10513e78a44e"
+  },
+  {
+    "id": "52e341e0-b29c-420a-9427-cf08e9982cc5",
+    "title": "Climate plans found to lower companies’ borrowing costs",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/52e341e0-b29c-420a-9427-cf08e9982cc5"
+  },
+  {
+    "id": "f4f711aa-ca65-4441-b311-73eadb3ccc40",
+    "title": "Andy Burnham cools on new towns project",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/f4f711aa-ca65-4441-b311-73eadb3ccc40"
+  },
+  {
+    "id": "480d1fa9-706d-4366-a76c-f39b1b7398a2",
+    "title": "Stratford moves closer to international rail upgrade with Budget boost",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/480d1fa9-706d-4366-a76c-f39b1b7398a2"
+  },
+  {
+    "id": "a744bc1c-98d8-4763-ad23-78e483bbf85f",
+    "title": "The people shaping the Budget",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/a744bc1c-98d8-4763-ad23-78e483bbf85f"
+  },
+  {
+    "id": "ef12fcab-5139-4750-b0d5-1f4b6c72086c",
+    "title": "John Healey squashes hopes of visa for wealthy in UK Budget",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/ef12fcab-5139-4750-b0d5-1f4b6c72086c"
+  },
+  {
+    "id": "d95609cd-1bb9-4995-937b-875277de3a42",
+    "title": "EU probes pro-Kremlin disinformation around French riots",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/d95609cd-1bb9-4995-937b-875277de3a42"
+  },
+  {
+    "id": "8c0ea73d-dc44-455a-b319-148c09f68e0a",
+    "title": "Britain cannot build its future by returning to the 1970s",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/8c0ea73d-dc44-455a-b319-148c09f68e0a"
+  },
+  {
+    "id": "2b772a7f-a4ef-412c-a96f-100dd9425684",
+    "title": "A pre-Budget day guide to Britain’s bad taxes",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/2b772a7f-a4ef-412c-a96f-100dd9425684"
+  },
+  {
+    "id": "eb4d1101-45ed-4d03-9beb-42f7c87a58ea",
+    "title": "Benjamin Netanyahu pushes to resume strikes against Iran",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/eb4d1101-45ed-4d03-9beb-42f7c87a58ea"
+  },
+  {
+    "id": "a7e3153d-ac45-4756-9961-75b892f337da",
+    "title": "Crypto exchanges race to offer prediction markets to US customers",
+    "date": "2026-10-21",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/a7e3153d-ac45-4756-9961-75b892f337da"
+  },
+  {
     "id": "f2a2a578-5a2e-42ff-b4c9-8bafff271b37",
     "title": "SpaceX and Tesla boards are exploring potential merger",
     "date": "2026-10-20",
@@ -201,103 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-20",
     "time": "15:04",
     "url": "https://www.ft.com/content/f8ea12f4-a55d-4f46-a409-5cffd093ab6a"
-  },
-  {
-    "id": "4bc3dcfd-bf93-4809-b6b3-f2e8742a396f",
-    "title": "Divisions are growing under Trump. For 14 Americans, will it change their vote?",
-    "date": "2026-10-20",
-    "time": "14:00",
-    "url": "https://www.ft.com/content/4bc3dcfd-bf93-4809-b6b3-f2e8742a396f"
-  },
-  {
-    "id": "0f5d14f1-6486-4d98-9340-3b8c8e79187d",
-    "title": "Flutter to cut more than 1,000 jobs after UK gambling tax raid",
-    "date": "2026-10-20",
-    "time": "13:52",
-    "url": "https://www.ft.com/content/0f5d14f1-6486-4d98-9340-3b8c8e79187d"
-  },
-  {
-    "id": "d8603ad4-e9a4-43e4-9419-a0eb53e298f3",
-    "title": "Why globetrotting retail banks are back in fashion",
-    "date": "2026-10-20",
-    "time": "13:28",
-    "url": "https://www.ft.com/content/d8603ad4-e9a4-43e4-9419-a0eb53e298f3"
-  },
-  {
-    "id": "c88b07df-d30e-401a-aca9-4b054d6dfd7b",
-    "title": "UK banks hit by Google Cloud outage",
-    "date": "2026-10-20",
-    "time": "13:03",
-    "url": "https://www.ft.com/content/c88b07df-d30e-401a-aca9-4b054d6dfd7b"
-  },
-  {
-    "id": "4fb42dd7-a72c-4e20-9e7c-cdc9d3215159",
-    "title": "Is CoreWeave the Silicon Valley Bank of 2026?",
-    "date": "2026-10-20",
-    "time": "12:50",
-    "url": "https://www.ft.com/content/4fb42dd7-a72c-4e20-9e7c-cdc9d3215159"
-  },
-  {
-    "id": "e0b2e8f1-6d3e-4647-9370-e7b7b7e7fd42",
-    "title": "Insurers face losses as riots in France become ‘like natural catastrophes’",
-    "date": "2026-10-20",
-    "time": "12:34",
-    "url": "https://www.ft.com/content/e0b2e8f1-6d3e-4647-9370-e7b7b7e7fd42"
-  },
-  {
-    "id": "31df1d21-159c-4c24-be0a-566c00c2d100",
-    "title": "Do not worry too much about European gas prices",
-    "date": "2026-10-20",
-    "time": "12:30",
-    "url": "https://www.ft.com/content/31df1d21-159c-4c24-be0a-566c00c2d100"
-  },
-  {
-    "id": "52fab4c1-0561-43ce-bc3c-0d43f6e217c5",
-    "title": "How the Hormuz crisis could trigger a global ‘food shock’",
-    "date": "2026-10-20",
-    "time": "12:00",
-    "url": "https://www.ft.com/content/52fab4c1-0561-43ce-bc3c-0d43f6e217c5"
-  },
-  {
-    "id": "f4bd0c67-5d11-44f4-8b70-4042a9be1cf2",
-    "title": "‘Protect the NHS’ slogan hurt care home residents in pandemic, Covid inquiry finds",
-    "date": "2026-10-20",
-    "time": "12:00",
-    "url": "https://www.ft.com/content/f4bd0c67-5d11-44f4-8b70-4042a9be1cf2"
-  },
-  {
-    "id": "f3d80441-2ab4-4ccb-bf8c-e2b6c040f238",
-    "title": "HSBC reviews Palantir holding in $9bn Islamic fund",
-    "date": "2026-10-20",
-    "time": "11:48",
-    "url": "https://www.ft.com/content/f3d80441-2ab4-4ccb-bf8c-e2b6c040f238"
-  },
-  {
-    "id": "59a3252c-3ea6-4e1e-bcc7-fef15cce16da",
-    "title": "UK to deploy jets to defend Saudi Arabia against Houthi attacks",
-    "date": "2026-10-20",
-    "time": "11:45",
-    "url": "https://www.ft.com/content/59a3252c-3ea6-4e1e-bcc7-fef15cce16da"
-  },
-  {
-    "id": "f2261796-20d1-4c90-ab3e-246d4aff504f",
-    "title": "Putin’s American friends",
-    "date": "2026-10-20",
-    "time": "11:26",
-    "url": "https://www.ft.com/content/f2261796-20d1-4c90-ab3e-246d4aff504f"
-  },
-  {
-    "id": "b101071b-0b47-4cf2-a35f-9ebb04539df2",
-    "title": "Older Americans brace for higher healthcare costs",
-    "date": "2026-10-20",
-    "time": "11:10",
-    "url": "https://www.ft.com/content/b101071b-0b47-4cf2-a35f-9ebb04539df2"
-  },
-  {
-    "id": "92a2e2a4-356a-4aa3-9d1e-8b4fbaf1c365",
-    "title": "FirstFT: AI debt fears spark default insurance trading surge",
-    "date": "2026-10-20",
-    "time": "11:07",
-    "url": "https://www.ft.com/content/92a2e2a4-356a-4aa3-9d1e-8b4fbaf1c365"
   }
 ];
