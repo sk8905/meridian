@@ -96,7 +96,8 @@ export function rosterEntities() {
   const out = [];
   const add = (kind, id, name, extra = []) => { const forms = [...new Set([...nameForms(name), ...extra])]; if (forms.length) out.push({ kind, id, name, forms, res: forms.map(formRe) }); };
   for (const m of CR.managers || []) add("manager", m.id, m.name);
-  for (const h of CR.HEDGE_FUNDS || []) add("hf", h.id, h.name);
+  // A firm a hedge fund absorbed (R39o) still makes news under its old name → the successor.
+  for (const h of CR.HEDGE_FUNDS || []) add("hf", h.id, h.name, (h.absorbed || []).flatMap((a) => nameForms(a.name)));
   for (const f of LG.firms || []) add("firm", f.id, f.name, FIRM_ALIASES[f.name] || []);
   for (const l of CR.lps || []) add("lp", l.id, l.name);
   for (const r of LG.restructurings || []) add("rx", r.id, r.company);

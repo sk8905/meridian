@@ -990,8 +990,11 @@ function hfHoldingsTable(d, perfMap) {
 }
 
 export function viewHedgeFund(id, tab0) {
-  const f = HEDGE_FUNDS.find((x) => x.id === id);
+  // A profile merged into another (R39o: `absorbed` on the successor) opens the successor,
+  // and the address is corrected in place (replaceState — no hashchange, no reload).
+  const f = HEDGE_FUNDS.find((x) => x.id === id) || HEDGE_FUNDS.find((x) => (x.absorbed || []).some((a) => a.id === id));
   if (!f) return notFound(app);
+  if (f.id !== id && typeof history !== "undefined") history.replaceState(history.state, "", location.hash.replace(`/hf/${id}`, `/hf/${f.id}`));
   const secUrl = f.cik ? `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${esc(f.cik)}&type=13F-HR&dateb=&owner=include&count=40` : null;
   // News for this fund — the hedge-fund intelligence stream (HEDGE_INTEL),
   // shaped into the shared credit wire row, newest first.
@@ -1025,6 +1028,7 @@ export function viewHedgeFund(id, tab0) {
           <div class="tdet-id">
             <h1>${nameCell("hf", f.id, esc(f.name))}</h1>
             <div class="tdet-sub">${esc(f.hq)} · ${esc(f.region)}${f.founded ? " · Founded " + esc(String(f.founded)) : ""}${f.founder ? " · " + esc(f.founder) : ""}</div>
+            ${(f.absorbed || []).map((a) => `<p class="tdet-desc hf-absorbed">Absorbed ${esc(a.name)}${a.date ? ` (${esc(String(a.date).slice(0, 4))})` : ""}${a.note ? " — " + esc(a.note) : ""}${a.source ? ` · <a href="${esc(a.source)}" target="_blank" rel="noopener noreferrer">source</a>` : ""}</p>`).join("")}
             ${latestLine(news)}
             ${f.perf && f.perf.text ? `<p class="tdet-desc">Performance: ${esc(f.perf.text)}${f.perf.asOf && !String(f.perf.text).includes(String(f.perf.asOf)) ? ` <span class="tf-est">${esc(f.perf.asOf)}</span>` : ""}${f.perf.source ? ` · <a href="${esc(f.perf.source)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">source</a>` : ""}</p>` : ""}
             <div class="tdet-chips"><span class="tdet-chip">${esc(f.strategy)}</span>${f.aum != null ? `<span class="tdet-chip">$${esc(f.aum.toFixed(2))}bn AUM</span>` : ""}${f.raum != null ? `<span class="tdet-chip" data-raum title="Regulatory assets under management from the firm's SEC Form ADV — gross of leverage, so usually above net AUM">$${esc(f.raum.toFixed(1))}bn regulatory AUM (SEC)</span>` : ""}</div>

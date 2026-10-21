@@ -9,6 +9,8 @@
 // close, and a link inside it navigates (closing the sheet). Desktop keeps tables.
 import { serve, launchChromium, PHONE, check, checkEq, checkErrs, finish } from "./lib.mjs";
 import { apis as LIVE } from "./fixtures/dashboard-live.mjs";
+import { HEDGE_FUNDS } from "../credit/js/data.js";
+const NHF = HEDGE_FUNDS.length; // tracked hedge funds (a merged profile drops one — R39o)
 
 const TABS = ["rates", "equities", "credit", "hedge-funds", "legal"];
 const b = await launchChromium();
@@ -98,14 +100,14 @@ for (const theme of ["dark", "light"]) {
   // "See all" → full-screen sheet.
   await pg.goto(`http://localhost:${srv.port}/v2/dashboard/hedge-funds/`, { waitUntil: "load" }); await pg.waitForTimeout(1800);
   const pv = await pg.evaluate(() => { const c = document.querySelector("#dsh-hfaum"); return { shown: [...c.querySelectorAll(".dsh-stk-i")].filter((e) => e.offsetParent).length, btn: (c.querySelector(".dsh-seeall") || {}).textContent || "" }; });
-  check(pv.shown === 10 && /See all 151/.test(pv.btn), `See all: the AUM card previews 10 funds with "See all 151" (${JSON.stringify(pv)})`);
+  check(pv.shown === 10 && new RegExp(`See all ${NHF}`).test(pv.btn), `See all: the AUM card previews 10 funds with "See all ${NHF}" (${JSON.stringify(pv)})`);
   await pg.tap("#dsh-hfaum .dsh-seeall"); await pg.waitForTimeout(400);
   const sh = await pg.evaluate(() => { const s = document.querySelector(".dsh-sheet"); if (!s) return null; const r = s.getBoundingClientRect(); const top = document.elementFromPoint(195, innerHeight - 20);
     return { items: [...s.querySelectorAll(".dsh-stk-i")].filter((e) => e.offsetParent).length, full: r.top <= 1 && r.height >= innerHeight - 1, above: !!(top && top.closest(".dsh-sheet")), scrolls: /(auto|scroll)/.test(getComputedStyle(s.querySelector(".dsh-sheet-body")).overflowY), locked: document.documentElement.classList.contains("dsh-sheet-open"), title: s.querySelector(".dsh-sheet-t").textContent }; });
-  check(sh && sh.items === 151 && sh.full && sh.above && sh.scrolls && sh.locked, `See all: a full-screen sheet above the tab bar lists all 151 (${JSON.stringify(sh)})`);
+  check(sh && sh.items === NHF && sh.full && sh.above && sh.scrolls && sh.locked, `See all: a full-screen sheet above the tab bar lists all ${NHF} (${JSON.stringify(sh)})`);
   await pg.fill(".dsh-sheet-q", "london"); await pg.waitForTimeout(200);
   const nF = await pg.evaluate(() => [...document.querySelectorAll(".dsh-sheet .dsh-stk-i")].filter((e) => e.offsetParent).length);
-  check(nF > 0 && nF < 151, `See all: the filter narrows the list (${nF} London funds)`);
+  check(nF > 0 && nF < NHF, `See all: the filter narrows the list (${nF} London funds)`);
   await pg.tap(".dsh-sheet-x"); await pg.waitForTimeout(200);
   check(await pg.evaluate(() => !document.querySelector(".dsh-sheet") && !document.documentElement.classList.contains("dsh-sheet-open")), "See all: ✕ closes the sheet and unlocks the page");
   await pg.tap("#dsh-hfaum .dsh-seeall"); await pg.waitForTimeout(300);

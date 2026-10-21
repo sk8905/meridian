@@ -10846,6 +10846,82 @@
      "to": "platform"
     }
    ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h108",
+   "verdict": "WRONG",
+   "source": "https://find-and-update.company-information.service.gov.uk/company/04916145/filing-history",
+   "sourceLabel": "Companies House",
+   "asOf": "2025-10-31",
+   "evidence": "Companies House 04916145: name changed EMSO ASSET MANAGEMENT LIMITED → KIRKOSWALD CAPITAL MANAGEMENT LIMITED (certificate 31 Oct 2025); PSC filing: Gregory John Coffey notified 1 Jan 2025, Mark Franklin ceased 1 Jan 2025. Bloomberg 29 Feb 2024: Kirkoswald in advanced talks to buy Emso; Hedgeweek Sep 2026: 'former Emso team' runs Kirkoswald's new EM credit fund. Emso's own 13F (CIK 1595951) last filed Q3 2023 with a $1 placeholder — not carried over.",
+   "changes": [
+    {
+     "field": "absorbed",
+     "from": null,
+     "to": [
+      {
+       "id": "h88",
+       "name": "Emso Asset Management",
+       "date": "2025-01-01",
+       "note": "EM fixed-income manager (founded 2000, Mark Franklin); EMSO Asset Management Ltd became Kirkoswald Capital Management Ltd (renamed 31 Oct 2025), Greg Coffey its controller from 1 Jan 2025",
+       "source": "https://find-and-update.company-information.service.gov.uk/company/04916145/filing-history"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_INTEL",
+   "id": "hi526",
+   "verdict": "WRONG",
+   "source": "https://www.hedgeweek.com/kirkoswald-to-launch-new-emerging-markets-credit-hedge-fund/",
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Emso profile merged into Kirkoswald (h108); the story is about Kirkoswald's fund.",
+   "changes": [
+    {
+     "field": "hfId",
+     "from": "h88",
+     "to": "h108"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21T15:31:26.037Z",
+   "collection": "HEDGE_FUNDS",
+   "id": "h88",
+   "verdict": "DUPLICATE",
+   "source": "https://find-and-update.company-information.service.gov.uk/company/04916145/filing-history",
+   "sourceLabel": "Companies House",
+   "asOf": "2025-10-31",
+   "evidence": "Merged into h108 Kirkoswald (absorbed[]): EMSO Asset Management Ltd renamed Kirkoswald Capital Management Ltd, controlled by Greg Coffey since 1 Jan 2025.",
+   "changes": [
+    {
+     "field": "(record deleted — merged into h108)",
+     "from": {
+      "id": "h88",
+      "name": "Emso Asset Management",
+      "hq": "London, UK",
+      "region": "UK",
+      "aum": 4.19,
+      "strategy": "Emerging-markets fixed income",
+      "founded": 2000,
+      "founder": "Mark Franklin",
+      "cik": "0001595951",
+      "aumAsOf": "2025",
+      "aumSource": "https://aum13f.com/firm/emso-asset-management-limited",
+      "estimated": true,
+      "perf": null,
+      "url": "https://emso.com",
+      "raum": 5,
+      "raumAsOf": "2026-04-30",
+      "raumSource": "https://adviserinfo.sec.gov/firm/summary/139217"
+     }
+    }
+   ]
   }
  ]
 }

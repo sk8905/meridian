@@ -1297,6 +1297,13 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   counts, Dashboard KPIs, the stale-fund rota slice, the Form D sweep); its kind
   (`FUND_KINDS` in data.js) reads in place of the status and the size. Spec:
   `tests/data-vocab.mjs`.
+  **(o) Merged profiles** (owner 2026-10-21, Emso → Kirkoswald). When a tracked firm is
+  proven absorbed by another (registry evidence: a rename / change of control, not a
+  rumoured deal), the successor carries `absorbed: [{ id, name, date, note, source }]`,
+  the old profile's news moves to the successor and the old record is deleted as a
+  duplicate (logged with its full content in `backfill/research-ledger.json`). An old
+  `#/hf/<id>` link opens the successor (address corrected in place); the wire sweep
+  matches the absorbed name to the successor. Spec: `tests/hf-absorbed.mjs`.
 
 ---
 

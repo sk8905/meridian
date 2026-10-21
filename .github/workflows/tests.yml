@@ -29,7 +29,9 @@ concurrency:
 jobs:
   suite:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # Two full passes (source + dist) at ~10 min each on a stock runner (613s, run 377,
+    # 2026-10-21) — the old 15-min cap cancelled every run before it could report.
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
 
