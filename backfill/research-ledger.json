@@ -10978,6 +10978,66 @@
      "reported": "31bn USD"
     }
    ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "firms",
+   "id": "freshfields",
+   "verdict": "UNCHANGED",
+   "source": "https://www.legalcheek.com/2025/12/freshfields-profits-slip-despite-rising-revenue/",
+   "sourceLabel": "Legal Cheek",
+   "asOf": "2026-10-21",
+   "evidence": "Search on 2026-10-21 found no FY2025/26 results; latest reported year is to April 2025 (revenue £2.25bn, pre-tax profit £656.8m), which the record already holds. Nothing changed.",
+   "changes": [
+    {
+     "field": "lastChecked",
+     "from": null,
+     "to": {
+      "date": "2026-10-21",
+      "url": "https://www.legalcheek.com/2025/12/freshfields-profits-slip-despite-rising-revenue/"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f18",
+   "verdict": "UNCHANGED",
+   "source": "https://alternativecreditinvestor.com/2025/03/27/albacore-raises-1-8bn-for-new-direct-lending-strategy/",
+   "sourceLabel": "Alternative Credit Investor",
+   "asOf": "2026-10-21",
+   "evidence": "No final-close announcement found for the Senior Direct Lending Strategy; latest report remains the March 2025 first close (~$1.8bn investable capital).",
+   "changes": [
+    {
+     "field": "lastChecked",
+     "from": null,
+     "to": {
+      "date": "2026-10-21",
+      "url": "https://alternativecreditinvestor.com/2025/03/27/albacore-raises-1-8bn-for-new-direct-lending-strategy/"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h21",
+   "verdict": "UNCHANGED",
+   "source": "https://www.sec.gov/Archives/edgar/data/0001086888/000108688826000081/q22026reporttoshareholderl.htm",
+   "sourceLabel": "Manulife Q2 2026 report to shareholders",
+   "asOf": "2026-10-21",
+   "evidence": "Manulife Q2 2026 release credits CQS with positive flows but gives no CQS-only AUM; $13.5bn (Oct 2023) stays the latest CQS-specific figure. Unconfirmed.",
+   "changes": [
+    {
+     "field": "lastChecked",
+     "from": null,
+     "to": {
+      "date": "2026-10-21",
+      "url": "https://www.sec.gov/Archives/edgar/data/0001086888/000108688826000081/q22026reporttoshareholderl.htm"
+     }
+    }
+   ]
   }
  ]
 }

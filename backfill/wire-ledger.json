@@ -2670,6 +2670,54 @@
    "status": "rejected",
    "reason": "ABL/FILO led by Wells Fargo bank; borrower and Pathlight not tracked; no credit-manager event",
    "at": "2026-10-21T17:17:28.143Z"
+  },
+  {
+   "url": "https://www.cnbc.com/investingclub/2026/10/21/spacex-gives-the-ai-trade-a-shot-in-the-arm-what-it-means-for-our-stocks-.html",
+   "status": "rejected",
+   "reason": "equity-market commentary on SpaceX, not a stressed-credit update",
+   "at": "2026-10-21T19:14:51.815Z"
+  },
+  {
+   "url": "https://www.legalbusiness.co.uk/law-firms/the-music-is-playing-faster-and-faster-market-reacts-to-weil-merger-speculation/",
+   "status": "rejected",
+   "reason": "merger speculation Weil denied; no firm announcement, article not retrievable",
+   "at": "2026-10-21T19:14:51.815Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPVTNTZ0hUYWpxN1A0a2JWYXhBX1RYTHA0QkxZdWgwU1BRdmViZm4tZjdEUm5IWFRuekZPRVpmbzh6T1ZySkZmWkJxWWx3dXVod3hZUUJDR3ZIYUg3WHVkOFBiMElPalB3Z2VMRnJwaURmWUllU3dGSFVIRXdRZkN0VG5ZRnZXUGJtemVYYXB2ZlotWXFKcnFQWHJ2YWdmNldjTGpUSmhoS01EbVdoQVhlQ0d1UGU3TkVjRl9HU0JkWjdmWkJXR1djTTg3aW80RGRMV3QzM204UkpJczdLc0E?oc=5",
+   "status": "rejected",
+   "reason": "IREN Spanish campus announcement carries no financing — the financing is already held as d829",
+   "at": "2026-10-21T19:14:51.815Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxQcU9nZ2FfN2xqbTVCb2Y5YXhYbWdqSExwd0stTl8xRks5ekV6UEIyaHZiaTR2MHpzYTlScFNIZEh4MmtQQzBzaXJHYnFBZVROZmZDUno0UXVfdlluMjQ3d0ZzUGVZaE5teEE3MFNfY1V3RE1iUFlhemhNWHRpVjlsTDhlbElGa1hxLUZZUzNESTNhYjRKY3pDZDJpUVJxUUFyaHFJeXplcGV0UmdLSV9EYm51TDkwNDg0SHFnNi15T0dtYy1mcVdKMlhlTWpieVR3MVozNGhJMV9MSW9vRWdKU3lXVHlIbUFtaExIblROcmRPZFk?oc=5",
+   "status": "rejected",
+   "reason": "private equity secondaries fund close, not credit",
+   "at": "2026-10-21T19:14:51.815Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxQYUdKRm1HN1ItdjFoRFJoSWd6b0ctX0k3dEZscVVOazQxSE9rS1hjQnlzYjZva21sTWgzWE15Z1ZEOXM3MzBxWFBNbHhZZVRjNFo1RWdCeC1EYnBqRkxqeTFNQ2FMc2ZvaXFPR3YwLUFiR0h5N2w4TTNBRWt2WHRYSUxaM0NtbmlFSTJSbEVSNTg5MjJSTXhScWQ0OVJTSzhfdjJVeUtlOEplZGpCRzk3dGtwUGlYQ05ZUkxKak9yYjAxSGZHQl9ETVdPQ0k4c1dTM1FOaXM2ajNGNGVraGYwQjE5dmNKYy1mWUtFQ1hNWXB0ZU1iODM1TXlVZU1uX1dF?oc=5",
+   "status": "rejected",
+   "reason": "primary release not located; date conflict; PE sponsors not credit subjects",
+   "at": "2026-10-21T19:14:51.815Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMilgJBVV95cUxNaGNkcFNzYzZlZGtha3hxV002Q2d2LVNvNUFTZ1hfREtkVjM5Ri1COTBJZk54Yi1kYUs3SFo3ZVNMYV9FTjliM3VQUFFLc0VFQWl3cWtZUWJSbjVKd2tUZm9HR0dFUGc3TnpUaUxiWmIxMFNfM29md1hlYm84NHRjU3RWLU1GTjA3X2JNbXJhSDdrZ2lwSWlCekFKb3Ffb2poUkdZeHlqdGJLdjc0S1R6V0lZZXhEZTYwYjZDTUp0cVNuUDUwRjVxX0dXeUE1aFQ0LTdFNmh6MC15WmkxSUR5U05LVVNERzUydnExblBsSGE1RVNTLTBSMnVzZVgwdUVoMzlzRkdReUt0VzgtZHMtRTB6Zkl5Zw?oc=5",
+   "status": "rejected",
+   "at": "2026-10-21T19:14:51.815Z",
+   "reason": "primary Business Wire release not located; only Yahoo Finance and a secondary summary carry the NAV/NII estimates, and Yahoo is a low-grade citation"
+  },
+  {
+   "url": "https://www.whitecase.com/news/press-release/white-case-advises-atalian-global-recapitalization-and-change-ownership",
+   "status": "recorded",
+   "recordId": "CR_STRESS:Atalian",
+   "at": "2026-10-21T19:14:51.815Z"
+  },
+  {
+   "url": "https://debtserious.substack.com/p/round-62-blackstone-securitizes-ares",
+   "status": "rejected",
+   "reason": "newsletter issue could not be verified; no primary source for tracked-entity facts",
+   "at": "2026-10-21T19:14:51.815Z"
   }
  ]
 }
