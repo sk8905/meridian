@@ -1,0 +1,2559 @@
+{
+ "generated": "2026-10-21T11:09:20.581Z",
+ "windowDays": 30,
+ "summary": {
+  "wireItems": 585,
+  "matched": 131,
+  "open": 121,
+  "total": 129,
+  "entities": 1469,
+  "failedSources": [
+   "Accredited Investor Insights",
+   "Mohamed El-Erian",
+   "Debt Serious"
+  ]
+ },
+ "place": {
+  "manager": "credit deals/intel (capital events, hires) or the manager's webNews",
+  "hf": "HEDGE_INTEL",
+  "firm": "legal items (the firm's deal / advisory / people news)",
+  "lp": "commitments (an allocation) or the LP's sources/notes",
+  "borrower": "the deal record (update or new deal) — Profiles ▸ borrower page",
+  "rx": "legal restructurings (court step) or the restructuring's notes",
+  "stress": "Dashboard ▸ Credit stress list (CR_STRESS latest/status) + deal/intel if a transaction"
+ },
+ "items": [
+  {
+   "key": "alternativecreditinvestor.com/2026/10/21/arini-closes-inaugural-direct-lending-fund",
+   "title": "Arini closes inaugural direct lending fund",
+   "url": "https://alternativecreditinvestor.com/2026/10/21/arini-closes-inaugural-direct-lending-fund/",
+   "source": "Alternative Credit Investor",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m40",
+     "name": "Arini Capital Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h45",
+     "name": "Arini"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "cnbc.com/2026/10/21/cnbc-daily-open-spacex-tesla-elon-musk-ai.html",
+   "title": "CNBC Daily Open: SpaceX and Tesla may merge in the multiverse of Musk",
+   "url": "https://www.cnbc.com/2026/10/21/cnbc-daily-open-spacex-tesla-elon-musk-ai.html",
+   "source": "CNBC",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "stress",
+     "id": "SpaceX",
+     "name": "SpaceX"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "cnbc.com/2026/10/21/spacex-spcx-stock-musk-merger-tesla.html",
+   "title": "SpaceX up over 8% in premarket after earnings beat and Musk hints at Tesla tie-up",
+   "url": "https://www.cnbc.com/2026/10/21/spacex-spcx-stock-musk-merger-tesla.html",
+   "source": "CNBC",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "stress",
+     "id": "SpaceX",
+     "name": "SpaceX"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "euronews.com/2026/10/21/elon-musk-backs-spacex-tesla-merger-as-rocket-firm-turns-profit",
+   "title": "Elon Musk backs SpaceX-Tesla merger as rocket firm turns profit",
+   "url": "https://www.euronews.com/2026/10/21/elon-musk-backs-spacex-tesla-merger-as-rocket-firm-turns-profit",
+   "source": "Euronews Business",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "stress",
+     "id": "SpaceX",
+     "name": "SpaceX"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/barclays-reallocates-capital-to-meet-hedge-fund-financing-demand",
+   "title": "Barclays reallocates capital to meet hedge fund financing demand",
+   "url": "https://hedgeweek.com/news/barclays-reallocates-capital-to-meet-hedge-fund-financing-demand",
+   "source": "Hedgeweek",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m59",
+     "name": "Barclays"
+    },
+    {
+     "kind": "manager",
+     "id": "m426",
+     "name": "Barclays Capital Inc."
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/citadels-ken-griffin-warns-ai-is-almost-certainly-in-a-bubble",
+   "title": "Citadel’s Ken Griffin warns AI is ‘almost certainly’ in a bubble",
+   "url": "https://hedgeweek.com/news/citadels-ken-griffin-warns-ai-is-almost-certainly-in-a-bubble",
+   "source": "Hedgeweek",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m385",
+     "name": "Citadel"
+    },
+    {
+     "kind": "hf",
+     "id": "h4",
+     "name": "Citadel"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/sachem-head-sees-140-upside-in-ionic-digital-shares-amid-ai-pivot",
+   "title": "Sachem Head sees 140% upside in Ionic Digital shares amid AI pivot",
+   "url": "https://hedgeweek.com/news/sachem-head-sees-140-upside-in-ionic-digital-shares-amid-ai-pivot",
+   "source": "Hedgeweek",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m384",
+     "name": "Sachem Head"
+    },
+    {
+     "kind": "borrower",
+     "id": "d547",
+     "name": "Ionic Digital"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "legalcheek.com/2026/10/weil-in-merger-talks-with-mystery-law-firm-report-claims",
+   "title": "Weil in merger talks with mystery law firm, report claims",
+   "url": "https://www.legalcheek.com/2026/10/weil-in-merger-talks-with-mystery-law-firm-report-claims/",
+   "source": "Legal Cheek",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "weil",
+     "name": "Weil, Gotshal & Manges"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "privateequitywire.co.uk/blackstone-and-warburg-pincus-explore-10bn-intrafi-sale",
+   "title": "Blackstone and Warburg Pincus explore $10bn IntraFi sale",
+   "url": "https://www.privateequitywire.co.uk/blackstone-and-warburg-pincus-explore-10bn-intrafi-sale/",
+   "source": "Private Equity Wire",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m8",
+     "name": "Blackstone Credit & Insurance (BXCI)"
+    },
+    {
+     "kind": "manager",
+     "id": "m438",
+     "name": "Blackstone (funds managed by Blackstone)"
+    },
+    {
+     "kind": "borrower",
+     "id": "d780",
+     "name": "Blackstone Private Credit Fund"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "privateequitywire.co.uk/centerbridge-and-mubadala-near-1bn-canaccord-wealth-deal",
+   "title": "Centerbridge and Mubadala near £1bn Canaccord Wealth deal",
+   "url": "https://www.privateequitywire.co.uk/centerbridge-and-mubadala-near-1bn-canaccord-wealth-deal/",
+   "source": "Private Equity Wire",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m69",
+     "name": "Centerbridge Partners"
+    },
+    {
+     "kind": "manager",
+     "id": "m125",
+     "name": "Mubadala Capital"
+    },
+    {
+     "kind": "lp",
+     "id": "l9",
+     "name": "Mubadala"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "privateequitywire.co.uk/partners-group-cuts-fees-on-e6-6bn-evergreen-fund-amid-redemption-pressure",
+   "title": "Partners Group cuts fees on €6.6bn evergreen fund amid redemption pressure",
+   "url": "https://www.privateequitywire.co.uk/partners-group-cuts-fees-on-e6-6bn-evergreen-fund-amid-redemption-pressure/",
+   "source": "Private Equity Wire",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m91",
+     "name": "Partners Group"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "alternativecreditinvestor.com/2026/10/20/boe-investigates-barclays-private-credit-loans",
+   "title": "BoE investigates Barclays’ handling of private credit loans",
+   "url": "https://alternativecreditinvestor.com/2026/10/20/boe-investigates-barclays-private-credit-loans/",
+   "source": "Alternative Credit Investor",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m59",
+     "name": "Barclays"
+    },
+    {
+     "kind": "manager",
+     "id": "m426",
+     "name": "Barclays Capital Inc."
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "alternativecreditinvestor.com/2026/10/20/maquarie-hires-credit-head-blackstone",
+   "title": "Macquarie hires credit head from Blackstone",
+   "url": "https://alternativecreditinvestor.com/2026/10/20/maquarie-hires-credit-head-blackstone/",
+   "source": "Alternative Credit Investor",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m8",
+     "name": "Blackstone Credit & Insurance (BXCI)"
+    },
+    {
+     "kind": "manager",
+     "id": "m120",
+     "name": "Macquarie Asset Management (Credit & Insurance)"
+    },
+    {
+     "kind": "manager",
+     "id": "m438",
+     "name": "Blackstone (funds managed by Blackstone)"
+    },
+    {
+     "kind": "borrower",
+     "id": "d780",
+     "name": "Blackstone Private Credit Fund"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "cnbc.com/2026/10/20/musk-spacex-trump-account-stock-rules.html",
+   "title": "If Elon Musk gifts SpaceX stock through Trump Accounts, it will come with a catch",
+   "url": "https://www.cnbc.com/2026/10/20/musk-spacex-trump-account-stock-rules.html",
+   "source": "CNBC",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "stress",
+     "id": "SpaceX",
+     "name": "SpaceX"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "cnbc.com/investingclub/2026/10/20/capital-one-strong-quarter-and-progressing-discover-integration-are-rewarded.html",
+   "title": "Capital One's strong quarter and progressing Discover integration are rewarded on Wall Street",
+   "url": "https://www.cnbc.com/investingclub/2026/10/20/capital-one-strong-quarter-and-progressing-discover-integration-are-rewarded.html",
+   "source": "CNBC",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m388",
+     "name": "Capital One"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/balyasny-reshuffles-ai-team-as-research-head-moves-into-trading",
+   "title": "Balyasny reshuffles AI team as research head moves into trading",
+   "url": "https://hedgeweek.com/news/balyasny-reshuffles-ai-team-as-research-head-moves-into-trading",
+   "source": "Hedgeweek",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h17",
+     "name": "Balyasny Asset Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/former-citi-trader-set-to-leave-capula-after-three-months",
+   "title": "Former Citi trader set to leave Capula after three months",
+   "url": "https://hedgeweek.com/news/former-citi-trader-set-to-leave-capula-after-three-months",
+   "source": "Hedgeweek",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m244",
+     "name": "Citi"
+    },
+    {
+     "kind": "hf",
+     "id": "h15",
+     "name": "Capula Investment Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/optiver-hires-former-rokos-capital-partner-as-global-quant-head",
+   "title": "Optiver hires former Rokos Capital partner as global quant head",
+   "url": "https://hedgeweek.com/news/optiver-hires-former-rokos-capital-partner-as-global-quant-head",
+   "source": "Hedgeweek",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h18",
+     "name": "Rokos Capital Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/treasuries-lose-appeal-as-portfolio-hedge-amid-inflation-pressures-citi-warns",
+   "title": "Treasuries lose appeal as portfolio hedge amid inflation pressures, Citi warns",
+   "url": "https://hedgeweek.com/news/treasuries-lose-appeal-as-portfolio-hedge-amid-inflation-pressures-citi-warns",
+   "source": "Hedgeweek",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m244",
+     "name": "Citi"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/two-sigma-executive-to-exit-amid-ongoing-founders-dispute",
+   "title": "Two Sigma executive to exit amid ongoing founders' dispute",
+   "url": "https://hedgeweek.com/news/two-sigma-executive-to-exit-amid-ongoing-founders-dispute",
+   "source": "Hedgeweek",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h7",
+     "name": "Two Sigma Investments"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "legalbusiness.co.uk/law-firms/kirkland-and-weil-advise-as-us-insurance-firm-takes-pe-investment",
+   "title": "Kirkland, Latham, Weil advise as US insurance firm takes PE investment",
+   "url": "https://www.legalbusiness.co.uk/law-firms/kirkland-and-weil-advise-as-us-insurance-firm-takes-pe-investment/",
+   "source": "Legal Business",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "latham",
+     "name": "Latham & Watkins"
+    },
+    {
+     "kind": "firm",
+     "id": "kirkland",
+     "name": "Kirkland & Ellis"
+    },
+    {
+     "kind": "firm",
+     "id": "weil",
+     "name": "Weil, Gotshal & Manges"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "legalbusiness.co.uk/law-firms/weil-to-hold-all-partner-meeting-as-merger-speculation-grows",
+   "title": "Weil to hold all-partner meeting as merger speculation soars",
+   "url": "https://www.legalbusiness.co.uk/law-firms/weil-to-hold-all-partner-meeting-as-merger-speculation-grows/",
+   "source": "Legal Business",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "weil",
+     "name": "Weil, Gotshal & Manges"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "legalcheek.com/2026/10/freshfields-apologises-over-leaked-comments-about-middle-eastern-investors",
+   "title": "Freshfields apologises over leaked comments about Middle Eastern investors",
+   "url": "https://www.legalcheek.com/2026/10/freshfields-apologises-over-leaked-comments-about-middle-eastern-investors/",
+   "source": "Legal Cheek",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "freshfields",
+     "name": "Freshfields"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "legalcheek.com/2026/10/hogan-lovells-cadwalader-bets-on-harvey-and-legora-in-new-ai-strategy",
+   "title": "Hogan Lovells Cadwalader bets on Harvey AND Legora in new AI strategy",
+   "url": "https://www.legalcheek.com/2026/10/hogan-lovells-cadwalader-bets-on-harvey-and-legora-in-new-ai-strategy/",
+   "source": "Legal Cheek",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "hoganlovells",
+     "name": "Hogan Lovells"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi3afbvv95cuxpahpvse9jcnzsa1pbstuzcfu4afdvbdyznhbmwhiwn2z5ujbit0xkzuxzazddodbaskxfvgrlyu84d2y4mmytdxlqdw90nw5zzgytekk0zuq5dw1znfz5ve1uqtltdznxbjhsqtvuckrqcuf1atvmtutplwfwu1fhshzzv2h2rnjgdmhqm3aytm9rbzjoduxrvxlqqmtnewlcdfg0yv9qykddmmt4mtfubeh2dha4zwdmewrnx2lsnwvez213v0k0au50rvfnt2jzmxhoyzhkeerzempq",
+   "title": "Sagard Expands Private Credit Reach to U.S. Wealth Market, Building on Baird Partnership",
+   "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPaHpvSE9jcnZsa1pBSTUzcFU4aFdvbDYzNHBMWHIwN2Z5UjBIT0xKZUxZazdDODBaSkxFVGRlYU84d2Y4MmYtdXlqdW90NW5ZZGYtekk0ZUQ5dW1zNFZ5VE1uQTltdzNXbjhSQTVUckRqcUF1aTVMTUtPLWFWU1FHSHZzV2h2RnJGdmhqM3AyTm9RbzJodUxRVXlQQmtNeWlCdFg0YV9qYkdDMmt4MTFUbEh2dHA4ZWdMeWRnX2lsNWVEZ213V0k0aU50RVFnT2JZMXhoYzhkeERZempq?oc=5",
+   "source": "Business Wire",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m144",
+     "name": "Sagard Credit Partners"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmihwjbvv95cuxnrgftrgrrnwxsbgtnx01aewzhy1btudnmtdu2u085qkgxrkszm2jjau44v19jr2n3suzovey0wldva1djmvlmdfzxmhvacejkbxhblurqahrcblr6egxwyue0ctf0u3bbyvkwzlrtq01rum1nvc1frw5wznlxanjzekhqdxjvzetmswuzrexomxf2dlzechuxtxfung9hmtvlqi16zuxnu2lqvmhgb00xmthyumvgrzzmunayt0dtsghroenbq2raeurjchzlte92mtbvvte2mfm3dw4zogh0v2pethnyz1nzr09jdnnqtvptzmdovkt0b3d1t09jmulir1p1nejruq",
+   "title": "Monroe Capital Chairman and CEO Ted Koenig Discusses Valuation Challenges in Illiquid Private Assets During CAIS Summit",
+   "url": "https://news.google.com/rss/articles/CBMihwJBVV95cUxNRGFTRGRRNWxSbGtnX01aeWZHY1BTUDNmTDU2U085QkgxRkszM2JJaU44V19jR2N3SUZoVEY0WldVa1djMVlMdFZxMHVacEJkbXhBLURQaHRCblR6eGxWYUE0cTF0U3BBYVkwZlRtQ01rUm1nVC1FRW5WZnlXanJZekhqdXJVZEtMSWUzRExoMXF2dlZEcHUxTXFUNG9HMTVLQi16ZUxNU2lqVmhGb00xMThYUmVGRzZmUnAyT0dTSGhROENBQ2RaeURjcHZLTE92MTBVVTE2MFM3dW4zOGh0V2pETHNyZ1NzR09jdnNQTVpTZmdOVkt0b3d1T09JMUliR1p1NEJRUQ?oc=5",
+   "source": "Business Wire",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m199",
+     "name": "Monroe Capital"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiugfbvv95cuxnrzkxv2zqdflqtedtcnv6slmtyjh1dkvsofpmutbuuw0tagzlewc1ztvjuxpnukliaxjzsljixzrevkrwbvlrmhjtedvjn2jywlrktw9qoehgndewrxzlbxhiclb1utlsyl9ybfpsclnddkrwakx6ekqtzufjx0pceke5y1hcc0vuce5undgwwunwyxnrbnnxate5vuxsefbwwgvqvhhsbjdladz5auz1mudelww5ctdrr3c",
+   "title": "Wachtell, Covington, Davis Polk in for Salesforce’s $5.7bn Braze acquisition",
+   "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNRzkxV2ZQdFlQTEdtcnV6SlMtYjh1dkVSOFpMUTBuUW0taGZleWc1ZTVjUXpnUkliaXJzSlJIXzREVkRwbVlrMHJTeDVJN2JyWlRKTW9QOEhGNDEwRXZLbXhiclB1UTlSYl9ybFpSclNDdkRwakx6ekQtZUFJX0pCekE5Y1hCc0VUcE5uNDgwWUNWYXNrbnNxaTE5VUxseFBWWGVQVHhsbjdLaDZ5aUZ1MUdELWw5cTdrR3c?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "davispolk",
+     "name": "Davis Polk"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "privateequitywire.co.uk/ares-warns-australian-private-credit-faces-further-stress-as-rates-hit-4-6",
+   "title": "Ares warns Australian private credit faces further stress as rates hit 4.6%",
+   "url": "https://www.privateequitywire.co.uk/ares-warns-australian-private-credit-faces-further-stress-as-rates-hit-4-6/",
+   "source": "Private Equity Wire",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m20",
+     "name": "Ares Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "alternativecreditinvestor.com/2026/10/19/cic-private-debt-prices-victory-street-clo-iii-at-e403-75m",
+   "title": "CIC Private Debt prices Victory Street CLO III at €403.75m",
+   "url": "https://alternativecreditinvestor.com/2026/10/19/cic-private-debt-prices-victory-street-clo-iii-at-e403-75m/",
+   "source": "Alternative Credit Investor",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m180",
+     "name": "CIC Private Debt"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "recorded",
+   "recordId": null,
+   "reason": "held in the data (URL or headline)",
+   "closed": "2026-10-21T11:09:20.581Z"
+  },
+  {
+   "key": "alternativecreditinvestor.com/2026/10/19/exclusive-nuveen-private-capital-hits-100bn-after-three-year-fundraising-drive",
+   "title": "Exclusive: Nuveen Private Capital hits $100bn after three-year fundraising drive",
+   "url": "https://alternativecreditinvestor.com/2026/10/19/exclusive-nuveen-private-capital-hits-100bn-after-three-year-fundraising-drive/",
+   "source": "Alternative Credit Investor",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m63",
+     "name": "Nuveen Private Capital"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "alternativecreditinvestor.com/2026/10/19/proskauer-confirmed-as-sponsor-of-inaugural-alternative-credit-investor-conference",
+   "title": "Proskauer confirmed as sponsor of inaugural Alternative Credit Investor conference",
+   "url": "https://alternativecreditinvestor.com/2026/10/19/proskauer-confirmed-as-sponsor-of-inaugural-alternative-credit-investor-conference/",
+   "source": "Alternative Credit Investor",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "proskauerrose",
+     "name": "Proskauer Rose LLP"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "axios.com/2026/10/19/elon-musk-spacex-shares-kids",
+   "title": "Musk pledges 1 SpaceX share for every child in America",
+   "url": "https://www.axios.com/2026/10/19/elon-musk-spacex-shares-kids",
+   "source": "Axios",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "stress",
+     "id": "SpaceX",
+     "name": "SpaceX"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "euronews.com/2026/10/19/musk-pledges-spacex-shares-to-every-us-child-in-potential-107bn-giveaway",
+   "title": "Musk pledges SpaceX shares to every US child in potential $10.7bn giveaway",
+   "url": "https://www.euronews.com/2026/10/19/musk-pledges-spacex-shares-to-every-us-child-in-potential-107bn-giveaway",
+   "source": "Euronews Business",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "stress",
+     "id": "SpaceX",
+     "name": "SpaceX"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/boaz-weinsteins-saba-gains-42-from-uk-investment-trust-activism",
+   "title": "Boaz Weinstein's Saba gains 42% from UK investment trust activism",
+   "url": "https://hedgeweek.com/news/boaz-weinsteins-saba-gains-42-from-uk-investment-trust-activism",
+   "source": "Hedgeweek",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h151",
+     "name": "Saba Capital Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/citadel-securities-hires-former-balyasny-rates-trader-aditya-singh",
+   "title": "Citadel Securities hires former Balyasny rates trader Aditya Singh",
+   "url": "https://hedgeweek.com/news/citadel-securities-hires-former-balyasny-rates-trader-aditya-singh",
+   "source": "Hedgeweek",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m385",
+     "name": "Citadel"
+    },
+    {
+     "kind": "hf",
+     "id": "h4",
+     "name": "Citadel"
+    },
+    {
+     "kind": "hf",
+     "id": "h17",
+     "name": "Balyasny Asset Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "recorded",
+   "recordId": null,
+   "reason": "held in the data (URL or headline)",
+   "closed": "2026-10-21T11:09:20.581Z"
+  },
+  {
+   "key": "hedgeweek.com/news/former-goldman-sachs-trader-retires-from-balyasny-aged-33",
+   "title": "Former Goldman Sachs trader retires from Balyasny aged 33",
+   "url": "https://hedgeweek.com/news/former-goldman-sachs-trader-retires-from-balyasny-aged-33",
+   "source": "Hedgeweek",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m9",
+     "name": "Goldman Sachs Alternatives"
+    },
+    {
+     "kind": "manager",
+     "id": "m241",
+     "name": "Goldman Sachs"
+    },
+    {
+     "kind": "manager",
+     "id": "m435",
+     "name": "Goldman Sachs & Co. LLC"
+    },
+    {
+     "kind": "hf",
+     "id": "h17",
+     "name": "Balyasny Asset Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/man-group-assets-hit-record-270-9bn-as-hedge-fund-inflows-accelerate",
+   "title": "Man Group assets hit record $270.9bn as hedge fund inflows accelerate",
+   "url": "https://hedgeweek.com/news/man-group-assets-hit-record-270-9bn-as-hedge-fund-inflows-accelerate",
+   "source": "Hedgeweek",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m169",
+     "name": "Man Group (Credit)"
+    },
+    {
+     "kind": "hf",
+     "id": "h2",
+     "name": "Man Group"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/partners-group-restricts-hedge-fund-access-to-6bn-of-distressed-debt",
+   "title": "Partners Group restricts hedge fund access to €6bn of distressed debt",
+   "url": "https://hedgeweek.com/news/partners-group-restricts-hedge-fund-access-to-6bn-of-distressed-debt",
+   "source": "Hedgeweek",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m91",
+     "name": "Partners Group"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/two-sigma-halts-real-estate-fundraising-and-cuts-senior-staff",
+   "title": "Two Sigma halts real estate fundraising and cuts senior staff",
+   "url": "https://hedgeweek.com/news/two-sigma-halts-real-estate-fundraising-and-cuts-senior-staff",
+   "source": "Hedgeweek",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h7",
+     "name": "Two Sigma Investments"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/walleye-capital-expands-equities-team-with-hires-from-balyasny-millennium",
+   "title": "Walleye Capital expands equities team with hires from Balyasny, Millennium",
+   "url": "https://hedgeweek.com/news/walleye-capital-expands-equities-team-with-hires-from-balyasny-millennium",
+   "source": "Hedgeweek",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h3",
+     "name": "Millennium Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h17",
+     "name": "Balyasny Asset Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h69",
+     "name": "Walleye Capital"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "recorded",
+   "recordId": null,
+   "reason": "held in the data (URL or headline)",
+   "closed": "2026-10-21T11:09:20.581Z"
+  },
+  {
+   "key": "legalbusiness.co.uk/in-house/whenever-a-really-great-opportunity-was-offered-i-said-yes-maria-alvarez-scott-on-always-rising-to-the-challenge-at-legal-general",
+   "title": "‘Whenever a really great opportunity was offered, I said yes’ – Maria Alvarez-Scott on always rising to the challenge at Legal & General",
+   "url": "https://www.legalbusiness.co.uk/in-house/whenever-a-really-great-opportunity-was-offered-i-said-yes-maria-alvarez-scott-on-always-rising-to-the-challenge-at-legal-general/",
+   "source": "Legal Business",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "lp",
+     "id": "l13",
+     "name": "Legal & General"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "legalbusiness.co.uk/law-firms/ashurst-perkins-coie-lands-in-houston-with-double-partner-hire",
+   "title": "Ashurst Perkins Coie lands in Houston with double partner hire",
+   "url": "https://www.legalbusiness.co.uk/law-firms/ashurst-perkins-coie-lands-in-houston-with-double-partner-hire/",
+   "source": "Legal Business",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "ashurst",
+     "name": "Ashurst"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "legalbusiness.co.uk/law-firms/freshfields-asia-arbitration-and-singapore-head-leaves-for-gibson-dunn",
+   "title": "Freshfields Asia arbitration and Singapore head leaves for Gibson Dunn",
+   "url": "https://www.legalbusiness.co.uk/law-firms/freshfields-asia-arbitration-and-singapore-head-leaves-for-gibson-dunn/",
+   "source": "Legal Business",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "freshfields",
+     "name": "Freshfields"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "legalbusiness.co.uk/law-firms/kirkland-makes-up-196-partners-in-silent-promotions-round",
+   "title": "Kirkland makes up 196 partners in silent promotions round",
+   "url": "https://www.legalbusiness.co.uk/law-firms/kirkland-makes-up-196-partners-in-silent-promotions-round/",
+   "source": "Legal Business",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "kirkland",
+     "name": "Kirkland & Ellis"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "legalbusiness.co.uk/law-firms/weil-pe-partner-lands-at-paul-weiss",
+   "title": "Weil PE partner lands at Paul Weiss",
+   "url": "https://www.legalbusiness.co.uk/law-firms/weil-pe-partner-lands-at-paul-weiss/",
+   "source": "Legal Business",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m386",
+     "name": "Weiss Asset Management"
+    },
+    {
+     "kind": "firm",
+     "id": "weil",
+     "name": "Weil, Gotshal & Manges"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi3afbvv95cuxnwwfuqmxwa3jpnxn2wgjwzgpnnnh2rvbvwkdoefrtmhfkcfvrcjnit1hja3uwt0tdofnfymnqszbbrdrprtvsofzmr2fidfzmrm9jrfj6zg1ntudirkrfevczwnnptwxeykf3qwjrodlvynjqmzfwcdzsadhya00wrfdbn2q4ykoxsghrrkhrlvatmenmzulzzffzu2rud3fmy3jqyxrsmjhfafuywuzyb2rfmvplwdy4udf1edjbnmyxnwtuyutqyvgxbve4a2rmvxj6n1pzmv95znrh",
+   "title": "William Blair Expands Investment Banking Platform with Acquisition of Armentum Partners",
+   "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNWWFUQmxwa3JpNXN2WGJwZGpNNnh2RVBVWkdOeFRTMHFkcFVrcjNiT1hja3UwT0tDOFNFYmNQSzBBRDRpRTVSOFZMR2FIdFZmRm9jRFJ6ZG1NTUdiRkRFeVczWnNpTWxEYkF3QWJrODlvYnJqMzFwcDZsaDhya00wRFdBN2Q4YkoxSGhrRkhRLVAtMENMZUlzZFFzU2Rud3FMY3JQYXRSMjhFaFUyWUZYb2RFMVpLWDY4UDF1eDJBNmYxNWtUYUtQYVgxbVE4a2RMVXJ6N1pZMV95ZnRH?oc=5",
+   "source": "Business Wire",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m401",
+     "name": "William Blair"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmigwjbvv95cuxqchm1shbmuhd3rg5xsv93rjjrqvfzrxjumwzfmtznbthoa1fkrjrmuw1kznqtuwfvx3jkzlm2oedfq3nsuflhagp0x0w2szljntnvmflqqk5wwvvkng5ktknpzlflqjm4sklvrfmymvzfnwytwgd5zhnmvknzsvzdwhlluzjjtxf0m0l2wgq1wepuodhvynrerxnhwww3aw9oz0trwjdraujowg4zlvpwbuexrdrqeui5z3dnx3ktbxa2vnlvuxzuuxdcr3q3rfdgvujjvw5my3zhx1purlbtaejhafbyvnzyn1k5d21tck5hdlpnmmnlvw1iwxrmcja4bepn",
+   "title": "J.P. Morgan Releases 2027 Long-Term Capital Market Assumptions Projecting 7.0% Return for 60/40 Portfolio Over 10-15 Years",
+   "url": "https://news.google.com/rss/articles/CBMigwJBVV95cUxQcHM1SHBMUHd3RG5XSV93RjJrQVFzRXJuMWZfMTZNbThoa1FKRjRMUW1KZnQtUWFVX3JKZlM2OEdFQ3NSUFlHaGp0X0w2SzlJNTNvMFlqQk5WWVVKNG5KTkNPZlFlQjM4SklVRFMyMVZFNWYtWGd5ZHNmVkNzSVZDWHllUzJJTXF0M0l2WGQ1WEpuODhVYnRERXNhWWw3aW9oZ0trWjdRaUJoWG4zLVpWbUExRDRqeUI5Z3dnX3ktbXA2VnlvUXZUUXdCR3Q3RFdGVUJJVW5mY3ZHX1puRlBTaEJHaFByVnZyN1k5d21tck5HdlpNMmNLVW1iWXRmcjA4bEpN?oc=5",
+   "source": "PR Newswire",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m245",
+     "name": "J.P. Morgan"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmimafbvv95cuxpakpvq1nkrfntzutxvhd2v3d0n0lfcwrry0jlvufynuxiawt6unpacm5cqwttnhpvsy1quguynu5vnflzene2n2ncwjbqvu0teji5mwp3ww5tbndpc3nicl9fbfp0oglzotznrji5zlezxy1ytjv1qlnfx3jawfbaverevmjgnuhbmnzxtgz3ltjorjzsvwtvva",
+   "title": "Musk pledges to give a share of his SpaceX company to ‘every kid in America’",
+   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPakpVQ1NkRFNtZUtxVHd2V3d0N0lfcWRrY0JLVUFYNUxIaWt6Unpacm5CQWtTNHpVSy1QUGUyNU5VNFlzenE2N2NCWjBqVU0tejI5MWp3WW5tbndpc3NIcl9fbFp0OGlZOTZNRjI5ZlEzXy1yTjV1QlNFX3JaWFBaVEREVmJGNUhBMnZXTGZ3LTJORjZsVWtvVA?oc=5",
+   "source": "Associated Press",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "stress",
+     "id": "SpaceX",
+     "name": "SpaceX"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiqafbvv95cuxndefaefi3dw5rzu0za2dfdzjrzhntq2y0mkvuc3hlq3jmvgswznm2ehzswfzvaurbb2pmv0y1z0fhsed3cznzng9ymtf2mwtjbkvinfvzugzsnws1mgt2m1jsv3nurgcxmnzvvunedm1st25otzvvrgxjufe3by15r3dzewdkwu9qcxbnceljtzrysefjqkstr3e3m2pyohjulurinzhsbwk",
+   "title": "Ashurst Perkins Coie debuts in Houston with Bracewell duo",
+   "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNdEFaeFI3dW5rZU0za2dFdzJRZHNTQ2Y0MkVuc3hLQ3JMVGswZnM2eHZSWFZvaURBb2pMV0Y1Z0FhSEd3czNZNG9YMTF2MWtjbkVINFVzUGZSNWs1MGt2M1JsV3NURGcxMnZVVUNEdm1ST25oTzVVRGxJUFE3by15R3dZeWdKWU9qcXBNcEljTzRYSEFJQkstR3E3M2pYOHJULURiNzhSbWk?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "ashurst",
+     "name": "Ashurst"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmitwfbvv95cuxnrxdtn1ljblrwutzennzzwmz1txllehfec1q0v0pwaxg1wuy5qlnhdtfonvrtqjz2adncszbxyli3sux6vwkzq2rqzhzxs1rxutq4ckjsywljb1rrx3hqu2hfqzjoym1cdwfwodvtxzzqrvc0bgdprzfzz1hwmmjzwlpjsly4s0jyeklivgt1vfjoenfoa3k5rup3qjzkqv9reu1yn1fytggyqlvoymxju1u3n29lqta",
+   "title": "Gibson Dunn taps Freshfields for arbitration heavywieght in Singapore",
+   "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNRXdtN1ljblRwUTZENnZZWmZ1TXlleHFEc1Q0V0pWaXg1WUY5QlNHdTFONVRTQjZ2aDNCSzBXYlI3SUx6VWkzQ2RQZHZxS1RxUTQ4ckJSYWlJb1RRX3hqU2hFQzJoYm1CdWFWODVtXzZQRVc0bGdpRzFZZ1hwMmJZWlpJSlY4S0JYeklIVGt1VFJOenFoa3k5RUp3QjZKQV9ReU1yN1FyTGgyQlVOYmxjU1U3N29lQTA?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "freshfields",
+     "name": "Freshfields"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmitwfbvv95cuxpqxzmdtdrbw9ix3vvt3v2atlcse5vdhp4afe0oulyy2thvwi4medlewnhyk5cquzhvmtxy01lqvvpchy3muhcdmtatvvsqw9xd3zzltholu9sodn2aflqsjnxwfb3t1hhejmtmy1tvm1uzlviqmpfqtzyzllvamtubffawvnhstddy2rpslpjq3bjd3jsslhiotdkbfpeckdid2vvadncaghfourqqlrxdkx1awk2zxc",
+   "title": "Gibson Dunn taps Freshfields for arbitration heavyweight in Singapore",
+   "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPQXZMdTdRbW9IX3VVT3V2aTlCSE5VdHp4aFE0OUlyY2tHVWI4MEdleWNHYk5CQUZHVmtXY01LQVVpcHY3MUhCdmtaTVVSQW9Xd3ZZLThoLU9SODN2aFlqSjNXWFB3T1hHejMtMy1tVm1uZlViQmpFQTZyZllvamtubFFaWVNHSTdDY2RpSlpJQ3BJd3JsSlhiOTdKbFpEckdid2VvaDNCaGhFOURqQlRxdkx1aWk2ZXc?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "freshfields",
+     "name": "Freshfields"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiwwfbvv95cuxnug9tutdiyzrvcmlwculaz25mnmh0a1hlbgz5nlzictrgq3vowfhfzk5nsfdms1bfovrtzdrrltvtckg5amzva1b0dnbsefpbdtfkzkv1n1rmueprt0rrmxc4yv9pn1bqzth5yvg5bi1fzm1manleohbjqzvmcxlfnkxkz2nybw5iehbmqnfot1vzmlloq1lcm1lxbwv3vgz5vmpdzvy2skc4rurlcufyagi0akg0ovbummxsymc2yus2zkk",
+   "title": "Skadden adds second Freshfields partner to Brussels competition team this year",
+   "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNUG9tUTdIYzRvcmlWcUlaZ25MNmh0a1hlbGZ5NlZIcTRGQ3VoWFhfZk5NSFdmS1BFOVRtZDRRLTVTckg5amZVa1B0dnBSeFpBdTFKZkV1N1RMUEpRT0RrMXc4YV9pN1BqZTh5YVg5bi1fZm1manlEOHBjQzVmcXlFNkxkZ2NybW5IeHBMQnFOT1VzMlloQ1lCM1lxbWV3VGZ5VmpDZVY2Skc4RURlcUFyaGI0akg0OVBUMmxsYmc2YUs2Zkk?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "freshfields",
+     "name": "Freshfields"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/gtcr-and-elliott-to-acquire-ccc-intelligent-solutions-in-4-6bn-deal",
+   "title": "GTCR and Elliott to acquire CCC Intelligent Solutions in $4.6bn deal",
+   "url": "https://hedgeweek.com/news/gtcr-and-elliott-to-acquire-ccc-intelligent-solutions-in-4-6bn-deal",
+   "source": "Hedgeweek",
+   "date": "2026-10-16",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m265",
+     "name": "Elliott Investment Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h5",
+     "name": "Elliott Investment Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "legalbusiness.co.uk/law-firms/everyone-has-to-prove-theyre-worth-what-theyre-getting-paid-inside-freshfields-us-profitability-push",
+   "title": "‘Everyone has to prove they’re worth what they’re getting paid’ – inside Freshfields’ US profitability push",
+   "url": "https://www.legalbusiness.co.uk/law-firms/everyone-has-to-prove-theyre-worth-what-theyre-getting-paid-inside-freshfields-us-profitability-push/",
+   "source": "Legal Business",
+   "date": "2026-10-16",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "freshfields",
+     "name": "Freshfields"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "legalbusiness.co.uk/law-firms/funder-joined-to-claim-in-pogust-goodhead-bailey-glasser-dispute-over-mariana-dam-case",
+   "title": "Funder joined to claim in Pogust Goodhead-Bailey Glasser dispute over Mariana Dam case",
+   "url": "https://www.legalbusiness.co.uk/law-firms/funder-joined-to-claim-in-pogust-goodhead-bailey-glasser-dispute-over-mariana-dam-case/",
+   "source": "Legal Business",
+   "date": "2026-10-16",
+   "entities": [
+    {
+     "kind": "borrower",
+     "id": "d603",
+     "name": "Pogust Goodhead"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmirgfbvv95cuxnq056rg50b0psnmz2a2vkuuntyxhpcm5tnvg1rjnqoufiu3n5am5tx2hmbljstdzjbtewsflfyvzlyi1usxznov9jv0ttawjqyv9kvs1mv2jlses2mnffaxk5ytbcr1e1ytbvemrcz1ruy3jhcexrsnjkzv9joxfsx3ptb3jqry1yytcxwkruvujnee02mf9qyvexmky1n245zjrkmglrykzhrudiu3c",
+   "title": "White & Case promotes 47 to partner in biggest round since 2022",
+   "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNQ056RG50b0pSNmZ2a2VKUUNTYXhPcm5TNVg1RjNqOUFiU3N5am5TX2hmblJsTDZJbTEwSFlfYVZlYi1uSXZnOV9JV0ttaWJQYV9kVS1mV2JLSEs2MnFfaXk5YTBCR1E1YTBvemRCZ1RUY3JHcExrSnJkZV9jOXFsX3pTb3JqRy1YYTcxWkRuVUJNeE02MF9QYVExMkY1N245ZjRkMGlRYkZHRUdIU3c?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-16",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "whitecase",
+     "name": "White & Case"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiygfbvv95cuxqbfbkbeviovfir25vngzgzfizwut5vwznegvfrmmttfppc0otewq2rlmzeti1n1p5m0qztgo0bfrhc09kdufrbvrmvkvywedeluu0smzybeuwtgptuvrtq2stcmdqweffbfpbajhuelaynezieudezglmzmfcow1xmfdfuwzfwk5duhf3tkndughlode1vdi2z1nhsvvsrv9jykuxq21dcglqqkpgu0x6awrnb2gtsvdjnuvyotriwnnvnmzlt1vlugdn",
+   "title": "Womble adds five-lawyer financial litigation team in Boston, New York from K&L Gates",
+   "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQbFBkbEVIOVFiR25VNGZGZFIzWUt5VWZneGVFRmMtTFpPc0oteWQ2RlMzeTI1N1p5M0QzTGo0bFRHc09KdUFRbVRmVkVyWEdELUU0SmZybEUwTGpTUVRTQ2stcmdqWEFFbFpBajhuelAyNEZIeUdEZGlmZmFCOW1xMFdFUWZfWk5DUHF3TkNDUGhlODE1VDI2Z1NhSVVsRV9JYkUxQ21DcGlqQkpGU0x6aWRNb2gtSVdJNUVyOTRiWnNvNmZLT1VLUGdn?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-16",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "klgates",
+     "name": "K&L Gates"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "cnbc.com/2026/10/15/harvards-endowment-jumps-27percent-with-spacex-as-top-holding.html",
+   "title": "Harvard’s endowment jumps 27% in fiscal 2026, lifted by SpaceX as top holding",
+   "url": "https://www.cnbc.com/2026/10/15/harvards-endowment-jumps-27percent-with-spacex-as-top-holding.html",
+   "source": "CNBC",
+   "date": "2026-10-15",
+   "entities": [
+    {
+     "kind": "stress",
+     "id": "SpaceX",
+     "name": "SpaceX"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/balyasny-hires-former-nebula-cio-limin-yang",
+   "title": "Balyasny hires former Nebula CIO Limin Yang",
+   "url": "https://hedgeweek.com/news/balyasny-hires-former-nebula-cio-limin-yang",
+   "source": "Hedgeweek",
+   "date": "2026-10-15",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h17",
+     "name": "Balyasny Asset Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/balyasny-hires-millennium-portfolio-manager-antoine-iskandar",
+   "title": "Balyasny hires Millennium portfolio manager Antoine Iskandar",
+   "url": "https://hedgeweek.com/news/balyasny-hires-millennium-portfolio-manager-antoine-iskandar",
+   "source": "Hedgeweek",
+   "date": "2026-10-15",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h3",
+     "name": "Millennium Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h17",
+     "name": "Balyasny Asset Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "legalcheek.com/2026/10/top-freshfields-partners-eye-ai-spin-off-to-create-tech-company-worth-billions",
+   "title": "Freshfields eyes AI spin-off to create tech company ‘worth billions’",
+   "url": "https://www.legalcheek.com/2026/10/top-freshfields-partners-eye-ai-spin-off-to-create-tech-company-worth-billions/",
+   "source": "Legal Cheek",
+   "date": "2026-10-15",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "freshfields",
+     "name": "Freshfields"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi3afbvv95cuxqu3bnugh2djjrnlj2bvrku2jmckzcmetdemnecndmsv91bu1js2f3vugyv0rnuehzwmxvyju0mvp2a0ctb1dhufdtweliulfuyjnta0zsexfsrtn0mkdqr3znec1wn0jsce9hcdk3vuiwtgfxtkm5sho5t0wwsg5eeda0ugjiz0jls0dlmxd2ujnfmufdutczetvrvhz0y3ptnfddvzdovtb3ejuxvzk1ve5nngnnvjjvse5dukjtuupmq3dzekjhwgdbmdnmugh5blhxskhsszbgs1q0",
+   "title": "Victory Park Capital and Tradable Launch VALTS, Tokenizing Access to Asset-Backed Credit",
+   "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQU3BnUGh2djJRNlJ2bVRKU2JmckZCMEtDemNEcndMSV91bU1JS2F3VUgyV0RnUEhzWmxVYjU0MVp2a0ctb1dHUFdtWElIUlFuYjNta0ZSeXFsRTN0MkdQR3ZneC1wN0JScE9HcDk3VUIwTGFXTkM5SHo5T0wwSG5EeDA0UGJIZ0JlS0dlMXd2UjNfMUFDUTczeTVRVHZ0Y3ptNFdDVzdOVTB3ejUxVzk1VE5NNGNNVjJVSE5DUkJTUUpMQ3dZekJHWGdBMDNMUGh5blhXSkhsSzBGS1Q0?oc=5",
+   "source": "Business Wire",
+   "date": "2026-10-15",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m164",
+     "name": "Victory Park Capital"
+    },
+    {
+     "kind": "borrower",
+     "id": "d726",
+     "name": "Victory Park Capital Advisors, LLC"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi8afbvv95cuxnntfvm3dgn0dnvjlywwuxnxm1luu3vgzlzv9yrtrsunpuu2z5sxvoqy1xdfblsuzktzjeluhsntlrnjbsou9vwlh3zw1hu0rjb1p3r2tjcgdttujqcu9lexpkum0xoefgq2iwmk1kvgxfouzrau53mmfdcwnibwjeuxfzsfpzn2jjmtvdmu1qzhbjcfbjrfzdvguxejhvvxp3oevfu1nmqzrnt1fodvh2ae1mvkpncjfaqtjewk1uufzwauj3vwplulbnwgtxd0ezu0tibehlwvayqtnynjizm195uwd6rnc4avnuog5pues",
+   "title": "CCC Intelligent Solutions Signs Definitive Agreement to Be Acquired by GTCR and Elliott",
+   "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxNNTFVM3dGN0dNVjlYWWUxNXM1LUU3VGZLZV9yRTRsUnpUU2Z5SXVOQy1XdFBLSUZKTzJELUhSNTlRNjBSOU9vWlh3ZW1hU0RJb1p3R2tJcGdTTUJqcU9LeXpkUm0xOEFGQ2IwMk1KVGxFOUZRaU53MmFDcWNibWJEUXFzSFpZN2JJMTVDMU1qZHBJcFBJRFZDVGUxejhVVXp3OEVFU1NMQzRNT1FOdVh2aE1mVkpncjFaQTJEWk1UUFZwaUJ3VWpLUlBnWGtxd0EzU0tibEhlWVAyQTNyNjIzM195UWd6Rnc4aVNuOG5pUEs?oc=5",
+   "source": "GlobeNewswire",
+   "date": "2026-10-15",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m265",
+     "name": "Elliott Investment Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h5",
+     "name": "Elliott Investment Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmivafbvv95cuxqbhbyrtvycdn1wva3umtqemj1ys0yqlg4throc0jkbnl6wgpurwfiau5pns1pnwxtrdzwuwzdqzzjnm45u2twzutrmtjzdmiwrnzkx3vxyzrydgrkchqzthdirl9mnjbcnjlln0i2njnobji4dfdsvvb1z0n2lwzmztfuehbzdhrbszr2rfv5b0nnaudxoxvrbtvuvetkcfvzd2fystbsag5ontv1z1nmbm5sy3raau9uzgfrtq",
+   "title": "Freshfields partners consider spinning out legaltech unit worth ‘billions’",
+   "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQbHBYRTVycDN1WVA3UmtqemJ1YS0yQlg4THRoc0Jkbnl6WGpURWFIaU5pNS1pNWxtRDZWUWZDQzZjNm45U2tWZUtrMTJZdmIwRnZKX3VxYzRydGRkcHQzTHdIRl9mNjBCNjllN0I2NjNobjI4dFdSVVB1Z0N2LWZMZTFUeHBZdHRBSzR2RFV5b0NnaUdXOXVrbTVuVEtkcFVzd2FySTBsaG5oNTV1Z1NMbm5sY3RaaU9uZGFrTQ?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-15",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "freshfields",
+     "name": "Freshfields"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "cnbc.com/2026/10/14/morgan-stanley-ms-q3-2026-earnings.html",
+   "title": "Morgan Stanley tops estimates as equities trading revenue beats expectations by $909 million",
+   "url": "https://www.cnbc.com/2026/10/14/morgan-stanley-ms-q3-2026-earnings.html",
+   "source": "CNBC",
+   "date": "2026-10-14",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m242",
+     "name": "Morgan Stanley"
+    },
+    {
+     "kind": "manager",
+     "id": "m425",
+     "name": "Morgan Stanley & Co. LLC"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/millennium-recruits-citadel-rates-trader-ravi-vinda",
+   "title": "Millennium recruits Citadel rates trader Ravi Vinda",
+   "url": "https://hedgeweek.com/news/millennium-recruits-citadel-rates-trader-ravi-vinda",
+   "source": "Hedgeweek",
+   "date": "2026-10-14",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m385",
+     "name": "Citadel"
+    },
+    {
+     "kind": "hf",
+     "id": "h3",
+     "name": "Millennium Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h4",
+     "name": "Citadel"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/palliser-urges-samsung-to-launch-us-share-listing-to-address-preferred-stock-discount",
+   "title": "Palliser urges Samsung to launch US share listing to address preferred stock discount",
+   "url": "https://hedgeweek.com/news/palliser-urges-samsung-to-launch-us-share-listing-to-address-preferred-stock-discount",
+   "source": "Hedgeweek",
+   "date": "2026-10-14",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h149",
+     "name": "Palliser Capital"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/verition-sees-five-macro-trader-departures-as-it-adds-london-portfolio-manager",
+   "title": "Verition sees five macro trader departures as it adds London portfolio manager",
+   "url": "https://hedgeweek.com/news/verition-sees-five-macro-trader-departures-as-it-adds-london-portfolio-manager",
+   "source": "Hedgeweek",
+   "date": "2026-10-14",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h25",
+     "name": "Verition Fund Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi3wfbvv95cuxpqvzha1vfdkxyvnb2qnhrvf9xdhrudth1nuqtr3v4nwv3elg3r0ndzu00vndmqkjutex3tjlhymlpc3bqbfm0rnzhagf0efvvsgq3ukq0qugwlvdochzpdfctsm1ultvjy1lwthp1vugwtnbyyvzmugpjlurasmfutthqtfhwugthmwhawkrtxzzqywi5unzesgttdktnagruq01qcknvevvln1oxtvo4oglnwhzrue5cbw9yznotwwlswdhvagjrzlpjqux3cjlnn0g2be1iaxduy1uxdg9f",
+   "title": "Clear Channel Outdoor Holdings, Inc. Announces Completion of Acquisition by Mubadala Capital",
+   "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxPQVZHa1VFdkxYVnB2QnhRVF9xdHRudTh1NUQtR3V4NWV3elg3R0NDZU00VndmQkJUTEx3TjlHYmlPc3BQbFM0RnZHaGF0eFVvSGQ3UkQ0QUgwLVdocHZpdFctSm1ULTVjY1lWTHp1VUgwTnByYVZmUGpJLURaSmFUTThQTFhWUGthMWhaWkRTXzZQYWI5UnZESGtTdktnaGRUQ01QckNVeVVLN1oxTVo4OGlNWHZrUE5CbW9YZnotWWlsWDhvaGJrZlpjQUx3cjlnN0g2bE1iaXduY1UxdG9F?oc=5",
+   "source": "PR Newswire",
+   "date": "2026-10-14",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m125",
+     "name": "Mubadala Capital"
+    },
+    {
+     "kind": "manager",
+     "id": "m175",
+     "name": "Channel Capital Advisors"
+    },
+    {
+     "kind": "lp",
+     "id": "l9",
+     "name": "Mubadala"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmigajbvv95cuxqyudkrm1hn1itdjforfjoswd6b0ctx0k3dezscvvoazqxse9rs1hjqnlzyjzva21stwgzwe15z1zeoxm3mzbxwfbnbhhzzvrjnfo1rwdcec1eynbqrkxqetfnq2fmc2zvaxfpr3ywlufir0h5n2w4ttnbrwt2whrysuxam0ntbmlfstjsbevsntg5mjjstxhscwq0ovjtszhfdjjveutloeplzgpcrzk3dgtwuglyq05zukxkak9yyjaxsgzhql9etvdpq0k4c1dtm1foaxm2ajngngvragywqje5dmnkyy1mwutfq1hnwxb0zu1iodm1txlvzu1ux1df",
+   "title": "Bain Capital Provides €130 Million Credit Facility to Support Acquisition of Life Couriers by JLL Partners",
+   "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxQYUdKRm1HN1ItdjFoRFJoSWd6b0ctX0k3dEZscVVOazQxSE9rS1hjQnlzYjZva21sTWgzWE15Z1ZEOXM3MzBxWFBNbHhZZVRjNFo1RWdCeC1EYnBqRkxqeTFNQ2FMc2ZvaXFPR3YwLUFiR0h5N2w4TTNBRWt2WHRYSUxaM0NtbmlFSTJSbEVSNTg5MjJSTXhScWQ0OVJTSzhfdjJVeUtlOEplZGpCRzk3dGtwUGlYQ05ZUkxKak9yYjAxSGZHQl9ETVdPQ0k4c1dTM1FOaXM2ajNGNGVraGYwQjE5dmNKYy1mWUtFQ1hNWXB0ZU1iODM1TXlVZU1uX1dF?oc=5",
+   "source": "Business Wire",
+   "date": "2026-10-14",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m65",
+     "name": "Bain Capital Credit"
+    },
+    {
+     "kind": "manager",
+     "id": "m373",
+     "name": "JLL"
+    },
+    {
+     "kind": "manager",
+     "id": "m405",
+     "name": "Bain Capital"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmikajbvv95cuxnzmm4ss1gd1l2em04b01oqnzgogjrsfr2vzj0alg4mwt6vxh5amzjtelbx3juylrhluhrnedfcfg3q29um0noemtnvjzerk1lrwzerfjdawvmbtludkhnmdv6n08wwfpprujtx3rmzhv0cezvynpjq3fcdmtscunfzzzyws0tbwjpr0zuexu2aey5eu9rs1qywem2swtkzjvra00xt2lqrwnkrtj4rdfqcm5wrtdwd1rimve3ddnpmxytalr4zzjbywu3u2t0nl83zefhuc1flxbirxc3endaehbfn204yudyyjrtuzvpb2mxzg1dtw5nbglyztzhqvfazelbtudunm5xyvninfdvea",
+   "title": "Comvest Credit Partners Co-Founder and Investment Committee Member Daniel Lee Joins Star Mountain Capital as Managing Director",
+   "url": "https://news.google.com/rss/articles/CBMikAJBVV95cUxNZmM4SS1Gd1l2em04b01oQnZGOGJRSFR2VzJ0alg4MWt6VXh5amZJTElBX3JuYlRhLUhRNEdFcFg3Q29UM0NoemtnVjZERk1lRWZERFJDaWVmbTlUdkhNMDV6N08wWFppRUJtX3RMZHV0cEZvYnpjQ3FCdmtscUNfZzZYWS0tbWJPR0ZUeXU2aEY5eU9rS1QyWEM2SWtKZjVRa00xT2lqRWNkRTJ4RDFqcm5wRTdWd1RIMVE3dDNpMXYtalR4ZzJBYWU3U2t0Nl83ZEFhUC1fLXBiRXc3endaeHBFN204YUdYYjRtUzVPb2MxZG1DTW5nbGlYZTZhQVFaZElBTUduNm5xYVNiNFdveA?oc=5",
+   "source": "Business Wire",
+   "date": "2026-10-14",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m161",
+     "name": "Star Mountain Capital"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmilgjbvv95cuxnagnkcfnzyzzlzgtha3hxv002q2d2lvnvnuftz1hfretkvjm5ri1cotbjzk54yi1kyus3sfo3zvnmyv9ftjlim3vqufflc0vfqwl3cwtzuwjsbjvkd2tuzm9hr0dfugc3tnpuauxiwmixmfnfm29md1hlym84nhrju3rwlu1gtja3x2jnbxjhsddrz2lwswlcekfkb3ffb2poukdzehlqdgjldjc0s1r6v0lzzxheztywyjzdtup0cvnuuduwrjvxx0dxeue1afq0ltdfnmh6mc15wmkxsur5u05lvvnerzuydnexblbssge1rvntltbsmnvzzvgwduvomzlzrkdreut0vzgtzhmtrtb6zkl5zw",
+   "title": "Eagle Point Credit Company Provides Estimates of Net Asset Value and Net Investment Income for the Quarter Ended September 30, 2026",
+   "url": "https://news.google.com/rss/articles/CBMilgJBVV95cUxNaGNkcFNzYzZlZGtha3hxV002Q2d2LVNvNUFTZ1hfREtkVjM5Ri1COTBJZk54Yi1kYUs3SFo3ZVNMYV9FTjliM3VQUFFLc0VFQWl3cWtZUWJSbjVKd2tUZm9HR0dFUGc3TnpUaUxiWmIxMFNfM29md1hlYm84NHRjU3RWLU1GTjA3X2JNbXJhSDdrZ2lwSWlCekFKb3Ffb2poUkdZeHlqdGJLdjc0S1R6V0lZZXhEZTYwYjZDTUp0cVNuUDUwRjVxX0dXeUE1aFQ0LTdFNmh6MC15WmkxSUR5U05LVVNERzUydnExblBsSGE1RVNTLTBSMnVzZVgwdUVoMzlzRkdReUt0VzgtZHMtRTB6Zkl5Zw?oc=5",
+   "source": "Business Wire",
+   "date": "2026-10-14",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m190",
+     "name": "Eagle Point Credit Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmitwfbvv95cuxpa3norlfmdwnbvdhkemrkenvkrkm5ynptrvvcrfm1avoyukrvrnq2ymu3a25zbhfisvd0qnbfbdrhsvfizuo3si1fmkq5bhi4ne14mxhfuvzln3vmc2t2sw1rtlvyehixvhfiu09leuntbdb1s3htmgotc29zuhpdeen3vk5zoxjkm1duexlvbk0xt0tlzkfsvdrrsfrqx2pfczjfttboaviyz0l6u01tanvvawgtykk",
+   "title": "Ropes, Weil, Paul Weiss guide Galderma’s $1.5bn ZO Skin Health acquisition",
+   "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPa3NORlFmdWNBVDhkemRKenVkRkM5YnptRVVCRFM1aVoyUkRVRnQ2YmU3a25ZbHFiSVd0QnBFbDRhSVFiZUo3Si1fMkQ5bHI4NE14MXhFUVZLN3VMc2t2SW1RTlVYeHIxVHFIU09LeUNTbDB1S3hTMGotc29zUHpDeEN3Vk5zOXJkM1dueXlvbk0xT0tlZkFSVDRRSFRQX2pFczJFTTBoaVIyZ0l6U01TanVvaWgtYkk?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-14",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m386",
+     "name": "Weiss Asset Management"
+    },
+    {
+     "kind": "firm",
+     "id": "weil",
+     "name": "Weil, Gotshal & Manges"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmixwfbvv95cuxqvwj3chdflwtdetbtsdljsu9jyzvwmwjmm2rwenfzzdnetxlkmu9ttvnydlpirvhmulnrtxfyvg1hrmu3t0xvb2xot2rkq1vymu1ut1rod3a4cuoxv2ixtm9vruftrwlbm0lmdkhetnbqcmotyzjcoe0wexnysgpzrjhvbwq5vglkvzleoexkvfnrdzjry1vpx0t0y3hxqzhlmdj4m2phu1jqvnf4r3hioxdwy19xcwhywghnq0tmmngzakpnajy4",
+   "title": "Castlelake Prices $1.1 Billion Commercial Real Estate CLO, CLCRE 2026-FL1",
+   "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQVWJ3cHdfLWtDeTBtSDljSU9jYzVWMWJmM2RwenFZZDNETXlkMU9tTVNydlpIRVhMUlNRTXFYVG1HRmU3T0xvb2xoT2RkQ1VyMU1uT1ROd3A4cUoxV2IxTm9vRUFtRWlBM0lmdkhETnBqcmotYzJCOE0weXNYSGpZRjhVbWQ5VGlKVzlEOExKVFNrdzJrY1VpX0t0Y3hXQzhLMDJ4M2phU1JQVnF4R3hiOXdwY19xcWhYWGhNQ0tmMngzakpnajY4?oc=5",
+   "source": "PR Newswire",
+   "date": "2026-10-14",
+   "entities": [
+    {
+     "kind": "borrower",
+     "id": "d1150",
+     "name": "CLCRE 2026-FL1"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "recorded",
+   "recordId": null,
+   "reason": "held in the data (URL or headline)",
+   "closed": "2026-10-21T11:09:20.581Z"
+  },
+  {
+   "key": "hedgeweek.com/news/goldman-sachs-upgrades-equities-and-government-bonds-amid-rising-yields",
+   "title": "Goldman Sachs upgrades equities and government bonds amid rising yields",
+   "url": "https://hedgeweek.com/news/goldman-sachs-upgrades-equities-and-government-bonds-amid-rising-yields",
+   "source": "Hedgeweek",
+   "date": "2026-10-13",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m9",
+     "name": "Goldman Sachs Alternatives"
+    },
+    {
+     "kind": "manager",
+     "id": "m241",
+     "name": "Goldman Sachs"
+    },
+    {
+     "kind": "manager",
+     "id": "m435",
+     "name": "Goldman Sachs & Co. LLC"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/mayer-brown-appoints-former-cftc-senior-counsel-danielle-abada-as-partner",
+   "title": "Mayer Brown appoints former CFTC senior counsel Danielle Abada as partner",
+   "url": "https://hedgeweek.com/news/mayer-brown-appoints-former-cftc-senior-counsel-danielle-abada-as-partner",
+   "source": "Hedgeweek",
+   "date": "2026-10-13",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "mayerbrown",
+     "name": "Mayer Brown"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi8gfbvv95cuxpzg1rdffvckhvb25kn1lpckfzdjvzwnvmtlzxs2o4shjxb3b6swdveurer3rmwtr4b0u3vklvoel1effboxmymephseg3z0wxnwnhcnf6rkptsgkzdk91a1awzdi5why2rk9jrxnhuevpytfcvvziqlixx1hwrzb3uuppx3pfaml3ugvwy2nsvvb0ufletkdqdxq3c2uxd0tjslp1vzctdfzir2g3wfntbfh3rhr4qm56nzmtmwnqedq5r1nlrxptaxutq1fvmgvpxzftvljqvkhyzmp6dguwcvndsxb3z1vrykrwaglstnbjzw",
+   "title": "Scanntech, a Leading Latin American Retail Intelligence Platform, Announces $180 Million Series F Financing",
+   "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxPZG1rdFFvckhVb25kN1lpckFZdjVZWnVMTlZXS2o4SHJxb3B6SWdveURER3RmWTR4b0U3VklVOEl1eFFBOXMyMEpHSEg3Z0wxNWNHcnF6RkptSGkzdk91a1AwZDI5WHY2Rk9jRXNhUEVpYTFCVVZiQlIxX1hWRzB3UUpPX3pFaml3UGVwY2NSVVB0UFlETkdqdXQ3c2Uxd0tjSlp1VzctdFZIR2g3WFNTbFh3RHR4Qm56NzMtMWNQeDQ5R1NLRXpTaXUtQ1FvMGVpXzFtVlJqVkhYZmp6dGUwcVNDSXB3Z1VRYkRWaGlsTnBjZw?oc=5",
+   "source": "PR Newswire",
+   "date": "2026-10-13",
+   "entities": [
+    {
+     "kind": "lp",
+     "id": "l34",
+     "name": "American International Group (AIG)"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiygfbvv95cuxnatznz0rpx1f4ruddn1dum2e1qmfcv3burxbptgpin2djqmqyrl9wujfpzdnhtvbtdkprwnnpsenuu0lzuupkelnmrkvszwdomexnq3havutdznblrjrubujnn1pyc1drvwe0uxrfrxvjylbyswy0bdmyc2jwrxg2ee56n3dma2hozex1sdy5wepfyzzove5nqkdjrudtegq3vufertzzthrrrjnlwnfgctbrakrzvmxvvxexthm4s3hqwgyzn3bwvgj3",
+   "title": "Clifford Chance to end formal alliance with Singapore’s Cavenagh Law after 14 years",
+   "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNaTZNZ0RpX1F4RUdDN1duM2E1QmFCV3BuRXBpTGpiN2dJQmQyRl9wUjFPZDNhTVBtdkpRWnNPSENUU0lZUUpKelNMRkVsZWdOMExnQ3haVUtDZnBLRjRubUJNN1pyc1drVWE0UXRfRXVJYlBYSWY0bDMyc2JWRXg2eE56N3dma2hOZEx1SDY5WEpfYzZOVE5nQkdjRUdTeGQ3VUFERTZZTHRrRjNLWnFGcTBrakRzVmxvVXExTHM4S3hQWGYzN3BwVGJ3?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-13",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m377",
+     "name": "Clifford Capital"
+    },
+    {
+     "kind": "firm",
+     "id": "cliffordchance",
+     "name": "Clifford Chance"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/elliott-and-gtcr-near-deal-to-acquire-ccc-intelligent-solutions",
+   "title": "Elliott and GTCR near deal to acquire CCC Intelligent Solutions",
+   "url": "https://hedgeweek.com/news/elliott-and-gtcr-near-deal-to-acquire-ccc-intelligent-solutions",
+   "source": "Hedgeweek",
+   "date": "2026-10-12",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m265",
+     "name": "Elliott Investment Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h5",
+     "name": "Elliott Investment Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmimafbvv95cuxnmtazbu13nu9dbwnzbnnxcfzkvc1zanv1v1par2w5t1v1n05jwfnhcmrtdwh0qmq3ti0ts2hvrxvcuy1jqnnlaxq1tvctrnjvt0rpqmvxzwzux1q2bewyn2zndwxnbdznz19sqxhya2m1lwxqdfv1egxvatnntnryos1kshfsoevjajzcnu9kx2parfm5yuvidw",
+   "title": "Weil hits Freshfields for London PE dealmaker",
+   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNMTAzbU13NU9DbWNzbnNxcFZkVC1ZanV1V1paR2w5T1V1N05JWFNhcmRtdWh0QmQ3Ti0tS2hvRXVCUy1JQnNLaXQ1TVctRnJVT0RPQmVxZWZUX1Q2bEwyN2ZNdWxnbDZnZ19sQXhYa2M1LWxQdFV1eGxVaTNNTnRyOS1KSHFSOEVJajZCNU9kX2paRFM5YUVidw?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-12",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "freshfields",
+     "name": "Freshfields"
+    },
+    {
+     "kind": "firm",
+     "id": "weil",
+     "name": "Weil, Gotshal & Manges"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmitwjbvv95cuxoedzongzyem5oz19gbnjyu2pfm21xx2vay05iv0npt2u5nni4mfzsuks2sfytenblmc1nrvj3m0jyzuvxb0u4cwxyudd0du9ln3btenfszlnnbgdwn0ftc0r6zwm3ru1nulpuym1fs1rhtdazcldsvfffbnzqaxbizgtubux6bla5u2ryq3otwks0aze4mzhunfvpzmc0qtbqm2xvrxhhvy1ynvuzzgtzu2xmehphzgzem3pxthk1ekhwr3bmymxptjzytnnlr3jorwi1bkzea0hlm2dlc2rey19lrufhrw1jv0piwmhotvhsbv9jmglqmhgtedrxwlu1nlzrvxbztjmxykwtden3zdrzevrmrkeyntfgnnpimvnns1lirtzlq1rzx3gtddfvegxublizoa",
+   "title": "Blackstone Credit & Insurance Leads $1 Billion Financing to Support Combination of Analogic Corporation and Leidos' Security Enterprise Solutions Businesses",
+   "url": "https://news.google.com/rss/articles/CBMitwJBVV95cUxOeDZoNGZYem5OZ19GbnJyU2pfM21xX2VaY05iV0NpT2U5NnI4MFZSUks2SFYtenBlMC1NRVJ3M0JYZUVXb0U4cWxyUDd0dU9lN3BtenFSZlNNbGdWN0Ftc0R6ZWM3RU1nUlpuYm1fS1RHTDAzcldSVFFFbnZqaXBiZGtubUx6blA5U2RyQ3otWks0azE4MzhUNFVPZmc0QTBQM2xvRXhhVy1yNVUzZGtzU2xMeHpHZGZEM3pxTHk1ekhWR3BMYmxpTjZyTnNLR3JORWI1bkZEa0hLM2dLc2REY19lRUFhRW1JV0piWmhOTVhsbV9JMGlqMHgteDRxWlU1NlZrVXBzTjMxYkwtdEN3ZDRZeVRmRkEyNTFGNnpiMVNnS1lIRTZlQ1RZX3gtdDFveGxUblIzOA?oc=5",
+   "source": "Business Wire",
+   "date": "2026-10-12",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m8",
+     "name": "Blackstone Credit & Insurance (BXCI)"
+    },
+    {
+     "kind": "manager",
+     "id": "m438",
+     "name": "Blackstone (funds managed by Blackstone)"
+    },
+    {
+     "kind": "borrower",
+     "id": "d780",
+     "name": "Blackstone Private Credit Fund"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "recorded",
+   "recordId": null,
+   "reason": "held in the data (URL or headline)",
+   "closed": "2026-10-21T11:09:20.581Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiugfbvv95cuxqbxoztjflalvfa1nzu0o3z2htoxrrexd3v054z1l4vmnamtkxvkhfc1fotefjcudrszrrzefnwlbwzglhvnyxz2hmvefrr1ppmxlxcgo0dmqxr3dkr2lfas1ganrlwknem1a2ukhwlwgxnwxzohr6z2hnxzhslvzvogfvumvmalnimw9mmzlsmep3c1npajrzrw5xrlduodnktlhqbhd4rks1adhcdtm3mtfwcgrmwllamle",
+   "title": "HSF Kramer launches Italy real estate practice with K&L Gates team hire",
+   "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQbXozTjFlalVFa1NzU0o3Z2hTOXRReXd3V054Z1l4VmNaMTkxVkhfc1FoTEFJcUdrSzRrZEFNWlBWZGlHVnYxZ2hMVEFRR1pPMXlxcGo0dmQxR3dKR2lfaS1GanRLWkNEM1A2UkhWLWgxNWxzOHR6Z2hnXzhsLVZvOGFvUmVmalNiMW9MMzlsMEp3c1NPajRZRW5XRldUODNkTlhqbHd4Rks1aDhCdTM3MTFwcGRmWllaMlE?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-12",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "hsf",
+     "name": "Herbert Smith Freehills Kramer"
+    },
+    {
+     "kind": "firm",
+     "id": "klgates",
+     "name": "K&L Gates"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/lone-pine-gives-back-q3-gains-as-ai-stocks-slide",
+   "title": "Lone Pine gives back Q3 gains as AI stocks slide",
+   "url": "https://hedgeweek.com/news/lone-pine-gives-back-q3-gains-as-ai-stocks-slide",
+   "source": "Hedgeweek",
+   "date": "2026-10-09",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h55",
+     "name": "Lone Pine Capital"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/lynx-asset-management-selects-xyt-for-global-equities-liquidity-analytics",
+   "title": "Lynx Asset Management selects xyt for global equities liquidity analytics",
+   "url": "https://hedgeweek.com/news/lynx-asset-management-selects-xyt-for-global-equities-liquidity-analytics",
+   "source": "Hedgeweek",
+   "date": "2026-10-09",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h79",
+     "name": "Lynx Asset Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/millennium-rehires-macro-pm-from-balyasny",
+   "title": "Millennium rehires macro PM from Balyasny",
+   "url": "https://hedgeweek.com/news/millennium-rehires-macro-pm-from-balyasny",
+   "source": "Hedgeweek",
+   "date": "2026-10-09",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h3",
+     "name": "Millennium Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h17",
+     "name": "Balyasny Asset Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/tiger-global-set-for-5bn-paper-gain-from-early-openai-investment",
+   "title": "Tiger Global set for $5bn paper gain from early OpenAI investment",
+   "url": "https://hedgeweek.com/news/tiger-global-set-for-5bn-paper-gain-from-early-openai-investment",
+   "source": "Hedgeweek",
+   "date": "2026-10-09",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h31",
+     "name": "Tiger Global Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/arini-fund-down-16-as-troubled-debt-bets-sour",
+   "title": "Arini fund down 16% as troubled debt bets sour",
+   "url": "https://hedgeweek.com/news/arini-fund-down-16-as-troubled-debt-bets-sour",
+   "source": "Hedgeweek",
+   "date": "2026-10-08",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m40",
+     "name": "Arini Capital Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h45",
+     "name": "Arini"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "recorded",
+   "recordId": null,
+   "reason": "held in the data (URL or headline)",
+   "closed": "2026-10-21T11:09:20.581Z"
+  },
+  {
+   "key": "hedgeweek.com/news/elliott-siris-weigh-2bn-plus-sale-of-gigamon",
+   "title": "Elliott, Siris weigh $2bn-plus sale of Gigamon",
+   "url": "https://hedgeweek.com/news/elliott-siris-weigh-2bn-plus-sale-of-gigamon",
+   "source": "Hedgeweek",
+   "date": "2026-10-08",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m265",
+     "name": "Elliott Investment Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h5",
+     "name": "Elliott Investment Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/millennium-adds-jain-global-marketing-exec",
+   "title": "Millennium adds Jain Global marketing exec",
+   "url": "https://hedgeweek.com/news/millennium-adds-jain-global-marketing-exec",
+   "source": "Hedgeweek",
+   "date": "2026-10-08",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h3",
+     "name": "Millennium Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h83",
+     "name": "Jain Global"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/rokos-up-4-2-in-september-as-macro-hedge-funds-navigate-bond-rout",
+   "title": "Rokos up 4.2% in September as macro hedge funds navigate bond rout",
+   "url": "https://hedgeweek.com/news/rokos-up-4-2-in-september-as-macro-hedge-funds-navigate-bond-rout",
+   "source": "Hedgeweek",
+   "date": "2026-10-08",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h18",
+     "name": "Rokos Capital Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "recorded",
+   "recordId": null,
+   "reason": "held in the data (URL or headline)",
+   "closed": "2026-10-21T11:09:20.581Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiowfbvv95cuxpbhdsytn4ehrmqmhsbmnbuw04z2lexzhxr0fouhpsaed3wthcqtbfdy16u0dkvhzlzgxmmdjfwjb3vdqwrnfrbw5vtlmtd0vkqu1pefzgrfppmg8zajdlyk9ycwxkv3o1atdpafjvn24wumn1ntlibs14uxuwrec1v204m3d6v01pcwhaywzmsepvutbsddfucud1yzkxshlrrfpf",
+   "title": "Kirkland to halt reporting financial results to media",
+   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPbHdSYTN4eHRMQmhsbmNBUW04Z2lEXzhXR0FoUHpsaEd3WThCQTBFdy16U0dkVHZLZGxMMDJFWjB3VDQwRnFRbW5VTlMtd0VkQU1PeFZGRFpPMG8zajdlYk9YcWxkV3o1aTdpaFJvN24wUmN1NTlibS14UXUwREc1V204M3d6V01PcWhaYWZmSEpvUTBSdDFUcUd1YzkxSHlRRFpF?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-08",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "kirkland",
+     "name": "Kirkland & Ellis"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmisafbvv95cuxod1vin0jum0vvnc1hsmrhau5gvfawy0lqq290s0p2bfltwg5amdaybxotz1g4dnflq3n5a0drtgeyexvqekdrt1mtr1pqtkrjzlg5wuhvynrpb3kycxfncktxsui0nllyulzmwdhrcuz0zk5hwndyexhxc1vfzkh1eldscxaxavlbu2twveh5ckg5ufhic2d1c2cxlxn5tnzxc0vxy1pvetfewfhqcg1gea",
+   "title": "Davis Polk adds Skadden’s global media deals chief in Los Angeles",
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOd1VIN0JuM0VVNC1hSmRhaU5GVFAwY0lQQ290S0p2bFltWG5aMDAybXotZ1g4dnFlQ3N5a0dRTGEyeXVqekdrT1MtR1pqTkRJZlg5WUhvYnRpb3kycXFNcktXSUI0NllYUlZmWDhrcUZ0Zk5hWndYeXhxc1VfZkh1eldScXAxaVlBU2twVEh5ckg5UFhIc2d1c2cxLXN5TnZxc0VXY1pveTFEWFhqcG1GeA?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-08",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "davispolk",
+     "name": "Davis Polk"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/balyasny-hires-former-citadel-data-strategies-chief-as-senior-quant-researcher",
+   "title": "Balyasny hires former Citadel data strategies chief as senior quant researcher",
+   "url": "https://hedgeweek.com/news/balyasny-hires-former-citadel-data-strategies-chief-as-senior-quant-researcher",
+   "source": "Hedgeweek",
+   "date": "2026-10-07",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m385",
+     "name": "Citadel"
+    },
+    {
+     "kind": "hf",
+     "id": "h4",
+     "name": "Citadel"
+    },
+    {
+     "kind": "hf",
+     "id": "h17",
+     "name": "Balyasny Asset Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/brevan-howard-expands-ripple-prime-relationship",
+   "title": "Brevan Howard expands Ripple Prime relationship",
+   "url": "https://hedgeweek.com/news/brevan-howard-expands-ripple-prime-relationship",
+   "source": "Hedgeweek",
+   "date": "2026-10-07",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m208",
+     "name": "Prime Capital AG"
+    },
+    {
+     "kind": "hf",
+     "id": "h13",
+     "name": "Brevan Howard"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/kite-lake-to-launch-diversified-credit-fund-led-by-former-tyrus-partner",
+   "title": "Kite Lake to launch diversified credit fund led by former Tyrus partner",
+   "url": "https://hedgeweek.com/news/kite-lake-to-launch-diversified-credit-fund-led-by-former-tyrus-partner",
+   "source": "Hedgeweek",
+   "date": "2026-10-07",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h90",
+     "name": "Kite Lake Capital Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmirafbvv95cuxpdghpwfrqc05uova4wxnoeupic0nzmzjyqni3bdqwvkdragjtathyy0vczu1irglswddqbwtotmdiszjpsnnicwjtn2loq3c5ouhqbi1vsejrczrwc0xpt3lstlz0rtzlmnr4rdjrz0vqenryqurouetfmhetthjqdkhfahk2zwhpvhzkqzvit1lhbjhwwxryqxc2mkt6clvwmffhs25zrmp0tknr",
+   "title": "Skadden, A&O Shearman, Davis Polk lead on $8.9bn Boots acquisition",
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPdGhpWFRQc05uOVA4WXNOeUpic0NZMzJyQnI3bDQwVkdRaGJtaThYY0VCZU1IRGlsWDdqbWtOTmdiSzJPSnNicWJTN2loQ3c5OUhqbi1VSEJRczRwc0xpT3lSTlZ0RTZlMnR4RDJRZ0VqenRYQURoUEtFMHEtTHJQdkhfaHk2ZWhPVHZKQzVIT1lhbjhwWXRyQXc2Mkt6clVWMFFhS25zRmp0TkNR?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-07",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "aoshearman",
+     "name": "A&O Shearman"
+    },
+    {
+     "kind": "firm",
+     "id": "davispolk",
+     "name": "Davis Polk"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/arini-raises-1-5bn-for-credit-strategy-despite-flagship-fund-loss",
+   "title": "Arini raises $1.5bn for credit strategy despite flagship fund loss",
+   "url": "https://hedgeweek.com/news/arini-raises-1-5bn-for-credit-strategy-despite-flagship-fund-loss",
+   "source": "Hedgeweek",
+   "date": "2026-10-06",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m40",
+     "name": "Arini Capital Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h45",
+     "name": "Arini"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/balyasny-promotes-star-stock-picker-to-co-lead-equities",
+   "title": "Balyasny promotes star stock picker to co-lead equities",
+   "url": "https://hedgeweek.com/news/balyasny-promotes-star-stock-picker-to-co-lead-equities",
+   "source": "Hedgeweek",
+   "date": "2026-10-06",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h17",
+     "name": "Balyasny Asset Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/bridgewater-calls-for-ai-tax-and-public-ownership-to-spread-benefits-of-tech-boom",
+   "title": "Bridgewater calls for AI tax and public ownership to spread benefits of tech boom",
+   "url": "https://hedgeweek.com/news/bridgewater-calls-for-ai-tax-and-public-ownership-to-spread-benefits-of-tech-boom",
+   "source": "Hedgeweek",
+   "date": "2026-10-06",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h1",
+     "name": "Bridgewater Associates"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgeweek.com/news/jain-global-adds-two-senior-equity-pms-in-london",
+   "title": "Jain Global adds two senior equity PMs in London",
+   "url": "https://hedgeweek.com/news/jain-global-adds-two-senior-equity-pms-in-london",
+   "source": "Hedgeweek",
+   "date": "2026-10-06",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h83",
+     "name": "Jain Global"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi1gfbvv95cuxqsgtec0jtznutnzuwtw5jy01fbhjzrldxveg3zlffa1eyuxfytdzxskthaedvdm5clvlvr01bvvvorgpxvzcwvmj2cglra1ezm1pzs0zzseznvnlfbmhyv2j0mfv2uje1s0hhndvrujvaotfym1dsnks1z0fvuu8yz0q1a2h2dfhqsjhndxhlctvyuwlwbunplvvtmhmwdgdzauvwug44y1jgoxfhb0ztrkvcm2qwwxl0axlea0hotkfmxzzlu2s2sxdkngxtrkf6a2qwmupr",
+   "title": "Kirkland tops global M&A rankings after strongest first nine months for dealmaking since 2021",
+   "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQSGtEc0JtZnUtNzUwTW5jY01FbHJZRldxVEg3ZlFfa1EyUXFyTDZXSkthaEdVdm5CLVlVR01BVVVoRGpXVzcwVmJ2cGlra1EzM1pZS0ZZSEZnVnlfbmhYV2J0MFV2UjE1S0hhNDVrUjVaOTFyM1dSNks1Z0FVUU8yZ0Q1a2h2dFhQSjhNdXhlcTVyUWlWbUNPLVVTMHMwdGdzaUVWUG44Y1JGOXFHb0ZtRkVCM2QwWXl0aXlEa0hOTkFmXzZlU2s2SXdkNGxtRkF6a2QwMUpR?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-06",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "kirkland",
+     "name": "Kirkland & Ellis"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "hedgenordic.com/2026/10/historic-small-cap-discount-offers-long-term-opportunity-not-a-timing-signal",
+   "title": "Historic Small-Cap Discount Offers Long-Term Opportunity, Not a Timing Signal",
+   "url": "https://hedgenordic.com/2026/10/historic-small-cap-discount-offers-long-term-opportunity-not-a-timing-signal/",
+   "source": "HedgeNordic",
+   "date": "2026-10-05",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m32",
+     "name": "Signal Capital Partners"
+    },
+    {
+     "kind": "borrower",
+     "id": "d534",
+     "name": "Signal"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi-wfbvv95cuxqy2vjc0potdfloufhalhpytf1dwnyt0qzn1e1y3u0rg12tuexn0lld2xxvu0xy1gynu4tm0xmq05qt0p4qxzmmfg0ahvzwefnywnodhvjbmvzzuw1mtziazhqtu8wrwj5tuhpbke2ywznaflaue9hdvetchpordfnz1d5rjllqjlibmjudzzkwunmzf9wv1jrbmh5enrqm3dfd2hsakzptff3qwpezgxqdhdvvndtzjzma01ewhbib19uc094wehpafzhvmvxaux4zhvyuufpzdrysuxbbgo0rmdputfjbudfwdjauepaeenheuvnovm3xzmwrq",
+   "title": "Cantor Fitzgerald Asset Management Names Eric Johnston Head of Equities at O’Connor and Chief Market Strategist",
+   "url": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxQY2Vjc0pOTDFLOUFHalhpYTF1dWNyT0QzN1E1Y3U0RG12TUExN0lLd2xxVU0xY1gyNU4tM0xMQ05qT0p4QXZMMFg0aHVzWEFnYWNOdHVJbmVZZUw1MTZiazhqTU8wRWJ5TUhPbkE2YWZNaFlaUE9HdVEtcHpORDFnZ1d5RjlLQjlIbmJudzZkWUNMZF9wV1Jrbmh5enRqM3dfd2hSakZPTFF3QWpEZGxqdHdVVndTZjZma01EWHBib19uc094WEhPaFZhVmVxaUx4ZHVYUUFpZDRySUxBbGo0RmdpUTFJbUdFWDJaUEpaeENheUVNOVM3XzMwRQ?oc=5",
+   "source": "Business Wire",
+   "date": "2026-10-05",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m376",
+     "name": "Cantor Fitzgerald"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmipwjbvv95cuxoq3voy2vjshntrna0bk5ldhhnwndnbhnstzfsmjjozjhytxzyrmjomu5jvlh4wu54nglva28zafu3mu9znuzktengow5sd0zvz1boaxhjzwlvt1i1zgfkwlz5zevtrez4x2hmajqtagxtum1rb3rsotq1xy1mejz6dkpgrxzurm1lofzuekt0rhy4sdzyu1vcvlvfq2hotkf6vkdtm0fzvephcghiwmzcme82q1pbumptducxutbjnkfwzexjsdfoq0x2d25prgxla3doafzoa05bdxdrnuhqvzbwnzjlodrrmu52qkrmanvywetiu0zra1q1cg1vskvhyvlxlw9gadezdl9bv1d4djhpsg8wexrvyxg0ntrjuzdjrfvhslnr",
+   "title": "Cox Capital Expands Liquidity Program for Retail Private Markets Investors with Tender Offer for Class I Shares of Blue Owl Credit Income Corp.",
+   "url": "https://news.google.com/rss/articles/CBMipwJBVV95cUxOQ3VOY2VJSHNtRnA0bk5ldHhNWndNbHNsTzFSMjJOZjhyTXZYRmJOMU5jVlh4WU54NGlVa28zaFU3MU9ZNUZKTENGOW5Sd0ZVZ1BOaXhJZWlvT1I1ZGFKWlZ5ZEVTREZ4X2hmajQtaGxtUm1rb3RsOTQ1Xy1MejZ6dkpGRXZuRm1LOFZUekt0RHY4SDZyU1VCVlVFQ2hoTkF6VkdTM0FzVEpHcGhIWmZCME82Q1pBUmptdUcxUTBJNkFWZExjSDFoQ0x2d25PRGxla3doaFZOa05BdXdRNUhqVzBwNzJlODRrMU52QkRmanVYWEtiU0Zra1Q1cG1VSkVHYVlXLW9GaDEzdl9BV1d4djhpSG8weXRvYXg0NTRjUzdjRFVHSlNR?oc=5",
+   "source": "Business Wire",
+   "date": "2026-10-05",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m90",
+     "name": "Blue Owl Capital"
+    },
+    {
+     "kind": "borrower",
+     "id": "d1001",
+     "name": "Blue Owl Capital Inc."
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi6wfbvv95cuxqrkljvgdwmzu5vtdutvlar1gtrvhet3nprdbvn2xwejhib0rwqknhdg5ftwxalxeyt3rfnkvhyzz6bgvkvfrevuhytw5ot1vjznh1utjcskzacdlhx0kxuxitd2nzltfvngdtv3j6rfzfsxpwzzbtmhpzv2tvq1hizhjhrmrqsur5rfpqs0q4rnzzuln2dfryrho4clzdzvuwuev6nurpa3o2q1hnsgndx1ldovdybvoza0s3uxfrruplmmxkovc5nnk0vxzhak9pem93czricwnqzknbr2rzzlkwm1jwrv9mwvdz",
+   "title": "KBRA Assigns Rating to Bain Capital Private Credit's $350 Million Senior Unsecured Notes due 2031",
+   "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQRkljVGdWMzU5VTdUTVlaR1gtRVhET3NpRDBVN2xWejhIb0RwQkNhdG5FTWxaLXEyT3RFNkVHYzZ6bGVkVFREVUhYTW5OT1VjZnh1UTJCSkZacDlHX0kxUXItd2NzLTFvNGdtV3J6RFZFSXpWZzBTMHpZV2tVQ1hIZHJhRmRQSUR5RFpqS0Q4RnZzUlN2dFRyRHo4clZDZVUwUEV6NURpa3o2Q1hnSGNDX1lDOVdYbVoza0s3UXFRRUpLMmxkOVc5Nnk0VXZhak9pem93czRIcWNqZkNBR2RzZlkwM1JWRV9mWVdz?oc=5",
+   "source": "Business Wire",
+   "date": "2026-10-02",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m65",
+     "name": "Bain Capital Credit"
+    },
+    {
+     "kind": "manager",
+     "id": "m405",
+     "name": "Bain Capital"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi_wfbvv95cuxpm1mywjd4qndyemc2annlcfltwflkuwhwwuixc2m1m1nzrjbqu0oxzzq2wjlfs1bdtu5ur1ptemp3quq1ewr5rtfuagw0tmfsshzeagnfvhfxzu9qn1nwnxnlcxkzmfrtb3hxemf6mzftrhrau0xwm0frumtpsep5z3vnekxfrhayv29rnvhqz0xyvne5vgx2akgymmz4bdl3stjkwmgtbxrpuvgyd1hyy1l4azhoq0kxt2fdcxgybuy2rjnwsfz3tthtvmjit3njzmftvlq5czvyrllqatblew8tbhhqv08xzhlwzzzrthzidejczkrjmjd2tu8yalk",
+   "title": "New York Life Investment Management and Apogem Capital Acquire Remaining Ownership Interest in Bow River Advisers",
+   "url": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxPM1MyWjd4QndYemc2anNLcFlTWFlKUWhWWUIxc2M1M1NZRjBQU0oxZzQ2WjlfS1BDTU5uR1pTemp3QUQ1eWR5RTFuaGw0TmFSSHZEaGNFVHFxZU9qN1NWNXNLcXkzMFRtb3hxemF6MzFTRHRaU0xWM0FRUmtpSEp5Z3VNekxFRHAyV29rNVhQZ0xyVnE5VGx2akgyMmZ4bDl3STJkWmgtbXRPUVgyd1hyY1l4azhoQ0kxT2FDcXgybUY2RjNwSFZ3TThTVmJiT3NJZmFtVlQ5czVyRllqaTBleW8tbHhQV08xZHlwZzZrTHZidEJCZkRJMjd2TU8yalk?oc=5",
+   "source": "Business Wire",
+   "date": "2026-10-01",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m389",
+     "name": "Apogem Capital"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi9afbvv95cuxpeuy5teh5z3zbenriz0nuchjgajzttdvxtmqyvm9qykhbwnl6nmpqrnh4envrvndowdjcyzqzcw8zde5kc3nube9pt3ryznzjczcybdhqdta1dtlfrzi3mmlnaxvismtruk90nvfhrurhbmw4v1hamudqrhhkukjmt2jkbtbfu3nfyldzqu9sutbbngjtzfcydk9koen5ek1sd3e4s2pybhfhys1jb3rcse1vu2jzeg1wd292vhv4n3z3emgtcmnjwfp2zkdqqi1lrzntxzg3ajn4u3mybzj2q0u1sddjyzhnb3ytd1howux2clbv",
+   "title": "Apollo Expands Daily Pricing to All Credit Assets, Advancing Transparency in Private Credit",
+   "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPeUY5TEh5Z3ZBenRiZ0NucHJGajZTTDVXTmQyVm9QYkhBWnl6NmpQRnh4enVrVndOWDJCYzQzcW8zdE5kc3NubE9pT3RYZnZjczcybDhqdTA1dTlFRzI3MmlnaXViSmtrUk90NVFHRURhbmw4V1haMUdQRHhkUkJmT2JkbTBFU3NFYldzQU9sUTBBNGJtZFcydk9kOEN5ek1sd3E4S2pybHFHYS1jb3RCSE1vU2JzeG1wd292VHV4N3Z3emgtcmNjWFp2ZkdQQi1LRzNtXzg3ajN4U3MybzJ2Q0U1SDdjYzhNb3Ytd1hoWUx2clBV?oc=5",
+   "source": "GlobeNewswire",
+   "date": "2026-10-01",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m7",
+     "name": "Apollo Global Management"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiowfbvv95cuxoavffzupkdjfndlrfsgnra3axzje1qkparlvmvulvn2hqrvnrdfh3vdvbcvj1mgljb3dyelptlvg0qvhtnk1wn3pxzgzgzhrwwjfvc1jynjjpr3fink1fwf9lu1bqdjf2rw5myvnlwg5kvnpjdwvxbkvoak9czlozmvjpnxluvvd4ahrub1nouzz6dxu2avzvae05tjrwvvzzbvjf",
+   "title": "Weil continues Germany push with Willkie partner hire",
+   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOaVFfZUpKdjFNdlRFSGNRa3AxZjE1QkpaRlVmVUlvN2hQRVNrdFh3VDVBcVJ1MGljb3dyelptLVg0QVhtNk1wN3pXZGZGZHRwWjFVc1JYNjJPR3FiNk1FWF9LU1BqdjF2RW5MYVNlWG5KVnpJdWVXbkVoak9CZlozMVJPNXlUVVd4aHRUb1NoUzZ6dXU2aVZVaE05TjRwVVZZbVJF?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-01",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "weil",
+     "name": "Weil, Gotshal & Manges"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmitafbvv95cuxoltkycljvd1htmejnm1ozqxoxmutwrtlzvxyxuxhrd1vhrnpmtdhmqwtptmdtadl3d1rvdkhxb1jhzjlmsjvrsjf1tlatcnhhetrnmwhbtkttsuv0qtfxn3gwluo0cgp3vg80ogtltv9xnlhftllod05fd0dhoulpdk5va0zcchrzltjkluhpn2rhenq4r2pja2z5m0n5u2hiejf6bxzmale2a0tkcef1nngymek",
+   "title": "Monroe Capital Prices $398.9 Million Private Credit CLO",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOLTkyclJVd1hTMEJnM1ozQXoxMUtWRTlzVXYxUXhRd1VHRnpMTDhmQWtPTmdTaDl3d1RvdkhXb1JhZjlMSjVrSjF1TlAtcnhHeTRnMWhBTktTSUV0QTFxN3gwLUo0cGp3VG80OGtlTV9xNlhFTllod05Fd0dhOUlPdk5va0ZCcHRzLTJkLUhpN2RhenQ4R2pja2Z5M0N5U2hiejF6bXZMalE2a0tKcEF1NngyMEk?oc=5",
+   "source": "Business Wire",
+   "date": "2026-10-01",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m199",
+     "name": "Monroe Capital"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiuafbvv95cuxqskz2zdjftkjqoeduedf1q3rvcvhktwowufdhtertzlz4tkq1mnzrnnjuywxnyvnjbjmxenlfbgjarmzcb0vmdw04sjgyzwppyty3bjdkou9qogjftlhfagxhmfhrsfbpq09olxvwzffir3vzzutwttc4x2fvtxv5dkcwohfjogm4wjfmbhnqsvk5ufhdwwiydxbodfc2tuptnwpkeuzztvfrekntn3vjuk84s2zroegw",
+   "title": "Lloyds Banking Group lines up replacement for long-serving legal head",
+   "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQSkZ2ZDJFTkJQOEdueDF1Q3RvcVhKTWowUFdhTERTZlZ4TkQ1MnZRNnJuYWxNYVNjbjMxenlFbGJaRmZCb0VmdW04SjgyZWpPYTY3bjdKOU9qOGJfTlhfaGxhMFhrSFBPQ09oLXVwZFFiR3VZZUtwTTc4X2FvTXV5dkcwOHFjOGM4WjFmbHNqSVk5UFhDWWIydXBOdFc2TUptNWpKeUZZTVFRekNTN3VjUk84S2ZrOEgw?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-01",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m259",
+     "name": "Lloyds"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiwafbvv95cuxqrhdnaxzpnjvytujxdlpttxlwnxc5wjj0bgv3wgznahnhvm5xumo3vwrvzmlmzxnfodrryw1lavbnwe91ctnkuwjpmjdht3zueghpnkzfz19yt2xkutfzwjzhx244dkpeltn4ynhockxxsfzlaf9hc0v2ejlndutrulq0ymzumwhtrzi4a0tpu1gwdzvxq0pyvfj4tuizlvyxohzvtfdnzthqdknoehn0qxluyjhfzy12uvradwlqwem",
+   "title": "Greenberg Traurig secures Ashurst Perkins Coie’s construction chief in London",
+   "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQRHdnaXZPNjVyTUJxdlptTXlwNXc5WjJ0bGV3WGZNaHNhVm5xUmo3VWRvZmlmZXNFODRrYW1laVBNWE91cTNkUWJpMjdHT3ZueGhpNkZfZ19YT2xkUTFZWjZHX244dkpELTN4YnhockxxSFZLaF9Hc0V2ejlNdUtRUlQ0YmZUMWhtRzI4a0tpU1gwdzVXQ0pyVFJ4TUIzLVYxOHZvTFdnZThQdkNOeHN0QXlUYjhfZy12UVRadWlqWEM?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-10-01",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "ashurst",
+     "name": "Ashurst"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi7afbvv95cuxpemkxdkzubvjcrxphd2nsuedfbvbcmkvlazfwzzdhcjn3bex4rdeyouvhr29dt3jxzg1xrgdfs3fmdervewznzlzsng4txzndee95lwvwoxhnsktjduqwtglkvuhsb3myaggtcuvmwuo3sdrlzw5ztfh3nezusjdmcvcxs3dhv09neldoctjnzzzyr0pgcxdcmwh0ekjtsgnymkzsegi5c1jzwetoq2rdn1hfwfi0euzewmtcoddlztzdvgqydy1ztwhjdmtqegnmrgtjwgxdbhfqrxhmzezud1r6ulzychn2d3vzda",
+   "title": "Audax Private Debt Closes Largest Fund in Firm’s History, Raising $10 Billion in Investable Capital",
+   "url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxPemkxdkZUbVJCRXpHd2NsUEdFbVBCMkVLazFWZzdHcjN3bEx4RDEyOUVhR29DT3JxZG1xRGdFS3FMdERveWZNZlZSNG4tXzNDeE95LWVwOXhnSktJdUQwTGlkVUhSb3MyaGgtcUVMWUo3SDRLZW5ZTFh3NEZuSjdmcVcxS3dhV09neldocTJNZzZyR0pGcXdCMWh0ekJTSGNyMkZSeGI5c1JzWEtOQ2RDN1hFWFI0eUZEWmtCODdLZTZDVGQydy1zTWhJdmtQeGNMRGtJWGxDbHFqRXhMZEZud1R6UlZycHN2d3VzdA?oc=5",
+   "source": "Business Wire",
+   "date": "2026-09-30",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m163",
+     "name": "Audax Private Debt"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbminwfbvv95cuxpnfiyd3lvm01jehfttjh1zerncggxdw5ra2tlwu41cmxvavdpt1h5atvoethsmuu1blzjndlttwjpd05vmmixrjk5ellovwyxz1ljswxndflpzfzobdd0ug02ouhfd0prc2r4c2o3rw82s0rxbezlrklytkvhm18tcfzkbwjhmmjkvkvtx2nivlvdsthndnj5tvjoc3zsmxm",
+   "title": "Mayer Brown announces next London managing partner",
+   "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPNFIyd3lvM01jeHFTTjh1ZERncGgxdW5ra2tLWU41cmxvaVdpT1h5aTVoeThsMUU1blZJNDlTTWJpd05VMmIxRjk5elloVWYxZ1ljSWxndFlpZFZobDd0UG02OUhFd0prc2R4c2o3RW82S0RXbEZlRklyTkVhM18tcFZKbWJHMmJkVkVTX2NiVlVDSThNdnJ5TVJOc3ZSMXM?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-09-30",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "mayerbrown",
+     "name": "Mayer Brown"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiugfbvv95cuxprxlpy2kwcmhxr1hsdhn3uzr2ru56r0ztufvfnm9izko1zue2vzldx1vnyva1mdixshpmdlrpvw1pmm83d0gxlvnbb1zgy19keuxiouhwdufrlur4wgrzd1vczgdnve9vogpmwmj4d0rjshl3mtbfy1voqudkqxpqeelknepgmm9fsvjqculzt1rqzvdwsdlwsvitcxu5dtj2mfhvsmxqrdvgn3qzs1u1n05wmmtznkrmchc",
+   "title": "A&O Shearman hires Stephenson Harwood duo as global secondaries co-heads",
+   "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPRXlpY2kwcmhXR1hsdHN3UzR2RU56R0ZTUFVFNm9iZko1ZUE2VzlDX1VnYVA1MDIxSHpmdlRpVW1pMm83d0gxLVNBb1ZGY19KeUxIOUhwdUFrLUR4WGRzd1VCZGdnVE9VOGpMWmJ4d0RJSHl3MTBFY1VOQUdKQXpqeElkNEpGMm9FSVJqcUlzT1RQZVdWSDlWSVItcXU5dTJ2MFhVSmxqRDVGN3QzS1U1N05wMmtzNkRmcHc?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-09-30",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "aoshearman",
+     "name": "A&O Shearman"
+    },
+    {
+     "kind": "firm",
+     "id": "stephensonharwood",
+     "name": "Stephenson Harwood"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiwgfbvv95cuxqq2t1v001ymgxqkyzovdebufozxdvx3i5eerer2u1adazd0ztofhoss1ky2tgmdjxberoyw5omzdfckexsfjjz2jllwhkcznwslzdbdz2r3a3n252zmrvwtbfc2fhn2jtnw5ytjvrtenhm1beuwnqoehmewjzuxnhcgjfulj0exjswfptzg01cwszqms5b0c3vgxryuhrwtrhbuxkn3bostzinm4zy2nvn2q0wko2oepkawnyukjzx1liqq",
+   "title": "Stephenson Harwood makes double hire in London from Clyde & Co, Mishcon de Reya",
+   "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQQ2t1V001YmgxQkYzOVdEbUFoZXdvX3I5eERER2U1aDAzd0ZTOFhoSS1kY2tGMDJXbEROYW5OMzdFckExSFJJZ2JLLWhkczNwSlZDbDZ2R3A3N252ZmRVWTBfc2FhN2JtNW5yTjVrTENHM1BEUWNqOEhmeWJZUXNhcGJFUlJ0eXJSWFptZG01cWszQms5b0c3VGxRYUhrWTRHbUxKN3BoSTZINm4zY2NvN2Q0Wko2OEpKaWNyUkJZX1lIQQ?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-09-29",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "stephensonharwood",
+     "name": "Stephenson Harwood"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi_gfbvv95cuxomwpyvwdeztlyytn5rk1ln1psaeniymzxbxlkmw91dfvynnnkvxbvsgy5ql8zrl9rzf84bghtcflyehl0ymhxcw9qzfztr3a2bk1iywdrtklgbei2ejr0zwrxsl94wfrpzkh4wjjwwmvxmetbewstmljfuuywamvpemhuulbhnexkzkxkz1rrmureodltwtlobhnjn3p6clfqvzu2c2lym3vtz1z6vhzcvw5kofrlznbkuxjdmln4nu9vzejgoujltwlmtmlwwg4wcfjuvnuwahrxmxh2bdllsv94ltrrvw5xnu5moge1edyylwlznlduvndvvln0dw",
+   "title": "Crescent European Specialty Lending Provides Financing to Support Continued Growth of Oakley Capital’s Infravadis",
+   "url": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxOMWpYVWdEZTlYYTN5Rk1LN1pSaENiYmZXbXlkMW91dFVyNnNkVXBVSGY5Ql8zRl9RZF84bGhTcFlYeHl0YmhxcW9QZFZTR3A2bk1iYWdRTklGbEI2ejR0ZWRXSl94WFRPZkh4WjJWWmVxMEtBeWstMlJfUUYwamVpemhuUlBHNExkZkxKZ1RrMUREODltWTlObHNjN3p6clFQVzU2c2lYM3VTZ1Z6VHZCVW5kOFRLZnBkUXJDMlN4NU9vZEJGOUJLTWlMTmlwWG4wcFJuVnUwaHRXMXh2bDllSV94LTRRVW5xNU5mOGE1eDYyLWlZNlduVndVVlN0dw?oc=5",
+   "source": "Business Wire",
+   "date": "2026-09-28",
+   "entities": [
+    {
+     "kind": "borrower",
+     "id": "d907",
+     "name": "Infravadis"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "recorded",
+   "recordId": null,
+   "reason": "held in the data (URL or headline)",
+   "closed": "2026-10-21T11:09:20.581Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmisgfbvv95cuxpwgfxru1wehjxzgxlvfbym3h5d0d6tlvmvnpjqjjydmrmcfa0wtvoy1hywv9vt1ztnddvnwd1stryahbyzjn1awjkejlmy0rzsf9xslnuwjn4odv1d3jitudfsw1dd25kwwtvcgliukdbn1atzjdoslq2u1bwbercdw5xuxrovzf0y1a2be4xugtwbndkc3o5n1prcujvqvy5yy1xmgpubtlwuni4u2q0efdr",
+   "title": "Weil recruits Cravath private equity chief as US practice co-head",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPWGFxRU1weHJXZGxlVFByM3h5d0d6TlVMVnpjQjJYdmRMcFA0WTVOY1hyWV9vT1ZtNDdVNWd1STRYaHByZjN1aWJKejlMY0RzSF9xSlNUWjN4ODV1d3JITUdfSW1Dd25kWWtVcGliUkdBN1AtZjdOSlQ2U1BwbERCdW5xUXRoVzF0Y1A2bE4xUGtwbndKc3o5N1prcUJvQVY5Yy1XMGpubTlWUnI4U2Q0eFdR?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-09-28",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "weil",
+     "name": "Weil, Gotshal & Manges"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi0gfbvv95cuxqcwjvwhj2qlbxznvdnk5zr3h4cupwm1dpz0u1zzltulhmtfzotlzjellxq3dxou5mzzhpz1liynrsm0lhcnbmudran3gzzdjxnnl3ndrtqlnasfzhc2u4vevzyxhtynb4m1rtd2floxvbeurfehbwnfzcmxpdbmxrwkd3dlr6ykd6wvvtsf9hs1nvafjtcw9ues14nlvszgvpmmxpnkw5nhqxmzrxdwrqrvjvbes4blvhzffwy0zovzm0z2tvbdnztmd0v1bmu3biove",
+   "title": "Kirkland, Latham and Jones Day steer Royal Caribbean’s $3bn acquisition of stake in Sandals",
+   "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQcWJVWHJ2QlBXZnVDNk5zR3h4cUpwM1dpZ0U1ZzlTUlhmTFZOTlZjellXQ3dXOU5MZzhpZ1lIYnRSM0lhcnBMUDRaN3gzZDJxNnl3NDRTQlNaSFZhc2U4VEVzYXhtYnB4M1RTd2FLOXVBeURfeHBWNFZCMXpDbmxRWkd3dlR6Ykd6WVVTSF9HS1NVaFJTcW9ueS14NlVsZGVPMmxPNkw5NHQxMzRxdWRQRVJVbEs4blVHZFFwY0ZoVzM0Z2tVbDNzTmd0V1BmU3BiOVE?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-09-25",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "latham",
+     "name": "Latham & Watkins"
+    },
+    {
+     "kind": "firm",
+     "id": "kirkland",
+     "name": "Kirkland & Ellis"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmirgfbvv95cuxpd0cynhq4bmc0x2y0dglsumphd3d3bdzrekcxz3czvxrhbvbzmelmywldblyzv0rvcm0wetrtsxhvbk9rvfowazfmzu9vnk5hx2o4yzlwcdnkauvtm0tebi1rqut1utzoemhizgrtmfbjdvbfbmhcy0yyu2nrwmnzbhrwqmp4uxhlwlbfmtbhc0nuejvkm1h2oe9td0p0u09swvgtamrvmlnhm0xrmnc",
+   "title": "King & Spalding adds disputes partner from Freshfields in Paris",
+   "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPd0cyNHQ4bmc0X2Y0dGlsUmpHd3d3bDZRekcxZ3czVXRhbVBZMElmYWlDblYzV0RVcm0weTRTSXhvbk9rVFowazFmZU9vNk5HX2o4YzlwcDNKaUVTM0tEbi1rQUt1UTZoemhIZGRtMFBJdVBFbmhCY0YyU2NrWmNzbHRWQmp4UXhLWlBFMTBhc0NUejVkM1h2OE9td0p0U09SWVgtamRvMlNHM0xRMnc?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-09-25",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "freshfields",
+     "name": "Freshfields"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbminwfbvv95cuxquudrtffczhzqafdldza0wjn5ywxsvwdtak1vcgu0ovbrttnxy1ywltjowmd3c2vhz1pucgverln3ouk3whrrtldlbne0qtdmdldut1v6snlvuwxhyutxnjhybno2mlvxukhlzvrxredtenrdqm82rtawsuzxvfutamhdcxppd0jbtmy4bwtfzkh5zwlhvuzubfh4retgelk",
+   "title": "Houlihan Lokey hires Paychex CLO as next legal chief",
+   "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQUUdrTFFCZHZQaFdLdzA0WjN5YWxsVWdtak1vcGU0OVBrTTNXY1YwLTJOWmd3c2VHZ1pUcGVERlN3OUk3WHRrTldLbnE0QTdmdldUT1V6SnlvUWxhYUtxNjhybno2MlVXUkhLZVRxREdTenRDQm82RTAwSUZxVFUtamhDcXppd0JBTmY4bWtfZkh5ZWlHVUZubFh4REtGelk?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-09-24",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m361",
+     "name": "Houlihan Lokey"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmivgfbvv95cuxpu0jdtu44ce14b0jwzv9nsdf1sxpfzzjrumfintjpsxffnhhhww1xmzltatdccjvrdwdmus1js2lncndldkpxlxuymddjcmjctum4x0f6zm42uhdoz1zlmxpvtfdst3lpohnodndyvvdvy1loskq4vhzjn3rrvgzxawxkn2xhrtuxbuhaogxobhnzr3rzetnhcwlgu2f3azframxkzfazm08zsmratgmyrtl6qm52vwiwmdbwwknr",
+   "title": "Three Crowns hires Freshfields’ Saudi disputes head for growing DIFC office",
+   "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPU0JDTU44cE14b0JWZV9NSDF1SXpFZzJRUmFiNTJpSXFFNHhHWW1XMzlTaTdCcjVrdWdMUS1jS2lNcndldkpXLXUyMDdJcmJCTUM4X0F6Zm42UHdoZ1ZlMXpVTFdsT3lPOHNOdndyVVdVY1loSkQ4VHZJN3RRVGZxaWxKN2xHRTUxbUhaOGxobHNzR3RZeTNhcWlGU2F3azFramxkZFAzM08zSmRaTGMyRTl6Qm52VWIwMDBWWkNR?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-09-24",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "freshfields",
+     "name": "Freshfields"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmizgfbvv95cuxnuv9zwvg5bvr5nddacedxatfpywq1verozhrxve5hm245wxi3u0zfehnazkk5mwpmddm4czhkowvcwehfogtkmjfor1jiqv9orvbmdghmm0peagywc2vjywx0ynvfcjjgrvj1u0rtlxnyuxlgqllgmzqytlhuzvn1nkpmowfcd0xfzkhjbg1fbmjwddkxd3hmny1us0demhnkukp3ruhtzxyzq3jxvei4yxh3ytljsxbrmmlzavbymxbas19tq184bldttg5lzw",
+   "title": "Monroe Capital Supports Sweetmore Bakeries’ Acquisition of Fantasy Baking Co.",
+   "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNUV9ZWVg5bVR5NDdacEdxaTFpYWQ1VEROZHRXVE5hM245WXI3U0ZFeHNaZkk5MWpMdDM4czhkOWVCWEhFOGtKMjFoR1JIQV9ORVBmdGhMM0pEaGYwc2VjYWx0YnVFcjJGRVJ1U0RtLXNYUXlGQllGMzQyTlhuZVN1NkpMOWFCd0xFZkhJbG1FbmJWdDkxd3hMNy1uS0dEMHNkUkp3RUhtZXYzQ3JXVEI4YXh3YTljSXBrMmlZaVByMXBaS19TQ184bldtTG5LZw?oc=5",
+   "source": "Business Wire",
+   "date": "2026-09-24",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m199",
+     "name": "Monroe Capital"
+    },
+    {
+     "kind": "borrower",
+     "id": "d971",
+     "name": "Sweetmore Bakeries"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmizgfbvv95cuxqclbseglpwjc3mfu0v3bhdnyyow54yll5rzvrbkq1t1bvnxljovvfbzhfnxe2yu91owloeuyxquxsagtisew1cg5fog9fddfxm2fdnzhbrg5cac1ev3ittufcnzdos3lpsfb1dm1yughqefnpogg1vllarndqmnnxbjrys2j6dmdiytbwadlgt1vpodfyqzl2qzrxdjlotwg1ujf3avhsqkneew5pv19wtzntzvpregdozzrvcjjbqtnezddsdenpuvbqekxhzw",
+   "title": "KBRA Releases Research – Private Credit—Middle Market Monthly Pulse: August 2026",
+   "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQclBSeGlPWjc3MFU0V3BhdnYyOW54Yll5RzVRbkQ1T1BvNXljOVVfbzhFNXE2YU91OWlOeUYxQUxSaGtISEw1cG5FOG9FdDFXM2FDNzhBRG5CaC1EV3ItTUFCNzdoS3lpSFB1dm1YUGhqeFNpOGg1VllaRndqMnNXbjRyS2J6dmdIYTBwaDlGT1VPODFyQzl2QzRXdjloTWg1UjF3aVhSQkNEeW5PV19wTzNTZVpreGdOZzRVcjJBQTNEZDdSdENPUVBQekxhZw?oc=5",
+   "source": "Business Wire",
+   "date": "2026-09-24",
+   "entities": [
+    {
+     "kind": "borrower",
+     "id": "d896",
+     "name": "Pulse Holding GmbH"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi4afbvv95cuxnu0yztjqzwm1yb293mgzkqxlzchu5wdjqdlj1sufjt011nmjhaflpmev3wfhtwllfa1rvuerrlw9qmhflcjfiaentsvhfb05qeehnqvhqeu9wqjhny0ztvtf4rk10be5ntwjkwdhhdi1rnkv2oeloavlmzvvxngx5zep5wdlxrmvtmkx2c3uzdwnywvf1rnotaw8wslrjuln1wl94ate3rl9fzvy5el95vlb0afhjz3viufhuckxsmne3bk1maw1jyzblz09qmmt1dtayvgjwym4wbw8wmmg3yq",
+   "title": "MCO (MyComplianceOffice) Announces Strategic Growth Financing from Accel-KKR Credit Partners",
+   "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNU0YzTjQzWm1yb293MGZKQXlZcHU5WDJQdlJ1SUFJT011NmJhaFlPMEV3WFhTWllfa1RvUERrLW9qMHFLcjFiaENtSVhfb05QeEhnQVhqeU9WQjhnY0ZTVTF4Rk10bE5nTWJKWDhHdi1RNkV2OEloaVlmZVVXNGx5ZEp5WDlXRmVTMkx2c3UzdWNyWVF1RnotaW8wSlRjUlN1Wl94aTE3Rl9fZVY5el95VlB0aFhJZ3VIUFhUckxSMnE3bk1MaW1jYzBLZ09qMmt1dTAyVGJwYm4wbW8wMmg3YQ?oc=5",
+   "source": "Business Wire",
+   "date": "2026-09-23",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m81",
+     "name": "KKR (KKR Credit)"
+    },
+    {
+     "kind": "manager",
+     "id": "m336",
+     "name": "Miralta Credit Opportunities (MCO)"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi9wfbvv95cuxpdwi5y2jyd05cbhdpzhdld2hrcgdoaxlht0tys3fyvkj1d3h3nlpjetbqsdfux3zksgf1athwdu9bmmtzrgv0q1fitxpmujvkzldquc1noevtmnlolxhps1iwbhhis2veulvvckq3m0lnn2dodjbkndvonhgym2navkx0emharkteanlcvxdgbzdksudnlujyas1qdei0ntzoanfyznnoshzubgizty12zkhrnw5uekdyr25uywxybe1kagnimndhdgxozwtyejc3uvvov1zpsvbya1u1mtdsbjvzuuetu0fmc2dsvuvhakngwvbssgdn",
+   "title": "Anchorage Capital Advisors Meaningfully Expands CLO Platform with Acquisition of 11 CLOs from ORIX Advisers",
+   "url": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxPdWI5Y2Jyd05CbHdPZHdLd2hRcGdoaXlHT0tYS3FYVkJ1d3h3NlpjeTBqSDFUX3ZKSGF1aThWdU9BMmtzRGV0Q1FITXpmUjVkZldQUC1nOEVTMnloLXhpS1IwbHhIS2VEUlVVckQ3M0lNN2dodjBKNDVONHgyM2NaVkx0emhaRktEanlCVXdGbzdkSUdNLUJyaS1QdEI0NTZoanFyZnNoSHZubGIzTy12ZkhRNW5UekdYR25UYWxybE1KaGNiMndHdGxOZWtyejc3UVVOV1ZpSVBya1U1MTdsbjVzUUEtU0Fmc2dsVUVhakNGWVBSSGdn?oc=5",
+   "source": "Business Wire",
+   "date": "2026-09-23",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m67",
+     "name": "Anchorage Capital Group"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmihwjbvv95cuxpntvswm9ktzvlnjextgzztfj6qjjnuhbed2rpns1mam9wt1m0wmfrckhor1ngsfjjny1unutleeutvvjtvej5wufkodzlbtroy3cxs1vwr1dmakplbxmwaevqam1xefjwni1tmxllc2k4tnc1n2z0nxm4wmn2rthuqk1texm2dxpebk9iwejztxzxalb2dhlmbwzirxhjvkf4yknzedjyagvoalfkn2vny1jiz0tbmgn2bldudvdxdvpkemexz19ocwtscmteue1twg5oehpzbtbrakp6d1znr0p1z2tvtmnxdl9jbwdqvljhzwjaz1rvlwvin2xus3zbs0zpxzjtrq",
+   "title": "Cox Capital Announces Tender Offers for Class I Shares of Blackstone Private Credit Fund and HPS Corporate Lending Fund",
+   "url": "https://news.google.com/rss/articles/CBMihwJBVV95cUxPNTVSWm9KTzVlNjExTGZZTFJ6QjJnUHBEd2RpNS1mam9wT1M0WmFRckhOR1NGSFJJNy1uNUtLeEUtVVJTVEJ5WUFKODZLbTROY3cxS1VWR1dMakplbXMwaEVqam1xeFJWNi1TMXlLc2k4Tnc1N2Z0NXM4WmN2RThUQk1teXM2dXpEbk9IWEJZTXZXalB2dHlmbWZiRXhJVkF4YkNzeDJyaGVOalFKN2VnY1JiZ0tBMGN2bldudVdxdVpkemExZ19ocWtScmtEUE1tWG5oeHpZbTBRakp6d1ZNR0p1Z2tVTmNXdl9JbWdqVlJHZWJaZ1RVLWViN2xuS3ZBS0ZpXzJtRQ?oc=5",
+   "source": "Business Wire",
+   "date": "2026-09-23",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m8",
+     "name": "Blackstone Credit & Insurance (BXCI)"
+    },
+    {
+     "kind": "manager",
+     "id": "m438",
+     "name": "Blackstone (funds managed by Blackstone)"
+    },
+    {
+     "kind": "borrower",
+     "id": "d780",
+     "name": "Blackstone Private Credit Fund"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmivwfbvv95cuxoqlfhvnhbzlvxedk1wmtwdml2q3jxsepjwhvlwvvebezycuzmy0vqde10z20zv21zz21fv0r1y2xdywvrugdmtthuatjktdbnx3zvzhvuzdz5slhisknssmpimmlhns1mywhvemrzcklerhltm0ytqvfmr1qzwk5uzfl5ttr5wuhyajjqufl3cfzyc1pozg12nwmxcdh5cflplteya3rrrjzzn2dqym9mzwszrnnpsfczv2zwndnczw",
+   "title": "Three Weil partners join PE co-chief in defection to Paul Weiss in New York",
+   "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOQlFhVnhBZlVxeDk1Wmtwdml2Q3JXSEpJWHVlWVVEbEZYcUZMY0VqdE10Z20zV21ZZ21fV0R1Y2xDYWVrUGdmTThuaTJKTDBnX3ZvZHVUZDZ5SlhISkNsSmpIMmlhNS1MYWhvemRZcklERHltM0YtQVFmR1QzWk5UZFl5TTR5WUhyajJqUFl3cFZYc1poZG12NWMxcDh5cFlPLTEya3RrRjZzN2dqYm9mZWszRnNPSFczV2ZwNDNCZw?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-09-23",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m386",
+     "name": "Weiss Asset Management"
+    },
+    {
+     "kind": "firm",
+     "id": "weil",
+     "name": "Weil, Gotshal & Manges"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmizwfbvv95cuxqelhqzthrbjnbbknyew9uvllsq1jlx3vmcenvn1h2rwjhnhd6y2lsnzuzsevislrvzjrjdgnvzxhruerhluvwnf85ckl4nm41dv8wwwhnvwjntwriz192ql91yvg3ednpneq2ruluy0djrgrwy2dbemt6rjhqtghvzwzhrw1rvjaxcnk1owvqt1yzvwxqrvrjzew3lwntynm4vnleu1jstwjfcelonel6zex4elfuaw5qmdz1lxfjadjvyzg0mmrlsgptr2c0bk0",
+   "title": "Former Latham & Watkins lawyer launches AI-native law firm targeting private capital work",
+   "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQelhqZThRbjNBbkNyeW9uVllSQ1JLX3VMcENvN1h2RWJhNHd6Y2lSNzUzSEViSlRVZjRjdGNvZXhRUERhLUVWNF85ckl4Nm41dV8wWWhnVWJnTWRIZ192Ql91YVg3eDNPNEQ2RUluY0djRGRWY2dBemt6RjhqTGhVZWZhRW1RVjAxcnk1OWVQT1YzVWxqRVRjZEw3LWNtYnM4VnlEU1JsTWJfcElONEl6ZEx4elFUaW5QMDZ1LXFJaDJvYzg0MmRLSGpTR2c0bk0?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-09-23",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "latham",
+     "name": "Latham & Watkins"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiuwfbvv95cuxnyw9umljerndkymzpq2xrduf0rhpwltjjuu92dklecjzqsdroemf6yl9sqznpddz0owkwb0nnskjichkwdzvuvux1wlbeany2nkfztmpraxdbajvqnl9jytveq1rrbevprtd2a2u5b2mwcwhmsfrays1quwf3n3hpohytbghqagdremphuti5tlzqohptq2vja2plbfntsjbiv1blm1ftcmdhm1etq1l0d2zotko2uu5htktv",
+   "title": "Vinson & Elkins adds Latham’s structured finance vice chair in double hire",
+   "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNYW9UMlJERndKYmZPQ2xrdUF0RHpWLTJjUU92dklEcjZQSDROemF6Yl9sQzNPdDZ0OWkwb0NNSkJIcHkwdzVUVUx1WlBEanY2NkFZTmpRaXdBajVQNl9JYTVEQ1RRbEVpRTd2a2U5b2MwcWhMSFRaYS1qUWF3N3hpOHYtbGhQaGdRemphUTI5TlZQOHpTQ2VJa2pLbFNtSjBIV1BlM1FtcmdHM1EtQ1l0d2ZOTko2UU5HTktV?oc=5",
+   "source": "The Global Legal Post",
+   "date": "2026-09-22",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "latham",
+     "name": "Latham & Watkins"
+    }
+   ],
+   "firstSeen": "2026-10-21T11:09:20.581Z",
+   "lastSeen": "2026-10-21T11:09:20.581Z",
+   "status": "open"
+  }
+ ]
+}
