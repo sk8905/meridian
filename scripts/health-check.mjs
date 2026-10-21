@@ -175,6 +175,21 @@ try {
   if (r.status === 0) { const j = JSON.parse(r.stdout); backfill = { pct: j.pct, present: j.present, events: j.events, built: j.built, entities: j.entities }; }
 } catch { /* script missing — skip */ }
 
+// ---- 2d2. Data-quality backlog (data audit 2026-10-21) — informational ----------
+// The worklists the profile rota rotates through. Not a failure: the routines shrink
+// them a slice per run; the daily email shows the trend so a stalled backlog is seen.
+let dataQuality = null;
+try {
+  const { rota } = await import("./profile-rota.mjs");
+  const r = rota({});
+  dataQuality = {
+    managerAumGaps: r.managerAumGapTotal, investorsNoAum: r.lpNoAumTotal, hedgeFundsNoNews: r.hedgeFundsWithoutNews,
+    hedgeFundWeakAum: r.hedgeFundWeakSourceTotal, hedgeFundAumNewerInNews: r.hedgeFundAumFromIntel.length,
+    lawFirmsBehindResults: r.lawFirmFinancialsTotal, staleOpenFunds: r.staleOpenFundsTotal, dealTagGaps: r.dealTagGapsTotal,
+    edgarDrift: r.hedgeFundEdgarDrift.length,
+  };
+} catch { /* rota unavailable — skip */ }
+
 // ---- 2e. Newswire lanes — is each Home lane actually stocked? ---------------
 // The live RSS part of the wire is fetched by the Worker at view time (not checkable
 // here); this measures the curated content each lane draws on, plus how much a
@@ -318,7 +333,7 @@ if (doWrite) {
 }
 
 if (asJson) {
-  console.log(JSON.stringify({ generated: new Date().toISOString(), verdict, ok, fails, attention, coverage, cadenceHours: lastCommitAgeH, newRecords24h: yield24, backfill, lanes, wireSweep, ci }, null, 2));
+  console.log(JSON.stringify({ generated: new Date().toISOString(), verdict, ok, fails, attention, coverage, cadenceHours: lastCommitAgeH, newRecords24h: yield24, backfill, lanes, wireSweep, dataQuality, ci }, null, 2));
 } else {
   const date = new Date().toISOString().slice(0, 10);
   console.log(`WIRE HEALTH CHECK — ${date}`);
@@ -335,6 +350,7 @@ if (asJson) {
     console.log("");
   }
   if (coverage) console.log(`Manager-profile backfill (ongoing, not a failure): ${coverage.reach2020}/${coverage.totalManagers} profiles reach ≤2020, ${coverage.flagged} flagged for depth.`);
+  if (dataQuality) { const q = dataQuality; console.log(`Data-quality backlog (profile rota, shrinks each run): manager AUM gaps ${q.managerAumGaps} · investors with no AUM ${q.investorsNoAum} · hedge funds with no news ${q.hedgeFundsNoNews} · weak hedge-fund AUM sources ${q.hedgeFundWeakAum} · law firms behind results ${q.lawFirmsBehindResults} · stale open funds ${q.staleOpenFunds} · deal-tag gaps ${q.dealTagGaps} · EDGAR renames/moves to confirm ${q.edgarDrift}.`); }
   if (lanes) console.log(`Newswire lanes: Managers ${lanes.managers} events (this + last month) · Research ${lanes.research14} (14d) · Newsletters ${lanes.newsletters7} (7d) · Watchlist depth — hedge funds with news ${lanes.hfCovered}/${lanes.hfTotal}, law firms active in 30d ${lanes.firmRecent}/${lanes.firmTotal}.`);
   if (backfill) console.log(`2020 backfill (checklist): ${backfill.present}/${backfill.events} events present = ${backfill.pct}% · ${backfill.built}/${backfill.entities} priority entities researched.`);
   if (yield24) console.log(`New records published in the last 24h: ${yieldTotal} (deals ${yield24.deals} · intel ${yield24.intel} · hedge ${yield24.hedge} · legal ${yield24.legal}).`);
