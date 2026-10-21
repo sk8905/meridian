@@ -8559,33 +8559,318 @@
    "kind": "hf",
    "name": "Davidson Kempner Capital",
    "priority": 74,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-21",
+   "events": [
+    {
+     "key": "dk-qiagen-5pct-wont-tender-2020",
+     "date": "2020-07-28",
+     "what": "Davidson Kempner discloses 5.1% Qiagen stake, says it will not tender into Thermo Fisher offer",
+     "source": "https://www.prnewswire.com/de/pressemitteilungen/davidson-kempner-expects-thermo-fisher-scientific-s-current-offer-for-qiagen-n-v-to-fail-839167916.html",
+     "status": "present",
+     "recordId": "hi494"
+    },
+    {
+     "key": "dk-qiagen-thermo-bid-fails-2020",
+     "date": "2020-08-13",
+     "what": "Thermo Fisher's Qiagen bid fails (47.02% tendered vs two-thirds needed); DK claims victory",
+     "source": "https://www.medtechdive.com/news/thermo-fisher-nixes-planned-acquisition-of-qiagen-fails-to-secure-sharehol/583446/",
+     "status": "present",
+     "recordId": "hi495"
+    },
+    {
+     "key": "dk-opportunities-fund-vi-2023",
+     "date": "2023-07-18",
+     "what": "DK closes Opportunities Fund VI at $3.0bn of commitments",
+     "source": "https://www.paulweiss.com/insights/client-news/davidson-kempner-closes-3-billion-opportunities-fund-vi",
+     "status": "present",
+     "recordId": "hi496"
+    },
+    {
+     "key": "dk-prelios-sale-ion-2023",
+     "date": "2023-08-11",
+     "what": "DK signs binding agreement to sell Prelios to ION's X3 Group",
+     "source": "https://www.aap.com.au/aapreleases/cision20230811ae81886",
+     "status": "present",
+     "recordId": "hi497"
+    },
+    {
+     "key": "dk-hq-lease-9w57-2023",
+     "date": "2023-10-25",
+     "what": "DK leases new New York HQ at 9 West 57th Street",
+     "source": "http://www.paulweiss.com/practices/transactional/investment-funds/news/davidson-kempner-enters-into-new-headquarters-lease?id=48794",
+     "status": "present",
+     "recordId": "hi498"
+    },
+    {
+     "key": "dk-distressed-opps-fund-wind-down-2024",
+     "date": "2024-09-09",
+     "what": "DK to close its $2bn Distressed Opportunities Fund",
+     "source": "https://alternativecreditinvestor.com/2024/09/09/davidson-kempner-to-close-distressed-opportunities-fund/",
+     "status": "present",
+     "recordId": "hi499"
+    },
+    {
+     "key": "dk-abu-dhabi-office-2025",
+     "date": "2025-10-14",
+     "what": "DK picks Abu Dhabi IFC for its eighth office",
+     "source": "https://news.bgov.com/bankruptcy-law/davidson-kempner-joins-the-rush-of-hedge-funds-to-abu-dhabi",
+     "status": "present",
+     "recordId": "hi500"
+    },
+    {
+     "key": "dk-income-fund-ii-close-2026",
+     "date": "2026-01-08",
+     "what": "DK Income Fund II final close above $1.1bn",
+     "source": "https://www.prnewswire.com/news-releases/davidson-kempner-announces-close-of-income-fund-ii-at-over-1-1-billion-302655478.html",
+     "status": "present",
+     "recordId": "hi18"
+    },
+    {
+     "key": "dk-european-clo-pm-hire-2026",
+     "date": "2026-02-25",
+     "what": "DK hires Chris Symonds as portfolio manager for new European CLO platform",
+     "source": "https://octus.com/resources/articles/davidson-kempner-hires-portfolio-manager-to-lead-its-new-european-clo-management-business/",
+     "status": "rejected",
+     "note": "Already held as manager intel i179 (Davidson Kempner credit arm, m70); not duplicated as hedge-fund intel."
+    },
+    {
+     "key": "dk-aum-near-40bn-2022",
+     "date": "2022-04-20",
+     "what": "Bloomberg profile: DK closes in on $40bn AUM",
+     "source": "https://www.bloomberg.com/news/articles/2022-04-20/no-drama-hedge-fund-davidson-kempner-closes-in-on-40-billion",
+     "status": "rejected",
+     "note": "Bloomberg page returned 403; AUM details seen only in search snippets, not on the source page."
+    }
+   ]
   },
   "h40": {
    "kind": "hf",
    "name": "Holocene Advisors",
    "priority": 75,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-21",
+   "events": [
+    {
+     "key": "form-d-fund-2020-04",
+     "date": "2020-04-17",
+     "what": "Holocene Advisors Fund LP Form D amendment reports $1.36bn sold, 105 investors",
+     "source": "https://www.formds.com/issuers/holocene-advisors-fund-lp",
+     "status": "present",
+     "recordId": "hi501"
+    },
+    {
+     "key": "children-fund-launch-2022-02",
+     "date": "2022-02-09",
+     "what": "Holocene Children's Fund LP files initial Form D, $24.25m sold",
+     "source": "https://www.formds.com/issuers/holocene-children-s-fund-lp",
+     "status": "present",
+     "recordId": "hi502"
+    },
+    {
+     "key": "form-d-fund-2022-04",
+     "date": "2022-04-15",
+     "what": "Holocene Advisors Fund LP Form D amendment reports $1.83bn sold, 120 investors",
+     "source": "https://www.formds.com/issuers/holocene-advisors-fund-lp",
+     "status": "present",
+     "recordId": "hi501"
+    },
+    {
+     "key": "children-fund-2024-02",
+     "date": "2024-02-09",
+     "what": "Holocene Children's Fund LP Form D amendment reports $351.2m sold, 39 investors",
+     "source": "https://www.formds.com/issuers/holocene-children-s-fund-lp",
+     "status": "present",
+     "recordId": "hi502"
+    },
+    {
+     "key": "form-d-fund-2024-04",
+     "date": "2024-04-12",
+     "what": "Holocene Advisors Fund LP Form D amendment reports $2.0bn sold, 127 investors",
+     "source": "https://www.formds.com/issuers/holocene-advisors-fund-lp",
+     "status": "present",
+     "recordId": "hi501"
+    },
+    {
+     "key": "children-fund-2025-02",
+     "date": "2025-02-07",
+     "what": "Holocene Children's Fund LP Form D amendment reports $1.06bn sold, 48 investors",
+     "source": "https://www.formds.com/issuers/holocene-children-s-fund-lp",
+     "status": "present",
+     "recordId": "hi502"
+    },
+    {
+     "key": "children-fund-2026-02",
+     "date": "2026-02-06",
+     "what": "Holocene Children's Fund LP Form D amendment reports $1.25bn sold",
+     "source": "https://www.formds.com/issuers/holocene-children-s-fund-lp",
+     "status": "present",
+     "recordId": "hi502"
+    },
+    {
+     "key": "form-d-fund-2026-04",
+     "date": "2026-04-10",
+     "what": "Holocene Advisors Fund LP Form D amendment reports $2.33bn sold, 141 investors",
+     "source": "https://www.formds.com/issuers/holocene-advisors-fund-lp",
+     "status": "present",
+     "recordId": "hi501"
+    },
+    {
+     "key": "q2-2026-13f",
+     "date": "2026-08-14",
+     "what": "Q2 2026 13F-HR",
+     "source": "https://www.sec.gov/Archives/edgar/data/1700574/000117266126003735/",
+     "status": "present",
+     "recordId": "hi234"
+    },
+    {
+     "key": "returns-2020-2025",
+     "date": "2021-01-01",
+     "what": "Annual fund returns / AUM milestones, leadership changes, stake sales 2020-2026",
+     "source": "",
+     "status": "rejected",
+     "note": "No dated source for post-2019 returns, hires/departures or stake sales found."
+    }
+   ]
   },
   "h41": {
    "kind": "hf",
    "name": "HBK Capital Management",
    "priority": 76,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-21",
+   "events": [
+    {
+     "key": "ucits-fund-raises-three-quarters-assets-2025",
+     "date": "2026-02-19",
+     "what": "HBK multistrategy UCITS fund (launched 2023) raised about three-quarters of its assets in 2025",
+     "source": "https://www.hedgeweek.com/ucits-strategies-regaining-traction-with-europes-wealthy/",
+     "status": "present",
+     "recordId": "hi280"
+    },
+    {
+     "key": "haley-retires-president-2021",
+     "date": "2021-12-01",
+     "what": "David Haley retired from HBK in December 2021 after 27 years as president",
+     "source": "https://business.catholic.edu/news/2022/08/david-c.-haley,-president-emeritus-of-hbk-capital-management,-to-give-busch-school-ceo-lecture.html",
+     "status": "rejected",
+     "note": "Source gives month only, no exact day; fetch blocked."
+    },
+    {
+     "key": "ucits-fund-launch-2023",
+     "date": "2023-12-13",
+     "what": "HBK multistrategy UCITS fund launched in 2023 (Lumyna Funds HBK Diversified Strategies)",
+     "source": "https://script.finanzen.ch/etp/lumyna-funds-hbk-diversified-strategies-fund-b-lu2713265994",
+     "status": "rejected",
+     "note": "Only 'launched in 2023' confirmed; listing date is a share-class date."
+    },
+    {
+     "key": "adv-aum-35-6bn-2025",
+     "date": "2025-12-31",
+     "what": "Form ADV regulatory AUM about 35.6bn as of 2025-12-31",
+     "source": "https://radientanalytics.com/firm/adv/hbk-capital-management-115079",
+     "status": "rejected",
+     "note": "Seen only in a search snippet; not verified at source."
+    }
+   ]
   },
   "h42": {
    "kind": "hf",
    "name": "King Street Capital Management",
    "priority": 77,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-21",
+   "events": [
+    {
+     "key": "gdf-i-close-1-2bn",
+     "date": "2021-07-23",
+     "what": "King Street closes inaugural Global Drawdown Fund at $1.2bn vs $750m target",
+     "source": "https://www.opalesque.com/industry-updates/6463/king-street-capital-management-closes-debut-drawdown-fund.html",
+     "status": "present",
+     "recordId": "hi503"
+    },
+    {
+     "key": "gdf-ii-close-2-3bn",
+     "date": "2023-10-04",
+     "what": "King Street closes Global Drawdown Fund II at $2.3bn, above $2bn target",
+     "source": "https://www.alternativeswatch.com/2023/10/04/king-street-closes-second-drawdown-strategy-with-2-3bn/",
+     "status": "present",
+     "recordId": "hi504"
+    },
+    {
+     "key": "goldschmid-departure",
+     "date": "2024-11-06",
+     "what": "Senior partner Paul Goldschmid to leave King Street to start own venture",
+     "source": "https://www.hedgeweek.com/king-streets-top-investor-departs-amid-credit-hedge-fund-restructuring/",
+     "status": "present",
+     "recordId": "hi505"
+    },
+    {
+     "key": "ess-ii-close-950m",
+     "date": "2025-06-30",
+     "what": "King Street closes European Real Estate Special Situations Fund II at $950m hard cap",
+     "source": "https://alternativecreditinvestor.com/2025/06/30/king-street-closes-european-real-estate-special-sits-fund-with-950m/",
+     "status": "present",
+     "recordId": "hi506"
+    },
+    {
+     "key": "leadership-reshape-2026",
+     "date": "2026-04-21",
+     "what": "Leadership reshaped: Lia and Rosenbaum co-heads of flagship; Young Choi leads opportunistic credit",
+     "source": "https://alternativecreditinvestor.com/2026/04/21/king-street-shakes-up-leadership-structure-to-focus-on-core-credit-strategies/",
+     "status": "present",
+     "recordId": "hi507"
+    },
+    {
+     "key": "restructuring-2026-06",
+     "date": "2026-06-29",
+     "what": "Broad restructuring of investment business after weak performance and senior partner departures",
+     "source": "https://www.hedgeweek.com/king-street-overhaul-follows-weak-performance-and-senior-partner-departures/",
+     "status": "present",
+     "recordId": "hi508"
+    },
+    {
+     "key": "restrict-withdrawals-2026",
+     "date": "2026-07-15",
+     "what": "Restricts client withdrawals from flagship hedge fund",
+     "source": "https://www.bloomberg.com/news/articles/2026-07-15/king-street-restricts-client-withdrawals-from-its-hedge-fund",
+     "status": "present",
+     "recordId": "hi57"
+    },
+    {
+     "key": "calendar-2020-return",
+     "date": "2020-12-31",
+     "what": "Claimed 2020 return of 51.48%",
+     "source": "https://www.insidermonkey.com/blog/5-best-stocks-to-buy-according-to-billionaire-brian-higgins-953780",
+     "status": "rejected",
+     "note": "Only secondary source with no methodology; not verified."
+    },
+    {
+     "key": "higgins-sole-mp-2020",
+     "date": "2020-07-01",
+     "what": "Higgins becomes sole managing partner",
+     "source": "https://www.hedgeweek.com/king-streets-top-investor-departs-amid-credit-hedge-fund-restructuring/",
+     "status": "present",
+     "note": "Only referenced as 'since July 2020' in a 2024 article; no exact day.",
+     "recordId": "hi505"
+    },
+    {
+     "key": "ucits-iam-2025-09",
+     "date": "2025-09-17",
+     "what": "Retail UCITS fund with International Asset Management, $100m commitments",
+     "source": "https://www.alternativeswatch.com/2025/09/17/king-street-expands-access-flagship-credit-strategy-via-ucits-fund-international-asset-management/",
+     "status": "rejected",
+     "note": "Page not fetchable; snippet only."
+    },
+    {
+     "key": "rosenbaum-hire-2024-09",
+     "date": "2024-09-17",
+     "what": "Hires Jeff Rosenbaum from NextEra as partner",
+     "source": "https://www.alternativeswatch.com/2024/09/17/king-street-hires-nextera-jeff-rosenbaum-partner/",
+     "status": "rejected",
+     "note": "Page not fetchable; snippet only."
+    }
+   ]
   },
   "h13": {
    "kind": "hf",
