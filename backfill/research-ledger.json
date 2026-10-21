@@ -10922,6 +10922,62 @@
      }
     }
    ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h144",
+   "verdict": "update",
+   "source": "https://trium-capital.com/news/with-intelligence-trium-assets-surpass-5-billion/",
+   "sourceLabel": "Trium Capital news, 2026-05-18",
+   "asOf": "2026-05-18",
+   "evidence": "Trium's own site headline (18 May 2026): assets surpass $5bn; floor figure.",
+   "changes": [
+    {
+     "field": "aumAsOf",
+     "from": "2025",
+     "to": "2026-05-18"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://thehedgefundjournal.com/trium-capital-championing-emerging-managers/",
+     "to": "https://trium-capital.com/news/with-intelligence-trium-assets-surpass-5-billion/"
+    },
+    {
+     "field": "aum",
+     "from": 3,
+     "to": 5,
+     "reported": "5bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h114",
+   "verdict": "update",
+   "source": "https://www.businesswire.com/news/home/20260212958440/en/Brigade-Capital-Management-Closes-$1-Billion-Inaugural-Private-Credit-Fund",
+   "sourceLabel": "Brigade Capital Management press release (Business Wire)",
+   "asOf": "2026-02-12",
+   "evidence": "Brigade's own release (12 Feb 2026) describes the firm as approximately $31 billion in assets under management.",
+   "changes": [
+    {
+     "field": "aumAsOf",
+     "from": "2025",
+     "to": "2026-02-12"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://fintool.com/app/research/funds/hedge-fund/brigade-capital-management-lp",
+     "to": "https://www.businesswire.com/news/home/20260212958440/en/Brigade-Capital-Management-Closes-$1-Billion-Inaugural-Private-Credit-Fund"
+    },
+    {
+     "field": "aum",
+     "from": 30,
+     "to": 31,
+     "reported": "31bn USD"
+    }
+   ]
   }
  ]
 }

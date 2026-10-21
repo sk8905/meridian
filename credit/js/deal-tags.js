@@ -1200,6 +1200,8 @@ const T = {
   d1318: {"c":"Switzerland","s":"Infrastructure & energy","p":"Safe Host SA","r":"borrower","a":null},
   d1319: {"c":"UK","cs":"https://restaurantonline.co.uk/Article/2022/01/14/Caffe-Nero-completes-330m-debt-refinancing-as-it-looks-to-grow","cb":"hq","s":"Leisure & hospitality","p":"Caffè Nero","r":"borrower","a":"financing"},
   d1320: {"s":"Financial services","m":1,"p":"Metropolitan Real Estate Equity, LLC","r":"target","c":null,"a":null},
+  d1322: {"s":"Healthcare","p":"ABM Respiratory Care","r":"borrower","a":"financing","c":null},
+  d1321: {"c":"Germany","cs":"https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-eiffel-investment-group-on-financing-of-bencis-partnership-with-kodiak","cb":"hq","s":"Industrials","p":"KODIAK GmbH","r":"borrower","a":null},
 };
 // A role (r) without a party name (p) labels the deal's own audited `borrower` (data audit
 // 2026-10-21: manager M&A → Target, fund closes / CVs → Fund / vehicle, CLOs → Issuer).
