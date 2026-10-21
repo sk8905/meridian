@@ -6,7 +6,11 @@
 // padlock. Runs on the app's real bundled wire content.
 import { serve, launchChromium, open, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
 
-const srv = await serve();
+// A readable, recent News wire (court judgments are not news since 2026-10-21, so the
+// lane is filled by the live feed alone — the shared fixture is mostly paywalled FT).
+const today = new Date().toISOString().slice(0, 10);
+const FEED = { items: Array.from({ length: 40 }, (_, i) => ({ title: `Markets story ${i} on rates, oil and the dollar`, url: `https://www.cnbc.com/2026/10/x${i}.html`, source: i % 3 ? "CNBC" : "Associated Press", date: today, time: `${String(20 - Math.floor(i / 3)).padStart(2, "0")}:${String((i * 7) % 60).padStart(2, "0")}`, desk: "m" })) };
+const srv = await serve({ "/api/feed": () => [200, JSON.stringify(FEED)] });
 const b = await launchChromium();
 const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/`);
 await pg.evaluate(() => { try { localStorage.removeItem("wire.home.v1"); } catch {} });
@@ -35,6 +39,15 @@ check(lanes.tabs.join(" · ") === "News · Deals · Profiles · Research · News
 check(!lanes.hasSubsSlot, "no inline sub-filter slot (#g-wire-subs) exists");
 check(!lanes.headVisible, "the #g-feed-head sub-filter band takes no space");
 check(lanes.deskChips === 0, `no desk / category / group sub-filter chips anywhere (${lanes.deskChips})`);
+
+// ---- Court judgments are not news (owner 2026-10-21) ---------------------------
+const judg = await pg.evaluate(async () => {
+  const L = await import("/legal/js/data.js");
+  const urls = new Set((L.cases || []).map((c) => c.url).filter(Boolean));
+  const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
+  return { rows: rows.length, cases: rows.filter((r) => urls.has(r.getAttribute("href"))).length, known: urls.size };
+});
+check(judg.known > 0 && judg.cases === 0, `News lane carries no court judgments (${judg.cases} of ${judg.rows} rows)`);
 
 // ---- News rows keep their per-item colour label ------------------------------
 const labelled = await pg.evaluate(() => {

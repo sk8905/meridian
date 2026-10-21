@@ -1700,7 +1700,9 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
 
 - **R50 — One item, one lane (owner 2026-10-17).** The Home wire lanes never share an
   item. **News is journalism only** — the live news wire (macro, legal-industry wire,
-  Substack, MailBrew, fixed-income, live hedge-fund reporting) and court-case notices;
+  Substack, MailBrew, fixed-income, live hedge-fund reporting). **Court judgments are not
+  news** (owner 2026-10-21): they live in Dashboard ▸ Legal ▸ "Case law — latest judgments",
+  never on the News lane;
   nothing that carries a lane. Every other item carries exactly one `lane`:
   **Deals** — credit deals, CLOs, restructurings, intel whose category is deal-type
   (raise, close, launch, financing, M&A, exit, CLO — `DEAL_LANE_CATS` in
@@ -1981,6 +1983,12 @@ item keeps a real outbound source link (R7).
 > owner's own subscriber content reaches the pane through their newsletter emails (R38).
 > `READ_LINKONLY` is an empty switch to send a host back to headline + link. Spec:
 > `tests/reader-terms.mjs`. The old ≤30% paywalled-share cap was removed.
+**No limits but age (owner 2026-10-21).** The live wire keeps EVERY item a source publishes
+within `FEED_WINDOW_DAYS` (30) — no per-source caps, no item ceiling, Google News bridges
+queried `when:30d`, and no count guard in the app's News lane. The 30-day window is the one
+bound: without it the bridges return press releases up to ~18 years old. Deals, Profiles and
+the Dashboard never depend on the wire — they are built from the committed records.
+
 **The fixed wire source set (owner 2026-10-21).** The live News wire draws ONLY from the
 sources below — `FEED_SOURCES` in `src/index.js` is the single list, and this table mirrors
 it exactly (`tests/wire-sources-doc.mjs` fails if they drift). There is no separate

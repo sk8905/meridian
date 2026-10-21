@@ -115,7 +115,7 @@ check(feedQualityKeep({ source: ECON, title: "Polish retailer Pepco agrees €50
   const cnbc = FEED_SOURCES.filter((f) => f.source === "CNBC");
   check(cnbc.length >= 1, "preferred: CNBC is registered as a newswire source");
   check(cnbc.every((f) => !f.core), "preferred: CNBC feeds are NOT core-restricted (its general coverage is kept)");
-  check(Math.max(...cnbc.map((f) => f.cap || 0)) >= 12, `preferred: CNBC carries a generous cap (max ${Math.max(...cnbc.map((f) => f.cap || 0))})`);
+  check(cnbc.every((f) => f.cap == null), "no limits: CNBC (like every source) carries no per-source cap");
   // A keyword-free CNBC headline passing PROVES it's in the always-pass premium tier
   // (the same headline from a gated source would be culled).
   check(feedQualityKeep({ source: "CNBC", title: "Retailers brace for a cautious holiday shopper" }),
@@ -195,6 +195,16 @@ for (const [on, want] of [["Associated Press", {}], ["Moody's", { fi: true }], [
   check(!k(peh, "Inflexion’s Ranger Fire and Security adds Midlands alarm firm D&G"), "PE Hub: a small add-on is dropped");
   check(!k(peh, "WestBridge completes investment in Foresight-backed financial planner Beckett"), "PE Hub: 'financial planner' is not a financing");
   check(!k(bySource("Axios"), "Trump goes full apocalypse in anti-Dems midterms message"), "Axios: politics is dropped (default macro gate)");
+}
+
+// ---- No limits but age (owner 2026-10-21): no source carries a cap; the 30-day window
+// is the only bound, and every Google News bridge asks for the same 30 days.
+{
+  const { FEED_WINDOW_DAYS } = await import("../src/index.js");
+  check(FEED_WINDOW_DAYS === 30, `no limits: the wire window is 30 days (${FEED_WINDOW_DAYS})`);
+  check(FEED_SOURCES.every((f) => f.cap == null), `no limits: no source carries a per-source cap (${FEED_SOURCES.filter((f) => f.cap != null).map((f) => f.source).join(", ") || "none"})`);
+  const gn = FEED_SOURCES.filter((f) => /news\.google\.com/.test(f.url));
+  check(gn.length > 0 && gn.every((f) => /when%3A30d/.test(f.url)), `no limits: every Google News bridge looks back 30 days (${gn.filter((f) => !/when%3A30d/.test(f.url)).map((f) => f.source).join(", ") || "all"})`);
 }
 
 // Banned outlet (owner request): Channel NewsAsia is dropped from ANY feed — a direct

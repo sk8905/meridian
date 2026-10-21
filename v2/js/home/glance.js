@@ -2453,7 +2453,9 @@ function renderFeed() {
   byDesk.research.forEach((x) => claimed.add(norm(x.title)));
   byDesk.n = byDesk.n.filter((x) => !claimed.has(norm(x.title)));
   byDesk.n.forEach((x) => claimed.add(norm(x.title)));
-  const isNews = (x) => !x.lane && !claimed.has(norm(x.title));
+  // Court judgments are NOT news (owner 2026-10-21): they live in Dashboard ▸ Legal ▸
+  // "Case law — latest judgments", never on the News lane.
+  const isNews = (x) => !x.lane && x.type !== "case" && !claimed.has(norm(x.title));
   byDesk.eq = byDesk.m.filter((x) => FEED_EQ_RE.test(x.title || ""));
   byDesk.fi = dedupe([...byDesk.fisrc, ...byDesk.m.filter((x) => FEED_FI_RE.test(x.title || ""))].sort(byDateDesc));
   // "Views" — a cross-desk COMMENTARY lane: serious analysis, not headlines. Every
@@ -2519,20 +2521,13 @@ function renderFeed() {
     for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
       if (i < l.length) { const k = norm(l[i].title); if (!seen.has(k)) { seen.add(k); feed.push(l[i]); } }
     });
-    // Backfill older items newest-first. The Credit desk carries THOUSANDS of
-    // historical rows (and Legal hundreds), so drawing the backfill from the flat
-    // corpus lets those two bury a small desk's recent run — the newest ~500 rows
-    // only reach back ~3 weeks, so e.g. a hedge reporter's month-old stories fall
-    // below the fold. Cap the two high-volume desks to a recent slice and take
-    // every other desk WHOLE, so each desk's recent stream survives the merge
-    // (the full Credit/Legal history stays one tap away under their own filter).
-    const HEAVY = 200;
-    const pool = [byDesk.news, byDesk.m, byDesk.hdg, byDesk.l.filter(isNews).slice(0, HEAVY), byDesk.f, byDesk.s, byDesk.b, byDesk.fisrc]
+    // Backfill older items newest-first — every News item, no count limit (owner
+    // 2026-10-21: "remove all limits"; the Worker's 30-day window is the only bound).
+    // Deals / Profiles / Research / Newsletters records never reach this lane (isNews).
+    const pool = [byDesk.news, byDesk.m, byDesk.hdg, byDesk.l, byDesk.f, byDesk.s, byDesk.b, byDesk.fisrc]
       .map((l) => l.filter(isNews))
       .flat().filter((x) => day(x) !== target).sort(byDateDesc);
-    const GUARD = 900;   // pathological guard, well above the capped pool (~600)
     for (const x of pool) {
-      if (feed.length >= GUARD) break;
       const k = norm(x.title); if (!seen.has(k)) { seen.add(k); feed.push(x); }
     }
   } else {

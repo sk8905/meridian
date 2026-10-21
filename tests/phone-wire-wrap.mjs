@@ -4,7 +4,11 @@
 // height their headline needs (min --ev-h). Desktop keeps the two-line wire row.
 import { serve, launchChromium, open, PHONE, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
 
-const srv = await serve();
+// A readable, recent News wire with short and long headlines (court judgments are not news
+// since 2026-10-21, so the lane is the live feed alone; the shared fixture is mostly paywalled).
+const today = new Date().toISOString().slice(0, 10);
+const FEED = { items: Array.from({ length: 30 }, (_, i) => ({ title: i % 2 ? `Treasury yields edge higher as traders weigh the Fed outlook, oil prices and a busy week of earnings ${i}` : `Stocks slip ${i}`, url: `https://www.cnbc.com/2026/10/w${i}.html`, source: "CNBC", date: today, time: `${String(20 - Math.floor(i / 3)).padStart(2, "0")}:${String((i * 7) % 60).padStart(2, "0")}`, desk: "m" })) };
+const srv = await serve({ "/api/feed": () => [200, JSON.stringify(FEED)] });
 const b = await launchChromium();
 const base = `http://localhost:${srv.port}`;
 const rowsInfo = (sel, titleSel, srcSel) => ({ sel, titleSel, srcSel });
