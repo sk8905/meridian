@@ -156,7 +156,7 @@ export function namedEvents(re) {
 
 const IN_MARKET = new Set(["Pre-marketing", "Open", "First Close"]);
 function managerFundsInMarket(managerId) {
-  return funds.filter((f) => f.managerId === managerId && IN_MARKET.has(f.status));
+  return funds.filter((f) => f.managerId === managerId && IN_MARKET.has(f.status) && !f.kind);
 }
 
 // Whole months between a "YYYY-MM(-DD)" date and now (for AUM staleness).

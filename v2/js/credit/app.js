@@ -8,7 +8,7 @@ import {
   managers, funds, lps, intel, deals, research,
   managerById, fundById,
   fundsByManager,
-  HEDGE_FUNDS, HEDGE_INTEL, AUM_FX,
+  HEDGE_FUNDS, HEDGE_INTEL, AUM_FX, FUND_KINDS,
 } from "/credit/js/data.js";
 import {
   eur, pct, fmtDate, link, notFound,
@@ -74,8 +74,8 @@ const isClose = (f) => f.status === "Final Close" || f.status === "First Close";
 
 // Funds page categories. Evergreen funds are open-ended (continuously subscribable)
 // rather than raising a vintage, so they get their own category — never "Open".
-const FUND_CATEGORIES = ["Open", "First Close", "Final Close", "Evergreen", "Pre-marketing"];
-const fundCategory = (x) => (x.evergreen ? "Evergreen" : x.status);
+const FUND_CATEGORIES = ["Open", "First Close", "Final Close", "Evergreen", "Platform", "Partnership", "Pre-marketing"];
+const fundCategory = (x) => (FUND_KINDS[x.kind] || (x.evergreen ? "Evergreen" : x.status));
 // LP mandate status shows as plain text (no colour pill), same as fund status above.
 const mandateBadge = (s) => `<span class="fund-status">${esc(s)}</span>`;
 
@@ -283,7 +283,7 @@ const SORT_COLUMNS = {
     strategy: { type: "txt", get: (x) => x.strategy },
     geo: { type: "txt", get: (x) => x.geoFocus },
     status: { type: "num", get: (x) => FUND_CATEGORIES.indexOf(fundCategory(x)) },
-    target: { type: "num", get: (x) => (x.evergreen ? null : x.targetSize) },
+    target: { type: "num", get: (x) => (x.evergreen || x.kind ? null : x.targetSize) },
     progress: { type: "num", get: (x) => x.raised },
   },
   managers: {
@@ -292,7 +292,7 @@ const SORT_COLUMNS = {
     aumTotal: { type: "num", get: (m) => (m.notAum ? null : (m.aumTotal != null ? m.aumTotal : m.aum)) },
     aumCredit: { type: "num", get: (m) => (m.aumCredit != null ? m.aumCredit : null) },
     funds: { type: "num", get: (m) => fundsByManager(m.id).length },
-    live: { type: "num", get: (m) => fundsByManager(m.id).filter((x) => !x.evergreen && !x.lifecycle && x.status !== "Final Close").length },
+    live: { type: "num", get: (m) => fundsByManager(m.id).filter((x) => !x.evergreen && !x.kind && x.status !== "Final Close").length },
   },
   lps: {
     name: { type: "txt", get: (l) => l.name },
@@ -380,7 +380,7 @@ function hfActivity90(hfId) {
 const actCell = (a) => `<td class="tl-n tl-act pf-c-meta" data-sort="${a.n}"${a.last ? ` title="Latest ${esc(fmtDate(a.last))}"` : ""}>${a.n ? `${a.n}<span class="pf-act-l"> in 90d</span>` : `<span class="pf-nil">—</span>`}</td>`;
 
 function managersPaneHTML() {
-  const inMkt = (f) => !f.evergreen && (f.status === "Open" || f.status === "First Close");
+  const inMkt = (f) => !f.evergreen && !f.kind && (f.status === "Open" || f.status === "First Close");
   const mgrFundList = (id) => funds.filter((f) => f.managerId === id);
   const league = [...managers]
     .map((m) => ({ m, aum: focusAumOf(m), nf: mgrFundList(m.id).length, live: mgrFundList(m.id).filter(inMkt).length, focus: mInFocus(m), tier: targetFit(m, mgrFundList(m.id)).tier, act: activity90(m.id) }))
@@ -597,7 +597,7 @@ function viewDashboard() {
 
   // ---- headline KPIs ----
   const dealsThisQuarter = dealsNoClo.filter((d) => quarterOf(d.date) === curQ).length;
-  const openProcesses = creditFunds.filter((f) => !f.evergreen && (f.status === "Open" || f.status === "First Close")).length;
+  const openProcesses = creditFunds.filter((f) => !f.evergreen && !f.kind && (f.status === "Open" || f.status === "First Close")).length;
   const closesThisQuarter = creditFunds.filter((f) => isClose(f) && fundQuarter(f) === curQ).length;
   const cloClosesThisQuarter = [...deals.filter((d) => d.clo), ...intel.filter((i) => i.clo)]
     .filter((c) => (!targetFocus || midInFocus(c.managerId)) && quarterOf(c.date) === curQ).length;
@@ -643,7 +643,7 @@ function viewDashboard() {
   // Metrics ticker + manager league table (left) + a filterable activity wire
   // (centre) + fundraising pipeline and recent CLOs (right) — everything that
   // used to be spread across News/Deals/Fundraising/CLOs/Managers on one screen.
-  const inMkt = (f) => !f.evergreen && (f.status === "Open" || f.status === "First Close");
+  const inMkt = (f) => !f.evergreen && !f.kind && (f.status === "Open" || f.status === "First Close");
   const mgrFundList = (id) => funds.filter((f) => f.managerId === id);
   const uni = managers.filter((m) => !targetFocus || midInFocus(m.id));
   // League table shows the FULL manager universe ranked by credit AUM; its own
@@ -964,7 +964,7 @@ function viewManagers() {
       <tbody>
         ${sorted.map((m) => {
           const fs = fundsByManager(m.id);
-          const live = fs.filter((x) => !x.evergreen && !x.lifecycle && x.status !== "Final Close").length;
+          const live = fs.filter((x) => !x.evergreen && !x.kind && x.status !== "Final Close").length;
           const strat = m.strategies.slice(0, 2).map((s) => chip(s)).join(" ") + (m.strategies.length > 2 ? ` <span class="muted small">+${m.strategies.length - 2}</span>` : "") || '<span class="muted small">—</span>';
           return `<tr class="clickable" data-href="#/manager/${m.id}">
             <td>${nameCell("manager", m.id, `<strong>${esc(m.name)}</strong>`)}</td>

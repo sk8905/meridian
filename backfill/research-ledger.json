@@ -10649,6 +10649,203 @@
      "to": "financing"
     }
    ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f303",
+   "verdict": "WRONG",
+   "source": "https://www.prnewswire.com/news-releases/t-rowe-price-and-oak-hill-advisors-launch-multi-strategy-credit-interval-fund-oflex-for-us-wealth-clients-302718952.html",
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Record own source: publicly offered INTERVAL fund with daily subscriptions and quarterly repurchases — continuously offered.",
+   "changes": [
+    {
+     "field": "evergreen",
+     "from": null,
+     "to": true
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f268",
+   "verdict": "WRONG",
+   "source": "https://aum13f.com/fund/attestor-value-master-fund-lp",
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Form D (D/A 2025-07-09) lists Attestor Value Master Fund LP as fund type Hedge Fund, offering amount Indefinite — an open-ended master-feeder, so Open is its steady state.",
+   "changes": [
+    {
+     "field": "evergreen",
+     "from": null,
+     "to": true
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Source",
+       "url": "https://www.whoisraisingmoney.com/attestor-value-fund-ltd"
+      },
+      {
+       "label": "Source",
+       "url": "http://www.secinfo.com/drHG7.y2Rk.htm"
+      }
+     ],
+     "to": [
+      {
+       "label": "Source",
+       "url": "https://www.whoisraisingmoney.com/attestor-value-fund-ltd"
+      },
+      {
+       "label": "Source",
+       "url": "http://www.secinfo.com/drHG7.y2Rk.htm"
+      },
+      {
+       "label": "aum13f (Form D: fund type Hedge Fund)",
+       "url": "https://aum13f.com/fund/attestor-value-master-fund-lp"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f99",
+   "verdict": "WRONG",
+   "source": "https://s202.q4cdn.com/477831904/files/doc_presentations/2025/Nov/19/Blue-Owl-3Q25-Investor-Presentation.pdf",
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Blue Owl Credit is a business line spanning OBDC and credit-income funds — a platform aggregate, not one fund.",
+   "changes": [
+    {
+     "field": "kind",
+     "from": null,
+     "to": "platform"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f90",
+   "verdict": "WRONG",
+   "source": "https://home.barclays/news/press-releases/2024/04/agl-credit-management-announces-the-launch-of-agl-private-credit/",
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Barclays/AGL: launch of the AGL Private Credit PLATFORM with Barclays first-look origination and an ADIA anchor.",
+   "changes": [
+    {
+     "field": "kind",
+     "from": null,
+     "to": "platform"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f68",
+   "verdict": "WRONG",
+   "source": "https://www.gardant.eu/en/press-and-media/press-release/gardant-new-group-among-the-leaders-in-debt-servicing-and-debt-purchasing-in-italy/",
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Aggregate of the funds managed via Gardant Investor SGR (>€550m) — a fund range, not one fund.",
+   "changes": [
+    {
+     "field": "kind",
+     "from": null,
+     "to": "platform"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f66",
+   "verdict": "WRONG",
+   "source": "https://alternativecreditinvestor.com/2025/06/11/golub-capital-eyes-european-expansion-and-unveils-new-london-office/",
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Golub European direct-lending PLATFORM (>$9bn committed since 2020); record itself notes no named single fund.",
+   "changes": [
+    {
+     "field": "kind",
+     "from": null,
+     "to": "platform"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f63",
+   "verdict": "WRONG",
+   "source": "https://www.db.com/news/detail/20250318-deutsche-bank-and-dws-launch-private-credit-cooperation",
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Deutsche Bank and DWS launch a private credit COOPERATION (DB originates, DWS manages capital) — not a fund.",
+   "changes": [
+    {
+     "field": "kind",
+     "from": null,
+     "to": "partnership"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f43",
+   "verdict": "WRONG",
+   "source": "https://www.globenewswire.com/news-release/2024/07/16/2913993/0/en/OHA-and-OneIM-Launch-a-Partnership-to-Invest-in-European-Private-Credit.html",
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "OHA and OneIM launch a PARTNERSHIP (JV) with up to $5bn of investable capital — not a commingled fundraise.",
+   "changes": [
+    {
+     "field": "kind",
+     "from": null,
+     "to": "partnership"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f26",
+   "verdict": "WRONG",
+   "source": "https://alternativecreditinvestor.com/2024/04/03/lgim-private-credit-european-platform/",
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Apr 2024: LGIM launched a Luxembourg RAIF umbrella PLATFORM (first fund on it: Short-Term Alternative Finance Fund), described as an enabler of further funds — an umbrella, not one fund. Evergreen not evidenced, so not set.",
+   "changes": [
+    {
+     "field": "kind",
+     "from": null,
+     "to": "platform"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f21",
+   "verdict": "WRONG",
+   "source": "https://alts.axa-im.com/media-centre/axa-im-alts-real-estate-debt-platform-raises-record-eu4-billion-and-deploys-ceu3-billion-12-months",
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Record own source: AXA IM Alts real estate debt PLATFORM (~€24bn across senior, transitional, junior) raised €4bn+ in 12 months — a multi-vehicle platform, not one fundraise.",
+   "changes": [
+    {
+     "field": "kind",
+     "from": null,
+     "to": "platform"
+    }
+   ]
   }
  ]
 }

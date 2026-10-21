@@ -110,7 +110,7 @@ export function rota({ hf = 5, lp = 2, news = 5, mgr = 5, firms = 4, funds = 5, 
     return why ? { id: f.id, name: f.name, revenueAsOf: lo.revenueAsOf || null, why } : null;
   }).filter(Boolean);
   // Funds still raising 18+ months after their last data point (biggest first).
-  const fundStale = (C.funds || []).filter((f) => f.status !== "Final Close" && !f.evergreen && ms(f.asOf) && now - ms(f.asOf) > 540 * DAY)
+  const fundStale = (C.funds || []).filter((f) => f.status !== "Final Close" && !f.evergreen && !f.kind && ms(f.asOf) && now - ms(f.asOf) > 540 * DAY)
     .sort((a, b) => (b.raised || b.targetSize || 0) - (a.raised || a.targetSize || 0))
     .map((f) => ({ id: f.id, name: f.name, status: f.status, asOf: f.asOf }));
   // Deal tags with no amountKind (where the text states an amount) or no country — newest first.

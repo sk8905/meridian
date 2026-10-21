@@ -14,7 +14,7 @@
 import {
   managers, managerById, fundById, lpById, funds, lps, intel, deals,
   fundsByManager, dealsForManager, intelForManager,
-  HEDGE_FUNDS, HEDGE_INTEL, VEHICLES, AUM_FX,
+  HEDGE_FUNDS, HEDGE_INTEL, VEHICLES, AUM_FX, FUND_KINDS,
 } from "/credit/js/data.js";
 import { esc, byDateDesc } from "/util.js";
 import { rowTip } from "/feed.js";
@@ -349,7 +349,8 @@ function invRow(d, mid) {
 function fundBodyHTML(f) {
   const rows = [];
   if (f.strategy) rows.push(["Strategy", esc(f.strategy)]);
-  if (f.status) rows.push(["Status", esc(f.status)]);
+  if (FUND_KINDS[f.kind]) rows.push(["Type", esc(FUND_KINDS[f.kind]) + " — not a single fund"]);
+  else if (f.status) rows.push(["Status", esc(f.status)]);
   if (f.targetSize != null) rows.push(["Target", esc(fundMoney(f.targetSize, f.ccy))]);
   if (f.hardCap != null) rows.push(["Hard cap", esc(fundMoney(f.hardCap, f.ccy))]);
   if (f.raised != null) rows.push([f.evergreen ? "AUM / NAV" : "Raised", esc(fundMoney(f.raised, f.ccy)) + (f.estimated ? ' <span class="tf-est">est.</span>' : "")]);
@@ -431,7 +432,7 @@ function mgrStats(m) {
     ["Credit AUM", m.aumCredit != null ? esc(fmtAumDual(m, "aumCredit")) : "—"],
     ["Regulatory AUM (SEC)", m.raum != null ? "$" + esc(m.raum.toFixed(1)) + "bn" : "—"],
     ["Strategies", esc((m.strategies || []).join(" · ") || "—")],
-    ["Funds (in market)", `${fs.length} (${fs.filter((f) => !f.evergreen && (f.status === "Open" || f.status === "First Close")).length})`],
+    ["Funds (in market)", `${fs.length} (${fs.filter((f) => !f.evergreen && !f.kind && (f.status === "Open" || f.status === "First Close")).length})`],
     ["Listed vehicles / BDCs", String(veh)],
     ["Tracked items", String(evN)],
     ["Deals · all / 12m / 90d", `${ds.length} / ${d12.length} / ${ds.filter((d) => Date.parse(d.date) >= t90).length}`],
@@ -514,9 +515,9 @@ export function managerGlance(m, { fs, dealList }) {
   if ((m.strategies || []).length) fact("Strategies", esc(m.strategies.slice(0, 3).join(" · ")), m.strategies.length > 3 ? `+${m.strategies.length - 3} more` : "");
   const lf = fs[0];
   if (lf) {
-    const size = lf.evergreen ? "Evergreen" : lf.raised != null ? fundMoney(lf.raised, lf.ccy) : lf.targetSize != null ? fundMoney(lf.targetSize, lf.ccy) + " target" : "";
+    const size = FUND_KINDS[lf.kind] ? "" : lf.evergreen ? "Evergreen" : lf.raised != null ? fundMoney(lf.raised, lf.ccy) : lf.targetSize != null ? fundMoney(lf.targetSize, lf.ccy) + " target" : "";
     fact("Latest fund", `<button type="button" class="mg-lnk" data-openfund="${esc(lf.id)}">${esc(lf.name)}</button>`,
-      [size ? esc(size) : "", lf.status ? `<span class="mg-st">${esc(lf.status)}</span>` : "", lf.vintage ? esc(String(lf.vintage)) : ""].filter(Boolean).join(" · "));
+      [size ? esc(size) : "", (FUND_KINDS[lf.kind] || lf.status) ? `<span class="mg-st">${esc(FUND_KINDS[lf.kind] || lf.status)}</span>` : "", lf.vintage ? esc(String(lf.vintage)) : ""].filter(Boolean).join(" · "));
   }
   // Deals in the last 90 days (de-duplicated by story), the 3 most recent linked.
   const t90 = Date.now() - 90 * 864e5, seen = new Set();
@@ -592,9 +593,9 @@ export function viewManager(id, tab0) {
   // A fund has no page of its own (retired), so its row EXPANDS in place to the
   // fund's facts, named investors (linked to their profile when covered) and sources —
   // a real destination, instead of a link that redirected back to this same page.
-  const fundSize = (x) => x.evergreen ? "Evergreen" : x.raised != null ? fundMoney(x.raised, x.ccy) + (x.status === "Final Close" ? "" : " raised") : (x.targetSize ? fundMoney(x.targetSize, x.ccy) + " target" : "—");
+  const fundSize = (x) => FUND_KINDS[x.kind] ? FUND_KINDS[x.kind] : x.evergreen ? "Evergreen" : x.raised != null ? fundMoney(x.raised, x.ccy) + (x.status === "Final Close" ? "" : " raised") : (x.targetSize ? fundMoney(x.targetSize, x.ccy) + " target" : "—");
   const fundsList = fs.length
-    ? `<ul class="tmini">${fs.map((x) => `<li class="tmini-row clickable fund-exp" id="row-fund-${esc(x.id)}" data-fund="${esc(x.id)}" role="button" tabindex="0" aria-expanded="false"><span class="tmini-t"><span class="tx-caret" aria-hidden="true">▸</span>${esc(x.name)}<span class="tmini-r">${esc(fundSize(x))}</span></span><span class="tmini-m">Vintage ${x.vintage} · ${esc(x.status || x.strategy || "")}</span><div class="fund-body" hidden></div></li>`).join("")}</ul>`
+    ? `<ul class="tmini">${fs.map((x) => `<li class="tmini-row clickable fund-exp" id="row-fund-${esc(x.id)}" data-fund="${esc(x.id)}" role="button" tabindex="0" aria-expanded="false"><span class="tmini-t"><span class="tx-caret" aria-hidden="true">▸</span>${esc(x.name)}<span class="tmini-r">${esc(fundSize(x))}</span></span><span class="tmini-m">Vintage ${x.vintage} · ${esc(FUND_KINDS[x.kind] || x.status || x.strategy || "")}</span><div class="fund-body" hidden></div></li>`).join("")}</ul>`
     : "";
   const closList = mgrCloRoster.length
     ? `<ul class="tmini">${mgrCloRoster.map((c) => `<li class="tmini-row clickable" data-href="#/clo/${m.id}/${encodeURIComponent(c.name)}"><span class="tmini-t">${esc(c.name)}<span class="tmini-r">${c.size ? esc(c.size) : ""}</span></span><span class="tmini-m">${c.vintage ? "Vintage " + esc(c.vintage) : "Issued"}</span></li>`).join("")}</ul>`

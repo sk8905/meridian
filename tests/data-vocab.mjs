@@ -30,4 +30,9 @@ const seen = new Map(), dup = [];
 for (const i of L.items) { const k = `${i.firm}|${i.date}|${nt(i.title)}`; if (seen.has(k)) dup.push(`${seen.get(k)}/${i.id}`); else seen.set(k, i.id); }
 check(dup.length === 0, `legal.items: one record per firm + date + title${dup.length ? " — " + list(dup) + " (node scripts/dedupe-data.mjs)" : ""}`);
 
+const badKind = C.funds.filter((f) => f.kind != null && !Object.hasOwn(C.FUND_KINDS, f.kind)).map((f) => `${f.id}:${f.kind}`);
+check(badKind.length === 0, `funds: every kind is in FUND_KINDS (R39n)${badKind.length ? " — " + list(badKind) : ""}`);
+const both = C.funds.filter((f) => f.kind && f.evergreen).map((f) => f.id);
+check(both.length === 0, `funds: a platform / partnership is not also evergreen (R39n)${both.length ? " — " + list(both) : ""}`);
+
 finish();

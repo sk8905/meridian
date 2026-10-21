@@ -11,9 +11,10 @@ const { pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/das
 await pg.waitForSelector("#dsh-fim .dsh-fim-tbl", { timeout: 10000 });
 const rows = () => pg.evaluate(() => [...document.querySelectorAll("#dsh-fim tbody tr")].map((tr) => [...tr.querySelectorAll("td")].map((td) => td.textContent.trim())));
 const r0 = await rows();
-const open_ = new Set(funds.filter((f) => ["Pre-marketing", "Open", "First Close"].includes(f.status)).map((f) => f.name));
+// A platform / partnership (R39n) is not a fundraise, so it never lists here.
+const open_ = new Set(funds.filter((f) => ["Pre-marketing", "Open", "First Close"].includes(f.status) && !f.kind).map((f) => f.name));
 // R43 events table: As of · Fund · Status · Manager · Strategy · Target · Raised · Named LPs · Src.
-check(r0.length > 10 && r0.every((r) => open_.has(r[1])), `lists only funds still raising (${r0.length})`);
+check(r0.length > 10 && r0.every((r) => open_.has(r[1])), `lists only funds still raising, no platform / partnership (${r0.length})`);
 check(r0.some((r) => /stale/.test(r[2])), "a status not refreshed in 12+ months is flagged stale");
 check(r0.some((r) => r[7] && r[7] !== "—"), "named LPs are shown where sourced");
 await pg.selectOption("#dsh-fim .dsh-fim-strat", "Senior Direct Lending"); await pg.waitForTimeout(150);

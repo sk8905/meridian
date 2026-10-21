@@ -76,7 +76,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const only = opt("--only", "").split(",").filter(Boolean);
   // Every tracked fund that isn't evergreen — closed funds too: a Form D after the close
   // still corrects a `raised` figure.
-  const funds = (C.funds || []).filter((f) => !f.evergreen && (!only.length || only.includes(f.id)));
+  const funds = (C.funds || []).filter((f) => !f.evergreen && !f.kind && (!only.length || only.includes(f.id)));
   const byFund = {}; let searched = 0, matched = 0;
   for (const f of funds) {
     const q = String(f.name).replace(/\(.*?\)/g, " ").replace(/\s+/g, " ").trim();

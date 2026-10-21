@@ -25,7 +25,7 @@ export function fundLps(f) {
 
 export function fundsInMarket({ scope = "eu", strategy = "" } = {}) {
   const yr = new Date(Date.now() - 365 * 864e5).toISOString().slice(0, 10);
-  return (funds || []).filter((f) => FIM_STATUS.has(f.status))
+  return (funds || []).filter((f) => FIM_STATUS.has(f.status) && !f.kind)
     .filter((f) => scope === "all" || isEuFund(f))
     .filter((f) => !strategy || f.strategy === strategy)
     .map((f) => ({ f, lps: fundLps(f), stale: !f.asOf || String(f.asOf) < yr }))

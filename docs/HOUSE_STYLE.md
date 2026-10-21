@@ -1287,6 +1287,16 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   Management", "Goldman Sachs" ≠ "Goldman Sachs Alternatives"), as are an asset manager
   and its capital-markets desk ("KKR Capital Markets" ≠ KKR Credit); a tracked arm is
   linked only when the source names it (`ARM` in apply-parties.mjs).
+  **(n) Fund kinds** (owner 2026-10-21). A `funds` record that is not one fundraise keeps
+  its record but says what it is: `kind: "platform"` (a multi-vehicle platform, umbrella
+  or fund range — AXA IM Alts CRE debt, the LGIM Lux RAIF umbrella, AGL Private Credit) or
+  `kind: "partnership"` (a JV / cooperation — OHA–OneIM, DB–DWS); a continuously offered
+  vehicle (BDC, interval fund, open-ended master fund) is `evergreen: true` instead. Set
+  either only on a source that shows it (patch via `apply-research.mjs`). Such a record is
+  never counted as a fund in market or a live process (Funds in market, manager "live"
+  counts, Dashboard KPIs, the stale-fund rota slice, the Form D sweep); its kind
+  (`FUND_KINDS` in data.js) reads in place of the status and the size. Spec:
+  `tests/data-vocab.mjs`.
 
 ---
 
