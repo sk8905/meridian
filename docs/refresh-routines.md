@@ -797,6 +797,13 @@ recorded in its correct place before it leaves the wire.
   it like any queue item: record the deal under the tracked party, citing the firm's
   release (or the principal's own release, with the firm's in `alsoReported`); a PE /
   equity deal of a multi-strategy firm is out of credit scope → reject with that reason.
+- **Refresh the queue FIRST, every run (2026-10-21).** Before working it, the heavy sweep
+  runs `node scripts/collect-wire.mjs > /tmp/q.json && cp /tmp/q.json backfill/wire-queue.json`
+  (~20s; it reads the previous queue, so nothing open is ever dropped) and commits the
+  refreshed file with its other changes. GitHub's cron is best-effort; the Action also
+  runs on every data push, but the routine never relies on either — it works a queue no
+  older than its own run. If the collector itself fails (network), work the committed
+  queue and say so in the run report.
 - **Every heavy-sweep run works the OPEN items, oldest `firstSeen` first, all of them** (if
   the budget runs out, the rest simply stay open for the next run — never skipped). For each:
   1. Verify it like any candidate: open the story (or find the primary — the firm's own

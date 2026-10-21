@@ -230,8 +230,10 @@ try {
   const late = open.filter((x) => Date.now() - Date.parse(x.firstSeen || 0) > 48 * 3600e3);
   const ageH = (Date.now() - Date.parse(q.generated || 0)) / 3600e3;
   wireSweep = { open: open.length, late: late.length, ageH: Math.round(ageH) };
-  if (ageH > 6) issues.push({ area: "wire-sweep", severity: "attention",
-    detail: `the wire-sweep queue was last refreshed ${Math.round(ageH)}h ago — the collector (every 2h) has stopped`,
+  // Refreshed every 2h (cron), on every data push and by each heavy sweep — so > 4h old
+  // means all three paths have stopped.
+  if (ageH > 4) issues.push({ area: "wire-sweep", severity: "attention",
+    detail: `the wire-sweep queue was last refreshed ${Math.round(ageH)}h ago — the collector (cron + data pushes + the heavy sweep) has stopped`,
     solution: "Check the 'collect-wire' GitHub Action (https://github.com/sk8905/meridian/actions/workflows/collect-wire.yml): re-run it and read the failing step." });
   if (late.length) issues.push({ area: "wire-sweep", severity: "attention",
     detail: `${late.length} wire item(s) naming a tracked entity have waited more than 48h to be recorded (oldest first seen ${late.map((x) => x.firstSeen).sort()[0].slice(0, 10)}) — e.g. "${late[0].title}"`,

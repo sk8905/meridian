@@ -83,4 +83,16 @@ check(!!iss && /1 /.test(iss.detail), `health check: an item open for more than 
   const q2 = mergeQueue(q1, [], { idx: { ...idx, dealUrls: new Set(["weil.com/a"]) }, now: "2026-10-21T02:00:00Z" });
   checkEq(q2[0].status, "recorded", "law-firm deals: it closes once a deal-side record cites it");
 }
+// The queue never depends on GitHub's best-effort cron alone (2026-10-21: the schedule
+// did not fire for 5h): the Action also runs on data pushes, the heavy sweep refreshes
+// the queue itself first, and the health check alarms past 4h.
+{
+  const { readFileSync: rf } = await import("node:fs");
+  const wf = rf(new URL("../.github/workflows/collect-wire.yml", import.meta.url), "utf8");
+  check(/\n  push:\n[\s\S]*?paths:[\s\S]*?credit\/js\/data\.js[\s\S]*?backfill\/wire-ledger\.json/.test(wf) && /schedule:/.test(wf), "collect-wire runs on its schedule AND on every data / ledger push");
+  const rr = rf(new URL("../docs/refresh-routines.md", import.meta.url), "utf8");
+  check(/Refresh the queue FIRST, every run[\s\S]{0,200}node scripts\/collect-wire\.mjs/.test(rr), "the heavy sweep refreshes the queue itself before working it");
+  const hc = rf(new URL("../scripts/health-check.mjs", import.meta.url), "utf8");
+  check(/ageH > 4\)/.test(hc), "the health check flags a queue older than 4h");
+}
 finish();

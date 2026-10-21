@@ -8,9 +8,24 @@ name: collect-wire
 # rejected it with a reason in backfill/wire-ledger.json). Open items are never dropped.
 # Runs here (open internet) every 2h; commits the queue only when it changed, [skip ci].
 
+# GitHub's cron is best-effort (the schedule did not fire once in its first 5h, 2026-10-21),
+# so the queue is ALSO refreshed on every push that changes the data or the ledger — the
+# routines push every ~2h, so this keeps it current even when the schedule is skipped — and
+# by the heavy-sweep routine itself before it works the queue (docs/refresh-routines.md).
+# The collector's own commit uses GITHUB_TOKEN, which never re-triggers a workflow (no loop).
 on:
   schedule:
     - cron: "23 */2 * * *"
+    - cron: "53 1-23/2 * * *"
+  push:
+    branches: [main]
+    paths:
+      - credit/js/data.js
+      - credit/js/deal-tags.js
+      - legal/js/data.js
+      - dashboard/js/data.js
+      - backfill/wire-ledger.json
+      - scripts/collect-wire.mjs
   workflow_dispatch:
 
 permissions:
