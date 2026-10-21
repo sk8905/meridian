@@ -1810,10 +1810,27 @@ export function mount(host, ctx) {
   // Restructuring & insolvency — the newest sourced alerts / case law in the
   // restructuring practice area (schemes, Part 26A plans, insolvency), drawn from
   // the legal desk's own records.
+  // UK Insolvency Service — the official insolvency statistics and regime releases
+  // (owner 2026-10-21: moved here from the News wire), live from /api/insolvency and
+  // shown above the firms' R&I alerts. Hidden until loaded; omitted if unreachable.
+  let _insolv = null;
+  function insolvencyBlock() {
+    const it = (_insolv && _insolv.items) || [];
+    if (!it.length) return "";
+    return `<div class="dsh-fed-h">Official — UK Insolvency Service</div>`
+      + newsUl(it.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, meta: "Statistics", src: "Insolvency Service" })), "dsh-insolv")
+      + `<div class="dsh-fed-h dsh-insolv-sep">Firm alerts &amp; case law</div>`;
+  }
+  async function loadInsolvency() {
+    const res = await liveJSON("/api/insolvency");
+    _insolv = res && res.data && Array.isArray(res.data.items) ? res.data : null;
+    const el = host.querySelector("#dsh-insolv-b"); if (el) { el.innerHTML = insolvencyBlock(); repreview(el); }
+  }
   function restructuringHTML() {
     const items = legalDb().filter((x) => x && x.area === "ri" && x.date && x.title && x.url);
-    if (!items.length) return `<p class="dsh-load">No restructuring items tracked.</p>`;
-    return newsUl(items.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: x.type === "case" ? "Case" : "Alert", src: x.firm || x.court })));
+    const official = `<div id="dsh-insolv-b">${insolvencyBlock()}</div>`;
+    if (!items.length) return official + `<p class="dsh-load">No restructuring items tracked.</p>`;
+    return official + newsUl(items.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: x.type === "case" ? "Case" : "Alert", src: x.firm || x.court })));
   }
   // Regulatory calendar — dated, sourced milestones (REG_CALENDAR), upcoming first
   // then the most recent past ones; an undated item (e.g. a file still in
@@ -1911,6 +1928,7 @@ export function mount(host, ctx) {
     return { mid, news: lw ? `<section class="dsh-card"><h3 class="dsh-h">Legal wire — latest alerts &amp; case law</h3>${lw}</section>` : "", newsLabel: "Legal wire" };
   }
   function wireLegal() {
+    loadInsolvency();
     const rc = host.querySelector("#dsh-regcal-b");
     if (rc) rc.addEventListener("click", (e) => {
       const b = e.target.closest("[data-regwin]"); if (!b) return;

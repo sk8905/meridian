@@ -2241,6 +2241,25 @@ export function cathCompanyRows(list) {
   }
   return out;
 }
+// /api/insolvency — the UK Insolvency Service's official statistics / regime releases for
+// Dashboard ▸ Legal ▸ Restructuring & insolvency (owner 2026-10-21). Newest first, each
+// with its gov.uk URL and publication date. Edge-cached 3h.
+export function insolvencyItems(xml) {
+  const items = feedParse(xml || "", INSOLVENCY_SRC).filter((x) => feedSourceKeep(x, INSOLVENCY_SRC) && x.when);
+  return feedCapItems(items, INSOLVENCY_SRC.cap).map((x) => ({ title: x.title.replace(/^Accredited official statistics:\s*/i, ""), url: x.url, date: feedLondon(x.when).date }));
+}
+async function handleInsolvency(request, env, ctx) {
+  const json = (o, cc) => new Response(JSON.stringify(o), { headers: { "content-type": "application/json", "cache-control": cc } });
+  const cache = caches.default;
+  const ck = new Request("https://insolvency.internal/v1");
+  const hit = await cache.match(ck); if (hit) return hit;
+  let xml = null;
+  try { const r = await fetch(INSOLVENCY_SRC.url, { headers: fetchHeaders(INSOLVENCY_SRC.url), signal: AbortSignal.timeout(MARKET_FETCH_MS) }); xml = r.ok ? await r.text() : null; } catch { /* unreachable */ }
+  if (xml == null) return json({ items: null, error: "Insolvency Service feed unreachable", source: INSOLVENCY_SRC.url }, "no-store");
+  const resp = json({ source: INSOLVENCY_SRC.url, items: insolvencyItems(xml), fetched: new Date().toISOString() }, "public, max-age=10800");
+  if (ctx) ctx.waitUntil(cache.put(ck, resp.clone()));
+  return resp;
+}
 async function handleCauseList(request, env, ctx) {
   const json = (o, cc) => new Response(JSON.stringify(o), { headers: { "content-type": "application/json", "cache-control": cc } });
   const cache = caches.default;
@@ -3723,6 +3742,13 @@ async function handlePulse(request, env, ctx) {
 // Bloomberg & Reuters have no usable public RSS, so they're bridged through Google
 // News search feeds (gnews:true) — reliable and not IP-blocked; the trade-off is
 // that their links route via a news.google.com redirect to the real article.
+// UK Insolvency Service (owner 2026-10-21) — not a wire source: its official insolvency
+// statistics and regime changes feed Dashboard ▸ Legal ▸ "Restructuring & insolvency"
+// via /api/insolvency. Practitioner sanctions, director bans and enforcement round-ups
+// are dropped by the same match/drop screens the wire uses (feedSourceKeep).
+export const INSOLVENCY_SRC = { url: "https://www.gov.uk/government/organisations/insolvency-service.atom", source: "Insolvency Service", region: "UK", cap: 6,
+  match: /\b(?:company insolvencies|individual insolvencies|insolvency statistics|insolvenc(?:y|ies) (?:regime|reform|rules|act|law|figures)|corporate insolvency|restructuring)\b/i,
+  drop: /practitioner sanctions|enforcement outcomes|\bbanned\b|disqualif|jailed|sentenced|conference/i };
 export const FEED_SOURCES = [
   // ══════════════════════════════════════════════════════════════════════════
   // PREMIUM FOUR — SWITCHED OFF (readable-only policy, 2026-10). FT, Bloomberg,
@@ -3911,11 +3937,8 @@ export const FEED_SOURCES = [
   { url: "https://www.sec.gov/news/pressreleases.rss", source: "SEC", region: "US", cap: 4,
     match: /\b(?:private (?:funds?|markets?|credit|equity)|investment (?:advis\w+|compan\w+)|registered funds?|hedge funds?|asset manag\w+|fund manag\w+|co-?CIO|credit|debt|bonds?|CLOs?|asset-backed|securiti[sz]ation|treasury (?:market|clearing)|central counterpart\w*|clearing|Form PF|money market|retailization|custody)\b/i,
     drop: /\b(?:roundtable|seminar|outreach|advisory committee|to host|hosts?|meeting|dialogue|MOU|ponzi|veterans|whatsapp|crypto|tokeni[sz]ed|XBRL|retail investors)\b/i },
-  // UK Insolvency Service — the official insolvency statistics and regime changes only;
-  // practitioner sanctions, director bans and enforcement round-ups are dropped.
-  { url: "https://www.gov.uk/government/organisations/insolvency-service.atom", source: "Insolvency Service", region: "UK", cap: 3,
-    match: /\b(?:company insolvencies|individual insolvencies|insolvency statistics|insolvenc(?:y|ies) (?:regime|reform|rules|act|law|figures)|corporate insolvency|restructuring)\b/i,
-    drop: /practitioner sanctions|enforcement outcomes|\bbanned\b|disqualif|jailed|sentenced|conference/i },
+  // UK Insolvency Service — moved OFF the wire to Dashboard ▸ Legal ▸ R&I (owner
+  // 2026-10-21): served by /api/insolvency from INSOLVENCY_SRC below.
   // PE Hub — private-equity deal flow: fundraises, closes, exits, financings, large deals
   // and senior hires; venture rounds and small add-ons are dropped.
   { url: "https://www.pehub.com/feed/", source: "PE Hub", region: "GEN", cap: 6,
@@ -4100,6 +4123,22 @@ function feedAtomLink(block) {
   return h ? h[1] : "";
 }
 // Europe/London calendar date (YYYY-MM-DD) + 24h time (HH:MM) for a Date.
+// Per-source cap (owner 2026-10-21 — "back fill the news feed by 1 day"). A source keeps
+// its newest `cap` items as before, PLUS up to `cap` more from the previous ~day: any item
+// in the last 48h is kept while its own London day holds fewer than `cap` of that source's
+// items. So a busy source (CNBC, Axios) reaches back through yesterday instead of ending
+// mid-morning; quiet sources are unchanged. Freshest first.
+export function feedCapItems(items, cap, nowT = Date.now()) {
+  const t = (x) => (x.when ? x.when.getTime() : 0);
+  const sorted = [...items].sort((a, b) => t(b) - t(a));
+  const perDay = {}, out = [];
+  sorted.forEach((x, i) => {
+    const d = x.when ? (feedLondon(x.when).date || "") : "";
+    perDay[d] = (perDay[d] || 0) + 1;
+    if (i < cap || (x.when && nowT - t(x) < 2 * 864e5 && perDay[d] <= cap)) out.push(x);
+  });
+  return out;
+}
 function feedLondon(d) {
   if (!d || isNaN(d.getTime())) return { date: "", time: "" };
   const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", {
@@ -4402,7 +4441,7 @@ const FEED_LEGAL_SRC = new Set(["Legal Business", "Legal Cheek", "Legal Futures"
 // they bypass the relevance gate like the legal wire, keeping that coverage readable.
 const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire", "GlobeNewswire", "PR Newswire", "ING Think",
   // 2026-10-21 additions: official / already screened by their own `match` (feedSourceKeep).
-  "Financial Stability Board", "SEC", "Insolvency Service", "PE Hub"]);
+  "Financial Stability Board", "SEC", "PE Hub"]);
 // The app's SIX focus verticals — used to hold the paywalled premium newsrooms
 // (FT/Bloomberg/WSJ/Economist) strictly on-beat: (i) G20 macro (ii) public equity &
 // bond markets (iii) private capital markets (iv) credit markets (v) hedge funds
@@ -4584,8 +4623,7 @@ async function feedAssemble(env, ctx, trace = null, stats = null) {
       // Cap the FRESHEST items, not the first-parsed: Google News search RSS is
       // relevance-ordered, so slicing in parse order could fill a source's cap
       // with days-old stories that then sort to the bottom and get cut.
-      items.sort((a, b) => (b.when ? b.when.getTime() : 0) - (a.when ? a.when.getTime() : 0));
-      items = items.slice(0, f.cap || 8);
+      items = feedCapItems(items, f.cap || 8, nowT);
     }
     if (items.length) {
       lastGood[key] = { at: nowT, items: items.map(serWhen) };   // refresh the cache
@@ -4655,11 +4693,13 @@ async function feedAssemble(env, ctx, trace = null, stats = null) {
     if (!date) continue;
     // myFT links carry tracking params — keep the canonical /content/ URL.
     items.push({ title: it.title, url: it.myft ? it.url.replace(/\?.*$/, "") : it.url, source: it.source, region: it.region, myft: it.myft || undefined, substack: it.substack || undefined, legal: it.legal || undefined, hdg: it.hdg || undefined, fi: it.fi || undefined, research: it.research || undefined, date, time });
+    // 400 (was 250, owner 2026-10-21 one-day backfill): feedCapItems now keeps up to a
+    // cap for YESTERDAY as well as today, roughly doubling the busy sources' depth.
     // 250 (was 100): with ~270 capped candidates across the sources, a 100-item
     // wire only ever carried the newest ~day — the 5-day back-catalogue (WSJ /
     // TradingEconomics backfill) never made the cut. The 6-day cutoff above
     // still bounds the window; clients render day-grouped so depth is cheap.
-    if (items.length >= 250) break;
+    if (items.length >= 400) break;
   }
   return items;
 }
@@ -5924,6 +5964,7 @@ export default {
     if (url.pathname === "/api/formd") return handleFormD(request, env, ctx);
     if (url.pathname === "/api/ch") return handleCompaniesHouse(request, env, ctx);
     if (url.pathname === "/api/causelist") return handleCauseList(request, env, ctx);
+    if (url.pathname === "/api/insolvency") return handleInsolvency(request, env, ctx);
     if (url.pathname === "/api/xfeed") return handleXFeed(request, env, ctx);
     if (url.pathname === "/api/perf") return handlePerf(request, env, ctx);
     if (url.pathname === "/api/hero") return handleHero(request, env, ctx);

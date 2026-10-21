@@ -524,6 +524,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-path-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-top:14px; padding-top:12px; border-top:1px solid var(--t-grid); }
 .dsh-path-grid .dsh-fed, .dsh-path-grid .dsh-kvgrid { grid-template-columns:minmax(0,1fr); }
 .dsh-path-bh { margin:0 0 8px; color:var(--t-ink); font-weight:600; font-size:var(--fs-body); }
+.dsh-insolv-sep { margin-top:12px; }
 .dsh-fed-h { color:var(--t-mut); font-size:var(--fs-body); margin-bottom:6px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
 .dsh-mut { color:var(--t-faint); font-weight:400; }
 .dsh-fw { display:grid; grid-template-columns:minmax(0,1fr) 80px 42px; align-items:center; gap:8px; padding:3px 0; }

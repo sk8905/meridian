@@ -175,21 +175,42 @@ for (const [on, want] of [["Associated Press", {}], ["Moody's", { fi: true }], [
 {
   const { feedSourceKeep } = await import("../src/index.js");
   for (const off of ["MarketWatch", "Hedge Fund Alpha"]) check(!bySource(off), `fixed set: ${off} is dropped`);
-  for (const [on, want] of [["Financial Stability Board", {}], ["SEC", {}], ["Insolvency Service", {}], ["PE Hub", {}], ["Axios", {}], ["BIS", { research: true }], ["Liberty Street Economics", { research: true }], ["CEPR VoxEU", { research: true }]]) {
+  for (const [on, want] of [["Financial Stability Board", {}], ["SEC", {}], ["PE Hub", {}], ["Axios", {}], ["BIS", { research: true }], ["Liberty Street Economics", { research: true }], ["CEPR VoxEU", { research: true }]]) {
     const src = bySource(on);
     check(!!src && (!want.research || src.research === true), `fixed set: ${on} is wired${want.research ? " to the Research lane" : ""}`);
   }
-  const sec = bySource("SEC"), ins = bySource("Insolvency Service"), peh = bySource("PE Hub");
+  const { INSOLVENCY_SRC: ins, insolvencyItems } = await import("../src/index.js");
+  check(!bySource("Insolvency Service"), "Insolvency Service is NOT a wire source (moved to Dashboard ▸ Legal ▸ R&I, owner 2026-10-21)");
+  const atom = `<feed><entry><title>Accredited official statistics: Company insolvencies, September 2026</title><link href="https://www.gov.uk/government/statistics/company-insolvencies-september-2026"/><updated>2026-10-20T06:00:00Z</updated></entry><entry><title>Transparency data: Insolvency practitioner sanctions: Andrew Dix 17 November 2025</title><link href="https://www.gov.uk/x"/><updated>2026-10-19T06:00:00Z</updated></entry></feed>`;
+  const iv = insolvencyItems(atom);
+  check(iv.length === 1 && iv[0].title === "Company insolvencies, September 2026" && iv[0].date === "2026-10-20" && /gov\.uk/.test(iv[0].url), `/api/insolvency keeps the statistics release, tidied and dated (${JSON.stringify(iv)})`);
+  const sec = bySource("SEC"), peh = bySource("PE Hub");
   const k = (f, title) => feedSourceKeep({ title }, f) && feedQualityKeep({ source: f.source, title });
   check(k(sec, "SEC Proposes Amendments to Expand Responsible Retailization of Private Markets"), "SEC: a private-markets rule is kept");
   check(!k(sec, "SEC Charges Founder and His Two New Jersey-Based Companies in Alleged $16 Million Ponzi Scheme"), "SEC: a retail Ponzi case is dropped");
   check(!k(sec, "SEC Investor Advisory Committee to Host Sept. 10 Meeting"), "SEC: a meeting notice is dropped");
-  check(k(ins, "Accredited official statistics: Company insolvencies, September 2026"), "Insolvency Service: the monthly statistics are kept");
-  check(!k(ins, "Transparency data: Insolvency practitioner sanctions: Andrew Dix 17 November 2025"), "Insolvency Service: practitioner sanctions are dropped");
+  check(feedSourceKeep({ title: "Accredited official statistics: Company insolvencies, September 2026" }, ins), "Insolvency Service: the monthly statistics are kept");
+  check(!feedSourceKeep({ title: "Transparency data: Insolvency practitioner sanctions: Andrew Dix 17 November 2025" }, ins), "Insolvency Service: practitioner sanctions are dropped");
   check(k(peh, "Weatherford Capital hires LLR Partners veteran Michael Pantilione for flagship strategy"), "PE Hub: a senior hire is kept");
   check(!k(peh, "Inflexion’s Ranger Fire and Security adds Midlands alarm firm D&G"), "PE Hub: a small add-on is dropped");
   check(!k(peh, "WestBridge completes investment in Foresight-backed financial planner Beckett"), "PE Hub: 'financial planner' is not a financing");
   check(!k(bySource("Axios"), "Trump goes full apocalypse in anti-Dems midterms message"), "Axios: politics is dropped (default macro gate)");
+}
+
+// ---- One-day backfill (owner 2026-10-21): a source keeps a cap for yesterday too.
+{
+  const { feedCapItems } = await import("../src/index.js");
+  const now = Date.parse("2026-10-21T15:00:00Z");
+  const mk = (h, n) => Array.from({ length: n }, (_, i) => ({ title: `t${h}-${i}`, when: new Date(now - (h + i * 0.1) * 3600e3) }));
+  const today = mk(1, 12);                 // 12 items this afternoon
+  const yday = mk(24, 12);                 // 12 items yesterday afternoon
+  const old = mk(80, 5);                   // 5 items three days ago
+  const kept = feedCapItems([...old, ...yday, ...today], 8, now);
+  check(kept.filter((x) => today.includes(x)).length === 8, "backfill: today keeps the newest cap (8) items");
+  check(kept.filter((x) => yday.includes(x)).length === 8, "backfill: yesterday keeps up to a cap (8) more");
+  check(kept.filter((x) => old.includes(x)).length === 0, "backfill: nothing older than ~2 days is added beyond the cap");
+  const quiet = mk(30, 3);
+  check(feedCapItems(quiet, 8, now).length === 3, "backfill: a quiet source keeps all its items (unchanged)");
 }
 
 // Banned outlet (owner request): Channel NewsAsia is dropped from ANY feed — a direct

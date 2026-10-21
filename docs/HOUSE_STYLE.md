@@ -2004,7 +2004,6 @@ macro/megacap title gate; **topic** = the source's own `match`/`drop` screen.
 | Bank of Canada | Macro (official) | macro | RSS |
 | Financial Stability Board | Macro / regulation (official) | open | RSS |
 | SEC | Regulation (official) | topic — funds, advisers, private markets, credit, market plumbing | RSS |
-| Insolvency Service | Restructuring (official) | topic — insolvency statistics and regime only | Atom |
 | Bond Vigilantes | Fixed income | open | RSS |
 | ABF Journal | Fixed income | open | RSS |
 | Moody's | Fixed income | open | Google News bridge |
@@ -2031,6 +2030,8 @@ macro/megacap title gate; **topic** = the source's own `match`/`drop` screen.
 | CEPR VoxEU | Research lane | macro | RSS |
 <!-- wire-sources:end -->
 
+- **Moved off the wire 2026-10-21:** UK Insolvency Service → Dashboard ▸ Legal ▸
+  "Restructuring & insolvency" (official statistics block, `/api/insolvency`).
 - **Dropped 2026-10-21:** MarketWatch (1 in 3 articles readable; personal-finance clickbait),
   Hedge Fund Alpha (feed returns no items).
 - **Trialled, not added (2026-10-21):** passed the in-pane trial but held back — The
