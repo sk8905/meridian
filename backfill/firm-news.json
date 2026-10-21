@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T08:01:18.778Z",
+ "generated": "2026-10-21T14:09:19.500Z",
  "since": "2026-10-07",
  "firms": {
   "proskauerrose": {
@@ -32,17 +32,6 @@
    "errors": 0,
    "carried": 0
   },
-  "slaughtermay": {
-   "domains": [
-    "www.slaughterandmay.com"
-   ],
-   "sitemaps": 1,
-   "urls": 6306,
-   "kept": 5,
-   "fetched": 5,
-   "errors": 0,
-   "carried": 0
-  },
   "linklaters": {
    "domains": [
     "www.linklaters.com",
@@ -50,9 +39,20 @@
     "sustainablefutures.linklaters.com"
    ],
    "sitemaps": 6,
-   "urls": 17807,
+   "urls": 17808,
    "kept": 3,
    "fetched": 3,
+   "errors": 0,
+   "carried": 0
+  },
+  "slaughtermay": {
+   "domains": [
+    "www.slaughterandmay.com"
+   ],
+   "sitemaps": 1,
+   "urls": 6310,
+   "kept": 6,
+   "fetched": 6,
    "errors": 0,
    "carried": 0
   },
@@ -91,7 +91,7 @@
     "www.macfarlanes.com"
    ],
    "sitemaps": 4,
-   "urls": 2407,
+   "urls": 2409,
    "kept": 1,
    "fetched": 1,
    "errors": 0,
@@ -115,7 +115,7 @@
     "www.traverssmith.com"
    ],
    "sitemaps": 1,
-   "urls": 5021,
+   "urls": 5022,
    "kept": 6,
    "fetched": 6,
    "errors": 0,
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 9626,
+   "urls": 9630,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -162,8 +162,8 @@
    ],
    "sitemaps": 11,
    "urls": 10406,
-   "kept": 28,
-   "fetched": 28,
+   "kept": 26,
+   "fetched": 26,
    "errors": 0,
    "carried": 0
   },
@@ -171,11 +171,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 5,
-   "urls": 6773,
+   "sitemaps": 7,
+   "urls": 7589,
    "kept": 1,
    "fetched": 1,
-   "errors": 12,
+   "errors": 10,
    "carried": 0
   },
   "ropesgray": {
@@ -214,9 +214,9 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16228,
-   "kept": 9,
-   "fetched": 9,
+   "urls": 16230,
+   "kept": 7,
+   "fetched": 7,
    "errors": 0,
    "carried": 0
   },
@@ -225,7 +225,7 @@
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2857,
+   "urls": 2852,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -256,8 +256,8 @@
    ],
    "sitemaps": 5,
    "urls": 11598,
-   "kept": 14,
-   "fetched": 14,
+   "kept": 13,
+   "fetched": 13,
    "errors": 0,
    "carried": 0
   },
@@ -271,7 +271,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7748,
+   "urls": 7750,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -282,7 +282,7 @@
     "www.hoganlovells.com"
    ],
    "sitemaps": 2,
-   "urls": 18439,
+   "urls": 21449,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -332,9 +332,9 @@
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16360,
-   "kept": 19,
-   "fetched": 19,
+   "urls": 16361,
+   "kept": 20,
+   "fetched": 20,
    "errors": 0,
    "carried": 0
   },
@@ -352,10 +352,28 @@
  },
  "items": [
   {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/our-insights/blogs/viewpoints/102o5se/delaware-court-of-chancery-enjoins-founder-control-recapitalization-despite-appro/",
-   "title": "Delaware Court of Chancery Enjoins Founder-Control Recapitalization Despite Approval by Committee of Disinterested Directors",
-   "description": "On October 16, 2026, the Delaware Court of Chancery issued a preliminary injunction in In re Cloudflare, Inc. Stockholder Litigation,...",
+   "firm": "slaughtermay",
+   "url": "https://www.slaughterandmay.com/insights/new-insights/restructuring-plans-where-are-we-a-year-on/",
+   "title": "Restructuring plans: where are we a year on?",
+   "description": null,
+   "date": "2026-10-21",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-21"
+  },
+  {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-dnb-bank-asa-on-usd750-million-notes-offering",
+   "title": "A&O Shearman advises DNB on USD750 million notes offering",
+   "description": "A&O Shearman acted as U.S. and English counsel to DNB Bank ASA on its USD750 million notes offering under its USD15bn Medium-Term Note Program.",
+   "date": "2026-10-21",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-21"
+  },
+  {
+   "firm": "mayerbrown",
+   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/liability-management-and-special-situations-when-traditional-finance-falls-short",
+   "title": "Liability Management and Special Situations: When Traditional Finance Falls Short",
+   "description": "With increasingly challenging macroeconomics and geopolitical headwinds, many companies are finding that their existing capital structure, negotiated",
    "date": "2026-10-21",
    "dateSource": "datePublished",
    "lastmod": "2026-10-21"
@@ -371,31 +389,13 @@
    "dateProbe": []
   },
   {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/press-release/white-case-advises-de-longhi-eur6625-million-acquisition-dli-limiteds-stake-its",
-   "title": "White & Case advises De’ Longhi on €662.5 million acquisition of DLI Limited’s stake in its Professional Division",
-   "description": "Global law firm White & Case LLP has advised De' Longhi S.p.A.",
-   "date": "2026-10-20",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-20"
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/press-release/white-case-advises-consortium-investors-strategic-equity-investment-hertz-backed",
-   "title": "White & Case advises consortium of investors on strategic equity investment in Hertz-backed Oro Mobility",
-   "description": "Global law firm White & Case LLP has advised a consortium of investors, including Cohen Private Ventures and certain funds or accounts affiliated with each of Certares Opportunities LLC and Knighthead Capital Management, LLC, on a US$80.89 million strategic equity investment in Oro Mobility,",
-   "date": "2026-10-20",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-20"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/experience/morgan-stanley-bank-3-billion-senior-notes-offering-october-2026",
-   "title": "Morgan Stanley Bank $3 billion senior notes offering",
-   "description": "We advised Morgan Stanley Bank on its 3(a)(2) notes offering",
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-compass-and-mediobanca-on-a-eur900-million-cash-srt-securitization",
+   "title": "A&O Shearman advises Compass and Mediobanca on a EUR900 million cash SRT securitization",
+   "description": "A&O Shearman advised Compass and Mediobanca on a EUR900 million cash SRT securitisation, supporting significant risk transfer objectives.",
    "date": "2026-10-20",
    "dateSource": "datePublished",
-   "lastmod": "2026-10-20"
+   "lastmod": "2026-10-21"
   },
   {
    "firm": "cleary",
@@ -407,21 +407,21 @@
    "lastmod": null
   },
   {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/new-insights/tax-and-the-city-october-2026/",
-   "title": "Tax and the city - October 2026",
-   "description": "Tax and the City - October 2026",
-   "date": "2026-10-19",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-19"
-  },
-  {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/insights/blogs/pensionlinks/2026/october/from-surplus-to-security-navigating-the-next-phase-for-defined-benefit-pension-schemes",
    "title": "From surplus to security: Navigating the next phase for defined benefit pension schemes",
    "description": "Explore key issues for defined benefit pension schemes, including surplus, endgame planning, Virgin Media, cyber risk and trustee governance.",
    "date": "2026-10-19",
    "dateSource": "page date label",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "slaughtermay",
+   "url": "https://www.slaughterandmay.com/insights/new-insights/tax-and-the-city-october-2026/",
+   "title": "Tax and the city - October 2026",
+   "description": "Tax and the City - October 2026",
+   "date": "2026-10-19",
+   "dateSource": "<time datetime>",
    "lastmod": "2026-10-19"
   },
   {
@@ -453,27 +453,9 @@
   },
   {
    "firm": "davispolk",
-   "url": "https://www.davispolk.com/experience/tcgx-acquisition-corp-ii-100-million-spac-ipo",
-   "title": "TCGX Acquisition Corp. II $100 million SPAC IPO",
-   "description": "We advised the sole bookrunning manager on the IPO",
-   "date": "2026-10-19",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-20"
-  },
-  {
-   "firm": "davispolk",
    "url": "https://www.davispolk.com/news/brian-hirsch-profiled-financier-worldwide-s-power-players-real-estate",
    "title": "Brian Hirsch profiled in Financier Worldwide’s “Power Players: Real Estate”",
    "description": "Davis Polk partner Brian Hirsch was profiled by Financer Worldwide as part of the publication's \"Power Players: Real Estate\" issue. In the Q&A, Brian...",
-   "date": "2026-10-19",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-19"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/news/maurice-blanco-and-john-meade-discuss-q3-ipo-market-activity-law360",
-   "title": "Maurice Blanco and John Meade discuss Q3 IPO market activity with Law360",
-   "description": "Davis Polk partners and Capital Markets practice co-heads Maurice Blanco and John Meade discussed IPO activity in the third quarter of 2026 with...",
    "date": "2026-10-19",
    "dateSource": "datePublished",
    "lastmod": "2026-10-19"
@@ -589,6 +571,15 @@
    "lastmod": null
   },
   {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
+   "title": "Capital, regulation and capability in a new era",
+   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
+   "date": "2026-10-15",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-15"
+  },
+  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/client-case-studies/cpp-investments-and-equinix-s-us-4bn-joint-acquisition/",
    "title": "CPP Investments and Equinix’s US$4bn joint acquisition",
@@ -601,17 +592,8 @@
    ]
   },
   {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
-   "title": "Capital, regulation and capability in a new era",
-   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
-   "date": "2026-10-15",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-15"
-  },
-  {
    "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Recognized With Two Deal of the Year Honors at TMT Finance Awards USA 2026",
+   "url": "https://www.lw.com/en/news/2026/10/latham-recognized-with-two-deal-of-the-year-honors-at-tmt-finance-awards-usa-2026",
    "title": "Latham Recognized With Two Deal of the Year Honors at TMT Finance Awards USA 2026",
    "description": "Latham Recognized With Two Deal of the Year Honors at TMT Finance Awards USA 2026",
    "date": "2026-10-15",
@@ -638,7 +620,7 @@
   },
   {
    "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/Financial Regulation October 2026 Edition",
+   "url": "https://www.lw.com/en/insights/2026/10/financial-regulation-october-2026-edition",
    "title": "RSVP Form (Blank/Generic)",
    "description": null,
    "date": null,
@@ -647,15 +629,6 @@
    "dateProbe": [
     "rt\" content=\"width=device-width, initial-scale=1.0\" /> <title>Webcast 2026-10-14 (LO) Financial Regu"
    ]
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Earns Four Recognitions at 2026 LatinFinance Project Infrastructure Awards",
-   "title": "Latham & Watkins Earns Four Recognitions at 2026 LatinFinance Project & Infrastructure Awards",
-   "description": "Firm honored for work on two award-winning matters and two transactions receiving honorable mentions across Latin America.",
-   "date": "2026-10-14",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-14"
   },
   {
    "firm": "weil",
@@ -737,6 +710,15 @@
    "date": "2026-10-12",
    "dateSource": "page date label",
    "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/insights/2026/10/fca-finalises-uk-srs-aligned-disclosure-rules-for-uk-listings",
+   "title": "FCA Finalises UK SRS-Aligned Disclosure Rules for UK Listings",
+   "description": "In response to feedback, the FCA has moved to a comply-or-explain model for all of the sustainability disclosure obligations. By Mark Austin CBE, Michael",
+   "date": "2026-10-09",
+   "dateSource": "article:published_time",
+   "lastmod": "2026-10-09"
   },
   {
    "firm": "whitecase",
