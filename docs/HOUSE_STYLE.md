@@ -1978,17 +1978,67 @@ item keeps a real outbound source link (R7).
 > owner's own subscriber content reaches the pane through their newsletter emails (R38).
 > `READ_LINKONLY` is an empty switch to send a host back to headline + link. Spec:
 > `tests/reader-terms.mjs`. The old ≤30% paywalled-share cap was removed.
-- Associated Press (`apnews.com`) — openly-readable global wire (via Google News bridge)
-- **Added 2026-10 (owner-approved, trialled in-pane by `scripts/source-trial.mjs`):** European Central Bank, Bank of Japan, Bank of Canada (central-bank feeds); Euronews Business; AltAssets (private markets). The Guardian and Above the Law also passed the trial but stay OFF (removed 2026-09; not re-added without the owner's say-so). Law Society Gazette is pending — its feed returned no items in the trial.
-- CNBC (`cnbc.com`) — Economy, Markets, Finance, plus **Top News and World** (added 2026-10-18 so the wire keeps flowing at weekends and evenings, when the trade press and the section feeds go quiet; same quality cull)
-- MarketWatch
-- City AM (`cityam.com`)
-- South China Morning Post (`scmp.com`)
-- The Straits Times (`straitstimes.com`)
-- Google News (`news.google.com`) — aggregation
-- **Financial News London (`fnlondon.com`)**
-- The Guardian (`theguardian.com`) · Axios · NBC News · MT Newswires (via Koyfin)
-- _Switched off (readable-only): Bloomberg, Financial Times, Dow Jones/WSJ, The Economist, Nikkei Asia, DealBook (NYT)._
+**The fixed wire source set (owner 2026-10-21).** The live News wire draws ONLY from the
+sources below — `FEED_SOURCES` in `src/index.js` is the single list, and this table mirrors
+it exactly (`tests/wire-sources-doc.mjs` fails if they drift). There is no separate
+"preferred" list: a source is either in this set or not on the wire. Adding or dropping one
+needs the owner's say-so, a pass in `scripts/source-trial.mjs` (live feed + ≥2 of 3
+articles readable in-pane; results in `backfill/source-trial.json`), and an edit to both.
+Screens: **open** = `filter:false` (every item on-beat); **macro** = the default
+macro/megacap title gate; **topic** = the source's own `match`/`drop` screen.
+
+<!-- wire-sources:start -->
+| Source | Desk / lane | Screen | Route |
+|---|---|---|---|
+| CNBC (Economy, Markets, Finance, Top News, World) | Markets | macro | RSS |
+| Associated Press | Markets | macro | Google News bridge |
+| Axios | Markets | macro | RSS (whole site — only markets/economy pass) |
+| Euronews Business | Markets | macro | RSS |
+| Investing.com Economics | Macro | open | RSS |
+| ING Think | Macro | open | RSS |
+| OECD | Macro | open | Google News bridge |
+| Federal Reserve | Macro (official) | open | RSS |
+| Bank of England | Macro (official) | macro | RSS |
+| European Central Bank | Macro (official) | open | RSS |
+| Bank of Japan | Macro (official) | macro | RSS |
+| Bank of Canada | Macro (official) | macro | RSS |
+| Financial Stability Board | Macro / regulation (official) | open | RSS |
+| SEC | Regulation (official) | topic — funds, advisers, private markets, credit, market plumbing | RSS |
+| Insolvency Service | Restructuring (official) | topic — insolvency statistics and regime only | Atom |
+| Bond Vigilantes | Fixed income | open | RSS |
+| ABF Journal | Fixed income | open | RSS |
+| Moody's | Fixed income | open | Google News bridge |
+| Alternative Credit Investor | Credit | open | RSS |
+| Private Equity Wire | Private markets | open | RSS |
+| AltAssets | Private markets | macro | RSS |
+| PE Hub | Private markets | topic — fundraises, exits, financings, hires; no VC or add-ons | RSS |
+| Business Wire | Private markets (deal PRs) | open | Google News bridge (deal-scoped query) |
+| GlobeNewswire | Private markets (deal PRs) | open | Google News bridge (deal-scoped query) |
+| PR Newswire | Private markets (deal PRs) | open | Google News bridge (deal-scoped query) |
+| Hedgeweek | Hedge funds | open | RSS |
+| The Hedge Fund Journal | Hedge funds | open | RSS |
+| HedgeNordic | Hedge funds | open | RSS |
+| Legal Business | Legal | open | RSS |
+| Legal Cheek | Legal | open | RSS |
+| Legal Futures | Legal | open | RSS |
+| The Global Legal Post | Legal | open | Google News bridge |
+| Mohamed El-Erian | Substack | open | RSS |
+| Debt Serious | Substack | open | RSS |
+| But This Time It's Different | Substack | open | RSS |
+| Accredited Investor Insights | Substack | open | RSS |
+| BIS | Research lane | open | RSS (research papers) |
+| Liberty Street Economics | Research lane | open | RSS (NY Fed research blog) |
+| CEPR VoxEU | Research lane | macro | RSS |
+<!-- wire-sources:end -->
+
+- **Dropped 2026-10-21:** MarketWatch (1 in 3 articles readable; personal-finance clickbait),
+  Hedge Fund Alpha (feed returns no items).
+- **Trialled, not added (2026-10-21):** passed the in-pane trial but held back — The
+  Guardian, BBC Business, City AM, Sky News Business, Apricitas Economics, Markets Media.
+  Failed — Pensions & Investments, Bank Underground, IMF Blog, RollOnFriday (blocked to
+  cloud servers), FN London (paywall), FCA (feed has no dates), Law Society Gazette (no
+  usable feed), Calculated Risk (stale feed).
+- _Switched off (readable-only): Bloomberg, Financial Times, FT Alphaville, Dow Jones/WSJ, The Economist, Reuters, Nikkei Asia, SCMP, The Straits Times, DealBook (NYT)._
 
 ### 8.4 Macro strategy & commentary
 (Roster behind R18 — ≥10 items/day, real dated pieces only.)
@@ -2019,7 +2069,7 @@ item keeps a real outbound source link (R7).
 - ✅ Alternative Credit Investor — live (credit desk)
 - 🔒 Alternatives Watch (`alternativeswatch.com`) — paywalled ($39/mo; only a lede is public), no RSS. Well-indexed by Google News but not readable.
 - GlobalCapital
-- ✅ Hedgeweek · ✅ HedgeNordic (`hedgenordic.com`, Nordic hedge desk) · The Hedge Fund Journal · ✅ Hedge Fund Alpha — hedge desk (live)
+- ✅ Hedgeweek · ✅ HedgeNordic (`hedgenordic.com`, Nordic hedge desk) · ✅ The Hedge Fund Journal — hedge desk (live; Hedge Fund Alpha dropped 2026-10-21, empty feed)
 - ✅ ABF Journal (`abfjournal.com`) — US asset-based lending & middle-market debt (FI desk, live)
 - IPE / IPE Real Assets
 - Credit Village (`creditvillage.news`) — Italian-language (not wired)

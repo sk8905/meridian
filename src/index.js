@@ -3771,7 +3771,7 @@ export const FEED_SOURCES = [
   { url: "https://www.hedgeweek.com/feed/", source: "Hedgeweek", region: "GEN", cap: 12, hdg: true, filter: false },
   // { url: "https://www.ft.com/hedge-funds?format=rss", source: "Financial Times", region: "GEN", cap: 10, hdg: true, filter: false },  // OFF: premium four (FT)
   { url: "https://thehedgefundjournal.com/feed/", source: "The Hedge Fund Journal", region: "GEN", cap: 10, hdg: true, filter: false },
-  { url: "https://hedgefundalpha.com/feed/", source: "Hedge Fund Alpha", region: "GEN", cap: 10, hdg: true, filter: false },
+  // Hedge Fund Alpha — DROPPED 2026-10-21 (owner): its feed returns no items.
   // HedgeNordic — Nordic hedge-fund trade desk (manager moves, launches, fund
   // closes, allocator flows). Openly readable in-pane; direct WordPress RSS.
   { url: "https://hedgenordic.com/feed/", source: "HedgeNordic", region: "GEN", cap: 8, hdg: true, filter: false },
@@ -3889,7 +3889,8 @@ export const FEED_SOURCES = [
   // CNBC's front page keeps publishing markets/policy stories. Same quality cull applies.
   { url: "https://www.cnbc.com/id/100003114/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Top News
   { url: "https://www.cnbc.com/id/100727362/device/rss/rss.html", source: "CNBC", region: "GEN", cap: 6 },  // World
-  { url: "https://feeds.content.dowjones.io/public/rss/mw_topstories", source: "MarketWatch", region: "US", cap: 5, core: true },
+  // MarketWatch — DROPPED 2026-10-21 (owner): only 1 in 3 articles opened in-pane
+  // (Dow Jones metering) and the top-stories feed skews to personal-finance clickbait.
   { url: "https://www.federalreserve.gov/feeds/press_monetary.xml", source: "Federal Reserve", region: "US", cap: 6, filter: false },
   // OECD — official macro desk (Interim Economic Outlook, growth/inflation
   // projections, country Economic Surveys). Direct RSS 403s the datacenter IP, so
@@ -3899,6 +3900,35 @@ export const FEED_SOURCES = [
   // FEED_RELEVANCE quality cull then keeps the econ releases and drops the
   // education/biodiversity ones.
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aoecd.org%2Fen%2Fabout%2Fnews%20(economic%20OR%20growth%20OR%20inflation%20OR%20GDP%20OR%20outlook%20OR%20trade%20OR%20employment%20OR%20rate)%20when%3A30d", source: "OECD", region: "GEN", cap: 4, gnews: true, filter: false },
+  // ---- Added 2026-10-21 (owner, fixed source-set review; all trialled in-pane by
+  // scripts/source-trial.mjs → backfill/source-trial.json). `match` / `drop` are per-
+  // source title screens (feedSourceKeep): the item must match `match` and not `drop`.
+  // Financial Stability Board — NBFI / private-credit / market-structure policy. Official,
+  // every release on-beat, so filter:false (+ FEED_CURATED_SRC).
+  { url: "https://www.fsb.org/feed/", source: "Financial Stability Board", region: "GEN", cap: 4, filter: false },
+  // SEC press releases — kept only when about funds, advisers, private markets, credit or
+  // market plumbing; retail fraud, crypto, meetings and roundtables are dropped.
+  { url: "https://www.sec.gov/news/pressreleases.rss", source: "SEC", region: "US", cap: 4,
+    match: /\b(?:private (?:funds?|markets?|credit|equity)|investment (?:advis\w+|compan\w+)|registered funds?|hedge funds?|asset manag\w+|fund manag\w+|co-?CIO|credit|debt|bonds?|CLOs?|asset-backed|securiti[sz]ation|treasury (?:market|clearing)|central counterpart\w*|clearing|Form PF|money market|retailization|custody)\b/i,
+    drop: /\b(?:roundtable|seminar|outreach|advisory committee|to host|hosts?|meeting|dialogue|MOU|ponzi|veterans|whatsapp|crypto|tokeni[sz]ed|XBRL|retail investors)\b/i },
+  // UK Insolvency Service — the official insolvency statistics and regime changes only;
+  // practitioner sanctions, director bans and enforcement round-ups are dropped.
+  { url: "https://www.gov.uk/government/organisations/insolvency-service.atom", source: "Insolvency Service", region: "UK", cap: 3,
+    match: /\b(?:company insolvencies|individual insolvencies|insolvency statistics|insolvenc(?:y|ies) (?:regime|reform|rules|act|law|figures)|corporate insolvency|restructuring)\b/i,
+    drop: /practitioner sanctions|enforcement outcomes|\bbanned\b|disqualif|jailed|sentenced|conference/i },
+  // PE Hub — private-equity deal flow: fundraises, closes, exits, financings, large deals
+  // and senior hires; venture rounds and small add-ons are dropped.
+  { url: "https://www.pehub.com/feed/", source: "PE Hub", region: "GEN", cap: 6,
+    match: /\b(?:funds?|fundrais\w*|closes?|final close|raises?|credit|debt|lend\w*|(?:re)?financ(?:ing|ed|es)|continuation|secondar\w*|exits?|IPO|take-private|buyout|hires?|appoints?|billion|bn)\b|[$€£]\s?\d/i,
+    drop: /\b(?:seed|series [a-f]|venture|VC|start-?ups?|add-ons?|bolt-ons?)\b/i },
+  // Axios — its feed is all of Axios (politics included), so it takes the default
+  // macro / megacap title gate: only the markets and economy pieces pass.
+  { url: "https://api.axios.com/feed/", source: "Axios", region: "US", cap: 6 },
+  // Research lane (research: true → the RSCH desk, glance.js rschFeed): openly readable
+  // central-bank / economics research.
+  { url: "https://www.bis.org/doclist/bis_fsi_publs.rss", source: "BIS", region: "GEN", cap: 4, filter: false, research: true },
+  { url: "https://libertystreeteconomics.newyorkfed.org/feed/", source: "Liberty Street Economics", region: "US", cap: 4, filter: false, research: true },
+  { url: "https://cepr.org/rss/vox-content", source: "CEPR VoxEU", region: "GEN", cap: 4, research: true },
   // Financial specialists — UK / Europe
   // { url: "https://www.ft.com/markets?format=rss", source: "Financial Times", region: "UK", cap: 10 },       // OFF: premium four (FT)
   // { url: "https://www.ft.com/global-economy?format=rss", source: "Financial Times", region: "UK", cap: 8 }, // OFF: premium four (FT)
@@ -4370,7 +4400,9 @@ const FEED_LEGAL_SRC = new Set(["Legal Business", "Legal Cheek", "Legal Futures"
 // (ACI, PE Wire) plus the deal-scoped press-release wires (GlobeNewswire, PR Newswire,
 // whose Google-News query already restricts them to private-markets/credit deals), so
 // they bypass the relevance gate like the legal wire, keeping that coverage readable.
-const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire", "GlobeNewswire", "PR Newswire", "ING Think"]);
+const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire", "GlobeNewswire", "PR Newswire", "ING Think",
+  // 2026-10-21 additions: official / already screened by their own `match` (feedSourceKeep).
+  "Financial Stability Board", "SEC", "Insolvency Service", "PE Hub"]);
 // The app's SIX focus verticals — used to hold the paywalled premium newsrooms
 // (FT/Bloomberg/WSJ/Economist) strictly on-beat: (i) G20 macro (ii) public equity &
 // bond markets (iii) private capital markets (iv) credit markets (v) hedge funds
@@ -4432,6 +4464,8 @@ const FEED_OFFTOPIC_GEO = /^(?:the\s+)?(?:russia(?:n)?|ukrain(?:e|ian)|belarus(?
 // megacap (or core-macro for `core` sources).
 export function feedSourceKeep(x, f) {
   if (feedReject(x.title)) return false;
+  if (f.drop && f.drop.test(x.title)) return false;      // per-source drop screen
+  if (f.match) return f.match.test(x.title);              // per-source topic screen
   if (f.soft) return !FEED_LIFESTYLE_RE.test(x.title) || FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title);
   if (f.filter === false) return true;
   return f.core ? FEED_CORE_MACRO_RE.test(x.title) : (FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));

@@ -170,6 +170,28 @@ for (const [on, want] of [["Associated Press", {}], ["Moody's", { fi: true }], [
   if (src && want.fi) check(src.fi === true, `readable-only: ${on} is routed to the FI (credit) desk`);
 }
 
+// ---- Fixed source set (owner 2026-10-21): FEED_SOURCES is the one canonical list.
+// Added after the in-pane trial; MarketWatch and Hedge Fund Alpha dropped.
+{
+  const { feedSourceKeep } = await import("../src/index.js");
+  for (const off of ["MarketWatch", "Hedge Fund Alpha"]) check(!bySource(off), `fixed set: ${off} is dropped`);
+  for (const [on, want] of [["Financial Stability Board", {}], ["SEC", {}], ["Insolvency Service", {}], ["PE Hub", {}], ["Axios", {}], ["BIS", { research: true }], ["Liberty Street Economics", { research: true }], ["CEPR VoxEU", { research: true }]]) {
+    const src = bySource(on);
+    check(!!src && (!want.research || src.research === true), `fixed set: ${on} is wired${want.research ? " to the Research lane" : ""}`);
+  }
+  const sec = bySource("SEC"), ins = bySource("Insolvency Service"), peh = bySource("PE Hub");
+  const k = (f, title) => feedSourceKeep({ title }, f) && feedQualityKeep({ source: f.source, title });
+  check(k(sec, "SEC Proposes Amendments to Expand Responsible Retailization of Private Markets"), "SEC: a private-markets rule is kept");
+  check(!k(sec, "SEC Charges Founder and His Two New Jersey-Based Companies in Alleged $16 Million Ponzi Scheme"), "SEC: a retail Ponzi case is dropped");
+  check(!k(sec, "SEC Investor Advisory Committee to Host Sept. 10 Meeting"), "SEC: a meeting notice is dropped");
+  check(k(ins, "Accredited official statistics: Company insolvencies, September 2026"), "Insolvency Service: the monthly statistics are kept");
+  check(!k(ins, "Transparency data: Insolvency practitioner sanctions: Andrew Dix 17 November 2025"), "Insolvency Service: practitioner sanctions are dropped");
+  check(k(peh, "Weatherford Capital hires LLR Partners veteran Michael Pantilione for flagship strategy"), "PE Hub: a senior hire is kept");
+  check(!k(peh, "Inflexion’s Ranger Fire and Security adds Midlands alarm firm D&G"), "PE Hub: a small add-on is dropped");
+  check(!k(peh, "WestBridge completes investment in Foresight-backed financial planner Beckett"), "PE Hub: 'financial planner' is not a financing");
+  check(!k(bySource("Axios"), "Trump goes full apocalypse in anti-Dems midterms message"), "Axios: politics is dropped (default macro gate)");
+}
+
 // Banned outlet (owner request): Channel NewsAsia is dropped from ANY feed — a direct
 // link or a Google News bridge item labelled "CNA" — even on an otherwise-strong headline.
 for (const it of [
