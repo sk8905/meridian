@@ -36,7 +36,10 @@ ratchet("deals: one record per firm + date + counterparty", [...ev.values()].fil
 const by = new Map();
 for (const d of C.deals) { const p = party(d); if (p.length < 3 || p === "unknown") continue; const t = DEAL_TAGS[d.id] || {}; const b = by.get(p) || by.set(p, { c: new Set(), s: new Set() }).get(p); if (t.country) b.c.add(t.country); if (t.sector) b.s.add(t.sector); }
 ratchet("borrowers: one country", [...by].filter(([, v]) => v.c.size > 1).map(([k]) => k), new Set(["esr", "muzinich vehicle", "dutscher", "palmer square vehicle", "fidera vecta", "cedar funding v", "regatta xxiii funding", "signal harmonic clo i", "1box"]));
-ratchet("borrowers: one sector", [...by].filter(([, v]) => v.s.size > 1).map(([k]) => k), new Set(["wayflyer", "esr", "meridianlink", "zetland capital", "fasanara capital"]));
+ratchet("borrowers: one sector", [...by].filter(([, v]) => v.s.size > 1).map(([k]) => k), new Set(["wayflyer", "esr", "meridianlink", "zetland capital", "fasanara capital",
+  // banks issuing significant-risk-transfer deals: the sector tag describes each deal's
+  // reference PORTFOLIO (renewables, SME loans, auto loans), not the bank (2026-10-21)
+  "santander", "deutsche bank"]));
 
 // 4. Roles: a fund close / launch / continuation vehicle never labels its party
 //    "Borrower"; an asset-manager acquisition's party is the target (or seller / none).

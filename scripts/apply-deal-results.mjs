@@ -7,14 +7,18 @@
 //   outcome  deal        → credit/js/data.js `deals` (next d-id) + its deal-tags.js line
 //            intel       → `intel` (next i-id)        HEDGE_INTEL → `HEDGE_INTEL` (next hi-id)
 //            commitment  → `commitments`              webNews → the manager's `webNews`
-//            held        → the release URL added to that deal's `alsoReported`
+//            held        → the release URL added to that deal's `alsoReported` ("@<legalId>"
+//                          = a deal created from another result in the same run)
 //            reject      → nothing recorded
 //   Every item is then logged in backfill/wire-ledger.json ({url, status: recorded|rejected,
 //   recordId|reason, at}), which closes it in backfill/wire-queue.json.
 //
 // Guards: a record whose URL the target already holds (same entity) is skipped; a deal
 // type outside DEAL_TYPES, or a deal without a tracked managerId, is refused (reported).
-// Usage: node scripts/apply-deal-results.mjs <results.json>… [--dry-run]
+// Every lender a deal names gets a profile (R39m): an existing profile of the same name
+// (legal form aside) is linked, otherwise a lender STUB is created (category bank |
+// lender, every fact null until a routine sources it) — also run alone with --link.
+// Usage: node scripts/apply-deal-results.mjs <results.json>… [--dry-run] | --link
 // =============================================================================
 import fs from "node:fs";
 import path from "node:path";
@@ -39,7 +43,35 @@ export function compactTags(t = {}) {
   return o;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+const BANK_RE = /\b(bank|banco|banca|banque|bnp|caixa|mizuho|uob|ocbc|maybank|unicredit|natixis|santander|hsbc|barclays|citi|kookmin|mashreq|qnb|rabobank|soci[eé]t[eé] g[eé]n[eé]rale|cr[eé]dit agricole|deutsche|ing|abn amro|commerzbank|lloyds|natwest|sumitomo|mufg|smbc|wells fargo|j\.?p\.? ?morgan|goldman sachs|morgan stanley|jefferies)\b/i;
+export const lenderKey = (n) => String(n || "").toLowerCase().replace(/\(.*?\)/g, " ").replace(/\b(ltd|limited|plc|llc|inc|ag|sa|s\.a\.|gmbh|n\.v\.|nv|spa|s\.p\.a\.|lp|l\.p\.|group|holdings?)\b\.?/g, " ").replace(/[^a-z0-9]+/g, " ").trim();
+// Link (or create) a profile for every lender that has none. Returns the stubs created.
+export function linkLenders({ dryRun = false } = {}) {
+  const mgrs = readRecords(CREDIT, "managers").map((r) => r.obj);
+  const byKey = new Map(mgrs.map((m) => [lenderKey(m.name), m.id]));
+  let next = maxId(CREDIT, "m"); const created = [], today = new Date().toISOString().slice(0, 10);
+  updateRecords(CREDIT, "deals", (d) => {
+    let ch = false;
+    for (const l of d.lenders || []) {
+      if (l.managerId || !l.name) continue;
+      const k = lenderKey(l.name); if (!k) continue;
+      let id = byKey.get(k);
+      if (!id) {
+        id = `m${++next}`; byKey.set(k, id);
+        created.push({ id, name: String(l.name).trim(), category: BANK_RE.test(l.name) ? "bank" : "lender", hq: null, founded: null, aum: null, aumText: null, strategies: [], description: null, owners: [], sources: [], estimated: null, asOf: null, profileStub: true, stubSince: today });
+      }
+      l.managerId = id; ch = true;
+    }
+    return ch;
+  }, { dryRun });
+  if (created.length && !dryRun) appendRecords(CREDIT, "managers", created);
+  return created;
+}
+
+if (import.meta.url === `file://${process.argv[1]}` && process.argv.includes("--link")) {
+  const c = linkLenders({ dryRun: process.argv.includes("--dry-run") });
+  console.log(`apply-deal-results --link: ${c.length} lender stub(s) created${c.length ? ": " + c.map((m) => `${m.id} ${m.name}`).join(", ") : ""}`);
+} else if (import.meta.url === `file://${process.argv[1]}`) {
   const DRY = process.argv.includes("--dry-run");
   const files = process.argv.slice(2).filter((a) => !a.startsWith("--"));
   const C = await import("file://" + CREDIT);
@@ -52,12 +84,16 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   let nd = maxId(CREDIT, "d") + 1, ni = maxId(CREDIT, "i") + 1, nh = maxId(CREDIT, "hi") + 1;
   const add = { deals: [], intel: [], HEDGE_INTEL: [], commitments: [] }, tagLines = [], webNews = new Map(), also = new Map(), ledger = [], refused = [];
   const at = new Date().toISOString();
-  for (const f of files) for (const r of (JSON.parse(fs.readFileSync(f, "utf8")).results || [])) {
+  const byLegal = new Map();   // legalId → new deal id (for "@legalId" holds)
+  const all = files.flatMap((f) => JSON.parse(fs.readFileSync(f, "utf8")).results || []);
+  // deals first, so a "@legalId" hold can resolve to the deal it duplicates
+  all.sort((a, b) => (a.outcome === "held") - (b.outcome === "held"));
+  for (const r of all) {
     const url = r.url || (r.record && (r.record.sourceUrl || r.record.url));
     const close = (status, extra) => ledger.push({ url, status, ...extra, at, ...(r.legalId ? { legalId: r.legalId } : {}) });
     const x = r.record || {};
     if (r.outcome === "reject") { close("rejected", { reason: r.reason || "rejected" }); continue; }
-    if (r.outcome === "held") { if (!r.held) { refused.push(`${r.legalId}: held without id`); continue; } (also.get(r.held) || also.set(r.held, []).get(r.held)).push({ url, headline: r.title || x.headline || null, date: r.date || x.date || null }); close("recorded", { recordId: r.held }); continue; }
+    if (r.outcome === "held") { if (r.held && r.held.startsWith("@")) r.held = byLegal.get(r.held.slice(1)); if (!r.held) { refused.push(`${r.legalId}: held without a resolvable id`); continue; } (also.get(r.held) || also.set(r.held, []).get(r.held)).push({ url, headline: r.title || x.headline || null, date: r.date || x.date || null }); close("recorded", { recordId: r.held }); continue; }
     if (r.outcome === "deal") {
       if (!types.has(x.type) || !mgr.has(x.managerId) || !x.date || !x.headline || !x.sourceUrl) { refused.push(`${r.legalId}: deal refused (type ${x.type}, managerId ${x.managerId})`); continue; }
       const k = `${x.managerId}|${norm(x.sourceUrl)}`; if (held.deals.has(k)) { close("recorded", { reason: "already held" }); continue; }
@@ -65,6 +101,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       add.deals.push({ id, date: x.date, type: x.type, managerId: x.managerId, fundId: null, headline: x.headline, summary: x.summary || "", sourceUrl: x.sourceUrl, borrower: x.borrower || "Unknown", sponsor: x.sponsor || "", lenders: (x.lenders || []).map((l) => ({ name: l.name, managerId: mgr.has(l.managerId) ? l.managerId : null, role: l.role || "participant", amount: l.amount ?? null, ccy: l.ccy ?? null })), managerRole: x.managerRole || "lender", ...(x.clo ? { clo: true } : {}),
         ...(Array.isArray(x.alsoReported) && x.alsoReported.length ? { alsoReported: x.alsoReported.filter((a) => a && a.url && norm(a.url) !== norm(x.sourceUrl)).map((a) => ({ url: a.url, headline: a.headline || null, date: a.date || null })) } : {}) });
       tagLines.push(`  ${id}: ${JSON.stringify(compactTags(r.tags || {}))},`);
+      if (r.legalId) byLegal.set(r.legalId, id);
       close("recorded", { recordId: id }); continue;
     }
     if (r.outcome === "intel") {
@@ -96,6 +133,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     }
     refused.push(`${r.legalId}: unknown outcome ${r.outcome}`);
   }
+  for (const d of add.deals) { const a = also.get(d.id); if (!a) continue; also.delete(d.id); const have = new Set([norm(d.sourceUrl), ...(d.alsoReported || []).map((x) => norm(x.url))]); const fresh = a.filter((x) => !have.has(norm(x.url))); if (fresh.length) d.alsoReported = [...(d.alsoReported || []), ...fresh]; }
   if (!DRY) {
     for (const [name, recs] of Object.entries(add)) if (recs.length) appendRecords(CREDIT, name, recs);
     if (tagLines.length) { const src = fs.readFileSync(TAGS, "utf8"); const i = src.indexOf("\n};", src.indexOf("const T = {")); fs.writeFileSync(TAGS, src.slice(0, i) + "\n" + tagLines.join("\n") + src.slice(i)); }
@@ -110,6 +148,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       if (!fresh.length) return false; d.alsoReported = [...(d.alsoReported || []), ...fresh]; return true;
     });
     const L = JSON.parse(fs.readFileSync(LEDGER, "utf8")); L.items.push(...ledger); fs.writeFileSync(LEDGER, JSON.stringify(L, null, 1) + "\n");
+    const stubs = linkLenders();
+    if (stubs.length) console.log(`  lender profiles created: ${stubs.map((m) => `${m.id} ${m.name}`).join(", ")}`);
   }
   console.log(`${DRY ? "[dry-run] " : ""}apply-deal-results: deals +${add.deals.length}, intel +${add.intel.length}, HEDGE_INTEL +${add.HEDGE_INTEL.length}, commitments +${add.commitments.length}, webNews +${[...webNews.values()].flat().length}, alsoReported +${[...also.values()].flat().length}; ledger +${ledger.length} (${ledger.filter((l) => l.status === "rejected").length} rejected)`);
   if (refused.length) console.log("  refused:\n   - " + refused.join("\n   - "));

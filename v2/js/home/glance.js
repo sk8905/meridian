@@ -2447,7 +2447,7 @@ function renderFeed() {
   // A story carried by two sources is still ONE item: each lane gives up any headline
   // a higher lane already holds — Deals › Profiles › Research › Newsletters › News.
   const claimed = new Set(byDesk.deals.map((x) => norm(x.title)));
-  _dealTitles = new Set(claimed);
+  _dealTitles = new Set(claimed); _dealLinks = null;
   if (_feedDesk === "all" || _feedDesk === "research" || _feedDesk === "n") profilesEvents().forEach((e) => claimed.add(norm(e.title)));
   byDesk.research = byDesk.research.filter((x) => !claimed.has(norm(x.title)));
   byDesk.research.forEach((x) => claimed.add(norm(x.title)));
@@ -2592,6 +2592,21 @@ function _dealTitleSet() {
   out.delete("");
   return out;
 }
+// …and the source LINKS it holds: the same release recorded under a different headline
+// (a law firm's own "X advises …" alert next to the deal record written from it — data
+// audit 2026-10-21) is still the one story, so Profiles gives it up too (R50).
+let _dealLinks = null;
+function _dealLinkSet() {
+  if (_dealLinks) return _dealLinks;
+  const nu = (u) => String(u || "").toLowerCase().replace(/^https?:\/\/(www\.)?/, "").split(/[?#]/)[0].replace(/\/+$/, "");
+  const out = new Set();
+  (deals || []).forEach((d) => { out.add(nu(d.sourceUrl)); (d.alsoReported || []).forEach((a) => out.add(nu(a.url))); });
+  (intel || []).forEach((i) => { if (intelLane(i.type, i.clo) === "deals") out.add(nu(i.sourceUrl)); });
+  (items || []).forEach((it) => { if (it && it.firm && legalLane(it.title) === "deals") out.add(nu(it.url)); });
+  (HEDGE_INTEL || []).forEach((h) => { if (h && _hfEv(h).cat === "fundraising") out.add(nu(h.url)); });
+  out.delete("");
+  return out;
+}
 // The wire-lane chips. "News" was retired (the All lane already carries the full
 // news stream, interleaved with manager events); Research sits in its place. The
 // "manager" lane keeps its key but is labelled "Managers" (plural).
@@ -2698,8 +2713,9 @@ function profilesEvents() {
   (items || []).forEach((it) => { if (it && it.firm && it.title && legalLane(it.title) === "profiles") out.push({ ..._firmEv(it), watched: has("firm", it.firm) }); });
   const lpRe = _termsRe((lps || []).map((l) => l.name));
   namedEvents(lpRe).forEach((e) => { if (eventLane(e) === "profiles") out.push({ ...e, watched: false }); });
-  const dealT = _dealTitleSet(), nt = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
-  return dedupeEvents(out.filter((e) => e.ts && e.ts >= winStart && !dealT.has(nt(e.title))), { fuzzy: false })
+  const dealT = _dealTitleSet(), dealL = _dealLinkSet(), nt = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const nu = (u) => String(u || "").toLowerCase().replace(/^https?:\/\/(www\.)?/, "").split(/[?#]/)[0].replace(/\/+$/, "");
+  return dedupeEvents(out.filter((e) => e.ts && e.ts >= winStart && !dealT.has(nt(e.title)) && !(e.source && dealL.has(nu(e.source)))), { fuzzy: false })
     .sort((a, b) => (b.ts - a.ts) || String(b.date).localeCompare(String(a.date)));
 }
 // A manager event as a shared .g-feed-row (same markup as the manager wire's flat row).
