@@ -21,6 +21,76 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "abe0ee90-b0ad-45c2-95db-93f0663af34b",
+    "title": "LSEG nears $3.5bn deal to buy credit  data specialist Octus",
+    "date": "2026-10-21",
+    "time": "22:55",
+    "url": "https://www.ft.com/content/abe0ee90-b0ad-45c2-95db-93f0663af34b"
+  },
+  {
+    "id": "b34502b6-38dc-4a46-a8e7-d9131726cd31",
+    "title": "Meta agrees deal to keep Mark Zuckerberg in California despite wealth tax proposal",
+    "date": "2026-10-21",
+    "time": "22:43",
+    "url": "https://www.ft.com/content/b34502b6-38dc-4a46-a8e7-d9131726cd31"
+  },
+  {
+    "id": "b739c6e8-5b77-46e3-91a5-382fd52389bc",
+    "title": "FirstFT: Scott Bessent shrugs off ‘systemic’ AI risks at private event with investors",
+    "date": "2026-10-21",
+    "time": "22:42",
+    "url": "https://www.ft.com/content/b739c6e8-5b77-46e3-91a5-382fd52389bc"
+  },
+  {
+    "id": "f39aa4d2-e290-451f-ae91-b19138b6172f",
+    "title": "US orders some personnel to leave Saudi Arabia after Houthi attacks",
+    "date": "2026-10-21",
+    "time": "21:58",
+    "url": "https://www.ft.com/content/f39aa4d2-e290-451f-ae91-b19138b6172f"
+  },
+  {
+    "id": "16bdf332-2a75-4e57-81ea-a37caf50ec0f",
+    "title": "Tesla’s profits slip on weaker vehicle sales",
+    "date": "2026-10-21",
+    "time": "21:44",
+    "url": "https://www.ft.com/content/16bdf332-2a75-4e57-81ea-a37caf50ec0f"
+  },
+  {
+    "id": "637bb10e-b5b4-4db2-ac7c-b42348595c4c",
+    "title": "Republicans head into midterms with huge spending advantage",
+    "date": "2026-10-21",
+    "time": "21:26",
+    "url": "https://www.ft.com/content/637bb10e-b5b4-4db2-ac7c-b42348595c4c"
+  },
+  {
+    "id": "5eb997eb-6031-40c4-b2f3-e2a09f4d64f1",
+    "title": "GM aims to leapfrog rivals with new generation of autonomous cars",
+    "date": "2026-10-21",
+    "time": "21:10",
+    "url": "https://www.ft.com/content/5eb997eb-6031-40c4-b2f3-e2a09f4d64f1"
+  },
+  {
+    "id": "47777033-6a91-42c3-bc9e-249d4bf7a961",
+    "title": "EU set to delay push for cheaper UK university fees for bloc’s students",
+    "date": "2026-10-21",
+    "time": "19:58",
+    "url": "https://www.ft.com/content/47777033-6a91-42c3-bc9e-249d4bf7a961"
+  },
+  {
+    "id": "5b7c2fdf-2300-4208-860e-6389ceb18886",
+    "title": "Scott Bessent shrugs off ‘systemic’ AI risks at closed-door investor conference",
+    "date": "2026-10-21",
+    "time": "19:46",
+    "url": "https://www.ft.com/content/5b7c2fdf-2300-4208-860e-6389ceb18886"
+  },
+  {
+    "id": "245778d9-597b-492d-b5b6-a2967c77e853",
+    "title": "NSA warns on ‘critical’ cyber vulnerabilities detected using AI",
+    "date": "2026-10-21",
+    "time": "19:46",
+    "url": "https://www.ft.com/content/245778d9-597b-492d-b5b6-a2967c77e853"
+  },
+  {
     "id": "d7345d46-f000-49b1-99f6-57edfbd5f0af",
     "title": "Trump envoy floats Ukraine talks and summit with Putin and Xi",
     "date": "2026-10-21",
@@ -229,75 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-21",
     "time": "09:01",
     "url": "https://www.ft.com/content/67a2f314-730b-477b-b52f-f7495394ceec"
-  },
-  {
-    "id": "70f1da13-3c33-4881-aaa8-3458c1ba7eaf",
-    "title": "UK September inflation fuels expectations of imminent BoE rate rise",
-    "date": "2026-10-21",
-    "time": "08:03",
-    "url": "https://www.ft.com/content/70f1da13-3c33-4881-aaa8-3458c1ba7eaf"
-  },
-  {
-    "id": "0a892b95-0216-40d9-89a4-e1654b9a3fa2",
-    "title": "Are index providers overstepping the mark?",
-    "date": "2026-10-21",
-    "time": "07:27",
-    "url": "https://www.ft.com/content/0a892b95-0216-40d9-89a4-e1654b9a3fa2"
-  },
-  {
-    "id": "89322cfb-54cd-4fcd-9ba7-cd7e74382215",
-    "title": "UK government borrowing rises to £24.5bn ahead of Budget",
-    "date": "2026-10-21",
-    "time": "07:10",
-    "url": "https://www.ft.com/content/89322cfb-54cd-4fcd-9ba7-cd7e74382215"
-  },
-  {
-    "id": "e316142e-c315-47d4-89c9-971bad5a6380",
-    "title": "The Indian mega-refinery drawing Marco Rubio’s interest",
-    "date": "2026-10-21",
-    "time": "07:09",
-    "url": "https://www.ft.com/content/e316142e-c315-47d4-89c9-971bad5a6380"
-  },
-  {
-    "id": "9bc15db9-08b4-40f1-b814-24a52eed8ebc",
-    "title": "Nscale boss seeks to reassure staff amid AI market fears",
-    "date": "2026-10-21",
-    "time": "06:47",
-    "url": "https://www.ft.com/content/9bc15db9-08b4-40f1-b814-24a52eed8ebc"
-  },
-  {
-    "id": "b7e5fa98-0cb5-4eba-b921-26e3a9393199",
-    "title": "Small caps: not a great AI hedge",
-    "date": "2026-10-21",
-    "time": "06:30",
-    "url": "https://www.ft.com/content/b7e5fa98-0cb5-4eba-b921-26e3a9393199"
-  },
-  {
-    "id": "b136cc73-cf87-447d-bd9e-4a890273ec0c",
-    "title": "Foreign diplomats queue for handshake with EU leaders",
-    "date": "2026-10-21",
-    "time": "06:00",
-    "url": "https://www.ft.com/content/b136cc73-cf87-447d-bd9e-4a890273ec0c"
-  },
-  {
-    "id": "be6fa6df-cea1-4e99-8b8d-5ad5a17a3474",
-    "title": "Who’s merging with Weil?",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/be6fa6df-cea1-4e99-8b8d-5ad5a17a3474"
-  },
-  {
-    "id": "4e402323-c3f8-4aa6-9eba-0c8c9e478b4a",
-    "title": "Milan riots test Giorgia Meloni’s law and order credentials",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/4e402323-c3f8-4aa6-9eba-0c8c9e478b4a"
-  },
-  {
-    "id": "f06bdefd-bbc6-4a33-9884-09daa15752a9",
-    "title": "UK’s top banking regulator to set targets with five-year strategy",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/f06bdefd-bbc6-4a33-9884-09daa15752a9"
   }
 ];

@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-21",
-  lastCheckedTime: "21:08 BST",
+  lastCheckedTime: "23:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1045,7 +1045,7 @@ export const NEWS = {
     {title: "US pending home sales fall to record low as mortgage rates surge", source: "Financial Times", date: "2026-10-20", time: "16:47", url: "https://www.ft.com/content/42ed6778-d350-48a6-ba3d-99efca3cd276"},
     {title: "US stocks set for rebound after AI sell-off", source: "Financial Times", date: "2026-10-19", time: "07:34", url: "https://www.ft.com/content/915ea7ca-1f35-4847-810a-fb29e8344496"},
     {title: "Investors turn on data centres", source: "Financial Times", date: "2026-10-19", time: "07:00", url: "https://www.ft.com/content/5970614a-b1f7-4b4e-b1e5-6038e1dde654"},
-    {title: "Billionaires Warn of a Bubble Yet Howard Marks Is Unconvinced", source: "Bloomberg", date: "2026-10-18", url: "https://www.bloomberg.com/news/articles/2026-10-18/billionaires-warn-of-a-bubble-yet-howard-marks-is-unconvinced"},
+    {title: "Scott Bessent shrugs off ‘systemic’ AI risks at closed-door investor conference", source: "Financial Times", date: "2026-10-21", time: "19:46", url: "https://www.ft.com/content/5b7c2fdf-2300-4208-860e-6389ceb18886"},
     {title: "Iran war sparks heating crisis in US north-east as winter approaches", source: "Financial Times", date: "2026-10-21", time: "11:00", url: "https://www.ft.com/content/162c6dd8-5501-46f4-8f7c-b456a4e29539"},
   ],
   uk: [

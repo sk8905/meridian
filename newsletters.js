@@ -49,6 +49,18 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    "id": "nl-reuters-tradingday-techitaway-20261021",
+    "publication": "Reuters",
+    "author": "Jamie McGeever",
+    "series": "Trading Day",
+    "title": "Tech it away",
+    "date": "2026-10-21",
+    "time": "22:05",
+    "summary": "AI sentiment lifted Wall Street on SpaceX and Super Micro results while France's 10-year yield rose above 5% for the first time since 2002.",
+    "url": "https://www.reuters.com/newsletters/trading-day",
+    "body": true
+  },
+  {
     "id": "nl-bloomberg-moneystuff-obviouslyspacexteslamerge-20261021",
     "publication": "Bloomberg",
     "author": "Matt Levine",

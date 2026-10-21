@@ -109,6 +109,28 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    "id": "rsch-spdji-indexology-islamicbenchmarksq3-20261021",
+    "publication": "S&P Dow Jones Indices",
+    "author": null,
+    "series": "Indexology Blog",
+    "title": "S&P DJI’s Global Islamic Benchmarks Outperformed Conventional Peers in Q3 2026",
+    "date": "2026-10-21",
+    "time": "23:05",
+    "summary": "Global equities posted modest gains in the third quarter of 2026, supported by resilient corporate earnings despite persistent geopolitical uncertainty.",
+    "url": "https://www.indexologyblog.com/2026/10/21/sp-djis-global-islamic-benchmarks-outperformed-conventional-peers-in-q3-2026/"
+  },
+  {
+    "id": "rsch-spdji-indexology-smallcapdividendaristocrats-20261020",
+    "publication": "S&P Dow Jones Indices",
+    "author": null,
+    "series": "Indexology Blog",
+    "title": "A Dual-Quality Lens for U.S. Small-Cap Dividend Growth: The S&P SmallCap 600 Dividend Aristocrats",
+    "date": "2026-10-20",
+    "time": "23:05",
+    "summary": "In April 2026, S&P Dow Jones Indices launched the S&P SmallCap 600 Dividend Aristocrats, completing the U.S. core series of S&P Dividend Aristocrats Indices.",
+    "url": "https://www.indexologyblog.com/2026/10/20/a-dual-quality-lens-for-u-s-small-cap-dividend-growth-the-sp-smallcap-600-dividend-aristocrats/"
+  },
+  {
     "id": "rsch-mandg-bondvigilantes-latampivot-20261021",
     "publication": "M&G Bond Vigilantes",
     "author": "Carlos Carranza",
