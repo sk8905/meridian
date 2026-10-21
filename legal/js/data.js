@@ -1549,16 +1549,7 @@ export const items = [
     tags: ["funds", "asset management", "regulatory update", "FCA"],
   },
   {"url":"https://www.cliffordchance.com/briefings/2025/04/court-of-appeal-explains-its-resons-for-upholding-thames-water-plan.html","id":"u167","title":"Court of Appeal explains its reasons for upholding Thames Water plan","area":"ri","areas":["ri"],"type":"insight","firm":"cliffordchance","date":"2025-04-16","jurisdiction":"United Kingdom","summary":"Analyses the Court of Appeal's reasons for upholding Thames Water's restructuring plan, addressing fairness and creditor releases.","points":[],"tags":["restructuring plan","Thames Water","Court of Appeal"]},
-  {
-    url: "https://www.linklaters.com/knowledge/publications/alerts-newsletters-and-guides/2025/march/10/new-uk-reserved-investor-fund",
-    id: "u168", title: "New UK Reserved Investor Fund",
-    area: "funds", areas: ["funds"], type: "alert", firm: "linklaters",
-    date: "2025-03-10", jurisdiction: "United Kingdom",
-    summary: "Linklaters explains the new UK Reserved Investor Fund (Contractual Scheme) vehicle and its accompanying tax rules, which take effect from 19 March 2025.",
-    points: [],
-    tags: ["Reserved Investor Fund", "RIF", "fund structuring", "tax"],
-    dateEstimated: true,
-  },
+  {"url":"https://www.linklaters.com/knowledge/publications/alerts-newsletters-and-guides/2025/march/10/new-uk-reserved-investor-fund","id":"u168","title":"New UK Reserved Investor Fund","area":"funds","areas":["funds"],"type":"alert","firm":"linklaters","date":"2025-03-10","jurisdiction":"United Kingdom","summary":"Linklaters explains the new UK Reserved Investor Fund (Contractual Scheme) vehicle and its accompanying tax rules, which take effect from 19 March 2025.","points":[],"tags":["Reserved Investor Fund","RIF","fund structuring","tax"]},
   {"url":"https://www.cliffordchance.com/briefings/2025/03/thames-water-court-of-appeal-upholds-the-restructuring-plan.html","id":"u169","title":"Thames Water - Court of Appeal Upholds the Restructuring Plan","area":"ri","areas":["ri"],"type":"insight","firm":"cliffordchance","date":"2025-03-18","jurisdiction":"United Kingdom","summary":"Reports on the Court of Appeal dismissing the appeal against and upholding Thames Water's interim Part 26A restructuring plan.","points":[],"tags":["restructuring plan","Thames Water","Court of Appeal"]},
   {"url":"https://www.cliffordchance.com/briefings/2025/03/liquidity-solutions-for-private-funds.html","id":"u170","title":"Liquidity solutions for private funds","area":"banking","areas":["banking","funds"],"type":"insight","firm":"cliffordchance","date":"2025-03-11","jurisdiction":"United Kingdom","summary":"Covers liquidity solutions for private funds including continuation funds, NAV financing and asset-level financing tools such as margin loans and repos.","points":[],"tags":["fund finance","NAV financing","private funds","liquidity"]},
   {

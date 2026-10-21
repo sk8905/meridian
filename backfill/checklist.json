@@ -3731,8 +3731,8 @@
      "date": "2020-09-14",
      "what": "Labor Impact Fund final close, $893m",
      "source": "https://www.gcmgrosvenor.com/2020/09/14/gcm-grosvenor-closes-its-labor-impact-fund/",
-     "recordId": "i1386",
-     "status": "present"
+     "status": "rejected",
+     "note": "Removed 2026-10-21 nightly verify: infrastructure-equity fund close (Labor Impact Fund) is out of scope for a credit manager record"
     },
     {
      "key": "spac",

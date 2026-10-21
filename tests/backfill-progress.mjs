@@ -6,7 +6,7 @@
 import { loadChecklist, progress, recordById } from "../scripts/backfill-progress.mjs";
 import { check, finish } from "./lib.mjs";
 
-const MIN_PRESENT = 1216;  // 2026-10-20: +41 (h36, h37, h38, h11 built)
+const MIN_PRESENT = 1215;  // 2026-10-21: -1 (i1386 Labor Impact Fund removed — infra equity, out of scope for a credit manager)
 const MIN_BUILT = 116;     // entities whose 2020→today checklist has been researched
 
 const cl = loadChecklist();

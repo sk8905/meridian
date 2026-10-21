@@ -4,76 +4,41 @@
 // hand-edit; re-run the script. Tokenless + no-cache (see _headers).
 // =============================================================================
 export const DIGEST = {
- "asOf": "2026-10-20",
- "built": "2026-10-20T01:38:34.860Z",
+ "asOf": "2026-10-21",
+ "built": "2026-10-21T01:37:54.984Z",
  "daily": {
   "label": "Daily",
-  "from": "2026-10-19",
-  "to": "2026-10-20",
+  "from": "2026-10-20",
+  "to": "2026-10-21",
   "deals": {
-   "total": 1,
-   "items": [
-    {
-     "id": "d1233",
-     "date": "2026-10-19",
-     "title": "CIC Private Debt prices Victory Street CLO III at €403.75m",
-     "url": "https://alternativecreditinvestor.com/2026/10/19/cic-private-debt-prices-victory-street-clo-iii-at-e403-75m/",
-     "src": "alternativecreditinvestor.com",
-     "who": "CIC Private Debt",
-     "kind": "Structured Credit",
-     "href": "/v2/transactions/#/deal/d1233",
-     "amount": "€403.75m"
-    }
-   ]
+   "total": 0,
+   "items": []
   },
   "closes": {
-   "total": 1,
-   "items": [
-    {
-     "id": "i1414",
-     "date": "2026-10-19",
-     "title": "Nuveen Private Capital surpasses $100 billion in committed capital",
-     "url": "https://arcmont.com/news-and-insights/nuveen-private-capital-surpasses-100-billion-in-committed-capital/",
-     "src": "arcmont.com",
-     "who": "Arcmont Asset Management",
-     "kind": "Fundraising",
-     "href": "/v2/profiles/#/manager/m29",
-     "amount": "$100 billion"
-    }
-   ]
+   "total": 0,
+   "items": []
   },
   "legal": {
    "total": 1,
    "items": [
     {
-     "id": "u3390",
-     "date": "2026-10-19",
-     "title": "Weil Achieves Successful Chapter 11 Resolution for Sponsor of Thrill Holdings Following Successful Challenge to Attempted Proxy Exercise and Board Sweep",
-     "url": "https://www.weil.com/articles/weil-achieves-chapter-11-resolution-for-thrill-holdings-sponsor-following-attempted-proxy-exercise",
-     "src": "weil.com",
-     "who": "Weil, Gotshal & Manges",
+     "id": "u3490",
+     "date": "2026-10-20",
+     "title": "UK FCA Guidance on AI in Financial Services: Good Practices and Areas for Improvement",
+     "url": "https://www.traverssmith.com/knowledge/knowledge-container/uk-fca-guidance-on-ai-in-financial-services-good-practices-and-areas-for-improvement/",
+     "src": "traverssmith.com",
+     "who": "Travers Smith",
      "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/weil"
+     "href": "/v2/profiles/#/firm/traverssmith"
     }
    ]
   },
   "people": {
-   "total": 1,
-   "items": [
-    {
-     "id": "i1430",
-     "date": "2026-10-19",
-     "title": "HCOB hires Fabrizio Sicilia as head of NPL financing to expand private credit platform",
-     "url": "https://alternativecreditinvestor.com/2026/10/19/hcob-expands-private-credit-platform-with-new-hire/",
-     "src": "alternativecreditinvestor.com",
-     "who": "Hamburg Commercial Bank",
-     "kind": "Credit",
-     "href": "/v2/profiles/#/manager/m318"
-    }
-   ]
+   "total": 0,
+   "items": []
   },
   "rates": {
-   "savedAt": "2026-10-19T13:00:08.998Z",
+   "savedAt": "2026-10-20T11:27:28.632Z",
    "items": [
     {
      "label": "SONIA",
@@ -99,23 +64,23 @@ export const DIGEST = {
     },
     {
      "label": "US 10Y",
-     "value": 5.09,
+     "value": 5.15,
      "unit": "%",
-     "display": 5.09,
-     "chg": -0.01,
+     "display": 5.15,
+     "chg": 0.06,
      "chgUnit": "pp",
-     "asOf": "2026-10-16",
+     "asOf": "2026-10-19",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
     {
      "label": "US 2Y",
-     "value": 4.74,
+     "value": 4.77,
      "unit": "%",
-     "display": 4.74,
-     "chg": -0.03,
+     "display": 4.77,
+     "chg": 0.03,
      "chgUnit": "pp",
-     "asOf": "2026-10-16",
+     "asOf": "2026-10-19",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
@@ -170,7 +135,7 @@ export const DIGEST = {
      "display": 2.5,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-19",
+     "asOf": "2026-10-20",
      "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
      "src": "data.ecb.europa.eu"
     },
@@ -179,9 +144,9 @@ export const DIGEST = {
      "value": 2.441,
      "unit": "%",
      "display": 2.441,
-     "chg": 0.001,
+     "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-16",
+     "asOf": "2026-10-19",
      "url": "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT",
      "src": "data.ecb.europa.eu"
     },
@@ -192,7 +157,7 @@ export const DIGEST = {
      "display": 3.75,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-16",
+     "asOf": "2026-10-19",
      "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
      "src": "bankofengland.co.uk"
     }
@@ -201,8 +166,8 @@ export const DIGEST = {
  },
  "weekly": {
   "label": "Weekly",
-  "from": "2026-10-14",
-  "to": "2026-10-20",
+  "from": "2026-10-15",
+  "to": "2026-10-21",
   "deals": {
    "total": 6,
    "items": [
@@ -251,6 +216,17 @@ export const DIGEST = {
      "amount": "$401.9 million"
     },
     {
+     "id": "d1255",
+     "date": "2026-10-16",
+     "title": "Fortress provides $175M senior secured credit facilities to The RealReal",
+     "url": "https://www.abfjournal.com/?p=173640",
+     "src": "abfjournal.com",
+     "who": "Fortress Investment Group",
+     "kind": "Refinancing",
+     "href": "/v2/transactions/#/deal/d1255",
+     "amount": "$175M"
+    },
+    {
      "id": "d1147",
      "date": "2026-10-15",
      "title": "Pemberton provides financing to support Exponent's buyout of Killarney Telecommunications",
@@ -259,17 +235,6 @@ export const DIGEST = {
      "who": "Pemberton Asset Management",
      "kind": "Financing",
      "href": "/v2/transactions/#/deal/d1147",
-     "amount": null
-    },
-    {
-     "id": "d1046",
-     "date": "2026-10-14",
-     "title": "Franklin Templeton and Benefit Street Partners expand asset-backed finance capabilities with Encina Lender Finance transaction",
-     "url": "https://www.bspcredit.com/us/news-and-insights/press-releases/franklin-templeton-and-benefit-street-partners-expand-asset-backed-finance-capabilities-with-encina-lender-finance-transaction/",
-     "src": "bspcredit.com",
-     "who": "BSP-Alcentra (Franklin Templeton)",
-     "kind": "Acquisition",
-     "href": "/v2/transactions/#/deal/d1046",
      "amount": null
     }
    ]
@@ -354,6 +319,16 @@ export const DIGEST = {
      "href": null
     },
     {
+     "id": "u3490",
+     "date": "2026-10-20",
+     "title": "UK FCA Guidance on AI in Financial Services: Good Practices and Areas for Improvement",
+     "url": "https://www.traverssmith.com/knowledge/knowledge-container/uk-fca-guidance-on-ai-in-financial-services-good-practices-and-areas-for-improvement/",
+     "src": "traverssmith.com",
+     "who": "Travers Smith",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/traverssmith"
+    },
+    {
      "id": "u3390",
      "date": "2026-10-19",
      "title": "Weil Achieves Successful Chapter 11 Resolution for Sponsor of Thrill Holdings Following Successful Challenge to Attempted Proxy Exercise and Board Sweep",
@@ -374,20 +349,10 @@ export const DIGEST = {
      "href": "/v2/profiles/#/firm/davispolk"
     },
     {
-     "id": "u3256",
-     "date": "2026-10-14",
-     "title": "David J. Cohen Named to American Bankruptcy Institute’s 2026 40 Under 40",
-     "url": "https://www.weil.com/articles/david-j-cohen-named-to-american-bankruptcy-institutes-2026-40-under-40",
-     "src": "weil.com",
-     "who": "Weil, Gotshal & Manges",
-     "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/weil"
-    },
-    {
-     "id": "u2350",
-     "date": "2026-10-14",
-     "title": "The Insolvency Administrator's Long Memory – When Gratuitous Benefits Are Reclaimed",
-     "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/the-insolvency-administrators-long-memory-when-gratuitous-benefits-are-reclaimed",
+     "id": "u3491",
+     "date": "2026-10-15",
+     "title": "What's happening in Digital Markets Competition Regulation? Edition 1",
+     "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/whats-happening-in-digital-markets-competition-regulation-edition-1",
      "src": "mayerbrown.com",
      "who": "Mayer Brown",
      "kind": "R&I alert",
@@ -396,7 +361,7 @@ export const DIGEST = {
    ]
   },
   "people": {
-   "total": 6,
+   "total": 3,
    "items": [
     {
      "id": "i1430",
@@ -427,41 +392,11 @@ export const DIGEST = {
      "who": "LendInvest",
      "kind": "Credit",
      "href": "/v2/profiles/#/manager/m232"
-    },
-    {
-     "id": "i1327",
-     "date": "2026-10-14",
-     "title": "Star Mountain Capital appoints Comvest co-founder Daniel Lee as managing director",
-     "url": "https://alternativecreditinvestor.com/2026/10/14/comvest-co-founder-daniel-lee-moves-to-star-mountain-capital/",
-     "src": "alternativecreditinvestor.com",
-     "who": "Star Mountain Capital",
-     "kind": "Credit",
-     "href": "/v2/profiles/#/manager/m161"
-    },
-    {
-     "id": "i1328",
-     "date": "2026-10-14",
-     "title": "ITE Management names Michael Fox Head of London Office",
-     "url": "https://www.prnewswire.com/news-releases/ite-management-names-michael-fox-head-of-london-office-302907826.html",
-     "src": "prnewswire.com",
-     "who": "ITE Management",
-     "kind": "Credit",
-     "href": "/v2/profiles/#/manager/m437"
-    },
-    {
-     "id": "i1425",
-     "date": "2026-10-14",
-     "title": "Invesco Real Estate names Kevin Grundy head of Europe and Cristiano Stampa European CIO",
-     "url": "https://realassets.ipe.com/news/people-moves-lærernes-pension-lasalle-invesco-real-estate-appoint-platform-heads/10138889.article",
-     "src": "realassets.ipe.com",
-     "who": "Invesco Real Estate",
-     "kind": "Credit",
-     "href": "/v2/profiles/#/manager/m188"
     }
    ]
   },
   "rates": {
-   "savedAt": "2026-10-19T13:00:08.998Z",
+   "savedAt": "2026-10-20T11:27:28.632Z",
    "items": [
     {
      "label": "SONIA",
@@ -487,23 +422,23 @@ export const DIGEST = {
     },
     {
      "label": "US 10Y",
-     "value": 5.09,
+     "value": 5.15,
      "unit": "%",
-     "display": 5.09,
-     "chg": -0.15,
+     "display": 5.15,
+     "chg": -0.09,
      "chgUnit": "pp",
-     "asOf": "2026-10-16",
+     "asOf": "2026-10-19",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
     {
      "label": "US 2Y",
-     "value": 4.74,
+     "value": 4.77,
      "unit": "%",
-     "display": 4.74,
-     "chg": -0.06,
+     "display": 4.77,
+     "chg": -0.03,
      "chgUnit": "pp",
-     "asOf": "2026-10-16",
+     "asOf": "2026-10-19",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
@@ -558,7 +493,7 @@ export const DIGEST = {
      "display": 2.5,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-19",
+     "asOf": "2026-10-20",
      "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
      "src": "data.ecb.europa.eu"
     },
@@ -567,9 +502,9 @@ export const DIGEST = {
      "value": 2.441,
      "unit": "%",
      "display": 2.441,
-     "chg": 0.004,
+     "chg": 0.002,
      "chgUnit": "pp",
-     "asOf": "2026-10-16",
+     "asOf": "2026-10-19",
      "url": "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT",
      "src": "data.ecb.europa.eu"
     },
@@ -580,7 +515,7 @@ export const DIGEST = {
      "display": 3.75,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-16",
+     "asOf": "2026-10-19",
      "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
      "src": "bankofengland.co.uk"
     }
