@@ -1,52 +1,52 @@
 {
- "generated": "2026-10-20T10:09:09.522Z",
+ "generated": "2026-10-21T10:16:28.975Z",
  "tracked": 105,
  "filed": 104,
  "panel": {
   "quarter": "Q2 2026",
   "asOf": "2026-06-30",
-  "filed": "Built from 95 tracked funds' own 13F-HR filings for Q2 2026 (SEC EDGAR; latest filed 2026-08-17).",
+  "filed": "Built from 93 tracked funds' own 13F-HR filings for Q2 2026 (SEC EDGAR; latest filed 2026-08-17).",
   "consensus": [
    {
     "t": "AMZN",
     "name": "Amazon.com",
-    "note": "A top-20 holding at 50 of 95 tracked funds (Bridgewater Associates, Man Group, Millennium Management +47 more); $43bn combined.",
+    "note": "A top-20 holding at 49 of 93 tracked funds (Bridgewater Associates, Man Group, Millennium Management +46 more); $42bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1700574/000117266126003735/0001172661-26-003735-index.htm"
    },
    {
     "t": "NVDA",
     "name": "NVIDIA",
-    "note": "A top-20 holding at 37 of 95 tracked funds (Bridgewater Associates, Man Group, Millennium Management +34 more); $44bn combined.",
+    "note": "A top-20 holding at 36 of 93 tracked funds (Bridgewater Associates, Man Group, Millennium Management +33 more); $44bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1167557/000116755726000226/0001167557-26-000226-index.htm"
    },
    {
     "t": "MSFT",
     "name": "Microsoft",
-    "note": "A top-20 holding at 32 of 95 tracked funds (Bridgewater Associates, Man Group, Millennium Management +29 more); $25bn combined.",
+    "note": "A top-20 holding at 32 of 93 tracked funds (Bridgewater Associates, Man Group, Millennium Management +29 more); $25bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1167557/000116755726000226/0001167557-26-000226-index.htm"
    },
    {
     "t": "META",
     "name": "Meta Platforms",
-    "note": "A top-20 holding at 28 of 95 tracked funds (Man Group, Millennium Management, D. E. Shaw & Co. +25 more); $16bn combined.",
+    "note": "A top-20 holding at 28 of 93 tracked funds (Man Group, Millennium Management, D. E. Shaw & Co. +25 more); $16bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1009207/000110465926097217/0001104659-26-097217-index.htm"
    },
    {
     "t": "GOOG",
     "name": "Alphabet",
-    "note": "A top-20 holding at 27 of 95 tracked funds (Bridgewater Associates, Man Group, Citadel +24 more); $21bn combined.",
+    "note": "A top-20 holding at 27 of 93 tracked funds (Bridgewater Associates, Man Group, Citadel +24 more); $21bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1009207/000110465926097217/0001104659-26-097217-index.htm"
    },
    {
     "t": "AMD",
     "name": "Advanced Micro Devices",
-    "note": "A top-20 holding at 25 of 95 tracked funds (Bridgewater Associates, Man Group, Citadel +22 more); $14bn combined.",
+    "note": "A top-20 holding at 25 of 93 tracked funds (Bridgewater Associates, Man Group, Citadel +22 more); $14bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1318757/000131875726000010/0001318757-26-000010-index.htm"
    },
    {
     "t": "TSM",
     "name": "Taiwan Semiconductor Manufactur",
-    "note": "A top-20 holding at 21 of 95 tracked funds (Man Group, Millennium Management, Point72 Asset Management +18 more); $15bn combined.",
+    "note": "A top-20 holding at 21 of 93 tracked funds (Man Group, Millennium Management, Point72 Asset Management +18 more); $15bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1135730/000091957426005478/0000919574-26-005478-index.htm"
    }
   ],
@@ -56,23 +56,23 @@
     "name": "Space Exploration Technologies",
     "dir": "buy",
     "by": "Millennium Management, Citadel, Davidson Kempner Capital +16 more",
-    "note": "New or added to (>50% more shares) by 19 of 95 tracked funds versus their previous filing.",
+    "note": "New or added to (>50% more shares) by 19 of 93 tracked funds versus their previous filing.",
     "src": "https://www.sec.gov/Archives/edgar/data/1747057/000117266126003662/0001172661-26-003662-index.htm"
-   },
-   {
-    "t": "AMZN",
-    "name": "Amazon.com",
-    "dir": "buy",
-    "by": "D. E. Shaw & Co., Renaissance Technologies, Rokos Capital Management +11 more",
-    "note": "New or added to (>50% more shares) by 14 of 95 tracked funds versus their previous filing.",
-    "src": "https://www.sec.gov/Archives/edgar/data/1009207/000110465926097217/0001104659-26-097217-index.htm"
    },
    {
     "t": "META",
     "name": "Meta Platforms",
     "dir": "buy",
     "by": "D. E. Shaw & Co., Renaissance Technologies, Squarepoint Capital +10 more",
-    "note": "New or added to (>50% more shares) by 13 of 95 tracked funds versus their previous filing.",
+    "note": "New or added to (>50% more shares) by 13 of 93 tracked funds versus their previous filing.",
+    "src": "https://www.sec.gov/Archives/edgar/data/1009207/000110465926097217/0001104659-26-097217-index.htm"
+   },
+   {
+    "t": "AMZN",
+    "name": "Amazon.com",
+    "dir": "buy",
+    "by": "D. E. Shaw & Co., Renaissance Technologies, Rokos Capital Management +10 more",
+    "note": "New or added to (>50% more shares) by 13 of 93 tracked funds versus their previous filing.",
     "src": "https://www.sec.gov/Archives/edgar/data/1009207/000110465926097217/0001104659-26-097217-index.htm"
    },
    {
@@ -80,7 +80,7 @@
     "name": "Broadcom",
     "dir": "sell",
     "by": "Millennium Management, D. E. Shaw & Co., Two Sigma Investments +11 more",
-    "note": "Exited or cut by more than half at 14 of 95 tracked funds versus their previous filing.",
+    "note": "Exited or cut by more than half at 14 of 93 tracked funds versus their previous filing.",
     "src": "https://www.sec.gov/Archives/edgar/data/1009207/000110465926097217/0001104659-26-097217-index.htm"
    },
    {
@@ -88,7 +88,7 @@
     "name": "Micron Technology",
     "dir": "sell",
     "by": "Bridgewater Associates, Citadel, D. E. Shaw & Co. +10 more",
-    "note": "Exited or cut by more than half at 13 of 95 tracked funds versus their previous filing.",
+    "note": "Exited or cut by more than half at 13 of 93 tracked funds versus their previous filing.",
     "src": "https://www.sec.gov/Archives/edgar/data/1423053/000110465926097200/0001104659-26-097200-index.htm"
    }
   ]
@@ -1236,61 +1236,61 @@
   },
   "h22": {
    "name": "Egerton Capital",
-   "asOf": "2026-06-30",
-   "filedAt": "2026-07-21",
-   "src": "https://www.sec.gov/Archives/edgar/data/1581811/000158181126000007/0001581811-26-000007-index.htm",
-   "total": 10351358177,
+   "asOf": "2026-09-30",
+   "filedAt": "2026-10-20",
+   "src": "https://www.sec.gov/Archives/edgar/data/1581811/000158181126000009/0001581811-26-000009-index.htm",
+   "total": 9819775522,
    "positions": 23,
    "top": [
     {
      "name": "VISA INC",
      "cusip": "92826C839",
-     "value": 1463159112
-    },
-    {
-     "name": "ALPHABET INC",
-     "cusip": "02079K107",
-     "value": 1163018908
-    },
-    {
-     "name": "AMPHENOL CORP",
-     "cusip": "032095101",
-     "value": 858094428
+     "value": 1465788279
     },
     {
      "name": "AMAZON COM INC",
      "cusip": "023135106",
-     "value": 851686063
+     "value": 1174524742
     },
     {
-     "name": "MOODYS CORP",
-     "cusip": "615369105",
-     "value": 771879399
+     "name": "AMPHENOL CORP",
+     "cusip": "032095101",
+     "value": 902744506
     },
     {
      "name": "NVIDIA CORPORATION",
      "cusip": "67066G104",
-     "value": 683897616
+     "value": 854591337
+    },
+    {
+     "name": "MOODYS CORP",
+     "cusip": "615369105",
+     "value": 743522526
+    },
+    {
+     "name": "ALPHABET INC",
+     "cusip": "02079K107",
+     "value": 715261645
+    },
+    {
+     "name": "DEVON ENERGY CORP NEW",
+     "cusip": "25179M103",
+     "value": 498585208
     },
     {
      "name": "MEDLINE INC",
      "cusip": "58507V107",
-     "value": 649611665
+     "value": 460920690
     },
     {
-     "name": "VULCAN MATLS CO",
-     "cusip": "929160109",
-     "value": 581669447
+     "name": "S&P GLOBAL INC",
+     "cusip": "78409V104",
+     "value": 311774887
     },
     {
      "name": "CRH PLC",
      "cusip": "G25508105",
-     "value": 469073662
-    },
-    {
-     "name": "APPLIED MATLS INC",
-     "cusip": "038222105",
-     "value": 376729995
+     "value": 300666010
     }
    ]
   },
@@ -2870,61 +2870,61 @@
   },
   "h52": {
    "name": "Beach Point Capital Management",
-   "asOf": "2026-06-30",
-   "filedAt": "2026-07-22",
-   "src": "https://www.sec.gov/Archives/edgar/data/1453885/000145388526000003/0001453885-26-000003-index.htm",
-   "total": 258077240,
-   "positions": 10,
+   "asOf": "2026-09-30",
+   "filedAt": "2026-10-20",
+   "src": "https://www.sec.gov/Archives/edgar/data/1453885/000145388526000005/0001453885-26-000005-index.htm",
+   "total": 228727848,
+   "positions": 15,
    "top": [
     {
      "name": "VELOCITY FINL INC",
      "cusip": "92262D101",
-     "value": 121510735
+     "value": 103291218
     },
     {
      "name": "DIEBOLD NIXDORF INC",
      "cusip": "253651202",
-     "value": 58719999
+     "value": 40829516
     },
     {
      "name": "CLARITEV CORPORATION",
      "cusip": "62548M209",
-     "value": 26285575
+     "value": 15890181
+    },
+    {
+     "name": "ZIFF DAVIS INC",
+     "cusip": "48123V102",
+     "value": 13403047
     },
     {
      "name": "FINANCE OF AMERICA COMPAN",
      "cusip": "31738L206",
-     "value": 25534074
+     "value": 11274792
     },
     {
-     "name": "FS KKR CAP CORP",
-     "cusip": "302635206",
-     "value": 12821708
+     "name": "GUGGENHEIM STRATEGIC OPPORTU",
+     "cusip": "40167F101",
+     "value": 8860187
     },
     {
-     "name": "OAKTREE SPECIALTY LENDING",
-     "cusip": "67401P405",
-     "value": 5415077
+     "name": "PENNYMAC MTG INVT TR",
+     "cusip": "70931T103",
+     "value": 6701806
     },
     {
-     "name": "MIDCAP FINANCIAL INVSTMNT CO",
-     "cusip": "03761U502",
-     "value": 4438839
-    },
-    {
-     "name": "KKR REAL ESTATE FIN TR INC",
-     "cusip": "48251K100",
-     "value": 786709
-    },
-    {
-     "name": "WW INTL INC",
-     "cusip": "98262P200",
-     "value": 497809
+     "name": "BAUSCH PLUS LOMB CORP",
+     "cusip": "071705107",
+     "value": 5882323
     },
     {
      "name": "CRESCENT CAP BDC INC",
      "cusip": "225655109",
-     "value": 402042
+     "value": 4735889
+    },
+    {
+     "name": "CCC INTELLIGENT SOLUTIONS HL",
+     "cusip": "12510Q100",
+     "value": 4049427
     }
    ]
   },
