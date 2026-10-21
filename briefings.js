@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-21",
-  time: "11:08 BST",
+  time: "13:15 BST",
   lede: "UK inflation jumped to 3.5% in September on a fuel surge, firming bets on a Bank of England hike on 5 November, while the US 10-year Treasury yield held near 5.1% and stocks edged higher into big-tech earnings.",
   bullets: [
     { html: "<strong>Macro &mdash; UK CPI rose to 3.5% in September</strong> from 3.1% in August (consensus 3.4%), with petrol up 29.8% on the year and core at 2.8%; markets expect the Bank of England to hike from 3.75% on 5 November, while the US 10-year yield sits near 5.1%.", src: "https://www.fxstreet.com/news/uk-cpi-set-to-accelerate-paving-the-way-for-a-boe-interest-rate-hike-in-november-202610210200", srcName: "FXStreet", date: "2026-10-21" },
