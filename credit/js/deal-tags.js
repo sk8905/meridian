@@ -612,7 +612,6 @@ const T = {
   d675: {"c":"UK","s":"Healthcare","a":"fund","r":"fund"},
   d676: {"c":"Spain","s":"Financial services","a":"other"},
   d679: {"c":null,"s":"Financial services","a":"portfolio","p":"Blackstone vehicle","r":"issuer","pq":"placeholder"},
-  d680: {"c":"US","s":"Infrastructure & energy","a":"financing","cs":"https://www.sec.gov/Archives/edgar/data/0000107263/000119312526384435/d110651d424b5.htm","cb":"hq","p":"Power Innovation","r":"target"},
   d681: {"c":"Pan-European","s":"Diversified","a":"fund","e":"reset","p":"Avoca CLO XIII","r":"issuer"},
   d682: {"c":"UK","s":"Financial services","a":"financing"},
   d683: {"c":"UK","s":"Financial services","a":"financing","cs":"https://www.pesmedia.com/compass-business-finance-10022021","cb":"hq"},
@@ -1137,4 +1136,6 @@ const T = {
   d1252: {"c":"Global","s":"Diversified","a":"other"},
   d1255: {"c":"US","s":"Consumer & retail","a":"financing","p":"The RealReal","r":"borrower"},
 };
-export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));
+// A role (r) without a party name (p) labels the deal's own audited `borrower` (data audit
+// 2026-10-21: manager M&A → Target, fund closes / CVs → Fund / vehicle, CLOs → Issuer).
+export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : t.r ? { partyRole: t.r } : {}) }]));

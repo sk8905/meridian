@@ -15,7 +15,10 @@ pg.on("pageerror", (e) => errs.push(String(e.message).slice(0, 160)));
 await pg.route(/\/credit\/js\/data\.js(\?.*)?$/, async (route) => {
   const r = await route.fetch();
   let body = await r.text();
-  body = body.replace(/^(  \{ id: "h1",.*?)( \},?)$/m, `$1, raum: 171.2, raumAsOf: "2026-03-30", raumSource: "https://adviserinfo.sec.gov/firm/summary/105129"$2`);
+  // h1's line may be a JS literal ({ id: "h1", … }) or JSON ({"id":"h1",…}) — scripts/lib/datafile.mjs
+  // re-serialises an edited record as JSON — so inject into either form.
+  body = body.replace(/^(  \{ id: "h1",.*?)( \},?)$/m, `$1, raum: 171.2, raumAsOf: "2026-03-30", raumSource: "https://adviserinfo.sec.gov/firm/summary/105129"$2`)
+    .replace(/^(  \{"id":"h1",.*?)(\},?)$/m, `$1,"raum":171.2,"raumAsOf":"2026-03-30","raumSource":"https://adviserinfo.sec.gov/firm/summary/105129"$2`);
   await route.fulfill({ response: r, body });
 });
 await pg.goto(`${base}/v2/profiles/#/hf/h1`, { waitUntil: "load" });

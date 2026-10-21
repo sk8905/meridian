@@ -1793,6 +1793,19 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   deal record; a court step → `restructurings`; a stressed credit → the Dashboard
   `CR_STRESS` entry (+ a deal/intel record if it is a transaction). **(e) Alarm.** The health
   check flags a stale queue (> 6h) and any item open > 48h. Specs: `tests/collect-wire.mjs`.
+- **R53 — Data quality is guarded, researched through patches and rotated (owner
+  2026-10-21, data audit).** **(a) Controlled values.** Deal `type` ∈ `DEAL_TYPES`, LP
+  `mandateStatus` ∈ `MANDATE_STATUS`, fund `status` ∈ `FUND_STATUS`; `normalise-data.mjs`
+  folds synonyms, `tests/data-vocab.mjs` fails on anything else. **(b) One record per
+  event** (same firm + day + counterparty → `alsoReported`, `dedupe-data.mjs`), one
+  country and one sector per borrower, a fund event's party is never a "Borrower" and a
+  manager acquisition's party is the target. **(c) Coherent AUM:** all AUM is US$bn with
+  `aumFrom` provenance; `aum ≤ aumTotal`, `aumCredit ≤ aumTotal`. **(d) Research goes
+  through a patch file** applied by `scripts/apply-research.mjs` (one writer, ledger in
+  `backfill/research-ledger.json`). **(e) A profile never prints "null"/"undefined"**
+  (`tests/profile-blanks.mjs`). **(f)** The gaps rotate through `scripts/profile-rota.mjs`
+  (docs/refresh-routines.md "Profile rota"). Guards are ratchets: known cases listed by id,
+  new ones fail, the lists only shrink (`tests/data-guards.mjs`).
 - **R51 — Emails show "[link]", never a bare URL (owner 2026-10-20).** Every email Wire
   sends that carries links (the morning credit digest, and the health email or any
   routine report when it links anything) is sent as **HTML** (Gmail `send_message` `htmlBody`, with the plain text as `body` fallback). Each

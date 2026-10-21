@@ -889,9 +889,37 @@ a guess; if a figure can't be confirmed, leave the old one and say so.
   Institutional Investor / Pensions & Investments rankings. Set `aum` (US$bn), `aumAsOf`
   (the date the figure is AS OF, not today), `aumSource` (the URL), and `estimated` only
   if rounded/ranged. Bump `HEDGE_FUNDS_ASOF` to the newest `aumAsOf`.
-- **Investor (LP) profiles (`lps`)** — the rota's ~2 oldest: latest annual/interim
+- **Investor (LP) profiles (`lps`)** — the rota's ~2 oldest (and `lpNoAum` — investors with no AUM at all): latest annual/interim
   report AUM and any disclosed private-credit allocation; set `asOf` to the report date
   and add the report URL to `sources`.
+  Prefer the LP's OWN annual report / ACFR / board papers over a vendor summary (Dakota
+  "Plan Assets" lines differ from the plans' own figures — audit 2026-10-21).
+- **Data-audit slices (2026-10-21)** — the rota also prints, each bounded and ordered:
+  `managerAumGap` (no AUM, or `aum` > `aumTotal` — find firm-wide + credit AUM in the
+  SOURCE currency), `hedgeFundWeakSource` (AUM on Wikipedia / Insider Monkey / Yahoo or a
+  year-only date — re-cite to the firm or a tier-1 outlet; never use Form ADV gross RAUM as
+  net `aum`), `hedgeFundAumFromIntel` (the fund's own HEDGE_INTEL "AUM" story is newer than
+  the profile — check and copy it back), `lawFirmFinancials` (revenue/PEP behind the
+  latest results season: UK FY results each July, Am Law each April; every
+  `revenueBasis`/`pepBasis` states currency and scope), `staleOpenFunds` (still raising
+  18+ months on — look for the close, intel may already hold it) and `dealTagGaps`
+  (`amountKind` / `country` missing — read from the deal's own text; research a country
+  with `cs`/`cb`). Work a few of each per heavy-sweep run.
+- **Research patches — one writer.** Research (a routine run, or parallel sub-agents) never
+  edits a data module directly: it writes a patch file — `{ patches: [{collection, id,
+  set, unset, money:{field:{value, ccy, unit}}, source, sourceLabel, asOf, evidence,
+  verdict}], append: [{collection, record, evidence}] }` — and `node
+  scripts/apply-research.mjs <file>…` applies it record-by-record. `money` is given in the
+  source currency and converted at `AUM_FX` (ECB rates of one fixing day; it sets
+  `aumFrom`), so no worker does FX by hand. Every change is logged with its source and
+  evidence in `backfill/research-ledger.json` (append-only). Then run
+  `normalise-data.mjs`, `dedupe-data.mjs` and the data specs as usual.
+- **A re-check that changes nothing** sets ONE field on the record, `lastChecked: { date,
+  url }` (overwritten each time) — never another "re-verified / confirmed unchanged" entry
+  in `sources`, and never a restamped `asOf`. Before writing it, look for the issuer's
+  latest reporting date (quarterly results, interim report, the latest ADV): in the audit,
+  4 of 10 "confirmed unchanged" notes were wrong. `tests/data-guards.mjs` stops such
+  notes growing.
 - **Dashboard fallback snapshot (dashboard/js/data.js)** — when REFRESH (>45 days):
   re-source the snapshot values the page falls back to when a live call fails
   (`EQ_INDICES` level/ytd/asOf, `EQ_VALUATION`, `EQ_VOL`, `WORLD_INDICES`,

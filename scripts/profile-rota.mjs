@@ -6,6 +6,15 @@
 // first), so the heavy-sweep routine rotates through them instead of never touching
 // them. Pure read — the routine does the sourcing and edits.
 //
+// Data audit 2026-10-21 added the slices the audit found nothing was rotating through:
+// manager AUM gaps (null, or aum > aumTotal), hedge-fund AUM resting on a weak source
+// (Wikipedia / Insider Monkey / Yahoo) or a year-only date, hedge funds whose OWN news
+// (HEDGE_INTEL type "AUM") is newer than the profile figure, investors with no AUM,
+// law-firm financials older than the latest results season, funds still "Open" /
+// "First Close" 18+ months on, and deal tags with no amountKind / country. Research
+// is written as a patch file and applied with scripts/apply-research.mjs (one writer,
+// audit trail in backfill/research-ledger.json) — docs/refresh-routines.md "Profile rota".
+//
 // Usage:
 //   node scripts/profile-rota.mjs            # human worklist
 //   node scripts/profile-rota.mjs --json
@@ -13,6 +22,8 @@
 // =============================================================================
 import * as C from "../credit/js/data.js";
 import * as D from "../dashboard/js/data.js";
+import * as L from "../legal/js/data.js";
+import { DEAL_TAGS } from "../credit/js/deal-tags.js";
 
 const args = process.argv.slice(2);
 const opt = (n, d) => { const a = args.find((x) => x.startsWith(n + "=")); return a ? parseInt(a.slice(n.length + 1), 10) || d : d; };
@@ -32,7 +43,18 @@ export function latest13fQuarter(now = Date.now()) {
   return null;
 }
 
-export function rota({ hf = 5, lp = 2, news = 5, now = Date.now() } = {}) {
+export const WEAK_AUM_SOURCE = /(^|\.)(wikipedia\.org|insidermonkey\.com|finance\.yahoo\.com|marketscreener\.com|statista\.com|kalkinemedia\.com)\//i;
+// The latest results season a firm's figures should reflect: UK firms (FY to 30 Apr,
+// results each July) → "FY<y-1>/<y>" from August; US firms (calendar FY, Am Law in
+// April) → FY<y-1> from May.
+export function expectedFirmYear(firm, now = Date.now()) {
+  const d = new Date(now), y = d.getUTCFullYear(), m = d.getUTCMonth() + 1;
+  const uk = ["magic", "silver"].includes(firm.tier) || /£/.test((firm.london || {}).revenueBasis || "");
+  return uk ? (m >= 8 ? y : y - 1) : (m >= 5 ? y - 1 : y - 2);
+}
+const fyYear = (s) => { const ys = String(s || "").match(/20\d{2}/g); if (!ys) return 0; const last = ys.at(-1); return /\/\d{2}\b/.test(String(s)) && ys.length === 1 ? +last + 1 : +last; };
+
+export function rota({ hf = 5, lp = 2, news = 5, mgr = 5, firms = 4, funds = 5, tags = 10, now = Date.now() } = {}) {
   const want = latest13fQuarter(now);
   const panel = C.HF_13F || {};
   const f13 = { current: panel.quarter || null, latestAvailable: want, stale: !!(want && panel.asOf !== want.asOf) };
@@ -46,7 +68,49 @@ export function rota({ hf = 5, lp = 2, news = 5, now = Date.now() } = {}) {
   const hfNoNews = (C.HEDGE_FUNDS || []).filter((h) => !withNews.has(h.id)).sort((a, b) => (b.aum || 0) - (a.aum || 0)).slice(0, news)
     .map((h) => ({ id: h.id, name: h.name, aum: h.aum, strategy: h.strategy || null }));
   const dashAge = ms(D.DASH_ASOF) ? Math.floor((now - ms(D.DASH_ASOF)) / DAY) : null;
-  return { f13, hedgeFundAum: hfs, hedgeFundNoNews: hfNoNews, hedgeFundsWithoutNews: (C.HEDGE_FUNDS || []).filter((h) => !withNews.has(h.id)).length, lpProfiles: lps, dashboardSnapshot: { asOf: D.DASH_ASOF || null, ageDays: dashAge, stale: dashAge == null || dashAge > 45 } };
+
+  // Hedge-fund AUM on a weak source or a year-only date (biggest first).
+  const hfWeak = (C.HEDGE_FUNDS || []).filter((h) => WEAK_AUM_SOURCE.test(h.aumSource || "") || /^\d{4}$/.test(String(h.aumAsOf || "")))
+    .sort((a, b) => (b.aum || 0) - (a.aum || 0));
+  // The fund's own news states a newer AUM than its profile → copy it back (verify first).
+  const hfFromIntel = (C.HEDGE_FUNDS || []).map((h) => {
+    const n = (C.HEDGE_INTEL || []).filter((i) => i.hfId === h.id && i.type === "AUM" && ms(i.date) > ms(h.aumAsOf)).sort((a, b) => ms(b.date) - ms(a.date))[0];
+    if (n && h.aum != null && new RegExp(`\\$${String(h.aum).replace(".", "\\.")}\\s?(bn|billion)`, "i").test(n.headline)) return null;   // already copied
+    return n ? { id: h.id, name: h.name, aum: h.aum, aumAsOf: h.aumAsOf || null, intel: n.id, date: n.date, headline: n.headline, url: n.url || n.sourceUrl || null } : null;
+  }).filter(Boolean);
+  // Managers: AUM missing, or larger than the firm-wide total (a currency / sleeve mix-up).
+  const real = (C.managers || []).filter((m) => !m.profileStub);
+  const mgrGap = real.filter((m) => m.aum == null || (m.aumTotal != null && m.aum > m.aumTotal * 1.01))
+    .map((m) => ({ id: m.id, name: m.name, aum: m.aum, aumTotal: m.aumTotal ?? null, asOf: m.asOf || null, why: m.aum == null ? "no AUM" : "aum > aumTotal" }));
+  // Investors with no AUM on record, then the oldest.
+  const lpNoAum = (C.lps || []).filter((l) => l.aum == null).map((l) => ({ id: l.id, name: l.name, type: l.type }));
+  // Law firms whose revenue predates the latest results season (or has no currency stated).
+  const firmStale = (L.firms || []).filter((f) => f.tier !== "chambers").map((f) => {
+    const lo = f.london || {}, have = fyYear(lo.revenueAsOf), want = expectedFirmYear(f, now);
+    const why = lo.revenue == null ? "no revenue" : have < want ? `revenue ${lo.revenueAsOf || "?"} (expect FY${want})` : !/(US\$|£|€)/.test(lo.revenueBasis || "") ? "basis states no currency" : null;
+    return why ? { id: f.id, name: f.name, revenueAsOf: lo.revenueAsOf || null, why } : null;
+  }).filter(Boolean);
+  // Funds still raising 18+ months after their last data point (biggest first).
+  const fundStale = (C.funds || []).filter((f) => f.status !== "Final Close" && !f.evergreen && ms(f.asOf) && now - ms(f.asOf) > 540 * DAY)
+    .sort((a, b) => (b.raised || b.targetSize || 0) - (a.raised || a.targetSize || 0))
+    .map((f) => ({ id: f.id, name: f.name, status: f.status, asOf: f.asOf }));
+  // Deal tags with no amountKind (where the text states an amount) or no country — newest first.
+  const AMT = /(?:[$€£]|USD|EUR|GBP)\s?\d[\d.,]*\s?(?:bn|billion|m|million)\b/i;
+  const tagGap = (C.deals || []).filter((d) => { const t = DEAL_TAGS[d.id] || {}; return (t.amountKind == null && AMT.test(`${d.headline} ${d.summary}`)) || t.country == null; })
+    .sort((a, b) => ms(b.date) - ms(a.date))
+    .map((d) => { const t = DEAL_TAGS[d.id] || {}; return { id: d.id, date: d.date, headline: d.headline, missing: [t.amountKind == null ? "amountKind" : null, t.country == null ? "country" : null].filter(Boolean) }; });
+
+  return {
+    f13, hedgeFundAum: hfs, hedgeFundNoNews: hfNoNews, hedgeFundsWithoutNews: (C.HEDGE_FUNDS || []).filter((h) => !withNews.has(h.id)).length, lpProfiles: lps,
+    dashboardSnapshot: { asOf: D.DASH_ASOF || null, ageDays: dashAge, stale: dashAge == null || dashAge > 45 },
+    hedgeFundWeakSource: hfWeak.slice(0, hf).map((h) => ({ id: h.id, name: h.name, aum: h.aum, aumAsOf: h.aumAsOf || null, aumSource: h.aumSource || null })), hedgeFundWeakSourceTotal: hfWeak.length,
+    hedgeFundAumFromIntel: hfFromIntel,
+    managerAumGap: mgrGap.slice(0, mgr), managerAumGapTotal: mgrGap.length,
+    lpNoAum: lpNoAum.slice(0, lp), lpNoAumTotal: lpNoAum.length,
+    lawFirmFinancials: firmStale.slice(0, firms), lawFirmFinancialsTotal: firmStale.length,
+    staleOpenFunds: fundStale.slice(0, funds), staleOpenFundsTotal: fundStale.length,
+    dealTagGaps: tagGap.slice(0, tags), dealTagGapsTotal: tagGap.length,
+  };
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
@@ -60,5 +124,13 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   console.log(`\n  Hedge funds with NO news on record (${r.hedgeFundsWithoutNews} in all; ${r.hedgeFundNoNews.length} this run — find their latest 1–3 real, dated news events since 2025 → HEDGE_INTEL):`);
   for (const h of r.hedgeFundNoNews) console.log(`    ${h.name} [${h.id}] — $${h.aum}bn · ${h.strategy || "?"}`);
   console.log(`\n  Investor (LP) profiles (oldest ${r.lpProfiles.length}):`);
-  for (const l of r.lpProfiles) console.log(`    ${l.name} [${l.id}] — ${l.type}, €${l.aum}bn as of ${l.asOf || "?"}`);
+  for (const l of r.lpProfiles) console.log(`    ${l.name} [${l.id}] — ${l.type}, $${l.aum}bn as of ${l.asOf || "?"}`);
+  const sec = (title, total, rows, fmt) => { console.log(`\n  ${title} (${total} in all; ${rows.length} this run):`); for (const x of rows) console.log("    " + fmt(x)); };
+  sec("Investors with NO AUM (annual report / ACFR figure + asOf)", r.lpNoAumTotal, r.lpNoAum, (l) => `${l.name} [${l.id}] — ${l.type}`);
+  sec("Manager AUM gaps (find the firm-wide + credit AUM, give the source currency)", r.managerAumGapTotal, r.managerAumGap, (m) => `${m.name} [${m.id}] — ${m.why}${m.aum != null ? ` ($${m.aum}bn vs total $${m.aumTotal}bn)` : ""}`);
+  sec("Hedge-fund AUM on a weak source / year-only date (re-cite to the firm or a tier-1 outlet)", r.hedgeFundWeakSourceTotal, r.hedgeFundWeakSource, (h) => `${h.name} [${h.id}] — $${h.aum}bn as of ${h.aumAsOf} · ${String(h.aumSource || "").split("/")[2] || "?"}`);
+  sec("Hedge funds whose OWN news states a newer AUM (copy it to the profile after checking)", r.hedgeFundAumFromIntel.length, r.hedgeFundAumFromIntel, (h) => `${h.name} [${h.id}] — profile $${h.aum}bn (${h.aumAsOf}) · ${h.intel} ${h.date}: ${h.headline}`);
+  sec("Law-firm financials behind the latest results season", r.lawFirmFinancialsTotal, r.lawFirmFinancials, (f) => `${f.name} [${f.id}] — ${f.why}`);
+  sec("Funds still raising 18+ months on (check for a close; intel may already hold it)", r.staleOpenFundsTotal, r.staleOpenFunds, (f) => `${f.name} [${f.id}] — ${f.status} as of ${f.asOf}`);
+  sec("Deal tags missing amountKind / country (read from the deal's own text; research country with cs/cb)", r.dealTagGapsTotal, r.dealTagGaps, (d) => `${d.id} ${d.date} — missing ${d.missing.join(" + ")} · ${d.headline.slice(0, 80)}`);
 }

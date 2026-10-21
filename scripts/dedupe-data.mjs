@@ -59,6 +59,7 @@ export const REVIEWED = {
     ["d83", "d172"],            // Deutsche Bank $865m Marelli DIP (Bloomberg Law + Willkie release)
     ["d1046", "d1254"],         // BSP / Franklin Templeton – Encina Lender Finance (BSP release + ACI)
     ["d1166", "d1253"],         // Blackstone $1bn Analogic/Leidos financing (Blackstone release + Insurance Business)
+    ["d663", "d680"],           // Blackstone-led $5.34bn for 49% of Williams' Power Innovation (Blackstone + Williams releases)
   ],
   intel: [
     ["i1095", "i1148"], ["i807", "i999"], ["i700", "i860"], ["i629", "i923"], ["i621", "i641"],

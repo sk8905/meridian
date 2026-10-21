@@ -37,6 +37,16 @@ export function applySec(src, { sec, adv } = {}) {
     if (old === add) return line;
     n++; return head + add + tail;
   });
+  // …and the JSON form ({"id":"hN",…},) that scripts/lib/datafile.mjs writes when a
+  // record is edited by a script (apply-research, normalise-data) — both forms occur.
+  out = out.replace(/^(\s*)(\{"id":"(h\d+)",.*\})(,?)$/gm, (line, ind, body, id, comma) => {
+    const a = byId[id];
+    if (!a || !(a.raum > 0)) return line;
+    let r; try { r = JSON.parse(body); } catch { return line; }
+    if (r.raum === a.raum && r.raumAsOf === (a.filed || null) && r.raumSource === (a.src || null)) return line;
+    r.raum = a.raum; r.raumAsOf = a.filed || null; r.raumSource = a.src || null;
+    n++; return ind + JSON.stringify(r) + comma;
+  });
   if (n) log.push(`raum: ${n} hedge funds updated from Form ADV`);
   return { out, log };
 }
