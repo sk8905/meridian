@@ -2945,13 +2945,59 @@ export function readProxyChoice(host, hasKey) {
   const h = String(host || "").replace(/^www\./, "").toLowerCase();
   return (hasKey && _readInSet(h, READ_FC_HOSTS)) ? "firecrawl" : "jina";
 }
+// Cloudflare Browser Rendering (owner 2026-10-21 — cheaper than a paid Jina key): the
+// same real-browser read, billed on the Cloudflare account Wire already runs on (free
+// minutes each day / month on the Workers plans, then per browser-hour). It is ON only
+// when both Worker secrets are set — CF_ACCOUNT_ID and CF_BROWSER_TOKEN (an API token
+// with the "Browser Rendering - Edit" permission) — and it sits IN FRONT of Jina, which
+// stays the backstop (keyless free tier when JINA_API_KEY is unset or exhausted), so a
+// Cloudflare quota / rate-limit / error never blanks the reader.
+export const cfReaderOn = (env) => !!(env && env.CF_ACCOUNT_ID && env.CF_BROWSER_TOKEN);
+// Pure order of the browser proxies tried for a host (a spec locks it): Firecrawl first
+// only for an allowlisted host with its key, then Cloudflare when configured, then Jina.
+export function readProxyOrder(host, env) {
+  const out = [];
+  if (readProxyChoice(host, !!(env && env.FIRECRAWL_API_KEY)) === "firecrawl") out.push("firecrawl");
+  if (cfReaderOn(env)) out.push("cloudflare");
+  out.push("jina");
+  return out;
+}
 async function _readViaProxy(u, host, env) {
-  if (readProxyChoice(host, !!(env && env.FIRECRAWL_API_KEY)) === "firecrawl") {
-    const r = await _readViaFirecrawl(u, host, env);   // allowlisted host only
-    if (r && r.accessible) return r;
-    return _readViaJina(u, host, env);                 // Firecrawl miss → Jina backstop
+  const VIA = { firecrawl: _readViaFirecrawl, cloudflare: _readViaCloudflare, jina: _readViaJina };
+  let last = null; const why = [];
+  for (const p of readProxyOrder(host, env)) {
+    last = await VIA[p](u, host, env);
+    if (last && last.accessible) return last;
+    if (last && last.reason) why.push(last.reason);
   }
-  return _readViaJina(u, host, env);
+  // Every proxy missed: keep each one's reason ("cf-429/proxy-402") for the reader note.
+  return { ...(last || {}), accessible: false, paragraphs: (last && last.paragraphs) || [], reason: why.join("/") || "proxy-failed" };
+}
+// The title of a markdown page: its first "# " heading (the /markdown endpoint returns the
+// page text only, no metadata). Exported for the spec.
+export const mdTitle = (md) => ((String(md || "").match(/^#\s+(.+?)\s*#*\s*$/m) || [])[1] || "");
+async function _readViaCloudflare(u, host, env) {
+  try {
+    const api = `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(env.CF_ACCOUNT_ID)}/browser-rendering/markdown?cacheTTL=3600`;
+    const r = await fetch(api, {
+      method: "POST",
+      headers: { "content-type": "application/json", authorization: "Bearer " + env.CF_BROWSER_TOKEN },
+      // networkidle2 lets a script-rendered article body arrive; cacheTTL (1h) makes a
+      // re-open of the same page a cached, near-free hit.
+      body: JSON.stringify({ url: u.toString(), gotoOptions: { waitUntil: "networkidle2", timeout: 20000 } }),
+      signal: AbortSignal.timeout(28000),
+    });
+    if (!r.ok) {
+      if (r.status === 401 || r.status === 403) console.warn(`reader: Cloudflare Browser Rendering refused the token (HTTP ${r.status}) — check CF_BROWSER_TOKEN; falling back to Jina`);
+      return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "cf-" + r.status };
+    }
+    const j = await r.json().catch(() => null);
+    const md = j && j.success !== false && typeof j.result === "string" ? j.result : "";
+    if (!md) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "cf-empty" };
+    const blks = proxyBlocks(md, u.toString());
+    const paras = blks.filter((x) => !x.h && !x.img && !x.tweetId && !x.embed).map((x) => x.t);
+    return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(mdTitle(md)), byline: "", date: "", accessible: paras.length >= 2, paragraphs: paras, blocks: blks, via: "cloudflare" };
+  } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "cf-failed" }; }
 }
 async function _readViaFirecrawl(u, host, env) {
   try {

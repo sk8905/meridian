@@ -164,8 +164,11 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   **global KV** so a first open is instant *everywhere*, even a cold colo — and it is
   **direct-fetch only** and covers every non-paywalled host, so it spends **zero**
   Jina/Firecrawl proxy quota on a schedule (bot-walled sources stay on the on-demand
-  path; on-demand, Jina is the default — Firecrawl is reserved
-  for the `READ_FC_HOSTS` allowlist); (3) `handleRead` checks KV on an edge miss
+  path; on-demand the proxy order is `readProxyOrder`: Firecrawl only for the
+  `READ_FC_HOSTS` allowlist, then **Cloudflare Browser Rendering** when the Worker secrets
+  `CF_ACCOUNT_ID` + `CF_BROWSER_TOKEN` are set (owner 2026-10-21 — billed on the Cloudflare
+  plan, cheaper than a paid Jina key), then Jina as the backstop, keyless if its key is
+  unset or exhausted; spec `tests/reader-cloudflare.mjs`); (3) `handleRead` checks KV on an edge miss
   and repopulates the local edge. The edge key and the KV key share one version constant
   (`READ_VER`) — **bump it on any extractor change** so both invalidate in lockstep.
 - **R4 — Panels stretch, don't float.** Sibling panels in a column share equal
@@ -2029,8 +2032,8 @@ item keeps a real outbound source link (R7).
 > **Owner rule — every newswire source reads in-pane (2026-10-14).** Wire is a private,
 > single-user, non-commercial tool and the reading pane is a key feature, so every source
 > that serves its article publicly is read in-pane — including bot-shielded ones via the
-> on-demand browser proxy (**Jina by default; Firecrawl only for the `READ_FC_HOSTS`
-> allowlist**, `readProxyAllowed`) and SCMP's metered pages via `READ_OPEN`. The one hard
+> on-demand browser proxy (**Cloudflare Browser Rendering when configured, then Jina;
+> Firecrawl only for the `READ_FC_HOSTS` allowlist** — `readProxyOrder`, `readProxyAllowed`) and SCMP's metered pages via `READ_OPEN`. The one hard
 > line: **`READ_PAYWALL` hosts are never fetched** (no paywall is ever bypassed); the
 > owner's own subscriber content reaches the pane through their newsletter emails (R38).
 > `READ_LINKONLY` is an empty switch to send a host back to headline + link. Spec:
