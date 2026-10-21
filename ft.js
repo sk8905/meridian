@@ -21,6 +21,118 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "162c6dd8-5501-46f4-8f7c-b456a4e29539",
+    "title": "Iran war sparks heating crisis in US north-east as winter approaches",
+    "date": "2026-10-21",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/162c6dd8-5501-46f4-8f7c-b456a4e29539"
+  },
+  {
+    "id": "e598bbc7-8211-436f-a57e-46c3ae21ac0f",
+    "title": "Rockets, robots and risk: Elon Musk’s $3.6tn gamble to merge Tesla and SpaceX",
+    "date": "2026-10-21",
+    "time": "10:50",
+    "url": "https://www.ft.com/content/e598bbc7-8211-436f-a57e-46c3ae21ac0f"
+  },
+  {
+    "id": "a2c32972-da84-44ff-82cf-d66ae8bc1446",
+    "title": "National Express owner in talks over £282mn take-private deal",
+    "date": "2026-10-21",
+    "time": "10:46",
+    "url": "https://www.ft.com/content/a2c32972-da84-44ff-82cf-d66ae8bc1446"
+  },
+  {
+    "id": "ae820b11-e085-44b4-a8ca-8e5fa2eeb571",
+    "title": "FirstFT: SpaceX and Tesla explore merger",
+    "date": "2026-10-21",
+    "time": "10:40",
+    "url": "https://www.ft.com/content/ae820b11-e085-44b4-a8ca-8e5fa2eeb571"
+  },
+  {
+    "id": "76f076e4-9db2-4971-8ac9-73d9f39e4876",
+    "title": "France’s borrowing costs hit 5% for first time since 2002",
+    "date": "2026-10-21",
+    "time": "10:07",
+    "url": "https://www.ft.com/content/76f076e4-9db2-4971-8ac9-73d9f39e4876"
+  },
+  {
+    "id": "36a14179-9c1f-4591-ac3b-970054a19d92",
+    "title": "Andy Burnham’s North Sea ‘pragmatism’ is no big shift from Keir Starmer’s",
+    "date": "2026-10-21",
+    "time": "09:30",
+    "url": "https://www.ft.com/content/36a14179-9c1f-4591-ac3b-970054a19d92"
+  },
+  {
+    "id": "21d3b4e1-941b-4ad8-8e41-f8fc1864e758",
+    "title": "UK’s biggest port operator valued at over £10bn in Australian fund purchase",
+    "date": "2026-10-21",
+    "time": "09:19",
+    "url": "https://www.ft.com/content/21d3b4e1-941b-4ad8-8e41-f8fc1864e758"
+  },
+  {
+    "id": "67a2f314-730b-477b-b52f-f7495394ceec",
+    "title": "Don’t underestimate Netflix’s power to flip the script",
+    "date": "2026-10-21",
+    "time": "09:01",
+    "url": "https://www.ft.com/content/67a2f314-730b-477b-b52f-f7495394ceec"
+  },
+  {
+    "id": "443ce2f3-ba36-4dc7-aa0b-a2bc593fa563",
+    "title": "UK inflation and borrowing top forecasts in blow to John Healey",
+    "date": "2026-10-21",
+    "time": "08:18",
+    "url": "https://www.ft.com/content/443ce2f3-ba36-4dc7-aa0b-a2bc593fa563"
+  },
+  {
+    "id": "70f1da13-3c33-4881-aaa8-3458c1ba7eaf",
+    "title": "UK September inflation fuels expectations of imminent BoE rate rise",
+    "date": "2026-10-21",
+    "time": "08:03",
+    "url": "https://www.ft.com/content/70f1da13-3c33-4881-aaa8-3458c1ba7eaf"
+  },
+  {
+    "id": "0a892b95-0216-40d9-89a4-e1654b9a3fa2",
+    "title": "Are index providers overstepping the mark?",
+    "date": "2026-10-21",
+    "time": "07:27",
+    "url": "https://www.ft.com/content/0a892b95-0216-40d9-89a4-e1654b9a3fa2"
+  },
+  {
+    "id": "89322cfb-54cd-4fcd-9ba7-cd7e74382215",
+    "title": "UK government borrowing rises to £24.5bn ahead of Budget",
+    "date": "2026-10-21",
+    "time": "07:10",
+    "url": "https://www.ft.com/content/89322cfb-54cd-4fcd-9ba7-cd7e74382215"
+  },
+  {
+    "id": "e316142e-c315-47d4-89c9-971bad5a6380",
+    "title": "The Indian mega-refinery drawing Marco Rubio’s interest",
+    "date": "2026-10-21",
+    "time": "07:09",
+    "url": "https://www.ft.com/content/e316142e-c315-47d4-89c9-971bad5a6380"
+  },
+  {
+    "id": "9bc15db9-08b4-40f1-b814-24a52eed8ebc",
+    "title": "Nscale boss seeks to reassure staff amid AI market fears",
+    "date": "2026-10-21",
+    "time": "06:47",
+    "url": "https://www.ft.com/content/9bc15db9-08b4-40f1-b814-24a52eed8ebc"
+  },
+  {
+    "id": "b7e5fa98-0cb5-4eba-b921-26e3a9393199",
+    "title": "Small caps: not a great AI hedge",
+    "date": "2026-10-21",
+    "time": "06:30",
+    "url": "https://www.ft.com/content/b7e5fa98-0cb5-4eba-b921-26e3a9393199"
+  },
+  {
+    "id": "b136cc73-cf87-447d-bd9e-4a890273ec0c",
+    "title": "Foreign diplomats queue for handshake with EU leaders",
+    "date": "2026-10-21",
+    "time": "06:00",
+    "url": "https://www.ft.com/content/b136cc73-cf87-447d-bd9e-4a890273ec0c"
+  },
+  {
     "id": "be6fa6df-cea1-4e99-8b8d-5ad5a17a3474",
     "title": "Who’s merging with Weil?",
     "date": "2026-10-21",
@@ -187,117 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-20",
     "time": "19:32",
     "url": "https://www.ft.com/content/765cb887-05da-4971-9f28-bcf5430f09ac"
-  },
-  {
-    "id": "33573324-6eb8-447c-934d-5a992872509a",
-    "title": "Two rearrested over RAF Fairford incident on suspicion of helping Iranian intelligence",
-    "date": "2026-10-20",
-    "time": "19:19",
-    "url": "https://www.ft.com/content/33573324-6eb8-447c-934d-5a992872509a"
-  },
-  {
-    "id": "f97755f2-8b07-47bf-9c14-7963a701c9c3",
-    "title": "Who are the Black Bloc?",
-    "date": "2026-10-20",
-    "time": "19:15",
-    "url": "https://www.ft.com/content/f97755f2-8b07-47bf-9c14-7963a701c9c3"
-  },
-  {
-    "id": "7bd4ac59-61e6-4604-a96a-26e7096bf768",
-    "title": "France extends curfews in some cities as restrictions quell unrest",
-    "date": "2026-10-20",
-    "time": "18:58",
-    "url": "https://www.ft.com/content/7bd4ac59-61e6-4604-a96a-26e7096bf768"
-  },
-  {
-    "id": "eb8c6c38-3362-49cb-bfd6-4e164d82966d",
-    "title": "Audit regulator takes control of inquiry into Man City accounts",
-    "date": "2026-10-20",
-    "time": "18:21",
-    "url": "https://www.ft.com/content/eb8c6c38-3362-49cb-bfd6-4e164d82966d"
-  },
-  {
-    "id": "82f99b04-144d-4f2a-b23e-d5a3c0674f3b",
-    "title": "Merz warns over Berlin plans to seize landlords’ property",
-    "date": "2026-10-20",
-    "time": "17:49",
-    "url": "https://www.ft.com/content/82f99b04-144d-4f2a-b23e-d5a3c0674f3b"
-  },
-  {
-    "id": "8be29348-e112-462f-96eb-44a699ca61a6",
-    "title": "Britain’s budget should build on its economic resilience",
-    "date": "2026-10-20",
-    "time": "17:15",
-    "url": "https://www.ft.com/content/8be29348-e112-462f-96eb-44a699ca61a6"
-  },
-  {
-    "id": "31f86452-c16a-4fbf-b393-bb5282c1cb59",
-    "title": "Gilt market catches up with peers as investor worries over Budget ease",
-    "date": "2026-10-20",
-    "time": "17:10",
-    "url": "https://www.ft.com/content/31f86452-c16a-4fbf-b393-bb5282c1cb59"
-  },
-  {
-    "id": "2d20b09b-6565-4253-a809-8a0542e6770a",
-    "title": "UK jobs market stabilises before Budget",
-    "date": "2026-10-20",
-    "time": "16:59",
-    "url": "https://www.ft.com/content/2d20b09b-6565-4253-a809-8a0542e6770a"
-  },
-  {
-    "id": "179172c2-7f3a-49f1-90fb-1551c35768d7",
-    "title": "Romania forms a government after six months of crisis",
-    "date": "2026-10-20",
-    "time": "16:56",
-    "url": "https://www.ft.com/content/179172c2-7f3a-49f1-90fb-1551c35768d7"
-  },
-  {
-    "id": "42ed6778-d350-48a6-ba3d-99efca3cd276",
-    "title": "US pending home sales fall to record low as mortgage rates surge",
-    "date": "2026-10-20",
-    "time": "16:47",
-    "url": "https://www.ft.com/content/42ed6778-d350-48a6-ba3d-99efca3cd276"
-  },
-  {
-    "id": "29f1af13-ecc3-4f26-a479-e6088c67231b",
-    "title": "US midterm elections 2026: The FT’s guide",
-    "date": "2026-10-20",
-    "time": "16:33",
-    "url": "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b"
-  },
-  {
-    "id": "616c796b-a288-4013-a363-70e94429b60e",
-    "title": "Is France spinning out of control?",
-    "date": "2026-10-20",
-    "time": "16:22",
-    "url": "https://www.ft.com/content/616c796b-a288-4013-a363-70e94429b60e"
-  },
-  {
-    "id": "a068036c-a752-4267-9a2f-a95190ef619f",
-    "title": "Finnish president hails progress in talks about ending Russia’s war in Ukraine",
-    "date": "2026-10-20",
-    "time": "16:11",
-    "url": "https://www.ft.com/content/a068036c-a752-4267-9a2f-a95190ef619f"
-  },
-  {
-    "id": "f2020597-aec5-4de4-a169-c89ecb7246ca",
-    "title": "Sullivan & Cromwell to double London office space as US firms shake up UK legal market",
-    "date": "2026-10-20",
-    "time": "16:06",
-    "url": "https://www.ft.com/content/f2020597-aec5-4de4-a169-c89ecb7246ca"
-  },
-  {
-    "id": "85fb6c79-d1fd-493b-9ef5-597400919252",
-    "title": "NatWest tells 30,000 staff to spend more time in office",
-    "date": "2026-10-20",
-    "time": "15:21",
-    "url": "https://www.ft.com/content/85fb6c79-d1fd-493b-9ef5-597400919252"
-  },
-  {
-    "id": "f8ea12f4-a55d-4f46-a409-5cffd093ab6a",
-    "title": "Activist Starboard targets Honeywell spin-off Solstice after failed megadeal",
-    "date": "2026-10-20",
-    "time": "15:04",
-    "url": "https://www.ft.com/content/f8ea12f4-a55d-4f46-a409-5cffd093ab6a"
   }
 ];

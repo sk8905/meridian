@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-21",
-  lastCheckedTime: "09:10 BST",
+  lastCheckedTime: "11:08 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -776,6 +776,7 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-uk-cpi-35-boe-hike-2026-10-21-1120", kind: "Rate guidance", title: "UK CPI inflation rose to 3.5% in September from 3.1% in August (consensus 3.4%), with core at 2.8% and petrol up 29.8% on the year; the FT reports the print fuels expectations of an imminent Bank of England rate rise, with markets looking to the 5 November MPC decision.", href: "#/policy", date: "2026-10-21" },
   { id: "g-healey-fiscal-discipline-budget-2026-09-28", kind: "Cycle", title: "Chancellor John Healey told Labour's Liverpool conference that fiscal discipline will sit 'at the core' of his first Budget on 28 October, saying the cost of servicing the UK's elevated debt is diverting money from public services — the Chancellor's clearest framing yet of the Budget's fiscal stance as the gilt sell-off keeps squeezing his headroom.", href: "#/cycle", date: "2026-09-28" },
   { id: "g-us-close-afternoon-selloff-hormuz-2026-09-28-1619", kind: "Markets", title: "US equities extended Monday's losses into the afternoon on the stalled Strait of Hormuz standoff: the S&P 500 fell 0.90% to 7,673.88, the Dow dropped 0.75% to 51,440.97 and the Nasdaq lost 1.14% to 26,760.68, as Brent traded above $106.79/bbl and the 10-year Treasury yield held above 5.2% — Nvidia bucked the selloff (+~1%) after authorising a further $150bn buyback (total $235bn) while chip peers AMD and Micron fell 4-5%.", href: "#/bubble", date: "2026-09-28" },
   { id: "g-uk-healey-headroom-halved-12bn-2026-09-27-1900", kind: "Cycle", title: "Bloomberg Economics said Chancellor Healey's fiscal buffer has shrunk by about half to roughly £12bn as the gilt-market sell-off runs into Labour's Liverpool conference, upping the odds of tax rises or a much tighter margin for shocks at the 28 October Budget.", href: "#/cycle", date: "2026-09-27" },
@@ -1045,13 +1046,13 @@ export const NEWS = {
     {title: "US stocks set for rebound after AI sell-off", source: "Financial Times", date: "2026-10-19", time: "07:34", url: "https://www.ft.com/content/915ea7ca-1f35-4847-810a-fb29e8344496"},
     {title: "Investors turn on data centres", source: "Financial Times", date: "2026-10-19", time: "07:00", url: "https://www.ft.com/content/5970614a-b1f7-4b4e-b1e5-6038e1dde654"},
     {title: "Billionaires Warn of a Bubble Yet Howard Marks Is Unconvinced", source: "Bloomberg", date: "2026-10-18", url: "https://www.bloomberg.com/news/articles/2026-10-18/billionaires-warn-of-a-bubble-yet-howard-marks-is-unconvinced"},
-    {title: "Meta Platforms and Tesla are among the companies set to report next week. What to expect", source: "CNBC", date: "2026-10-18", time: "21:34", url: "https://www.cnbc.com/2026/10/18/meta-tesla-netflix-earnings-preview.html"},
+    {title: "Iran war sparks heating crisis in US north-east as winter approaches", source: "Financial Times", date: "2026-10-21", time: "11:00", url: "https://www.ft.com/content/162c6dd8-5501-46f4-8f7c-b456a4e29539"},
   ],
   uk: [
+    {title: "UK September inflation fuels expectations of imminent BoE rate rise", source: "Financial Times", date: "2026-10-21", time: "08:03", url: "https://www.ft.com/content/70f1da13-3c33-4881-aaa8-3458c1ba7eaf"},
+    {title: "UK inflation and borrowing top forecasts in blow to John Healey", source: "Financial Times", date: "2026-10-21", time: "08:18", url: "https://www.ft.com/content/443ce2f3-ba36-4dc7-aa0b-a2bc593fa563"},
+    {title: "UK government borrowing rises to £24.5bn ahead of Budget", source: "Financial Times", date: "2026-10-21", time: "07:10", url: "https://www.ft.com/content/89322cfb-54cd-4fcd-9ba7-cd7e74382215"},
     {title: "Gilt market catches up with peers as investor worries over Budget ease", source: "Financial Times", date: "2026-10-20", time: "17:10", url: "https://www.ft.com/content/31f86452-c16a-4fbf-b393-bb5282c1cb59"},
-    {title: "UK jobs market stabilises before Budget", source: "Financial Times", date: "2026-10-20", time: "16:59", url: "https://www.ft.com/content/2d20b09b-6565-4253-a809-8a0542e6770a"},
-    {title: "Britain’s budget should build on its economic resilience", source: "Financial Times", date: "2026-10-20", time: "17:15", url: "https://www.ft.com/content/8be29348-e112-462f-96eb-44a699ca61a6"},
-    {title: "BoE scrutinises Barclays over claim traders misrepresented private credit exposure", source: "Financial Times", date: "2026-10-19", time: "05:00", url: "https://www.ft.com/content/f3127b4f-d33a-4431-acff-021829f3aa72"},
     {title: "United Kingdom CPI inflation climbs to 3.5% YoY in September, vs. 3.4% expected", source: "FXStreet", date: "2026-10-21", url: "https://www.fxstreet.com/news/uk-cpi-set-to-accelerate-paving-the-way-for-a-boe-interest-rate-hike-in-november-202610210200"},
   ],
 };
