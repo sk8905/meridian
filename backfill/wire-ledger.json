@@ -1,4 +1,581 @@
 {
  "about": "Wire-sweep ledger (HOUSE_STYLE R52). Written ONLY by the refresh routine: one entry per backfill/wire-queue.json item it has dealt with — {url, status: \"recorded\" | \"rejected\", recordId (when recorded under a different URL, e.g. the primary source), reason (why rejected), at}. scripts/collect-wire.mjs closes the matching queue item. Never delete entries.",
- "items": []
+ "items": [
+  {
+   "url": "https://www.cnbc.com/2026/10/21/cnbc-daily-open-spacex-tesla-elon-musk-ai.html",
+   "status": "rejected",
+   "reason": "equity-market chatter on SpaceX/Tesla, not a stressed-credit update",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.cnbc.com/2026/10/21/spacex-spcx-stock-musk-merger-tesla.html",
+   "status": "rejected",
+   "reason": "equity stock move, not a credit data point",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.euronews.com/2026/10/21/elon-musk-backs-spacex-tesla-merger-as-rocket-firm-turns-profit",
+   "status": "rejected",
+   "reason": "equity/merger commentary, no credit data point",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/barclays-reallocates-capital-to-meet-hedge-fund-financing-demand",
+   "status": "rejected",
+   "reason": "Barclays is a bank, not a tracked credit manager; not a capital event",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/citadels-ken-griffin-warns-ai-is-almost-certainly-in-a-bubble",
+   "status": "rejected",
+   "reason": "Griffin macro/AI-bubble opinion; not hedge-fund news of record",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/sachem-head-sees-140-upside-in-ionic-digital-shares-amid-ai-pivot",
+   "status": "rejected",
+   "reason": "equity position commentary, not credit",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.legalcheek.com/2026/10/weil-in-merger-talks-with-mystery-law-firm-report-claims/",
+   "status": "rejected",
+   "reason": "unconfirmed merger speculation publicly denied; not a deal/advisory/people record",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.privateequitywire.co.uk/blackstone-and-warburg-pincus-explore-10bn-intrafi-sale/",
+   "status": "rejected",
+   "reason": "PE sale process, not credit",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.privateequitywire.co.uk/centerbridge-and-mubadala-near-1bn-canaccord-wealth-deal/",
+   "status": "rejected",
+   "reason": "PE/equity deal, not credit; no LP allocation",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://alternativecreditinvestor.com/2026/10/20/boe-investigates-barclays-private-credit-loans/",
+   "status": "rejected",
+   "reason": "Barclays is a bank, not a tracked manager; probe unverified",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.cnbc.com/2026/10/20/musk-spacex-trump-account-stock-rules.html",
+   "status": "rejected",
+   "reason": "Musk gifting story, no credit data point",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.cnbc.com/investingclub/2026/10/20/capital-one-strong-quarter-and-progressing-discover-integration-are-rewarded.html",
+   "status": "rejected",
+   "reason": "bank earnings commentary, not a manager event",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/former-citi-trader-set-to-leave-capula-after-three-months",
+   "status": "rejected",
+   "reason": "passing mention; trader departure not a senior hire of record",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/treasuries-lose-appeal-as-portfolio-hedge-amid-inflation-pressures-citi-warns",
+   "status": "rejected",
+   "reason": "macro commentary, not a tracked-entity event",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.legalbusiness.co.uk/law-firms/weil-to-hold-all-partner-meeting-as-merger-speculation-grows/",
+   "status": "rejected",
+   "reason": "firm governance speculation, not a deal/advisory/people record",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.legalcheek.com/2026/10/freshfields-apologises-over-leaked-comments-about-middle-eastern-investors/",
+   "status": "rejected",
+   "reason": "firm PR matter, not deal/advisory/people news",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.legalcheek.com/2026/10/hogan-lovells-cadwalader-bets-on-harvey-and-legora-in-new-ai-strategy/",
+   "status": "rejected",
+   "reason": "law-firm AI tooling strategy, not a deal/advisory/people record",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMihwJBVV95cUxNRGFTRGRRNWxSbGtnX01aeWZHY1BTUDNmTDU2U085QkgxRkszM2JJaU44V19jR2N3SUZoVEY0WldVa1djMVlMdFZxMHVacEJkbXhBLURQaHRCblR6eGxWYUE0cTF0U3BBYVkwZlRtQ01rUm1nVC1FRW5WZnlXanJZekhqdXJVZEtMSWUzRExoMXF2dlZEcHUxTXFUNG9HMTVLQi16ZUxNU2lqVmhGb00xMThYUmVGRzZmUnAyT0dTSGhROENBQ2RaeURjcHZLTE92MTBVVTE2MFM3dW4zOGh0V2pETHNyZ1NzR09jdnNQTVpTZmdOVkt0b3d1T09JMUliR1p1NEJRUQ?oc=5",
+   "status": "rejected",
+   "reason": "conference commentary, no capital event; unresolvable Google News redirect",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://alternativecreditinvestor.com/2026/10/19/proskauer-confirmed-as-sponsor-of-inaugural-alternative-credit-investor-conference/",
+   "status": "rejected",
+   "reason": "conference sponsorship, not a deal/advisory/people record",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.axios.com/2026/10/19/elon-musk-spacex-shares-kids",
+   "status": "rejected",
+   "reason": "Musk gifting story, no credit data point",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/boaz-weinsteins-saba-gains-42-from-uk-investment-trust-activism",
+   "status": "recorded",
+   "recordId": "hi477",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/man-group-assets-hit-record-270-9bn-as-hedge-fund-inflows-accelerate",
+   "status": "recorded",
+   "recordId": "hi478",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/partners-group-restricts-hedge-fund-access-to-6bn-of-distressed-debt",
+   "status": "recorded",
+   "recordId": "webNews:m91",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/two-sigma-halts-real-estate-fundraising-and-cuts-senior-staff",
+   "status": "recorded",
+   "recordId": "hi479",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.legalbusiness.co.uk/law-firms/ashurst-perkins-coie-lands-in-houston-with-double-partner-hire/",
+   "status": "recorded",
+   "recordId": "u3615",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.legalbusiness.co.uk/law-firms/freshfields-asia-arbitration-and-singapore-head-leaves-for-gibson-dunn/",
+   "status": "recorded",
+   "recordId": "u3616",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.legalbusiness.co.uk/law-firms/weil-pe-partner-lands-at-paul-weiss/",
+   "status": "recorded",
+   "recordId": "u3617",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNWWFUQmxwa3JpNXN2WGJwZGpNNnh2RVBVWkdOeFRTMHFkcFVrcjNiT1hja3UwT0tDOFNFYmNQSzBBRDRpRTVSOFZMR2FIdFZmRm9jRFJ6ZG1NTUdiRkRFeVczWnNpTWxEYkF3QWJrODlvYnJqMzFwcDZsaDhya00wRFdBN2Q4YkoxSGhrRkhRLVAtMENMZUlzZFFzU2Rud3FMY3JQYXRSMjhFaFUyWUZYb2RFMVpLWDY4UDF1eDJBNmYxNWtUYUtQYVgxbVE4a2RMVXJ6N1pZMV95ZnRH?oc=5",
+   "status": "recorded",
+   "recordId": "webNews:m401",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/gtcr-and-elliott-to-acquire-ccc-intelligent-solutions-in-4-6bn-deal",
+   "status": "recorded",
+   "recordId": "hi480",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNQ056RG50b0pSNmZ2a2VKUUNTYXhPcm5TNVg1RjNqOUFiU3N5am5TX2hmblJsTDZJbTEwSFlfYVZlYi1uSXZnOV9JV0ttaWJQYV9kVS1mV2JLSEs2MnFfaXk5YTBCR1E1YTBvemRCZ1RUY3JHcExrSnJkZV9jOXFsX3pTb3JqRy1YYTcxWkRuVUJNeE02MF9QYVExMkY1N245ZjRkMGlRYkZHRUdIU3c?oc=5",
+   "status": "recorded",
+   "recordId": "u3618",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQbFBkbEVIOVFiR25VNGZGZFIzWUt5VWZneGVFRmMtTFpPc0oteWQ2RlMzeTI1N1p5M0QzTGo0bFRHc09KdUFRbVRmVkVyWEdELUU0SmZybEUwTGpTUVRTQ2stcmdqWEFFbFpBajhuelAyNEZIeUdEZGlmZmFCOW1xMFdFUWZfWk5DUHF3TkNDUGhlODE1VDI2Z1NhSVVsRV9JYkUxQ21DcGlqQkpGU0x6aWRNb2gtSVdJNUVyOTRiWnNvNmZLT1VLUGdn?oc=5",
+   "status": "recorded",
+   "recordId": "u3619",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/balyasny-hires-former-nebula-cio-limin-yang",
+   "status": "recorded",
+   "recordId": "hi481",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/balyasny-hires-millennium-portfolio-manager-antoine-iskandar",
+   "status": "recorded",
+   "recordId": "hi482",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQU3BnUGh2djJRNlJ2bVRKU2JmckZCMEtDemNEcndMSV91bU1JS2F3VUgyV0RnUEhzWmxVYjU0MVp2a0ctb1dHUFdtWElIUlFuYjNta0ZSeXFsRTN0MkdQR3ZneC1wN0JScE9HcDk3VUIwTGFXTkM5SHo5T0wwSG5EeDA0UGJIZ0JlS0dlMXd2UjNfMUFDUTczeTVRVHZ0Y3ptNFdDVzdOVTB3ejUxVzk1VE5NNGNNVjJVSE5DUkJTUUpMQ3dZekJHWGdBMDNMUGh5blhXSkhsSzBGS1Q0?oc=5",
+   "status": "recorded",
+   "recordId": "i1452",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNdEFaeFI3dW5rZU0za2dFdzJRZHNTQ2Y0MkVuc3hLQ3JMVGswZnM2eHZSWFZvaURBb2pMV0Y1Z0FhSEd3czNZNG9YMTF2MWtjbkVINFVzUGZSNWs1MGt2M1JsV3NURGcxMnZVVUNEdm1ST25oTzVVRGxJUFE3by15R3dZeWdKWU9qcXBNcEljTzRYSEFJQkstR3E3M2pYOHJULURiNzhSbWk?oc=5",
+   "status": "recorded",
+   "recordId": "u3615",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNRXdtN1ljblRwUTZENnZZWmZ1TXlleHFEc1Q0V0pWaXg1WUY5QlNHdTFONVRTQjZ2aDNCSzBXYlI3SUx6VWkzQ2RQZHZxS1RxUTQ4ckJSYWlJb1RRX3hqU2hFQzJoYm1CdWFWODVtXzZQRVc0bGdpRzFZZ1hwMmJZWlpJSlY4S0JYeklIVGt1VFJOenFoa3k5RUp3QjZKQV9ReU1yN1FyTGgyQlVOYmxjU1U3N29lQTA?oc=5",
+   "status": "recorded",
+   "recordId": "u3616",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPQXZMdTdRbW9IX3VVT3V2aTlCSE5VdHp4aFE0OUlyY2tHVWI4MEdleWNHYk5CQUZHVmtXY01LQVVpcHY3MUhCdmtaTVVSQW9Xd3ZZLThoLU9SODN2aFlqSjNXWFB3T1hHejMtMy1tVm1uZlViQmpFQTZyZllvamtubFFaWVNHSTdDY2RpSlpJQ3BJd3JsSlhiOTdKbFpEckdid2VvaDNCaGhFOURqQlRxdkx1aWk2ZXc?oc=5",
+   "status": "recorded",
+   "recordId": "u3616",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxNNTFVM3dGN0dNVjlYWWUxNXM1LUU3VGZLZV9yRTRsUnpUU2Z5SXVOQy1XdFBLSUZKTzJELUhSNTlRNjBSOU9vWlh3ZW1hU0RJb1p3R2tJcGdTTUJqcU9LeXpkUm0xOEFGQ2IwMk1KVGxFOUZRaU53MmFDcWNibWJEUXFzSFpZN2JJMTVDMU1qZHBJcFBJRFZDVGUxejhVVXp3OEVFU1NMQzRNT1FOdVh2aE1mVkpncjFaQTJEWk1UUFZwaUJ3VWpLUlBnWGtxd0EzU0tibEhlWVAyQTNyNjIzM195UWd6Rnc4aVNuOG5pUEs?oc=5",
+   "status": "recorded",
+   "recordId": "hi480",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.euronews.com/2026/10/19/musk-pledges-spacex-shares-to-every-us-child-in-potential-107bn-giveaway",
+   "status": "rejected",
+   "reason": "SpaceX share giveaway: equity/personal news, no credit angle",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/former-goldman-sachs-trader-retires-from-balyasny-aged-33",
+   "status": "rejected",
+   "reason": "passing mention; individual trader retiring, not a tracked-entity event",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.legalbusiness.co.uk/in-house/whenever-a-really-great-opportunity-was-offered-i-said-yes-maria-alvarez-scott-on-always-rising-to-the-challenge-at-legal-general/",
+   "status": "rejected",
+   "reason": "in-house lawyer career interview, not a tracked-entity event",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.legalbusiness.co.uk/law-firms/kirkland-makes-up-196-partners-in-silent-promotions-round/",
+   "status": "rejected",
+   "reason": "unverified; third-party analytics estimate, not a firm announcement",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMigwJBVV95cUxQcHM1SHBMUHd3RG5XSV93RjJrQVFzRXJuMWZfMTZNbThoa1FKRjRMUW1KZnQtUWFVX3JKZlM2OEdFQ3NSUFlHaGp0X0w2SzlJNTNvMFlqQk5WWVVKNG5KTkNPZlFlQjM4SklVRFMyMVZFNWYtWGd5ZHNmVkNzSVZDWHllUzJJTXF0M0l2WGQ1WEpuODhVYnRERXNhWWw3aW9oZ0trWjdRaUJoWG4zLVpWbUExRDRqeUI5Z3dnX3ktbXA2VnlvUXZUUXdCR3Q3RFdGVUJJVW5mY3ZHX1puRlBTaEJHaFByVnZyN1k5d21tck5HdlpNMmNLVW1iWXRmcjA4bEpN?oc=5",
+   "status": "rejected",
+   "reason": "macro research publication, not a credit capital event",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPakpVQ1NkRFNtZUtxVHd2V3d0N0lfcWRrY0JLVUFYNUxIaWt6Unpacm5CQWtTNHpVSy1QUGUyNU5VNFlzenE2N2NCWjBqVU0tejI5MWp3WW5tbndpc3NIcl9fbFp0OGlZOTZNRjI5ZlEzXy1yTjV1QlNFX3JaWFBaVEREVmJGNUhBMnZXTGZ3LTJORjZsVWtvVA?oc=5",
+   "status": "rejected",
+   "reason": "SpaceX share giveaway: equity/personal news",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNUG9tUTdIYzRvcmlWcUlaZ25MNmh0a1hlbGZ5NlZIcTRGQ3VoWFhfZk5NSFdmS1BFOVRtZDRRLTVTckg5amZVa1B0dnBSeFpBdTFKZkV1N1RMUEpRT0RrMXc4YV9pN1BqZTh5YVg5bi1fZm1manlEOHBjQzVmcXlFNkxkZ2NybW5IeHBMQnFOT1VzMlloQ1lCM1lxbWV3VGZ5VmpDZVY2Skc4RURlcUFyaGI0akg0OVBUMmxsYmc2YUs2Zkk?oc=5",
+   "status": "rejected",
+   "reason": "could not verify an Oct 2026 hire",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.legalbusiness.co.uk/law-firms/everyone-has-to-prove-theyre-worth-what-theyre-getting-paid-inside-freshfields-us-profitability-push/",
+   "status": "rejected",
+   "reason": "feature on firm profitability, not a deal/advisory/people event",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.legalbusiness.co.uk/law-firms/funder-joined-to-claim-in-pogust-goodhead-bailey-glasser-dispute-over-mariana-dam-case/",
+   "status": "rejected",
+   "reason": "litigation-funder joinder in fee dispute, not a court step in a tracked restructuring",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.cnbc.com/2026/10/15/harvards-endowment-jumps-27percent-with-spacex-as-top-holding.html",
+   "status": "rejected",
+   "reason": "endowment return citing SpaceX holding; equity chatter",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.legalcheek.com/2026/10/top-freshfields-partners-eye-ai-spin-off-to-create-tech-company-worth-billions/",
+   "status": "rejected",
+   "reason": "speculative early-stage internal discussions, no announcement",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQbHBYRTVycDN1WVA3UmtqemJ1YS0yQlg4THRoc0Jkbnl6WGpURWFIaU5pNS1pNWxtRDZWUWZDQzZjNm45U2tWZUtrMTJZdmIwRnZKX3VxYzRydGRkcHQzTHdIRl9mNjBCNjllN0I2NjNobjI4dFdSVVB1Z0N2LWZMZTFUeHBZdHRBSzR2RFV5b0NnaUdXOXVrbTVuVEtkcFVzd2FySTBsaG5oNTV1Z1NMbm5sY3RaaU9uZGFrTQ?oc=5",
+   "status": "rejected",
+   "reason": "speculative early-stage internal discussions, no announcement",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://www.cnbc.com/2026/10/14/morgan-stanley-ms-q3-2026-earnings.html",
+   "status": "rejected",
+   "reason": "bank earnings, not a tracked-entity event",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQRkljVGdWMzU5VTdUTVlaR1gtRVhET3NpRDBVN2xWejhIb0RwQkNhdG5FTWxaLXEyT3RFNkVHYzZ6bGVkVFREVUhYTW5OT1VjZnh1UTJCSkZacDlHX0kxUXItd2NzLTFvNGdtV3J6RFZFSXpWZzBTMHpZV2tVQ1hIZHJhRmRQSUR5RFpqS0Q4RnZzUlN2dFRyRHo4clZDZVUwUEV6NURpa3o2Q1hnSGNDX1lDOVdYbVoza0s3UXFRRUpLMmxkOVc5Nnk0VXZhak9pem93czRIcWNqZkNBR2RzZlkwM1JWRV9mWVdz?oc=5",
+   "status": "recorded",
+   "recordId": "i1453",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxPM1MyWjd4QndYemc2anNLcFlTWFlKUWhWWUIxc2M1M1NZRjBQU0oxZzQ2WjlfS1BDTU5uR1pTemp3QUQ1eWR5RTFuaGw0TmFSSHZEaGNFVHFxZU9qN1NWNXNLcXkzMFRtb3hxemF6MzFTRHRaU0xWM0FRUmtpSEp5Z3VNekxFRHAyV29rNVhQZ0xyVnE5VGx2akgyMmZ4bDl3STJkWmgtbXRPUVgyd1hyY1l4azhoQ0kxT2FDcXgybUY2RjNwSFZ3TThTVmJiT3NJZmFtVlQ5czVyRllqaTBleW8tbHhQV08xZHlwZzZrTHZidEJCZkRJMjd2TU8yalk?oc=5",
+   "status": "recorded",
+   "recordId": "webNews:m389",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPeUY5TEh5Z3ZBenRiZ0NucHJGajZTTDVXTmQyVm9QYkhBWnl6NmpQRnh4enVrVndOWDJCYzQzcW8zdE5kc3NubE9pT3RYZnZjczcybDhqdTA1dTlFRzI3MmlnaXViSmtrUk90NVFHRURhbmw4V1haMUdQRHhkUkJmT2JkbTBFU3NFYldzQU9sUTBBNGJtZFcydk9kOEN5ek1sd3E4S2pybHFHYS1jb3RCSE1vU2JzeG1wd292VHV4N3Z3emgtcmNjWFp2ZkdQQi1LRzNtXzg3ajN4U3MybzJ2Q0U1SDdjYzhNb3Ytd1hoWUx2clBV?oc=5",
+   "status": "rejected",
+   "reason": "same source already held in the database",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOLTkyclJVd1hTMEJnM1ozQXoxMUtWRTlzVXYxUXhRd1VHRnpMTDhmQWtPTmdTaDl3d1RvdkhXb1JhZjlMSjVrSjF1TlAtcnhHeTRnMWhBTktTSUV0QTFxN3gwLUo0cGp3VG80OGtlTV9xNlhFTllod05Fd0dhOUlPdk5va0ZCcHRzLTJkLUhpN2RhenQ4R2pja2Z5M0N5U2hiejF6bXZMalE2a0tKcEF1NngyMEk?oc=5",
+   "status": "rejected",
+   "reason": "same source already held in the database",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxPemkxdkZUbVJCRXpHd2NsUEdFbVBCMkVLazFWZzdHcjN3bEx4RDEyOUVhR29DT3JxZG1xRGdFS3FMdERveWZNZlZSNG4tXzNDeE95LWVwOXhnSktJdUQwTGlkVUhSb3MyaGgtcUVMWUo3SDRLZW5ZTFh3NEZuSjdmcVcxS3dhV09neldocTJNZzZyR0pGcXdCMWh0ekJTSGNyMkZSeGI5c1JzWEtOQ2RDN1hFWFI0eUZEWmtCODdLZTZDVGQydy1zTWhJdmtQeGNMRGtJWGxDbHFqRXhMZEZud1R6UlZycHN2d3VzdA?oc=5",
+   "status": "recorded",
+   "recordId": "i1454",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQcWJVWHJ2QlBXZnVDNk5zR3h4cUpwM1dpZ0U1ZzlTUlhmTFZOTlZjellXQ3dXOU5MZzhpZ1lIYnRSM0lhcnBMUDRaN3gzZDJxNnl3NDRTQlNaSFZhc2U4VEVzYXhtYnB4M1RTd2FLOXVBeURfeHBWNFZCMXpDbmxRWkd3dlR6Ykd6WVVTSF9HS1NVaFJTcW9ueS14NlVsZGVPMmxPNkw5NHQxMzRxdWRQRVJVbEs4blVHZFFwY0ZoVzM0Z2tVbDNzTmd0V1BmU3BiOVE?oc=5",
+   "status": "rejected",
+   "reason": "same source already held in the database",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxPdWI5Y2Jyd05CbHdPZHdLd2hRcGdoaXlHT0tYS3FYVkJ1d3h3NlpjeTBqSDFUX3ZKSGF1aThWdU9BMmtzRGV0Q1FITXpmUjVkZldQUC1nOEVTMnloLXhpS1IwbHhIS2VEUlVVckQ3M0lNN2dodjBKNDVONHgyM2NaVkx0emhaRktEanlCVXdGbzdkSUdNLUJyaS1QdEI0NTZoanFyZnNoSHZubGIzTy12ZkhRNW5UekdYR25UYWxybE1KaGNiMndHdGxOZWtyejc3UVVOV1ZpSVBya1U1MTdsbjVzUUEtU0Fmc2dsVUVhakNGWVBSSGdn?oc=5",
+   "status": "rejected",
+   "reason": "same source already held in the database",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQSGtEc0JtZnUtNzUwTW5jY01FbHJZRldxVEg3ZlFfa1EyUXFyTDZXSkthaEdVdm5CLVlVR01BVVVoRGpXVzcwVmJ2cGlra1EzM1pZS0ZZSEZnVnlfbmhYV2J0MFV2UjE1S0hhNDVrUjVaOTFyM1dSNks1Z0FVUU8yZ0Q1a2h2dFhQSjhNdXhlcTVyUWlWbUNPLVVTMHMwdGdzaUVWUG44Y1JGOXFHb0ZtRkVCM2QwWXl0aXlEa0hOTkFmXzZlU2s2SXdkNGxtRkF6a2QwMUpR?oc=5",
+   "status": "rejected",
+   "reason": "league-table commentary, not a deal/advisory/people move",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgenordic.com/2026/10/historic-small-cap-discount-offers-long-term-opportunity-not-a-timing-signal/",
+   "status": "rejected",
+   "reason": "not about the tracked entity (name match only)",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxQY2Vjc0pOTDFLOUFHalhpYTF1dWNyT0QzN1E1Y3U0RG12TUExN0lLd2xxVU0xY1gyNU4tM0xMQ05qT0p4QXZMMFg0aHVzWEFnYWNOdHVJbmVZZUw1MTZiazhqTU8wRWJ5TUhPbkE2YWZNaFlaUE9HdVEtcHpORDFnZ1d5RjlLQjlIbmJudzZkWUNMZF9wV1Jrbmh5enRqM3dfd2hSakZPTFF3QWpEZGxqdHdVVndTZjZma01EWHBib19uc094WEhPaFZhVmVxaUx4ZHVYUUFpZDRySUxBbGo0RmdpUTFJbUdFWDJaUEpaeENheUVNOVM3XzMwRQ?oc=5",
+   "status": "rejected",
+   "reason": "equities hire, not credit",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMipwJBVV95cUxOQ3VOY2VJSHNtRnA0bk5ldHhNWndNbHNsTzFSMjJOZjhyTXZYRmJOMU5jVlh4WU54NGlVa28zaFU3MU9ZNUZKTENGOW5Sd0ZVZ1BOaXhJZWlvT1I1ZGFKWlZ5ZEVTREZ4X2hmajQtaGxtUm1rb3RsOTQ1Xy1MejZ6dkpGRXZuRm1LOFZUekt0RHY4SDZyU1VCVlVFQ2hoTkF6VkdTM0FzVEpHcGhIWmZCME82Q1pBUmptdUcxUTBJNkFWZExjSDFoQ0x2d25PRGxla3doaFZOa05BdXdRNUhqVzBwNzJlODRrMU52QkRmanVYWEtiU0Zra1Q1cG1VSkVHYVlXLW9GaDEzdl9BV1d4djhpSG8weXRvYXg0NTRjUzdjRFVHSlNR?oc=5",
+   "status": "rejected",
+   "reason": "third-party tender offer, not a Blue Owl capital event",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQSkZ2ZDJFTkJQOEdueDF1Q3RvcVhKTWowUFdhTERTZlZ4TkQ1MnZRNnJuYWxNYVNjbjMxenlFbGJaRmZCb0VmdW04SjgyZWpPYTY3bjdKOU9qOGJfTlhfaGxhMFhrSFBPQ09oLXVwZFFiR3VZZUtwTTc4X2FvTXV5dkcwOHFjOGM4WjFmbHNqSVk5UFhDWWIydXBOdFc2TUptNWpKeUZZTVFRekNTN3VjUk84S2ZrOEgw?oc=5",
+   "status": "rejected",
+   "reason": "in-house legal succession, not a tracked-entity event",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPd0cyNHQ4bmc0X2Y0dGlsUmpHd3d3bDZRekcxZ3czVXRhbVBZMElmYWlDblYzV0RVcm0weTRTSXhvbk9rVFowazFmZU9vNk5HX2o4YzlwcDNKaUVTM0tEbi1rQUt1UTZoemhIZGRtMFBJdVBFbmhCY0YyU2NrWmNzbHRWQmp4UXhLWlBFMTBhc0NUejVkM1h2OE9td0p0U09SWVgtamRvMlNHM0xRMnc?oc=5",
+   "status": "rejected",
+   "reason": "disputes lateral, outside tracked areas",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQUUdrTFFCZHZQaFdLdzA0WjN5YWxsVWdtak1vcGU0OVBrTTNXY1YwLTJOWmd3c2VHZ1pUcGVERlN3OUk3WHRrTldLbnE0QTdmdldUT1V6SnlvUWxhYUtxNjhybno2MlVXUkhLZVRxREdTenRDQm82RTAwSUZxVFUtamhDcXppd0JBTmY4bWtfZkh5ZWlHVUZubFh4REtGelk?oc=5",
+   "status": "rejected",
+   "reason": "investment-bank in-house GC hire, not a manager event",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPU0JDTU44cE14b0JWZV9NSDF1SXpFZzJRUmFiNTJpSXFFNHhHWW1XMzlTaTdCcjVrdWdMUS1jS2lNcndldkpXLXUyMDdJcmJCTUM4X0F6Zm42UHdoZ1ZlMXpVTFdsT3lPOHNOdndyVVdVY1loSkQ4VHZJN3RRVGZxaWxKN2xHRTUxbUhaOGxobHNzR3RZeTNhcWlGU2F3azFramxkZFAzM08zSmRaTGMyRTl6Qm52VWIwMDBWWkNR?oc=5",
+   "status": "rejected",
+   "reason": "arbitration hire, outside tracked areas",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQclBSeGlPWjc3MFU0V3BhdnYyOW54Yll5RzVRbkQ1T1BvNXljOVVfbzhFNXE2YU91OWlOeUYxQUxSaGtISEw1cG5FOG9FdDFXM2FDNzhBRG5CaC1EV3ItTUFCNzdoS3lpSFB1dm1YUGhqeFNpOGg1VllaRndqMnNXbjRyS2J6dmdIYTBwaDlGT1VPODFyQzl2QzRXdjloTWg1UjF3aVhSQkNEeW5PV19wTzNTZVpreGdOZzRVcjJBQTNEZDdSdENPUVBQekxhZw?oc=5",
+   "status": "rejected",
+   "reason": "market-wide research publication; entity name mismatch",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNU0YzTjQzWm1yb293MGZKQXlZcHU5WDJQdlJ1SUFJT011NmJhaFlPMEV3WFhTWllfa1RvUERrLW9qMHFLcjFiaENtSVhfb05QeEhnQVhqeU9WQjhnY0ZTVTF4Rk10bE5nTWJKWDhHdi1RNkV2OEloaVlmZVVXNGx5ZEp5WDlXRmVTMkx2c3UzdWNyWVF1RnotaW8wSlRjUlN1Wl94aTE3Rl9fZVY5el95VlB0aFhJZ3VIUFhUckxSMnE3bk1MaW1jYzBLZ09qMmt1dTAyVGJwYm4wbW8wMmg3YQ?oc=5",
+   "status": "rejected",
+   "reason": "entity mapping wrong (different firms)",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/millennium-recruits-citadel-rates-trader-ravi-vinda",
+   "status": "recorded",
+   "recordId": "hi483",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/palliser-urges-samsung-to-launch-us-share-listing-to-address-preferred-stock-discount",
+   "status": "recorded",
+   "recordId": "hi484",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/verition-sees-five-macro-trader-departures-as-it-adds-london-portfolio-manager",
+   "status": "recorded",
+   "recordId": "hi485",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxPQVZHa1VFdkxYVnB2QnhRVF9xdHRudTh1NUQtR3V4NWV3elg3R0NDZU00VndmQkJUTEx3TjlHYmlPc3BQbFM0RnZHaGF0eFVvSGQ3UkQ0QUgwLVdocHZpdFctSm1ULTVjY1lWTHp1VUgwTnByYVZmUGpJLURaSmFUTThQTFhWUGthMWhaWkRTXzZQYWI5UnZESGtTdktnaGRUQ01QckNVeVVLN1oxTVo4OGlNWHZrUE5CbW9YZnotWWlsWDhvaGJrZlpjQUx3cjlnN0g2bE1iaXduY1UxdG9F?oc=5",
+   "status": "recorded",
+   "recordId": "webNews:m125",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMikAJBVV95cUxNZmM4SS1Gd1l2em04b01oQnZGOGJRSFR2VzJ0alg4MWt6VXh5amZJTElBX3JuYlRhLUhRNEdFcFg3Q29UM0NoemtnVjZERk1lRWZERFJDaWVmbTlUdkhNMDV6N08wWFppRUJtX3RMZHV0cEZvYnpjQ3FCdmtscUNfZzZYWS0tbWJPR0ZUeXU2aEY5eU9rS1QyWEM2SWtKZjVRa00xT2lqRWNkRTJ4RDFqcm5wRTdWd1RIMVE3dDNpMXYtalR4ZzJBYWU3U2t0Nl83ZEFhUC1fLXBiRXc3endaeHBFN204YUdYYjRtUzVPb2MxZG1DTW5nbGlYZTZhQVFaZElBTUduNm5xYVNiNFdveA?oc=5",
+   "status": "rejected",
+   "reason": "same source already held in the database",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/mayer-brown-appoints-former-cftc-senior-counsel-danielle-abada-as-partner",
+   "status": "recorded",
+   "recordId": "u3620",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNMTAzbU13NU9DbWNzbnNxcFZkVC1ZanV1V1paR2w5T1V1N05JWFNhcmRtdWh0QmQ3Ti0tS2hvRXVCUy1JQnNLaXQ1TVctRnJVT0RPQmVxZWZUX1Q2bEwyN2ZNdWxnbDZnZ19sQXhYa2M1LWxQdFV1eGxVaTNNTnRyOS1KSHFSOEVJajZCNU9kX2paRFM5YUVidw?oc=5",
+   "status": "recorded",
+   "recordId": "u3621",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQbXozTjFlalVFa1NzU0o3Z2hTOXRReXd3V054Z1l4VmNaMTkxVkhfc1FoTEFJcUdrSzRrZEFNWlBWZGlHVnYxZ2hMVEFRR1pPMXlxcGo0dmQxR3dKR2lfaS1GanRLWkNEM1A2UkhWLWgxNWxzOHR6Z2hnXzhsLVZvOGFvUmVmalNiMW9MMzlsMEp3c1NPajRZRW5XRldUODNkTlhqbHd4Rks1aDhCdTM3MTFwcGRmWllaMlE?oc=5",
+   "status": "recorded",
+   "recordId": "u3622",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/lone-pine-gives-back-q3-gains-as-ai-stocks-slide",
+   "status": "recorded",
+   "recordId": "hi486",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/millennium-rehires-macro-pm-from-balyasny",
+   "status": "recorded",
+   "recordId": "hi487",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/tiger-global-set-for-5bn-paper-gain-from-early-openai-investment",
+   "status": "recorded",
+   "recordId": "hi488",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/elliott-siris-weigh-2bn-plus-sale-of-gigamon",
+   "status": "recorded",
+   "recordId": "hi489",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOd1VIN0JuM0VVNC1hSmRhaU5GVFAwY0lQQ290S0p2bFltWG5aMDAybXotZ1g4dnFlQ3N5a0dRTGEyeXVqekdrT1MtR1pqTkRJZlg5WUhvYnRpb3kycXFNcktXSUI0NllYUlZmWDhrcUZ0Zk5hWndYeXhxc1VfZkh1eldScXAxaVlBU2twVEh5ckg5UFhIc2d1c2cxLXN5TnZxc0VXY1pveTFEWFhqcG1GeA?oc=5",
+   "status": "recorded",
+   "recordId": "u3623",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/balyasny-hires-former-citadel-data-strategies-chief-as-senior-quant-researcher",
+   "status": "recorded",
+   "recordId": "hi490",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/brevan-howard-expands-ripple-prime-relationship",
+   "status": "recorded",
+   "recordId": "hi491",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/kite-lake-to-launch-diversified-credit-fund-led-by-former-tyrus-partner",
+   "status": "recorded",
+   "recordId": "hi492",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPdGhpWFRQc05uOVA4WXNOeUpic0NZMzJyQnI3bDQwVkdRaGJtaThYY0VCZU1IRGlsWDdqbWtOTmdiSzJPSnNicWJTN2loQ3c5OUhqbi1VSEJRczRwc0xpT3lSTlZ0RTZlMnR4RDJRZ0VqenRYQURoUEtFMHEtTHJQdkhfaHk2ZWhPVHZKQzVIT1lhbjhwWXRyQXc2Mkt6clVWMFFhS25zRmp0TkNR?oc=5",
+   "status": "rejected",
+   "reason": "same source already held in the database",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/jain-global-adds-two-senior-equity-pms-in-london",
+   "status": "recorded",
+   "recordId": "hi493",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/elliott-and-gtcr-near-deal-to-acquire-ccc-intelligent-solutions",
+   "status": "recorded",
+   "recordId": "hi480",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/goldman-sachs-upgrades-equities-and-government-bonds-amid-rising-yields",
+   "status": "rejected",
+   "reason": "asset-allocation commentary, not a tracked-entity item",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/lynx-asset-management-selects-xyt-for-global-equities-liquidity-analytics",
+   "status": "rejected",
+   "reason": "vendor selection, not fund/capital news",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/millennium-adds-jain-global-marketing-exec",
+   "status": "rejected",
+   "reason": "unverified; no report found",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/balyasny-promotes-star-stock-picker-to-co-lead-equities",
+   "status": "rejected",
+   "reason": "unverified; date not confirmed",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/bridgewater-calls-for-ai-tax-and-public-ownership-to-spread-benefits-of-tech-boom",
+   "status": "rejected",
+   "reason": "policy opinion commentary, not fund business news",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxPZG1rdFFvckhVb25kN1lpckFZdjVZWnVMTlZXS2o4SHJxb3B6SWdveURER3RmWTR4b0U3VklVOEl1eFFBOXMyMEpHSEg3Z0wxNWNHcnF6RkptSGkzdk91a1AwZDI5WHY2Rk9jRXNhUEVpYTFCVVZiQlIxX1hWRzB3UUpPX3pFaml3UGVwY2NSVVB0UFlETkdqdXQ3c2Uxd0tjSlp1VzctdFZIR2g3WFNTbFh3RHR4Qm56NzMtMWNQeDQ5R1NLRXpTaXUtQ1FvMGVpXzFtVlJqVkhYZmp6dGUwcVNDSXB3Z1VRYkRWaGlsTnBjZw?oc=5",
+   "status": "rejected",
+   "reason": "venture equity round, not a tracked credit item",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNaTZNZ0RpX1F4RUdDN1duM2E1QmFCV3BuRXBpTGpiN2dJQmQyRl9wUjFPZDNhTVBtdkpRWnNPSENUU0lZUUpKelNMRkVsZWdOMExnQ3haVUtDZnBLRjRubUJNN1pyc1drVWE0UXRfRXVJYlBYSWY0bDMyc2JWRXg2eE56N3dma2hOZEx1SDY5WEpfYzZOVE5nQkdjRUdTeGQ3VUFERTZZTHRrRjNLWnFGcTBrakRzVmxvVXExTHM4S3hQWGYzN3BwVGJ3?oc=5",
+   "status": "rejected",
+   "reason": "unverified; no report found",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPbHdSYTN4eHRMQmhsbmNBUW04Z2lEXzhXR0FoUHpsaEd3WThCQTBFdy16U0dkVHZLZGxMMDJFWjB3VDQwRnFRbW5VTlMtd0VkQU1PeFZGRFpPMG8zajdlYk9YcWxkV3o1aTdpaFJvN24wUmN1NTlibS14UXUwREc1V204M3d6V01PcWhaYWZmSEpvUTBSdDFUcUd1YzkxSHlRRFpF?oc=5",
+   "status": "rejected",
+   "reason": "law-firm disclosure policy, not deal/advisory/people news",
+   "at": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/arini-raises-1-5bn-for-credit-strategy-despite-flagship-fund-loss",
+   "status": "rejected",
+   "reason": "same event already held as i836",
+   "at": "2026-10-21T11:25:24.982Z"
+  }
+ ]
 }
