@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T14:09:19.500Z",
+ "generated": "2026-10-21T18:57:58.872Z",
  "since": "2026-10-07",
  "firms": {
   "proskauerrose": {
@@ -32,25 +32,12 @@
    "errors": 0,
    "carried": 0
   },
-  "linklaters": {
-   "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
-   ],
-   "sitemaps": 6,
-   "urls": 17808,
-   "kept": 3,
-   "fetched": 3,
-   "errors": 0,
-   "carried": 0
-  },
   "slaughtermay": {
    "domains": [
     "www.slaughterandmay.com"
    ],
    "sitemaps": 1,
-   "urls": 6310,
+   "urls": 6309,
    "kept": 6,
    "fetched": 6,
    "errors": 0,
@@ -73,6 +60,19 @@
     "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/secondment-experience-in-japan-insights-by-georgia-bertoloni/ @2026-06-18",
     "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/trainee-insights-by-kelsey-reid-jones/ @2026-06-18"
    ],
+   "carried": 0
+  },
+  "linklaters": {
+   "domains": [
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
+   ],
+   "sitemaps": 6,
+   "urls": 17809,
+   "kept": 6,
+   "fetched": 6,
+   "errors": 0,
    "carried": 0
   },
   "hsf": {
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 9630,
+   "urls": 9632,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -171,11 +171,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 7,
-   "urls": 7589,
-   "kept": 1,
-   "fetched": 1,
-   "errors": 10,
+   "sitemaps": 15,
+   "urls": 8072,
+   "kept": 2,
+   "fetched": 2,
+   "errors": 2,
    "carried": 0
   },
   "ropesgray": {
@@ -225,7 +225,7 @@
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2852,
+   "urls": 2853,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -244,7 +244,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12299,
+   "urls": 12300,
    "kept": 5,
    "fetched": 5,
    "errors": 0,
@@ -255,9 +255,9 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11598,
-   "kept": 13,
-   "fetched": 13,
+   "urls": 11600,
+   "kept": 14,
+   "fetched": 14,
    "errors": 0,
    "carried": 0
   },
@@ -271,7 +271,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7750,
+   "urls": 7753,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -302,7 +302,7 @@
     "content.clearygottlieb.com"
    ],
    "sitemaps": 1,
-   "urls": 18714,
+   "urls": 18718,
    "kept": 40,
    "fetched": 40,
    "errors": 1,
@@ -332,7 +332,7 @@
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16361,
+   "urls": 16365,
    "kept": 20,
    "fetched": 20,
    "errors": 0,
@@ -361,13 +361,31 @@
    "lastmod": "2026-10-21"
   },
   {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-dnb-bank-asa-on-usd750-million-notes-offering",
-   "title": "A&O Shearman advises DNB on USD750 million notes offering",
-   "description": "A&O Shearman acted as U.S. and English counsel to DNB Bank ASA on its USD750 million notes offering under its USD15bn Medium-Term Note Program.",
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-joint-lead-managers-on-first-benchmark-dlt-native-sovereign-bond-issuance",
+   "title": "Linklaters advises Joint Lead Managers on first benchmark DLT-native sovereign bond issuance by the Grand Duchy of Luxembourg",
+   "description": "Linklaters has advised the Joint Lead Managers on the first benchmark issuance by the Grand Duchy of Luxembourg of DLT-native sovereign bonds through LuxCSD, Luxembourg's central securities depository, using Clearstream's D7 DLT platform.",
+   "date": "2026-10-21",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-21"
+  },
+  {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/our-insights/blogs/real-estate-legal-update/102o62f/renters-rights-act-phase-2-get-ready-to-register/",
+   "title": "Renters",
+   "description": "Following the abolition of fixed term assured shorthold tenancies and",
    "date": "2026-10-21",
    "dateSource": "datePublished",
    "lastmod": "2026-10-21"
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
+   "title": "News Listing",
+   "description": null,
+   "date": "2026-10-21",
+   "dateSource": "datePublished",
+   "lastmod": null
   },
   {
    "firm": "mayerbrown",
@@ -389,22 +407,13 @@
    "dateProbe": []
   },
   {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-compass-and-mediobanca-on-a-eur900-million-cash-srt-securitization",
-   "title": "A&O Shearman advises Compass and Mediobanca on a EUR900 million cash SRT securitization",
-   "description": "A&O Shearman advised Compass and Mediobanca on a EUR900 million cash SRT securitisation, supporting significant risk transfer objectives.",
-   "date": "2026-10-20",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-21"
-  },
-  {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
-   "description": null,
-   "date": "2026-10-20",
-   "dateSource": "datePublished",
-   "lastmod": null
+   "firm": "slaughtermay",
+   "url": "https://www.slaughterandmay.com/insights/new-insights/tax-and-the-city-october-2026/",
+   "title": "Tax and the city - October 2026",
+   "description": "Tax and the City - October 2026",
+   "date": "2026-10-19",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-19"
   },
   {
    "firm": "linklaters",
@@ -413,15 +422,6 @@
    "description": "Explore key issues for defined benefit pension schemes, including surplus, endgame planning, Virgin Media, cyber risk and trustee governance.",
    "date": "2026-10-19",
    "dateSource": "page date label",
-   "lastmod": "2026-10-19"
-  },
-  {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/new-insights/tax-and-the-city-october-2026/",
-   "title": "Tax and the city - October 2026",
-   "description": "Tax and the City - October 2026",
-   "date": "2026-10-19",
-   "dateSource": "<time datetime>",
    "lastmod": "2026-10-19"
   },
   {
@@ -571,15 +571,6 @@
    "lastmod": null
   },
   {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
-   "title": "Capital, regulation and capability in a new era",
-   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
-   "date": "2026-10-15",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-15"
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/client-case-studies/cpp-investments-and-equinix-s-us-4bn-joint-acquisition/",
    "title": "CPP Investments and Equinix’s US$4bn joint acquisition",
@@ -590,6 +581,15 @@
    "dateProbe": [
     "td style=\"width: 49.9044%; border-style: none; padding: 20px;\"> <p>On 27 February 2026, Canada Pension Pla"
    ]
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
+   "title": "Capital, regulation and capability in a new era",
+   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
+   "date": "2026-10-15",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-15"
   },
   {
    "firm": "latham",
@@ -701,6 +701,16 @@
    "date": "2026-10-12",
    "dateSource": "datePublished",
    "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "sidley",
+   "url": "https://www.sidley.com/en/insights/resources/sidley-ai-monitor-laws-and-regulations",
+   "title": "Laws and Regulations | Resources",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-12",
+   "dateProbe": []
   },
   {
    "firm": "klgates",
