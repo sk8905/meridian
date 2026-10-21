@@ -1202,6 +1202,14 @@ const T = {
   d1320: {"s":"Financial services","m":1,"p":"Metropolitan Real Estate Equity, LLC","r":"target","c":null,"a":null},
   d1322: {"s":"Healthcare","p":"ABM Respiratory Care","r":"borrower","a":"financing","c":null},
   d1321: {"c":"Germany","cs":"https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-eiffel-investment-group-on-financing-of-bencis-partnership-with-kodiak","cb":"hq","s":"Industrials","p":"KODIAK GmbH","r":"borrower","a":null},
+  d1323: {"c":"UK","s":"Financial services","a":null,"p":"DNA Payments Group","r":"target"},
+  d1324: {"c":"UK","s":"Financial services","a":null,"p":"Apollo Group Holdings","r":"target"},
+  d1325: {"c":"UK","s":"Leisure & hospitality","a":null,"p":"Brasserie Bar Co","r":"target"},
+  d1326: {"c":"UK","s":"Leisure & hospitality","a":null,"p":"The Inn Collection Group","r":"target"},
+  d1327: {"c":"Pan-European","s":"TMT","a":null,"p":"Lebara Group","r":"target"},
+  d1328: {"c":"UK","s":"Financial services","a":null,"p":"Apollo Group Holdings","r":"target"},
+  d1329: {"c":"France","s":"Financial services","a":"portfolio","p":"BNP Paribas Personal Finance","r":"seller"},
+  d1330: {"c":"UK","s":"Real estate","a":null,"p":"Saltwater Place and Mary Parker House","r":"target"},
 };
 // A role (r) without a party name (p) labels the deal's own audited `borrower` (data audit
 // 2026-10-21: manager M&A → Target, fund closes / CVs → Fund / vehicle, CLOs → Issuer).
