@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-20T21:56:18.636Z",
- "since": "2026-10-06",
+ "generated": "2026-10-21T00:54:12.629Z",
+ "since": "2026-10-07",
  "firms": {
   "proskauerrose": {
    "domains": [
@@ -27,21 +27,19 @@
    ],
    "sitemaps": 5,
    "urls": 7365,
-   "kept": 3,
-   "fetched": 3,
+   "kept": 2,
+   "fetched": 2,
    "errors": 0,
    "carried": 0
   },
-  "linklaters": {
+  "slaughtermay": {
    "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
+    "www.slaughterandmay.com"
    ],
-   "sitemaps": 6,
-   "urls": 17806,
-   "kept": 3,
-   "fetched": 3,
+   "sitemaps": 1,
+   "urls": 6306,
+   "kept": 5,
+   "fetched": 5,
    "errors": 0,
    "carried": 0
   },
@@ -64,14 +62,16 @@
    ],
    "carried": 0
   },
-  "slaughtermay": {
+  "linklaters": {
    "domains": [
-    "www.slaughterandmay.com"
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
    ],
-   "sitemaps": 1,
-   "urls": 6306,
-   "kept": 10,
-   "fetched": 10,
+   "sitemaps": 6,
+   "urls": 17805,
+   "kept": 3,
+   "fetched": 3,
    "errors": 0,
    "carried": 0
   },
@@ -97,17 +97,6 @@
    "errors": 0,
    "carried": 0
   },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5021,
-   "kept": 6,
-   "fetched": 6,
-   "errors": 0,
-   "carried": 0
-  },
   "simmons": {
    "domains": [
     "www.simmons-simmons.com"
@@ -121,6 +110,17 @@
    "disallowed": 1,
    "carried": 0
   },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5021,
+   "kept": 6,
+   "fetched": 6,
+   "errors": 0,
+   "carried": 0
+  },
   "aoshearman": {
    "domains": [
     "www.aoshearman.com",
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 9625,
+   "urls": 9626,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -140,8 +140,8 @@
    ],
    "sitemaps": 9,
    "urls": 20207,
-   "kept": 14,
-   "fetched": 14,
+   "kept": 10,
+   "fetched": 10,
    "errors": 0,
    "carried": 0
   },
@@ -150,10 +150,21 @@
     "www.kirkland.com"
    ],
    "sitemaps": 11,
-   "urls": 17432,
+   "urls": 17433,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
+   "carried": 0
+  },
+  "sidley": {
+   "domains": [
+    "www.sidley.com"
+   ],
+   "sitemaps": 6,
+   "urls": 7192,
+   "kept": 1,
+   "fetched": 1,
+   "errors": 11,
    "carried": 0
   },
   "whitecase": {
@@ -164,17 +175,6 @@
    "urls": 10403,
    "kept": 26,
    "fetched": 26,
-   "errors": 0,
-   "carried": 0
-  },
-  "sidley": {
-   "domains": [
-    "www.sidley.com"
-   ],
-   "sitemaps": 17,
-   "urls": 8806,
-   "kept": 3,
-   "fetched": 3,
    "errors": 0,
    "carried": 0
   },
@@ -214,7 +214,7 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16222,
+   "urls": 16224,
    "kept": 6,
    "fetched": 6,
    "errors": 0,
@@ -245,19 +245,8 @@
    ],
    "sitemaps": 1,
    "urls": 12300,
-   "kept": 7,
-   "fetched": 7,
-   "errors": 0,
-   "carried": 0
-  },
-  "reedsmith": {
-   "domains": [
-    "www.reedsmith.com"
-   ],
-   "sitemaps": 5,
-   "urls": 11595,
-   "kept": 14,
-   "fetched": 14,
+   "kept": 5,
+   "fetched": 5,
    "errors": 0,
    "carried": 0
   },
@@ -271,9 +260,20 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7751,
+   "urls": 7748,
    "kept": 40,
    "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
+  "reedsmith": {
+   "domains": [
+    "www.reedsmith.com"
+   ],
+   "sitemaps": 5,
+   "urls": 11597,
+   "kept": 13,
+   "fetched": 13,
    "errors": 0,
    "carried": 0
   },
@@ -294,18 +294,6 @@
     "https://www.hlc.com/es/knowledge @2023-12-08",
     "https://www.hlc.com/en/knowledge/topic-centers/fintech-mentor-program @2026-01-06"
    ],
-   "carried": 0
-  },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 1,
-   "urls": 18715,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
    "carried": 0
   },
   "southsquare": {
@@ -333,9 +321,21 @@
    ],
    "sitemaps": 9,
    "urls": 16359,
-   "kept": 20,
-   "fetched": 20,
+   "kept": 19,
+   "fetched": 19,
    "errors": 0,
+   "carried": 0
+  },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 1,
+   "urls": 18715,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
    "carried": 0
   },
   "cliffordchance": {
@@ -389,21 +389,21 @@
    "lastmod": null
   },
   {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/insights/blogs/pensionlinks/2026/october/from-surplus-to-security-navigating-the-next-phase-for-defined-benefit-pension-schemes",
-   "title": "From surplus to security: Navigating the next phase for defined benefit pension schemes",
-   "description": "Explore key issues for defined benefit pension schemes, including surplus, endgame planning, Virgin Media, cyber risk and trustee governance.",
-   "date": "2026-10-19",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-19"
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/new-insights/tax-and-the-city-october-2026/",
    "title": "Tax and the city - October 2026",
    "description": "Tax and the City - October 2026",
    "date": "2026-10-19",
    "dateSource": "<time datetime>",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/insights/blogs/pensionlinks/2026/october/from-surplus-to-security-navigating-the-next-phase-for-defined-benefit-pension-schemes",
+   "title": "From surplus to security: Navigating the next phase for defined benefit pension schemes",
+   "description": "Explore key issues for defined benefit pension schemes, including surplus, endgame planning, Virgin Media, cyber risk and trustee governance.",
+   "date": "2026-10-19",
+   "dateSource": "page date label",
    "lastmod": "2026-10-19"
   },
   {
@@ -535,21 +535,21 @@
    "lastmod": null
   },
   {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/our-insights/blogs/viewpoints/102o5at/sdaia-consults-on-extensive-amendments-to-the-saudi-pdpl-implementing-regulation/",
-   "title": "SDAIA Consults on Extensive Amendments to the Saudi PDPL Implementing Regulation",
-   "description": "On 6 October 2026 the Saudi Data and Artificial Intelligence Authority (SDAIA) published draft amendments to the Implementing Regulation...",
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
-  },
-  {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-london-infrastructure-team-shortlisted-for-legal-adviser-of-the-year-emea",
    "title": "Weil London Infrastructure Team Shortlisted for Legal Adviser of the Year",
    "description": "Weil’s London Infrastructure team has been shortlisted for Legal Adviser of the Year – EMEA at the Infra Global Investor Awards 2026.",
    "date": "2026-10-16",
    "dateSource": "page date label",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/our-insights/blogs/viewpoints/102o5at/sdaia-consults-on-extensive-amendments-to-the-saudi-pdpl-implementing-regulation/",
+   "title": "SDAIA Consults on Extensive Amendments to the Saudi PDPL Implementing Regulation",
+   "description": "On 6 October 2026 the Saudi Data and Artificial Intelligence Authority (SDAIA) published draft amendments to the Implementing Regulation...",
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
    "lastmod": "2026-10-16"
   },
   {
@@ -562,15 +562,6 @@
    "lastmod": null
   },
   {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
-   "title": "Capital, regulation and capability in a new era",
-   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
-   "date": "2026-10-15",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-15"
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/client-case-studies/cpp-investments-and-equinix-s-us-4bn-joint-acquisition/",
    "title": "CPP Investments and Equinix’s US$4bn joint acquisition",
@@ -581,6 +572,15 @@
    "dateProbe": [
     "td style=\"width: 49.9044%; border-style: none; padding: 20px;\"> <p>On 27 February 2026, Canada Pension Pla"
    ]
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
+   "title": "Capital, regulation and capability in a new era",
+   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
+   "date": "2026-10-15",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-15"
   },
   {
    "firm": "latham",
@@ -703,16 +703,6 @@
    "lastmod": "2026-10-13"
   },
   {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/resources/sidley-ai-monitor-laws-and-regulations",
-   "title": "Laws and Regulations | Resources",
-   "description": null,
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-12",
-   "dateProbe": []
-  },
-  {
    "firm": "klgates",
    "url": "https://www.klgates.com/thought-leadership/New-South-Wales-No-Shortcuts-on-Scope-3-High-Court-Puts-Scope-3-Emissions-Back-on-the-Table-for-Resource-Projects-10-12-2026",
    "title": "New South Wales–No Shortcuts on Scope 3: High Court Puts Scope 3 Emissions Back on the Table for Resource Projects",
@@ -720,6 +710,15 @@
    "date": "2026-10-12",
    "dateSource": "page date label",
    "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "sidley",
+   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/california-adopts-regulations-expanding-healthcare-transaction-review",
+   "title": "California Adopts Regulations Expanding Healthcare Transaction Review",
+   "description": null,
+   "date": "2026-10-09",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-09"
   },
   {
    "firm": "whitecase",
@@ -730,15 +729,6 @@
    "dateSource": null,
    "lastmod": "2026-10-09",
    "dateProbe": []
-  },
-  {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/california-adopts-regulations-expanding-healthcare-transaction-review",
-   "title": "California Adopts Regulations Expanding Healthcare Transaction Review",
-   "description": null,
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
   },
   {
    "firm": "mayerbrown",
@@ -841,87 +831,6 @@
    "dateSource": null,
    "lastmod": "2026-10-07",
    "dateProbe": []
-  },
-  {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/client-case-studies/john-wood-group-s-highly-complex-acquisition-by-sidara/",
-   "title": "John Wood Group's highly complex acquisition by Sidara",
-   "description": null,
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-06",
-   "dateProbe": [
-    " class=\"heading-2 heading-2\"><span style=\"color: rgb(255, 255, 255);\">10 March 2026</span></h2> <h4 cla",
-    "onal conditions”, including publication of Wood’s audited accounts by 31 October 2025 and completion of t",
-    "ounts by 31 October 2025 and completion of the planned refinancing by 31 December 2025. If these condition"
-   ]
-  },
-  {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/client-case-studies/natwest-s-largest-acquisition-in-decades/",
-   "title": "NatWest’s largest acquisition in decades",
-   "description": null,
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-06",
-   "dateProbe": [
-    "d> <td style=\"width: 49.9044%; padding: 20px; border-style: none;\">On 9 February 2026, NatWest announced "
-   ]
-  },
-  {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/client-case-studies/zurich-to-acquire-beazley-in-recommended-8-2bn-all-cash-offer-for-beazley-plc/",
-   "title": "Zurich",
-   "description": null,
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-06",
-   "dateProbe": [
-    "d> <td style=\"width: 49.9044%; padding: 20px; border-style: none;\">On 2 March 2026, the Boards of Zuri",
-    "end, representing a 59.8% premium to Beazley’s closing share price on 16 January 2026 (being the last bus"
-   ]
-  },
-  {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/client-case-studies/tg-jones-part-26a-restructuring-plans/",
-   "title": "TG Jones’ Part 26A Restructuring Plans",
-   "description": null,
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-06",
-   "dateProbe": [
-    "d> <td> <div>The restructuring plans were sanctioned by Hildyard J on 1 July 2026 despite opposition "
-   ]
-  },
-  {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/client-case-studies/synthomer-s-788mn-fast-paced-refinancing/",
-   "title": "Synthomer's €788mn fast-paced refinancing",
-   "description": null,
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-06",
-   "dateProbe": [
-    "ion of its FY25 accounts, Synthomer needed to publish its accounts by 30 April 2026 or risk suspension "
-   ]
-  },
-  {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/congressional-democrats-propose-first-federal-corporate-practice-of-medicine-law-unlikely-to-pass",
-   "title": "Congressional Democrats Propose First Federal Corporate Practice of Medicine Law; Unlikely to Pass",
-   "description": null,
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/news/brian-hirsch-discusses-ai-infrastructure-capital-tech-capital",
-   "title": "Brian Hirsch discusses AI infrastructure capital with The Tech Capital",
-   "description": "Davis Polk partner Brian Hirsch was quoted in The Tech Capital discussing the many elements of a data center project and how they rely on each other.The...",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
   },
   {
    "firm": "kirkland",
