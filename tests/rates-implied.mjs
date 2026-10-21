@@ -24,6 +24,17 @@ check(/^Fed December 2026 .*Hike 25bp 79%.*Hold 20%/.test(r.rows[1]), `Fed Decem
 check(!r.rows.some((x) => /Swift/.test(x)), "non-central-bank markets are excluded");
 check(r.links && /not a Wire forecast/.test(r.cap), "each odd links its market and is labelled as crowd probability");
 check(r.badge === "live", `a live payload badges LIVE (${r.badge})`);
+// Owner 2026-10-20: the Fed and BoE paths are merged into the same card, under the odds.
+const m = await pg.evaluate(() => {
+  const card = document.getElementById("dsh-ratepath");
+  const banks = card ? [...card.querySelectorAll(".dsh-path-bank .dsh-path-bh")].map((h) => h.textContent) : [];
+  const imp = card && card.querySelector("#dsh-implied"), grid = card && card.querySelector(".dsh-path-grid");
+  return { banks, after: !!(imp && grid && (imp.compareDocumentPosition(grid) & Node.DOCUMENT_POSITION_FOLLOWING)),
+    fw: !!(card && card.querySelector(".dsh-path-bank .dsh-fw")),
+    oldLbl: [...document.querySelectorAll(".dsh-term-lbl")].some((l) => /Central-bank paths/i.test(l.textContent)) };
+});
+check(m.banks.length === 2 && /^Fed/.test(m.banks[0]) && /^BoE/.test(m.banks[1]) && m.after && m.fw, `the Fed and BoE paths sit inside the Rate path card, under the odds (${m.banks.join(" | ")})`);
+check(!m.oldLbl, "no separate Central-bank paths section");
 checkErrs(errs, "rates implied path");
 // iPhone: the async-filled table re-renders as stacked rows (tables are hidden on phones).
 {

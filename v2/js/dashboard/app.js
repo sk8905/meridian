@@ -1569,7 +1569,9 @@ export function mount(host, ctx) {
     const mid = `<section class="dsh-card dsh-span">${regimePillsHTML()}</section>
       <h3 class="dsh-term-lbl">Policy &amp; money markets</h3>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">Policy rates — ECB · BoE · Fed ${liveOr("pol")}</h3><div id="dsh-policy">${policyHTML()}</div></section>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Market-implied path — next decisions ${liveOr("implied")}</h3><div id="dsh-implied">${impliedHTML()}</div></section>
+      <section class="dsh-card dsh-wide" id="dsh-ratepath"><h3 class="dsh-h">Rate path — next decisions ${liveOr("implied")}</h3>
+        <div class="dsh-fed-h">Prediction markets</div><div id="dsh-implied">${impliedHTML()}</div>
+        ${fed || boe ? `<div class="dsh-path-grid">${fed ? `<div class="dsh-path-bank"><h4 class="dsh-path-bh">Fed — CME FedWatch &amp; dot plot</h4>${fed}</div>` : ""}${boe ? `<div class="dsh-path-bank"><h4 class="dsh-path-bh">BoE — SONIA/OIS &amp; MPC votes</h4>${boe}</div>` : ""}</div>` : ""}</section>
       <section class="dsh-card"><h3 class="dsh-h">Central-bank calendar ${asOf(CB_CALENDAR && CB_CALENDAR.asOf)}</h3>${cbCalHTML()}</section>
       ${fillCard("dsh-mmhist", "Money-market rates — 2 months", mmHistBody(), liveOr("mmhist"))}
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">Money markets — €STR · Euribor · SONIA · SOFR ${liveOr("mm")}</h3><div id="dsh-mm" class="dsh-spreads">${moneyMarketsHTML()}</div></section>
@@ -1582,11 +1584,6 @@ export function mount(host, ctx) {
       <section class="dsh-card"><h3 class="dsh-h">Sovereign yields — G7 &amp; Western Europe ${liveOr("gy")} ${gyAsOf}</h3><div class="dsh-scroll" id="dsh-yc-tbl">${worldYieldCurveHTML()}</div></section>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h dsh-h-sel">Sovereign yield changes — 1W · 1M · 3M · 6M · 1Y ${liveOr("gy")} ${gyAsOf}${yldSelectHTML()}</h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
       ${km ? fillCard("dsh-why", "Rates — why it moved", `<div class="dsh-km-wrap">${km}</div>`) : ""}
-      <h3 class="dsh-term-lbl">Central-bank paths</h3>
-      <div class="dsh-wide dsh-row2">
-        ${fed ? `<section class="dsh-card"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
-        ${boe ? `<section class="dsh-card"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS</h3>${boe}</section>` : ""}
-      </div>
       <h3 class="dsh-term-lbl">Reference</h3>
       <details class="dsh-card dsh-span dsh-ref"><summary class="dsh-h dsh-ref-sum">Cycles &amp; market sizes <span class="dsh-mut">${esc(MARKET_SIZES.asOf || "")}</span></summary>
         <div class="dsh-wide dsh-row2"><section class="dsh-card">${cyc.debt}</section><section class="dsh-card">${cyc.market}</section></div>

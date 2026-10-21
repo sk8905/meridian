@@ -55,7 +55,7 @@ const cardVisible = (sel) => d.pg.evaluate((s) => {
   return !!(el && el.offsetParent !== null);
 }, sel);
 const lbls = await d.pg.evaluate(() => Array.from(document.querySelectorAll(".dsh-term-lbl")).map((b) => b.textContent.trim()));
-check(lbls.join(",") === "Policy & money markets,Curves,Central-bank paths,Reference,Rates wire", `Rates is labelled Policy & money markets · Curves · Central-bank paths · Reference + Rates wire (got ${lbls.join(",")})`);
+check(lbls.join(",") === "Policy & money markets,Curves,Reference,Rates wire", `Rates is labelled Policy & money markets · Curves · Reference + Rates wire (the Fed/BoE paths sit inside the Rate path card) (got ${lbls.join(",")})`);
 check(await cardVisible(".dsh-mid .dsh-h"), "the stacked policy cards are visible");
 check(await cardVisible(".dsh-mid .dsh-cyc"), "the Cycle blocks are visible once Reference is opened");
 

@@ -1405,7 +1405,11 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   card must use the shared preview (`previewList` / `PV_SEL`, or the roster `PREVIEW`)
   and never invent its own cap or inline expander;
   Home rails keep fixed widths on every screen (`tests/dashboard-desktop-preview.mjs`). **(h) Rates** show a market-implied path from prediction-
-  market odds, labelled as crowd probabilities (`tests/rates-implied.mjs`).
+  market odds, labelled as crowd probabilities (`tests/rates-implied.mjs`). **One rate-path
+  card** (owner 2026-10-20): the prediction-market odds first, then the **Fed** (CME
+  FedWatch + dot plot) and **BoE** (SONIA/OIS + MPC votes) paths beneath them in the SAME
+  card — two columns on desktop, stacked on iPhone. Never a separate "Central-bank paths"
+  section: every view of where policy rates are heading sits together.
 - **R42 — Offering build (owner-approved 2026-10-15).** **(a) Navigation (R13):** **Home · Dashboard · News ·
   Deals · Profiles** on the iPhone/iPad bottom bar; the **desktop header has no News**
   — **Home · Dashboard · Deals · Profiles** (owner 2026-10-20 — supersedes 2026-10-16's
