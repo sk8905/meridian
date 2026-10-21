@@ -132,6 +132,8 @@ for (const theme of ["dark", "light"]) {
     await pg.goto(`http://localhost:${srv.port}/v2/dashboard/${t}/`, { waitUntil: "load" }); await pg.waitForTimeout(1200);
     const bad = await pg.evaluate(() => [...document.querySelectorAll(".dsh-news-i")].filter((li) => li.offsetParent).filter((li) => {
       const d = li.children[0], a = li.querySelector(":scope > .g-ev-t"), sx = li.querySelector(":scope > .c-src");
+      // Legal cards (owner 2026-10-21, .g-ev-src2): the source sits alone on line 2, under the headline.
+      if (li.classList.contains("g-ev-src2")) { const m = li.querySelector(":scope > .g-ev-m"); return !d || !a || !m || !m.textContent.trim() || m.getBoundingClientRect().top < a.getBoundingClientRect().bottom - 1; }
       if (!d || !d.classList.contains("c-date") || !a || !sx) return true;
       return d.getBoundingClientRect().right > a.getBoundingClientRect().left + 1 || sx.getBoundingClientRect().left < a.getBoundingClientRect().right - 1; }).length);
     checkEq(bad, 0, `Desktop ${t}: every events row reads date · headline · source (R43)`);

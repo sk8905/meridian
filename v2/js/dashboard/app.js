@@ -11,7 +11,7 @@
 // "as of <time>" when last-known values are shown — plain language, R3).
 // mount → {enter,leave,home}.
 // =============================================================================
-import { esc, MONTHS, byDateDesc, fmtD } from "/util.js";
+import { esc, MONTHS, byDateDesc, fmtD, outletOf } from "/util.js";
 import { fmtDay as fmtDate, evRow, evList, tableCols } from "/feed.js";
 import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG, PRIVATE_CREDIT, EU_DISTRESS, REG_CALENDAR } from "/dashboard/js/data.js";
 import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS, MARKET_SIZES, CB_CALENDAR } from "/macro/js/content.js";
@@ -1802,10 +1802,13 @@ export function mount(host, ctx) {
   }
   // Legal wire — the freshest sourced alerts & case law as a right-rail news list
   // (legalDb() is already newest-first), mirroring the Macro/Credit wires.
+  // Legal-card row (owner 2026-10-21): headline across the card, the source (firm or
+  // court) alone on line 2 — no "Alert"/"Case" label or citation.
+  const legalLi = (x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: esc(x.firm || x.court || outletOf(x.url) || ""), cls: "g-ev-src2", attrs: "" });
   function legalNewsHTML() {
     const items = legalDb().filter((x) => x && x.date && x.title && x.url).slice(0, 16);
     if (!items.length) return "";
-    return newsUl(items.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: x.type === "case" ? "Case" : "Alert", src: x.firm || x.court })));
+    return newsUl(items.map(legalLi));
   }
   // Restructuring & insolvency — the newest sourced alerts / case law in the
   // restructuring practice area (schemes, Part 26A plans, insolvency), drawn from
@@ -1818,7 +1821,7 @@ export function mount(host, ctx) {
     const it = (_insolv && _insolv.items) || [];
     if (!it.length) return "";
     return `<div class="dsh-fed-h">Official — UK Insolvency Service</div>`
-      + newsUl(it.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, meta: "Statistics", src: "Insolvency Service" })), "dsh-insolv")
+      + newsUl(it.map((x) => legalLi({ ...x, firm: "Insolvency Service" })), "dsh-insolv")
       + `<div class="dsh-fed-h dsh-insolv-sep">Firm alerts &amp; case law</div>`;
   }
   async function loadInsolvency() {
@@ -1830,7 +1833,7 @@ export function mount(host, ctx) {
     const items = legalDb().filter((x) => x && x.area === "ri" && x.date && x.title && x.url);
     const official = `<div id="dsh-insolv-b">${insolvencyBlock()}</div>`;
     if (!items.length) return official + `<p class="dsh-load">No restructuring items tracked.</p>`;
-    return official + newsUl(items.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: x.type === "case" ? "Case" : "Alert", src: x.firm || x.court })));
+    return official + newsUl(items.map(legalLi));
   }
   // Regulatory calendar — dated, sourced milestones (REG_CALENDAR), upcoming first
   // then the most recent past ones; an undated item (e.g. a file still in
@@ -1863,13 +1866,13 @@ export function mount(host, ctx) {
   function caseLawBody() {
     const rows = legalDb().filter((x) => x && x.type === "case" && x.date && x.title && x.url);
     if (!rows.length) return `<p class="dsh-load">No case law tracked.</p>`;
-    return newsUl(rows.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: metaOf(x.citation, (LGL_AREA_BY_ID[x.area] || {}).short), src: x.court })));
+    return newsUl(rows.map(legalLi));
   }
   // Legal · every item in one practice area, newest first (alerts + judgments).
   function areaListBody(area) {
     const rows = legalDb().filter((x) => x && x.area === area && x.date && x.title && x.url);
     if (!rows.length) return `<p class="dsh-load">No items tracked.</p>`;
-    return newsUl(rows.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: x.type === "case" ? "Case" : "Alert", src: x.firm || x.court })));
+    return newsUl(rows.map(legalLi));
   }
   // Legal · activity by practice area: alerts and judgments in the last 30 / 90 days
   // and in total, from the desk's own records.

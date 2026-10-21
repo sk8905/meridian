@@ -212,6 +212,11 @@ body.wire-sliding .g-feed-srcbar { position:static; }
   align-items:baseline; align-content:center; box-sizing:border-box; height:var(--ev-h); margin:0;
   padding:0; overflow:hidden; border-bottom:1px solid var(--t-grid); font-size:var(--fs-body); }
 .g-ev:last-child { border-bottom:0; }
+/* Source-on-line-2 variant (owner 2026-10-21, Dashboard ▸ Legal cards): the headline takes
+   the full width of the card; line 2 is the source (firm / court) alone — no type label
+   ("Alert"), citation or area, and no right-hand source column. */
+.g-ev.g-ev-src2 { grid-template-columns:var(--c-date-w) minmax(0,1fr); grid-template-areas:"date title" "date meta"; }
+.g-ev.g-ev-src2 > :is(.c-tag, .c-src) { display:none; }
 .g-ev > .c-date { grid-area:date; align-self:start; padding-top:2px; }
 .g-ev > .g-ev-t { grid-area:title; min-width:0; color:var(--t-ink); font-size:var(--fs-body); font-weight:400; line-height:1.35;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-decoration:none; }
