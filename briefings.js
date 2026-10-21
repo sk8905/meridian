@@ -100,10 +100,10 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-21",
-  time: "07:06 BST",
-  lede: "US stocks rose on Tuesday as oil reversed from six-month highs and longer-dated Treasury yields fell about 5bp, while demand for AI-linked credit protection pushed Oracle's five-year CDS to about 3.3% a year.",
+  time: "09:10 BST",
+  lede: "UK inflation jumped to 3.5% in September on a fuel surge, firming bets on a Bank of England hike on 5 November, while the US 10-year Treasury yield held near 5.1% and stocks edged higher into big-tech earnings.",
   bullets: [
-    { html: "<strong>Macro &mdash; US pending home sales fell to a record low</strong> as mortgage rates surged, the FT reported, with the 10-year Treasury yield having pushed back above 5.1% earlier in the day.", src: "https://www.ft.com/content/42ed6778-d350-48a6-ba3d-99efca3cd276", srcName: "Financial Times", date: "2026-10-20" },
+    { html: "<strong>Macro &mdash; UK CPI rose to 3.5% in September</strong> from 3.1% in August (consensus 3.4%), with petrol up 29.8% on the year and core at 2.8%; markets expect the Bank of England to hike from 3.75% on 5 November, while the US 10-year yield sits near 5.1%.", src: "https://www.fxstreet.com/news/uk-cpi-set-to-accelerate-paving-the-way-for-a-boe-interest-rate-hike-in-november-202610210200", srcName: "FXStreet", date: "2026-10-21" },
     { html: "<strong>Bonds &mdash; US Treasury yields fell about 5bp at the long end</strong> (and rose 2bp at the short end) as oil reversed from six-month highs; French yields dipped but the spread over bunds posted its widest close since 2011, per Reuters' Trading Day.", src: "https://www.reuters.com/newsletters/trading-day", srcName: "Reuters (Trading Day)", date: "2026-10-20" },
     { html: "<strong>Equities &mdash; the S&amp;P 500 rose 0.3% and the Dow 1%,</strong> with the Russell 2000 up 1.7% (its biggest gain since 4 August) while Nasdaq was flat; Netflix fell 6% after the bell on a weak fourth-quarter forecast.", src: "https://www.reuters.com/newsletters/trading-day", srcName: "Reuters (Trading Day)", date: "2026-10-20" },
     { html: "<strong>Credit &mdash; Oracle five-year CDS now costs about 3.3% a year,</strong> against about 0.33% five years ago, as more than $9bn a week of CDS tied to AI-linked issuers traded in September, up from under $2bn in July, per Morgan Stanley Research cited by the FT.", src: "https://bloom.bg/4z1tpy0", srcName: "Bloomberg (Money Stuff)", date: "2026-10-20" },

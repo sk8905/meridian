@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-21",
-  lastCheckedTime: "07:06 BST",
+  lastCheckedTime: "09:10 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1039,7 +1039,7 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-20",
+  updated: "2026-10-21",
   us: [
     {title: "US pending home sales fall to record low as mortgage rates surge", source: "Financial Times", date: "2026-10-20", time: "16:47", url: "https://www.ft.com/content/42ed6778-d350-48a6-ba3d-99efca3cd276"},
     {title: "US stocks set for rebound after AI sell-off", source: "Financial Times", date: "2026-10-19", time: "07:34", url: "https://www.ft.com/content/915ea7ca-1f35-4847-810a-fb29e8344496"},
@@ -1052,7 +1052,7 @@ export const NEWS = {
     {title: "UK jobs market stabilises before Budget", source: "Financial Times", date: "2026-10-20", time: "16:59", url: "https://www.ft.com/content/2d20b09b-6565-4253-a809-8a0542e6770a"},
     {title: "Britain’s budget should build on its economic resilience", source: "Financial Times", date: "2026-10-20", time: "17:15", url: "https://www.ft.com/content/8be29348-e112-462f-96eb-44a699ca61a6"},
     {title: "BoE scrutinises Barclays over claim traders misrepresented private credit exposure", source: "Financial Times", date: "2026-10-19", time: "05:00", url: "https://www.ft.com/content/f3127b4f-d33a-4431-acff-021829f3aa72"},
-    {title: "FTSE as Hedge", source: "Financial Times", date: "2026-10-19", time: "07:30", url: "https://www.ft.com/content/cce1d9b5-5f36-4c42-ab7b-1b74fc788773"},
+    {title: "United Kingdom CPI inflation climbs to 3.5% YoY in September, vs. 3.4% expected", source: "FXStreet", date: "2026-10-21", url: "https://www.fxstreet.com/news/uk-cpi-set-to-accelerate-paving-the-way-for-a-boe-interest-rate-hike-in-november-202610210200"},
   ],
 };
 
