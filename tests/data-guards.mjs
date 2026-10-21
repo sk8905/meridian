@@ -18,7 +18,7 @@ function ratchet(name, found, known) {
 // 1. A manager's AUM never exceeds its firm-wide total (a sleeve > the firm = a currency
 //    or scope mix-up), and the credit platform never exceeds the firm either.
 const real = C.managers.filter((m) => !m.profileStub);
-ratchet("managers: aum ≤ aumTotal", real.filter((m) => m.aum != null && m.aumTotal != null && m.aum > m.aumTotal * 1.01).map((m) => m.id), new Set(["m40", "m96"]));
+ratchet("managers: aum ≤ aumTotal", real.filter((m) => m.aum != null && m.aumTotal != null && m.aum > m.aumTotal * 1.01).map((m) => m.id), new Set([]));
 ratchet("managers: aumCredit ≤ aumTotal", real.filter((m) => m.aumCredit != null && m.aumTotal != null && m.aumCredit > m.aumTotal * 1.01).map((m) => m.id), new Set([]));
 
 // 2. One record per event: the same tracked firm, the same day and the same counterparty

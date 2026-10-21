@@ -6245,6 +6245,4303 @@
      "reported": "70bn USD"
     }
    ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d8",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "a total package of €180m deployed in tranches, including a 2020 HoldCo PIK",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d143",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "acquire Alpha Bank 'Galaxy' EUR 10.8bn NPL portfolio",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "portfolio"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d169",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "EUR 37m syndicated financing led by Deutsche Bank Espana",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d171",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "acquire Substantial Group ... through their joint venture nexfibre for £2bn",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "ev"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d174",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Leumi UK provided a £70m loan to funds managed by Zetland Capital to refinance",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d175",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "leading a bespoke GBP 42.9m facility to refinance a diversified commercial real estate portfolio",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d176",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "approved two loans totalling GBP 11m to hotel investor and operator 4C Group",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d262",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "acquire Kiavi's technology and operating platform for a total transaction price of $717m",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "ev"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d270",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "targeting about $1.6bn of deployment a year (annual deployment target of the programme)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d282",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "acquire Stellus Capital Management ... for an initial $250m ... plus up to $60m earnout",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "ev"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d299",
+   "verdict": "GAP",
+   "source": "https://www.topograph.co/companies/ie/cvc-cordatus-loan-fund-xxxiv-designated-activity-company-771626",
+   "sourceLabel": "Irish CRO register (via Topograph)",
+   "asOf": null,
+   "evidence": "CVC's 2025 first CLO = Cordatus X reset/upsize to €450m; issuer CVC Cordatus Loan Fund X DAC is registered in Ireland (Cbonds LEI listing); all CVC Cordatus Loan Funds are Irish DACs. LEAD CHECK: registry aggregator source.",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "Ireland"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.topograph.co/companies/ie/cvc-cordatus-loan-fund-xxxiv-designated-activity-company-771626"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "issuer"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d583",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "arranged EUR153m of financing for a 137 MW solar project",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d588",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "injecting EUR200m of fresh equity plus a further EUR250m toward modernising the airline's long-haul fleet (equity)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d590",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "agreed to inject EUR925m of the EUR1.2bn equity injection (equity, not debt)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d598",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Intrum weighed options including a $6bn debt restructuring (bond debt being restructured)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d606",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "manage an initial c.EUR 0.2bn perimeter of non-core equity participations owned by the bank",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "portfolio"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d610",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "structured a c.EUR 25m financing package for Spanish pharmaceutical company Labiana",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d627",
+   "verdict": "GAP",
+   "source": "https://www.topograph.co/companies/ie/harvest-clo-xlii-designated-activity-company-802556",
+   "sourceLabel": "Irish CRO register (via Topograph)",
+   "asOf": null,
+   "evidence": "Irish company register: Investcorp's Harvest CLO vehicles (XXXI, XXXV, XLII…) are Irish designated activity companies registered at Two Dockland Central, Dublin 1; Euronext Dublin notices for Harvest CLO DACs. LEAD CHECK: the specific print is unnamed in the deal text; registry aggregator source.",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "Ireland"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.topograph.co/companies/ie/harvest-clo-xlii-designated-activity-company-802556"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "issuer"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d881",
+   "verdict": "GAP",
+   "source": "https://www.sec.gov/Archives/edgar/data/0000092230/000009223026000105/ex991slide.htm",
+   "sourceLabel": "Truist Financial 8-K (SEC)",
+   "asOf": null,
+   "evidence": "Truist Financial (US bank) 8-K slides: agreed to sell $5.5B of auto loans, 'substantially all of Regional Acceptance Corporation's assets' (RAC: US near-prime auto lender, Charlotte/Dallas staff)",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "US"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.sec.gov/Archives/edgar/data/0000092230/000009223026000105/ex991slide.htm"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "portfolio"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d926",
+   "verdict": "GAP",
+   "source": "https://www.housingwire.com/articles/fidelis-rtl-securitization-2026/",
+   "sourceLabel": "HousingWire",
+   "asOf": null,
+   "evidence": "Collateral entirely US residential transition (fix-and-flip) loans bought from Unitas Funding LLC and US third-party originators (e.g. Easy Street Capital, LLC), serviced by Fidelis Investors LLC with FCI Lender Services; KBRA/DBRS-rated US RMBS. LEAD CHECK: snippets don't print the word 'US'.",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "US"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.housingwire.com/articles/fidelis-rtl-securitization-2026/"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "portfolio"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d927",
+   "verdict": "GAP",
+   "source": "https://www.housingwire.com/articles/fidelis-rtl-securitization-2026/",
+   "sourceLabel": "HousingWire",
+   "asOf": null,
+   "evidence": "Collateral entirely US residential transition (fix-and-flip) loans bought from Unitas Funding LLC and US third-party originators (e.g. Easy Street Capital, LLC), serviced by Fidelis Investors LLC with FCI Lender Services; KBRA/DBRS-rated US RMBS. LEAD CHECK: snippets don't print the word 'US'.",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "US"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.housingwire.com/articles/fidelis-rtl-securitization-2026/"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "portfolio"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d931",
+   "verdict": "GAP",
+   "source": "https://www.housingwire.com/articles/fidelis-rtl-securitization-2026/",
+   "sourceLabel": "HousingWire",
+   "asOf": null,
+   "evidence": "Collateral entirely US residential transition (fix-and-flip) loans bought from Unitas Funding LLC and US third-party originators (e.g. Easy Street Capital, LLC), serviced by Fidelis Investors LLC with FCI Lender Services; KBRA/DBRS-rated US RMBS. LEAD CHECK: snippets don't print the word 'US'.",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "US"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.housingwire.com/articles/fidelis-rtl-securitization-2026/"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "portfolio"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d932",
+   "verdict": "GAP",
+   "source": "https://www.housingwire.com/articles/fidelis-rtl-securitization-2026/",
+   "sourceLabel": "HousingWire",
+   "asOf": null,
+   "evidence": "Collateral entirely US residential transition (fix-and-flip) loans bought from Unitas Funding LLC and US third-party originators (e.g. Easy Street Capital, LLC), serviced by Fidelis Investors LLC with FCI Lender Services; KBRA/DBRS-rated US RMBS. LEAD CHECK: snippets don't print the word 'US'.",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "US"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.housingwire.com/articles/fidelis-rtl-securitization-2026/"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "portfolio"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1012",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "USD137.5 million senior secured delayed-draw term loan facility",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1020",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "attracted USD1bn in commitments from institutional investors in its first year",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "fund"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1030",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "launched the ... MSME Support Fund with about USD 140 million and a USD 350 million target size",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "fund"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1031",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "second closing of its Covid-19 ... MSME Support Fund at USD 207 million",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "fund"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1032",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "second close of the InsuResilience Investment Fund Private Equity II, raising over USD 50 million",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "fund"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1034",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "raised EUR80m at its first closing",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "fund"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1035",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "The group had revenues of about EUR240m (revenue; price not stated)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1036",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "closed its second digital health fund, Digital Health 2, at EUR155m",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "fund"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1037",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Mazarine reported 2022 turnover of EUR182m (revenue; price not stated)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1038",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Dutscher Group ... with 2025 revenues above EUR400m (revenue; price not stated)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1053",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Cheyne Capital and Cross Ocean Partners, which together manage over $20 billion in assets. The amount was not disclosed.",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1084",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "had 2024 revenue of EUR86m (revenue; price not stated)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1090",
+   "verdict": "GAP",
+   "source": "https://www.lsg-group.com/exoagyve/2023_Closing_Sale_Press_Release_EN_Final-1.pdf",
+   "sourceLabel": "LSG Group",
+   "asOf": null,
+   "evidence": "LSG Group's own 2023 closing release gives its address as Dornhofstraße 38, D-63263 Neu-Isenburg (near Frankfurt)",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "Germany"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.lsg-group.com/exoagyve/2023_Closing_Sale_Press_Release_EN_Final-1.pdf"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "hq"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1091",
+   "verdict": "GAP",
+   "source": "https://www.lsg-group.com/exoagyve/2023_Closing_Sale_Press_Release_EN_Final-1.pdf",
+   "sourceLabel": "LSG Group",
+   "asOf": null,
+   "evidence": "LSG Group's own 2023 closing release gives its address as Dornhofstraße 38, D-63263 Neu-Isenburg (near Frankfurt)",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "Germany"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.lsg-group.com/exoagyve/2023_Closing_Sale_Press_Release_EN_Final-1.pdf"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "hq"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1092",
+   "verdict": "GAP",
+   "source": "https://aurelius-group.com/aurelius-acquires-iconic-global-beauty-brand-and-retailer-body-shop",
+   "sourceLabel": "AURELIUS",
+   "asOf": null,
+   "evidence": "'The Body Shop, which is headquartered in London and employs c. 7,000 staff'",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "UK"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://aurelius-group.com/aurelius-acquires-iconic-global-beauty-brand-and-retailer-body-shop"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "hq"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1098",
+   "verdict": "GAP",
+   "source": "https://tech.eu/2022/05/11/london-based-fasanara-rolls-out-350-million-vc-fund-to-back-fintech-and-crypto-startups/",
+   "sourceLabel": "Tech.eu",
+   "asOf": null,
+   "evidence": "tech.eu headline on this same raise: 'London-based Fasanara rolls out $350 million VC fund'",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "UK"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://tech.eu/2022/05/11/london-based-fasanara-rolls-out-350-million-vc-fund-to-back-fintech-and-crypto-startups/"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "hq"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1099",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Deal text: 'London-based Fasanara Capital raised $200 million'",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "UK"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1101",
+   "verdict": "GAP",
+   "source": "https://www.prnewswire.co.uk/news-releases/algeco-group-changes-its-name-to-modulaire-group-851107198.html",
+   "sourceLabel": "PR Newswire (company release)",
+   "asOf": null,
+   "evidence": "Algeco Group's name-change release (Modulaire Group) is London-headquartered; operations pan-European",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "UK"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.prnewswire.co.uk/news-releases/algeco-group-changes-its-name-to-modulaire-group-851107198.html"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "hq"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1102",
+   "verdict": "GAP",
+   "source": "https://www.markerstudygroup.com/",
+   "sourceLabel": "Markerstudy Group",
+   "asOf": null,
+   "evidence": "Markerstudy site: 'registered office at 45 Westerham Road, Bessels Green, Sevenoaks, Kent TN13 2QB', registered in England and Wales no. 13074067",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "UK"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.markerstudygroup.com/"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "incorporated"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1105",
+   "verdict": "GAP",
+   "source": "https://eurobuildcee.com/news/55189-fidera-doinwestuje",
+   "sourceLabel": "Eurobuild CEE",
+   "asOf": null,
+   "evidence": "Eurobuild CEE (deal's own source): Cavatina/Resi Capital projects 'na polskim rynku mieszkaniowym' (on the Polish housing market); article tagged Polska",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "Poland"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://eurobuildcee.com/news/55189-fidera-doinwestuje"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "asset"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1113",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "valuing Arrow at approximately GBP563m",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "ev"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1117",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Amitra Capital ... over EUR4.0bn AUM in European NPLs and real estate",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "aum"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1119",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Price undisclosed ... Octopus plans to grow Elivia to £250m turnover (turnover target)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1121",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Cheyne Capital provided a €288.6m senior loan",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1136",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "its EUR 50 million senior secured facility to Lodgyslife",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1137",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "aggregate gross development value on completion of EUR 172 million (GDV of the asset portfolio, not the sale price)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1143",
+   "verdict": "GAP",
+   "source": "https://www.hotelexecutive.com/newswire/23874/exclusive-to-double-office-space-in-denver",
+   "sourceLabel": "Hotel Executive (company release)",
+   "asOf": null,
+   "evidence": "Company release: Exclusive Resorts leased ~80,000 sq ft at Park Central, 1515 Arapahoe St., Denver for its headquarters (Denver, Colorado)",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "US"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.hotelexecutive.com/newswire/23874/exclusive-to-double-office-space-in-denver"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "hq"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1145",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "MCL has serviced well over £150m to UK businesses since 2018 (facility size not stated)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1146",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "£21.3m (€25.2m) senior secured loan to refinance The Edge",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1147",
+   "verdict": "GAP",
+   "source": "https://pembertonam.com/news/pemberton-provides-financing-to-support-exponents-buyout-of-killarney-telecommunications/",
+   "sourceLabel": "Pemberton Asset Management",
+   "asOf": null,
+   "evidence": "Pemberton release (deal's own source): KTL 'Founded in 1998 and headquartered in Naas, Ireland'",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "Ireland"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://pembertonam.com/news/pemberton-provides-financing-to-support-exponents-buyout-of-killarney-telecommunications/"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "hq"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1148",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "sell its TriConnex ... and eSmart Networks ... for GBP77.7m in cash",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "ev"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1169",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "The combination more than doubled GSBD's assets to about $3.5bn (combined BDC assets)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1170",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "for $665m in cash and equity at closing plus up to $300m of contingent consideration",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "ev"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1171",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "for about $2.0bn in cash and equity subject to performance targets",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "ev"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1172",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "adding about $31bn of assets under supervision across 171 defined outcome ETFs",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "aum"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1178",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "paying $183m in cash to selling holders (controlling stake)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "ev"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1182",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "acquire 100% of AXA Investment Managers ... for about EUR5.1bn",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "ev"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1183",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "AXA reported cash proceeds of EUR5.1bn",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "ev"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1195",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "MAM retained the asset management business, which manages US$76bn",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "aum"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1199",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "Spire Partners ... with approximately $7.5bn of client assets ... Financial terms were not disclosed",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "aum"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1220",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "committing at least $600m to new and existing VPC strategies ... Terms were not disclosed",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1229",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "L&G cites a £48bn private markets platform as at 31 December 2023 (L&G's own platform, not a target)",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "other"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1243",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "sale of Electrical Components International ... in a deal valued at about $1.9bn",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "ev"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1245",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "sold Tenet Equity ... to CBRE Investment Management for $1.6bn",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "ev"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1246",
+   "verdict": "GAP",
+   "source": null,
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "acquire ... for up to about GBP1.1bn in cash",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "ev"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f225",
+   "verdict": "STALE",
+   "source": "https://bebeez.it/private-debt/secondo-closing-della-raccolta-a-35-mln-euro-per-azimut-diversified-corporate-credit-esg-la-dotazione-del-fondo-arriva-cosi-a-161-mln-euro/",
+   "sourceLabel": "BeBeez",
+   "asOf": "2025-01-14",
+   "evidence": "Article published 2025-01-14: second closing of €35m for Azimut Diversified Corporate Credit ESG; 'la dotazione del fondo arriva così a 161 mln euro', with a new closing planned for spring; first closing (June 2024) was €126m. Target €500m. Status stays 'First Close' (interim close, no final close found).",
+   "changes": [
+    {
+     "field": "raised",
+     "from": null,
+     "to": 161
+    },
+    {
+     "field": "asOf",
+     "from": "2023-06",
+     "to": "2025-01-14"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "InvestEU: EIF and Azimut Investments launch new senior private credit fund",
+       "url": "https://www.eif.org/InvestEU/news/2023/investeu-eif-azimut-investments-launch-new-senior-private-credit-fund-promote-climate-action-italy.htm"
+      }
+     ],
+     "to": [
+      {
+       "label": "EIF",
+       "url": "https://www.eif.org/InvestEU/news/2023/investeu-eif-azimut-investments-launch-new-senior-private-credit-fund-promote-climate-action-italy.htm"
+      },
+      {
+       "label": "BeBeez",
+       "url": "https://bebeez.it/private-debt/secondo-closing-della-raccolta-a-35-mln-euro-per-azimut-diversified-corporate-credit-esg-la-dotazione-del-fondo-arriva-cosi-a-161-mln-euro/"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f207",
+   "verdict": "WRONG",
+   "source": "https://capital-riesgo.es/en/articles/oquendo-capital-inicia-su-expansi-n-internacional-con-la-apertura-de-su-oficina-en-par-s/",
+   "sourceLabel": "Capital Riesgo",
+   "asOf": "2022-01-31",
+   "evidence": "Article dated 31/01/2022: 'el primer cierre de su segundo fondo de deuda senior (Oquendo Senior Debt II)' — with Oquendo Capital IV, 'cerca de €600 millones'. First-close amount not stated, so raised stays null; record asOf (2023-03) left unchanged since no final close found after it.",
+   "changes": [
+    {
+     "field": "status",
+     "from": "Open",
+     "to": "First Close"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Scope Group — European ELTIF Study 2023 (notes Oquendo working on further private debt ELTIF)",
+       "url": "https://www.scopegroup.com/dam/jcr:86d7c25a-3208-4332-a102-dbc68457951c/Scope%20ELTIF%20Report%202023.pdf"
+      },
+      {
+       "label": "GLEIF/Bloomberg LEI — Oquendo Senior Debt Fund II ELTIF S.C.A. SICAV-RAIF",
+       "url": "https://lei.bloomberg.com/leis/view/222100QMY6P6QHNKC337"
+      }
+     ],
+     "to": [
+      {
+       "label": "Scope ELTIF Report 2023",
+       "url": "https://www.scopegroup.com/dam/jcr:86d7c25a-3208-4332-a102-dbc68457951c/Scope%20ELTIF%20Report%202023.pdf"
+      },
+      {
+       "label": "GLEIF / Bloomberg LEI",
+       "url": "https://lei.bloomberg.com/leis/view/222100QMY6P6QHNKC337"
+      },
+      {
+       "label": "Capital Riesgo",
+       "url": "https://capital-riesgo.es/en/articles/oquendo-capital-inicia-su-expansi-n-internacional-con-la-apertura-de-su-oficina-en-par-s/"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f186",
+   "verdict": "WRONG",
+   "source": "https://alternativecreditinvestor.com/2024/07/11/eiffel-launches-direct-lending-fund-dedicated-to-smes/",
+   "sourceLabel": "Alternative Credit Investor",
+   "asOf": "2024-07-11",
+   "evidence": "Fund 'has just finalized its first closing at €200m and is targeting a final closing of €400m in 2025' (July 2024). Wire already has raised 200 but status 'Open' — a first close is evidenced. No final close found in search (Oct 2026).",
+   "changes": [
+    {
+     "field": "status",
+     "from": "Open",
+     "to": "First Close"
+    },
+    {
+     "field": "asOf",
+     "from": "2024-07",
+     "to": "2024-07-11"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "EIF – Eiffel Investment Group launches Eiffel Impact Direct Lending",
+       "url": "https://www.eif.org/press/all/eiffel-investment-group-launches-eiffel-impact-direct-lending-the-first-european-impact-debt-fund-dedicated-to-smes"
+      }
+     ],
+     "to": [
+      {
+       "label": "EIF",
+       "url": "https://www.eif.org/press/all/eiffel-investment-group-launches-eiffel-impact-direct-lending-the-first-european-impact-debt-fund-dedicated-to-smes"
+      },
+      {
+       "label": "Alternative Credit Investor",
+       "url": "https://alternativecreditinvestor.com/2024/07/11/eiffel-launches-direct-lending-fund-dedicated-to-smes/"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f91",
+   "verdict": "GAP",
+   "source": "https://www.sec.gov/Archives/edgar/data/1965934/000119312526117368/ck0001965934-20251231.htm",
+   "sourceLabel": "SEC EDGAR (Form 10-K)",
+   "asOf": "2025-12-31",
+   "evidence": "FY2025 10-K financial highlights: 'Total capital commitments, end of period $ 2,170,000 [thousands] $ 2,060,000' (2025 vs 2024); 'executed subscription agreements for approximately $2.2 billion of Capital Commitments (of which approximately $1.4 billion remained unfunded as of December 31, 2025)'. Manager's own filing, preferred over the Form D floor ($728.9m sold, 23 Jan 2026 D/A = contributed capital). Status left 'Open' (commitments still growing: $2.06bn -> $2.17bn).",
+   "changes": [
+    {
+     "field": "raised",
+     "from": null,
+     "to": 2170
+    },
+    {
+     "field": "ccy",
+     "from": null,
+     "to": "USD"
+    },
+    {
+     "field": "asOf",
+     "from": "2024",
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Businesswire",
+       "url": "https://www.businesswire.com/news/home/20230925416209/en/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Businesswire",
+       "url": "https://www.businesswire.com/news/home/20230925416209/en/"
+      },
+      {
+       "label": "Overland Advantage FY2025 Form 10-K (SEC)",
+       "url": "https://www.sec.gov/Archives/edgar/data/1965934/000119312526117368/ck0001965934-20251231.htm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f71",
+   "verdict": "GAP",
+   "source": "https://www.nn-group.com/news/nn-group-and-rivage-investment-launch-eur-300-million-sustainable-infrastructure-debt-fund/",
+   "sourceLabel": "NN Group",
+   "asOf": "2023-02-23",
+   "evidence": "NN Group release, 23 Feb 2023 (via search snippet; page timed out on fetch): 'NN Group is committing EUR 300 million to the fund and Rivage will invest in the fund alongside NN' (Rivage Private Debt – Fund for Infrastructure Climate Solutions). Fund-of-one: the full target was committed at launch. Status left 'Open' (no final close announcement) — lead may prefer 'Final Close' or reclassifying as a mandate.",
+   "changes": [
+    {
+     "field": "raised",
+     "from": null,
+     "to": 300
+    },
+    {
+     "field": "asOf",
+     "from": "2022",
+     "to": "2023-02-23"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f60",
+   "verdict": "STALE",
+   "source": "https://www.soho-sq.com/news-and-insights/soho-square-capital-secures-first-exit-fund-iii-delivering-strong-return",
+   "sourceLabel": "Soho Square Capital",
+   "asOf": "2021",
+   "evidence": "Manager release on first exit from Soho Square Capital III (Oslo Tankers, invested Aug 2019, sold after ~two years): 'Following the recent close of Fund III, Soho Square will continue offering...'. Release undated on page; ~2021 from the two-year hold. Historic-funds page also says 'Soho Square Partnership Capital Fund I closed in 2021 and is fully invested' (likely the same vehicle renamed — lead to judge). Fund size not disclosed (firm AUM '>£250 million'); raised stays null. Vintage 2025 on the record looks wrong (fund was investing from 2019).",
+   "changes": [
+    {
+     "field": "status",
+     "from": "Open",
+     "to": "Final Close"
+    },
+    {
+     "field": "asOf",
+     "from": "2025",
+     "to": "2021"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Soho Square",
+       "url": "https://www.soho-sq.com/news-and-insights/soho-square-capital-secures-first-exit-fund-iii-delivering-strong-return"
+      }
+     ],
+     "to": [
+      {
+       "label": "Soho Square",
+       "url": "https://www.soho-sq.com/news-and-insights/soho-square-capital-secures-first-exit-fund-iii-delivering-strong-return"
+      },
+      {
+       "label": "Soho Square — historic funds",
+       "url": "https://www.soho-sq.com/historic-funds-information"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_INTEL",
+   "id": "hi536",
+   "verdict": "GAP",
+   "source": "https://thehedgefundjournal.com/chenavari-investment-managers-european-alternative-fixed-income/",
+   "evidence": "THFJ, 12 Feb 2026, 'The Full Spectrum of European Alternative Fixed Income': 'Assets under management passed USD 6 billion for the first time in September 2025'.",
+   "changes": [
+    {
+     "field": "(new record)",
+     "to": {
+      "id": "hi536",
+      "hfId": "h82",
+      "date": "2026-02-12",
+      "type": "AUM",
+      "headline": "Chenavari passes $6bn AUM as it marks 18th anniversary",
+      "summary": "In a profile marking Chenavari's 18th anniversary, The Hedge Fund Journal reports that firm assets under management passed USD 6 billion for the first time in September 2025. The Amundi Chenavari Credit Fund had USD 880m in assets as of October 2025, with capacity of up to USD 1bn. In 2025 the firm issued its 10th CLO, T-CLO 10, a EUR 500m transaction, invested over USD 500m in SRT transactions in H1, and opened an Abu Dhabi base in July after receiving FSRA approval in ADGM.",
+      "outlet": "The Hedge Fund Journal",
+      "url": "https://thehedgefundjournal.com/chenavari-investment-managers-european-alternative-fixed-income/"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_INTEL",
+   "id": "hi537",
+   "verdict": "GAP",
+   "source": "https://hedgeweek.com/news/top-quant-to-quit-millennium",
+   "evidence": "Hedgeweek, 17 Jul 2025: 'Romain Castillon ... is believed to be joining GSA Capital'.",
+   "changes": [
+    {
+     "field": "(new record)",
+     "to": {
+      "id": "hi537",
+      "hfId": "h87",
+      "date": "2025-07-17",
+      "type": "Personnel",
+      "headline": "Millennium Azur quant PM Romain Castillon reportedly heading to GSA Capital",
+      "summary": "According to eFinancialCareers, Romain Castillon, a top-performing portfolio manager in Millennium's Azur quant unit, is believed to be joining London-based quant firm GSA Capital; Azur CTO Paul Mayer may also move to GSA, per unnamed sources. Millennium has started employment tribunal proceedings in Geneva over the exits. Neither firm confirmed the moves; GSA has not confirmed any new hires.",
+      "outlet": "Hedgeweek (citing eFinancialCareers)",
+      "url": "https://hedgeweek.com/news/top-quant-to-quit-millennium"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_INTEL",
+   "id": "hi538",
+   "verdict": "GAP",
+   "source": "https://trium-capital.com/news/with-intelligence-trium-assets-surpass-5-billion/",
+   "evidence": "Trium news page, 18 May 2026: 'Trium Capital's Assets Surpass $5 Billion' (original paywalled: platform.withintelligence.com/insights/trium-assets-top-5bn-amid-strong-2026-inflows).",
+   "changes": [
+    {
+     "field": "(new record)",
+     "to": {
+      "id": "hi538",
+      "hfId": "h144",
+      "date": "2026-05-18",
+      "type": "AUM",
+      "headline": "Trium Capital assets surpass $5bn on strong 2026 inflows",
+      "summary": "With Intelligence reported that Trium Capital's assets under management passed $5bn, citing strong inflows across several strategies in 2026, with merger arbitrage and macro among the biggest growth drivers. Co-CEO Shenan Dhanani said the Larissa Macro Fund has grown strongly and is now closed to new investors; Epynt Macro's AUM has doubled to over $200m since the start of the year.",
+      "outlet": "Trium Capital (citing With Intelligence)",
+      "url": "https://trium-capital.com/news/with-intelligence-trium-assets-surpass-5-billion/"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_INTEL",
+   "id": "hi539",
+   "verdict": "GAP",
+   "source": "https://trium-capital.com/news/with-intelligence-ex-millennium-pm-harjinder-thandi-joins-trium-capital/",
+   "evidence": "Trium news page, 7 May 2026, linking With Intelligence 'Trium taps ex-Millennium PM for index arb strat' (paywalled).",
+   "changes": [
+    {
+     "field": "(new record)",
+     "to": {
+      "id": "hi539",
+      "hfId": "h144",
+      "date": "2026-05-07",
+      "type": "Personnel",
+      "headline": "Ex-Millennium PM Harjinder Thandi joins Trium Capital",
+      "summary": "Harjinder Thandi, who managed an index arbitrage portfolio at Millennium, joined Trium Capital to run an index rebalancing strategy. He previously worked at Schneider Investment Associates, Citi and Bank of America, focusing on trading and arbitrage.",
+      "outlet": "Trium Capital (citing With Intelligence)",
+      "url": "https://trium-capital.com/news/with-intelligence-ex-millennium-pm-harjinder-thandi-joins-trium-capital/"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_INTEL",
+   "id": "hi540",
+   "verdict": "GAP",
+   "source": "https://www.institutionalinvestor.com/article/premium/glenview-once-again-profitable",
+   "evidence": "II, Stephen Taub, 17 Sep 2025: 'posted an 8.33% gain ... up 1.92 percent for the year'.",
+   "changes": [
+    {
+     "field": "(new record)",
+     "to": {
+      "id": "hi540",
+      "hfId": "h129",
+      "date": "2025-09-17",
+      "type": "Performance",
+      "headline": "Glenview flagship returns to profit for 2025 after strong August",
+      "summary": "Larry Robbins' Glenview Capital Partners flagship gained 8.33% last month (August), leaving it up 1.92% for the year, according to an investor.",
+      "outlet": "Institutional Investor",
+      "url": "https://www.institutionalinvestor.com/article/premium/glenview-once-again-profitable"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_INTEL",
+   "id": "hi541",
+   "verdict": "GAP",
+   "source": "https://www.institutionalinvestor.com/article/premium/skye-globals-amazon-problem",
+   "evidence": "II, 15 Jul 2026, 'Skye Global's Amazon Problem': 'up less than 2 percent over the first half ... lost more than 3 percent in June'.",
+   "changes": [
+    {
+     "field": "(new record)",
+     "to": {
+      "id": "hi541",
+      "hfId": "h131",
+      "date": "2026-07-15",
+      "type": "Performance",
+      "headline": "Skye Global up less than 2% in H1 2026 after June loss",
+      "summary": "Jamie Sterne's long-short hedge fund Skye Global is up less than 2% over the first half of 2026 after losing more than 3% in June, according to an investor, lagging the broad market.",
+      "outlet": "Institutional Investor",
+      "url": "https://www.institutionalinvestor.com/article/premium/skye-globals-amazon-problem"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_INTEL",
+   "id": "hi542",
+   "verdict": "GAP",
+   "source": "https://www.institutionalinvestor.com/article/premium/skye-global-slashes-its-stake-amazon",
+   "evidence": "II, Stephen Taub, 20 May 2025: 'Skye Global cut its largest long position nearly in half in the first quarter'.",
+   "changes": [
+    {
+     "field": "(new record)",
+     "to": {
+      "id": "hi542",
+      "hfId": "h131",
+      "date": "2025-05-20",
+      "type": "Position",
+      "headline": "Skye Global nearly halves Amazon, its largest long",
+      "summary": "Skye Global cut its largest long position, Amazon, by nearly half in the first quarter of 2025 — a striking move for the concentrated fund headed by Jamie Sterne, which typically runs a portfolio where one or two stocks account for most of the assets.",
+      "outlet": "Institutional Investor",
+      "url": "https://www.institutionalinvestor.com/article/premium/skye-global-slashes-its-stake-amazon"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_INTEL",
+   "id": "hi543",
+   "verdict": "GAP",
+   "source": "https://www.businesswire.com/news/home/20250219366152/en/Deep-Track-Capital-Nominates-Four-Highly-Qualified-Candidates-for-Election-to-Dynavax-Technologies-Board-of-Directors-at-2025-Annual-Meeting",
+   "evidence": "Business Wire release 19 Feb 2025; Fierce Biotech: 'Deep Track Capital, which owns about 13.5% of Dynavax's stock, is launching a proxy fight'.",
+   "changes": [
+    {
+     "field": "(new record)",
+     "to": {
+      "id": "hi543",
+      "hfId": "h130",
+      "date": "2025-02-19",
+      "type": "Activist",
+      "headline": "Deep Track launches Dynavax proxy fight with four board nominees",
+      "summary": "Deep Track Capital, which owns about 13.5% of Dynavax Technologies, nominated four candidates for election to Dynavax's board at the 2025 annual meeting, seeking to focus the company on its approved hepatitis B vaccine Heplisav.",
+      "outlet": "Deep Track Capital (Business Wire)",
+      "url": "https://www.businesswire.com/news/home/20250219366152/en/Deep-Track-Capital-Nominates-Four-Highly-Qualified-Candidates-for-Election-to-Dynavax-Technologies-Board-of-Directors-at-2025-Annual-Meeting"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h150",
+   "verdict": "WEAK-SOURCE",
+   "source": "https://hedgenordic.com/2026/02/sisseners-best-year-in-over-a-decade-momentum-extends-into-2026/",
+   "sourceLabel": "HedgeNordic",
+   "asOf": "2026-02",
+   "evidence": "HedgeNordic, 13 Feb 2026: \"the broader Sissener platform has now surpassed €1 billion in assets under management.\" The article gives no period, so the article month is used. The figure is in EUR, so it goes in money; the held 1.1 looks like a USD conversion of the same figure.",
+   "changes": [
+    {
+     "field": "aumAsOf",
+     "from": "2025",
+     "to": "2026-02"
+    },
+    {
+     "field": "aum",
+     "from": 1.1,
+     "to": 1.12,
+     "reported": "1bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h145",
+   "verdict": "WEAK-SOURCE",
+   "source": "https://www.withintelligence.com/insights/hedge-fund-outlook-2026/",
+   "sourceLabel": "With Intelligence (HFM) Hedge Fund Outlook 2026",
+   "asOf": "2025-12",
+   "evidence": "With Intelligence, 4 Dec 2025: \"Kintbury Capital, which introduced capacity constraints as AuM nears $3 billion\". This only pins the year-only date; aum 3 (estimated) is unchanged.",
+   "changes": [
+    {
+     "field": "aumAsOf",
+     "from": "2025",
+     "to": "2025-12"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h138",
+   "verdict": "STALE",
+   "source": "https://m.jiemian.com/article/14158145.html",
+   "sourceLabel": "Jiemian News",
+   "asOf": "2025-12-31",
+   "evidence": "Jiemian (c. 25 Mar 2026): \"截至2025年12月底，该公司的管理规模为700-800亿元\" (AUM of CNY 70–80bn at end-Dec 2025). The lower bound is used with estimated=true. Jiemian is a mainstream Chinese financial outlet, not on the tier-1 list; the lead should decide. The held US$7bn (Wikipedia, 2024) is well below CNY 70bn (about US$9.8bn).",
+   "changes": [
+    {
+     "field": "aumAsOf",
+     "from": "2024",
+     "to": "2025-12-31"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://en.wikipedia.org/wiki/Minghong_Investment",
+     "to": "https://m.jiemian.com/article/14158145.html"
+    },
+    {
+     "field": "aum",
+     "from": 7,
+     "to": 10.46,
+     "reported": "70bn CNY"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h122",
+   "verdict": "STALE",
+   "source": "https://www.avenuecapital.com/",
+   "sourceLabel": "Avenue Capital Group (firm website)",
+   "asOf": "2026-10",
+   "evidence": "Undated firm page, read 2026-10-21: the firm \"manages assets estimated to be $9.1 billion.\"",
+   "changes": [
+    {
+     "field": "aum",
+     "from": 9.2,
+     "to": 9.1
+    },
+    {
+     "field": "aumAsOf",
+     "from": "2025",
+     "to": "2026-10"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h115",
+   "verdict": "WEAK-SOURCE",
+   "source": "https://deerfield.com/what-we-do/investment",
+   "sourceLabel": "Deerfield Management (firm website)",
+   "asOf": "2025-12-31",
+   "evidence": "\"over $16B under management*\" footnote \"*As of December 31, 2025.\" The figure was already held; this pins the year-only date.",
+   "changes": [
+    {
+     "field": "aumAsOf",
+     "from": "2025",
+     "to": "2025-12-31"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h108",
+   "verdict": "STALE",
+   "source": "https://www.hedgeweek.com/kirkoswald-to-launch-new-emerging-markets-credit-hedge-fund/",
+   "sourceLabel": "Hedgeweek (relaying Bloomberg)",
+   "asOf": "2026-09",
+   "evidence": "Hedgeweek, 7 Sep 2026: Kirkoswald \"oversees around $20bn\"; it is spinning out an EM credit strategy run by \"the former Emso Asset Management team led by Giorgio Lombardo\". The article gives no period, so the article month is used. The url was null; kirkoswald.com is the firm site.",
+   "changes": [
+    {
+     "field": "aum",
+     "from": 8,
+     "to": 20
+    },
+    {
+     "field": "aumAsOf",
+     "from": "2024",
+     "to": "2026-09"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://www.bloomberg.com/news/articles/2024-08-09/greg-coffey-s-hedge-fund-firm-strikes-first-private-credit-deal",
+     "to": "https://www.hedgeweek.com/kirkoswald-to-launch-new-emerging-markets-credit-hedge-fund/"
+    },
+    {
+     "field": "url",
+     "from": null,
+     "to": "https://kirkoswald.com/"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h86",
+   "verdict": "WEAK-SOURCE",
+   "source": "https://hedgeweek.com/news/tt-international-shrinks-as-assets-and-revenue-continue-to-decline",
+   "sourceLabel": "Hedgeweek",
+   "asOf": "2025-12-31",
+   "evidence": "Hedgeweek, 25 Sep 2026: \"TT International ended 2025 with approximately $5bn under management\", below its ~$7bn break-even point.",
+   "changes": [
+    {
+     "field": "aum",
+     "from": 5.07,
+     "to": 5
+    },
+    {
+     "field": "aumAsOf",
+     "from": "2025",
+     "to": "2025-12-31"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://fintrx.com/firms/firm/tt-international-110858",
+     "to": "https://hedgeweek.com/news/tt-international-shrinks-as-assets-and-revenue-continue-to-decline"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h77",
+   "verdict": "WRONG",
+   "source": "https://www.bloomberg.com/news/articles/2026-05-12/hedge-fund-dymon-s-assets-near-8-billion-blowing-past-estimate",
+   "sourceLabel": "Bloomberg",
+   "asOf": "2026-05-01",
+   "evidence": "Bloomberg, 13 May 2026, republished on dymonasia.com/news and by Hedgeweek: Dymon \"had $7.5 billion in assets as of May 1\" and is on track for $8bn by Q3, which has not been confirmed. The held aum 7.5 is right, but aumAsOf says 2025-05-01; it should be 2026-05-01.",
+   "changes": [
+    {
+     "field": "aumAsOf",
+     "from": "2025-05-01",
+     "to": "2026-05-01"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://www.hedgeweek.com/dymon-asia-capital-nears-8bn-aum/",
+     "to": "https://www.bloomberg.com/news/articles/2026-05-12/hedge-fund-dymon-s-assets-near-8-billion-blowing-past-estimate"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h69",
+   "verdict": "STALE",
+   "source": "https://www.walleyecapital.com",
+   "sourceLabel": "Walleye Capital (firm website)",
+   "asOf": "2026-10",
+   "evidence": "Undated firm page, read 2026-10-21: home-page counter \"~$17B+ AUM\" (HTML: ~$ <p class=\"count\" data-count=\"17\"> B+ AUM). The page does not say net or gross; it is what the firm itself states.",
+   "changes": [
+    {
+     "field": "aum",
+     "from": 10.77,
+     "to": 17
+    },
+    {
+     "field": "aumAsOf",
+     "from": "2026",
+     "to": "2026-10"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://hedgefundalpha.com/investor-letters/walleye-capital-returns-q1/",
+     "to": "https://www.walleyecapital.com"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h20",
+   "verdict": "WEAK-SOURCE",
+   "source": "https://www.systematica.com/",
+   "sourceLabel": "Systematica Investments (firm website)",
+   "asOf": "2026-10",
+   "evidence": "Undated firm page, read 2026-10-21: statistics block \"$13+ Billion AUM — Firmwide Assets Under Management\". Lower than the held 18 (Wikipedia, 2025-01); the firm's own figure wins.",
+   "changes": [
+    {
+     "field": "aum",
+     "from": 18,
+     "to": 13
+    },
+    {
+     "field": "aumAsOf",
+     "from": "2025-01",
+     "to": "2026-10"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://en.wikipedia.org/wiki/Systematica_Investments",
+     "to": "https://www.systematica.com/"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h98",
+   "verdict": "WEAK-SOURCE",
+   "source": "https://quantica-capital.com/en/about-us",
+   "sourceLabel": "Quantica Capital (firm website)",
+   "asOf": "2026-10",
+   "evidence": "Undated firm page (read 2026-10-21): \"AuM of USD ~1 billion\" and \"more than USD 1 billion assets under management\". Held 1.1 not supported by the page.",
+   "changes": [
+    {
+     "field": "aum",
+     "from": 1.1,
+     "to": 1
+    },
+    {
+     "field": "aumAsOf",
+     "from": "2025",
+     "to": "2026-10"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h79",
+   "verdict": "STALE",
+   "source": "https://www.lynxhedge.se/en/",
+   "sourceLabel": "Lynx Asset Management (firm website)",
+   "asOf": "2026-10",
+   "evidence": "Undated firm page (read 2026-10-21): \"$8 billion in AUM\".",
+   "changes": [
+    {
+     "field": "aum",
+     "from": 7,
+     "to": 8
+    },
+    {
+     "field": "aumAsOf",
+     "from": "2025",
+     "to": "2026-10"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://hedgenordic.com/2025/05/lynx-asset-management-a-25-year-legacy-of-innovation/",
+     "to": "https://www.lynxhedge.se/en/"
+    },
+    {
+     "field": "estimated",
+     "from": true,
+     "to": false
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h56",
+   "verdict": "STALE",
+   "source": "https://sona-am.com",
+   "sourceLabel": "Sona Asset Management (firm website)",
+   "asOf": "2026-10",
+   "evidence": "Undated firm page (home page, read 2026-10-21): \"$21.5bn AUM\". Old /about/ URL now 404s.",
+   "changes": [
+    {
+     "field": "aum",
+     "from": 19,
+     "to": 21.5
+    },
+    {
+     "field": "aumAsOf",
+     "from": "2025",
+     "to": "2026-10"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://sona-am.com/about/",
+     "to": "https://sona-am.com"
+    },
+    {
+     "field": "estimated",
+     "from": true,
+     "to": false
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h46",
+   "verdict": "WRONG",
+   "source": "https://www.hudsonbaycapital.com",
+   "sourceLabel": "Hudson Bay Capital (firm website)",
+   "asOf": "2026-10",
+   "evidence": "Undated firm page (read 2026-10-21), 'Our Approach' section: \"$20B+ assets under management\". Held $27bn came from a Radient Analytics ADV-derived aggregator.",
+   "changes": [
+    {
+     "field": "aum",
+     "from": 27,
+     "to": 20
+    },
+    {
+     "field": "aumAsOf",
+     "from": "2025",
+     "to": "2026-10"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://info.radientanalytics.com/sec-filings/hudson-bay-capital-management-grew-34-in-aum-to-27b",
+     "to": "https://www.hudsonbaycapital.com"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h18",
+   "verdict": "WEAK-SOURCE",
+   "source": "https://news.bgov.com/daily-tax-report-international/hedge-fund-titan-rokos-joins-billionaires-quitting-uk-1",
+   "sourceLabel": "Bloomberg Tax",
+   "asOf": "2026-09-08",
+   "evidence": "Bloomberg Tax, 8 Sep 2026: Rokos Capital \"manages about $22 billion\" (no period given, so article date used). Same $22bn as held, re-cited to tier-1.",
+   "changes": [
+    {
+     "field": "aumAsOf",
+     "from": "2025",
+     "to": "2026-09-08"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://www.hedgeweek.com/rokos-to-return-client-capital-as-firm-caps-aum-at-20bn-to-safeguard-performance/",
+     "to": "https://news.bgov.com/daily-tax-report-international/hedge-fund-titan-rokos-joins-billionaires-quitting-uk-1"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "funds",
+   "id": "f97",
+   "verdict": "WRONG",
+   "source": "https://www.antares.com/",
+   "sourceLabel": "Antares Capital",
+   "asOf": "2026-10",
+   "evidence": "Lead review 2026-10-21: two independent research passes confirm Antares Private Credit Fund is a continuously offered non-traded BDC — an evergreen vehicle, so 'Open' is its steady state, not a stale fundraise.",
+   "changes": [
+    {
+     "field": "evergreen",
+     "from": null,
+     "to": true
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l136",
+   "verdict": "GAP",
+   "source": "https://aimco.ca/insights/aimco-delivers-7-6-investment-return-in-2025",
+   "sourceLabel": "AIMCo 2025 results release",
+   "asOf": "2025-12-31",
+   "evidence": "AIMCo release (31 Mar 2026): 'Total client assets under management were $194.7 billion as at December 31, 2025, compared to $179.6 billion at year-end 2024.' (A 30 Jun 2026 figure of $210.7bn seen only via aggregator.)",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "GlobalCapital",
+       "url": "https://www.globalcapital.com/article/2b4px6bez6occaapv64n4/levfin/aimco-and-psp-join-forces-for-private-credit-origination"
+      }
+     ],
+     "to": [
+      {
+       "label": "GlobalCapital",
+       "url": "https://www.globalcapital.com/article/2b4px6bez6occaapv64n4/levfin/aimco-and-psp-join-forces-for-private-credit-origination"
+      },
+      {
+       "label": "AIMCo 2025 results release",
+       "url": "https://aimco.ca/insights/aimco-delivers-7-6-investment-return-in-2025"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 136.72,
+     "reported": "194.7bn CAD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l134",
+   "verdict": "WEAK-SOURCE",
+   "source": "https://www.omers.com/news/omers-earns-6-9-billion-in-the-first-six-months-of-2026",
+   "sourceLabel": "OMERS H1 2026 results release",
+   "asOf": "2026-06-30",
+   "evidence": "OMERS release 'OMERS earns $6.9 billion in the first six months of 2026': net assets $151.6 billion at June 30, 2026 (Dec 31, 2025: $145.2bn). Replaces Dakota as the AUM source.",
+   "changes": [
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Dakota Public Plan Minutes (August 2026)",
+       "url": "https://www.dakota.com/hubfs/August%202026%20Pension%20Brief.pdf"
+      },
+      {
+       "label": "OMERS news, Sep 2023",
+       "url": "https://www.omers.com/news/goldman-sachs-asset-management-and-omers-enter-into-private-credit-partnership"
+      }
+     ],
+     "to": [
+      {
+       "label": "Dakota Public Plan Minutes (August 2026)",
+       "url": "https://www.dakota.com/hubfs/August%202026%20Pension%20Brief.pdf"
+      },
+      {
+       "label": "OMERS news, Sep 2023",
+       "url": "https://www.omers.com/news/goldman-sachs-asset-management-and-omers-enter-into-private-credit-partnership"
+      },
+      {
+       "label": "OMERS H1 2026 results release",
+       "url": "https://www.omers.com/news/omers-earns-6-9-billion-in-the-first-six-months-of-2026"
+      }
+     ]
+    },
+    {
+     "field": "notes",
+     "from": "Net assets $151.6bn after H1 2026 (Dakota; OMERS reports in CAD). GSAM Asia Pacific private credit SMA (2023); London-based European credit team.",
+     "to": "GSAM Asia Pacific private credit SMA (2023); London-based European credit team."
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 106.45,
+     "reported": "151.6bn CAD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l129",
+   "verdict": "GAP",
+   "source": "https://links.sgx.com/1.0.0/corporate-announcements/MFF5OLHV4FZFJNJC/875171_Consolidated%20Summary%20Report%20under%20Japanese%20GAAP%20for%20the%20Nine%20Months%20Ended%20December%2031%202025.pdf",
+   "sourceLabel": "Dai-ichi Life Holdings 9M FY2025 consolidated summary report",
+   "asOf": "2025-12-31",
+   "evidence": "Dai-ichi Life Holdings consolidated summary (J-GAAP) nine months to Dec 31, 2025: 'Total assets 69,592,967 [Mar 2025] 72,384,672' ¥m; 'total assets as of December 31, 2025 ... increased by 4.0%, to 72,384.6' ¥bn. NB holding-company consolidated balance-sheet total (profile is the Dai-ichi Life Insurance operating company); FY to Mar 2026 results not reached.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Alternatives Watch, 14 Mar 2024",
+       "url": "https://www.alternativeswatch.com/2024/03/14/japan-insurer-dai-ichi-life-us-private-credit-foothold-canyon-partners-acquisition-deal/"
+      },
+      {
+       "label": "Private Debt Investor",
+       "url": "https://privatedebtinvestor.com/dai-ichi-life-commits-e80m-mgs-infra-debt-fund-2"
+      }
+     ],
+     "to": [
+      {
+       "label": "Alternatives Watch, 14 Mar 2024",
+       "url": "https://www.alternativeswatch.com/2024/03/14/japan-insurer-dai-ichi-life-us-private-credit-foothold-canyon-partners-acquisition-deal/"
+      },
+      {
+       "label": "Private Debt Investor",
+       "url": "https://privatedebtinvestor.com/dai-ichi-life-commits-e80m-mgs-infra-debt-fund-2"
+      },
+      {
+       "label": "Dai-ichi Life Holdings 9M FY2025 consolidated summary report",
+       "url": "https://links.sgx.com/1.0.0/corporate-announcements/MFF5OLHV4FZFJNJC/875171_Consolidated%20Summary%20Report%20under%20Japanese%20GAAP%20for%20the%20Nine%20Months%20Ended%20December%2031%202025.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 457.76,
+     "reported": "72384.7bn JPY"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l99",
+   "verdict": "GAP",
+   "source": "https://democracy.carmarthenshire.gov.wales/documents/s77253/REPORT.pdf",
+   "sourceLabel": "Dyfed Pension Fund Annual Report & Accounts 2022-23",
+   "asOf": "2023-03-31",
+   "evidence": "Dyfed Pension Fund Annual Report & Accounts 2022-23 (Carmarthenshire CC): 'Total Net Assets 3,142,535' £000 at 31 Mar 2023 (2022: 3,242,604). STALE — latest primary reachable; 2024-25/2025-26 accounts not found within budget.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2023-03-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "PEI institution profile",
+       "url": "https://www.pei-privatecredit.com/institution-profiles/dyfed-pension-fund.html"
+      }
+     ],
+     "to": [
+      {
+       "label": "PEI institution profile",
+       "url": "https://www.pei-privatecredit.com/institution-profiles/dyfed-pension-fund.html"
+      },
+      {
+       "label": "Dyfed Pension Fund Annual Report & Accounts 2022-23",
+       "url": "https://democracy.carmarthenshire.gov.wales/documents/s77253/REPORT.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 4.16,
+     "reported": "3.143bn GBP"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l90",
+   "verdict": "GAP",
+   "source": "https://www.ntma.ie/annualreport-2025/documents/Ireland-Strategic-Investment-Fund.pdf",
+   "sourceLabel": "NTMA Annual Report 2025 — ISIF chapter",
+   "asOf": "2025-12-31",
+   "evidence": "NTMA Annual Report 2025: ISIF 'is a €16.1bn fund. ISIF is comprised of the Discretionary Portfolio (€9.7bn) and the Directed Portfolio (€6.4bn)'; Discretionary 'market value of €9.7bn at end-December 2025'.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "ISIF – DunPort Willow",
+       "url": "https://www.isif.ie/news/dunport-raises-200m-for-its-fourth-sme-focused-credit-fund"
+      },
+      {
+       "label": "ISIF – PCP Fund V",
+       "url": "https://www.isif.ie/news/isif-commits-50m-to-p-capital-partners-fund-v-to-back-irish-entrepreneur-led-and-family-owned-businesses"
+      }
+     ],
+     "to": [
+      {
+       "label": "ISIF – DunPort Willow",
+       "url": "https://www.isif.ie/news/dunport-raises-200m-for-its-fourth-sme-focused-credit-fund"
+      },
+      {
+       "label": "ISIF – PCP Fund V",
+       "url": "https://www.isif.ie/news/isif-commits-50m-to-p-capital-partners-fund-v-to-back-irish-entrepreneur-led-and-family-owned-businesses"
+      },
+      {
+       "label": "NTMA Annual Report 2025 — ISIF chapter",
+       "url": "https://www.ntma.ie/annualreport-2025/documents/Ireland-Strategic-Investment-Fund.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 18.01,
+     "reported": "16.1bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l86",
+   "verdict": "GAP",
+   "source": "https://gmpf.org.uk/getmedia/4f6bc777-8625-481b-aa99-4d56495a6fa8/GMPF-Annual-Report-2025.pdf",
+   "sourceLabel": "GMPF Annual Report 2025",
+   "asOf": "2025-03-31",
+   "evidence": "GMPF Annual Report 2025: 'Net assets of the Fund at end of year (32,294,516)' £000; 'Fund value 31 March 2025 32,295' £m. 'GMPF's target allocations to private equity, private debt and infrastructure funds are each 5% of Main Fund value'. 2025/26 accounts (Tameside, 17 Jul 2026) were 403-blocked.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-03-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "GMPF Special Opportunities holdings 2025",
+       "url": "https://www.gmpf.org.uk/getmedia/523df8e9-28fb-4425-9b52-fe968ed73075/Funds-within-the-Special-Opportunities-Portfolio-from-2025-to-date.pdf"
+      },
+      {
+       "label": "Tameside decision Aug 2025",
+       "url": "https://opengovernment.network/councils/tameside/decisions/164187"
+      }
+     ],
+     "to": [
+      {
+       "label": "GMPF Special Opportunities holdings 2025",
+       "url": "https://www.gmpf.org.uk/getmedia/523df8e9-28fb-4425-9b52-fe968ed73075/Funds-within-the-Special-Opportunities-Portfolio-from-2025-to-date.pdf"
+      },
+      {
+       "label": "Tameside decision Aug 2025",
+       "url": "https://opengovernment.network/councils/tameside/decisions/164187"
+      },
+      {
+       "label": "GMPF Annual Report 2025",
+       "url": "https://gmpf.org.uk/getmedia/4f6bc777-8625-481b-aa99-4d56495a6fa8/GMPF-Annual-Report-2025.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 42.78,
+     "reported": "32.295bn GBP"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l78",
+   "verdict": "GAP",
+   "source": "https://www.milanofinanza.it/news/cassa-forense-archivia-il-2025-con-un-utile-da-1-33-miliardi-patrimonio-oltre-quota-20-miliardi-202605041115522398",
+   "sourceLabel": "Milano Finanza, May 2026 (Cassa Forense bilancio consuntivo 2025)",
+   "asOf": "2025-12-31",
+   "evidence": "Milano Finanza / Altalex on the bilancio consuntivo 2025 approved 30 Apr 2026: patrimonio netto c.€20.8bn (+7% vs 2024), utile >€1.33bn. Press relay of the LP's approved accounts (book value); Cassa Forense's own PDF not reached.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": "2025-09",
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Focus Risparmio",
+       "url": "https://www.focusrisparmio.com/news/mercati-privati-cassa-forense-annunziata/"
+      },
+      {
+       "label": "IPE",
+       "url": "https://www.ipe.com/news/cassa-forense-accelerates-private-markets-push/10132816.article"
+      }
+     ],
+     "to": [
+      {
+       "label": "Focus Risparmio",
+       "url": "https://www.focusrisparmio.com/news/mercati-privati-cassa-forense-annunziata/"
+      },
+      {
+       "label": "IPE",
+       "url": "https://www.ipe.com/news/cassa-forense-accelerates-private-markets-push/10132816.article"
+      },
+      {
+       "label": "Milano Finanza, May 2026 (Cassa Forense bilancio consuntivo 2025)",
+       "url": "https://www.milanofinanza.it/news/cassa-forense-archivia-il-2025-con-un-utile-da-1-33-miliardi-patrimonio-oltre-quota-20-miliardi-202605041115522398"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 23.27,
+     "reported": "20.8bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l75",
+   "verdict": "GAP",
+   "source": "https://www.ver.fi/en-US/content/1225/11124",
+   "sourceLabel": "VER half-year report 1 Jan–30 Jun 2026",
+   "asOf": "2026-06-30",
+   "evidence": "VER publications page: Half-year report (1 Jan–30 Jun 2026, published 18 Aug 2026) market value of investments EUR 27.3 billion at 30 Jun 2026 (Q1: EUR 25.7bn; end-2025 €25.8bn).",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2026-06-30"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "ACI, 27 Jan 2026",
+       "url": "https://alternativecreditinvestor.com/2026/01/27/ambienta-raises-more-than-e500m-for-sustainable-credit/"
+      }
+     ],
+     "to": [
+      {
+       "label": "ACI, 27 Jan 2026",
+       "url": "https://alternativecreditinvestor.com/2026/01/27/ambienta-raises-more-than-e500m-for-sustainable-credit/"
+      },
+      {
+       "label": "VER half-year report 1 Jan–30 Jun 2026",
+       "url": "https://www.ver.fi/en-US/content/1225/11124"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 30.54,
+     "reported": "27.3bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l71",
+   "verdict": "GAP",
+   "source": "https://www.pensioenpostnl.nl/sites/default/files/documenten/verkort-jaarverslag-2025.pdf",
+   "sourceLabel": "Pensioenfonds PostNL verkort jaarverslag 2025",
+   "asOf": "2025-12-31",
+   "evidence": "Pensioenfonds PostNL short annual report 2025: 'Totaal vermogen € 9,2 miljard (2024: € 9,8 miljard)'.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "ACI, 30 Oct 2025",
+       "url": "https://alternativecreditinvestor.com/2025/10/30/eiffel-raises-e220m-for-new-green-private-debt-fund/"
+      }
+     ],
+     "to": [
+      {
+       "label": "ACI, 30 Oct 2025",
+       "url": "https://alternativecreditinvestor.com/2025/10/30/eiffel-raises-e220m-for-new-green-private-debt-fund/"
+      },
+      {
+       "label": "Pensioenfonds PostNL verkort jaarverslag 2025",
+       "url": "https://www.pensioenpostnl.nl/sites/default/files/documenten/verkort-jaarverslag-2025.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 10.29,
+     "reported": "9.2bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l67",
+   "verdict": "GAP",
+   "source": "https://www.giornaleprevidenza.it/wp-content/uploads/2025/05/GdP_N3_2025.pdf",
+   "sourceLabel": "Il Giornale della Previdenza (ENPAM), n.3 2025 — bilancio consuntivo 2024",
+   "asOf": "2024-12-31",
+   "evidence": "ENPAM's own Giornale della Previdenza: assembly approved bilancio consuntivo 2024; 'patrimonio netto che al 31 dicembre ha raggiunto i 26,9 miliardi di euro a valore di libro (29,3 miliardi a valore di mercato)'. 2025 consuntivo not found (preconsuntivo said 'verso i 30 miliardi').",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2024-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Milano Finanza, 3 Oct 2024",
+       "url": "https://www.milanofinanza.it/news/enpam-investe-20-milioni-nel-fondo-di-private-debt-anthilia-gap-2641325"
+      },
+      {
+       "label": "ACI, 27 Jan 2026",
+       "url": "https://alternativecreditinvestor.com/2026/01/27/ambienta-raises-more-than-e500m-for-sustainable-credit/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Milano Finanza, 3 Oct 2024",
+       "url": "https://www.milanofinanza.it/news/enpam-investe-20-milioni-nel-fondo-di-private-debt-anthilia-gap-2641325"
+      },
+      {
+       "label": "ACI, 27 Jan 2026",
+       "url": "https://alternativecreditinvestor.com/2026/01/27/ambienta-raises-more-than-e500m-for-sustainable-credit/"
+      },
+      {
+       "label": "Il Giornale della Previdenza (ENPAM), n.3 2025 — bilancio consuntivo 2024",
+       "url": "https://www.giornaleprevidenza.it/wp-content/uploads/2025/05/GdP_N3_2025.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 32.78,
+     "reported": "29.3bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l65",
+   "verdict": "GAP",
+   "source": "https://bank.pl/bgk-wypracowal-w-pierwszym-polroczu-26-wysoki-wynik-finansowy/",
+   "sourceLabel": "Bank.pl (BGK H1 2026 press release)",
+   "asOf": "2026-06-30",
+   "evidence": "Bank.pl quoting BGK's H1 2026 press release: 'Wartość aktywów BGK osiągnęła wartość 402 mld zł' (own balance sheet; incl. managed funds the total exceeds 800 mld zł). Trade press relaying BGK release — BGK's own interim report not reached; period end inferred from H1 results.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2026-06-30"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "ACI, 6 Jun 2025",
+       "url": "https://alternativecreditinvestor.com/2025/06/06/bgk-commits-e25m-to-eiffel-infrastructure-fund/"
+      }
+     ],
+     "to": [
+      {
+       "label": "ACI, 6 Jun 2025",
+       "url": "https://alternativecreditinvestor.com/2025/06/06/bgk-commits-e25m-to-eiffel-infrastructure-fund/"
+      },
+      {
+       "label": "Bank.pl (BGK H1 2026 press release)",
+       "url": "https://bank.pl/bgk-wypracowal-w-pierwszym-polroczu-26-wysoki-wynik-finansowy/"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 102.75,
+     "reported": "402bn PLN"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l63",
+   "verdict": "GAP",
+   "source": "https://www.alecta.se/media/a0ej1swb/alectas-delarsrapport-2026.pdf",
+   "sourceLabel": "Alecta delårsrapport januari–juni 2026",
+   "asOf": "2026-06-30",
+   "evidence": "Alecta H1 2026 interim report: DB (förmånsbestämd) 'Summa placeringar 1 085 808' mkr + Alecta Optimal Pension market value '376,6 miljarder kronor' = c.SEK 1,462bn; Placera summary of the report: 'Förvaltat kapital uppgick till totalt 1 462 miljarder kronor vid periodens utgång (1 347)'.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2026-06-30"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "New Private Markets, 30 Jun 2026",
+       "url": "https://www.newprivatemarkets.com/alecta-backs-responsability-climate-credit-strategy/"
+      }
+     ],
+     "to": [
+      {
+       "label": "New Private Markets, 30 Jun 2026",
+       "url": "https://www.newprivatemarkets.com/alecta-backs-responsability-climate-credit-strategy/"
+      },
+      {
+       "label": "Alecta delårsrapport januari–juni 2026",
+       "url": "https://www.alecta.se/media/a0ej1swb/alectas-delarsrapport-2026.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 146.49,
+     "reported": "1462bn SEK"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l61",
+   "verdict": "GAP",
+   "source": "https://www.lrl.mn.gov/docs/2025/mandated/250398.pdf",
+   "sourceLabel": "Minnesota SBI Annual Report FY2024",
+   "asOf": "2024-06-30",
+   "evidence": "MSBI FY2024 Annual Report: 'As of June 30, 2024, the SBI's assets under management totaled $146.2 billion.' NB a FY2025 figure of $155.9bn (30 Jun 2025) appears only in a secondary registry; msbi.us returned HTTP 500 so the FY25 report could not be confirmed.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2024-06-30"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Permira Credit commitment (2024-05-21)",
+       "url": "https://www.msbi.us/board%20approval%20may%202024"
+      }
+     ],
+     "to": [
+      {
+       "label": "Permira Credit commitment (2024-05-21)",
+       "url": "https://www.msbi.us/board%20approval%20may%202024"
+      },
+      {
+       "label": "Minnesota SBI Annual Report FY2024",
+       "url": "https://www.lrl.mn.gov/docs/2025/mandated/250398.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 146.2,
+     "reported": "146.2bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l59",
+   "verdict": "GAP",
+   "source": "https://seattle.gov/documents/Departments/Retirement/Publications/Auditors%20reports/2025AuditorsReport.pdf",
+   "sourceLabel": "SCERS 2025 audited financial statements",
+   "asOf": "2025-12-31",
+   "evidence": "SCERS 2025 auditor's report (years ended Dec 31, 2025 and 2024): 'Fiduciary net position restricted for pension benefits $4,958,213,991' (2024: $4,332,632,182).",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Arcmont Asset Management commitment (2024-08-29)",
+       "url": "https://seattle.gov/documents/Departments/Retirement/Board/Minutes%2C%20Investment%20Committee/IC_Minutes_2024_08.pdf"
+      }
+     ],
+     "to": [
+      {
+       "label": "Arcmont Asset Management commitment (2024-08-29)",
+       "url": "https://seattle.gov/documents/Departments/Retirement/Board/Minutes%2C%20Investment%20Committee/IC_Minutes_2024_08.pdf"
+      },
+      {
+       "label": "SCERS 2025 audited financial statements",
+       "url": "https://seattle.gov/documents/Departments/Retirement/Publications/Auditors%20reports/2025AuditorsReport.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 4.96,
+     "reported": "4.96bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l57",
+   "verdict": "GAP",
+   "source": "https://app.lla.la.gov/publicreports.nsf/0/4f41a9c67e43703b86258d1c006d18b3/$file/00008d1a.pdf",
+   "sourceLabel": "TRSL Financial Report June 30, 2025 (Louisiana Legislative Auditor)",
+   "asOf": "2025-06-30",
+   "evidence": "TRSL audited Financial Report June 30, 2025, Statement of Fiduciary Net Position: 'Net Position Restricted for Pensions $ 29,334,227,630'; total investments $29,134,438,729.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-06-30"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Arcmont Asset Management commitment (2025-01-16)",
+       "url": "https://www.pei-privatecredit.com/trsl-commits-100m-to-private-debt/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Arcmont Asset Management commitment (2025-01-16)",
+       "url": "https://www.pei-privatecredit.com/trsl-commits-100m-to-private-debt/"
+      },
+      {
+       "label": "TRSL Financial Report June 30, 2025 (Louisiana Legislative Auditor)",
+       "url": "https://app.lla.la.gov/publicreports.nsf/0/4f41a9c67e43703b86258d1c006d18b3/$file/00008d1a.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 29.33,
+     "reported": "29.33bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l52",
+   "verdict": "GAP",
+   "source": "https://comptroller.nyc.gov/newsroom/nyc-comptroller-levine-and-pension-trustees-announce-robust-13-pension-aggregate-return-for-fiscal-year-2026/",
+   "sourceLabel": "NYC Comptroller FY2026 returns release",
+   "asOf": "2026-06-30",
+   "evidence": "NYC Comptroller release (Aug 2026): five NYC retirement systems valued at $326.3 billion, fiscal year ended June 30, 2026, 13% net return.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2026-06-30"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Hayfin Capital Management commitment (2025-03-21)",
+       "url": "https://www.pei-privatecredit.com/nyc-comptrollers-office-commits-350m-to-hayfin-strategy/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Hayfin Capital Management commitment (2025-03-21)",
+       "url": "https://www.pei-privatecredit.com/nyc-comptrollers-office-commits-350m-to-hayfin-strategy/"
+      },
+      {
+       "label": "NYC Comptroller FY2026 returns release",
+       "url": "https://comptroller.nyc.gov/newsroom/nyc-comptroller-levine-and-pension-trustees-announce-robust-13-pension-aggregate-return-for-fiscal-year-2026/"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 326.3,
+     "reported": "326.3bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l50",
+   "verdict": "GAP",
+   "source": "https://www.imrf.org/en/publications-and-archive/2025-pafr",
+   "sourceLabel": "IMRF 2025 Popular Annual Financial Report",
+   "asOf": "2025-12-31",
+   "evidence": "IMRF 2025 PAFR (derived from 2025 ACFR): fiduciary net position $62.4 billion as of December 31, 2025; investment portfolio $61.7bn.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Pemberton Asset Management commitment (2025-04-01)",
+       "url": "https://www.pei-privatecredit.com/imrf-commits-50m-to-private-debt-2/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Pemberton Asset Management commitment (2025-04-01)",
+       "url": "https://www.pei-privatecredit.com/imrf-commits-50m-to-private-debt-2/"
+      },
+      {
+       "label": "IMRF 2025 Popular Annual Financial Report",
+       "url": "https://www.imrf.org/en/publications-and-archive/2025-pafr"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 62.4,
+     "reported": "62.4bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l137",
+   "verdict": "GAP",
+   "source": "https://www.brightersuper.com.au/about-us",
+   "sourceLabel": "Brighter Super",
+   "asOf": "2026-06-30",
+   "evidence": "'over $38 billion in funds under management (as at 30 June 2026)'. 'Over' = floor figure.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2026-06-30"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Nuveen, Sep 2026",
+       "url": "https://www.nuveen.com/global/insights/news/nuveen-raises-705-million-for-arcmonts-european-direct-lending-strategy?type=au"
+      },
+      {
+       "label": "Investment Magazine, Sep 2026",
+       "url": "https://www.investmentmagazine.com.au/2026/09/brighter-super-jana-back-european-direct-lending-push/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Nuveen, Sep 2026",
+       "url": "https://www.nuveen.com/global/insights/news/nuveen-raises-705-million-for-arcmonts-european-direct-lending-strategy?type=au"
+      },
+      {
+       "label": "Investment Magazine, Sep 2026",
+       "url": "https://www.investmentmagazine.com.au/2026/09/brighter-super-jana-back-european-direct-lending-push/"
+      },
+      {
+       "label": "Brighter Super About us",
+       "url": "https://www.brightersuper.com.au/about-us"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 26.52,
+     "reported": "38bn AUD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l135",
+   "verdict": "GAP",
+   "source": "https://www.investpsp.com/en/news/psp-investments-outperforms-10-year-benchmarks-and-posts-solid-performance-in-fiscal-2026",
+   "sourceLabel": "PSP Investments",
+   "asOf": "2026-03-31",
+   "evidence": "Net assets under management C$320.6bn at 31 Mar 2026 (+7.0%); credit investments C$35.1bn (~10.9% — not stated as % by PSP, so pcAllocationPct not set).",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2026-03-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Dakota Public Plan Minutes (February 2026)",
+       "url": "https://www.dakota.com/hubfs/February%202026%20Pension%20Brief.pdf"
+      },
+      {
+       "label": "PSP press release, 1 Nov 2016",
+       "url": "https://www.investpsp.com/en/news/psp-investments-commits-eur500-million-in-newly-created-european-credit-platform-albacore/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Dakota Public Plan Minutes (February 2026)",
+       "url": "https://www.dakota.com/hubfs/February%202026%20Pension%20Brief.pdf"
+      },
+      {
+       "label": "PSP press release, 1 Nov 2016",
+       "url": "https://www.investpsp.com/en/news/psp-investments-commits-eur500-million-in-newly-created-european-credit-platform-albacore/"
+      },
+      {
+       "label": "PSP fiscal 2026 results release, 16 Jun 2026",
+       "url": "https://www.investpsp.com/en/news/psp-investments-outperforms-10-year-benchmarks-and-posts-solid-performance-in-fiscal-2026"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 225.13,
+     "reported": "320.6bn CAD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l133",
+   "verdict": "GAP",
+   "source": "https://www.temasekreview.com.sg/downloads/Temasek-Review-2026-Media-Release.pdf",
+   "sourceLabel": "Temasek Review 2026",
+   "asOf": "2026-03-31",
+   "evidence": "Net portfolio value S$518bn as at 31 Mar 2026 (up S$49bn), mark-to-market basis. pcAllocationPct 2: ACI 8 Jul 2026 citing Temasek's annual results: 'private credit currently accounts for two per cent of its portfolio value', target 5% by 2031.",
+   "changes": [
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Alternative Credit Investor, 8 Jul 2026",
+       "url": "https://alternativecreditinvestor.com/2026/07/08/temasek-to-more-than-double-private-credit-allocation-by-2031/"
+      },
+      {
+       "label": "Alternatives Watch, 14 May 2026",
+       "url": "https://www.alternativeswatch.com/2026/05/14/temasek-pinegrove-credit-venture-debt-partnership/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Alternative Credit Investor, 8 Jul 2026",
+       "url": "https://alternativecreditinvestor.com/2026/07/08/temasek-to-more-than-double-private-credit-allocation-by-2031/"
+      },
+      {
+       "label": "Alternatives Watch, 14 May 2026",
+       "url": "https://www.alternativeswatch.com/2026/05/14/temasek-pinegrove-credit-venture-debt-partnership/"
+      },
+      {
+       "label": "Temasek Review 2026 media release",
+       "url": "https://www.temasekreview.com.sg/downloads/Temasek-Review-2026-Media-Release.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 404.71,
+     "reported": "518bn SGD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l128",
+   "verdict": "WEAK-SOURCE",
+   "source": "https://www.insurancebusinessmag.com/asia/news/life-insurance/nippon-life-posts-steep-profit-drop-on-back-of-securities-sales-losses-576783.aspx",
+   "sourceLabel": "Insurance Business",
+   "asOf": "2026-03-31",
+   "evidence": "Total assets ¥85,831.8bn at 31 Mar 2026 (+5.2% from ¥81,615.4bn); general account ¥84,708.2bn. Trade press reporting Nippon Life's FY results; company release not retrieved.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2026-03-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Advisor Perspectives / Bloomberg, 3 Jun 2026",
+       "url": "https://www.advisorperspectives.com/articles/2026/06/03/blackstone-ties-nippon-life-private-credit-investment"
+      },
+      {
+       "label": "Asia Asset Management, 7 Nov 2025",
+       "url": "https://www.asiaasset.com/?p=100851"
+      }
+     ],
+     "to": [
+      {
+       "label": "Advisor Perspectives / Bloomberg, 3 Jun 2026",
+       "url": "https://www.advisorperspectives.com/articles/2026/06/03/blackstone-ties-nippon-life-private-credit-investment"
+      },
+      {
+       "label": "Asia Asset Management, 7 Nov 2025",
+       "url": "https://www.asiaasset.com/?p=100851"
+      },
+      {
+       "label": "Insurance Business Asia, FY2025 results",
+       "url": "https://www.insurancebusinessmag.com/asia/news/life-insurance/nippon-life-posts-steep-profit-drop-on-back-of-securities-sales-losses-576783.aspx"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 542.8,
+     "reported": "85831.8bn JPY"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l95",
+   "verdict": "STALE",
+   "source": "https://merton.gov.uk/system/files/Draft%20Pension%20Fund%20Accounts%20UPDATES%20to%20sent%20copy%20V4.pdf",
+   "sourceLabel": "London Borough of Merton",
+   "asOf": "2024-03-31",
+   "evidence": "Draft accounts: closing net assets £927,436k at 31 Mar 2024 (Feb 2025 committee minutes: £927m). 2024/25 figure not found — stale but latest primary.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2024-03-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Invesco press release 22 Jul 2026",
+       "url": "https://www.invesco.com/content/dam/invesco/uk/en/pdf/press/2026/lgps-central-becomes-latest-investor-in-invesco-22-jul-26.pdf"
+      }
+     ],
+     "to": [
+      {
+       "label": "Invesco press release 22 Jul 2026",
+       "url": "https://www.invesco.com/content/dam/invesco/uk/en/pdf/press/2026/lgps-central-becomes-latest-investor-in-invesco-22-jul-26.pdf"
+      },
+      {
+       "label": "Merton Pension Fund draft accounts 2023/24",
+       "url": "https://merton.gov.uk/system/files/Draft%20Pension%20Fund%20Accounts%20UPDATES%20to%20sent%20copy%20V4.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 1.23,
+     "reported": "927.436m GBP"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l89",
+   "verdict": "GAP",
+   "source": "https://westminster.moderngov.co.uk/documents/s73234/7.%20PF%20140726%20Quarterly%20Fund%20Performance.pdf",
+   "sourceLabel": "Westminster Pension Fund Committee",
+   "asOf": "2026-03-31",
+   "evidence": "'The total value of the Fund's invested assets, including cash, stood at circa £2,228.6m as at 31 March 2026'. (Search snippet; PDF 403 on direct fetch.)",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2026-03-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "PFC 19 Oct 2023 Private Debt Top-up",
+       "url": "https://westminster.moderngov.co.uk/documents/s55863/PFC%2019102023%20-%20Private%20Debt%20Top-up.pdf"
+      }
+     ],
+     "to": [
+      {
+       "label": "PFC 19 Oct 2023 Private Debt Top-up",
+       "url": "https://westminster.moderngov.co.uk/documents/s55863/PFC%2019102023%20-%20Private%20Debt%20Top-up.pdf"
+      },
+      {
+       "label": "Westminster PFC 14 Jul 2026, Quarterly Fund Performance",
+       "url": "https://westminster.moderngov.co.uk/documents/s73234/7.%20PF%20140726%20Quarterly%20Fund%20Performance.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 2.95,
+     "reported": "2228.6m GBP"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l87",
+   "verdict": "GAP",
+   "source": "https://bradford.moderngov.co.uk/documents/s55143/Agenda%20item%2010%20-%20Finance%20Report%2012%20March%202026.pdf",
+   "sourceLabel": "West Yorkshire Pension Fund",
+   "asOf": "2025-03-31",
+   "evidence": "Finance Report 12 Mar 2026: 2024/25 final total fund closing net assets £19,969,556,589; 2025/26 forecast ~£22.8bn (not used: unaudited forecast).",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-03-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "WYPF press release 16 Oct 2025",
+       "url": "https://www.wypf.org.uk/news/press-release-16-october-2025/"
+      }
+     ],
+     "to": [
+      {
+       "label": "WYPF press release 16 Oct 2025",
+       "url": "https://www.wypf.org.uk/news/press-release-16-october-2025/"
+      },
+      {
+       "label": "WYPF Finance Report, 12 Mar 2026 (Bradford)",
+       "url": "https://bradford.moderngov.co.uk/documents/s55143/Agenda%20item%2010%20-%20Finance%20Report%2012%20March%202026.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 26.45,
+     "reported": "19.97bn GBP"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l83",
+   "verdict": "GAP",
+   "source": "https://www.nn-group.com/site/binaries/content/assets/nn-group/financial-results/2026/nn-group-financial-supplement-1h26.pdf",
+   "sourceLabel": "NN Group",
+   "asOf": "2026-06-30",
+   "evidence": "Condensed consolidated balance sheet 30 Jun 2026: total assets €207,033m (search snippet of NN's own supplement; PDF returned HTTP 500 on direct fetch). Balance-sheet total, not AUM.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2026-06-30"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Private Debt Investor",
+       "url": "https://www.privatedebtinvestor.com/european-insurers-eye-bigger-private-debt-allocations/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Private Debt Investor",
+       "url": "https://www.privatedebtinvestor.com/european-insurers-eye-bigger-private-debt-allocations/"
+      },
+      {
+       "label": "NN Group 1H26 financial supplement",
+       "url": "https://www.nn-group.com/site/binaries/content/assets/nn-group/financial-results/2026/nn-group-financial-supplement-1h26.pdf"
+      }
+     ]
+    },
+    {
+     "field": "notes",
+     "from": "Dutch insurer reported exploring new illiquid credit opportunities (PDI). No specific commitment verified in this pass.",
+     "to": "Dutch insurer reported exploring new illiquid credit opportunities (PDI)."
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 231.63,
+     "reported": "207.033bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l81",
+   "verdict": "GAP",
+   "source": "https://mb.cision.com/Public/1524/4307325/b48d6f21594bbebb.pdf",
+   "sourceLabel": "Folksam",
+   "asOf": "2025-12-31",
+   "evidence": "Helårsöversikt jan–dec 2025: 'Totalt förvaltat kapital, vid periodens slut, Mkr 998 942' (920 206 in 2024); 'drygt 999 (920) miljarder kronor'. Includes unit-linked assets.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "IPE",
+       "url": "https://ipe.com/folksam-stows-276m-into-private-credit-for-north-european-firms/10061106.article"
+      }
+     ],
+     "to": [
+      {
+       "label": "IPE",
+       "url": "https://ipe.com/folksam-stows-276m-into-private-credit-for-north-european-firms/10061106.article"
+      },
+      {
+       "label": "Folksam group full-year report 2025",
+       "url": "https://mb.cision.com/Public/1524/4307325/b48d6f21594bbebb.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 100.09,
+     "reported": "998.942bn SEK"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l79",
+   "verdict": "GAP",
+   "source": "https://www.inarcassa.it/sites/default/files/legacy/documents/2026-04/2026-04-29_CS_Inarcassa_approvato%20il%20Bilancio%202025.pdf",
+   "sourceLabel": "Inarcassa",
+   "asOf": "2025-12-31",
+   "evidence": "Approved 2025 accounts: patrimonio netto €16.9bn (vs €15.6bn end-2024), surplus €1.394bn. Net worth basis.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Focus Risparmio",
+       "url": "https://www.focusrisparmio.com/news/inarcassa-infrastrutture-e-investitori-istituzionali-come-investe"
+      }
+     ],
+     "to": [
+      {
+       "label": "Focus Risparmio",
+       "url": "https://www.focusrisparmio.com/news/inarcassa-infrastrutture-e-investitori-istituzionali-come-investe"
+      },
+      {
+       "label": "Inarcassa press release, 29 Apr 2026 (Bilancio 2025)",
+       "url": "https://www.inarcassa.it/sites/default/files/legacy/documents/2026-04/2026-04-29_CS_Inarcassa_approvato%20il%20Bilancio%202025.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 18.91,
+     "reported": "16.9bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l76",
+   "verdict": "GAP",
+   "source": "https://publica.rokka.io/dynamic/noop/d64916ba26a89217e0578498e4e1df008d9e4eed/publica-geschaftsbericht-2025-de-web-1.pdf",
+   "sourceLabel": "PUBLICA Annual Report 2025",
+   "asOf": "2025-12-31",
+   "evidence": "Geschäftsbericht 2025 key figures: 'CHF 44,9 Mia. Bilanzsumme' (31.12.2025).",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": "2026-05",
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Private Equity Wire, 21 May 2026",
+       "url": "https://www.privateequitywire.co.uk/swiss-pension-fund-publica-targets-up-to-1-1bn-private-credit-allocation/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Private Equity Wire, 21 May 2026",
+       "url": "https://www.privateequitywire.co.uk/swiss-pension-fund-publica-targets-up-to-1-1bn-private-credit-allocation/"
+      },
+      {
+       "label": "PUBLICA Geschäftsbericht 2025",
+       "url": "https://publica.rokka.io/dynamic/noop/d64916ba26a89217e0578498e4e1df008d9e4eed/publica-geschaftsbericht-2025-de-web-1.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 53.95,
+     "reported": "44.9bn CHF"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l70",
+   "verdict": "WEAK-SOURCE",
+   "source": "https://www.europeanpensions.net/ep/Denmark-P-records-double-digit-returns-for-members-AUM-rises-to-DKK-189bn.php",
+   "sourceLabel": "European Pensions",
+   "asOf": "2025-12-31",
+   "evidence": "Headline: 'Denmark's P+ records double-digit returns for members; AUM rises to DKK 189bn' (FY2025; P+ press release put end-2024 at DKK 178bn). Trade press, P+ annual report itself not retrieved.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": "2023",
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Lægernes Pension news, 2023",
+       "url": "https://www.lpb.dk/Hjaelp-og-Raadgivning/Nyheder/Nyheder-2023/P-og-Laegernes-Pension-investerer-15-mia-kr-i-klimavenlig-kredit"
+      },
+      {
+       "label": "New Private Markets, 24 Aug 2023",
+       "url": "https://www.newprivatemarkets.com/in-brief-danish-pensions-commit-to-cips-1bn-target-green-debt-debut/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Lægernes Pension news, 2023",
+       "url": "https://www.lpb.dk/Hjaelp-og-Raadgivning/Nyheder/Nyheder-2023/P-og-Laegernes-Pension-investerer-15-mia-kr-i-klimavenlig-kredit"
+      },
+      {
+       "label": "New Private Markets, 24 Aug 2023",
+       "url": "https://www.newprivatemarkets.com/in-brief-danish-pensions-commit-to-cips-1bn-target-green-debt-debut/"
+      },
+      {
+       "label": "European Pensions (P+ 2025 results)",
+       "url": "https://www.europeanpensions.net/ep/Denmark-P-records-double-digit-returns-for-members-AUM-rises-to-DKK-189bn.php"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 28.29,
+     "reported": "189bn DKK"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l68",
+   "verdict": "GAP",
+   "source": "https://www.generali.com/media/press-releases/all/2026/Generali-Group-Consolidated-Results-as-at-30-June-2026",
+   "sourceLabel": "Generali",
+   "asOf": "2026-06-30",
+   "evidence": "'Group's total AUM reached € 944 billion (+4.9% FY2025)' as at 30 June 2026.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2026-06-30"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "ACI, 9 Jan 2024",
+       "url": "https://alternativecreditinvestor.com/2024/01/09/generali-and-grosvenor-launch-uk-residential-lending-partnership/"
+      },
+      {
+       "label": "ACI, 27 Jan 2026",
+       "url": "https://alternativecreditinvestor.com/2026/01/27/ambienta-raises-more-than-e500m-for-sustainable-credit/"
+      }
+     ],
+     "to": [
+      {
+       "label": "ACI, 9 Jan 2024",
+       "url": "https://alternativecreditinvestor.com/2024/01/09/generali-and-grosvenor-launch-uk-residential-lending-partnership/"
+      },
+      {
+       "label": "ACI, 27 Jan 2026",
+       "url": "https://alternativecreditinvestor.com/2026/01/27/ambienta-raises-more-than-e500m-for-sustainable-credit/"
+      },
+      {
+       "label": "Generali 1H26 results press release",
+       "url": "https://www.generali.com/media/press-releases/all/2026/Generali-Group-Consolidated-Results-as-at-30-June-2026"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 1056.15,
+     "reported": "944bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l66",
+   "verdict": "GAP",
+   "source": "https://www.cdp.it/internet/public/cms/documents/Comunicato_stampa_n.21_del_09_04_2026_Bilancio_CDP_2025_ITA.pdf",
+   "sourceLabel": "Cassa Depositi e Prestiti",
+   "asOf": "2025-12-31",
+   "evidence": "'Totale attivo consolidato: 489 miliardi di euro (478 miliardi a fine 2024)'; CDP SpA standalone totale attivo €390.8bn.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Teleborsa/Borsa Italiana, 13 Oct 2026",
+       "url": "https://www.borsaitaliana.it/borsa/notizie/teleborsa/finanza/cdp-calibeo-sottoscritti-20-investimenti-in-fondi-di-debito-diversificati-per-717-milioni-di-euro-81_2026-10-13_TLB.html?lang=it"
+      },
+      {
+       "label": "CDP H1 2024 report",
+       "url": "https://www.cdp.it/resources/cms/documents/RFS2024_GRUPPO_CDP_ITA.pdf"
+      }
+     ],
+     "to": [
+      {
+       "label": "Teleborsa/Borsa Italiana, 13 Oct 2026",
+       "url": "https://www.borsaitaliana.it/borsa/notizie/teleborsa/finanza/cdp-calibeo-sottoscritti-20-investimenti-in-fondi-di-debito-diversificati-per-717-milioni-di-euro-81_2026-10-13_TLB.html?lang=it"
+      },
+      {
+       "label": "CDP H1 2024 report",
+       "url": "https://www.cdp.it/resources/cms/documents/RFS2024_GRUPPO_CDP_ITA.pdf"
+      },
+      {
+       "label": "CDP 2025 results press release (9 Apr 2026)",
+       "url": "https://www.cdp.it/internet/public/cms/documents/Comunicato_stampa_n.21_del_09_04_2026_Bilancio_CDP_2025_ITA.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 547.09,
+     "reported": "489bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l60",
+   "verdict": "GAP",
+   "source": "https://www.nmlegis.gov/handouts/ALESC%20071526%20Item%204%20.2%20-%20State%20Investment%20Council%20and%20New%20Mexico%20Land%20Office%20Permanent%20Funds%20Update.pdf",
+   "sourceLabel": "New Mexico State Investment Council",
+   "asOf": "2026-05-31",
+   "evidence": "SIC presentation to ALESC 15 Jul 2026: Assets Under Management $74.799bn (5/31/26); also IPOC 1 Jul 2026 minutes: SIC oversaw $74.8bn of permanent, endowment and reserve funds at 31 May 2026.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2026-05-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Pemberton Asset Management commitment (2024-08)",
+       "url": "https://www.pei-privatecredit.com/nmsic-commits-150m-to-private-credit-fund/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Pemberton Asset Management commitment (2024-08)",
+       "url": "https://www.pei-privatecredit.com/nmsic-commits-150m-to-private-credit-fund/"
+      },
+      {
+       "label": "SIC update to NM Legislature (ALESC), 15 Jul 2026",
+       "url": "https://www.nmlegis.gov/handouts/ALESC%20071526%20Item%204%20.2%20-%20State%20Investment%20Council%20and%20New%20Mexico%20Land%20Office%20Permanent%20Funds%20Update.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 74.8,
+     "reported": "74.8bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l58",
+   "verdict": "GAP",
+   "source": "https://www.oregon.gov/treasury/invested-for-oregon/Documents/Invested-for-OR-Performance-and-Holdings/2026/OPERF-063026.pdf",
+   "sourceLabel": "Oregon State Treasury",
+   "asOf": "2026-06-30",
+   "evidence": "OPERF 06/30/26 report ($000s): 'TOTAL OPERF Regular Account $104,224,040' + 'TOTAL OPERF Variable Account $280,009' = ~$104.5bn.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2026-06-30"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Sixth Street commitment (2024-12-13)",
+       "url": "https://www.oregon.gov/treasury/invested-for-oregon/Documents/Invested-for-OR-47OIC-Agenda-and-Minutes/2025/3-05-2025-Public-Book.pdf"
+      }
+     ],
+     "to": [
+      {
+       "label": "Sixth Street commitment (2024-12-13)",
+       "url": "https://www.oregon.gov/treasury/invested-for-oregon/Documents/Invested-for-OR-47OIC-Agenda-and-Minutes/2025/3-05-2025-Public-Book.pdf"
+      },
+      {
+       "label": "OPERF performance & holdings, 30 Jun 2026",
+       "url": "https://www.oregon.gov/treasury/invested-for-oregon/Documents/Invested-for-OR-Performance-and-Holdings/2026/OPERF-063026.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 104.5,
+     "reported": "104.5bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l56",
+   "verdict": "GAP",
+   "source": "https://www.nj.gov/treasury/doinvest/",
+   "sourceLabel": "NJ Division of Investment",
+   "asOf": "2026-05-31",
+   "evidence": "DOI homepage: total Pension Fund value $85.9 billion as of May 31, 2026 (excludes Police & Firemen's Retirement System assets).",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2026-05-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "SVP (Strategic Value Partners) commitment (2025-01-29)",
+       "url": "https://www.nj.gov/treasury/doinvest/pdf/ApprovedMinutes/2025/SICRegularMeetingMinutes01292025.pdf"
+      },
+      {
+       "label": "ICG (Intermediate Capital Group) commitment (2024-10-30)",
+       "url": "https://www.nj.gov/treasury/doinvest/pdf/ApprovedMinutes/2024/Minutes10302024.pdf"
+      },
+      {
+       "label": "CVC (Credit) commitment (2024-04-24)",
+       "url": "https://www.nj.gov/treasury/doinvest/pdf/ApprovedMinutes/2024/Minutes04242024.pdf"
+      }
+     ],
+     "to": [
+      {
+       "label": "SVP (Strategic Value Partners) commitment (2025-01-29)",
+       "url": "https://www.nj.gov/treasury/doinvest/pdf/ApprovedMinutes/2025/SICRegularMeetingMinutes01292025.pdf"
+      },
+      {
+       "label": "ICG (Intermediate Capital Group) commitment (2024-10-30)",
+       "url": "https://www.nj.gov/treasury/doinvest/pdf/ApprovedMinutes/2024/Minutes10302024.pdf"
+      },
+      {
+       "label": "CVC (Credit) commitment (2024-04-24)",
+       "url": "https://www.nj.gov/treasury/doinvest/pdf/ApprovedMinutes/2024/Minutes04242024.pdf"
+      },
+      {
+       "label": "NJ Division of Investment homepage",
+       "url": "https://www.nj.gov/treasury/doinvest/"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 85.9,
+     "reported": "85.9bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l53",
+   "verdict": "GAP",
+   "source": "https://www.scers.gov/",
+   "sourceLabel": "SCERS",
+   "asOf": "2025-06-30",
+   "evidence": "SCERS homepage: fund size $14.6B as of June 30, 2025.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-06-30"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "SVP (Strategic Value Partners) commitment (2025-03-21)",
+       "url": "https://www.pei-privatecredit.com/scers-commits-40-million-to-svp-private-debt-fund/"
+      }
+     ],
+     "to": [
+      {
+       "label": "SVP (Strategic Value Partners) commitment (2025-03-21)",
+       "url": "https://www.pei-privatecredit.com/scers-commits-40-million-to-svp-private-debt-fund/"
+      },
+      {
+       "label": "SCERS website (fund size)",
+       "url": "https://www.scers.gov/"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 14.6,
+     "reported": "14.6bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "lps",
+   "id": "l49",
+   "verdict": "GAP",
+   "source": "https://www.ebrd.com/content/dam/ebrd_dxp/assets/pdfs/communications-department/financial-report/2025/ebrd-financial-report-2025-english.pdf",
+   "sourceLabel": "EBRD Financial Report 2025",
+   "asOf": "2025-12-31",
+   "evidence": "Balance sheet: 'Total assets 93,091' (EUR m) at 31 Dec 2025 vs 86,467 at 31 Dec 2024. Bank balance-sheet total, not AUM.",
+   "changes": [
+    {
+     "field": "asOf",
+     "from": null,
+     "to": "2025-12-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "CVI Dom Maklerski commitment (2025-04-02)",
+       "url": "https://alternativecreditinvestor.com/2025/04/02/ebrd-backs-polish-private-debt-fund/"
+      }
+     ],
+     "to": [
+      {
+       "label": "CVI Dom Maklerski commitment (2025-04-02)",
+       "url": "https://alternativecreditinvestor.com/2025/04/02/ebrd-backs-polish-private-debt-fund/"
+      },
+      {
+       "label": "EBRD Financial Report 2025",
+       "url": "https://www.ebrd.com/content/dam/ebrd_dxp/assets/pdfs/communications-department/financial-report/2025/ebrd-financial-report-2025-english.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 104.15,
+     "reported": "93.091bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "managers",
+   "id": "m220",
+   "verdict": "GAP",
+   "source": "https://www.savillsim.com",
+   "sourceLabel": "Savills Investment Management",
+   "asOf": "2026-06-30",
+   "evidence": "Homepage: \"€25.5bn AUM\" — \"All data as at 30.06.2026\". aum left null (Italian debt arm newly launched; €7.6bn Italy figure is RE equity and not re-verified).",
+   "changes": [
+    {
+     "field": "aumText",
+     "from": "€7.6bn Italian real estate under management (equity strategies, as of Sep 2026)",
+     "to": "Parent Savills Investment Management €25.5bn AUM (30 Jun 2026, Savills IM); Italy: €7.6bn real estate (equity strategies, Sep 2026)"
+    },
+    {
+     "field": "asOf",
+     "from": "2026-09-17",
+     "to": "2026-06-30"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Alternative Credit Investor - Savills expands into Italian real estate debt",
+       "url": "https://alternativecreditinvestor.com/2026/09/16/savills-expands-into-italian-real-estate-debt/"
+      },
+      {
+       "label": "IREI - Savills IM SGR enters the Italian real estate direct lending market",
+       "url": "https://irei.com/news/savills-im-sgr-enters-the-italian-real-estate-direct-lending-market/"
+      },
+      {
+       "label": "CRE Herald - Savills IM SGR expands into Italian real estate debt market",
+       "url": "https://www.creherald.com/savills-im-sgr-expands-into-italian-real-estate-debt-market/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Alternative Credit Investor - Savills expands into Italian real estate debt",
+       "url": "https://alternativecreditinvestor.com/2026/09/16/savills-expands-into-italian-real-estate-debt/"
+      },
+      {
+       "label": "IREI - Savills IM SGR enters the Italian real estate direct lending market",
+       "url": "https://irei.com/news/savills-im-sgr-enters-the-italian-real-estate-direct-lending-market/"
+      },
+      {
+       "label": "CRE Herald - Savills IM SGR expands into Italian real estate debt market",
+       "url": "https://www.creherald.com/savills-im-sgr-expands-into-italian-real-estate-debt-market/"
+      },
+      {
+       "label": "Savills Investment Management (AUM €25.5bn, data as at 30 Jun 2026)",
+       "url": "https://www.savillsim.com"
+      }
+     ]
+    },
+    {
+     "field": "aumTotal",
+     "from": null,
+     "to": 28.53,
+     "reported": "25.5bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "managers",
+   "id": "m213",
+   "verdict": "GAP",
+   "source": "https://data.treasury.ri.gov/dataset/1d22db90-30f4-47e2-9d2b-536655c2fc48/resource/79b36b77-4cf0-4966-b24e-065c4a3cba6c/download/2b-cliffwater-risic-chorus-capital-credit-fund-v-memo-02212024.pdf",
+   "sourceLabel": "Cliffwater / Rhode Island State Investment Commission",
+   "asOf": "2024-02",
+   "evidence": "\"Chorus continues to operate out of its headquarters in London with 28 full-time employees and $2.8 billion assets under management\" (search snippet of the Feb 2024 memo). STALE by construction — lead to decide whether a 2024 figure beats null (Fund V closed $2.5bn Q2 2024 after this).",
+   "changes": [
+    {
+     "field": "aumText",
+     "from": "$4.6bn+ cumulative capital commitments raised since inception (as of Sep 2024); current point-in-time AUM not independently disclosed",
+     "to": "$2.8bn AUM (Feb 2024, Cliffwater memo to Rhode Island SIC); $4.6bn+ cumulative commitments since inception (Sep 2024) — no newer AUM disclosed"
+    },
+    {
+     "field": "asOf",
+     "from": "2026-09-16",
+     "to": "2024-02"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Chorus Capital — Home",
+       "url": "https://www.choruscapital.eu/"
+      },
+      {
+       "label": "Alternative Credit Investor — Armen takes minority stake in Chorus Capital",
+       "url": "https://alternativecreditinvestor.com/2024/09/09/armen-takes-minority-stake-in-chorus-capital/"
+      },
+      {
+       "label": "Structured Credit Investor — Chorus hits halfway mark for US$3.5bn SRT fund",
+       "url": "https://www.structuredcreditinvestor.com/news/capital-relief-trades/84379/chorus-hits-halfway-mark-for-us$3.5bn-srt-fund"
+      }
+     ],
+     "to": [
+      {
+       "label": "Chorus Capital — Home",
+       "url": "https://www.choruscapital.eu/"
+      },
+      {
+       "label": "Alternative Credit Investor — Armen takes minority stake in Chorus Capital",
+       "url": "https://alternativecreditinvestor.com/2024/09/09/armen-takes-minority-stake-in-chorus-capital/"
+      },
+      {
+       "label": "Structured Credit Investor — Chorus hits halfway mark for US$3.5bn SRT fund",
+       "url": "https://www.structuredcreditinvestor.com/news/capital-relief-trades/84379/chorus-hits-halfway-mark-for-us$3.5bn-srt-fund"
+      },
+      {
+       "label": "Cliffwater — Chorus Capital Credit Fund V memo to Rhode Island SIC (21 Feb 2024)",
+       "url": "https://data.treasury.ri.gov/dataset/1d22db90-30f4-47e2-9d2b-536655c2fc48/resource/79b36b77-4cf0-4966-b24e-065c4a3cba6c/download/2b-cliffwater-risic-chorus-capital-credit-fund-v-memo-02212024.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 2.8,
+     "reported": "2.8bn USD"
+    },
+    {
+     "field": "aumTotal",
+     "from": null,
+     "to": 2.8,
+     "reported": "2.8bn USD"
+    },
+    {
+     "field": "aumCredit",
+     "from": null,
+     "to": 2.8,
+     "reported": "2.8bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "managers",
+   "id": "m144",
+   "verdict": "GAP",
+   "source": "https://www.sagard.com/blog/2026/07/15/sagard-credit-partners-holds-us1b-first-close-for-third-private-credit-vintage/",
+   "sourceLabel": "Sagard",
+   "asOf": "2026-03-31",
+   "evidence": "\"over US$46B¹ in assets under management\" — footnote: pro-forma AUM at March 31, 2026 incl. Unigestion PE as of 31 Dec 2025. Platform deployed ~US$4.5B across credit since 2016 (deployment, not AUM). aum left null.",
+   "changes": [
+    {
+     "field": "aumText",
+     "from": "Part of Sagard, a ~$46bn+ multi-strategy platform (private equity, credit, real estate, venture)",
+     "to": "Parent Sagard over US$46bn AUM (pro-forma, 31 Mar 2026, Sagard release 15 Jul 2026); credit platform has deployed ~US$4.5bn since 2016 — credit AUM not disclosed"
+    },
+    {
+     "field": "asOf",
+     "from": "2026-09-18",
+     "to": "2026-03-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Sagard — Private Credit",
+       "url": "https://www.sagard.com/private-credit/"
+      },
+      {
+       "label": "Pulse2 — Sagard Credit Partners III Holds $1 Billion First Close And Targets $2 Billion (re-verification, Jul 2026)",
+       "url": "https://pulse2.com/sagard-credit-partners-iii-holds-1-billion-first-close-and-targets-2-billion/amp/"
+      },
+      {
+       "label": "Business Wire — Sagard Credit Partners Holds US$1B First Close for Third Private Credit Vintage",
+       "url": "https://www.businesswire.com/news/home/20260715179931/en/Sagard-Credit-Partners-Holds-US%241B-First-Close-for-Third-Private-Credit-Vintage"
+      },
+      {
+       "label": "Re-verified 18 Sep 2026: no material profile change found — SCP III still at its $1bn first close (Jul 2026) against a $2bn target, no second close reported yet",
+       "url": "https://www.sagard.com/private-credit/"
+      }
+     ],
+     "to": [
+      {
+       "label": "Sagard — Private Credit",
+       "url": "https://www.sagard.com/private-credit/"
+      },
+      {
+       "label": "Pulse2 — Sagard Credit Partners III Holds $1 Billion First Close And Targets $2 Billion (re-verification, Jul 2026)",
+       "url": "https://pulse2.com/sagard-credit-partners-iii-holds-1-billion-first-close-and-targets-2-billion/amp/"
+      },
+      {
+       "label": "Business Wire — Sagard Credit Partners Holds US$1B First Close for Third Private Credit Vintage",
+       "url": "https://www.businesswire.com/news/home/20260715179931/en/Sagard-Credit-Partners-Holds-US%241B-First-Close-for-Third-Private-Credit-Vintage"
+      },
+      {
+       "label": "Re-verified 18 Sep 2026: no material profile change found — SCP III still at its $1bn first close (Jul 2026) against a $2bn target, no second close reported yet",
+       "url": "https://www.sagard.com/private-credit/"
+      },
+      {
+       "label": "Sagard — SCP III US$1B first close (15 Jul 2026)",
+       "url": "https://www.sagard.com/blog/2026/07/15/sagard-credit-partners-holds-us1b-first-close-for-third-private-credit-vintage/"
+      }
+     ]
+    },
+    {
+     "field": "aumTotal",
+     "from": null,
+     "to": 46,
+     "reported": "46bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "managers",
+   "id": "m134",
+   "verdict": "GAP",
+   "source": "https://www.prnewswire.com/news-releases/federated-hermes-inc-reports-record-assets-under-management-with-second-quarter-2026-earnings-302839477.html",
+   "sourceLabel": "Federated Hermes Q2 2026 results (PR Newswire)",
+   "asOf": "2026-06-30",
+   "evidence": "\"total managed assets were a record $911.6 billion at June 30, 2026\"; alternative/private markets $21,647m ($14.9bn funds + $6.7bn separate accounts). aum left null (no private-credit figure).",
+   "changes": [
+    {
+     "field": "aumText",
+     "from": "AUM not independently disclosed",
+     "to": "Parent Federated Hermes $911.6bn total managed assets; alternative/private markets $21.6bn (30 Jun 2026, Q2 2026 results) — private-credit AUM not separately disclosed"
+    },
+    {
+     "field": "asOf",
+     "from": "2026-09-25",
+     "to": "2026-06-30"
+    },
+    {
+     "field": "aumTotal",
+     "from": null,
+     "to": 911.6,
+     "reported": "911.6bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "managers",
+   "id": "m96",
+   "verdict": "WRONG",
+   "source": "https://www.emarketstorage.it/sites/default/files/comunicati/2026-09/20260908_188860.pdf",
+   "sourceLabel": "Azimut Holding (eMarket Storage regulated filing)",
+   "asOf": "2026-08-31",
+   "evidence": "\"The robust net inflows drive Total Assets to € 159.4 billion as of the end of August\"; table 31/08/2026: Total Assets 159,402; of which AuM 112,830; Alternative funds 8,851 (€m).",
+   "changes": [
+    {
+     "field": "aumText",
+     "from": "Azimut Group ~$170bn (est.; record group AUM €159.4bn at 31 Aug 2026)",
+     "to": "€159.4bn Azimut Group total assets, of which €112.8bn AuM; alternative funds €8.9bn (31 Aug 2026, Azimut Holding release 8 Sep 2026) — Italy private-credit sleeve not disclosed"
+    },
+    {
+     "field": "asOf",
+     "from": "2026-09-22",
+     "to": "2026-08-31"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "EIF",
+       "url": "https://www.eif.org/InvestEU/news/2023/investeu-eif-azimut-investments-launch-new-senior-private-credit-fund-promote-climate-action-italy.htm"
+      },
+      {
+       "label": "Azimut Holding FY2024 results (PDF)",
+       "url": "https://www.azimutinvestments.com/documents/45685/922174/Press_release_FY_2024_vF.pdf/474216c1-9b57-8d7e-5c9d-09f016e587bc?t=1741876059870"
+      },
+      {
+       "label": "Azimut Private Debt Capital Solutions II - ELTIF",
+       "url": "https://www.azimut.it/landing/azimut-eltif-private-debt-capital-solutions-ii"
+      },
+      {
+       "label": "Investing.com — Azimut H1 2026 slides (2026-09-06 rotation re-verification: record group AUM €158bn / H1 2026 results confirmed unchanged, no newer disclosure found)",
+       "url": "https://www.investing.com/news/company-news/azimut-h1-2026-slides-turkey-deal-drives-guidance-upgrade-93CH-4825459"
+      },
+      {
+       "label": "MarketScreener — Azimut August 2026 net inflows (2026-09-22 rotation re-verification: group AUM updated to a record €159.4bn at 31 Aug 2026, €938m August net inflows, €10.2bn YTD; no standalone private-credit sleeve AUM disclosed and the ELTIF/direct-lending strategy line-up is unchanged)",
+       "url": "https://www.marketscreener.com/news/global-business-azimut-net-inflows-total-eur938-million-in-august-ce785bd9d981f025"
+      }
+     ],
+     "to": [
+      {
+       "label": "EIF",
+       "url": "https://www.eif.org/InvestEU/news/2023/investeu-eif-azimut-investments-launch-new-senior-private-credit-fund-promote-climate-action-italy.htm"
+      },
+      {
+       "label": "Azimut Holding FY2024 results (PDF)",
+       "url": "https://www.azimutinvestments.com/documents/45685/922174/Press_release_FY_2024_vF.pdf/474216c1-9b57-8d7e-5c9d-09f016e587bc?t=1741876059870"
+      },
+      {
+       "label": "Azimut Private Debt Capital Solutions II - ELTIF",
+       "url": "https://www.azimut.it/landing/azimut-eltif-private-debt-capital-solutions-ii"
+      },
+      {
+       "label": "Investing.com — Azimut H1 2026 slides (2026-09-06 rotation re-verification: record group AUM €158bn / H1 2026 results confirmed unchanged, no newer disclosure found)",
+       "url": "https://www.investing.com/news/company-news/azimut-h1-2026-slides-turkey-deal-drives-guidance-upgrade-93CH-4825459"
+      },
+      {
+       "label": "MarketScreener — Azimut August 2026 net inflows (2026-09-22 rotation re-verification: group AUM updated to a record €159.4bn at 31 Aug 2026, €938m August net inflows, €10.2bn YTD; no standalone private-credit sleeve AUM disclosed and the ELTIF/direct-lending strategy line-up is unchanged)",
+       "url": "https://www.marketscreener.com/news/global-business-azimut-net-inflows-total-eur938-million-in-august-ce785bd9d981f025"
+      },
+      {
+       "label": "Azimut Holding — €938m net inflows in August 2026 (press release, 8 Sep 2026)",
+       "url": "https://www.emarketstorage.it/sites/default/files/comunicati/2026-09/20260908_188860.pdf"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": 170,
+     "to": 178.34,
+     "reported": "159.4bn EUR"
+    },
+    {
+     "field": "aumTotal",
+     "from": 78.3,
+     "to": 178.34,
+     "reported": "159.4bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "managers",
+   "id": "m40",
+   "verdict": "WRONG",
+   "source": "https://live.peievents.com/private-credit/principal-sponsor/arini-capital-management",
+   "sourceLabel": "PEI Events",
+   "asOf": "2026-05-01",
+   "evidence": "\"As of 1 May 2026, Arini manages approximately $21 billion across a range of strategies\" (credit-only manager, so total = credit). Replaces the May-2026 $18bn press figure and the inconsistent EUR-converted 12.3 aumTotal/aumCredit.",
+   "changes": [
+    {
+     "field": "aumText",
+     "from": "~$18bn (May 2026, tenth European CLO milestone)",
+     "to": "~$21bn AUM (1 May 2026, Arini via PEI Private Credit profile); SEC Form ADV $35.5bn (Arini UK) is gross regulatory AUM, not net"
+    },
+    {
+     "field": "asOf",
+     "from": "2026-09-18",
+     "to": "2026-05-01"
+    },
+    {
+     "field": "sources",
+     "from": [
+      {
+       "label": "Arini",
+       "url": "https://www.arini.com/about"
+      },
+      {
+       "label": "SEC adviser record",
+       "url": "https://adviserinfo.sec.gov/firm/summary/331241"
+      },
+      {
+       "label": "Alternative Fund Insight — Arini hits $18bn, tenth European CLO issuance milestone (May 2026)",
+       "url": "https://alternativefundinsight.com/arini-hits-18bn-reaches-tenth-european-clo-issuance-milestone/"
+      },
+      {
+       "label": "Rotating re-verification (4 Sep 2026): SEC IAPD ADV basis ($35.5bn ARINI UK / $28.0bn ARINI US, 31 Dec 2025) reconfirmed unchanged; no newer disclosure since Jul 2026 check",
+       "url": "https://adviserinfo.sec.gov/firm/summary/331241"
+      },
+      {
+       "label": "Rotating re-verification (18 Sep 2026): SEC IAPD ADV basis unchanged; Arini-Lazard European Private Credit Fund nearing ~$4bn final close per Bloomberg (10 Sep 2026), already reflected in fund record f50",
+       "url": "https://www.bloomberg.com/news/articles/2026-09-10/arini-nears-4-billion-final-close-of-first-direct-lending-fund"
+      }
+     ],
+     "to": [
+      {
+       "label": "Arini",
+       "url": "https://www.arini.com/about"
+      },
+      {
+       "label": "SEC adviser record",
+       "url": "https://adviserinfo.sec.gov/firm/summary/331241"
+      },
+      {
+       "label": "Alternative Fund Insight — Arini hits $18bn, tenth European CLO issuance milestone (May 2026)",
+       "url": "https://alternativefundinsight.com/arini-hits-18bn-reaches-tenth-european-clo-issuance-milestone/"
+      },
+      {
+       "label": "Rotating re-verification (4 Sep 2026): SEC IAPD ADV basis ($35.5bn ARINI UK / $28.0bn ARINI US, 31 Dec 2025) reconfirmed unchanged; no newer disclosure since Jul 2026 check",
+       "url": "https://adviserinfo.sec.gov/firm/summary/331241"
+      },
+      {
+       "label": "Rotating re-verification (18 Sep 2026): SEC IAPD ADV basis unchanged; Arini-Lazard European Private Credit Fund nearing ~$4bn final close per Bloomberg (10 Sep 2026), already reflected in fund record f50",
+       "url": "https://www.bloomberg.com/news/articles/2026-09-10/arini-nears-4-billion-final-close-of-first-direct-lending-fund"
+      },
+      {
+       "label": "PEI — Arini Capital Management sponsor profile (~$21bn AUM as of 1 May 2026)",
+       "url": "https://live.peievents.com/private-credit/principal-sponsor/arini-capital-management"
+      }
+     ]
+    },
+    {
+     "field": "aum",
+     "from": 18,
+     "to": 21,
+     "reported": "21bn USD"
+    },
+    {
+     "field": "aumTotal",
+     "from": 12.3,
+     "to": 21,
+     "reported": "21bn USD"
+    },
+    {
+     "field": "aumCredit",
+     "from": 12.3,
+     "to": 21,
+     "reported": "21bn USD"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "firms",
+   "id": "stephensonharwood",
+   "verdict": "STALE",
+   "source": "https://www.legalbusiness.co.uk/law-firms/stephenson-harwood-stresses-longer-term-strategy-as-revenue-and-profits-dip/",
+   "sourceLabel": "Legal Business",
+   "asOf": "FY2025/26",
+   "evidence": "Legal Business, 7 Aug 2026: revenue down 2% to £303m from £309m; net profit down 12% to £105m. No FY2025/26 PEP published — pep/pepBasis/pepAsOf stay at FY2024/25 (£1.0m).",
+   "changes": [
+    {
+     "field": "london.revenue",
+     "from": 309,
+     "to": 303
+    },
+    {
+     "field": "london.revenueBasis",
+     "from": "Firmwide revenue, £m, FY2024/25 (£309m, +17%; firm results — statutory accounts show £307.8m); London HQ",
+     "to": "Firmwide revenue, £m, FY2025/26 (£303m, -2%; net profit £105m, -12%; firm results via Legal Business); London HQ"
+    },
+    {
+     "field": "london.revenueAsOf",
+     "from": "FY2024/25",
+     "to": "FY2025/26"
+    },
+    {
+     "field": "london.sources",
+     "from": [
+      "https://www.thelawyer.com/stephenson-harwood-hits-double-record-as-revenue-and-pep-soar/",
+      "https://www.globallegalpost.com/news/stephenson-harwood-breaks-ps300m-barrier-as-pep-hits-ps1m-for-the-first-time-978799711"
+     ],
+     "to": [
+      "https://www.legalbusiness.co.uk/law-firms/stephenson-harwood-stresses-longer-term-strategy-as-revenue-and-profits-dip/",
+      "https://www.thelawyer.com/stephenson-harwood-hits-double-record-as-revenue-and-pep-soar/",
+      "https://www.globallegalpost.com/news/stephenson-harwood-breaks-ps300m-barrier-as-pep-hits-ps1m-for-the-first-time-978799711"
+     ]
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "firms",
+   "id": "cleary",
+   "verdict": "WEAK-SOURCE",
+   "source": "https://abovethelaw.com/2025/11/all-that-biglaw-bonus-money-with-nowhere-to-spend-it/",
+   "sourceLabel": "Above the Law",
+   "asOf": "FY2024",
+   "evidence": "ATL (Nov 2025): \"The firm boasted an impressive $1,700,000,000 gross revenue in 2024 according to Am Law 100\"; Non-Billable: 2024 revenue $1.7bn, PEP $5.2m (The American Lawyer). Values unchanged; sources strengthened. FY2025 figure not found.",
+   "changes": [
+    {
+     "field": "london.revenueBasis",
+     "from": "Global FY2024 (AmLaw), US$m (~$1.7bn) — London not broken out",
+     "to": "Global gross revenue, US$m, FY2024 (Am Law 100, ~$1.7bn) — London not broken out"
+    },
+    {
+     "field": "london.pepBasis",
+     "from": "Global PEP FY2024 (AmLaw), US$m (~$5.2m)",
+     "to": "Global PEP, US$m, FY2024 (The American Lawyer, ~$5.2m, via Non-Billable)"
+    },
+    {
+     "field": "london.sources",
+     "from": [
+      "https://www.clearygottlieb.com/locations/london"
+     ],
+     "to": [
+      "https://www.clearygottlieb.com/locations/london",
+      "https://abovethelaw.com/2025/11/all-that-biglaw-bonus-money-with-nowhere-to-spend-it/",
+      "https://www.nonbillable.co.uk/law-firms/cleary-gottlieb"
+     ]
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h69",
+   "verdict": "STALE",
+   "source": "https://adviserinfo.sec.gov/firm/summary/161413",
+   "sourceLabel": "SEC IAPD (Form ADV)",
+   "asOf": "2026-10",
+   "evidence": "Form ADV main office: 401 Lake Street East, 3rd Floor, Wayzata, MN (CRD 161413); EDGAR business address same; walleyecapital.com/contact lists the Minnesota office at 401 Lake St E, Wayzata (no Plymouth office). Firm also has a large NY office (315 Park Ave S) but no HQ label.",
+   "changes": [
+    {
+     "field": "hq",
+     "from": "Plymouth, MN, US",
+     "to": "Wayzata, MN, US"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "HEDGE_FUNDS",
+   "id": "h63",
+   "verdict": "WRONG",
+   "source": "https://adviserinfo.sec.gov/firm/summary/328089",
+   "sourceLabel": "SEC IAPD (Form ADV)",
+   "asOf": "2026-10",
+   "evidence": "Form ADV main office: 101 California Street, Suite 4300, San Francisco (CRD 328089); EDGAR business address One Market Plaza, San Francisco; fgrovep.com lists San Francisco first, then New York, Austin, West Palm Beach.",
+   "changes": [
+    {
+     "field": "hq",
+     "from": "New York, NY, US",
+     "to": "San Francisco, CA, US"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1105",
+   "verdict": "WRONG",
+   "source": "https://eurobuildcee.com/news/55189-fidera-doinwestuje",
+   "sourceLabel": null,
+   "asOf": "2026-10",
+   "evidence": "Lead review 2026-10-21: the financing funds Resi Capital's Polish housing portfolio; R39(a) bases are hq | incorporated | issuer | portfolio — 'asset' (from the research brief) is not one.",
+   "changes": [
+    {
+     "field": "countryBasis",
+     "from": "asset",
+     "to": "portfolio"
+    }
+   ]
   }
  ]
 }
