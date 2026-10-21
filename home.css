@@ -820,6 +820,14 @@
     .tui .g-side3{ grid-area:mgr; display:block; min-width:0; border-left:1px solid var(--t-grid2); }
     .tui .g-side-x{ grid-area:sidex; display:block; min-width:0; border-left:1px solid var(--t-grid2); }
     .tui .g-side2{ grid-area:side2; display:block; border-left:1px solid var(--t-grid2); }
+    /* Rail type sits 1.5px under the app scale (owner 2026-10-21: "reduce by 1-2px the
+       text in the left and right rails on Home"). The grid tokens are re-declared here
+       with --fs-rail subtracted, so the ONE knob (--fs-adj, Menu → Text size) still
+       moves the rails with everything else (R11) — no hand-written px. */
+    .tui .g-side, .tui .g-side-x, .tui .g-side2{ --fs-rail: 1.5px;
+      --fs-micro: calc(10px + var(--fs-adj) - var(--fs-rail)); --fs-num: calc(11px + var(--fs-adj) - var(--fs-rail));
+      --fs-body: calc(12px + var(--fs-adj) - var(--fs-rail)); --fs-head: calc(14px + var(--fs-adj) - var(--fs-rail));
+      --fs-content: var(--fs-body); --fs-item-title: var(--fs-body); --fs-item-meta: var(--fs-micro); --fs-card-title: var(--fs-head); --fs-tagline: var(--fs-body); }
     /* ---- HERO CHART BAND (Option C) ---- */
     .tui .g-hero{ display:flex; flex-direction:column; background:var(--t-panel); }
     .tui .g-hero-head{ flex:0 0 auto; }   /* pinned title row, like the other panes */

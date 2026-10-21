@@ -7,7 +7,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { check, checkEq, finish, ROOT } from "./lib.mjs";
-import { nameForms, rosterEntities, matchEntities, mergeQueue, keyOf, PLACE, readWire } from "../scripts/collect-wire.mjs";
+import { nameForms, rosterEntities, matchEntities, mergeQueue, keyOf, PLACE, readWire, legalDealItems } from "../scripts/collect-wire.mjs";
 import { knownIndex } from "../scripts/collect-candidates.mjs";
 import * as CR from "../credit/js/data.js";
 
@@ -62,4 +62,25 @@ const r = spawnSync(process.execPath, [path.join(ROOT, "scripts/health-check.mjs
 let hj = null; try { hj = JSON.parse(r.stdout); } catch { /* reported below */ }
 const iss = hj && [...(hj.fails || []), ...(hj.attention || [])].find((i) => i.area === "wire-sweep" && /waited/.test(i.detail));
 check(!!iss && /1 /.test(iss.detail), `health check: an item open for more than 48h is flagged (${iss && iss.detail})`);
+// Law-firm deal announcements (audit 2026-10-21): a firm's own "X advises Y on …"
+// release that names a tracked party joins the queue, and closes only when a DEAL-side
+// record cites it — not because it is held as a legal item.
+{
+  const ents = [{ kind: "manager", id: "mA", name: "Antares Capital", forms: ["Antares"], res: [/\bAntares\b/i] }, { kind: "manager", id: "mC", name: "Clifford Capital", forms: ["Clifford"], res: [/\bClifford\b/i] }, { kind: "firm", id: "weil", name: "Weil", forms: ["Weil"], res: [/\bWeil\b/i] }];
+  const items = [
+    { id: "u1", firm: "weil", date: "2026-10-20", url: "https://www.weil.com/a", title: "Weil Advises Antares Capital in Financing for Eide Bailly" },
+    { id: "u2", firm: "cliffordchance", date: "2026-10-20", url: "https://www.cliffordchance.com/b", title: "Clifford Chance advises GD Towers on its €1 billion debut public bond" },
+    { id: "u3", firm: "weil", date: "2026-10-20", url: "https://www.weil.com/c", title: "Weil partner named to Antares Capital advisory board" },
+    { id: "u4", firm: "weil", date: "2026-08-01", url: "https://www.weil.com/d", title: "Weil Advises Antares Capital on Refinancing" },
+  ];
+  const got = legalDealItems(items, ents, { since: "2026-09-21", firms: { weil: "Weil" } });
+  check(got.length === 1 && got[0].url.endsWith("/a") && got[0].via === "law-firm" && got[0].entities[0].id === "mA" && got[0].source === "Weil", "law-firm deals: an advisory release naming a tracked party is queued (with its firm as source)");
+  check(!got.some((g) => g.url.endsWith("/b")), "law-firm deals: the firm's own name never matches a tracked entity (Clifford Chance ≠ Clifford Capital)");
+  check(!got.some((g) => /\/(c|d)$/.test(g.url)), "law-firm deals: not a transaction, or older than the window → not queued");
+  const idx = { urls: new Set(["weil.com/a"]), titles: new Set(), dealUrls: new Set() };
+  const q1 = mergeQueue([], got, { idx, now: "2026-10-21T00:00:00Z" });
+  checkEq(q1[0].status, "open", "law-firm deals: held as a legal item is NOT enough to close it");
+  const q2 = mergeQueue(q1, [], { idx: { ...idx, dealUrls: new Set(["weil.com/a"]) }, now: "2026-10-21T02:00:00Z" });
+  checkEq(q2[0].status, "recorded", "law-firm deals: it closes once a deal-side record cites it");
+}
 finish();

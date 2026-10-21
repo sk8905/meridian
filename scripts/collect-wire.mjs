@@ -31,7 +31,7 @@ import * as CR from "../credit/js/data.js";
 import * as LG from "../legal/js/data.js";
 import * as DB from "../dashboard/js/data.js";
 import { FEED_SOURCES, FEED_WINDOW_DAYS, feedParse, feedSourceKeep, feedQualityKeep } from "../src/index.js";
-import { knownIndex, isKnown } from "./collect-candidates.mjs";
+import { knownIndex, isKnown, isKnownDeal } from "./collect-candidates.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const QUEUE_FILE = path.join(ROOT, "backfill/wire-queue.json");
@@ -115,6 +115,32 @@ export function matchEntities(title, ents) {
   return ents.filter((e) => e.res.some((re) => re.test(t))).map((e) => ({ kind: e.kind, id: e.id, name: e.name }));
 }
 
+// ---- law-firm deal announcements ------------------------------------------------
+// Data audit 2026-10-21: of 260 financing / fund mandates the tracked law firms announced
+// in 90 days, 3 had become deals — the firms' own releases were held as legal items but
+// never turned into the deal records they describe. So a law-firm announcement (already
+// in legal/js/data.js `items`, last FEED_WINDOW_DAYS) that describes a TRANSACTION and
+// names a tracked manager / hedge fund / LP / borrower / stressed credit joins the queue
+// too (`via: "law-firm"`). It closes only when a deal-side record (deals / intel /
+// HEDGE_INTEL / commitments, or its alsoReported) cites it, or the ledger records /
+// rejects it — never merely because it is held as a legal item.
+export const DEAL_MANDATE = /\b(financ\w*|refinanc\w*|facilit\w*|term loan|unitranche|loan|notes|bonds?|CLO|securiti[sz]ation|SRT|risk transfer|NAV|credit|lend\w*|fund (formation|launch|close)|final close|first close|fundrais\w*|raises?|continuation (vehicle|fund)|secondar\w*|acqui\w*|sale of|sells?|buy\w*|merger|stake|investment in|invests?|take[- ]private|IPO|DIP|restructur\w*|recapitali[sz]\w*)\b/i;
+const ADVISORY = /\b(advis\w*|acts?|acted|acting|counsel|represent\w*)\b/i;
+export function legalDealItems(items, ents, { since, firms = {} } = {}) {
+  const nonFirm = ents.filter((e) => e.kind !== "firm");
+  const out = [];
+  for (const i of items || []) {
+    if (!i || !i.url || !i.title || (since && String(i.date || "") < since)) continue;
+    if (!ADVISORY.test(i.title) || !DEAL_MANDATE.test(i.title)) continue;
+    // Match only what follows the advisory verb — the firm's own name ("Clifford Chance
+    // advises …") must not match a tracked entity ("Clifford Capital").
+    const m = matchEntities(i.title.slice(i.title.search(ADVISORY)), nonFirm);
+    if (!m.length) continue;
+    out.push({ title: i.title, url: i.url, source: firms[i.firm] || i.firm, date: i.date, entities: m, via: "law-firm", legalId: i.id || null });
+  }
+  return out;
+}
+
 // ---- queue ----------------------------------------------------------------------
 export const keyOf = (u) => String(u || "").toLowerCase().replace(/^https?:\/\/(www\.)?/, "").split(/[?#]/)[0].replace(/\/+$/, "");
 /** Merge the latest wire matches into the permanent queue.
@@ -126,7 +152,7 @@ export function mergeQueue(prev, fresh, { idx, ledger = [], now = new Date().toI
     const key = keyOf(f.url);
     if (!key) continue;
     if (byKey.has(key)) { const x = byKey.get(key); x.lastSeen = now; continue; }
-    byKey.set(key, { key, title: f.title, url: f.url, source: f.source, date: f.date, entities: f.entities, firstSeen: now, lastSeen: now, status: "open" });
+    byKey.set(key, { key, title: f.title, url: f.url, source: f.source, date: f.date, entities: f.entities, ...(f.via ? { via: f.via, legalId: f.legalId || null } : {}), firstSeen: now, lastSeen: now, status: "open" });
   }
   const led = new Map((ledger || []).map((l) => [keyOf(l.key || l.url), l]));
   const cut = new Date(Date.parse(now) - CLOSED_KEEP_DAYS * 864e5).toISOString();
@@ -135,7 +161,7 @@ export function mergeQueue(prev, fresh, { idx, ledger = [], now = new Date().toI
     if (x.status === "open") {
       const l = led.get(x.key);
       if (l && (l.status === "recorded" || l.status === "rejected")) Object.assign(x, { status: l.status, recordId: l.recordId || null, reason: l.reason || null, closed: l.at || now });
-      else if (idx && isKnown(idx, { link: x.url, title: x.title })) Object.assign(x, { status: "recorded", recordId: null, reason: "held in the data (URL or headline)", closed: now });
+      else if (idx && x.via === "law-firm" ? isKnownDeal(idx, { link: x.url }) : idx && isKnown(idx, { link: x.url, title: x.title })) Object.assign(x, { status: "recorded", recordId: null, reason: x.via === "law-firm" ? "cited by a deal-side record" : "held in the data (URL or headline)", closed: now });
     }
     if (x.status !== "open" && (x.closed || now) < cut) continue;   // closed long ago — trim the audit trail
     out.push(x);
@@ -171,19 +197,22 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   if (process.argv.includes("--summary")) {
     const open = (prev.items || []).filter((x) => x.status === "open");
     console.log(`WIRE QUEUE — ${open.length} open of ${(prev.items || []).length} (generated ${prev.generated || "never"})`);
-    for (const x of open) console.log(`  ${x.date}  [${x.entities.map((e) => `${e.kind}:${e.id}`).join(" ")}] ${x.title}\n      ${x.source} · ${x.url}\n      → ${[...new Set(x.entities.map((e) => PLACE[e.kind]))].join(" | ")}`);
+    for (const x of open) console.log(`  ${x.date}  [${x.entities.map((e) => `${e.kind}:${e.id}`).join(" ")}] ${x.title}\n      ${x.source} · ${x.url}\n      → ${x.via === "law-firm" ? "LAW-FIRM DEAL ANNOUNCEMENT — record the transaction it describes as a deal / intel / commitment under the tracked party (cite the firm's release, or the principal's own release with this in alsoReported); reject with a reason if it is not a credit event" : [...new Set(x.entities.map((e) => PLACE[e.kind]))].join(" | ")}`);
     process.exit(0);
   }
   const ents = rosterEntities();
   const wire = await readWire();
   const fresh = [];
   for (const it of wire.items) { const m = matchEntities(it.title, ents); if (m.length) fresh.push({ ...it, entities: m }); }
+  const since = new Date(Date.now() - FEED_WINDOW_DAYS * 864e5).toISOString().slice(0, 10);
+  const legal = legalDealItems(LG.items || [], ents, { since, firms: Object.fromEntries((LG.firms || []).map((f) => [f.id, f.name])) });
+  fresh.push(...legal);
   const ledger = readJson(LEDGER_FILE, { items: [] }).items || [];
   const now = new Date().toISOString();
   const items = mergeQueue(prev.items || [], fresh, { idx: knownIndex(), ledger, now });
   const open = items.filter((x) => x.status === "open").length;
   console.log(JSON.stringify({ generated: now, windowDays: FEED_WINDOW_DAYS,
-    summary: { wireItems: wire.items.length, matched: fresh.length, open, total: items.length, entities: ents.length, failedSources: wire.failed },
+    summary: { wireItems: wire.items.length, lawFirmDeals: legal.length, matched: fresh.length, open, total: items.length, entities: ents.length, failedSources: wire.failed },
     place: PLACE, items }, null, 1));
   if (!wire.items.length) process.exit(2);   // nothing reachable — never pretend
 }

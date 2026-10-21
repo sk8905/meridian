@@ -3,7 +3,7 @@
 // pass, so we feed it representative HTML and assert the reading-mode output: title,
 // byline/date, clean paragraphs (boilerplate stripped, entities decoded, <article>
 // preferred), and the paywall signal (schema.org isAccessibleForFree=false).
-import { extractReadable, readHostAllowed, proxyParagraphs, proxyBlocks, readProxyChoice } from "../src/index.js";
+import { extractReadable, readHostAllowed, proxyParagraphs, proxyBlocks, readProxyChoice, jinaRetryKeyless } from "../src/index.js";
 import { check, checkEq, finish } from "./lib.mjs";
 import fs from "node:fs";
 
@@ -842,6 +842,9 @@ check(xssB && /<a href="https:\/\/example\.com\/x" target="_blank" rel="noopener
 //      reading from quietly draining Firecrawl credit.
 check(readProxyChoice("someblog.example.com", true) === "jina", "proxy: a non-allowlisted host uses Jina even when the Firecrawl key is set");
 check(readProxyChoice("someblog.example.com", false) === "jina", "proxy: with no Firecrawl key, every host uses Jina");
+// proxy-402 (owner report 2026-10-21): an exhausted / refused Jina KEY is retried keyless.
+check([401, 402, 403, 429].every((s) => jinaRetryKeyless(s, true)), "proxy: a refused Jina key (401/402/403/429) is retried keyless");
+check(!jinaRetryKeyless(402, false) && !jinaRetryKeyless(404, true) && !jinaRetryKeyless(500, true), "proxy: no retry without a key, or for a page/server error");
 check(readProxyChoice("reuters.com", true) === "jina", "proxy: Reuters is NOT on the Firecrawl allowlist (removed as a source)");
 check(readProxyChoice("zzz-nohost.invalidtld", true) === "jina", "proxy: an unknown host never escalates to Firecrawl");
 

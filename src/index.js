@@ -2976,13 +2976,24 @@ async function _readViaFirecrawl(u, host, env) {
     return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(meta.title || meta.ogTitle), byline: "", date: meta.publishedTime || meta.publishedDate || "", accessible: paras.length >= 2, paragraphs: paras, blocks: blks, via: "firecrawl" };
   } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fc-failed" }; }
 }
+// A keyed Jina call that fails on the KEY — 401 invalid, 402 balance exhausted
+// ("proxy-402", owner report 2026-10-21), 403, 429 key quota — is retried once
+// keyless: the free tier still reads the page, so an exhausted key never blanks the
+// reader. Exported so a spec can lock the rule.
+export const jinaRetryKeyless = (status, hadKey) => !!hadKey && [401, 402, 403, 429].includes(Number(status));
 async function _readViaJina(u, host, env) {
   try {
     // x-engine:browser renders the page in a real headless browser (gets past walls
     // that hand a plain fetch an empty page).
     const hdrs = { accept: "application/json", "x-return-format": "markdown", "x-engine": "browser" };
-    if (env && env.JINA_API_KEY) hdrs.authorization = "Bearer " + env.JINA_API_KEY;   // lifts the keyless rate limit
-    const r = await fetch("https://r.jina.ai/" + u.toString(), { headers: hdrs, signal: AbortSignal.timeout(20000) });
+    const keyed = !!(env && env.JINA_API_KEY);
+    if (keyed) hdrs.authorization = "Bearer " + env.JINA_API_KEY;   // lifts the keyless rate limit
+    let r = await fetch("https://r.jina.ai/" + u.toString(), { headers: hdrs, signal: AbortSignal.timeout(20000) });
+    if (!r.ok && jinaRetryKeyless(r.status, keyed)) {
+      console.warn(`reader: Jina key refused (HTTP ${r.status}) — retrying keyless; top up or replace JINA_API_KEY`);
+      delete hdrs.authorization;
+      r = await fetch("https://r.jina.ai/" + u.toString(), { headers: hdrs, signal: AbortSignal.timeout(20000) });
+    }
     if (!r.ok) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-" + r.status };
     const raw = await r.text();   // parse the JSON envelope, but tolerate a raw-markdown body too
     let content = "", title = "", date = "";

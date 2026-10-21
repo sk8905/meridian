@@ -79,9 +79,17 @@ export function knownIndex() {
   for (const m of CR.managers || []) for (const w of [...(m.webNews || []), ...(m.news || [])]) addR(w.url, w.title);
   for (const r of LG.items || []) { addR(r.url, r.title); for (const a of r.alsoReported || []) addR(a.url, a.headline); }
   for (const r of LG.cases || []) addR(r.url, r.name);
-  return { urls, titles };
+  // URLs a DEAL-side record cites (deals / intel / HEDGE_INTEL / commitments, incl. merged
+  // duplicates) — a law-firm deal announcement is only "recorded" once one of these cites
+  // it, not merely because it is held as a legal item (collect-wire.mjs, audit 2026-10-21).
+  const dealUrls = new Set();
+  for (const r of [...(CR.deals || []), ...(CR.intel || [])]) { if (r.sourceUrl) dealUrls.add(normUrl(r.sourceUrl)); for (const a of r.alsoReported || []) if (a.url) dealUrls.add(normUrl(a.url)); }
+  for (const r of CR.HEDGE_INTEL || []) if (r.url || r.sourceUrl) dealUrls.add(normUrl(r.url || r.sourceUrl));
+  for (const r of CR.commitments || []) if (r.sourceUrl) dealUrls.add(normUrl(r.sourceUrl));
+  return { urls, titles, dealUrls };
 }
 export function isKnown(idx, c) { return idx.urls.has(normUrl(c.link)) || idx.titles.has(normT(c.title)); }
+export function isKnownDeal(idx, c) { return !!(idx.dealUrls && idx.dealUrls.has(normUrl(c.link))); }
 
 // The feed matches a quoted name, but a story only qualifies when the headline
 // itself names the entity (cuts "X said…" passing mentions deep in the body).

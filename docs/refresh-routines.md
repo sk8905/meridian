@@ -784,6 +784,19 @@ recorded in its correct place before it leaves the wire.
   stressed credit in `backfill/wire-queue.json`. Each item carries `entities` (kind, id,
   name) and stays `status: "open"` — even after it leaves the wire — until it is closed.
   `node scripts/collect-wire.mjs --summary` prints the open list with where each belongs.
+- **Law-firm deal announcements join the queue (audit 2026-10-21).** Of 260 financing /
+  fund mandates the tracked firms announced in 90 days, only 3 had become deals: the
+  releases were held as legal `items` but the transactions they describe were never
+  recorded. So the collector also queues every legal item of the last 30 days whose title
+  is an advisory release ("X advises / acts for / counsel to …") about a TRANSACTION
+  (financing, refinancing, notes, CLO / securitisation, fund close / launch, M&A, stake,
+  restructuring) and names a tracked manager / hedge fund / LP / borrower / stressed
+  credit after the advisory verb (`via: "law-firm"`). It closes only when a DEAL-side
+  record (deals / intel / HEDGE_INTEL / commitments, or their `alsoReported`) cites its
+  URL, or the ledger records / rejects it — never just because it is a legal item. Work
+  it like any queue item: record the deal under the tracked party, citing the firm's
+  release (or the principal's own release, with the firm's in `alsoReported`); a PE /
+  equity deal of a multi-strategy firm is out of credit scope → reject with that reason.
 - **Every heavy-sweep run works the OPEN items, oldest `firstSeen` first, all of them** (if
   the budget runs out, the rest simply stay open for the next run — never skipped). For each:
   1. Verify it like any candidate: open the story (or find the primary — the firm's own
