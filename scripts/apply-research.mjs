@@ -28,6 +28,9 @@ const CREDIT = path.join(ROOT, "credit", "js", "data.js");
 const LEGAL = path.join(ROOT, "legal", "js", "data.js");
 const LEDGER = path.join(ROOT, "backfill", "research-ledger.json");
 const DRY = process.argv.includes("--dry-run");
+const TAGS = path.join(ROOT, "credit", "js", "deal-tags.js");
+// DEAL_TAGS patches use the long names; deal-tags.js stores compact keys (one line per deal).
+const TAG_KEY = { country: "c", countrySource: "cs", countryBasis: "cb", sector: "s", amountKind: "a", event: "e", party: "p", partyRole: "r", partySource: "ps", partyQuality: "pq" };
 const files = process.argv.slice(2).filter((a) => !a.startsWith("--"));
 
 const WHERE = {
@@ -49,6 +52,7 @@ export function toUsdBn({ value, ccy, unit = "bn" }) {
 const setPath = (o, p, v) => { const ks = p.split("."); let x = o; for (const k of ks.slice(0, -1)) x = x[k] = x[k] && typeof x[k] === "object" ? x[k] : {}; x[ks.at(-1)] = v; };
 const getPath = (o, p) => p.split(".").reduce((x, k) => (x == null ? undefined : x[k]), o);
 
+if (import.meta.url === `file://${process.argv[1]}`) {
 const ledger = fs.existsSync(LEDGER) ? JSON.parse(fs.readFileSync(LEDGER, "utf8")) : { note: "Append-only log of researched data corrections (scripts/apply-research.mjs).", entries: [] };
 const at = new Date().toISOString().slice(0, 10);
 const stats = { patched: 0, fields: 0, appended: 0, skipped: [] };
@@ -58,6 +62,28 @@ for (const f of files) {
   const byColl = new Map();
   for (const p of j.patches || []) (byColl.get(p.collection) || byColl.set(p.collection, []).get(p.collection)).push(p);
   for (const [coll, ps] of byColl) {
+    if (coll === "DEAL_TAGS") {
+      const want = new Map(ps.map((p) => [p.id, p]));
+      const src = fs.readFileSync(TAGS, "utf8");
+      const out = src.split("\n").map((l) => {
+        const m = l.match(/^(\s+)(d\d+):\s*(\{.*\}),?\s*$/); if (!m || !want.has(m[2])) return l;
+        const p = want.get(m[2]); want.delete(m[2]);
+        let t; try { t = JSON.parse(m[3]); } catch { stats.skipped.push(`DEAL_TAGS:${m[2]} (unparseable line)`); return l; }
+        const changes = [];
+        for (const [k, v] of Object.entries(p.set || {})) {
+          const ck = TAG_KEY[k]; if (!ck) { stats.skipped.push(`DEAL_TAGS:${m[2]}.${k} (unknown tag)`); continue; }
+          if (JSON.stringify(t[ck] ?? null) === JSON.stringify(v)) continue;
+          changes.push({ field: k, from: t[ck] ?? null, to: v }); t[ck] = v;
+        }
+        if (!changes.length) return l;
+        stats.patched++; stats.fields += changes.length;
+        ledger.entries.push({ at, collection: coll, id: m[2], verdict: p.verdict || "GAP", source: p.source || null, sourceLabel: p.sourceLabel || null, asOf: p.asOf || null, evidence: p.evidence || null, changes });
+        return `${m[1]}${m[2]}: ${JSON.stringify(t)},`;
+      }).join("\n");
+      for (const id of want.keys()) stats.skipped.push(`DEAL_TAGS:${id} (no tag line)`);
+      if (out !== src && !DRY) fs.writeFileSync(TAGS, out);
+      continue;
+    }
     const file = WHERE[coll]; if (!file) { stats.skipped.push(`${coll} (unknown collection)`); continue; }
     const want = new Map(ps.map((p) => [p.id, p]));
     const seen = new Set();
@@ -118,3 +144,4 @@ for (const f of files) {
 if (!DRY) fs.writeFileSync(LEDGER, JSON.stringify(ledger, null, 1) + "\n");
 console.log(`${DRY ? "[dry-run] " : ""}apply-research: ${stats.patched} record(s), ${stats.fields} field(s) changed; ${stats.appended} record(s) appended`);
 if (stats.skipped.length) console.log("  skipped:\n   - " + stats.skipped.join("\n   - "));
+}
