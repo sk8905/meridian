@@ -54,6 +54,11 @@ export const REVIEWED = {
     ["d481", "d864"],           // Bridgepoint CLO X €403m
     ["d638", "d960"],           // Cross Ocean Bosphorus CLO VII
     ["d998", "d902"],           // LendInvest Mortimer 2026-1: £300m incl. £35m pre-fund (£265m pool)
+    // Data audit 2026-10-21 (same event, two outlets — each pair checked against both sources):
+    ["d248", "d584"],           // Tikehau €42.1m senior loan to Fidera Vecta, Rome (Il Sole 24 Ore + BeBeez)
+    ["d83", "d172"],            // Deutsche Bank $865m Marelli DIP (Bloomberg Law + Willkie release)
+    ["d1046", "d1254"],         // BSP / Franklin Templeton – Encina Lender Finance (BSP release + ACI)
+    ["d1166", "d1253"],         // Blackstone $1bn Analogic/Leidos financing (Blackstone release + Insurance Business)
   ],
   intel: [
     ["i1095", "i1148"], ["i807", "i999"], ["i700", "i860"], ["i629", "i923"], ["i621", "i641"],
@@ -63,6 +68,7 @@ export const REVIEWED = {
     ["i870", "i472"], ["i344", "i69"], ["i29", "i163"], ["i347", "i176"], ["i81", "i348"],
     ["i7", "i56"], ["i934", "i736"], ["i73", "i173"], ["i34", "i194"], ["i946", "i735"],
     ["i75", "i314"], ["i305", "i120"], ["i957", "i756"], ["i117", "i175"], ["i297", "i115"],
+    ["i315", "i174"],           // 400 Capital new strategy heads (Business Wire 15 Apr 2025 + firm page)
   ],
   // Legal items: same firm, same note published twice (a PDF + the HTML page, or a
   // syndicated copy). The firm's own HTML page with an exact date is kept.
@@ -79,6 +85,28 @@ export const REVIEWED = {
 const day = (d) => (d ? Date.parse(String(d).length === 7 ? d + "-01" : d) : NaN);
 const urlOf = (r) => r.sourceUrl || r.url;
 const titleOf = (r) => r.headline || r.title;
+
+// Legal items only: the same firm publishing the same title on the same day is ONE note,
+// even when the two copies' URLs differ by case, spaces or a typo in the slug (audit
+// 2026-10-21: 45 such pairs, mostly Latham insight URLs captured with spaces).
+export const normTitle = (t) => String(t || "").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+const urlScore = (u) => (/\s|%20/.test(u) ? 0 : 2) + (/[A-Z]/.test(String(u).split("/").slice(3).join("/")) ? 0 : 1);
+function titleGroups(recs) {
+  const by = new Map();
+  for (const { obj } of recs) {
+    if (!obj.firm || !obj.date || !normTitle(obj.title)) continue;
+    const k = obj.firm + "|" + obj.date + "|" + normTitle(obj.title);
+    (by.get(k) || by.set(k, []).get(k)).push(obj);
+  }
+  const out = [];
+  for (const g of by.values()) {
+    if (g.length < 2) continue;
+    // keep the clean URL (no spaces, lower-case slug), then the longer summary
+    g.sort((a, b) => urlScore(urlOf(b)) - urlScore(urlOf(a)) || (b.summary || "").length - (a.summary || "").length);
+    out.push(g.map((x) => x.id));
+  }
+  return out;
+}
 
 function autoGroups(recs) {
   const by = new Map();
@@ -113,7 +141,7 @@ function remapRefs() {
 function merge(file, name, groups) {
   const recs = readRecords(file, name);
   const byId = new Map(recs.map((r) => [r.obj.id, r.obj]));
-  const all = [...groups, ...autoGroups(recs)];
+  const all = [...groups, ...autoGroups(recs), ...(name === "items" ? titleGroups(recs) : [])];
   const drop = new Set(), fold = new Map();
   for (const [keep, ...rest] of all) {
     if (!byId.has(keep) || drop.has(keep)) continue;

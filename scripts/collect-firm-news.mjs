@@ -23,6 +23,7 @@
 // =============================================================================
 import fs from "node:fs";
 import * as LG from "../legal/js/data.js";
+import { slugUrl, urlKey } from "./lib/urls.mjs";
 
 const args = process.argv.slice(2);
 const opt = (n, d) => { const a = args.find((x) => x.startsWith(n + "=")); return a ? a.slice(n.length + 1) : d; };
@@ -187,7 +188,7 @@ async function get(url, ms = 15000) {
     return await r.text();
   } catch { return null; }
 }
-const normUrl = (u) => String(u || "").toLowerCase().replace(/^https?:\/\/(www\.)?/, "").split(/[?#]/)[0].replace(/\/+$/, "");
+const normUrl = urlKey;   // a title-path URL ("…/The Title") keys the same as its slug
 
 // `skip`: URLs already collected (a previous history file) — not re-fetched, so each
 // run reaches the next `max` pages further back instead of the same newest ones.
@@ -242,7 +243,7 @@ export async function collectFirm(id, domains, { since, max = 40, fetcher = get,
     if (!m.title) continue;
     if (m.date && m.date < since) continue;            // lastmod ≠ published: drop old pages re-touched
     if (m.date && m.date > new Date(Date.now() + DAY).toISOString().slice(0, 10)) continue;   // a future date = an event page, not a publication
-    items.push({ firm: id, url: c.loc, title: m.title, description: m.description, date: m.date, dateSource: m.dateSource, lastmod: c.lastmod, ...(m.date ? {} : { dateProbe: dateProbe(html) }) });
+    items.push({ firm: id, url: slugUrl(c.loc), title: m.title, description: m.description, date: m.date, dateSource: m.dateSource, lastmod: c.lastmod, ...(m.date ? {} : { dateProbe: dateProbe(html) }) });
   }
   return { stat, items };
 }

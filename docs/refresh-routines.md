@@ -973,6 +973,13 @@ FUND_STATUS (an open-ended fund is `"Open"` + `evergreen:true`), `domicile` a co
 `tests/data-currency.mjs` ratchets the remaining off-vocabulary values. (Manager and
 investor AUM is USD by convention — R29.)
 
+Run it after ANY data edit (data audit 2026-10-21) — it also folds deal `type` onto
+`DEAL_TYPES` (synonyms + a reviewed per-id list for catch-alls), LP `mandateStatus` onto
+`MANDATE_STATUS`, rewrites a legal URL captured with spaces to the firm's hyphen slug, and
+drops `deal-tags.js` entries whose deal is gone. Then `node scripts/dedupe-data.mjs`
+(same-event deals/intel, and legal items with the same firm + date + title). New records
+use the controlled values directly; `tests/data-vocab.mjs` fails on anything outside them.
+
 ## Duplicates, date precision and last-known values (review 2026-10-15)
 
 - **Same event, one record.** After appending deals / intel / legal items, run

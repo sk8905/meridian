@@ -665,7 +665,7 @@ export function viewManager(id, tab0) {
         <section class="tcol tcol-c tcol-full tdet-tabbed">
           <div class="tdet-id">
             <h1>${nameCell("manager", m.id, esc(m.name))}</h1>
-            <div class="tdet-sub">${esc(m.hq)} · Founded ${m.founded}${glanceHTML ? "" : aumLine(m)}</div>
+            <div class="tdet-sub">${[m.hq ? esc(m.hq) : "", m.founded ? "Founded " + esc(String(m.founded)) : ""].filter(Boolean).join(" · ")}${glanceHTML ? "" : aumLine(m)}</div>
             ${latestLine(mgrFeed)}
             ${!glanceHTML && m.strategies && m.strategies.length ? `<div class="tdet-chips">${m.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>` : ""}
             ${mgrPeersDetails}
