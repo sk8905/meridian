@@ -12,14 +12,29 @@
 import { feedParse, extractReadable, proxyBlocks } from "../src/index.js";
 
 export const CANDIDATES = [
-  { source: "European Central Bank", urls: ["https://www.ecb.europa.eu/rss/press.xml"] },
-  { source: "Bank of Japan", urls: ["https://www.boj.or.jp/en/rss/whatsnew.xml"] },
-  { source: "Bank of Canada", urls: ["https://www.bankofcanada.ca/content_type/press-releases/feed/", "https://www.bankofcanada.ca/feed/"] },
-  { source: "Euronews Business", urls: ["https://www.euronews.com/rss?level=theme&name=business"] },
-  { source: "The Guardian", urls: ["https://www.theguardian.com/uk/business/rss", "https://www.theguardian.com/business/rss"] },
-  { source: "AltAssets", urls: ["https://altassets.net/feed", "https://www.altassets.net/feed"] },
-  { source: "Law Society Gazette", urls: ["https://www.lawgazette.co.uk/rss", "https://www.lawgazette.co.uk/XmlServers/navsectionRSS.aspx?navsectioncode=0", "https://www.lawgazette.co.uk/news/rss"] },
-  { source: "Above the Law", urls: ["https://abovethelaw.com/feed/"] },
+  // Round 2 (owner 2026-10-21 — fixed wire source set review): candidates for the News wire.
+  { source: "BBC Business", urls: ["https://feeds.bbci.co.uk/news/business/rss.xml"] },
+  { source: "Sky News Business", urls: ["https://feeds.skynews.com/feeds/rss/business.xml"] },
+  { source: "City AM", urls: ["https://www.cityam.com/feed/"] },
+  { source: "The Guardian Business", urls: ["https://www.theguardian.com/business/rss"] },
+  { source: "Axios Markets", urls: ["https://api.axios.com/feed/markets", "https://api.axios.com/feed/"] },
+  { source: "PE Hub", urls: ["https://www.pehub.com/feed/"] },
+  { source: "Pensions & Investments", urls: ["https://www.pionline.com/rss/news", "https://www.pionline.com/arc/outboundfeeds/rss/"] },
+  { source: "Markets Media", urls: ["https://www.marketsmedia.com/feed/"] },
+  { source: "Liberty Street Economics (NY Fed)", urls: ["https://libertystreeteconomics.newyorkfed.org/feed/"] },
+  { source: "Bank Underground (BoE)", urls: ["https://bankunderground.co.uk/feed/"] },
+  { source: "BIS", urls: ["https://www.bis.org/doclist/all_speeches.rss", "https://www.bis.org/doclist/bis_fsi_publs.rss", "https://www.bis.org/list/press_releases/index.rss"] },
+  { source: "IMF Blog", urls: ["https://www.imf.org/en/Blogs/rss", "https://www.imf.org/en/News/rss?language=eng"] },
+  { source: "CEPR VoxEU", urls: ["https://cepr.org/rss/vox-content", "https://cepr.org/rss.xml"] },
+  { source: "Calculated Risk", urls: ["https://www.calculatedriskblog.com/feeds/posts/default?alt=rss", "https://feeds.feedburner.com/CalculatedRisk"] },
+  { source: "FCA", urls: ["https://www.fca.org.uk/news/rss.xml"] },
+  { source: "SEC press releases", urls: ["https://www.sec.gov/news/pressreleases.rss"] },
+  { source: "Financial Stability Board", urls: ["https://www.fsb.org/feed/", "https://www.fsb.org/rss/"] },
+  { source: "Insolvency Service", urls: ["https://www.gov.uk/government/organisations/insolvency-service.atom"] },
+  { source: "Law Society Gazette", urls: ["https://www.lawgazette.co.uk/XmlServers/navsectionRSS.aspx?navsectioncode=0", "https://www.lawgazette.co.uk/rss"] },
+  { source: "RollOnFriday", urls: ["https://www.rollonfriday.com/rss.xml", "https://www.rollonfriday.com/feed"] },
+  { source: "Apricitas Economics", urls: ["https://www.apricitas.io/feed"] },
+  { source: "Financial News London", urls: ["https://www.fnlondon.com/rss", "https://www.fnlondon.com/feed"] },
 ];
 const UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
 async function get(url, ms = 20000) {
