@@ -1086,14 +1086,40 @@ use the controlled values directly; `tests/data-vocab.mjs` fails on anything out
   (find-and-update.company-information.service.gov.uk — search + charges pages). No API
   key is used (owner decision 2026-10-15).
 
-## Register collectors — GLEIF LEIs and Gazette notices (GitHub Actions, candidates only)
+## Register collectors — GLEIF, Companies House, Form ADV / D, EDGAR, Gazette (GitHub Actions)
 
-Two Actions read official sources the routine containers can't reach and commit CANDIDATES
-to `backfill/` (never to the data files):
-- **`backfill/gleif.json`** (weekly, CC0): LEI candidates per manager/fund. Where a
-  manager has a single `match:"exact"` candidate whose jurisdiction/address fits the
-  manager (check the parent chain too), write `lei` (and `leiParent` = the ultimate
-  parent's LEI) on the record. Ambiguous or `near` matches are left alone.
+Actions read official sources the routine containers can't reach and commit CANDIDATES
+to `backfill/`; only the apply scripts write the data files, and only by identifier
+(data audit 2026-10-21). Run `node scripts/apply-registry.mjs` and `node
+scripts/apply-sec.mjs` each heavy sweep (both idempotent):
+- **`backfill/gleif.json`** (weekly, CC0): LEI candidates per manager/fund, with the
+  GLEIF headquarters city/country. `node scripts/apply-registry.mjs` writes `lei`,
+  `legalName`, `leiSource` ONLY where the identity is proven: a researched manager's one
+  exact ACTIVE match whose legal name equals the profile name up to the legal form
+  (never extra words — "H.I.G. Europe Capital Partners" is not "H.I.G. Capital"), whose
+  country agrees with the HQ, and whose profile is not a sleeve ("Man Group (Credit)");
+  a lender / bank STUB only via the hand-confirmed `STUB_CONFIRMED` list (which also
+  fills the stub's HQ, never from a Delaware / BVI registered-agent address). Confirm
+  the rota's `stubLeiCandidates` (namesakes go to `STUB_REJECTED`).
+- **`backfill/companies-house.json`** (weekly, public register, `collect-ch.mjs`): UK
+  managers' company facts by the company NUMBER the profile cites →
+  `apply-registry.mjs` writes `companyNumber`, `incorporated`, `registeredOffice`,
+  `companyStatus`, `sic`, `chSource` (shown on the profile). Exact-name matches are
+  `candidates` (rota `managerChCandidates`): confirm, then add the register link to the
+  profile's `sources` and the number path applies it next run. Never derive `founded`
+  from an incorporation date.
+- **`backfill/sec-adv.json`** now also carries `byManager` — credit managers' Form ADV
+  regulatory AUM matched by the CRD of the IAPD page the profile cites — applied by
+  `apply-sec.mjs` as `raum` / `raumAsOf` / `raumSource` (shown as "Regulatory AUM · SEC",
+  gross of leverage, beside — never instead of — AUM). Name + country matches are
+  `managerCandidates` (rota `managerAdvCandidates`): confirm, add the IAPD link.
+- **`backfill/sec-13f.json`** carries each fund's EDGAR `entity` (current name, former
+  names, business city); the rota's `hedgeFundEdgarDrift` lists renames (the profile
+  name is a former EDGAR name → set `name`, `formerly`) and same-entity moves.
+- **`backfill/formd.json`** (weekly, `collect-formd.mjs`): each fund's exactly-named
+  Form D filers (amount sold, first sale, investors). A FLOOR on the fund size (US
+  vehicles only) — the rota's `fundFormD` lists funds where it exceeds `raised`; read the
+  manager's release before changing `raised` / `status`.
 - **`backfill/gazette.json`** (daily, OGL): corporate insolvency notices (24xx codes —
   winding-up petitions, administrations, liquidations, meetings) whose title IS a
   tracked restructuring company or UK obligor. For each new notice: open the notice

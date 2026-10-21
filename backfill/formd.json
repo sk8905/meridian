@@ -1,0 +1,1295 @@
+{
+ "generated": "2026-10-21T13:09:46.942Z",
+ "source": "SEC EDGAR full-text search (Form D) + primary_doc.xml",
+ "tracked": 354,
+ "searched": 354,
+ "matched": 49,
+ "byFund": {
+  "f4": {
+   "name": "ICG Europe Fund IX",
+   "status": "Final Close",
+   "raised": 12000,
+   "ccy": "EUR",
+   "soldUsdM": 2464.3,
+   "filings": [
+    {
+     "cik": "2047807",
+     "entity": "ICG Europe Fund IX SCSp",
+     "filed": "2025-12-11",
+     "adsh": "0002062357-25-000134",
+     "location": "Senningerberg, N4",
+     "offering": null,
+     "sold": 2464341000,
+     "remaining": null,
+     "firstSale": "2024-12-17",
+     "investors": 19,
+     "src": "https://www.sec.gov/Archives/edgar/data/2047807/000206235725000134/0002062357-25-000134-index.htm"
+    }
+   ]
+  },
+  "f7": {
+   "name": "Park Square Capital Partners V",
+   "status": "Final Close",
+   "raised": 2400,
+   "ccy": "EUR",
+   "soldUsdM": 281.4,
+   "filings": [
+    {
+     "cik": "1953201",
+     "entity": "Park Square Capital Partners V (USD), SCSp",
+     "filed": "2024-07-17",
+     "adsh": "0001953201-24-000004",
+     "location": "Luxembourg, N4",
+     "offering": null,
+     "sold": 243500000,
+     "remaining": null,
+     "firstSale": "2023-09-11",
+     "investors": 5,
+     "src": "https://www.sec.gov/Archives/edgar/data/1953201/000195320124000004/0001953201-24-000004-index.htm"
+    },
+    {
+     "cik": "1953219",
+     "entity": "Park Square Capital Partners V, SCSp",
+     "filed": "2024-07-17",
+     "adsh": "0001953219-24-000004",
+     "location": "Luxembourg, N4",
+     "offering": null,
+     "sold": 37905000,
+     "remaining": null,
+     "firstSale": "2023-09-11",
+     "investors": 1,
+     "src": "https://www.sec.gov/Archives/edgar/data/1953219/000195321924000004/0001953219-24-000004-index.htm"
+    }
+   ]
+  },
+  "f28": {
+   "name": "Hark Capital IV",
+   "status": "Final Close",
+   "raised": 645,
+   "ccy": "USD",
+   "soldUsdM": 211,
+   "filings": [
+    {
+     "cik": "1938816",
+     "entity": "Hark Capital IV, LP",
+     "filed": "2023-11-09",
+     "adsh": "0001938816-23-000001",
+     "location": "New York, NY",
+     "offering": null,
+     "sold": 211000000,
+     "remaining": null,
+     "firstSale": "2022-07-15",
+     "investors": 26,
+     "src": "https://www.sec.gov/Archives/edgar/data/1938816/000193881623000001/0001938816-23-000001-index.htm"
+    }
+   ]
+  },
+  "f32": {
+   "name": "Sixth Street Specialty Lending Europe III (SLE III)",
+   "status": "Final Close",
+   "raised": 3750,
+   "ccy": "EUR",
+   "soldUsdM": null,
+   "filings": [
+    {
+     "cik": "2049383",
+     "entity": "Sixth Street Specialty Lending Europe III (Rated Note Issuer), LLC",
+     "filed": "2024-12-27",
+     "adsh": "0002049383-24-000001",
+     "location": "Dallas, TX",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "yet to occur",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/2049383/000204938324000001/0002049383-24-000001-index.htm"
+    }
+   ]
+  },
+  "f34": {
+   "name": "Kartesia Credit Opportunities VI (KCO VI)",
+   "status": "Final Close",
+   "raised": 1300,
+   "ccy": "EUR",
+   "soldUsdM": 118,
+   "filings": [
+    {
+     "cik": "1997549",
+     "entity": "Kartesia Credit Opportunities VI SCS",
+     "filed": "2024-10-18",
+     "adsh": "0001997538-24-000002",
+     "location": "Luxembourg, N4",
+     "offering": null,
+     "sold": 117971235,
+     "remaining": null,
+     "firstSale": "2023-09-11",
+     "investors": 4,
+     "src": "https://www.sec.gov/Archives/edgar/data/1997549/000199753824000002/0001997538-24-000002-index.htm"
+    }
+   ]
+  },
+  "f35": {
+   "name": "Apera Private Debt Fund III",
+   "status": "Final Close",
+   "raised": 2900,
+   "ccy": "EUR",
+   "soldUsdM": null,
+   "filings": [
+    {
+     "cik": "1949599",
+     "entity": "Apera Private Debt Fund III SCSp",
+     "filed": "2024-10-11",
+     "adsh": "0001949599-24-000002",
+     "location": "Senningerberg, N4",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "yet to occur",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/1949599/000194959924000002/0001949599-24-000002-index.htm"
+    },
+    {
+     "cik": "1998700",
+     "entity": "Apera Private Debt Fund III (USD) SCSp",
+     "filed": "2024-04-19",
+     "adsh": "0001998700-24-000002",
+     "location": "Senningerberg, N4",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "yet to occur",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/1998700/000199870024000002/0001998700-24-000002-index.htm"
+    }
+   ]
+  },
+  "f36": {
+   "name": "Crescent European Specialty Lending Fund III (CESL III)",
+   "status": "Final Close",
+   "raised": 3000,
+   "ccy": "EUR",
+   "soldUsdM": 282615,
+   "filings": [
+    {
+     "cik": "1942238",
+     "entity": "Crescent European Specialty Lending Fund III (Cayman - Levered) LP",
+     "filed": "2025-03-05",
+     "adsh": "0001942238-25-000001",
+     "location": "Los Angeles, CA",
+     "offering": null,
+     "sold": 282615000000,
+     "remaining": null,
+     "firstSale": "2023-12-22",
+     "investors": 39,
+     "src": "https://www.sec.gov/Archives/edgar/data/1942238/000194223825000001/0001942238-25-000001-index.htm"
+    },
+    {
+     "cik": "1942259",
+     "entity": "Crescent European Specialty Lending Fund III (Delaware) LP",
+     "filed": "2024-03-12",
+     "adsh": "0002014980-24-000001",
+     "location": "Los Angeles, CA",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "All States",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/1942259/000201498024000001/0002014980-24-000001-index.htm"
+    }
+   ]
+  },
+  "f44": {
+   "name": "FitzWalter Capital Partners II",
+   "status": "Final Close",
+   "raised": 920,
+   "ccy": "USD",
+   "soldUsdM": 47,
+   "filings": [
+    {
+     "cik": "1971261",
+     "entity": "FitzWalter Capital Partners II, LP",
+     "filed": "2024-03-11",
+     "adsh": "0001971261-24-000002",
+     "location": "St Helier, Y9",
+     "offering": null,
+     "sold": 47000000,
+     "remaining": null,
+     "firstSale": "2023-03-22",
+     "investors": 3,
+     "src": "https://www.sec.gov/Archives/edgar/data/1971261/000197126124000002/0001971261-24-000002-index.htm"
+    }
+   ]
+  },
+  "f45": {
+   "name": "Fidera Vecta Fund",
+   "status": "Open",
+   "raised": null,
+   "ccy": null,
+   "soldUsdM": 29,
+   "filings": [
+    {
+     "cik": "1959417",
+     "entity": "Fidera Vecta Fund SCSp",
+     "filed": "2025-12-23",
+     "adsh": "0000902664-25-005387",
+     "location": "Luxembourg, N4",
+     "offering": null,
+     "sold": 29037159,
+     "remaining": null,
+     "firstSale": "2022-12-01",
+     "investors": 14,
+     "src": "https://www.sec.gov/Archives/edgar/data/1959417/000090266425005387/0000902664-25-005387-index.htm"
+    }
+   ]
+  },
+  "f47": {
+   "name": "Sona Capital Solutions II",
+   "status": "Final Close",
+   "raised": 740,
+   "ccy": "EUR",
+   "soldUsdM": 345.8,
+   "filings": [
+    {
+     "cik": "1946785",
+     "entity": "Sona Capital Solutions II SCSp",
+     "filed": "2023-10-06",
+     "adsh": "0001012975-23-000409",
+     "location": "London, X0",
+     "offering": null,
+     "sold": 215245000,
+     "remaining": null,
+     "firstSale": "2022-11-15",
+     "investors": 20,
+     "src": "https://www.sec.gov/Archives/edgar/data/1946785/000101297523000409/0001012975-23-000409-index.htm"
+    },
+    {
+     "cik": "1946794",
+     "entity": "Sona Capital Solutions II (Feeder) SCSp",
+     "filed": "2023-10-06",
+     "adsh": "0001012975-23-000408",
+     "location": "London, X0",
+     "offering": null,
+     "sold": 130595000,
+     "remaining": null,
+     "firstSale": "2022-11-15",
+     "investors": 18,
+     "src": "https://www.sec.gov/Archives/edgar/data/1946794/000101297523000408/0001012975-23-000408-index.htm"
+    }
+   ]
+  },
+  "f54": {
+   "name": "Blantyre Special Situations Fund III",
+   "status": "Open",
+   "raised": null,
+   "ccy": null,
+   "soldUsdM": 397.7,
+   "filings": [
+    {
+     "cik": "1950965",
+     "entity": "Blantyre Special Situations Fund III Ltd",
+     "filed": "2024-10-24",
+     "adsh": "0001012975-24-000451",
+     "location": "Grand Cayman, E9",
+     "offering": null,
+     "sold": 91499220,
+     "remaining": null,
+     "firstSale": "2022-11-22",
+     "investors": 5,
+     "src": "https://www.sec.gov/Archives/edgar/data/1950965/000101297524000451/0001012975-24-000451-index.htm"
+    },
+    {
+     "cik": "1950964",
+     "entity": "Blantyre Special Situations Fund III LP",
+     "filed": "2024-10-24",
+     "adsh": "0001012975-24-000450",
+     "location": "Grand Cayman, E9",
+     "offering": null,
+     "sold": 306191340,
+     "remaining": null,
+     "firstSale": "2022-11-22",
+     "investors": 3,
+     "src": "https://www.sec.gov/Archives/edgar/data/1950964/000101297524000450/0001012975-24-000450-index.htm"
+    }
+   ]
+  },
+  "f59": {
+   "name": "MCP Private Capital Fund V",
+   "status": "Final Close",
+   "raised": 1000,
+   "ccy": "EUR",
+   "soldUsdM": 220,
+   "filings": [
+    {
+     "cik": "1978868",
+     "entity": "MCP Private Capital Fund V (Feeder) SCSp",
+     "filed": "2024-07-03",
+     "adsh": "0001978868-24-000002",
+     "location": "Luxembourg, N4",
+     "offering": null,
+     "sold": 993600,
+     "remaining": null,
+     "firstSale": "2023-07-27",
+     "investors": 1,
+     "src": "https://www.sec.gov/Archives/edgar/data/1978868/000197886824000002/0001978868-24-000002-index.htm"
+    },
+    {
+     "cik": "1978815",
+     "entity": "MCP Private Capital Fund V SCSp",
+     "filed": "2024-07-03",
+     "adsh": "0001978815-24-000002",
+     "location": "Luxembourg, N4",
+     "offering": null,
+     "sold": 218980800,
+     "remaining": null,
+     "firstSale": "2023-07-27",
+     "investors": 4,
+     "src": "https://www.sec.gov/Archives/edgar/data/1978815/000197881524000002/0001978815-24-000002-index.htm"
+    }
+   ]
+  },
+  "f78": {
+   "name": "Alcentra European Direct Lending Fund III",
+   "status": "Final Close",
+   "raised": 5500,
+   "ccy": "EUR",
+   "soldUsdM": 70,
+   "filings": [
+    {
+     "cik": "1734228",
+     "entity": "Alcentra European Direct Lending Fund III (USD) SCSp",
+     "filed": "2019-03-13",
+     "adsh": "0001734228-19-000002",
+     "location": "New York, NY",
+     "offering": null,
+     "sold": 70000000,
+     "remaining": null,
+     "firstSale": "2018-04-01",
+     "investors": 2,
+     "src": "https://www.sec.gov/Archives/edgar/data/1734228/000173422819000002/0001734228-19-000002-index.htm"
+    }
+   ]
+  },
+  "f91": {
+   "name": "Overland Advantage (BDC)",
+   "status": "Open",
+   "raised": null,
+   "ccy": null,
+   "soldUsdM": 728.9,
+   "filings": [
+    {
+     "cik": "1965934",
+     "entity": "Overland Advantage",
+     "filed": "2026-01-23",
+     "adsh": "0000945621-26-000077",
+     "location": "New York, NY",
+     "offering": null,
+     "sold": 728927106,
+     "remaining": null,
+     "firstSale": "2024-01-09",
+     "investors": 9,
+     "src": "https://www.sec.gov/Archives/edgar/data/1965934/000094562126000077/0000945621-26-000077-index.htm"
+    }
+   ]
+  },
+  "f95": {
+   "name": "Davidson Kempner Opportunities Fund VI",
+   "status": "Final Close",
+   "raised": 2760,
+   "ccy": null,
+   "soldUsdM": 1140.9,
+   "filings": [
+    {
+     "cik": "1897154",
+     "entity": "Davidson Kempner Opportunities Fund VI LP",
+     "filed": "2023-07-17",
+     "adsh": "0000950142-23-002033",
+     "location": "New York, NY",
+     "offering": null,
+     "sold": 1140916000,
+     "remaining": null,
+     "firstSale": "2022-01-03",
+     "investors": 261,
+     "src": "https://www.sec.gov/Archives/edgar/data/1897154/000095014223002033/0000950142-23-002033-index.htm"
+    }
+   ]
+  },
+  "f112": {
+   "name": "ICG Europe Fund VIII",
+   "status": "Final Close",
+   "raised": 8100,
+   "ccy": "EUR",
+   "soldUsdM": 157.9,
+   "filings": [
+    {
+     "cik": "1864011",
+     "entity": "ICG Europe Fund VIII SCSp",
+     "filed": "2021-05-26",
+     "adsh": "0001864013-21-000001",
+     "location": "Senningerberg, N4",
+     "offering": null,
+     "sold": 157901000,
+     "remaining": null,
+     "firstSale": "2021-05-12",
+     "investors": 6,
+     "src": "https://www.sec.gov/Archives/edgar/data/1864011/000186401321000001/0001864013-21-000001-index.htm"
+    }
+   ]
+  },
+  "f113": {
+   "name": "ICG Europe Fund VII",
+   "status": "Final Close",
+   "raised": 4500,
+   "ccy": "EUR",
+   "soldUsdM": 870.2,
+   "filings": [
+    {
+     "cik": "1738784",
+     "entity": "ICG Europe Fund VII SCSp",
+     "filed": "2018-04-27",
+     "adsh": "0001738784-18-000001",
+     "location": "Luxembourg, N4",
+     "offering": null,
+     "sold": 870210858,
+     "remaining": null,
+     "firstSale": "2018-04-13",
+     "investors": 19,
+     "src": "https://www.sec.gov/Archives/edgar/data/1738784/000173878418000001/0001738784-18-000001-index.htm"
+    }
+   ]
+  },
+  "f115": {
+   "name": "ICG Europe Mid-Market Fund II",
+   "status": "Final Close",
+   "raised": 3000,
+   "ccy": "EUR",
+   "soldUsdM": 25.1,
+   "filings": [
+    {
+     "cik": "1969558",
+     "entity": "ICG Europe Mid-Market Fund II SCSp",
+     "filed": "2024-03-20",
+     "adsh": "0002015995-24-000002",
+     "location": "Senningerberg, N4",
+     "offering": null,
+     "sold": 25100000,
+     "remaining": null,
+     "firstSale": "2023-03-31",
+     "investors": 1,
+     "src": "https://www.sec.gov/Archives/edgar/data/1969558/000201599524000002/0002015995-24-000002-index.htm"
+    }
+   ]
+  },
+  "f135": {
+   "name": "Crescent European Specialty Lending Fund II (CESL II)",
+   "status": "Final Close",
+   "raised": 1800,
+   "ccy": null,
+   "soldUsdM": 177,
+   "filings": [
+    {
+     "cik": "1756374",
+     "entity": "Crescent European Specialty Lending Fund II (Cayman - Levered EUR) LP",
+     "filed": "2019-10-04",
+     "adsh": "0001756339-19-000001",
+     "location": "Los Angeles, CA",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "All States",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/1756374/000175633919000001/0001756339-19-000001-index.htm"
+    },
+    {
+     "cik": "1748689",
+     "entity": "Crescent European Specialty Lending Fund II (Levered) LP",
+     "filed": "2019-10-04",
+     "adsh": "0001748689-19-000001",
+     "location": "Los Angeles, CA",
+     "offering": null,
+     "sold": 26000000,
+     "remaining": null,
+     "firstSale": "2018-09-13",
+     "investors": 2,
+     "src": "https://www.sec.gov/Archives/edgar/data/1748689/000174868919000001/0001748689-19-000001-index.htm"
+    },
+    {
+     "cik": "1748708",
+     "entity": "Crescent European Specialty Lending Fund II (Cayman) LP",
+     "filed": "2018-09-06",
+     "adsh": "0001748708-18-000001",
+     "location": "Los Angeles, CA",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "All States",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/1748708/000174870818000001/0001748708-18-000001-index.htm"
+    },
+    {
+     "cik": "1748706",
+     "entity": "Crescent European Specialty Lending Fund II (Cayman-Levered) LP",
+     "filed": "2019-10-04",
+     "adsh": "0001748706-19-000001",
+     "location": "Los Angeles, CA",
+     "offering": null,
+     "sold": 151000000,
+     "remaining": null,
+     "firstSale": "2018-09-13",
+     "investors": 8,
+     "src": "https://www.sec.gov/Archives/edgar/data/1748706/000174870619000001/0001748706-19-000001-index.htm"
+    }
+   ]
+  },
+  "f142": {
+   "name": "Davidson Kempner Long-Term Distressed Opportunities Fund V",
+   "status": "Final Close",
+   "raised": 830,
+   "ccy": null,
+   "soldUsdM": 894.4,
+   "filings": [
+    {
+     "cik": "1786804",
+     "entity": "Davidson Kempner Long-Term Distressed Opportunities Fund V LP",
+     "filed": "2019-09-09",
+     "adsh": "0000902664-19-003654",
+     "location": "New York, NY",
+     "offering": 2000500000,
+     "sold": 894350000,
+     "remaining": 1106150000,
+     "firstSale": "2019-08-28",
+     "investors": 130,
+     "src": "https://www.sec.gov/Archives/edgar/data/1786804/000090266419003654/0000902664-19-003654-index.htm"
+    }
+   ]
+  },
+  "f154": {
+   "name": "Park Square Capital Partners IV",
+   "status": "Final Close",
+   "raised": 1800,
+   "ccy": "EUR",
+   "soldUsdM": 1366.6,
+   "filings": [
+    {
+     "cik": "1773401",
+     "entity": "Park Square Capital Partners IV, SCSp",
+     "filed": "2020-11-12",
+     "adsh": "0001773401-20-000004",
+     "location": "Luxembourg, N4",
+     "offering": null,
+     "sold": 994516394,
+     "remaining": null,
+     "firstSale": "2019-04-16",
+     "investors": 12,
+     "src": "https://www.sec.gov/Archives/edgar/data/1773401/000177340120000004/0001773401-20-000004-index.htm"
+    },
+    {
+     "cik": "1773445",
+     "entity": "Park Square Capital Partners IV (USD), SCSp",
+     "filed": "2020-11-12",
+     "adsh": "0001773445-20-000005",
+     "location": "Luxembourg, N4",
+     "offering": null,
+     "sold": 372080000,
+     "remaining": null,
+     "firstSale": "2019-04-16",
+     "investors": 7,
+     "src": "https://www.sec.gov/Archives/edgar/data/1773445/000177344520000005/0001773445-20-000005-index.htm"
+    }
+   ]
+  },
+  "f160": {
+   "name": "Bridgepoint Credit Opportunities IV",
+   "status": "Final Close",
+   "raised": 1100,
+   "ccy": "EUR",
+   "soldUsdM": 26.8,
+   "filings": [
+    {
+     "cik": "1853971",
+     "entity": "Bridgepoint Credit Opportunities IV SCSp",
+     "filed": "2023-12-05",
+     "adsh": "0001853971-23-000003",
+     "location": "Luxembourg, N4",
+     "offering": null,
+     "sold": 26832500,
+     "remaining": null,
+     "firstSale": "2021-07-09",
+     "investors": 1,
+     "src": "https://www.sec.gov/Archives/edgar/data/1853971/000185397123000003/0001853971-23-000003-index.htm"
+    }
+   ]
+  },
+  "f164": {
+   "name": "Cheyne European Strategic Value Credit Fund II",
+   "status": "Final Close",
+   "raised": 1000,
+   "ccy": "EUR",
+   "soldUsdM": 177,
+   "filings": [
+    {
+     "cik": "1837245",
+     "entity": "Cheyne European Strategic Value Credit Fund II",
+     "filed": "2022-01-10",
+     "adsh": "0000945621-22-000009",
+     "location": "Grand Duchy of Luxembourg, N4",
+     "offering": null,
+     "sold": 177015000,
+     "remaining": null,
+     "firstSale": "2020-12-30",
+     "investors": 3,
+     "src": "https://www.sec.gov/Archives/edgar/data/1837245/000094562122000009/0000945621-22-000009-index.htm"
+    }
+   ]
+  },
+  "f169": {
+   "name": "AlbaCore Partners II",
+   "status": "Final Close",
+   "raised": 1500,
+   "ccy": "EUR",
+   "soldUsdM": 39.6,
+   "filings": [
+    {
+     "cik": "1793585",
+     "entity": "AlbaCore Partners II ICAV",
+     "filed": "2019-11-15",
+     "adsh": "0001793650-19-000002",
+     "location": "Dublin 2, L2",
+     "offering": null,
+     "sold": 39570000,
+     "remaining": null,
+     "firstSale": "2019-11-01",
+     "investors": 5,
+     "src": "https://www.sec.gov/Archives/edgar/data/1793585/000179365019000002/0001793650-19-000002-index.htm"
+    }
+   ]
+  },
+  "f191": {
+   "name": "Apera Capital Private Debt Fund I",
+   "status": "Final Close",
+   "raised": 750,
+   "ccy": "EUR",
+   "soldUsdM": 59.6,
+   "filings": [
+    {
+     "cik": "1713405",
+     "entity": "Apera Capital Private Debt Fund I SCSp",
+     "filed": "2018-09-24",
+     "adsh": "0001713405-18-000002",
+     "location": "Senningerberg, N4",
+     "offering": null,
+     "sold": 59596611,
+     "remaining": null,
+     "firstSale": "2017-07-31",
+     "investors": 2,
+     "src": "https://www.sec.gov/Archives/edgar/data/1713405/000171340518000002/0001713405-18-000002-index.htm"
+    }
+   ]
+  },
+  "f192": {
+   "name": "Apera Private Debt Fund II",
+   "status": "Final Close",
+   "raised": 1270,
+   "ccy": "EUR",
+   "soldUsdM": 753.1,
+   "filings": [
+    {
+     "cik": "1801433",
+     "entity": "Apera Private Debt Fund II SCSp",
+     "filed": "2021-12-15",
+     "adsh": "0001801433-21-000002",
+     "location": "Senningerberg, N4",
+     "offering": null,
+     "sold": 753062497,
+     "remaining": null,
+     "firstSale": "2020-01-31",
+     "investors": 20,
+     "src": "https://www.sec.gov/Archives/edgar/data/1801433/000180143321000002/0001801433-21-000002-index.htm"
+    }
+   ]
+  },
+  "f202": {
+   "name": "FitzWalter Capital Partners I",
+   "status": "Final Close",
+   "raised": 800,
+   "ccy": null,
+   "soldUsdM": null,
+   "filings": [
+    {
+     "cik": "1857197",
+     "entity": "FitzWalter Capital Partners I, LP",
+     "filed": "2021-04-19",
+     "adsh": "0001857197-21-000003",
+     "location": "St Helier, Y9",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "yet to occur",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/1857197/000185719721000003/0001857197-21-000003-index.htm"
+    }
+   ]
+  },
+  "f203": {
+   "name": "MCP Private Capital Fund IV",
+   "status": "Final Close",
+   "raised": 1200,
+   "ccy": null,
+   "soldUsdM": null,
+   "filings": [
+    {
+     "cik": "1795543",
+     "entity": "MCP Private Capital Fund IV (Feeder) SCSp",
+     "filed": "2019-12-02",
+     "adsh": "0001795543-19-000002",
+     "location": "Munsbach, N4",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "yet to occur",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/1795543/000179554319000002/0001795543-19-000002-index.htm"
+    },
+    {
+     "cik": "1795544",
+     "entity": "MCP Private Capital Fund IV SCSp",
+     "filed": "2019-12-02",
+     "adsh": "0001795544-19-000002",
+     "location": "Munsbach, N4",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "yet to occur",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/1795544/000179554419000002/0001795544-19-000002-index.htm"
+    }
+   ]
+  },
+  "f204": {
+   "name": "Zetland Special Situations Fund I",
+   "status": "Final Close",
+   "raised": 372,
+   "ccy": null,
+   "soldUsdM": 93.5,
+   "filings": [
+    {
+     "cik": "1732463",
+     "entity": "Zetland Special Situations Fund I LP",
+     "filed": "2020-10-27",
+     "adsh": "0001315863-20-000892",
+     "location": "Grand Cayman, E9",
+     "offering": null,
+     "sold": 93549262,
+     "remaining": null,
+     "firstSale": "2018-03-29",
+     "investors": 31,
+     "src": "https://www.sec.gov/Archives/edgar/data/1732463/000131586320000892/0001315863-20-000892-index.htm"
+    }
+   ]
+  },
+  "f233": {
+   "name": "Incus Capital European Credit Fund V",
+   "status": "Open",
+   "raised": 560,
+   "ccy": "EUR",
+   "soldUsdM": null,
+   "filings": [
+    {
+     "cik": "2069615",
+     "entity": "Incus Capital European Credit Fund V SCSp",
+     "filed": "2025-07-16",
+     "adsh": "0002069615-25-000001",
+     "location": "Madrid",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "yet to occur",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/2069615/000206961525000001/0002069615-25-000001-index.htm"
+    }
+   ]
+  },
+  "f244": {
+   "name": "Tikehau Private Debt Secondaries II (TPDS II)",
+   "status": "Final Close",
+   "raised": 1000,
+   "ccy": "USD",
+   "soldUsdM": 487,
+   "filings": [
+    {
+     "cik": "1986892",
+     "entity": "Tikehau Private Debt Secondaries II (Luxembourg), SCSp",
+     "filed": "2025-08-29",
+     "adsh": "0001986892-25-000002",
+     "location": "Luxembourg, N4",
+     "offering": null,
+     "sold": 487037582,
+     "remaining": null,
+     "firstSale": "2023-08-31",
+     "investors": 133,
+     "src": "https://www.sec.gov/Archives/edgar/data/1986892/000198689225000002/0001986892-25-000002-index.htm"
+    }
+   ]
+  },
+  "f254": {
+   "name": "RoundShield Fund I (European Special Opportunities)",
+   "status": "Final Close",
+   "raised": 336,
+   "ccy": "USD",
+   "soldUsdM": null,
+   "filings": [
+    {
+     "cik": "1606601",
+     "entity": "RoundShield Fund I, LP",
+     "filed": "2014-04-29",
+     "adsh": "0001606601-14-000001",
+     "location": "St. Peter Port, Y7",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "2014-04-17",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/1606601/000160660114000001/0001606601-14-000001-index.htm"
+    }
+   ]
+  },
+  "f265": {
+   "name": "FitzWalter Capital Partners Coinvest I",
+   "status": "Closed",
+   "raised": null,
+   "ccy": null,
+   "soldUsdM": 5,
+   "filings": [
+    {
+     "cik": "1908243",
+     "entity": "FitzWalter Capital Partners Coinvest I, LP",
+     "filed": "2022-02-01",
+     "adsh": "0001908243-22-000002",
+     "location": "St Helier, Y9",
+     "offering": null,
+     "sold": 5000000,
+     "remaining": null,
+     "firstSale": "2022-02-01",
+     "investors": 1,
+     "src": "https://www.sec.gov/Archives/edgar/data/1908243/000190824322000002/0001908243-22-000002-index.htm"
+    }
+   ]
+  },
+  "f267": {
+   "name": "Fidera Vecta US Federal Agency Receivables Fund LP",
+   "status": "Open",
+   "raised": 31923120,
+   "ccy": null,
+   "soldUsdM": 48.3,
+   "filings": [
+    {
+     "cik": "1996072",
+     "entity": "Fidera Vecta US Federal Agency Receivables Fund LP",
+     "filed": "2026-03-06",
+     "adsh": "0000902664-26-001453",
+     "location": "Camana Bay, Grand Cayman, E9",
+     "offering": null,
+     "sold": 48251436,
+     "remaining": null,
+     "firstSale": "2024-06-03",
+     "investors": 2,
+     "src": "https://www.sec.gov/Archives/edgar/data/1996072/000090266426001453/0000902664-26-001453-index.htm"
+    }
+   ]
+  },
+  "f268": {
+   "name": "Attestor Value Fund",
+   "status": "Open",
+   "raised": null,
+   "ccy": null,
+   "soldUsdM": 1351,
+   "filings": [
+    {
+     "cik": "1554013",
+     "entity": "ATTESTOR VALUE FUND LTD",
+     "filed": "2026-07-09",
+     "adsh": "0000902664-26-003043",
+     "location": "Grand Cayman, E9",
+     "offering": null,
+     "sold": 1351000000,
+     "remaining": null,
+     "firstSale": "2012-01-03",
+     "investors": 24,
+     "src": "https://www.sec.gov/Archives/edgar/data/1554013/000090266426003043/0000902664-26-003043-index.htm"
+    }
+   ]
+  },
+  "f271": {
+   "name": "Arini Structured Credit Equity Fund",
+   "status": "Open",
+   "raised": null,
+   "ccy": null,
+   "soldUsdM": 335.8,
+   "filings": [
+    {
+     "cik": "1977914",
+     "entity": "Arini Structured Credit Equity Fund Ltd",
+     "filed": "2026-05-18",
+     "adsh": "0000905148-26-002505",
+     "location": "Grand Cayman, E9",
+     "offering": null,
+     "sold": 335844515,
+     "remaining": null,
+     "firstSale": "2023-04-30",
+     "investors": 15,
+     "src": "https://www.sec.gov/Archives/edgar/data/1977914/000090514826002505/0000905148-26-002505-index.htm"
+    }
+   ]
+  },
+  "f279": {
+   "name": "Blantyre Special Situations Fund II",
+   "status": "Final Close",
+   "raised": 887,
+   "ccy": "USD",
+   "soldUsdM": null,
+   "filings": [
+    {
+     "cik": "1830202",
+     "entity": "Blantyre Special Situations Fund II LP",
+     "filed": "2020-10-29",
+     "adsh": "0001315863-20-000908",
+     "location": "Grand Cayman, E9",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "yet to occur",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/1830202/000131586320000908/0001315863-20-000908-index.htm"
+    },
+    {
+     "cik": "1830201",
+     "entity": "Blantyre Special Situations Fund II Ltd",
+     "filed": "2020-10-29",
+     "adsh": "0001315863-20-000909",
+     "location": "Grand Cayman, E9",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "yet to occur",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/1830201/000131586320000909/0001315863-20-000909-index.htm"
+    }
+   ]
+  },
+  "f289": {
+   "name": "NB Specialty Finance Fund III",
+   "status": "Final Close",
+   "raised": 1600,
+   "ccy": "USD",
+   "soldUsdM": 709.2,
+   "filings": [
+    {
+     "cik": "1972945",
+     "entity": "NB Specialty Finance Fund III (Lux) SCSp",
+     "filed": "2024-05-08",
+     "adsh": "0001972945-24-000001",
+     "location": "New York, NY",
+     "offering": null,
+     "sold": 244100000,
+     "remaining": null,
+     "firstSale": "2023-05-19",
+     "investors": 12,
+     "src": "https://www.sec.gov/Archives/edgar/data/1972945/000197294524000001/0001972945-24-000001-index.htm"
+    },
+    {
+     "cik": "1972792",
+     "entity": "NB Specialty Finance Fund III LP",
+     "filed": "2024-04-25",
+     "adsh": "0001972792-24-000001",
+     "location": "New York, NY",
+     "offering": null,
+     "sold": 465050000,
+     "remaining": null,
+     "firstSale": "2023-04-14",
+     "investors": 21,
+     "src": "https://www.sec.gov/Archives/edgar/data/1972792/000197279224000001/0001972792-24-000001-index.htm"
+    }
+   ]
+  },
+  "f293": {
+   "name": "GoldenTree Private Credit Fund II",
+   "status": "Final Close",
+   "raised": 2750,
+   "ccy": "USD",
+   "soldUsdM": 502.7,
+   "filings": [
+    {
+     "cik": "2048456",
+     "entity": "GoldenTree Private Credit Fund II LP",
+     "filed": "2025-12-23",
+     "adsh": "0000950142-25-003265",
+     "location": "New York, NY",
+     "offering": null,
+     "sold": 210850000,
+     "remaining": null,
+     "firstSale": "2024-12-27",
+     "investors": 111,
+     "src": "https://www.sec.gov/Archives/edgar/data/2048456/000095014225003265/0000950142-25-003265-index.htm"
+    },
+    {
+     "cik": "2048455",
+     "entity": "GoldenTree Private Credit Fund II (Cayman) LP",
+     "filed": "2025-12-23",
+     "adsh": "0000950142-25-003266",
+     "location": "New York, NY",
+     "offering": null,
+     "sold": 291812500,
+     "remaining": null,
+     "firstSale": "2024-12-27",
+     "investors": 59,
+     "src": "https://www.sec.gov/Archives/edgar/data/2048455/000095014225003266/0000950142-25-003266-index.htm"
+    }
+   ]
+  },
+  "f303": {
+   "name": "T. Rowe Price OHA Flexible Credit Income Fund (OFLEX)",
+   "status": "Open",
+   "raised": null,
+   "ccy": null,
+   "soldUsdM": 105.8,
+   "filings": [
+    {
+     "cik": "2028436",
+     "entity": "T. Rowe Price OHA Flexible Credit Income Fund",
+     "filed": "2024-09-17",
+     "adsh": "0000943663-24-000231",
+     "location": "New York, NY",
+     "offering": null,
+     "sold": 105831721,
+     "remaining": null,
+     "firstSale": "2024-07-01",
+     "investors": 2,
+     "src": "https://www.sec.gov/Archives/edgar/data/2028436/000094366324000231/0000943663-24-000231-index.htm"
+    }
+   ]
+  },
+  "f310": {
+   "name": "Blackstone Capital Opportunities Fund V (COF V)",
+   "status": "Final Close",
+   "raised": 10000,
+   "ccy": "USD",
+   "soldUsdM": 11860.4,
+   "filings": [
+    {
+     "cik": "2025750",
+     "entity": "Blackstone Capital Opportunities Fund V (LUX) SCSp",
+     "filed": "2026-01-12",
+     "adsh": "0002025750-26-000001",
+     "location": "New York, NY",
+     "offering": null,
+     "sold": 5930213444,
+     "remaining": null,
+     "firstSale": "2024-11-22",
+     "investors": 108,
+     "src": "https://www.sec.gov/Archives/edgar/data/2025750/000202575026000001/0002025750-26-000001-index.htm"
+    },
+    {
+     "cik": "2025975",
+     "entity": "Blackstone Capital Opportunities Fund V LP",
+     "filed": "2026-01-12",
+     "adsh": "0002025975-26-000001",
+     "location": "New York, NY",
+     "offering": null,
+     "sold": 5930213444,
+     "remaining": null,
+     "firstSale": "2024-06-28",
+     "investors": 108,
+     "src": "https://www.sec.gov/Archives/edgar/data/2025975/000202597526000001/0002025975-26-000001-index.htm"
+    }
+   ]
+  },
+  "f311": {
+   "name": "Ares Real Estate Debt Strategies",
+   "status": "Open",
+   "raised": 782,
+   "ccy": "EUR",
+   "soldUsdM": null,
+   "filings": [
+    {
+     "cik": "2087895",
+     "entity": "Ares Real Estate Debt Strategies LP",
+     "filed": "2026-04-14",
+     "adsh": "0002087895-26-000001",
+     "location": "Los Angeles, CA",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "All States",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/2087895/000208789526000001/0002087895-26-000001-index.htm"
+    }
+   ]
+  },
+  "f313": {
+   "name": "Onex Structured Credit Opportunities Fund II",
+   "status": "Final Close",
+   "raised": 500,
+   "ccy": "USD",
+   "soldUsdM": 284,
+   "filings": [
+    {
+     "cik": "2041068",
+     "entity": "Onex Structured Credit Opportunities Fund II, LP",
+     "filed": "2025-10-23",
+     "adsh": "0002041068-25-000003",
+     "location": "Englewood Cliffs, NJ",
+     "offering": null,
+     "sold": 283955000,
+     "remaining": null,
+     "firstSale": "2024-10-31",
+     "investors": 70,
+     "src": "https://www.sec.gov/Archives/edgar/data/2041068/000204106825000003/0002041068-25-000003-index.htm"
+    }
+   ]
+  },
+  "f324": {
+   "name": "Crestline European Capital Solutions Fund II",
+   "status": "Final Close",
+   "raised": 625,
+   "ccy": "USD",
+   "soldUsdM": 562.7,
+   "filings": [
+    {
+     "cik": "2042287",
+     "entity": "Crestline European Capital Solutions Fund II, SCSp",
+     "filed": "2025-10-24",
+     "adsh": "0001315863-25-000773",
+     "location": "Fort Worth, TX",
+     "offering": null,
+     "sold": 405000000,
+     "remaining": null,
+     "firstSale": "2025-03-21",
+     "investors": 17,
+     "src": "https://www.sec.gov/Archives/edgar/data/2042287/000131586325000773/0001315863-25-000773-index.htm"
+    },
+    {
+     "cik": "2042288",
+     "entity": "Crestline European Capital Solutions Fund II (FT-FNT), SCSp",
+     "filed": "2025-10-24",
+     "adsh": "0001315863-25-000774",
+     "location": "Fort Worth, TX",
+     "offering": null,
+     "sold": 157700000,
+     "remaining": null,
+     "firstSale": "2025-03-21",
+     "investors": 3,
+     "src": "https://www.sec.gov/Archives/edgar/data/2042288/000131586325000774/0001315863-25-000774-index.htm"
+    }
+   ]
+  },
+  "f330": {
+   "name": "Star Mountain SBIC Fund II",
+   "status": "Final Close",
+   "raised": 286,
+   "ccy": "USD",
+   "soldUsdM": 49.9,
+   "filings": [
+    {
+     "cik": "2023750",
+     "entity": "Star Mountain SBIC Fund II, LP",
+     "filed": "2025-06-17",
+     "adsh": "0002023750-25-000002",
+     "location": "New York, NY",
+     "offering": null,
+     "sold": 49868767,
+     "remaining": null,
+     "firstSale": "2024-06-18",
+     "investors": 27,
+     "src": "https://www.sec.gov/Archives/edgar/data/2023750/000202375025000002/0002023750-25-000002-index.htm"
+    }
+   ]
+  },
+  "f335": {
+   "name": "Sound Point Strategic Capital Fund III",
+   "status": "Final Close",
+   "raised": 1500,
+   "ccy": "USD",
+   "soldUsdM": 215.2,
+   "filings": [
+    {
+     "cik": "2061310",
+     "entity": "Sound Point Strategic Capital Fund III, LP",
+     "filed": "2025-07-15",
+     "adsh": "0000945621-25-000580",
+     "location": "New York, NY",
+     "offering": null,
+     "sold": 215150000,
+     "remaining": null,
+     "firstSale": "2025-06-30",
+     "investors": 7,
+     "src": "https://www.sec.gov/Archives/edgar/data/2061310/000094562125000580/0000945621-25-000580-index.htm"
+    }
+   ]
+  },
+  "f354": {
+   "name": "Crescent CLO Equity Funding II",
+   "status": "Final Close",
+   "raised": 232,
+   "ccy": "USD",
+   "soldUsdM": 105,
+   "filings": [
+    {
+     "cik": "1997868",
+     "entity": "Crescent CLO Equity Funding II, LP",
+     "filed": "2026-01-28",
+     "adsh": "0001193125-26-025283",
+     "location": "Los Angeles, CA",
+     "offering": null,
+     "sold": 105000000,
+     "remaining": null,
+     "firstSale": "2025-01-23",
+     "investors": 2,
+     "src": "https://www.sec.gov/Archives/edgar/data/1997868/000119312526025283/0001193125-26-025283-index.htm"
+    }
+   ]
+  },
+  "f356": {
+   "name": "Incus Capital European Credit Fund IV",
+   "status": "Final Close",
+   "raised": 650,
+   "ccy": "EUR",
+   "soldUsdM": null,
+   "filings": [
+    {
+     "cik": "1886679",
+     "entity": "Incus Capital European Credit Fund IV SCSp",
+     "filed": "2021-11-23",
+     "adsh": "0001886679-21-000001",
+     "location": "Madrid, U3",
+     "offering": null,
+     "sold": null,
+     "remaining": null,
+     "firstSale": "yet to occur",
+     "investors": null,
+     "src": "https://www.sec.gov/Archives/edgar/data/1886679/000188667921000001/0001886679-21-000001-index.htm"
+    }
+   ]
+  },
+  "f364": {
+   "name": "Hines Rialto Credit Partners",
+   "status": "Final Close",
+   "raised": 1100,
+   "ccy": "USD",
+   "soldUsdM": 1079.2,
+   "filings": [
+    {
+     "cik": "2026136",
+     "entity": "Hines Rialto Credit Partners, LP",
+     "filed": "2026-09-04",
+     "adsh": "0000950103-26-013601",
+     "location": "Miami, FL",
+     "offering": null,
+     "sold": 1079211604,
+     "remaining": null,
+     "firstSale": "2024-08-29",
+     "investors": 126,
+     "src": "https://www.sec.gov/Archives/edgar/data/2026136/000095010326013601/0000950103-26-013601-index.htm"
+    }
+   ]
+  }
+ }
+}

@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T10:16:29.776Z",
+ "generated": "2026-10-21T13:04:42.238Z",
  "file": "ia09012026.csv",
  "byId": {
   "h1": {
@@ -457,5 +457,583 @@
   "h148",
   "h149",
   "h151"
- ]
+ ],
+ "byManager": {
+  "m40": {
+   "raum": 35.5,
+   "filed": "2026-06-12",
+   "crd": "331241",
+   "name": "ARINI CAPITAL MANAGEMENT LIMITED",
+   "src": "https://adviserinfo.sec.gov/firm/summary/331241"
+  },
+  "m46": {
+   "raum": 1.8,
+   "filed": "2026-06-19",
+   "crd": "285187",
+   "name": "CAIUS CAPITAL LLP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/285187"
+  },
+  "m50": {
+   "raum": 7.6,
+   "filed": "2026-03-31",
+   "crd": "134776",
+   "name": "HIGHBRIDGE CAPITAL MANAGEMENT, LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/134776"
+  },
+  "m56": {
+   "raum": 70.1,
+   "filed": "2026-06-11",
+   "crd": "112753",
+   "name": "GOLDENTREE ASSET MANAGEMENT LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/112753"
+  },
+  "m68": {
+   "raum": 24.7,
+   "filed": "2026-03-30",
+   "crd": "109530",
+   "name": "THE BAUPOST GROUP, L.L.C.",
+   "src": "https://adviserinfo.sec.gov/firm/summary/109530"
+  },
+  "m70": {
+   "raum": 46.6,
+   "filed": "2026-04-01",
+   "crd": "155680",
+   "name": "DAVIDSON KEMPNER CAPITAL MANAGEMENT LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/155680"
+  },
+  "m72": {
+   "raum": 16.1,
+   "filed": "2026-06-26",
+   "crd": "148949",
+   "name": "VARDE MANAGEMENT, L.P.",
+   "src": "https://adviserinfo.sec.gov/firm/summary/148949"
+  },
+  "m113": {
+   "raum": 5.1,
+   "filed": "2026-09-24",
+   "crd": "149659",
+   "name": "WHITE OAK GLOBAL ADVISORS, LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/149659"
+  },
+  "m167": {
+   "raum": 6.4,
+   "filed": "2026-07-21",
+   "crd": "287937",
+   "name": "NASSAU GLOBAL CREDIT LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/287937"
+  },
+  "m192": {
+   "raum": 4.5,
+   "filed": "2026-05-01",
+   "crd": "327065",
+   "name": "LUMINARX CAPITAL MANAGEMENT LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/327065"
+  }
+ },
+ "managerCandidates": {
+  "m226": [
+   {
+    "crd": "333011",
+    "name": "SITUATIONAL AWARENESS LP",
+    "city": "SAN FRANCISCO",
+    "country": "United States",
+    "raum": 9.3,
+    "filed": "2026-06-11",
+    "src": "https://adviserinfo.sec.gov/firm/summary/333011"
+   }
+  ],
+  "m6": [
+   {
+    "crd": "106006",
+    "name": "BARINGS LLC",
+    "city": "CHARLOTTE",
+    "country": "United States",
+    "raum": 392.8,
+    "filed": "2026-08-11",
+    "src": "https://adviserinfo.sec.gov/firm/summary/106006"
+   }
+  ],
+  "m10": [
+   {
+    "crd": "22998",
+    "name": "MUZINICH & CO., INC.",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 31.3,
+    "filed": "2026-06-16",
+    "src": "https://adviserinfo.sec.gov/firm/summary/22998"
+   }
+  ],
+  "m20": [
+   {
+    "crd": "130074",
+    "name": "ARES MANAGEMENT LLC",
+    "city": "LOS ANGELES",
+    "country": "United States",
+    "raum": 458.8,
+    "filed": "2026-08-26",
+    "src": "https://adviserinfo.sec.gov/firm/summary/130074"
+   }
+  ],
+  "m27": [
+   {
+    "crd": "153966",
+    "name": "CRESCENT CAPITAL GROUP LP",
+    "city": "LOS ANGELES",
+    "country": "United States",
+    "raum": 49.7,
+    "filed": "2026-05-21",
+    "src": "https://adviserinfo.sec.gov/firm/summary/153966"
+   }
+  ],
+  "m31": [
+   {
+    "crd": "282125",
+    "name": "HPS INVESTMENT PARTNERS, LLC",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 175.7,
+    "filed": "2026-05-20",
+    "src": "https://adviserinfo.sec.gov/firm/summary/282125"
+   }
+  ],
+  "m41": [
+   {
+    "crd": "160711",
+    "name": "H.I.G. CAPITAL, LLC",
+    "city": "MIAMI",
+    "country": "United States",
+    "raum": 72.3,
+    "filed": "2026-03-31",
+    "src": "https://adviserinfo.sec.gov/firm/summary/160711"
+   }
+  ],
+  "m42": [
+   {
+    "crd": "298653",
+    "name": "NORTHWALL CAPITAL LLP",
+    "city": "LONDON",
+    "country": "United Kingdom",
+    "raum": 3,
+    "filed": "2026-03-30",
+    "src": "https://adviserinfo.sec.gov/firm/summary/298653"
+   }
+  ],
+  "m43": [
+   {
+    "crd": "139138",
+    "name": "POLUS CAPITAL MANAGEMENT LIMITED",
+    "city": "LONDON",
+    "country": "United Kingdom",
+    "raum": 5.3,
+    "filed": "2026-03-31",
+    "src": "https://adviserinfo.sec.gov/firm/summary/139138"
+   }
+  ],
+  "m48": [
+   {
+    "crd": "289307",
+    "name": "DIAMETER CAPITAL PARTNERS LP",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 28.8,
+    "filed": "2026-08-27",
+    "src": "https://adviserinfo.sec.gov/firm/summary/289307"
+   }
+  ],
+  "m53": [
+   {
+    "crd": "160089",
+    "name": "400 CAPITAL MANAGEMENT LLC",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 9,
+    "filed": "2026-07-01",
+    "src": "https://adviserinfo.sec.gov/firm/summary/160089"
+   }
+  ],
+  "m54": [
+   {
+    "crd": "155697",
+    "name": "PALMER SQUARE CAPITAL MANAGEMENT LLC",
+    "city": "MISSION WOODS",
+    "country": "United States",
+    "raum": 25.6,
+    "filed": "2026-09-22",
+    "src": "https://adviserinfo.sec.gov/firm/summary/155697"
+   }
+  ],
+  "m62": [
+   {
+    "crd": "105477",
+    "name": "GUGGENHEIM INVESTMENTS",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 8,
+    "filed": "2026-03-31",
+    "src": "https://adviserinfo.sec.gov/firm/summary/105477"
+   },
+   {
+    "crd": "129288",
+    "name": "GUGGENHEIM INVESTMENTS",
+    "city": "CHICAGO",
+    "country": "United States",
+    "raum": 4.1,
+    "filed": "2026-03-31",
+    "src": "https://adviserinfo.sec.gov/firm/summary/129288"
+   }
+  ],
+  "m65": [
+   {
+    "crd": "134852",
+    "name": "BAIN CAPITAL CREDIT, LP",
+    "city": "BOSTON",
+    "country": "United States",
+    "raum": 76.3,
+    "filed": "2026-08-17",
+    "src": "https://adviserinfo.sec.gov/firm/summary/134852"
+   }
+  ],
+  "m66": [
+   {
+    "crd": "156785",
+    "name": "KING STREET CAPITAL MANAGEMENT, L.P.",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 34.6,
+    "filed": "2026-03-31",
+    "src": "https://adviserinfo.sec.gov/firm/summary/156785"
+   }
+  ],
+  "m69": [
+   {
+    "crd": "157359",
+    "name": "CENTERBRIDGE PARTNERS, L.P.",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 79.9,
+    "filed": "2026-06-24",
+    "src": "https://adviserinfo.sec.gov/firm/summary/157359"
+   }
+  ],
+  "m71": [
+   {
+    "crd": "129612",
+    "name": "FORTRESS INVESTMENT GROUP",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 87.3,
+    "filed": "2026-08-19",
+    "src": "https://adviserinfo.sec.gov/firm/summary/129612"
+   }
+  ],
+  "m86": [
+   {
+    "crd": "161958",
+    "name": "SEARCHLIGHT CAPITAL PARTNERS",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 17.5,
+    "filed": "2026-04-15",
+    "src": "https://adviserinfo.sec.gov/firm/summary/161958"
+   }
+  ],
+  "m89": [
+   {
+    "crd": "106793",
+    "name": "OAKTREE CAPITAL MANAGEMENT, L.P.",
+    "city": "LOS ANGELES",
+    "country": "United States",
+    "raum": 183.3,
+    "filed": "2026-08-17",
+    "src": "https://adviserinfo.sec.gov/firm/summary/106793"
+   }
+  ],
+  "m97": [
+   {
+    "crd": "113638",
+    "name": "FIERA CAPITAL INC.",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 17.3,
+    "filed": "2026-08-21",
+    "src": "https://adviserinfo.sec.gov/firm/summary/113638"
+   }
+  ],
+  "m99": [
+   {
+    "crd": "108679",
+    "name": "D. E. SHAW & CO., L.P.",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 213.4,
+    "filed": "2026-08-14",
+    "src": "https://adviserinfo.sec.gov/firm/summary/108679"
+   }
+  ],
+  "m119": [
+   {
+    "crd": "315088",
+    "name": "FIDELITY DIVERSIFYING SOLUTIONS LLC",
+    "city": "BOSTON",
+    "country": "United States",
+    "raum": 18.9,
+    "filed": "2026-08-20",
+    "src": "https://adviserinfo.sec.gov/firm/summary/315088"
+   }
+  ],
+  "m138": [
+   {
+    "crd": "121299",
+    "name": "CHRISTOFFERSON, ROBB & COMPANY",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 11.3,
+    "filed": "2026-06-22",
+    "src": "https://adviserinfo.sec.gov/firm/summary/121299"
+   }
+  ],
+  "m143": [
+   {
+    "crd": "306920",
+    "name": "FIDELIS INVESTORS, LLC",
+    "city": "CRANFORD",
+    "country": "United States",
+    "raum": 1.4,
+    "filed": "2026-06-18",
+    "src": "https://adviserinfo.sec.gov/firm/summary/306920"
+   }
+  ],
+  "m152": [
+   {
+    "crd": "108654",
+    "name": "GCM GROSVENOR L.P.",
+    "city": "CHICAGO",
+    "country": "United States",
+    "raum": 95.5,
+    "filed": "2026-06-30",
+    "src": "https://adviserinfo.sec.gov/firm/summary/108654"
+   }
+  ],
+  "m155": [
+   {
+    "crd": "125352",
+    "name": "OAK HILL ADVISORS, L.P.",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 100.7,
+    "filed": "2026-06-01",
+    "src": "https://adviserinfo.sec.gov/firm/summary/125352"
+   }
+  ],
+  "m156": [
+   {
+    "crd": "318007",
+    "name": "SILVER ROCK CAPITAL PARTNERS",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 6.8,
+    "filed": "2026-03-11",
+    "src": "https://adviserinfo.sec.gov/firm/summary/318007"
+   }
+  ],
+  "m158": [
+   {
+    "crd": "175092",
+    "name": "CHURCHILL ASSET MANAGEMENT LLC",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 55.7,
+    "filed": "2026-06-15",
+    "src": "https://adviserinfo.sec.gov/firm/summary/175092"
+   }
+  ],
+  "m160": [
+   {
+    "crd": "144078",
+    "name": "BRIGADE CAPITAL MANAGEMENT, LP",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 33,
+    "filed": "2026-07-22",
+    "src": "https://adviserinfo.sec.gov/firm/summary/144078"
+   }
+  ],
+  "m163": [
+   {
+    "crd": "159458",
+    "name": "AUDAX PRIVATE DEBT",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 25.7,
+    "filed": "2026-08-04",
+    "src": "https://adviserinfo.sec.gov/firm/summary/159458"
+   }
+  ],
+  "m164": [
+   {
+    "crd": "161079",
+    "name": "VICTORY PARK CAPITAL",
+    "city": "CHICAGO",
+    "country": "United States",
+    "raum": 3.6,
+    "filed": "2026-07-30",
+    "src": "https://adviserinfo.sec.gov/firm/summary/161079"
+   }
+  ],
+  "m165": [
+   {
+    "crd": "287810",
+    "name": "WILLOW TREE CREDIT PARTNERS LP",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 2.8,
+    "filed": "2026-09-09",
+    "src": "https://adviserinfo.sec.gov/firm/summary/287810"
+   }
+  ],
+  "m168": [
+   {
+    "crd": "162681",
+    "name": "POLAR ASSET MANAGEMENT PARTNERS INC.",
+    "city": "TORONTO",
+    "country": "Canada",
+    "raum": 37.9,
+    "filed": "2026-06-29",
+    "src": "https://adviserinfo.sec.gov/firm/summary/162681"
+   }
+  ],
+  "m170": [
+   {
+    "crd": "145165",
+    "name": "CASTLELAKE, L.P.",
+    "city": "MINNEAPOLIS",
+    "country": "United States",
+    "raum": 35.3,
+    "filed": "2026-03-27",
+    "src": "https://adviserinfo.sec.gov/firm/summary/145165"
+   }
+  ],
+  "m172": [
+   {
+    "crd": "295468",
+    "name": "APERTURE INVESTORS, LLC",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 6.1,
+    "filed": "2026-03-30",
+    "src": "https://adviserinfo.sec.gov/firm/summary/295468"
+   }
+  ],
+  "m184": [
+   {
+    "crd": "324744",
+    "name": "ANDALUSIAN CREDIT PARTNERS, LLC",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 0.5,
+    "filed": "2026-03-30",
+    "src": "https://adviserinfo.sec.gov/firm/summary/324744"
+   }
+  ],
+  "m190": [
+   {
+    "crd": "166370",
+    "name": "EAGLE POINT CREDIT MANAGEMENT LLC",
+    "city": "GREENWICH",
+    "country": "United States",
+    "raum": 13.2,
+    "filed": "2026-07-14",
+    "src": "https://adviserinfo.sec.gov/firm/summary/166370"
+   }
+  ],
+  "m191": [
+   {
+    "crd": "152175",
+    "name": "CERBERUS CAPITAL MANAGEMENT, L.P.",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 92.5,
+    "filed": "2026-08-26",
+    "src": "https://adviserinfo.sec.gov/firm/summary/152175"
+   }
+  ],
+  "m193": [
+   {
+    "crd": "307343",
+    "name": "BRIDGEINVEST LLC",
+    "city": "MIAMI",
+    "country": "United States",
+    "raum": 0.9,
+    "filed": "2026-03-31",
+    "src": "https://adviserinfo.sec.gov/firm/summary/307343"
+   }
+  ],
+  "m194": [
+   {
+    "crd": "157479",
+    "name": "SOUND POINT CAPITAL MANAGEMENT, LP",
+    "city": "NEW YORK",
+    "country": "United States",
+    "raum": 37,
+    "filed": "2026-03-31",
+    "src": "https://adviserinfo.sec.gov/firm/summary/157479"
+   }
+  ],
+  "m216": [
+   {
+    "crd": "143149",
+    "name": "PENNANTPARK INVESTMENT ADVISERS, LLC",
+    "city": "MIAMI BEACH",
+    "country": "United States",
+    "raum": 6.2,
+    "filed": "2026-03-31",
+    "src": "https://adviserinfo.sec.gov/firm/summary/143149"
+   }
+  ],
+  "m221": [
+   {
+    "crd": "109846",
+    "name": "HARBOURVEST PARTNERS, LLC",
+    "city": "BOSTON",
+    "country": "United States",
+    "raum": 191.2,
+    "filed": "2026-07-16",
+    "src": "https://adviserinfo.sec.gov/firm/summary/109846"
+   }
+  ],
+  "m222": [
+   {
+    "crd": "159172",
+    "name": "CIFC ASSET MANAGEMENT LLC",
+    "city": "MIAMI",
+    "country": "United States",
+    "raum": 44.6,
+    "filed": "2026-05-01",
+    "src": "https://adviserinfo.sec.gov/firm/summary/159172"
+   }
+  ],
+  "m228": [
+   {
+    "crd": "306449",
+    "name": "PEAKLINE PARTNERS, LLC",
+    "city": "CHICAGO",
+    "country": "United States",
+    "raum": 2.8,
+    "filed": "2026-08-07",
+    "src": "https://adviserinfo.sec.gov/firm/summary/306449"
+   }
+  ],
+  "m229": [
+   {
+    "crd": "330615",
+    "name": "MOUNTAIN POINT CREDIT MANAGEMENT LLC",
+    "city": "GREENWICH",
+    "country": "United States",
+    "raum": 1.2,
+    "filed": "2026-08-18",
+    "src": "https://adviserinfo.sec.gov/firm/summary/330615"
+   }
+  ]
+ }
 }

@@ -25,6 +25,19 @@ const dec = (s) => String(s).replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace
 const first = (b, tag) => { const m = b.match(new RegExp(`<(?:\\w+:)?${tag}\\b[^>]*>([\\s\\S]*?)</(?:\\w+:)?${tag}>`, "i")); return m ? dec(m[1].trim()) : null; };
 
 // The two most recent ORIGINAL 13F-HR filings (amendments are partial restatements).
+// The filer's CURRENT identity on EDGAR (data audit 2026-10-21: Suvretta → Montanova
+// Capital, Hudson Bay / Viking moved to Stamford — the profiles hadn't noticed). The rota
+// compares it with the profile and lists any rename / move for a routine to apply.
+export function entityOf(sub) {
+  if (!sub || !sub.name) return null;
+  const b = (sub.addresses && sub.addresses.business) || {};
+  return {
+    name: sub.name,
+    formerNames: (sub.formerNames || []).map((f) => ({ name: f.name, from: String(f.from || "").slice(0, 10) || null, to: String(f.to || "").slice(0, 10) || null })),
+    city: b.city || null, state: b.stateOrCountry || null, stateName: b.stateOrCountryDescription || null,
+  };
+}
+
 export function pickFilings(sub, n = 2) {
   const r = (sub && sub.filings && sub.filings.recent) || {};
   const out = [];
@@ -147,12 +160,13 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   for (const h of hfs) {
     const sub = await sec(`https://data.sec.gov/submissions/CIK${String(h.cik).replace(/\D/g, "").padStart(10, "0")}.json`);
     const fs = pickFilings(sub, 2);
-    if (!fs.length) { perFund[h.id] = { name: h.name, error: sub ? "no 13F-HR" : "submissions unreachable" }; continue; }
+    const entity = entityOf(sub);
+    if (!fs.length) { perFund[h.id] = { name: h.name, entity, error: sub ? "no 13F-HR" : "submissions unreachable" }; continue; }
     const cur = await filing(h.cik, fs[0]);
     const prev = fs[1] ? await filing(h.cik, fs[1]) : null;
-    if (!cur) { perFund[h.id] = { name: h.name, error: "information table not found" }; continue; }
+    if (!cur) { perFund[h.id] = { name: h.name, entity, error: "information table not found" }; continue; }
     funds.push({ id: h.id, name: h.name, cur, prev });
-    perFund[h.id] = { name: h.name, asOf: cur.asOf, filedAt: cur.filedAt, src: cur.src, total: cur.total, positions: cur.rows.length,
+    perFund[h.id] = { name: h.name, entity, asOf: cur.asOf, filedAt: cur.filedAt, src: cur.src, total: cur.total, positions: cur.rows.length,
       top: cur.rows.slice(0, 10).map((r) => ({ name: r.name, cusip: r.cusip, value: r.value })) };
   }
   // The panel's quarter = the latest period most tracked funds have filed for.

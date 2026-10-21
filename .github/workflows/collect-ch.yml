@@ -1,0 +1,54 @@
+name: collect-ch
+
+# UK Companies House facts for the tracked credit managers by scripts/collect-ch.mjs (public register, no key). byManager (matched by the company number a profile cites) is applied by scripts/apply-registry.mjs; name matches are rota candidates only.
+# Data audit 2026-10-21. backfill/ is excluded from the deployed site; committed only
+# when it changed, [skip ci].
+#
+#   weekly (cron "43 5 * * 3" UTC) + manual dispatch
+
+on:
+  schedule:
+    - cron: "43 5 * * 3"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect-ch
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Collect
+        run: |
+          mkdir -p backfill
+          node scripts/collect-ch.mjs > /tmp/out.json
+          cp /tmp/out.json backfill/companies-house.json
+
+      - name: Commit if changed
+        run: |
+          if git show HEAD:backfill/companies-house.json > /tmp/prev.json 2>/dev/null && \
+             node -e 'const a=require("/tmp/prev.json"),b=require(process.argv[1]);delete a.generated;delete b.generated;process.exit(JSON.stringify(a)===JSON.stringify(b)?0:1)' "$PWD/backfill/companies-house.json"; then
+            echo "No change"; exit 0
+          fi
+          git config user.name "wire-collector[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backfill/companies-house.json
+          git commit -m "collector: backfill/companies-house.json — Companies House $(node -e 'const j=require(process.argv[1]);console.log(Object.keys(j.byManager).length+" by number / "+Object.keys(j.candidates).length+" candidates")' "$PWD/backfill/companies-house.json") [skip ci]"
+          for i in 1 2 3 4; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

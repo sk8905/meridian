@@ -3,7 +3,7 @@
 // raum / raumAsOf / raumSource by id (matched by CIK) and net AUM is never touched.
 import fs from "node:fs";
 import { applySec } from "../scripts/apply-sec.mjs";
-import { parseCsv, matchAdv } from "../scripts/collect-adv.mjs";
+import { parseCsv, matchAdv, matchManagers, crdOf, hqCountry } from "../scripts/collect-adv.mjs";
 import { check, checkEq, finish } from "./lib.mjs";
 
 const src = fs.readFileSync(new URL("../credit/js/data.js", import.meta.url), "utf8");
@@ -32,4 +32,24 @@ checkEq(rows[1][2], "BRIDGEWATER ASSOCIATES, LP", "CSV quoted fields with commas
 const m = matchAdv(rows, [{ id: "h1", cik: "0001350694" }, { id: "h2", cik: "0000000001" }]);
 check(m.byId.h1 && m.byId.h1.raum === 171.2 && m.byId.h1.filed === "2026-03-30" && m.byId.h1.src.endsWith("/105129"), "Form ADV row matched by CIK → US$bn, filing date, IAPD link");
 checkEq(m.unmatched.join(","), "h2", "funds without an ADV row are reported unmatched, not guessed");
+// Credit managers (audit 2026-10-21): regulatory AUM by the CRD of the IAPD page the
+// profile cites; a name match is only a candidate, and only when the country agrees.
+const mrows = [["Organization CRD#", "Primary Business Name", "Legal Name", "Main Office City", "Main Office Country", "Latest ADV Filing Date", "5F(2)(c)"],
+  ["331241", "ARINI CAPITAL MANAGEMENT LIMITED", "ARINI CAPITAL MANAGEMENT LIMITED", "LONDON", "United Kingdom", "06/12/2026", "35500000000"],
+  ["999001", "ACME CREDIT PARTNERS LLC", "ACME CREDIT PARTNERS LLC", "NEW YORK", "United States", "05/01/2026", "4200000000"],
+  ["999002", "ACME CREDIT PARTNERS LLC", "ACME CREDIT PARTNERS LLC", "PARIS", "France", "05/01/2026", "900000000"]];
+const mgrs = [{ id: "m40", name: "Arini", hq: "London, UK", sources: [{ url: "https://adviserinfo.sec.gov/firm/summary/331241" }] },
+  { id: "m900", name: "Acme Credit Partners", hq: "New York, US", sources: [] },
+  { id: "m901", name: "Acme Credit Partners", hq: "Frankfurt, Germany", sources: [] },
+  { id: "m902", name: "Some Bank", profileStub: true, sources: [{ url: "https://adviserinfo.sec.gov/firm/summary/331241" }] }];
+const mm = matchManagers(mrows, mgrs);
+check(mm.byManager.m40 && mm.byManager.m40.raum === 35.5 && mm.byManager.m40.filed === "2026-06-12" && mm.byManager.m40.src.endsWith("/331241"), "a credit manager is matched by the CRD its profile cites");
+check(!mm.byManager.m900 && mm.managerCandidates.m900 && mm.managerCandidates.m900.length === 1 && mm.managerCandidates.m900[0].crd === "999001", "a name match is only a candidate, and only where the main-office country agrees with the HQ");
+check(!mm.managerCandidates.m901 && !mm.byManager.m902, "no candidate across countries; stubs are skipped");
+checkEq(crdOf({ sources: [{ url: "https://adviserinfo.sec.gov/firm/summary/1" }, { url: "https://adviserinfo.sec.gov/firm/summary/2" }] }), null, "two different CRDs cited = ambiguous, nothing applied");
+checkEq(hqCountry("New York / London"), "United States", "the first-named HQ city sets the country");
+const msrc = 'export const managers = [\n  {"id":"m40","name":"Arini","aum":18},\n  { id: "m41", name: "X", aum: 1 },\n];\n';
+const ma = applySec(msrc, { adv: { byManager: { m40: { raum: 35.5, filed: "2026-06-12", src: "https://adviserinfo.sec.gov/firm/summary/331241" } } } });
+check(/"id":"m40".*"raum":35.5,"raumAsOf":"2026-06-12"/.test(ma.out) && /"aum":18/.test(ma.out) && /\{ id: "m41", name: "X", aum: 1 \}/.test(ma.out), "apply writes raum to the manager line, leaves aum and other lines alone");
+checkEq(applySec(ma.out, { adv: { byManager: { m40: { raum: 35.5, filed: "2026-06-12", src: "https://adviserinfo.sec.gov/firm/summary/331241" } } } }).out, ma.out, "re-applying the same filing changes nothing");
 finish();

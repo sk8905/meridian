@@ -1,0 +1,471 @@
+{
+ "generated": "2026-10-21T13:21:18.986Z",
+ "source": "https://find-and-update.company-information.service.gov.uk (public register)",
+ "byManager": {
+  "m233": {
+   "companyNumber": "OC448165",
+   "legalName": "ALINOR CAPITAL MANAGEMENT LLP",
+   "status": "Active",
+   "type": "Limited liability partnership",
+   "incorporated": "2023-07-12",
+   "registeredOffice": "33 Cavendish Square, 5th Floor East, London, England, W1G 0PW",
+   "sic": [],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC448165"
+  },
+  "m225": {
+   "companyNumber": "14092086",
+   "legalName": "ANDROMEDA CAPITAL MANAGEMENT LTD",
+   "status": "Active",
+   "type": "Private limited Company",
+   "incorporated": "2022-05-06",
+   "registeredOffice": "C/O Windsor House Station Court, Station Road, Great Shelford, Cambridge, United Kingdom, CB22 5NE",
+   "sic": [
+    "64304 - Activities of open-ended investment companies"
+   ],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/14092086"
+  },
+  "m4": {
+   "companyNumber": "OC309394",
+   "legalName": "PARK SQUARE CAPITAL, LLP",
+   "status": "Active",
+   "type": "Limited liability partnership",
+   "incorporated": "2004-09-28",
+   "registeredOffice": "2nd Floor, Stratton House, 5 Stratton Street, London, England, W1J 8LA",
+   "sic": [],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC309394"
+  },
+  "m12": {
+   "companyNumber": "OC321484",
+   "legalName": "CHEYNE CAPITAL MANAGEMENT (UK) LLP",
+   "status": "Active",
+   "type": "Limited liability partnership",
+   "incorporated": "2006-08-08",
+   "registeredOffice": "Stornoway House, 13 Cleveland Row, London, SW1A 1DH",
+   "sic": [],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC321484"
+  },
+  "m22": {
+   "companyNumber": "07228720",
+   "legalName": "PEMBERTON ASSET MANAGEMENT SERVICES UK LIMITED",
+   "status": "Active",
+   "type": "Private limited Company",
+   "incorporated": "2010-04-20",
+   "registeredOffice": "5 Howick Place, London, England, SW1P 1WG",
+   "sic": [
+    "66300 - Fund management activities"
+   ],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/07228720"
+  },
+  "m29": {
+   "companyNumber": "12029504",
+   "legalName": "ARCMONT ASSET MANAGEMENT LIMITED",
+   "status": "Active",
+   "type": "Private limited Company",
+   "incorporated": "2019-06-03",
+   "registeredOffice": "3rd Floor 5 Hanover Square, London, United Kingdom, W1S 1HE",
+   "sic": [
+    "64205 - Activities of financial services holding companies"
+   ],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/12029504"
+  },
+  "m30": {
+   "companyNumber": "OC346320",
+   "legalName": "HAYFIN CAPITAL MANAGEMENT LLP",
+   "status": "Active",
+   "type": "Limited liability partnership",
+   "incorporated": "2009-06-11",
+   "registeredOffice": "65 Davies Street, London, United Kingdom, W1K 5JL",
+   "sic": [],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC346320"
+  },
+  "m35": {
+   "companyNumber": "12400257",
+   "legalName": "FITZWALTER CAPITAL LIMITED",
+   "status": "Active",
+   "type": "Private limited Company",
+   "incorporated": "2020-01-13",
+   "registeredOffice": "14 Hay's Mews, London, England, W1J 5PT",
+   "sic": [
+    "82990 - Other business support service activities not elsewhere classified"
+   ],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/12400257"
+  },
+  "m36": {
+   "companyNumber": "11771958",
+   "legalName": "FIDERA LIMITED",
+   "status": "Active",
+   "type": "Private limited Company",
+   "incorporated": "2019-01-16",
+   "registeredOffice": "25-28 Old Burlington Street, London, England, W1S 3AN",
+   "sic": [
+    "70221 - Financial management"
+   ],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/11771958"
+  },
+  "m37": {
+   "companyNumber": "OC366937",
+   "legalName": "ATTESTOR CAPITAL LLP",
+   "status": "Active",
+   "type": "Limited liability partnership",
+   "incorporated": "2011-08-02",
+   "registeredOffice": "7 Seymour Street, London, United Kingdom, W1H 7JW",
+   "sic": [],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC366937"
+  },
+  "m38": {
+   "companyNumber": "10045021",
+   "legalName": "SONA ASSET MANAGEMENT LIMITED",
+   "status": "Active",
+   "type": "Private limited Company",
+   "incorporated": "2016-03-07",
+   "registeredOffice": "Second Floor, 19-21 St James's Street, London, United Kingdom, SW1A 1ES",
+   "sic": [
+    "82990 - Other business support service activities not elsewhere classified"
+   ],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/10045021"
+  },
+  "m52": {
+   "companyNumber": "09559311",
+   "legalName": "SOHO SQUARE CAPITAL LTD",
+   "status": "Dissolved",
+   "type": "Private limited Company",
+   "incorporated": "2015-04-24",
+   "registeredOffice": "48 A Lexington Street Flat 3, London, United Kingdom, W1F0LR",
+   "sic": [],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/09559311"
+  },
+  "m102": {
+   "companyNumber": "15156324",
+   "legalName": "KIMMIK CAPITAL LIMITED",
+   "status": "Active",
+   "type": "Private limited Company",
+   "incorporated": "2023-09-22",
+   "registeredOffice": "39/40 St. James's Place, London, England, SW1A 1NS",
+   "sic": [
+    "70221 - Financial management"
+   ],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/15156324"
+  },
+  "m103": {
+   "companyNumber": "OC450668",
+   "legalName": "KINNERTON HILL CAPITAL LLP",
+   "status": "Active",
+   "type": "Limited liability partnership",
+   "incorporated": "2024-01-17",
+   "registeredOffice": "2nd Floor, Berkeley Square House, Berkeley Street, London, England, W1J 6BD",
+   "sic": [],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC450668"
+  },
+  "m142": {
+   "companyNumber": "15354221",
+   "legalName": "VERTIS CAPITAL PARTNERS LIMITED",
+   "status": "Active",
+   "type": "Private limited Company",
+   "incorporated": "2023-12-15",
+   "registeredOffice": "6th Floor 9 Appold Street, London, England, EC2A 2AP",
+   "sic": [
+    "66300 - Fund management activities"
+   ],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/15354221"
+  },
+  "m198": {
+   "companyNumber": "OC457264",
+   "legalName": "LEESIDE CAPITAL PARTNERS LLP",
+   "status": "Active",
+   "type": "Limited liability partnership",
+   "incorporated": "2025-06-30",
+   "registeredOffice": "27 Old Gloucester Street, London, United Kingdom, WC1N 3AX",
+   "sic": [],
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC457264"
+  }
+ },
+ "candidates": {
+  "m219": {
+   "name": "CBPE Capital LLP",
+   "companyNumber": "OC305899",
+   "title": "CBPE CAPITAL LLP",
+   "incorporated": "2003-10-28",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC305899"
+  },
+  "m1": {
+   "name": "Bridgepoint Credit",
+   "companyNumber": "10517902",
+   "title": "BRIDGEPOINT CREDIT LIMITED",
+   "incorporated": "2016-12-08",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/10517902"
+  },
+  "m5": {
+   "name": "Permira Credit",
+   "companyNumber": "05947361",
+   "title": "PERMIRA CREDIT LIMITED",
+   "incorporated": "2006-09-26",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/05947361"
+  },
+  "m17": {
+   "name": "L&G Asset Management (LGIM)",
+   "companyNumber": "04303322",
+   "title": "L&G - ASSET MANAGEMENT LIMITED",
+   "incorporated": "2001-10-11",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/04303322"
+  },
+  "m26": {
+   "name": "Apera Asset Management",
+   "companyNumber": "OC413428",
+   "title": "APERA ASSET MANAGEMENT LLP",
+   "incorporated": "2016-08-26",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC413428"
+  },
+  "m32": {
+   "name": "Signal Capital Partners",
+   "companyNumber": "11464081",
+   "title": "SIGNAL CAPITAL PARTNERS LIMITED",
+   "incorporated": "2018-07-13",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/11464081"
+  },
+  "m33": {
+   "name": "Corinthia Global Management",
+   "companyNumber": "14213211",
+   "title": "CORINTHIA GLOBAL MANAGEMENT LIMITED",
+   "incorporated": "2022-07-04",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/14213211"
+  },
+  "m40": {
+   "name": "Arini Capital Management",
+   "companyNumber": "14124097",
+   "title": "ARINI CAPITAL MANAGEMENT LIMITED",
+   "incorporated": "2022-05-23",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/14124097"
+  },
+  "m43": {
+   "name": "Polus Capital Management",
+   "companyNumber": "04885685",
+   "title": "POLUS CAPITAL MANAGEMENT LIMITED",
+   "incorporated": "2003-09-03",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/04885685"
+  },
+  "m44": {
+   "name": "Blantyre Capital",
+   "companyNumber": "10373967",
+   "title": "BLANTYRE CAPITAL LIMITED",
+   "incorporated": "2016-09-14",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/10373967"
+  },
+  "m46": {
+   "name": "Caius Capital",
+   "companyNumber": "OC403872",
+   "title": "CAIUS CAPITAL LLP",
+   "incorporated": "2016-01-18",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC403872"
+  },
+  "m47": {
+   "name": "Zetland Capital Partners",
+   "companyNumber": "OC413700",
+   "title": "ZETLAND CAPITAL PARTNERS LLP",
+   "incorporated": "2016-09-14",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC413700"
+  },
+  "m49": {
+   "name": "Fasanara Capital",
+   "companyNumber": "07561210",
+   "title": "FASANARA CAPITAL LTD",
+   "incorporated": "2011-03-11",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/07561210"
+  },
+  "m51": {
+   "name": "Metric Capital Partners",
+   "companyNumber": "OC363489",
+   "title": "METRIC CAPITAL PARTNERS LLP",
+   "incorporated": "2011-04-06",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC363489"
+  },
+  "m59": {
+   "name": "Barclays",
+   "companyNumber": "00048839",
+   "title": "BARCLAYS PLC",
+   "incorporated": "1896-07-20",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/00048839"
+  },
+  "m105": {
+   "name": "M&G Investments",
+   "companyNumber": "07544471",
+   "title": "M & G INVESTMENTS LTD",
+   "incorporated": "2011-02-28",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/07544471"
+  },
+  "m109": {
+   "name": "Arrow Global Group",
+   "companyNumber": "08649661",
+   "title": "ARROW GLOBAL GROUP LIMITED",
+   "incorporated": "2013-08-14",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/08649661"
+  },
+  "m110": {
+   "name": "RoundShield Partners",
+   "companyNumber": "OC388586",
+   "title": "ROUNDSHIELD PARTNERS LLP",
+   "incorporated": "2013-10-17",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC388586"
+  },
+  "m116": {
+   "name": "Pollen Street Capital",
+   "companyNumber": "08741640",
+   "title": "POLLEN STREET CAPITAL LIMITED",
+   "incorporated": "2013-10-21",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/08741640"
+  },
+  "m118": {
+   "name": "Investec (Direct Lending)",
+   "companyNumber": "03633621",
+   "title": "INVESTEC PLC",
+   "incorporated": "1998-09-17",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/03633621"
+  },
+  "m121": {
+   "name": "Coller Capital",
+   "companyNumber": "03020017",
+   "title": "COLLER CAPITAL LIMITED",
+   "incorporated": "1995-02-09",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/03020017"
+  },
+  "m127": {
+   "name": "Dolomite Capital",
+   "companyNumber": "05836473",
+   "title": "DOLOMITE CAPITAL LIMITED",
+   "incorporated": null,
+   "src": "https://find-and-update.company-information.service.gov.uk/company/05836473"
+  },
+  "m129": {
+   "name": "Fedaia Partners",
+   "companyNumber": "OC430253",
+   "title": "FEDAIA PARTNERS LLP",
+   "incorporated": "2020-01-13",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC430253"
+  },
+  "m132": {
+   "name": "Penny Blue Capital",
+   "companyNumber": "16915243",
+   "title": "PENNY BLUE CAPITAL LIMITED",
+   "incorporated": "2025-12-16",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/16915243"
+  },
+  "m136": {
+   "name": "Fair Oaks Capital",
+   "companyNumber": "08260598",
+   "title": "FAIR OAKS CAPITAL LTD",
+   "incorporated": "2012-10-19",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/08260598"
+  },
+  "m137": {
+   "name": "Beechbrook Capital",
+   "companyNumber": "OC337678",
+   "title": "BEECHBROOK CAPITAL LLP",
+   "incorporated": "2008-05-29",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC337678"
+  },
+  "m149": {
+   "name": "Tristan Capital Partners",
+   "companyNumber": "OC375198",
+   "title": "TRISTAN CAPITAL PARTNERS LLP",
+   "incorporated": "2012-05-15",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC375198"
+  },
+  "m150": {
+   "name": "Mercia Asset Management",
+   "companyNumber": "09223445",
+   "title": "MERCIA ASSET MANAGEMENT PLC",
+   "incorporated": "2014-09-17",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/09223445"
+  },
+  "m157": {
+   "name": "Triple Point",
+   "companyNumber": "OC310549",
+   "title": "TRIPLE POINT LLP",
+   "incorporated": "2004-12-10",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC310549"
+  },
+  "m169": {
+   "name": "Man Group (Credit)",
+   "companyNumber": "08172396",
+   "title": "MAN GROUP LIMITED",
+   "incorporated": "2012-08-08",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/08172396"
+  },
+  "m171": {
+   "name": "Aberdeen Investments",
+   "companyNumber": "SC839504",
+   "title": "ABERDEEN INVESTMENTS LIMITED",
+   "incorporated": "2025-02-28",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/SC839504"
+  },
+  "m175": {
+   "name": "Channel Capital Advisors",
+   "companyNumber": "OC322712",
+   "title": "CHANNEL CAPITAL ADVISORS LLP",
+   "incorporated": "2006-09-27",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC322712"
+  },
+  "m187": {
+   "name": "Royal London Asset Management",
+   "companyNumber": "02244297",
+   "title": "ROYAL LONDON ASSET MANAGEMENT LIMITED",
+   "incorporated": "1988-04-14",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/02244297"
+  },
+  "m204": {
+   "name": "Claret Capital Partners",
+   "companyNumber": "12516001",
+   "title": "CLARET CAPITAL PARTNERS LIMITED",
+   "incorporated": "2020-03-13",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/12516001"
+  },
+  "m209": {
+   "name": "Downing",
+   "companyNumber": "OC341575",
+   "title": "DOWNING LLP",
+   "incorporated": "2008-11-20",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC341575"
+  },
+  "m211": {
+   "name": "Banor Capital",
+   "companyNumber": "07189263",
+   "title": "BANOR CAPITAL LIMITED",
+   "incorporated": "2010-03-15",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/07189263"
+  },
+  "m213": {
+   "name": "Chorus Capital",
+   "companyNumber": "07158633",
+   "title": "CHORUS CAPITAL LIMITED",
+   "incorporated": "2010-02-16",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/07158633"
+  },
+  "m232": {
+   "name": "LendInvest",
+   "companyNumber": "08146929",
+   "title": "LENDINVEST PLC",
+   "incorporated": "2012-07-17",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/08146929"
+  },
+  "m234": {
+   "name": "LCM Partners",
+   "companyNumber": "08044232",
+   "title": "LCM PARTNERS LIMITED",
+   "incorporated": "2012-04-24",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/08044232"
+  },
+  "m236": {
+   "name": "Alchemy Partners",
+   "companyNumber": "OC301618",
+   "title": "ALCHEMY PARTNERS LLP",
+   "incorporated": "2002-03-05",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/OC301618"
+  },
+  "m238": {
+   "name": "Veld Capital",
+   "companyNumber": "13743969",
+   "title": "VELD CAPITAL LIMITED",
+   "incorporated": "2021-11-15",
+   "src": "https://find-and-update.company-information.service.gov.uk/company/13743969"
+  }
+ }
+}

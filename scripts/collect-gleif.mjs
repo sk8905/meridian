@@ -42,6 +42,10 @@ export function pickRecord(r) {
     legalName: (e.legalName && e.legalName.name) || null,
     jurisdiction: e.jurisdiction || null,
     country: (e.legalAddress && e.legalAddress.country) || null,
+    // Where the entity is run from (GLEIF headquartersAddress; the legal address can be a
+    // registered-agent office) — the HQ a stub profile shows once the LEI is confirmed.
+    hqCity: (e.headquartersAddress && e.headquartersAddress.city) || null,
+    hqCountry: (e.headquartersAddress && e.headquartersAddress.country) || null,
     legalForm: (e.legalForm && (e.legalForm.other || e.legalForm.id)) || null,
     entityStatus: e.status || null,
     registrationStatus: (a.registration && a.registration.status) || null,

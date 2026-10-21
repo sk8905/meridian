@@ -429,6 +429,7 @@ function mgrStats(m) {
     ["HQ", esc(m.hq || "—")], ["Founded", esc(String(m.founded || "—"))],
     ["Group AUM", m.notAum ? "n/a" : esc(fmtAumDual(m, groupField(m)))],
     ["Credit AUM", m.aumCredit != null ? esc(fmtAumDual(m, "aumCredit")) : "—"],
+    ["Regulatory AUM (SEC)", m.raum != null ? "$" + esc(m.raum.toFixed(1)) + "bn" : "—"],
     ["Strategies", esc((m.strategies || []).join(" · ") || "—")],
     ["Funds (in market)", `${fs.length} (${fs.filter((f) => !f.evergreen && (f.status === "Open" || f.status === "First Close")).length})`],
     ["Listed vehicles / BDCs", String(veh)],
@@ -503,6 +504,13 @@ export function managerGlance(m, { fs, dealList }) {
     fact("AUM", v, meta, "mg-aum");
   }
   if (m.hq) fact("HQ", esc(m.hq), m.founded ? "Founded " + esc(String(m.founded)) : "");
+  // Registry facts (data audit 2026-10-21): SEC Form ADV regulatory AUM — gross of leverage,
+  // shown beside, never instead of, AUM — and the GLEIF LEI, each linked to its record.
+  if (m.raum != null) fact("Regulatory AUM", `$${esc(m.raum.toFixed(1))}bn <span class="mg-l">SEC</span>`,
+    [m.raumAsOf ? "filed " + esc(fmtDate(m.raumAsOf)) : "", m.raumSource ? `<a class="mg-src" href="${esc(m.raumSource)}" target="_blank" rel="noopener noreferrer" title="SEC Form ADV (Item 5.F) — gross of leverage, so usually above net AUM">src</a>` : ""].filter(Boolean).join(" · "));
+  if (m.companyNumber) fact("Companies House", `<a class="mg-src" href="${esc(m.chSource || "https://find-and-update.company-information.service.gov.uk/company/" + m.companyNumber)}" target="_blank" rel="noopener noreferrer" title="${esc(m.registeredOffice || "UK register")}">${esc(m.companyNumber)}</a>${m.companyStatus && !/^active$/i.test(m.companyStatus) ? ` <span class="mg-st">${esc(m.companyStatus)}</span>` : ""}`,
+    m.incorporated ? "incorporated " + esc(fmtDate(m.incorporated)) : "");
+  if (m.lei) fact("LEI", `<a class="mg-src" href="https://search.gleif.org/#/record/${esc(m.lei)}" target="_blank" rel="noopener noreferrer" title="${esc(m.legalName || "GLEIF record")}">${esc(m.lei)}</a>`, m.legalName ? esc(m.legalName) : "");
   if ((m.strategies || []).length) fact("Strategies", esc(m.strategies.slice(0, 3).join(" · ")), m.strategies.length > 3 ? `+${m.strategies.length - 3} more` : "");
   const lf = fs[0];
   if (lf) {

@@ -6,6 +6,8 @@
 //   · backfill/sec-adv.json `byId`  → sets each hedge fund's `raum` (regulatory AUM,
 //     US$bn), `raumAsOf` (the ADV filing date) and `raumSource` (its IAPD page).
 //     Net `aum` / `aumAsOf` / `aumSource` are never touched.
+//   · backfill/sec-adv.json `byManager` → the same three fields on a CREDIT MANAGER
+//     matched by the CRD of the IAPD page its profile cites (collect-adv.mjs).
 // Usage: node scripts/apply-sec.mjs            (edits credit/js/data.js in place)
 //        node scripts/apply-sec.mjs --dry-run  (prints what would change)
 // =============================================================================
@@ -48,6 +50,23 @@ export function applySec(src, { sec, adv } = {}) {
     n++; return ind + JSON.stringify(r) + comma;
   });
   if (n) log.push(`raum: ${n} hedge funds updated from Form ADV`);
+  // Credit managers (byManager, matched by CRD). Any manager line form — a JS literal is
+  // re-serialised as JSON when it changes (scripts/lib/datafile.mjs does the same).
+  const byM = (adv && adv.byManager) || {};
+  let nm = 0;
+  const start = out.indexOf("export const managers = ["), end = start >= 0 ? out.indexOf("\n];", start) : -1;
+  if (start >= 0 && end > start && Object.keys(byM).length) {
+    const block = out.slice(start, end).replace(/^(\s*)(\{\s*"?id"?\s*:\s*"(m\d+)".*\})(,?)$/gm, (line, ind, body, id, comma) => {
+      const a = byM[id];
+      if (!a || !(a.raum > 0)) return line;
+      let r; try { r = JSON.parse(body); } catch { try { r = Function(`"use strict"; return (${body});`)(); } catch { return line; } }
+      if (r.raum === a.raum && r.raumAsOf === (a.filed || null) && r.raumSource === (a.src || null)) return line;
+      r.raum = a.raum; r.raumAsOf = a.filed || null; r.raumSource = a.src || null;
+      nm++; return ind + JSON.stringify(r) + comma;
+    });
+    out = out.slice(0, start) + block + out.slice(end);
+  }
+  if (nm) log.push(`raum: ${nm} credit managers updated from Form ADV (matched by CRD)`);
   return { out, log };
 }
 

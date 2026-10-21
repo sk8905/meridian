@@ -24,6 +24,25 @@ import * as C from "../credit/js/data.js";
 import * as D from "../dashboard/js/data.js";
 import * as L from "../legal/js/data.js";
 import { DEAL_TAGS } from "../credit/js/deal-tags.js";
+import fs from "node:fs";
+import { STUB_REJECTED } from "./apply-registry.mjs";
+const readJson = (rel) => { try { return JSON.parse(fs.readFileSync(new URL(rel, import.meta.url), "utf8")); } catch { return null; } };
+
+// EDGAR identity drift (collect-sec.mjs `funds[id].entity`): a RENAME when the profile's
+// name is one of the filer's former names; a MOVE when the same entity (not a "(US)"
+// affiliate) reports a business city the profile's HQ doesn't name. Both → confirm + apply.
+const entKey = (s) => String(s || "").toLowerCase().replace(/[.,]/g, " ").replace(/\b(llc|l p|lp|ltd|limited|inc|plc|llp|co|corp|ag|sa)\b/g, " ").replace(/[^a-z0-9]+/g, " ").trim();
+export function edgarDrift(funds, sec) {
+  const out = [];
+  for (const h of funds || []) {
+    const e = sec && sec.funds && sec.funds[h.id] && sec.funds[h.id].entity; if (!e) continue;
+    const former = (e.formerNames || []).find((f) => entKey(f.name) === entKey(h.name) || entKey(f.name).startsWith(entKey(h.name) + " "));
+    if (former && !entKey(e.name).startsWith(entKey(h.name))) { out.push({ id: h.id, name: h.name, kind: "rename", edgar: e.name, since: former.to || null }); continue; }
+    const same = entKey(e.name).startsWith(entKey(h.name).split(" ").slice(0, 2).join(" ")) && !/\(us\)/i.test(e.name);
+    if (same && e.city && !new RegExp(e.city.split(" ")[0], "i").test(h.hq || "")) out.push({ id: h.id, name: h.name, kind: "move", edgar: `${e.city}, ${e.state || ""}`.trim(), hq: h.hq || null });
+  }
+  return out;
+}
 
 const args = process.argv.slice(2);
 const opt = (n, d) => { const a = args.find((x) => x.startsWith(n + "=")); return a ? parseInt(a.slice(n.length + 1), 10) || d : d; };
@@ -110,6 +129,27 @@ export function rota({ hf = 5, lp = 2, news = 5, mgr = 5, firms = 4, funds = 5, 
     lawFirmFinancials: firmStale.slice(0, firms), lawFirmFinancialsTotal: firmStale.length,
     staleOpenFunds: fundStale.slice(0, funds), staleOpenFundsTotal: fundStale.length,
     dealTagGaps: tagGap.slice(0, tags), dealTagGapsTotal: tagGap.length,
+    hedgeFundEdgarDrift: edgarDrift(C.HEDGE_FUNDS, readJson("../backfill/sec-13f.json")),
+    managerAdvCandidates: Object.entries((readJson("../backfill/sec-adv.json") || {}).managerCandidates || {}).slice(0, mgr).map(([id, c]) => ({ id, name: (C.managers.find((m) => m.id === id) || {}).name, crd: c[0].crd, sec: c[0].name, city: c[0].city, src: c[0].src })),
+    // Form D (collect-formd.mjs): a fund's US vehicles have sold MORE than Wire's `raised`
+    // (or Wire has no figure) — a floor on the fund size and a sign of a later close.
+    fundFormD: Object.entries((readJson("../backfill/formd.json") || {}).byFund || {})
+      .filter(([, f]) => f.soldUsdM && (f.raised == null || (f.ccy === "USD" && f.soldUsdM > f.raised * 1.05)))
+      .sort((a, b) => b[1].soldUsdM - a[1].soldUsdM).slice(0, funds)
+      .map(([id, f]) => ({ id, name: f.name, status: f.status, raised: f.raised, ccy: f.ccy, soldUsdM: f.soldUsdM, vehicles: f.filings.length, latest: f.filings.map((x) => x.filed).sort().pop(), src: f.filings[0] && f.filings[0].src })),
+    // Lender / bank stubs with ONE exact active GLEIF match not yet hand-confirmed — check
+    // it is the firm in our deals (not a namesake), then add it to STUB_CONFIRMED in
+    // scripts/apply-registry.mjs (which fills lei, legal name and HQ).
+    stubLeiCandidates: (() => {
+      const g = (readJson("../backfill/gleif.json") || {}).entities || {};
+      const nDeals = {}; for (const d of C.deals || []) for (const l of d.lenders || []) if (l.managerId) nDeals[l.managerId] = (nDeals[l.managerId] || 0) + 1;
+      return (C.managers || []).filter((m) => m.profileStub && !m.lei).map((m) => {
+        const ex = ((g[m.id] || {}).candidates || []).filter((c) => c.match === "exact" && c.entityStatus === "ACTIVE");
+        if (ex.length === 1 && STUB_REJECTED[m.id] === ex[0].lei) return null;
+        return ex.length === 1 ? { id: m.id, name: m.name, deals: nDeals[m.id] || 0, lei: ex[0].lei, legalName: ex[0].legalName, where: [ex[0].hqCity, ex[0].hqCountry || ex[0].country].filter(Boolean).join(", ") } : null;
+      }).filter(Boolean).sort((a, b) => b.deals - a.deals).slice(0, mgr);
+    })(),
+    managerChCandidates: Object.entries((readJson("../backfill/companies-house.json") || {}).candidates || {}).slice(0, mgr).map(([id, c]) => ({ id, ...c })),
   };
 }
 
@@ -132,5 +172,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   sec("Hedge funds whose OWN news states a newer AUM (copy it to the profile after checking)", r.hedgeFundAumFromIntel.length, r.hedgeFundAumFromIntel, (h) => `${h.name} [${h.id}] — profile $${h.aum}bn (${h.aumAsOf}) · ${h.intel} ${h.date}: ${h.headline}`);
   sec("Law-firm financials behind the latest results season", r.lawFirmFinancialsTotal, r.lawFirmFinancials, (f) => `${f.name} [${f.id}] — ${f.why}`);
   sec("Funds still raising 18+ months on (check for a close; intel may already hold it)", r.staleOpenFundsTotal, r.staleOpenFunds, (f) => `${f.name} [${f.id}] — ${f.status} as of ${f.asOf}`);
+  sec("EDGAR identity drift — renamed / moved hedge funds (confirm, then set name + formerly / hq)", r.hedgeFundEdgarDrift.length, r.hedgeFundEdgarDrift, (h) => `${h.name} [${h.id}] — ${h.kind}: EDGAR ${h.edgar}${h.since ? ` (old name until ${h.since})` : ""}${h.hq ? ` · profile HQ ${h.hq}` : ""}`);
+  sec("Form ADV name matches for credit managers (confirm it is the firm → add the IAPD link to sources; regulatory AUM then applies by CRD)", r.managerAdvCandidates.length, r.managerAdvCandidates, (m) => `${m.name} [${m.id}] — ${m.sec}, ${m.city} (CRD ${m.crd}) ${m.src}`);
+  sec("Form D: US vehicles sold more than Wire's raised (a floor, not the fund size — check the manager's release before changing raised / status)", r.fundFormD.length, r.fundFormD, (f) => `${f.name} [${f.id}] — ${f.status}, raised ${f.raised ?? "—"} ${f.ccy || ""} vs Form D sold $${f.soldUsdM}m across ${f.vehicles} vehicle(s), latest ${f.latest} ${f.src}`);
+  sec("Lender / bank stubs with one exact GLEIF match (confirm it is the firm, not a namesake → STUB_CONFIRMED in apply-registry.mjs)", r.stubLeiCandidates.length, r.stubLeiCandidates, (m) => `${m.name} [${m.id}] — ${m.deals} deal(s) · ${m.legalName}, ${m.where} · ${m.lei}`);
+  sec("Companies House name matches (confirm → add the register link to sources; apply-registry.mjs then fills the company facts)", r.managerChCandidates.length, r.managerChCandidates, (m) => `${m.name} [${m.id}] — ${m.title} (${m.companyNumber}, inc. ${m.incorporated || "?"}) ${m.src}`);
   sec("Deal tags missing amountKind / country (read from the deal's own text; research country with cs/cb)", r.dealTagGapsTotal, r.dealTagGaps, (d) => `${d.id} ${d.date} — missing ${d.missing.join(" + ")} · ${d.headline.slice(0, 80)}`);
 }
