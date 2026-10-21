@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T18:57:58.872Z",
+ "generated": "2026-10-21T23:40:21.014Z",
  "since": "2026-10-07",
  "firms": {
   "proskauerrose": {
@@ -70,8 +70,8 @@
    ],
    "sitemaps": 6,
    "urls": 17809,
-   "kept": 6,
-   "fetched": 6,
+   "kept": 5,
+   "fetched": 5,
    "errors": 0,
    "carried": 0
   },
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 9632,
+   "urls": 9634,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -150,7 +150,7 @@
     "www.kirkland.com"
    ],
    "sitemaps": 11,
-   "urls": 17433,
+   "urls": 17434,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -171,11 +171,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 15,
-   "urls": 8072,
+   "sitemaps": 5,
+   "urls": 6779,
    "kept": 2,
    "fetched": 2,
-   "errors": 2,
+   "errors": 12,
    "carried": 0
   },
   "ropesgray": {
@@ -214,9 +214,9 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16230,
-   "kept": 7,
-   "fetched": 7,
+   "urls": 16231,
+   "kept": 8,
+   "fetched": 8,
    "errors": 0,
    "carried": 0
   },
@@ -244,7 +244,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12300,
+   "urls": 12303,
    "kept": 5,
    "fetched": 5,
    "errors": 0,
@@ -255,7 +255,7 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11600,
+   "urls": 11596,
    "kept": 14,
    "fetched": 14,
    "errors": 0,
@@ -271,7 +271,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7753,
+   "urls": 7754,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -332,9 +332,9 @@
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16365,
-   "kept": 20,
-   "fetched": 20,
+   "urls": 16368,
+   "kept": 19,
+   "fetched": 19,
    "errors": 0,
    "carried": 0
   },
@@ -361,12 +361,57 @@
    "lastmod": "2026-10-21"
   },
   {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-joint-lead-managers-on-first-benchmark-dlt-native-sovereign-bond-issuance",
-   "title": "Linklaters advises Joint Lead Managers on first benchmark DLT-native sovereign bond issuance by the Grand Duchy of Luxembourg",
-   "description": "Linklaters has advised the Joint Lead Managers on the first benchmark issuance by the Grand Duchy of Luxembourg of DLT-native sovereign bonds through LuxCSD, Luxembourg's central securities depository, using Clearstream's D7 DLT platform.",
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-on-bank-of-nova-scotias-usd2-3-billion-senior-medium-term-notes-offering",
+   "title": "A&O Shearman advises on Bank of Nova Scotia’s USD2.3 billion senior medium-term notes offering",
+   "description": "A&O Shearman advised Bank of Nova Scotia on its USD2.3 billion senior medium-term notes offering under its U.S. Senior Medium-Term Notes Program.",
+   "date": "2026-10-21",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-21"
+  },
+  {
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-openai-on-acquisition-of-orchestra-bio",
+   "title": "Kirkland Advises OpenAI on Acquisition of Orchestra Bio",
+   "description": null,
    "date": "2026-10-21",
    "dateSource": "page date label",
+   "lastmod": null
+  },
+  {
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-represents-gi-partners-fund-vi-on-acquisition-of-clinical-ink-alongside-ardan-equity",
+   "title": "Kirkland Represents GI Partners Fund VI on Acquisition of Clinical Ink Alongside Ardan Equity",
+   "description": null,
+   "date": "2026-10-21",
+   "dateSource": "page date label",
+   "lastmod": null
+  },
+  {
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-arctos-on-minority-stake-acquisition-in-atlanta-falcons",
+   "title": "Kirkland Advises Arctos on Minority Stake Acquisition in Atlanta Falcons Organization Ownership Group",
+   "description": null,
+   "date": "2026-10-21",
+   "dateSource": "page date label",
+   "lastmod": null
+  },
+  {
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-banijay-group-and-banijay-gaming-on-ssno-to-fund-banijay-gamings-acquisition-of-joa",
+   "title": "Kirkland Advises Banijay Group and Banijay Gaming on Senior Secured Notes Offering to Fund Banijay Gaming’s Acquisition of JOA",
+   "description": null,
+   "date": "2026-10-21",
+   "dateSource": "page date label",
+   "lastmod": null
+  },
+  {
+   "firm": "sidley",
+   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/sec-approves-finra-rule-change-permitting-projected-performance-and-targeted-returns",
+   "title": "SEC Approves FINRA Rule Change Permitting Projected Performance and Targeted Returns in Broker-Dealer Communications",
+   "description": null,
+   "date": "2026-10-21",
+   "dateSource": "datePublished",
    "lastmod": "2026-10-21"
   },
   {
@@ -379,6 +424,24 @@
    "lastmod": "2026-10-21"
   },
   {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-otpp-and-trivium-packaging-in-3-point-4-b-acquisition",
+   "title": "Weil Advises OTPP and Trivium Packaging in $3.4B Acquisition by Silgan Holdings and American Industrial Partners",
+   "description": "Weil Advises OTPP and Trivium Packaging in $3.4B Acquisition by Silgan Holdings and American Industrial Partners",
+   "date": "2026-10-21",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-21"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-earns-top-rankings-in-octus-emea-restructuring-league-tables-for-q3-9m-2026",
+   "title": "Weil Earns Top Rankings in Octus EMEA Restructuring League Tables for Q3/9M 2026",
+   "description": "These results highlight Weil’s leading position in the European restructuring market, as well as the breadth of the matters we advise on across our offices in London, Paris and Germany.",
+   "date": "2026-10-21",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-21"
+  },
+  {
    "firm": "cleary",
    "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
    "title": "News Listing",
@@ -388,13 +451,13 @@
    "lastmod": null
   },
   {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/liability-management-and-special-situations-when-traditional-finance-falls-short",
-   "title": "Liability Management and Special Situations: When Traditional Finance Falls Short",
-   "description": "With increasingly challenging macroeconomics and geopolitical headwinds, many companies are finding that their existing capital structure, negotiated",
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
+   "title": "Publications",
+   "description": null,
    "date": "2026-10-21",
    "dateSource": "datePublished",
-   "lastmod": "2026-10-21"
+   "lastmod": null
   },
   {
    "firm": "slaughtermay",
@@ -405,6 +468,15 @@
    "dateSource": null,
    "lastmod": "2026-10-20",
    "dateProbe": []
+  },
+  {
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/experience/sentinelone-1-44b-convertible-notes-offering-and-capped-call-transactions",
+   "title": "SentinelOne $1.44B convertible notes offering and capped call transactions",
+   "description": "We advised the initial purchasers on the offering",
+   "date": "2026-10-20",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-21"
   },
   {
    "firm": "slaughtermay",
@@ -562,15 +634,6 @@
    "lastmod": "2026-10-16"
   },
   {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
-   "title": "Publications",
-   "description": null,
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": null
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/client-case-studies/cpp-investments-and-equinix-s-us-4bn-joint-acquisition/",
    "title": "CPP Investments and Equinix’s US$4bn joint acquisition",
@@ -629,15 +692,6 @@
    "dateProbe": [
     "rt\" content=\"width=device-width, initial-scale=1.0\" /> <title>Webcast 2026-10-14 (LO) Financial Regu"
    ]
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-wins-summary-judgment-for-nycrc-defeating-all-remaining-claims-in-eb5-investor-mass-action",
-   "title": "Weil Wins Summary Judgment for NYCRC Defeating All Remaining Claims in EB-5 Investor “Mass Action”",
-   "description": "Weil Wins Summary Judgment for NYCRC Defeating All Remaining Claims in EB-5 Investor “Mass Action”",
-   "date": "2026-10-14",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-14"
   },
   {
    "firm": "traverssmith",
@@ -701,16 +755,6 @@
    "date": "2026-10-12",
    "dateSource": "datePublished",
    "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/resources/sidley-ai-monitor-laws-and-regulations",
-   "title": "Laws and Regulations | Resources",
-   "description": null,
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-12",
-   "dateProbe": []
   },
   {
    "firm": "klgates",
