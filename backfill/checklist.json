@@ -8065,33 +8065,495 @@
    "kind": "hf",
    "name": "Silver Point Capital",
    "priority": 70,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-21",
+   "events": [
+    {
+     "key": "specialty-credit-fund-ii-close",
+     "date": "2021-08-02",
+     "what": "Specialty Credit Fund II final close at $2bn hard cap",
+     "source": "https://www.silverpointcapital.com/?p=1554",
+     "recordId": "hi452",
+     "status": "present"
+    },
+    {
+     "key": "opportunistic-credit-fund-4-6bn-close",
+     "date": "2025-10-23",
+     "what": "Final close of $4.6bn opportunistic credit fund",
+     "source": "https://www.silverpointcapital.com/news/silver-point-closes-on-4-6-billion-of-new-capital-for-opportunistic-credit-investments/",
+     "recordId": "hi183",
+     "status": "present",
+     "note": "Sub-agent found Paul Weiss / Alternatives Watch dating the close 2024-09-16; hi183 dated 2025-10-23 — date to be reconciled."
+    },
+    {
+     "key": "specialty-credit-fund-iii-8-5bn-close",
+     "date": "2024-11-18",
+     "what": "Specialty Credit Fund III closes at $8.5bn",
+     "source": "https://www.alternativeswatch.com/2024/11/18/silver-point-specialty-credit-fund-iii-direct-lending-fund/",
+     "recordId": "hi133",
+     "status": "present"
+    },
+    {
+     "key": "sec-sues-silver-point-mnpi",
+     "date": "2024-12-20",
+     "what": "SEC sues Silver Point over MNPI policies",
+     "source": "https://www.sec.gov/enforcement-litigation/litigation-releases/lr-26202",
+     "recordId": "hi453",
+     "status": "present"
+    },
+    {
+     "key": "bsl-clo-equity-fund-250m-close",
+     "date": "2025-02-06",
+     "what": "Silver Point closes $250m BSL CLO equity fund",
+     "source": "https://www.dakota.com/fundraising-news/silver-point-raises-250m-at-close-of-bsl-clo-equity-fund",
+     "recordId": "hi454",
+     "status": "present"
+    },
+    {
+     "key": "sec-dismisses-case",
+     "date": "2025-04-04",
+     "what": "SEC dismisses its case against Silver Point with prejudice",
+     "source": "https://www.sec.gov/enforcement-litigation/litigation-releases/lr-26281",
+     "recordId": "hi455",
+     "status": "present"
+    },
+    {
+     "key": "clo-equity-fund-ii-first-close",
+     "date": "2025-09-18",
+     "what": "CLO Equity Fund II first close, about $229m",
+     "source": "https://www.alternativeswatch.com/2025/09/18/silver-point-holds-first-close-second-clo-equity-fund/",
+     "recordId": "hi456",
+     "status": "present"
+    },
+    {
+     "key": "first-brands-onset-claims",
+     "date": "2025-12-31",
+     "what": "Silver Point takes controlling interest in Onset claims against First Brands",
+     "source": "https://www.sfnet.com/home/industry-data-publications/the-secured-lender/tsl-express-daily-articles-news/tsl-express-daily-articles-news/2026/01/05/silver-point-capital-acquires-controlling-interest-in-claims-of-onset-financial-against-first-brands-group",
+     "recordId": "hi457",
+     "status": "present"
+    },
+    {
+     "key": "liberty-puerto-rico-200m-financing",
+     "date": "2026-06-01",
+     "what": "Silver Point co-leads $200m term loan for Liberty Puerto Rico subsidiaries",
+     "source": "https://www.silverpointcapital.com/news/silver-point-co-leads-200-million-financing-for-liberty-puerto-rico-subsidiaries/",
+     "recordId": "hi458",
+     "status": "present"
+    },
+    {
+     "key": "alan-george-head-credit-financing",
+     "date": "2026-09-14",
+     "what": "Alan George named Head of Credit Financing and Leverage Solutions",
+     "source": "https://www.webull.com/news/15576731601880064",
+     "recordId": "hi210",
+     "status": "present"
+    },
+    {
+     "key": "stryten-650m-term-loan",
+     "date": "2026-10-07",
+     "what": "Silver Point arranges $650m term loan for Stryten's C&D Trojan acquisition",
+     "source": "https://pulse2.com/silver-point-leads-650-million-financing-for-stryten-energys-cd-trojan-acquisition/amp/",
+     "status": "rejected",
+     "note": "Only an aggregator source (Yahoo Finance / Pulse 2.0) found — not a citable primary or tier-1 outlet."
+    },
+    {
+     "key": "silver-point-returns-aum-2020-2023",
+     "date": "2020",
+     "what": "Fund returns / AUM milestones 2020-2023",
+     "source": null,
+     "status": "rejected",
+     "note": "No dated, verifiable source found; only third-party 13F estimates."
+    },
+    {
+     "key": "mgm-northfield-park-financing",
+     "date": "2025-10-23",
+     "what": "Lead arranger on Clairvest's MGM Northfield Park acquisition credit facility",
+     "source": "https://www.barchart.com/story/news/35635776/silver-point-leads-financing-of-acquisition-of-mgm-northfield-park-by-clairvest",
+     "status": "rejected",
+     "note": "Date seen only in a search snippet; page not fetchable."
+    },
+    {
+     "key": "london-arm-and-cpp-hire-2022",
+     "date": "2022",
+     "what": "London arm set-up and CPP hire (2022)",
+     "source": "https://www.globalcapital.com/securitization/article/28mww5lmiy5jx6ip7p81s/silverpoint-sets-up-london-arm",
+     "status": "rejected",
+     "note": "Paywalled; no exact date or facts seen."
+    }
+   ]
   },
   "h113": {
    "kind": "hf",
    "name": "Alyeska Investment Group",
    "priority": 71,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-21",
+   "events": [
+    {
+     "key": "adv-aum-15-04bn-2023",
+     "date": "2023-05-17",
+     "what": "Form ADV shows AUM up 36% to $15.04bn",
+     "source": "https://info.radientanalytics.com/sec-filings/alyeska-investment-group-l.p.s-aum-grows-36-to-15.04-billion",
+     "recordId": "hi460",
+     "status": "present"
+    },
+    {
+     "key": "adv-aum-41-7bn-2026",
+     "date": "2026",
+     "what": "Regulatory AUM $41.68bn (Mar 2026)",
+     "source": "https://www.privatefunddata.com/fund-companies/alyeska-investment-group-lp/",
+     "status": "rejected",
+     "note": "Aggregator; month-level as-of dates only."
+    },
+    {
+     "key": "velo3d-9-9-pct-13g-2026",
+     "date": "2026-02-17",
+     "what": "Schedule 13G: 9.9% passive stake in Velo3D",
+     "source": "https://www.stocktitan.net/sec-filings/VELO/schedule-13g-velo3d-inc-passive-investment-disclosure-5-bad802566ea1.html",
+     "status": "rejected",
+     "note": "Routine passive 13G, not a major event."
+    },
+    {
+     "key": "q2-2026-13f-return",
+     "date": "2026",
+     "what": "Estimated Q2 2026 return from 13F data",
+     "source": "https://hedgefollow.com/funds/Alyeska+Investment+Group/Performance-History",
+     "status": "rejected",
+     "note": "Aggregator estimate, not actual fund returns; no exact date."
+    },
+    {
+     "key": "activist-campaigns",
+     "date": "2020",
+     "what": "Activist campaigns",
+     "source": null,
+     "status": "rejected",
+     "note": "No 13D or activist campaign found; passive 13Gs only."
+    },
+    {
+     "key": "leadership-cio-changes",
+     "date": "2026",
+     "what": "Leadership / CIO changes 2020-2026",
+     "source": null,
+     "status": "rejected",
+     "note": "Nothing verifiable found."
+    },
+    {
+     "key": "flagship-fundraise-or-marquee-financing",
+     "date": "2026",
+     "what": "Fund raises / marquee financings 2020-2026",
+     "source": null,
+     "status": "rejected",
+     "note": "No dated, sourced coverage found."
+    },
+    {
+     "key": "annual-returns-2020-2025",
+     "date": "2020",
+     "what": "Annual fund performance 2020-2025",
+     "source": null,
+     "status": "rejected",
+     "note": "No verifiable return figures found."
+    }
+   ]
   },
   "h10": {
    "kind": "hf",
    "name": "Point72 Asset Management",
    "priority": 72,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-21",
+   "events": [
+    {
+     "key": "point72-closes-to-new-money-2020",
+     "date": "2020-07-29",
+     "what": "Point72 to close to new money after raising $10bn",
+     "source": "https://www.bloomberg.com/news/articles/2020-07-29/cohen-s-point72-closing-to-new-money-after-raising-10-billion",
+     "recordId": "hi461",
+     "status": "present"
+    },
+    {
+     "key": "melvin-citadel-point72-275bn-2021",
+     "date": "2020",
+     "what": "Citadel and Point72 invest $2.75bn in Melvin Capital",
+     "source": "https://benzinga.com/news/21/01/19312927/gamestop-short-seller-melvin-gets-2-75b-funding-from-citadel-point72",
+     "status": "rejected",
+     "note": "Exact date not confirmed on a readable source; re-verify before adding."
+    },
+    {
+     "key": "point72-hyperscale-fund-close-2021",
+     "date": "2021-11-15",
+     "what": "Point72 Hyperscale fund close",
+     "source": "https://www.businesswire.com/news/home/20211115005983/en/Point72-Announces-Close-of-Point72-Hyperscale-Fund-Establishes-New-Structure-for-Growing-Institutional-Private-Investment-Businesses",
+     "recordId": "hi462",
+     "status": "present"
+    },
+    {
+     "key": "point72-jan-2022-drop",
+     "date": "2022-02-03",
+     "what": "Point72 lagged multistrategy peers with 1.3% January 2022 drop",
+     "source": "https://www.bloomberg.com/news/articles/2022-02-03/point72-lagged-behind-multistrat-peers-last-month-with-1-3-drop",
+     "recordId": "hi463",
+     "status": "present"
+    },
+    {
+     "key": "point72-plans-return-billions-2024",
+     "date": "2024-09-12",
+     "what": "Point72 plans to return billions as big hedge funds cap assets",
+     "source": "https://bnnbloomberg.ca/business/company-news/2024/09/12/point72-plans-to-return-billions-as-big-hedge-funds-cap-assets",
+     "recordId": "hi464",
+     "status": "present"
+    },
+    {
+     "key": "cohen-stops-trading-2024",
+     "date": "2024-09-17",
+     "what": "Steve Cohen stops trading for Point72",
+     "source": "https://bnnbloomberg.ca/business/company-news/2024/09/17/steve-cohen-stops-trading-for-point72-marking-the-end-of-an-era",
+     "recordId": "hi465",
+     "status": "present"
+    },
+    {
+     "key": "point72-return-5bn-2025",
+     "date": "2025-01-12",
+     "what": "Point72 plans to return up to $5bn",
+     "source": "https://www.bloomberg.com/news/articles/2025-01-12/point72-plans-to-return-up-to-5-billion-to-clients-wsj-says",
+     "recordId": "hi16",
+     "status": "present"
+    },
+    {
+     "key": "point72-todd-hirsch-private-credit-2025",
+     "date": "2025-01-07",
+     "what": "Todd Hirsch to launch private credit strategy",
+     "source": null,
+     "recordId": "hi93",
+     "status": "present"
+    },
+    {
+     "key": "valist-equity-unit-2025",
+     "date": "2025-11-03",
+     "what": "Valist Asset Management equity unit",
+     "source": null,
+     "recordId": "hi200",
+     "status": "present"
+    },
+    {
+     "key": "point72-gained-17-5-2025",
+     "date": "2026-01-05",
+     "what": "Point72 gained 17.5% in 2025",
+     "source": "https://news.bloomberglaw.com/international-trade/point72-up-17-5-in-double-digit-year-for-multistrat-hedge-funds",
+     "recordId": "hi17",
+     "status": "present"
+    },
+    {
+     "key": "james-malick-departs-2026",
+     "date": "2026-01-14",
+     "what": "James Malick departs",
+     "source": null,
+     "recordId": "hi106",
+     "status": "present"
+    },
+    {
+     "key": "paying-hedge-funds-trade-ideas-2026",
+     "date": "2026-06-05",
+     "what": "Point72 weighs paying hedge funds for trade ideas",
+     "source": "https://www.bloomberg.com/news/articles/2026-06-05/point72-weighs-paying-other-hedge-funds-to-see-their-trade-ideas",
+     "recordId": "hi48",
+     "status": "present"
+    },
+    {
+     "key": "japan-headcount-2026",
+     "date": "2026-09-07",
+     "what": "Point72 to double Japan headcount",
+     "source": null,
+     "recordId": "hi159",
+     "status": "present"
+    },
+    {
+     "key": "lockups-2026",
+     "date": "2026-09-24",
+     "what": "Point72 lengthens lock-ups",
+     "source": null,
+     "recordId": "hi204",
+     "status": "present"
+    },
+    {
+     "key": "cubist-turion-launch",
+     "date": "2020",
+     "what": "Cubist / Turion launch dates",
+     "source": null,
+     "status": "rejected",
+     "note": "Only descriptions of existing units, no dated launch source."
+    },
+    {
+     "key": "point72-2022-2023-annual-returns",
+     "date": "2022",
+     "what": "Point72 2022 / 2023 annual returns",
+     "source": null,
+     "status": "rejected",
+     "note": "Only secondary estimates; no exact-dated primary source."
+    }
+   ]
   },
   "h19": {
    "kind": "hf",
    "name": "Qube Research & Technologies",
    "priority": 73,
-   "status": "todo",
-   "builtAt": null,
-   "events": []
+   "status": "built",
+   "builtAt": "2026-10-21",
+   "events": [
+    {
+     "key": "spinout-2018-context",
+     "date": "2018",
+     "what": "Spin-out from Credit Suisse (2018)",
+     "source": "https://www.hedgeweek.com/qube-research-flagship-fund-posts-circa-30-gain-in-2025/",
+     "status": "present",
+     "note": "Pre-2020; context only.",
+     "recordId": "hi473"
+    },
+    {
+     "key": "2020-2022-gap",
+     "date": "2020",
+     "what": "2020-2022 events (AUM, funding, leadership, expansion)",
+     "source": null,
+     "status": "rejected",
+     "note": "No dated, fetchable source found for 2020-2021; 2022 items undated or secondhand."
+    },
+    {
+     "key": "external-managers-allocation-2023",
+     "date": "2023-02-13",
+     "what": "Plan to allocate capital to external managers",
+     "source": "https://hedgeweek.com/credit-suisse-spin-out-qube-make-big-cash-allocation-external-managers",
+     "recordId": "hi466",
+     "status": "present"
+    },
+    {
+     "key": "hsbc-short-filing-error-2023",
+     "date": "2023-11-17",
+     "what": "FCA filing showing £670m HSBC short",
+     "source": "https://en.wikipedia.org/wiki/Qube_Research_%26_Technologies",
+     "status": "rejected",
+     "note": "Date only on Wikipedia/snippets; no primary page read."
+    },
+    {
+     "key": "barclays-short-2024",
+     "date": "2024-03-13",
+     "what": "Largest-ever Barclays short (0.73%)",
+     "source": "https://www.hedgeweek.com/qube-builds-biggest-ever-barclays-short-position/",
+     "recordId": "hi467",
+     "status": "present"
+    },
+    {
+     "key": "german-shorts-2024",
+     "date": "2024-01-24",
+     "what": "$1bn+ short bets on German companies",
+     "source": "https://en.wikipedia.org/wiki/Qube_Research_%26_Technologies",
+     "status": "rejected",
+     "note": "Date only on Wikipedia; Bloomberg page not fetchable."
+    },
+    {
+     "key": "aum-20bn-2024",
+     "date": "2024-05-20",
+     "what": "AUM rises to $20bn",
+     "source": "https://www.hedgeweek.com/early-year-gains-help-qube-boost-assets-to-20bn/",
+     "recordId": "hi468",
+     "status": "present"
+    },
+    {
+     "key": "aum-28bn-2025",
+     "date": "2025-03-07",
+     "what": "AUM about $28bn",
+     "source": "https://www.bloomberg.com/news/articles/2025-03-07/secretive-hedge-fund-qrt-adds-another-5-billion-to-its-assets",
+     "status": "rejected",
+     "note": "Bloomberg 403; date only from URL slug."
+    },
+    {
+     "key": "iceland-data-centre-2025",
+     "date": "2025-02-13",
+     "what": "Data centre in Akureyri, Iceland",
+     "source": "https://www.hedgeweek.com/qrt-goes-to-iceland-in-search-of-market-edge/",
+     "recordId": "hi469",
+     "status": "present"
+    },
+    {
+     "key": "houston-us-debut-2025",
+     "date": "2025-07-16",
+     "what": "First US office in Houston",
+     "source": "https://www.hedgeweek.com/qube-to-make-us-debut-with-houston-commodities-hub/",
+     "recordId": "hi470",
+     "status": "present"
+    },
+    {
+     "key": "headcount-cuts-2025",
+     "date": "2025-12-01",
+     "what": "Headcount cuts after rapid expansion",
+     "source": "https://www.hedgeweek.com/qube-pares-staff-after-rapid-expansion/",
+     "recordId": "hi471",
+     "status": "present"
+    },
+    {
+     "key": "hong-kong-two-ifc-lease-2025",
+     "date": "2025-12-18",
+     "what": "Two IFC Hong Kong lease",
+     "source": "https://finance.yahoo.com/news/hedge-fund-qube-leases-six-093000322.html",
+     "status": "rejected",
+     "note": "Only an aggregator source (Yahoo Finance / Pulse 2.0) found — not a citable primary or tier-1 outlet."
+    },
+    {
+     "key": "flagship-30pct-2025",
+     "date": "2026-01-09",
+     "what": "Flagship fund gained about 30% in 2025",
+     "source": "https://www.hedgeweek.com/qube-research-flagship-fund-posts-circa-30-gain-in-2025/",
+     "recordId": "hi473",
+     "status": "present"
+    },
+    {
+     "key": "aum-23bn-to-38bn-2025",
+     "date": "2026-02-07",
+     "what": "AUM $23bn to $38bn in 2025",
+     "source": null,
+     "recordId": "hi26",
+     "status": "present"
+    },
+    {
+     "key": "china-long-only-fund-2bn",
+     "date": "2026-02-11",
+     "what": "China long-only fund grows to $2bn",
+     "source": null,
+     "recordId": "hi27",
+     "status": "present"
+    },
+    {
+     "key": "chicago-lease-2026",
+     "date": "2026-04-08",
+     "what": "Chicago BMO Tower lease",
+     "source": "https://hedgeweek.com/news/qube-research-signs-29000-sqft-lease-at-chicagos-bmo-tower",
+     "recordId": "hi474",
+     "status": "present"
+    },
+    {
+     "key": "us-coo-holly-lau-2026",
+     "date": "2026-06-04",
+     "what": "Holly Lau named US COO",
+     "source": "https://www.hedgeweek.com/qube-research-appoints-citadel-securities-trader-as-coo/",
+     "recordId": "hi475",
+     "status": "present"
+    },
+    {
+     "key": "qrt-labs-2026",
+     "date": "2026-07-02",
+     "what": "QRT Labs AI research initiative",
+     "source": "https://www.hedgeweek.com/qube-launches-ai-research-lab-to-strengthen-quant-talent-pipeline/",
+     "recordId": "hi476",
+     "status": "present"
+    },
+    {
+     "key": "dcc-8-3-disclosure-2026",
+     "date": "2026-10-02",
+     "what": "DCC 8.3 disclosure",
+     "source": null,
+     "recordId": "hi217",
+     "status": "present"
+    }
+   ]
   },
   "h12": {
    "kind": "hf",
