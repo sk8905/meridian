@@ -21,6 +21,97 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "d7345d46-f000-49b1-99f6-57edfbd5f0af",
+    "title": "Trump envoy floats Ukraine talks and summit with Putin and Xi",
+    "date": "2026-10-21",
+    "time": "18:53",
+    "url": "https://www.ft.com/content/d7345d46-f000-49b1-99f6-57edfbd5f0af"
+  },
+  {
+    "id": "7c0fb51a-2c17-414e-96a7-ac33f40af3de",
+    "title": "CVC explores bid for Verisure just 1 year after IPO",
+    "date": "2026-10-21",
+    "time": "18:43",
+    "url": "https://www.ft.com/content/7c0fb51a-2c17-414e-96a7-ac33f40af3de"
+  },
+  {
+    "id": "68e28f90-cbc3-4fa6-950b-451cf7c49c87",
+    "title": "Ghana in talks with European nations for reparations, president says",
+    "date": "2026-10-21",
+    "time": "18:43",
+    "url": "https://www.ft.com/content/68e28f90-cbc3-4fa6-950b-451cf7c49c87"
+  },
+  {
+    "id": "bef7e107-3922-4312-acd9-3c96af60c309",
+    "title": "Italy’s buffalo mozzarella production grinds to a halt in truckers’ strike",
+    "date": "2026-10-21",
+    "time": "18:37",
+    "url": "https://www.ft.com/content/bef7e107-3922-4312-acd9-3c96af60c309"
+  },
+  {
+    "id": "8c443652-5c29-4711-81d1-dd985f2e4578",
+    "title": "Indonesia should heed MSCI’s warning",
+    "date": "2026-10-21",
+    "time": "18:36",
+    "url": "https://www.ft.com/content/8c443652-5c29-4711-81d1-dd985f2e4578"
+  },
+  {
+    "id": "7f8e97b4-bd2e-4414-858a-bc746cb515f6",
+    "title": "Tesla-SpaceX: a huge corporate constellation with Musk at its centre",
+    "date": "2026-10-21",
+    "time": "18:25",
+    "url": "https://www.ft.com/content/7f8e97b4-bd2e-4414-858a-bc746cb515f6"
+  },
+  {
+    "id": "93ba5184-e21c-4af2-8121-c92df82a95f3",
+    "title": "Ohio governor’s campaign engulfed in controversy over attack ad",
+    "date": "2026-10-21",
+    "time": "18:09",
+    "url": "https://www.ft.com/content/93ba5184-e21c-4af2-8121-c92df82a95f3"
+  },
+  {
+    "id": "576c025a-b4e2-47d8-88e8-3ac0fcf8e16d",
+    "title": "Hungary detains Orbán’s former central bank chief",
+    "date": "2026-10-21",
+    "time": "18:07",
+    "url": "https://www.ft.com/content/576c025a-b4e2-47d8-88e8-3ac0fcf8e16d"
+  },
+  {
+    "id": "9cfa52b2-77cb-4b53-ad74-badd53f24fc6",
+    "title": "UK approves development of Jackdaw gasfield in North Sea",
+    "date": "2026-10-21",
+    "time": "17:49",
+    "url": "https://www.ft.com/content/9cfa52b2-77cb-4b53-ad74-badd53f24fc6"
+  },
+  {
+    "id": "76f076e4-9db2-4971-8ac9-73d9f39e4876",
+    "title": "France’s borrowing costs hit 5% for first time since 2002",
+    "date": "2026-10-21",
+    "time": "17:33",
+    "url": "https://www.ft.com/content/76f076e4-9db2-4971-8ac9-73d9f39e4876"
+  },
+  {
+    "id": "443ce2f3-ba36-4dc7-aa0b-a2bc593fa563",
+    "title": "UK inflation and borrowing top forecasts in blow to John Healey",
+    "date": "2026-10-21",
+    "time": "17:31",
+    "url": "https://www.ft.com/content/443ce2f3-ba36-4dc7-aa0b-a2bc593fa563"
+  },
+  {
+    "id": "509c0ecf-625e-4473-96cf-e249edb7c86e",
+    "title": "Middle East oil exports climb back to prewar levels",
+    "date": "2026-10-21",
+    "time": "17:24",
+    "url": "https://www.ft.com/content/509c0ecf-625e-4473-96cf-e249edb7c86e"
+  },
+  {
+    "id": "57e14c61-a1ac-46ef-8bf2-c40e5286546e",
+    "title": "Macron hits out at ‘stupid’ Trump remarks about riots in France",
+    "date": "2026-10-21",
+    "time": "17:12",
+    "url": "https://www.ft.com/content/57e14c61-a1ac-46ef-8bf2-c40e5286546e"
+  },
+  {
     "id": "7f407bde-ef26-4914-bcbe-baf858bc81d7",
     "title": "Abbott Laboratories to spin off nutrition unit at centre of baby formula lawsuits",
     "date": "2026-10-21",
@@ -56,18 +147,11 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/09f56730-4702-446d-9986-f7c93ffe6bf0"
   },
   {
-    "id": "d7345d46-f000-49b1-99f6-57edfbd5f0af",
-    "title": "Russia releases US citizen as Trump’s envoy visits",
+    "id": "e598bbc7-8211-436f-a57e-46c3ae21ac0f",
+    "title": "Rockets, robots and risk: Elon Musk’s $3.6tn gamble to merge Tesla and SpaceX",
     "date": "2026-10-21",
-    "time": "15:50",
-    "url": "https://www.ft.com/content/d7345d46-f000-49b1-99f6-57edfbd5f0af"
-  },
-  {
-    "id": "509c0ecf-625e-4473-96cf-e249edb7c86e",
-    "title": "Middle East oil exports climb back to prewar levels",
-    "date": "2026-10-21",
-    "time": "15:44",
-    "url": "https://www.ft.com/content/509c0ecf-625e-4473-96cf-e249edb7c86e"
+    "time": "14:38",
+    "url": "https://www.ft.com/content/e598bbc7-8211-436f-a57e-46c3ae21ac0f"
   },
   {
     "id": "8eda2888-0b63-43c9-80b9-b4b7557374ca",
@@ -82,20 +166,6 @@ export const FT_ITEMS = [
     "date": "2026-10-21",
     "time": "14:23",
     "url": "https://www.ft.com/content/e3282291-be9a-4c97-8fc8-d43f9297e167"
-  },
-  {
-    "id": "57e14c61-a1ac-46ef-8bf2-c40e5286546e",
-    "title": "Macron hits out at ‘stupid’ Trump remarks about riots in France",
-    "date": "2026-10-21",
-    "time": "14:17",
-    "url": "https://www.ft.com/content/57e14c61-a1ac-46ef-8bf2-c40e5286546e"
-  },
-  {
-    "id": "576c025a-b4e2-47d8-88e8-3ac0fcf8e16d",
-    "title": "Hungary detains Orbán’s former central bank chief",
-    "date": "2026-10-21",
-    "time": "13:39",
-    "url": "https://www.ft.com/content/576c025a-b4e2-47d8-88e8-3ac0fcf8e16d"
   },
   {
     "id": "2773c5ab-1bb6-4110-b6a7-c467b7b89717",
@@ -126,13 +196,6 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/162c6dd8-5501-46f4-8f7c-b456a4e29539"
   },
   {
-    "id": "e598bbc7-8211-436f-a57e-46c3ae21ac0f",
-    "title": "Rockets, robots and risk: Elon Musk’s $3.6tn gamble to merge Tesla and SpaceX",
-    "date": "2026-10-21",
-    "time": "10:50",
-    "url": "https://www.ft.com/content/e598bbc7-8211-436f-a57e-46c3ae21ac0f"
-  },
-  {
     "id": "a2c32972-da84-44ff-82cf-d66ae8bc1446",
     "title": "National Express owner in talks over £282mn take-private deal",
     "date": "2026-10-21",
@@ -145,13 +208,6 @@ export const FT_ITEMS = [
     "date": "2026-10-21",
     "time": "10:40",
     "url": "https://www.ft.com/content/ae820b11-e085-44b4-a8ca-8e5fa2eeb571"
-  },
-  {
-    "id": "76f076e4-9db2-4971-8ac9-73d9f39e4876",
-    "title": "France’s borrowing costs hit 5% for first time since 2002",
-    "date": "2026-10-21",
-    "time": "10:07",
-    "url": "https://www.ft.com/content/76f076e4-9db2-4971-8ac9-73d9f39e4876"
   },
   {
     "id": "36a14179-9c1f-4591-ac3b-970054a19d92",
@@ -173,13 +229,6 @@ export const FT_ITEMS = [
     "date": "2026-10-21",
     "time": "09:01",
     "url": "https://www.ft.com/content/67a2f314-730b-477b-b52f-f7495394ceec"
-  },
-  {
-    "id": "443ce2f3-ba36-4dc7-aa0b-a2bc593fa563",
-    "title": "UK inflation and borrowing top forecasts in blow to John Healey",
-    "date": "2026-10-21",
-    "time": "08:18",
-    "url": "https://www.ft.com/content/443ce2f3-ba36-4dc7-aa0b-a2bc593fa563"
   },
   {
     "id": "70f1da13-3c33-4881-aaa8-3458c1ba7eaf",
@@ -250,54 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-21",
     "time": "05:00",
     "url": "https://www.ft.com/content/f06bdefd-bbc6-4a33-9884-09daa15752a9"
-  },
-  {
-    "id": "600ae6ad-ea09-4deb-ad55-10513e78a44e",
-    "title": "Netflix’s $300bn problem: lack of hits piles pressure on streaming giant",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/600ae6ad-ea09-4deb-ad55-10513e78a44e"
-  },
-  {
-    "id": "52e341e0-b29c-420a-9427-cf08e9982cc5",
-    "title": "Climate plans found to lower companies’ borrowing costs",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/52e341e0-b29c-420a-9427-cf08e9982cc5"
-  },
-  {
-    "id": "f4f711aa-ca65-4441-b311-73eadb3ccc40",
-    "title": "Andy Burnham cools on new towns project",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/f4f711aa-ca65-4441-b311-73eadb3ccc40"
-  },
-  {
-    "id": "480d1fa9-706d-4366-a76c-f39b1b7398a2",
-    "title": "Stratford moves closer to international rail upgrade with Budget boost",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/480d1fa9-706d-4366-a76c-f39b1b7398a2"
-  },
-  {
-    "id": "a744bc1c-98d8-4763-ad23-78e483bbf85f",
-    "title": "The people shaping the Budget",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/a744bc1c-98d8-4763-ad23-78e483bbf85f"
-  },
-  {
-    "id": "ef12fcab-5139-4750-b0d5-1f4b6c72086c",
-    "title": "John Healey squashes hopes of visa for wealthy in UK Budget",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/ef12fcab-5139-4750-b0d5-1f4b6c72086c"
-  },
-  {
-    "id": "d95609cd-1bb9-4995-937b-875277de3a42",
-    "title": "EU probes pro-Kremlin disinformation around French riots",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/d95609cd-1bb9-4995-937b-875277de3a42"
   }
 ];

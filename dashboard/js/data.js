@@ -22,10 +22,10 @@ export const EQ_INDICES = [
     "stooq": "^spx",
     "source": "https://finance.yahoo.com/quote/%5EGSPC",
     "keyMoment": {
-      "text": "The S&amp;P 500 fell 1.09% on Friday to 7,659.44 as worries that tech companies are borrowing too much for the AI buildout drove a sell-off, with neocloud CoreWeave down nearly 12% and September CPI at 3.7% y/y stoking Fed-hike fears.",
-      "src": "https://www.cnbc.com/2026/10/15/stock-market-today-live-updates.html",
-      "srcName": "CNBC",
-      "date": "2026-10-16"
+      "text": "The S&amp;P 500 was little changed by mid-morning on Wednesday after two modest gains, as SpaceX jumped 11.1% on a profit beat and Netflix fell 4.2% and AT&amp;T 5.6%, with the 10-year Treasury yield down to 5.09% from 5.12%.",
+      "src": "https://www.bnnbloomberg.ca/markets/2026/10/21/us-futures-mostly-higher-as-wall-street-digests-earnings-from-spacex-netflix/",
+      "srcName": "BNN Bloomberg",
+      "date": "2026-10-21"
     }
   },
   {

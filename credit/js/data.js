@@ -24,7 +24,7 @@
 // =============================================================================
 
 // When the dataset was last compiled/updated (i.e. the last time data actually changed).
-export const DATA_UPDATED = "2026-10-18";
+export const DATA_UPDATED = "2026-10-21";
 
 // When the refresh routine last ran (even if it found nothing new) — shown in the
 // topbar as "Last refresh" so a run can be confirmed regardless of data changes.
@@ -33,7 +33,7 @@ export const LAST_CHECKED = "2026-10-21";
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "18:30 BST";
+export const LAST_CHECKED_TIME = "19:40 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -3911,6 +3911,7 @@ export const deals = [
   {"id":"d1328","date":"2025-09-02","type":"Disposal / Exit","managerId":"m236","fundId":null,"headline":"Skyward Specialty to buy Alchemy-backed Apollo Group Holdings for USD555m","summary":"Skyward Specialty Insurance Group agreed to acquire 100% of Lloyd's platform Apollo Group Holdings for USD555m in cash and Skyward shares, from Alchemy, management, employees and other strategic investors.","sourceUrl":"https://www.willkie.com/news/2025/09/willkie-advises-apollo-group-holdings-in-sale-to-skyward-specialty-insurance-group"},
   {"id":"d1329","date":"2024-03-05","type":"Acquisition","managerId":"m238","fundId":null,"headline":"Veld Capital and EOS Group acquire EUR364m French consumer loan portfolio from BNP Paribas Personal Finance","summary":"Veld Capital and EOS Group bought a portfolio of regulated French consumer loans from BNP Paribas Personal Finance with a nominal value of EUR364m, comprising more than 125,000 small-balance loans averaging under EUR3,000. A securitisation vehicle jointly funded by Veld and EOS bought the assets outright, and servicing moved to EOS. Veld partner Konstantin Karchinov said it was the fund's first investment in French consumer loans.","sourceUrl":"http://alternativecreditinvestor.com/2024/03/05/veld-capital-and-eos-group-acquire-e364m-french-consumer-loan-portfolio/","borrower":"BNP Paribas Personal Finance French consumer loan portfolio","amount":"EUR364m"},
   {"id":"d1330","date":"2025-01-29","type":"Acquisition","managerId":"m238","fundId":null,"headline":"Veld Capital acquires two Plymouth student accommodation assets","summary":"Veld Capital completed the acquisition of two recently built purpose-built student accommodation assets in Plymouth, Saltwater Place and Mary Parker House, with 513 rooms between them. Veld's announcement described them as the first in a series of UK PBSA investments it expects to complete.","sourceUrl":"https://gslglobal.com/2025/01/29/veld-capital-acquires-two-key-plymouth-pbsa-assets/"},
+  {"id":"d1331","date":"2022-12-13","type":"Financing","managerId":"m49","fundId":null,"headline":"Novicap agrees €200m debt facility with Fasanara Capital","summary":"Spanish working-capital fintech Novicap agreed a €200m debt facility with Fasanara Capital to expand its supply chain financing, invoice factoring and flexible supplier-payment offering; Novicap expects the line to unlock at least €1bn of financing a year.","sourceUrl":"https://alternativecreditinvestor.com/2022/12/13/fasanara-agrees-e200m-debt-facility-with-spanish-fintech/","borrower":"Novicap","lenders":[{"name":"Fasanara Capital","managerId":"m49","role":"lead","amount":200,"ccy":"EUR"}],"managerRole":"lender"},
 ];
 
 // Keep both feeds strictly newest-first regardless of insertion order.

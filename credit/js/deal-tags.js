@@ -1210,6 +1210,7 @@ const T = {
   d1328: {"c":"UK","s":"Financial services","a":null,"p":"Apollo Group Holdings","r":"target"},
   d1329: {"c":"France","s":"Financial services","a":"portfolio","p":"BNP Paribas Personal Finance","r":"seller"},
   d1330: {"c":"UK","s":"Real estate","a":null,"p":"Saltwater Place and Mary Parker House","r":"target"},
+  d1331: {"c":"Spain","s":"Financial services","a":"financing","p":"Novicap","r":"borrower"},
 };
 // A role (r) without a party name (p) labels the deal's own audited `borrower` (data audit
 // 2026-10-21: manager M&A → Target, fund closes / CVs → Fund / vehicle, CLOs → Issuer).

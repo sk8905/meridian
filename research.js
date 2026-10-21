@@ -109,6 +109,28 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    "id": "rsch-mandg-bondvigilantes-latampivot-20261021",
+    "publication": "M&G Bond Vigilantes",
+    "author": "Carlos Carranza",
+    "series": "Bond Vigilantes",
+    "title": "Latam’s pivot to the “right” means the fiscal anchor is ‘muy fuerte’",
+    "date": "2026-10-21",
+    "time": "17:57",
+    "summary": "When talking about the right or left in Latin America, an important differentiation needs to be made.",
+    "url": "https://bondvigilantes.com/blog/2026/10/latams-pivot-to-the-right-means-the-fiscal-anchor-is-muy-fuerte/"
+  },
+  {
+    "id": "rsch-jpm-incontext-sriyearone-20261021",
+    "publication": "J.P. Morgan",
+    "author": null,
+    "series": "In Context",
+    "title": "Strengthening Critical Industries",
+    "date": "2026-10-21",
+    "time": "15:31",
+    "summary": "One year into JPMorganChase's $1.5tn Security and Resiliency Initiative: roughly $230bn deployed across about 380 transactions.",
+    "url": "https://www.jpmorgan.com/insights/security-and-resiliency-initiative/investments-into-us-economic-security"
+  },
+  {
     "id": "rsch-spdji-dailyindexinsights-20261021",
     "publication": "S&P Dow Jones Indices",
     "author": null,
@@ -118,6 +140,50 @@ export const RESEARCH = [
     "time": "15:01",
     "summary": "On this day, American novelist Ernest Hemingway published his classic novel For Whom the Bell Tolls.",
     "url": "https://www.spglobal.com/spdji/en/commentary/article/daily-index-insights"
+  },
+  {
+    "id": "rsch-preqin-firstclose-warehouses-20261021",
+    "publication": "Preqin",
+    "author": "Harsha Narayan",
+    "series": "First Close",
+    "title": "Warehouses are hot property – from the US to APAC",
+    "date": "2026-10-21",
+    "time": "12:18",
+    "summary": "Mapletree’s Richard Prokup on why real estate investors are keen on new logistics assets; 83% of South Korea-based LPs target APAC for real estate over the next 12 months.",
+    "url": "https://go.preqin.com/webmail/909852/2215581739/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665"
+  },
+  {
+    "id": "rsch-apollo-datacenterdelay-20261021",
+    "publication": "Apollo Academy",
+    "author": "Torsten Slok",
+    "series": "The Daily Spark",
+    "title": "Winners and Losers if the Data Center Buildout Is Delayed",
+    "date": "2026-10-21",
+    "time": "11:46",
+    "summary": "Compute demand is significantly greater than supply, so a delay would favour operating data centers, power producers and long-lead equipment makers over AI-linked equities and leveraged developers.",
+    "url": "https://www.apolloacademy.com/the-daily-spark/"
+  },
+  {
+    "id": "rsch-withintelligence-pe-insights-pacificreach-20261021",
+    "publication": "With Intelligence",
+    "author": null,
+    "series": "Private Equity Insights",
+    "title": "Private Equity Insights: Pacific Reach likes physical AI, industrial automation as early-stage tech plays",
+    "date": "2026-10-21",
+    "time": "11:39",
+    "summary": "Weekly private equity roundup led by Pacific Reach favouring physical AI and industrial automation, plus Fulcrum Equity targeting $400m and Macquarie nearing a $1bn+ first close.",
+    "url": "https://pardot.withintelligence.com/webmail/284832/3609061552/23fcdd7c20d30df223e97a343c7c91b872fd93050b0c889e2b0abf0950a7caa2"
+  },
+  {
+    "id": "rsch-ubs-donovan-upwegoagain-20261021",
+    "publication": "UBS CIO",
+    "author": "Paul Donovan",
+    "series": "Morning audio comment",
+    "title": "Up we go again",
+    "date": "2026-10-21",
+    "time": "07:21",
+    "summary": "Oil prices rose above USD110 per barrel; markets and politicians focus on round numbers, so the move may carry consequences for US policy toward Iran and for central banks.",
+    "url": "https://www.ubs.com/global/en/wealth-management/insights/chief-investment-office/market-insights/paul-donovan.html"
   },
   {
     "id": "rsch-mandg-bondvigilantes-riendrien-20261020",
@@ -140,6 +206,39 @@ export const RESEARCH = [
     "time": "14:30",
     "summary": "Happy Birthday to the Sydney Opera House: on this day in 1973, Queen Elizabeth II officially opened the landmark.",
     "url": "https://www.spglobal.com/spdji/en/commentary/article/daily-index-insights"
+  },
+  {
+    "id": "rsch-preqin-firstclose-swissprivateequity-20261020",
+    "publication": "Preqin",
+    "author": "Alfie Finch-Critchley",
+    "series": "First Close",
+    "title": "Switzerland turns to private equity as non-institutional investors lead the way",
+    "date": "2026-10-20",
+    "time": "12:14",
+    "summary": "Private equity is the most popular private markets asset class among Swiss-based LPs: 58% of those with existing exposure plan to keep investing.",
+    "url": "https://go.preqin.com/webmail/909852/2212943263/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665"
+  },
+  {
+    "id": "rsch-apollo-tokenspend-20261020",
+    "publication": "Apollo Academy",
+    "author": "Torsten Slok",
+    "series": "The Daily Spark",
+    "title": "Slowing Token Spend Shows Compute Demand Isn’t Unlimited",
+    "date": "2026-10-20",
+    "time": "11:46",
+    "summary": "Slowing growth in token spending suggests compute demand is highly price-sensitive; return on invested capital for the five largest hyperscalers is declining.",
+    "url": "https://www.apolloacademy.com/the-daily-spark/"
+  },
+  {
+    "id": "rsch-ubs-donovan-marketwobbles-20261020",
+    "publication": "UBS CIO",
+    "author": "Paul Donovan",
+    "series": "Morning audio comment",
+    "title": "Market wobbles and economic stability",
+    "date": "2026-10-20",
+    "time": "07:56",
+    "summary": "One AI company’s poor market launch caused a market wobble, but economists are much less flustered by such noise.",
+    "url": "https://www.ubs.com/global/en/wealth-management/insights/chief-investment-office/market-insights/paul-donovan.html"
   },
   {
     "id": "rsch-pimco-creditmarketlens-softwareloans-20261019",

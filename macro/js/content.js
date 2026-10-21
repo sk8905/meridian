@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-21",
-  lastCheckedTime: "17:10 BST",
+  lastCheckedTime: "19:40 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1320,7 +1320,7 @@ export const IND_KEYMOMENTS = {
   "UK:base_rate": { text: "The ONS revised UK Q2 GDP growth up to 0.5% q/q from 0.4% (services +0.6%), reaffirming market bets on a 25bp Bank of England hike at the 5 November meeting; sterling rose from a two-month low.", src: "https://www.fxstreet.com/news/british-pound-moves-away-from-two-month-low-after-uk-q2-gdp-as-usd-retreats-ahead-of-pce-202609300731", srcName: "FXStreet", date: "2026-09-30" },
   "UK:two_year": { text: "Gilts led European bonds higher on Tuesday as energy prices retreated, with UK yields dropping as oil and gas hit fresh lows — a pause in a sell-off that had already pared Chancellor Healey's fiscal headroom to roughly £12bn ahead of the 28 October Budget.", src: "https://www.bloomberg.com/news/articles/2026-09-29/gilts-lead-european-bonds-higher-as-energy-prices-retreat", srcName: "Bloomberg", date: "2026-09-29" },
   "UK:wages": { text: "UK payroll employment fell again in July while the unemployment rate held at 4.9%, ONS data showed — a soft labour market print that reinforces the case for the Bank of England to keep rates on hold.", src: "https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-uk-unemployment-holds-at-4-9/", srcName: "ActionForex", date: "2026-08-18" },
-  "UK:core_cpi": { text: "August CPI rose to 3.1% y/y (from 2.9% in July), with CPIH up 3.3% (from 3.1%) and core CPI flat at 2.6% — a hotter-than-hoped print landing the morning before Thursday's BoE decision, where a hold at 3.75% remains the consensus.", src: "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/august2026", srcName: "ONS", date: "2026-09-16" },
+  "UK:core_cpi": { text: "September CPI rose to 3.5% y/y from 3.1% in August (consensus 3.4%), with petrol up 29.8% on the year and core CPI at 2.8%, firming bets on a Bank of England hike from 3.75% on 5 November.", src: "https://www.fxstreet.com/news/uk-cpi-set-to-accelerate-paving-the-way-for-a-boe-interest-rate-hike-in-november-202610210200", srcName: "FXStreet", date: "2026-10-21" },
   "UK:unemployment": { text: "The ONS's September Labour Market release showed the ILO unemployment rate steady at 4.9% in the three months to July — below the 5% expected — even as the economy added just 67,000 jobs, down from 83,000 the prior quarter, a mixed print released the day before the BoE's own decision.", src: "https://www.fxstreet.com/news/british-pound-pushes-against-five-week-lows-following-mixed-uk-employment-data-202609150628", srcName: "FXStreet", date: "2026-09-15" },
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
