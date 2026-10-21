@@ -1,45 +1,45 @@
 {
- "generated": "2026-10-13T22:15:44.760Z",
+ "generated": "2026-10-21T09:08:42.777Z",
  "results": [
   {
-   "source": "European Central Bank",
-   "feed": "https://www.ecb.europa.eu/rss/press.xml",
+   "source": "BBC Business",
+   "feed": "https://feeds.bbci.co.uk/news/business/rss.xml",
    "feedStatus": [
-    "200 https://www.ecb.europa.eu/rss/press.xml"
+    "200 https://feeds.bbci.co.uk/news/business/rss.xml"
    ],
-   "items": 15,
+   "items": 52,
    "newestDays": 0,
    "sample": [
-    "Philip R. Lane: The AI opportunity for Europe",
-    "Meeting of 9-10 September 2026",
-    "Piero Cipollone: Interview with Corriere della Sera",
-    "Results of the September 2026 survey on credit terms and conditions in euro-denominated securities financing and OTC derivatives markets (SESFOD)",
-    "Frank Elderson: Effective supervision through timely remediation"
+    "What is happening to UK prices?",
+    "Elon Musk confirms he is considering merging Tesla and SpaceX",
+    "Surging fuel prices push UK inflation rate to 3.5% ahead of Budget",
+    "The tech helping crack decades-old cold cases",
+    "Why is Elon Musk plotting a mega-merger of SpaceX and Tesla?"
    ],
    "articles": [
     {
-     "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp261013~9db9bf4fd6.en.html",
+     "url": "https://www.bbc.co.uk/news/articles/c17rgd8e9gjo?at_medium=RSS&at_campaign=rss",
      "direct": {
       "accessible": true,
-      "paragraphs": 26
+      "paragraphs": 44
      },
      "proxy": null,
      "inPane": true
     },
     {
-     "url": "https://www.ecb.europa.eu//press/accounts/2026/html/ecb.mg261008~a10153d090.en.html",
+     "url": "https://www.bbc.co.uk/news/articles/cmlyl09xjke4o?at_medium=RSS&at_campaign=rss",
      "direct": {
       "accessible": true,
-      "paragraphs": 26
+      "paragraphs": 25
      },
      "proxy": null,
      "inPane": true
     },
     {
-     "url": "https://www.ecb.europa.eu//press/inter/date/2026/html/ecb.in261008~3184e7d0d0.en.html",
+     "url": "https://www.bbc.co.uk/news/articles/c6gel2xv4493o?at_medium=RSS&at_campaign=rss",
      "direct": {
       "accessible": true,
-      "paragraphs": 23
+      "paragraphs": 19
      },
      "proxy": null,
      "inPane": true
@@ -48,99 +48,577 @@
    "pass": true
   },
   {
-   "source": "Bank of Japan",
-   "feed": "https://www.boj.or.jp/en/rss/whatsnew.xml",
+   "source": "Sky News Business",
+   "feed": "https://feeds.skynews.com/feeds/rss/business.xml",
    "feedStatus": [
-    "200 https://www.boj.or.jp/en/rss/whatsnew.xml"
+    "200 https://feeds.skynews.com/feeds/rss/business.xml"
    ],
-   "items": 48,
-   "newestDays": 1,
+   "items": 10,
+   "newestDays": 0,
    "sample": [
-    "Basic Figures on Fails (Sept.)",
-    "Results of the 107th Opinion Survey on the General Public's Views and Behavior",
-    "Principal Figures of Financial Institutions (Sept.)",
-    "Corporate Goods Price Index (Sept.)",
-    "Twenty-fifth Meeting of the \"Council for Cooperation on Financial Stability\""
+    "UK unemployment rate falls to lowest level since July last year",
+    "Thames Water creditors secure Labour's Hutton to drive rescue deal",
+    "The little known 'income' rule to avoid inheritance tax | Money newsletter",
+    "Former Virgin Atlantic chief to pilot traffic management group Ramudden",
+    "Inflation rises more than expected - can upcoming budget help?"
    ],
    "articles": [
     {
-     "url": "http://www.boj.or.jp/en/statistics/set/bffail/sjgb2609.pdf",
+     "url": "https://news.sky.com/story/surprise-dip-in-jobless-rate-supports-interest-rate-hike-13601180",
      "direct": {
-      "accessible": false,
-      "paragraphs": 0
+      "status": 403
      },
      "proxy": {
       "status": 200,
-      "paragraphs": 11
+      "paragraphs": 3
      },
      "inPane": true
     },
     {
-     "url": "http://www.boj.or.jp/en/research/o_survey/ishiki2610.htm",
+     "url": "https://news.sky.com/story/thames-water-creditors-secure-labours-hutton-to-drive-rescue-deal-13601230",
      "direct": {
-      "accessible": false,
+      "status": 403
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 3
+     },
+     "inPane": true
+    },
+    {
+     "url": "https://news.sky.com/story/money-newsletter-sky-news-personal-finance-13367142",
+     "direct": {
+      "status": 403
+     },
+     "proxy": {
+      "status": 200,
       "paragraphs": 1
      },
+     "inPane": false
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "City AM",
+   "feed": "https://www.cityam.com/feed/",
+   "feedStatus": [
+    "200 https://www.cityam.com/feed/"
+   ],
+   "items": 30,
+   "newestDays": 0,
+   "sample": [
+    "Accounting watchdog launches enquiries into Man City auditor BDO",
+    "Aim-listed tech company agrees huge takeover deal",
+    "Domino’s Pizza loses pace after World Cup rush",
+    "UK debt pile exceeds £3 trillion one week before Healey’s Budget",
+    "UK government approves Jackdaw production in North Sea boost"
+   ],
+   "articles": [
+    {
+     "url": "https://www.cityam.com/watchdog-frc-launches-enquiries-into-man-city-auditor-bdo/",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 12
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.cityam.com/aim-listed-tech-company-agrees-huge-takeover-deal/",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 14
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.cityam.com/dominos-pizza-loses-pace-after-world-cup-rush/",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 15
+     },
+     "proxy": null,
+     "inPane": true
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "The Guardian Business",
+   "feed": "https://www.theguardian.com/business/rss",
+   "feedStatus": [
+    "200 https://www.theguardian.com/business/rss"
+   ],
+   "items": 20,
+   "newestDays": 1,
+   "sample": [
+    "United Airlines CEO faces rightwing backlash after calling for US wealth tax",
+    "US judge dismisses sexual abuse lawsuit from Sam Altman’s sister",
+    "European air fares could rise by as much as 20% in 2027, Ryanair boss predicts",
+    "Hollywood AI-listers: is the technology ready to rival flesh-and-blood film stars?",
+    "HelloFresh workers claim physical abuse and denied bathroom breaks in class-action suit"
+   ],
+   "articles": [
+    {
+     "url": "https://www.theguardian.com/business/2026/oct/20/scott-kirby-united-wealth-tax-backlash",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 11
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.theguardian.com/technology/2026/oct/20/judge-dismisses-sam-altman-sister-lawsuit",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 8
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.theguardian.com/business/2026/oct/20/european-air-fares-rise-2027-ryanair-fuel-costs",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 11
+     },
+     "proxy": null,
+     "inPane": true
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "Axios Markets",
+   "feed": "https://api.axios.com/feed/",
+   "feedStatus": [
+    "404 https://api.axios.com/feed/markets",
+    "200 https://api.axios.com/feed/"
+   ],
+   "items": 100,
+   "newestDays": 0,
+   "sample": [
+    "\"I am giving you money!\" Nvidia's CEO wants every country to build its own AI",
+    "Why Anthropic can't afford to delay its IPO",
+    "When AI models refuse to fight hackers",
+    "Exclusive: Ramaswamy doubles down on explosive ad featuring rival's mother, despite backlash",
+    "House Democrats forced to make tough choices with limited midterm cash"
+   ],
+   "articles": [
+    {
+     "url": "https://www.axios.com/2026/10/21/nvidia-ceo-jensen-huang-europe-sovereign-ai-tour-bubble",
+     "direct": {
+      "status": 403
+     },
      "proxy": {
       "status": 200,
-      "paragraphs": 31
+      "paragraphs": 13
      },
      "inPane": true
     },
     {
-     "url": "http://www.boj.or.jp/en/statistics/dl/depo/kashi/kasi2609.pdf",
+     "url": "https://www.axios.com/2026/10/21/anthropic-ipo-ai-costs",
      "direct": {
-      "accessible": false,
-      "paragraphs": 0
+      "status": 403
      },
      "proxy": {
       "status": 200,
       "paragraphs": 16
      },
      "inPane": true
+    },
+    {
+     "url": "https://www.axios.com/2026/10/21/when-ai-models-refuse-to-fight-hackers",
+     "direct": {
+      "status": 403
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 9
+     },
+     "inPane": true
     }
    ],
    "pass": true
   },
   {
-   "source": "Bank of Canada",
-   "feed": "https://www.bankofcanada.ca/content_type/press-releases/feed/",
+   "source": "PE Hub",
+   "feed": "https://www.pehub.com/feed/",
    "feedStatus": [
-    "200 https://www.bankofcanada.ca/content_type/press-releases/feed/"
+    "200 https://www.pehub.com/feed/"
    ],
    "items": 10,
-   "newestDays": 33,
+   "newestDays": 0,
    "sample": [
-    "Bank of Canada Board launches process to fill external Deputy Governor position",
-    "Bank of Canada unveils new vertical $20 bank note",
-    "Bank of Canada maintains the policy rate at 2¼%",
-    "G7 2026 Cross-Border Coordination Exercise (CBCE)",
-    "Bank of Canada publishes its 2027 schedule for policy interest rate announcements and other major publications"
+    "Security companies in vogue as Inflexion’s Ranger adds D&G Security; Advent joins string of PE firms opening Abu Dhabi office",
+    "Inflexion’s Ranger Fire and Security adds Midlands alarm firm D&G",
+    "Advent opens Abu Dhabi office with Mehdi Iraqi at the helm",
+    "BGF completes investment in engineering consultancy Harley Haddow",
+    "WestBridge completes investment in Foresight-backed financial planner Beckett"
    ],
    "articles": [
     {
-     "url": "https://www.bankofcanada.ca/2026/09/bank-canada-board-launches-process-fill-external-deputy-governor-position/",
+     "url": "https://www.pehub.com/security-companies-in-vogue-as-inflexions-ranger-adds-d-advent-joins-string-of-pe-firms-opening-abu-dhabi-office/",
+     "direct": {
+      "accessible": false,
+      "paragraphs": 7
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 59
+     },
+     "inPane": true
+    },
+    {
+     "url": "https://www.pehub.com/inflexions-ranger-fire-and-security-adds-midlands-alarm-firm-dg/",
+     "direct": {
+      "accessible": false,
+      "paragraphs": 7
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 57
+     },
+     "inPane": true
+    },
+    {
+     "url": "https://www.pehub.com/advent-opens-abu-dhabi-office-with-mehdi-iraqi-at-the-helm/",
+     "direct": {
+      "accessible": false,
+      "paragraphs": 7
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 57
+     },
+     "inPane": true
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "Pensions & Investments",
+   "feed": null,
+   "feedStatus": [
+    "403 https://www.pionline.com/rss/news",
+    "403 https://www.pionline.com/arc/outboundfeeds/rss/"
+   ],
+   "items": 0,
+   "newestDays": null,
+   "sample": [],
+   "articles": [],
+   "pass": false
+  },
+  {
+   "source": "Markets Media",
+   "feed": "https://www.marketsmedia.com/feed/",
+   "feedStatus": [
+    "200 https://www.marketsmedia.com/feed/"
+   ],
+   "items": 10,
+   "newestDays": 0,
+   "sample": [
+    "CME Has First Trade for Bitcoin Cash & Uniswap Futures",
+    "tZERO Opens Derivatives Market Infrastructure Vertical",
+    "J.P. Morgan Tops Extel All-America Equities Research Table",
+    "Boerse Stuttgart Group Obtains DLT TSS License",
+    "FIX Wants Clearer View of Genuine Liquidity in UK Equities"
+   ],
+   "articles": [
+    {
+     "url": "https://www.marketsmedia.com/cme-announces-first-trade-for-bitcoin-cash-and-uniswap-futures/",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 17
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.marketsmedia.com/tzero-opens-derivatives-market-infrastructure-vertical/",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 21
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.marketsmedia.com/j-p-morgan-stays-top-of-extels-all-america-equities-research-table/",
      "direct": {
       "accessible": true,
       "paragraphs": 20
      },
      "proxy": null,
      "inPane": true
-    },
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "Liberty Street Economics (NY Fed)",
+   "feed": "https://libertystreeteconomics.newyorkfed.org/feed/",
+   "feedStatus": [
+    "200 https://libertystreeteconomics.newyorkfed.org/feed/"
+   ],
+   "items": 100,
+   "newestDays": 6,
+   "sample": [
+    "Revenue per Worker Is Up. Are Firms Getting a Larger Share?",
+    "Has the AI Boom Impacted the U.S. Current Account?",
+    "Prices, Prices, Prices: Overall Inflation and the Costs You Care About",
+    "AI Adoption and Employment Expectations: Evidence from a Survey of Small Business Owners",
+    "Firm Heterogeneity and the Response of Investment to Monetary Policy"
+   ],
+   "articles": [
     {
-     "url": "https://www.bankofcanada.ca/2026/09/bank-canada-unveils-new-vertical-20-bank-note/",
+     "url": "https://libertystreeteconomics.newyorkfed.org/2026/10/revenue-per-worker-is-up-are-firms-getting-a-larger-share/",
      "direct": {
       "accessible": true,
-      "paragraphs": 26
+      "paragraphs": 41
      },
      "proxy": null,
      "inPane": true
     },
     {
-     "url": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
+     "url": "https://libertystreeteconomics.newyorkfed.org/2026/10/has-the-ai-boom-impacted-the-u-s-current-account/",
      "direct": {
       "accessible": true,
-      "paragraphs": 27
+      "paragraphs": 46
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://libertystreeteconomics.newyorkfed.org/2026/10/prices-prices-prices-overall-inflation-and-the-costs-you-care-about/",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 47
+     },
+     "proxy": null,
+     "inPane": true
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "Bank Underground (BoE)",
+   "feed": null,
+   "feedStatus": [
+    "403 https://bankunderground.co.uk/feed/"
+   ],
+   "items": 0,
+   "newestDays": null,
+   "sample": [],
+   "articles": [],
+   "pass": false
+  },
+  {
+   "source": "BIS",
+   "feed": "https://www.bis.org/doclist/bis_fsi_publs.rss",
+   "feedStatus": [
+    "404 https://www.bis.org/doclist/all_speeches.rss",
+    "200 https://www.bis.org/doclist/bis_fsi_publs.rss"
+   ],
+   "items": 20,
+   "newestDays": 1,
+   "sample": [
+    "Bank liquidity regulation and the growth of private credit",
+    "Competing rails for crossborder payments: banks, fintechs, and stablecoins",
+    "Geoeconomic pressure",
+    "Central banks and macro financial stability in a fragmented global economy",
+    "Inflation after the Iran war"
+   ],
+   "articles": [
+    {
+     "url": "https://www.bis.org/publications/bank-liquidity-regulation-and-growth-private-credit",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 6
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.bis.org/publications/working-paper-1385-competing-rails-crossborder-payments-banks-fintechs-and-stablecoins",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 6
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.bis.org/publications/working-paper-1386-geoeconomic-pressure",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 4
+     },
+     "proxy": null,
+     "inPane": true
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "IMF Blog",
+   "feed": null,
+   "feedStatus": [
+    "403 https://www.imf.org/en/Blogs/rss",
+    "403 https://www.imf.org/en/News/rss?language=eng"
+   ],
+   "items": 0,
+   "newestDays": null,
+   "sample": [],
+   "articles": [],
+   "pass": false
+  },
+  {
+   "source": "CEPR VoxEU",
+   "feed": "https://cepr.org/rss/vox-content",
+   "feedStatus": [
+    "200 https://cepr.org/rss/vox-content"
+   ],
+   "items": 50,
+   "newestDays": 0,
+   "sample": [
+    "Investment screening reshapes rather than shrinks foreign investment",
+    "Lower capital requirements are no shortcut to European competitiveness",
+    "What happens to innovation after Big Tech buys a startup",
+    "Taming original sin redux: The role of benchmark-driven flows",
+    "Here, there, and everywhere: Remote work and the employment of disabled and older workers in the UK"
+   ],
+   "articles": [
+    {
+     "url": "https://cepr.org/voxeu/columns/investment-screening-reshapes-rather-shrinks-foreign-investment",
+     "direct": {
+      "status": 403
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 45
+     },
+     "inPane": true
+    },
+    {
+     "url": "https://cepr.org/voxeu/columns/lower-capital-requirements-are-no-shortcut-european-competitiveness",
+     "direct": {
+      "status": 403
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 39
+     },
+     "inPane": true
+    },
+    {
+     "url": "https://cepr.org/voxeu/columns/what-happens-innovation-after-big-tech-buys-startup",
+     "direct": {
+      "status": 403
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 1
+     },
+     "inPane": false
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "Calculated Risk",
+   "feed": "https://www.calculatedriskblog.com/feeds/posts/default?alt=rss",
+   "feedStatus": [
+    "200 https://www.calculatedriskblog.com/feeds/posts/default?alt=rss"
+   ],
+   "items": 25,
+   "newestDays": 282,
+   "sample": [
+    "This is the End and a New Beginning",
+    "Sunday Night Futures",
+    "Hotels: Occupancy Rate Increased 4.4% Year-over-year",
+    "Real Estate Newsletter Articles this Week:Housing Starts Decreased to 1.246 million Annual Rate",
+    "Schedule for Week of January 11, 2026"
+   ],
+   "articles": [
+    {
+     "url": "http://www.calculatedriskblog.com/2026/01/this-is-end-and-new-beginning.html",
+     "direct": {
+      "status": 429
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 8
+     },
+     "inPane": true
+    },
+    {
+     "url": "http://www.calculatedriskblog.com/2026/01/sunday-night-futures_11.html",
+     "direct": {
+      "status": 429
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 6
+     },
+     "inPane": true
+    },
+    {
+     "url": "http://www.calculatedriskblog.com/2026/01/hotels-occupancy-rate-increased-44-year.html",
+     "direct": {
+      "status": 429
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 12
+     },
+     "inPane": true
+    }
+   ],
+   "pass": false
+  },
+  {
+   "source": "FCA",
+   "feed": "https://www.fca.org.uk/news/rss.xml",
+   "feedStatus": [
+    "200 https://www.fca.org.uk/news/rss.xml"
+   ],
+   "items": 20,
+   "newestDays": null,
+   "sample": [
+    "Building the future of finance in the age of AI",
+    "LIBOR/EURIBOR-related bans",
+    "ePayments Systems Limited enters special administration",
+    "Jarvis Investment Management Limited enters special administration",
+    "Three arrests in major FCA operation against criminal insider dealing ring"
+   ],
+   "articles": [
+    {
+     "url": "https://www.fca.org.uk/news/speeches/building-future-finance-age-ai",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 56
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.fca.org.uk/news/statements/libor-euribor-related-bans",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 4
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.fca.org.uk/news/news-stories/epayments-systems-limited-enters-special-administration",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 22
      },
      "proxy": null,
      "inPane": true
@@ -149,44 +627,96 @@
    "pass": false
   },
   {
-   "source": "Euronews Business",
-   "feed": "https://www.euronews.com/rss?level=theme&name=business",
+   "source": "SEC press releases",
+   "feed": "https://www.sec.gov/news/pressreleases.rss",
    "feedStatus": [
-    "200 https://www.euronews.com/rss?level=theme&name=business"
+    "200 https://www.sec.gov/news/pressreleases.rss"
    ],
-   "items": 50,
-   "newestDays": 0,
+   "items": 25,
+   "newestDays": 1,
    "sample": [
-    "Europe’s satellite sovereignty push faces funding test as EU space budget cycle ends",
-    "US banks post strong earnings but economic risks cloud the sector’s outlook",
-    "Stellantis bets on Chinese partnerships to avoid European plant closures",
-    "LVMH sales miss growth forecasts as China luxury demand slows",
-    "EU-China trade deal raises fears Brussels will go soft on Beijing"
+    "SEC and AMF Announce Supervisory MOU To Enhance Cooperation for Investment Advisers and Investment Service Providers",
+    "SEC, FSA Hold Autumn Financial Regulatory Dialogue",
+    "SEC Announces Roundtable on Machine-Understandable Data in the Age of Super Intelligence",
+    "SEC Small Business Advisory Committee to Discuss IPO Modernization and Regulation Crowdfunding",
+    "SEC Proposes Expanding Securities Eligible for Cross Trading by Registered Funds"
    ],
    "articles": [
     {
-     "url": "https://www.euronews.com/2026/10/13/europes-satellite-sovereignty-push-faces-funding-test-as-eu-space-budget-cycle-ends",
+     "url": "https://www.sec.gov/newsroom/press-releases/2026-108-sec-amf-announce-supervisory-mou-enhance-cooperation-investment-advisers-investment-service",
+     "direct": {
+      "status": 403
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 16
+     },
+     "inPane": true
+    },
+    {
+     "url": "https://www.sec.gov/newsroom/press-releases/2026-107-sec-fsa-hold-autumn-financial-regulatory-dialogue",
+     "direct": {
+      "status": 403
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 14
+     },
+     "inPane": true
+    },
+    {
+     "url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+     "direct": {
+      "status": 403
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 15
+     },
+     "inPane": true
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "Financial Stability Board",
+   "feed": "https://www.fsb.org/feed/",
+   "feedStatus": [
+    "200 https://www.fsb.org/feed/"
+   ],
+   "items": 10,
+   "newestDays": 0,
+   "sample": [
+    "Innovation and resilience: managing the risks of a changing financial system",
+    "Sound Practices for Responsible Adoption of Artificial Intelligence (AI): Overview of consultation responses",
+    "FSB finalises sound practices for the responsible adoption of artificial intelligence (AI)",
+    "Sound Practices for Responsible Adoption of Artificial Intelligence (AI): Final report",
+    "FSB consults on high-level principles for regulatory and supervisory modernisation"
+   ],
+   "articles": [
+    {
+     "url": "https://www.fsb.org/2026/10/innovation-and-resilience-managing-the-risks-of-a-changing-financial-system/",
      "direct": {
       "accessible": true,
-      "paragraphs": 32
+      "paragraphs": 25
      },
      "proxy": null,
      "inPane": true
     },
     {
-     "url": "https://www.euronews.com/2026/10/13/us-banks-post-strong-earnings-but-economic-risks-cloud-the-sectors-outlook",
+     "url": "https://www.fsb.org/2026/10/sound-practices-for-responsible-adoption-of-artificial-intelligence-ai-overview-of-consultation-responses/",
      "direct": {
       "accessible": true,
-      "paragraphs": 19
+      "paragraphs": 2
      },
      "proxy": null,
      "inPane": true
     },
     {
-     "url": "https://www.euronews.com/2026/10/13/stellantis-bets-on-chinese-partnerships-to-avoid-european-plant-closures",
+     "url": "https://www.fsb.org/2026/10/fsb-finalises-sound-practices-for-the-responsible-adoption-of-artificial-intelligence-ai/",
      "direct": {
       "accessible": true,
-      "paragraphs": 24
+      "paragraphs": 8
      },
      "proxy": null,
      "inPane": true
@@ -195,32 +725,23 @@
    "pass": true
   },
   {
-   "source": "The Guardian",
-   "feed": "https://www.theguardian.com/uk/business/rss",
+   "source": "Insolvency Service",
+   "feed": "https://www.gov.uk/government/organisations/insolvency-service.atom",
    "feedStatus": [
-    "200 https://www.theguardian.com/uk/business/rss"
+    "200 https://www.gov.uk/government/organisations/insolvency-service.atom"
    ],
-   "items": 40,
-   "newestDays": 0,
+   "items": 20,
+   "newestDays": 1,
    "sample": [
-    "UK high street bosses urge chancellor to cut cost of employing young people",
-    "Chip stocks slide after Broadcom boss likens AI investing to ‘casino’",
-    "Britons travelling to EU countries told not to apply for delayed Etias visa waiver",
-    "IMF raises UK growth forecast as economist says Healey should ‘stay the course’",
-    "Burnham’s Your First Home scheme ‘could boost Bellway’s house output by 10%’"
+    "Transparency data: Insolvency practitioner sanctions: Philip Barrington Wood 24 March 2025",
+    "Transparency data: Insolvency practitioner sanctions: Andrew Dix 17 November 2025",
+    "Transparency data: Insolvency practitioner sanctions: Muhammad Usman Nazir 20 March 2025",
+    "Transparency data: Insolvency practitioner sanctions: Lisa Ion 31 March 2025",
+    "Accredited official statistics: Individual insolvencies, September 2026"
    ],
    "articles": [
     {
-     "url": "https://www.theguardian.com/business/2026/oct/13/uk-high-street-bosses-urge-chancellor-to-cut-cost-of-employing-young-people",
-     "direct": {
-      "accessible": true,
-      "paragraphs": 17
-     },
-     "proxy": null,
-     "inPane": true
-    },
-    {
-     "url": "https://www.theguardian.com/business/2026/oct/13/chip-stocks-broadcom-ai-samsung-shares-cxmt",
+     "url": "https://www.gov.uk/government/publications/insolvency-practitioner-sanctions-philip-barrington-wood-24-march-2025--2",
      "direct": {
       "accessible": true,
       "paragraphs": 18
@@ -229,67 +750,21 @@
      "inPane": true
     },
     {
-     "url": "https://www.theguardian.com/world/2026/oct/13/britons-travelling-to-europe-told-not-to-apply-for-delayed-etias-visa-waiver",
+     "url": "https://www.gov.uk/government/publications/insolvency-practitioner-sanctions-andrew-dix-17-november-2025",
      "direct": {
       "accessible": true,
-      "paragraphs": 12
+      "paragraphs": 11
      },
      "proxy": null,
      "inPane": true
-    }
-   ],
-   "pass": true
-  },
-  {
-   "source": "AltAssets",
-   "feed": "https://altassets.net/feed",
-   "feedStatus": [
-    "200 https://altassets.net/feed"
-   ],
-   "items": 10,
-   "newestDays": 0,
-   "sample": [
-    "Deal Roundup: CVC agrees Isreali camo tech maker Fibrotex deal, Asterion in talks to buy Fraikin",
-    "Finance Earth targets $100m for African nature and carbon investment fund",
-    "CDP Venture Capital backs Jolt Capital’s €1.1bn deeptech fund",
-    "CPP Investments commits A$300m as Nuveen Australian debt strategy passes A$1bn",
-    "New Mountain opens Abu Dhabi office under former Blackstone executive Hameed"
-   ],
-   "articles": [
-    {
-     "url": "https://www.altassets.net/private-equity-news/by-region/global-by-region/deal-roundup-cvc-agrees-isreali-camo-tech-maker-fibrotex-deal-asterion-in-talks-to-buy-fraikin.html",
-     "direct": {
-      "accessible": false,
-      "paragraphs": 1
-     },
-     "proxy": {
-      "status": 200,
-      "paragraphs": 17
-     },
-     "inPane": true
     },
     {
-     "url": "https://www.altassets.net/private-equity-news/by-region/africa-by-region/finance-earth-targets-100m-for-african-nature-and-carbon-investment-fund.html",
+     "url": "https://www.gov.uk/government/publications/insolvency-practitioner-sanctions-muhammad-usman-nazir-20-march-2025--2",
      "direct": {
-      "accessible": false,
-      "paragraphs": 1
+      "accessible": true,
+      "paragraphs": 10
      },
-     "proxy": {
-      "status": 200,
-      "paragraphs": 17
-     },
-     "inPane": true
-    },
-    {
-     "url": "https://www.altassets.net/private-equity-news/by-region/europe-by-region/western-europe-europe-by-region/italy-western-europe-europe-by-region/cdp-venture-capital-backs-jolt-capitals-e1-1bn-deeptech-fund.html",
-     "direct": {
-      "accessible": false,
-      "paragraphs": 1
-     },
-     "proxy": {
-      "status": 200,
-      "paragraphs": 17
-     },
+     "proxy": null,
      "inPane": true
     }
    ],
@@ -299,9 +774,8 @@
    "source": "Law Society Gazette",
    "feed": null,
    "feedStatus": [
-    "404 https://www.lawgazette.co.uk/rss",
     "200 https://www.lawgazette.co.uk/XmlServers/navsectionRSS.aspx?navsectioncode=0",
-    "404 https://www.lawgazette.co.uk/news/rss"
+    "404 https://www.lawgazette.co.uk/rss"
    ],
    "items": 0,
    "newestDays": null,
@@ -310,54 +784,79 @@
    "pass": false
   },
   {
-   "source": "Above the Law",
-   "feed": "https://abovethelaw.com/feed/",
+   "source": "RollOnFriday",
+   "feed": null,
    "feedStatus": [
-    "200 https://abovethelaw.com/feed/"
+    "403 https://www.rollonfriday.com/rss.xml",
+    "403 https://www.rollonfriday.com/feed"
    ],
-   "items": 30,
-   "newestDays": 0,
+   "items": 0,
+   "newestDays": null,
+   "sample": [],
+   "articles": [],
+   "pass": false
+  },
+  {
+   "source": "Apricitas Economics",
+   "feed": "https://www.apricitas.io/feed",
+   "feedStatus": [
+    "200 https://www.apricitas.io/feed"
+   ],
+   "items": 20,
+   "newestDays": 24,
    "sample": [
-    "‘Adventures In Legal Tech’: Where Knowledge Management Meets AI",
-    "AI And Front-End Loading: The Highest And Best Use",
-    "ChatGPT’s Anti-Trump Slogans",
-    "Not All Heroes Wear Capes, Some Wear Judicial Robes",
-    "Where Am I Now? A Legal Tech Evangelist Checks In"
+    "AI and the Fall? of the Creative Class",
+    "America's Electricity Gap",
+    "Taiwan's Modern Miracle",
+    "The Supreme Court Ruled Against Trump's Tariffs. Now What?",
+    "America's $1T AI Gamble"
    ],
    "articles": [
     {
-     "url": "https://abovethelaw.com/2026/10/adventures-in-legal-tech-where-knowledge-management-meets-ai/",
-     "direct": {
-      "status": 403
-     },
-     "proxy": {
-      "status": 200,
-      "paragraphs": 20
-     },
-     "inPane": true
-    },
-    {
-     "url": "https://abovethelaw.com/2026/10/ai-and-front-end-loading-the-highest-and-best-use/",
+     "url": "https://www.apricitas.io/p/ai-and-the-fall-of-the-creative-class",
      "direct": {
       "accessible": true,
-      "paragraphs": 3
+      "paragraphs": 23
      },
      "proxy": null,
      "inPane": true
     },
     {
-     "url": "https://abovethelaw.com/2026/10/chatgpts-anti-trump-slogans/",
+     "url": "https://www.apricitas.io/p/americas-electricity-gap",
      "direct": {
-      "status": 403
+      "accessible": true,
+      "paragraphs": 24
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.apricitas.io/p/taiwans-modern-miracle",
+     "direct": {
+      "accessible": false,
+      "paragraphs": 9
      },
      "proxy": {
       "status": 200,
-      "paragraphs": 28
+      "paragraphs": 8
      },
      "inPane": true
     }
    ],
    "pass": true
+  },
+  {
+   "source": "Financial News London",
+   "feed": null,
+   "feedStatus": [
+    "401 https://www.fnlondon.com/rss",
+    "401 https://www.fnlondon.com/feed"
+   ],
+   "items": 0,
+   "newestDays": null,
+   "sample": [],
+   "articles": [],
+   "pass": false
   }
  ]
 }
