@@ -33,6 +33,7 @@
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import fs from "node:fs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
@@ -202,6 +203,28 @@ try {
   lane("lane:watchlist-hedge", hfCovered / Math.max(1, hfTotal) < 0.6, `Watchlist depth: only ${hfCovered}/${hfTotal} tracked hedge funds have any news on record, so following one often shows little`, "Hedge-fund news needs building out: the 2020 backfill and heavy sweep should prioritise hedge funds with no HEDGE_INTEL records.");
 } catch { /* lane sources missing — skip */ }
 
+// ---- 2f. Wire sweep — nothing relevant on the News wire is lost (HOUSE_STYLE R52) -------
+// Every wire item naming a tracked entity is queued by scripts/collect-wire.mjs (Action,
+// every 2h) and must be recorded in its place (or rejected with a reason) by the routine.
+// Flag: the queue missing or stale (collector stopped), or any item open for > 48h.
+let wireSweep = null;
+try {
+  const qf = process.env.WIRE_QUEUE_FILE || path.join(ROOT, "backfill/wire-queue.json");
+  const q = JSON.parse(fs.readFileSync(qf, "utf8"));
+  const open = (q.items || []).filter((x) => x.status === "open");
+  const late = open.filter((x) => Date.now() - Date.parse(x.firstSeen || 0) > 48 * 3600e3);
+  const ageH = (Date.now() - Date.parse(q.generated || 0)) / 3600e3;
+  wireSweep = { open: open.length, late: late.length, ageH: Math.round(ageH) };
+  if (ageH > 6) issues.push({ area: "wire-sweep", severity: "attention",
+    detail: `the wire-sweep queue was last refreshed ${Math.round(ageH)}h ago — the collector (every 2h) has stopped`,
+    solution: "Check the 'collect-wire' GitHub Action (https://github.com/sk8905/meridian/actions/workflows/collect-wire.yml): re-run it and read the failing step." });
+  if (late.length) issues.push({ area: "wire-sweep", severity: "attention",
+    detail: `${late.length} wire item(s) naming a tracked entity have waited more than 48h to be recorded (oldest first seen ${late.map((x) => x.firstSeen).sort()[0].slice(0, 10)}) — e.g. "${late[0].title}"`,
+    solution: "The heavy sweep's 'Wire sweep' step must record each open item in backfill/wire-queue.json in its place (deal, intel, HEDGE_INTEL, legal item, webNews, restructuring, Dashboard stress list) or log it rejected with a reason in backfill/wire-ledger.json. Run `node scripts/collect-wire.mjs --summary` for the list." });
+} catch {
+  issues.push({ area: "wire-sweep", severity: "attention", detail: "no wire-sweep queue (backfill/wire-queue.json) — relevant wire items are not being captured", solution: "Run the 'collect-wire' GitHub Action once; it creates the queue and refreshes it every 2h." });
+}
+
 // ---- 3. Build sanity ------------------------------------------------------
 const MODULES = [
   { label: "Worker (src/index.js)", cmd: ["node", "--check", "src/index.js"] },
@@ -295,7 +318,7 @@ if (doWrite) {
 }
 
 if (asJson) {
-  console.log(JSON.stringify({ generated: new Date().toISOString(), verdict, ok, fails, attention, coverage, cadenceHours: lastCommitAgeH, newRecords24h: yield24, backfill, lanes, ci }, null, 2));
+  console.log(JSON.stringify({ generated: new Date().toISOString(), verdict, ok, fails, attention, coverage, cadenceHours: lastCommitAgeH, newRecords24h: yield24, backfill, lanes, wireSweep, ci }, null, 2));
 } else {
   const date = new Date().toISOString().slice(0, 10);
   console.log(`WIRE HEALTH CHECK — ${date}`);

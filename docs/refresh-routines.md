@@ -771,6 +771,41 @@ writes `repairs: [{id, url, date, dateSource, was}]` — the page's own publishe
 (never a URL date). Apply by `id`: set `date`, delete `dateEstimated`, then lower the
 MAX_UNDATED_LEGAL / MAX_ESTIMATED_LEGAL ratchets.
 
+## Wire sweep (`backfill/wire-queue.json`) — nothing relevant on the wire is lost
+
+**Owner rule 2026-10-21 (CLAUDE.md "Information database"; HOUSE_STYLE R52).** Deals,
+Profiles and the Dashboard are a permanent database; the News wire is a 30-day window. Every
+wire item that relates to a deal, a tracked entity or a Dashboard data point must be
+recorded in its correct place before it leaves the wire.
+
+- **The queue.** `scripts/collect-wire.mjs` (GitHub Action `collect-wire`, every 2h) reads
+  the wire exactly as the Worker builds it and keeps every headline that names a tracked
+  credit manager, hedge fund, law firm, LP, deal borrower, restructuring or Dashboard
+  stressed credit in `backfill/wire-queue.json`. Each item carries `entities` (kind, id,
+  name) and stays `status: "open"` — even after it leaves the wire — until it is closed.
+  `node scripts/collect-wire.mjs --summary` prints the open list with where each belongs.
+- **Every heavy-sweep run works the OPEN items, oldest `firstSeen` first, all of them** (if
+  the budget runs out, the rest simply stay open for the next run — never skipped). For each:
+  1. Verify it like any candidate: open the story (or find the primary — the firm's own
+     release, a filing, a tier-1 outlet), confirm the entity is the actual subject, the
+     exact date and the facts. Never fabricate; unknown → null.
+  2. Record it in its place (HOUSE_STYLE R52 d): manager capital event / hire → `deals` /
+     `intel`, other manager news → the manager's `webNews`; hedge fund → `HEDGE_INTEL`; law
+     firm → legal `items`; LP allocation → `commitments`; borrower → its deal record; court
+     step → `restructurings`; stressed credit → its `CR_STRESS` entry (`latest`, `status`)
+     and a deal/intel record if it is a transaction. Dedupe against what is held (one record
+     per event; a second outlet goes to `alsoReported`).
+  3. Close it in `backfill/wire-ledger.json` (append; never delete):
+     `{ url, status: "recorded", recordId, at }` — or, when it is not worth a record,
+     `{ url, status: "rejected", reason, at }` with a concrete reason (passing mention / not
+     about the tracked entity / same event already held as <id> / out of scope — e.g. a
+     bank's retail news). An item whose own URL or headline is already in the data closes
+     itself at the next collector run.
+- **Alarm.** `scripts/health-check.mjs` flags a queue older than 6h (collector stopped) and
+  any item open > 48h — so a relevant story can never silently age off the wire.
+- **Never** delete or "tidy away" a database record to save space or because the wire no
+  longer shows it — only a proven error or a merged duplicate is ever removed (R52 a).
+
 ## Managers' own websites (`backfill/manager-news.json`)
 
 A GitHub Action (`.github/workflows/collect-manager-news.yml`, every 4h) runs

@@ -1,0 +1,4 @@
+{
+ "about": "Wire-sweep ledger (HOUSE_STYLE R52). Written ONLY by the refresh routine: one entry per backfill/wire-queue.json item it has dealt with — {url, status: \"recorded\" | \"rejected\", recordId (when recorded under a different URL, e.g. the primary source), reason (why rejected), at}. scripts/collect-wire.mjs closes the matching queue item. Never delete entries.",
+ "items": []
+}

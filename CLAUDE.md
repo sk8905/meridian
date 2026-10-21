@@ -19,7 +19,7 @@ switch that turns the Vite pipeline on.
 
 - **`docs/HOUSE_STYLE.md`** — the agreed rulebook for layout, feed/day-break
   conventions, colour tokens, typography, chrome, behaviour, and engineering
-  discipline (rules **R1–R51, T1–T22**), plus **§8 the canonical data-resource
+  discipline (rules **R1–R52, T1–T22**), plus **§8 the canonical data-resource
   roster**. Every change must conform. When something here and there conflict,
   HOUSE_STYLE wins.
 - **`docs/refresh-routines.md`** — invariants for the ~2-hourly content refresh
@@ -28,6 +28,15 @@ switch that turns the Vite pipeline on.
 
 ## Non-negotiables
 
+- **An information database — nothing relevant is ever lost.** Deals, Profiles and the
+  Dashboard are a permanent record, built from the committed data; the News wire is only a
+  30-day window onto it. Every news item that relates to a deal, a tracked entity (manager,
+  hedge fund, law firm, LP, borrower, restructuring) or a Dashboard data point must be
+  recorded in its correct place before it leaves the wire, and a record is never deleted
+  except as a proven error or duplicate. The wire sweep enforces it: `scripts/collect-wire.mjs`
+  (GitHub Action, every 2h) queues every such item in `backfill/wire-queue.json` until the
+  routine records it or rejects it with a reason; the health check flags anything open
+  > 48h. HOUSE_STYLE **R52**; `docs/refresh-routines.md` → "Wire sweep".
 - **Never fabricate data.** Every feed/commentary/data item keeps a real,
   verified source URL and date; unknown fields are `null`. Verify via WebSearch
   (works regardless of network policy) — WebFetch may be egress-blocked.

@@ -1771,6 +1771,28 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   tab, chip or open-reader state; **(f)** the change gets a spec proving it doesn't jump
   (layout position before/after, as in `tests/home-live-anchor.mjs`). Review the change
   on the 390px phone viewport before pushing.
+- **R52 — Wire is a window; Deals, Profiles and the Dashboard are the database (owner
+  2026-10-21).** The app is an information database. **(a) Permanence.** Every record in
+  Deals, Profiles and the Dashboard (deals, intel, HEDGE_INTEL, legal items, cases,
+  restructurings, webNews, LP / borrower data, Dashboard series) is permanent: it is never
+  removed except as a proven error or a merged duplicate (`alsoReported` keeps the merged
+  source), and no view, window or cap ever hides it from its own section. **(b) The wire
+  is transient.** The News wire shows the last `FEED_WINDOW_DAYS` (30) of journalism and
+  nothing else (R50); it never feeds Deals, Profiles or the Dashboard directly. **(c) Nothing
+  relevant is lost.** Any wire item that relates to a deal, a tracked entity (credit
+  manager, hedge fund, law firm, LP, deal borrower, restructuring) or a Dashboard data
+  point (e.g. a stressed credit) must be recorded in its correct place before it ages out:
+  `scripts/collect-wire.mjs` (Action `collect-wire`, every 2h) matches every wire headline
+  against the roster and keeps each match in the permanent queue `backfill/wire-queue.json`;
+  an item stays open — even after it leaves the wire — until the data holds it or the
+  routine logs it in `backfill/wire-ledger.json` as recorded (with the record id) or
+  rejected (with a reason). Closed items are kept 90 days for audit; open items forever.
+  **(d) Where it goes** (the routine verifies first — never fabricate): a manager's capital
+  event or hire → `deals` / `intel`, other manager news → its `webNews`; hedge fund →
+  `HEDGE_INTEL`; law firm → legal `items`; LP allocation → `commitments`; borrower → the
+  deal record; a court step → `restructurings`; a stressed credit → the Dashboard
+  `CR_STRESS` entry (+ a deal/intel record if it is a transaction). **(e) Alarm.** The health
+  check flags a stale queue (> 6h) and any item open > 48h. Specs: `tests/collect-wire.mjs`.
 - **R51 — Emails show "[link]", never a bare URL (owner 2026-10-20).** Every email Wire
   sends that carries links (the morning credit digest, and the health email or any
   routine report when it links anything) is sent as **HTML** (Gmail `send_message` `htmlBody`, with the plain text as `body` fallback). Each
