@@ -62,7 +62,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       if (!types.has(x.type) || !mgr.has(x.managerId) || !x.date || !x.headline || !x.sourceUrl) { refused.push(`${r.legalId}: deal refused (type ${x.type}, managerId ${x.managerId})`); continue; }
       const k = `${x.managerId}|${norm(x.sourceUrl)}`; if (held.deals.has(k)) { close("recorded", { reason: "already held" }); continue; }
       const id = `d${nd++}`; held.deals.add(k);
-      add.deals.push({ id, date: x.date, type: x.type, managerId: x.managerId, fundId: null, headline: x.headline, summary: x.summary || "", sourceUrl: x.sourceUrl, borrower: x.borrower || "Unknown", sponsor: x.sponsor || "", lenders: (x.lenders || []).map((l) => ({ name: l.name, managerId: mgr.has(l.managerId) ? l.managerId : null, role: l.role || "participant", amount: l.amount ?? null, ccy: l.ccy ?? null })), managerRole: x.managerRole || "lender", ...(x.clo ? { clo: true } : {}) });
+      add.deals.push({ id, date: x.date, type: x.type, managerId: x.managerId, fundId: null, headline: x.headline, summary: x.summary || "", sourceUrl: x.sourceUrl, borrower: x.borrower || "Unknown", sponsor: x.sponsor || "", lenders: (x.lenders || []).map((l) => ({ name: l.name, managerId: mgr.has(l.managerId) ? l.managerId : null, role: l.role || "participant", amount: l.amount ?? null, ccy: l.ccy ?? null })), managerRole: x.managerRole || "lender", ...(x.clo ? { clo: true } : {}),
+        ...(Array.isArray(x.alsoReported) && x.alsoReported.length ? { alsoReported: x.alsoReported.filter((a) => a && a.url && norm(a.url) !== norm(x.sourceUrl)).map((a) => ({ url: a.url, headline: a.headline || null, date: a.date || null })) } : {}) });
       tagLines.push(`  ${id}: ${JSON.stringify(compactTags(r.tags || {}))},`);
       close("recorded", { recordId: id }); continue;
     }
