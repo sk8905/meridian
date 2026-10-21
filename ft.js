@@ -21,6 +21,104 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "7f407bde-ef26-4914-bcbe-baf858bc81d7",
+    "title": "Abbott Laboratories to spin off nutrition unit at centre of baby formula lawsuits",
+    "date": "2026-10-21",
+    "time": "16:54",
+    "url": "https://www.ft.com/content/7f407bde-ef26-4914-bcbe-baf858bc81d7"
+  },
+  {
+    "id": "a6972433-c303-4ace-affd-cc3ab54a3cf3",
+    "title": "Could Michigan elect America’s first Muslim senator?",
+    "date": "2026-10-21",
+    "time": "16:52",
+    "url": "https://www.ft.com/content/a6972433-c303-4ace-affd-cc3ab54a3cf3"
+  },
+  {
+    "id": "89a3b7e8-beee-464b-b398-2709be815982",
+    "title": "Fridge hackers exploited ‘basic security flaws’ at French retailers",
+    "date": "2026-10-21",
+    "time": "16:38",
+    "url": "https://www.ft.com/content/89a3b7e8-beee-464b-b398-2709be815982"
+  },
+  {
+    "id": "3d67dfc3-e17c-4580-9797-a6bfa7256be0",
+    "title": "Reform reports ITV to police over  undercover documentary",
+    "date": "2026-10-21",
+    "time": "16:12",
+    "url": "https://www.ft.com/content/3d67dfc3-e17c-4580-9797-a6bfa7256be0"
+  },
+  {
+    "id": "09f56730-4702-446d-9986-f7c93ffe6bf0",
+    "title": "Who’s paying for the AI build-out? Probably you",
+    "date": "2026-10-21",
+    "time": "16:00",
+    "url": "https://www.ft.com/content/09f56730-4702-446d-9986-f7c93ffe6bf0"
+  },
+  {
+    "id": "d7345d46-f000-49b1-99f6-57edfbd5f0af",
+    "title": "Russia releases US citizen as Trump’s envoy visits",
+    "date": "2026-10-21",
+    "time": "15:50",
+    "url": "https://www.ft.com/content/d7345d46-f000-49b1-99f6-57edfbd5f0af"
+  },
+  {
+    "id": "509c0ecf-625e-4473-96cf-e249edb7c86e",
+    "title": "Middle East oil exports climb back to prewar levels",
+    "date": "2026-10-21",
+    "time": "15:44",
+    "url": "https://www.ft.com/content/509c0ecf-625e-4473-96cf-e249edb7c86e"
+  },
+  {
+    "id": "8eda2888-0b63-43c9-80b9-b4b7557374ca",
+    "title": "Andy Burnham plans to cut standing charges from household gas bills",
+    "date": "2026-10-21",
+    "time": "14:34",
+    "url": "https://www.ft.com/content/8eda2888-0b63-43c9-80b9-b4b7557374ca"
+  },
+  {
+    "id": "e3282291-be9a-4c97-8fc8-d43f9297e167",
+    "title": "Dangote takes stake in Kenyan pipeline and pledges more ‘aggressive’ energy investment",
+    "date": "2026-10-21",
+    "time": "14:23",
+    "url": "https://www.ft.com/content/e3282291-be9a-4c97-8fc8-d43f9297e167"
+  },
+  {
+    "id": "57e14c61-a1ac-46ef-8bf2-c40e5286546e",
+    "title": "Macron hits out at ‘stupid’ Trump remarks about riots in France",
+    "date": "2026-10-21",
+    "time": "14:17",
+    "url": "https://www.ft.com/content/57e14c61-a1ac-46ef-8bf2-c40e5286546e"
+  },
+  {
+    "id": "576c025a-b4e2-47d8-88e8-3ac0fcf8e16d",
+    "title": "Hungary detains Orbán’s former central bank chief",
+    "date": "2026-10-21",
+    "time": "13:39",
+    "url": "https://www.ft.com/content/576c025a-b4e2-47d8-88e8-3ac0fcf8e16d"
+  },
+  {
+    "id": "2773c5ab-1bb6-4110-b6a7-c467b7b89717",
+    "title": "The ‘adults in the room’ won’t save you",
+    "date": "2026-10-21",
+    "time": "12:32",
+    "url": "https://www.ft.com/content/2773c5ab-1bb6-4110-b6a7-c467b7b89717"
+  },
+  {
+    "id": "7713a613-7b31-4e31-9aeb-0fb2bd03391e",
+    "title": "Can Britain’s grid make the grade?",
+    "date": "2026-10-21",
+    "time": "12:01",
+    "url": "https://www.ft.com/content/7713a613-7b31-4e31-9aeb-0fb2bd03391e"
+  },
+  {
+    "id": "f9e4ddf8-5fd4-43e6-bca2-62d1067c4c48",
+    "title": "Musk’s SpaceX ambitions may be ‘dangerous’ for Europe, warns EU lawmaker",
+    "date": "2026-10-21",
+    "time": "11:45",
+    "url": "https://www.ft.com/content/f9e4ddf8-5fd4-43e6-bca2-62d1067c4c48"
+  },
+  {
     "id": "162c6dd8-5501-46f4-8f7c-b456a4e29539",
     "title": "Iran war sparks heating crisis in US north-east as winter approaches",
     "date": "2026-10-21",
@@ -201,103 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-21",
     "time": "05:00",
     "url": "https://www.ft.com/content/d95609cd-1bb9-4995-937b-875277de3a42"
-  },
-  {
-    "id": "8c0ea73d-dc44-455a-b319-148c09f68e0a",
-    "title": "Britain cannot build its future by returning to the 1970s",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/8c0ea73d-dc44-455a-b319-148c09f68e0a"
-  },
-  {
-    "id": "2b772a7f-a4ef-412c-a96f-100dd9425684",
-    "title": "A pre-Budget day guide to Britain’s bad taxes",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/2b772a7f-a4ef-412c-a96f-100dd9425684"
-  },
-  {
-    "id": "eb4d1101-45ed-4d03-9beb-42f7c87a58ea",
-    "title": "Benjamin Netanyahu pushes to resume strikes against Iran",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/eb4d1101-45ed-4d03-9beb-42f7c87a58ea"
-  },
-  {
-    "id": "a7e3153d-ac45-4756-9961-75b892f337da",
-    "title": "Crypto exchanges race to offer prediction markets to US customers",
-    "date": "2026-10-21",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/a7e3153d-ac45-4756-9961-75b892f337da"
-  },
-  {
-    "id": "f2a2a578-5a2e-42ff-b4c9-8bafff271b37",
-    "title": "SpaceX and Tesla boards are exploring potential merger",
-    "date": "2026-10-20",
-    "time": "22:56",
-    "url": "https://www.ft.com/content/f2a2a578-5a2e-42ff-b4c9-8bafff271b37"
-  },
-  {
-    "id": "850f15c9-5833-4acb-a65c-c17ca88a5fde",
-    "title": "Joel Kaplan to step down as Meta global affairs chief",
-    "date": "2026-10-20",
-    "time": "22:30",
-    "url": "https://www.ft.com/content/850f15c9-5833-4acb-a65c-c17ca88a5fde"
-  },
-  {
-    "id": "e2bce5a9-0cb2-4166-8a14-3adeb5af6545",
-    "title": "Lula fast-tracks Brazil welfare payments days before run-off vote",
-    "date": "2026-10-20",
-    "time": "22:23",
-    "url": "https://www.ft.com/content/e2bce5a9-0cb2-4166-8a14-3adeb5af6545"
-  },
-  {
-    "id": "9cfa52b2-77cb-4b53-ad74-badd53f24fc6",
-    "title": "UK to approve development of Jackdaw gasfield in North Sea",
-    "date": "2026-10-20",
-    "time": "22:20",
-    "url": "https://www.ft.com/content/9cfa52b2-77cb-4b53-ad74-badd53f24fc6"
-  },
-  {
-    "id": "8cdf338e-d472-460c-8642-a8f033b99462",
-    "title": "Submit a question: Could Anthropic’s IPO be a turning point for AI?",
-    "date": "2026-10-20",
-    "time": "21:57",
-    "url": "https://www.ft.com/content/8cdf338e-d472-460c-8642-a8f033b99462"
-  },
-  {
-    "id": "0e99c2bc-873c-4d2d-b5c9-a0876faeb9ed",
-    "title": "Boeing wins approval for Max 10 jet in boost for turnaround efforts",
-    "date": "2026-10-20",
-    "time": "21:43",
-    "url": "https://www.ft.com/content/0e99c2bc-873c-4d2d-b5c9-a0876faeb9ed"
-  },
-  {
-    "id": "1b5d97dc-535a-42d9-ac0e-2c00e91c0aed",
-    "title": "Netflix gives downbeat outlook as streaming hits dry up",
-    "date": "2026-10-20",
-    "time": "21:32",
-    "url": "https://www.ft.com/content/1b5d97dc-535a-42d9-ac0e-2c00e91c0aed"
-  },
-  {
-    "id": "50be6960-c609-4849-94bc-7084afc89255",
-    "title": "UK bets on a boring budget",
-    "date": "2026-10-20",
-    "time": "21:00",
-    "url": "https://www.ft.com/content/50be6960-c609-4849-94bc-7084afc89255"
-  },
-  {
-    "id": "c335e978-1ceb-4254-8c71-793a41e6d0b3",
-    "title": "Donald Trump pledges to spend $400mn on Republican Party midterm campaigns",
-    "date": "2026-10-20",
-    "time": "20:02",
-    "url": "https://www.ft.com/content/c335e978-1ceb-4254-8c71-793a41e6d0b3"
-  },
-  {
-    "id": "765cb887-05da-4971-9f28-bcf5430f09ac",
-    "title": "UAE official emerges as late contender to lead UN",
-    "date": "2026-10-20",
-    "time": "19:32",
-    "url": "https://www.ft.com/content/765cb887-05da-4971-9f28-bcf5430f09ac"
   }
 ];

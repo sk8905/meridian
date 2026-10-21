@@ -109,6 +109,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    "id": "rsch-spdji-dailyindexinsights-20261021",
+    "publication": "S&P Dow Jones Indices",
+    "author": null,
+    "series": "Daily Index Insights",
+    "title": "Daily Index Insights",
+    "date": "2026-10-21",
+    "time": "15:01",
+    "summary": "On this day, American novelist Ernest Hemingway published his classic novel For Whom the Bell Tolls.",
+    "url": "https://www.spglobal.com/spdji/en/commentary/article/daily-index-insights"
+  },
+  {
     "id": "rsch-mandg-bondvigilantes-riendrien-20261020",
     "publication": "M&G Bond Vigilantes",
     "author": "Richard Woolnough",
