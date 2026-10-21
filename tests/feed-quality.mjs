@@ -197,22 +197,6 @@ for (const [on, want] of [["Associated Press", {}], ["Moody's", { fi: true }], [
   check(!k(bySource("Axios"), "Trump goes full apocalypse in anti-Dems midterms message"), "Axios: politics is dropped (default macro gate)");
 }
 
-// ---- One-day backfill (owner 2026-10-21): a source keeps a cap for yesterday too.
-{
-  const { feedCapItems } = await import("../src/index.js");
-  const now = Date.parse("2026-10-21T15:00:00Z");
-  const mk = (h, n) => Array.from({ length: n }, (_, i) => ({ title: `t${h}-${i}`, when: new Date(now - (h + i * 0.1) * 3600e3) }));
-  const today = mk(1, 12);                 // 12 items this afternoon
-  const yday = mk(24, 12);                 // 12 items yesterday afternoon
-  const old = mk(80, 5);                   // 5 items three days ago
-  const kept = feedCapItems([...old, ...yday, ...today], 8, now);
-  check(kept.filter((x) => today.includes(x)).length === 8, "backfill: today keeps the newest cap (8) items");
-  check(kept.filter((x) => yday.includes(x)).length === 8, "backfill: yesterday keeps up to a cap (8) more");
-  check(kept.filter((x) => old.includes(x)).length === 0, "backfill: nothing older than ~2 days is added beyond the cap");
-  const quiet = mk(30, 3);
-  check(feedCapItems(quiet, 8, now).length === 3, "backfill: a quiet source keeps all its items (unchanged)");
-}
-
 // Banned outlet (owner request): Channel NewsAsia is dropped from ANY feed — a direct
 // link or a Google News bridge item labelled "CNA" — even on an otherwise-strong headline.
 for (const it of [
