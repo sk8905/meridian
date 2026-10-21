@@ -1,5 +1,5 @@
 // Home desktop rails (left data rail .g-side, X wire .g-side-x, macro rail .g-side2) set
-// type 1.5px under the app scale (owner 2026-10-21), by re-declaring the grid tokens
+// type 1px under the app scale (owner 2026-10-21, 1.5px → 1px), by re-declaring the grid tokens
 // with --fs-rail — so the one knob (--fs-adj, Menu → Text size) still moves them (R11).
 import { serve, launchChromium, open, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
@@ -13,10 +13,10 @@ const probe = () => pg.evaluate(() => {
   return { root: px("body", "--fs-body"), side: px(".tui .g-side", "--fs-body"), sidex: px(".tui .g-side-x", "--fs-body"), side2: px(".tui .g-side2", "--fs-body"), sideNum: px(".tui .g-side", "--fs-num"), feed: px(".tui .g-feed", "--fs-body") };
 });
 const a = await probe();
-checkEq(a.side, a.root - 1.5, "left rail body text is 1.5px under the app body size");
-checkEq(a.sidex, a.root - 1.5, "X-wire rail body text is 1.5px under");
-checkEq(a.side2, a.root - 1.5, "macro rail body text is 1.5px under");
-checkEq(a.sideNum, a.root - 1 - 1.5, "rail numeric data keeps its notch under body");
+checkEq(a.side, a.root - 1, "left rail body text is 1px under the app body size");
+checkEq(a.sidex, a.root - 1, "X-wire rail body text is 1px under");
+checkEq(a.side2, a.root - 1, "macro rail body text is 1px under");
+checkEq(a.sideNum, a.root - 1 - 1, "rail numeric data keeps its notch under body");
 checkEq(a.feed, a.root, "the centre wire is unchanged");
 await pg.evaluate(() => document.documentElement.style.setProperty("--fs-adj", "2.5px"));
 const c = await probe();
