@@ -1198,7 +1198,7 @@ const T = {
   d1316: {"c":"UK","s":"Financial services","m":1,"p":"Benchmark","r":"target","a":null},
   d1317: {"s":"Business services","p":"Chambers and Partners","r":"borrower","c":null,"a":null},
   d1318: {"c":"Switzerland","s":"Infrastructure & energy","p":"Safe Host SA","r":"borrower","a":null},
-  d1319: {"c":"UK","cs":"https://restaurantonline.co.uk/Article/2022/01/14/Caffe-Nero-completes-330m-debt-refinancing-as-it-looks-to-grow","cb":"hq","s":"Leisure & hospitality","p":"Caffè Nero","r":"borrower","a":null},
+  d1319: {"c":"UK","cs":"https://restaurantonline.co.uk/Article/2022/01/14/Caffe-Nero-completes-330m-debt-refinancing-as-it-looks-to-grow","cb":"hq","s":"Leisure & hospitality","p":"Caffè Nero","r":"borrower","a":"financing"},
   d1320: {"s":"Financial services","m":1,"p":"Metropolitan Real Estate Equity, LLC","r":"target","c":null,"a":null},
 };
 // A role (r) without a party name (p) labels the deal's own audited `borrower` (data audit

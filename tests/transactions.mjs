@@ -204,7 +204,15 @@ const grp = await pg.evaluate(async () => {
   const sizes = () => [...document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row td.tx-sz")].map((td) => td.textContent.trim());
   out.sortDesc = { first: sizes().slice(0, 3), aria: document.querySelector('.tx-list th[data-sort="size"]').getAttribute("aria-sort"), sel: "size-desc", hash: location.hash };
   document.querySelector('.tx-list th[data-sort="size"]').click(); await wait(100);
-  out.sortAsc = { aria: document.querySelector('.tx-list th[data-sort="size"]').getAttribute("aria-sort"), last: sizes().slice(-1)[0] };
+  // Undisclosed sizes sort LAST: in the rendered rows no blank precedes a figure. (The
+  // list renders the first 400 rows, so once 400+ deals carry a size the blanks are below
+  // the cap — "last" is checked as an ORDER, not as the last visible row.)
+  // A cell is "blank" (sorts as null) when it shows "—" or only a muted non-size amount (.tx-amt-x).
+  const cells = [...document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row td.tx-sz")];
+  const ascAll = cells.map((td) => td.textContent.trim());
+  const blank = cells.map((td) => { const t = td.textContent.trim(); return !t || t === "—" || !!td.querySelector(".tx-amt-x"); });
+  const firstBlank = blank.indexOf(true);
+  out.sortAsc = { aria: document.querySelector('.tx-list th[data-sort="size"]').getAttribute("aria-sort"), last: ascAll.slice(-1)[0], blanksLast: firstBlank < 0 || blank.slice(firstBlank).every(Boolean), capped: !!document.querySelector(".tx-panes-in .tw-empty") };
   location.hash = "#/lending"; await wait(200);
   return out;
 });
@@ -214,7 +222,7 @@ check(["month", "sector"].every((g) => grp[g].n > 1 && grp[g].sum === grp.rowsFl
   && grp.lender.n > 1 && grp.lender.sum === grp.lender.rows && grp.lender.rows >= grp.rowsFlat && grp.lender.named, `grouping keeps every deal under named headers (lender ${grp.lender.n}, month ${grp.month.n}, sector ${grp.sector.n} groups; ${grp.rowsFlat} deals)`);
 check(grp.lender.vol && /grp=sector/.test(grp.sector.hash) && /\d{4}/.test(grp.month.first), `group headers carry a disclosed-volume subtotal; month groups are newest first (${grp.month.first})`);
 check(grp.off === 0, "No grouping restores the flat list");
-check(grp.sortDesc.aria === "descending" && grp.sortDesc.sel === "size-desc" && /sort=size-desc/.test(grp.sortDesc.hash) && grp.sortAsc.aria === "ascending" && /^(—|EV |AUM |\$?[^0-9]*$)/.test(grp.sortAsc.last), `a column header sorts (Amount ▼ ${grp.sortDesc.first.join(", ")}; ▲ keeps undisclosed last: ${grp.sortAsc.last} · ${JSON.stringify(grp.sortDesc)})`);
+check(grp.sortDesc.aria === "descending" && grp.sortDesc.sel === "size-desc" && /sort=size-desc/.test(grp.sortDesc.hash) && grp.sortAsc.aria === "ascending" && grp.sortAsc.blanksLast && (grp.sortAsc.capped || /^(—|EV |AUM |\$?[^0-9]*$)/.test(grp.sortAsc.last)), `a column header sorts (Amount ▼ ${grp.sortDesc.first.join(", ")}; ▲ keeps undisclosed last: ${grp.sortAsc.last}${grp.sortAsc.capped ? " (list capped)" : ""} · ${JSON.stringify(grp.sortDesc)})`);
 
 // ---- 3d) the stats strip summarises the filtered set (numbers only — R20)
 const stats = await pg.evaluate(() => (document.querySelector("#tx-stats") || {}).textContent || "");

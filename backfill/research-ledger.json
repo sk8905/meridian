@@ -10542,6 +10542,113 @@
      "to": "portfolio"
     }
    ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "deals",
+   "id": "d1319",
+   "verdict": "WRONG",
+   "source": "https://www.carlyle.com/ja/node/34826",
+   "sourceLabel": "Carlyle",
+   "asOf": "2022-01",
+   "evidence": "Carlyle release: Carlyle provides c.£370m in debt financing for Caffè Nero; Credit Strategy same; S&P Global (Jan 2022): six-year refinancing from a lender group of Carlyle, HSBC and Santander. White & Case (record's source): Santander and HSBC as RCF lenders.",
+   "changes": [
+    {
+     "field": "managerId",
+     "from": "m302",
+     "to": "m189"
+    },
+    {
+     "field": "headline",
+     "from": "Santander and HSBC provide RCF in Caffè Nero's debt refinancing",
+     "to": "Carlyle leads c.£370m debt financing for Caffè Nero's refinancing, with Santander and HSBC providing the RCF"
+    },
+    {
+     "field": "summary",
+     "from": "Santander and HSBC acted as revolving credit facility lenders on the debt financing package supporting Caffè Nero's refinancing of all its debt, with Lazard as financial adviser.",
+     "to": "Carlyle provided about £370m of debt financing to Caffè Nero to refinance all of its debt; Santander and HSBC acted as revolving credit facility lenders, with Lazard as financial adviser."
+    },
+    {
+     "field": "lenders",
+     "from": [
+      {
+       "name": "Santander",
+       "managerId": "m302",
+       "role": "participant",
+       "amount": null,
+       "ccy": null
+      },
+      {
+       "name": "HSBC",
+       "managerId": "m273",
+       "role": "participant",
+       "amount": null,
+       "ccy": null
+      }
+     ],
+     "to": [
+      {
+       "name": "Carlyle Global Credit",
+       "managerId": "m189",
+       "role": "lead",
+       "amount": 370,
+       "ccy": "GBP"
+      },
+      {
+       "name": "Santander",
+       "managerId": "m302",
+       "role": "participant",
+       "amount": null,
+       "ccy": null
+      },
+      {
+       "name": "HSBC",
+       "managerId": "m273",
+       "role": "participant",
+       "amount": null,
+       "ccy": null
+      }
+     ]
+    },
+    {
+     "field": "alsoReported",
+     "from": null,
+     "to": [
+      {
+       "url": "https://www.carlyle.com/ja/node/34826",
+       "headline": "Carlyle provides c.£370m debt financing for Caffè Nero (Carlyle release)",
+       "date": null
+      },
+      {
+       "url": "https://www.creditstrategy.co.uk/news/carlyle-provides-370m-in-debt-financing-for-caffe-nero-20684",
+       "headline": "Carlyle provides £370m in debt financing for Caffè Nero",
+       "date": null
+      },
+      {
+       "url": "https://www.spglobal.com/market-intelligence/en/news-insights/articles/2022/1/carlyle-refinances-caff-232-nero-68447663",
+       "headline": "Carlyle refinances Caffè Nero",
+       "date": "2022-01"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "at": "2026-10-21",
+   "collection": "DEAL_TAGS",
+   "id": "d1319",
+   "verdict": "GAP",
+   "source": "https://www.carlyle.com/ja/node/34826",
+   "sourceLabel": null,
+   "asOf": null,
+   "evidence": "£370m debt financing",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
   }
  ]
 }
