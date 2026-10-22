@@ -2802,6 +2802,48 @@
    "status": "rejected",
    "reason": "opinion piece; no dated Varma allocation or commitment",
    "at": "2026-10-22T07:21:19.132Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/chinese-quant-hedge-fund-lingjun-attracts-300m-in-overseas-capital",
+   "status": "rejected",
+   "reason": "could not verify a $300m overseas raise by Lingjun from any primary source or second outlet",
+   "at": "2026-10-22T09:17:40.410Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/former-brevan-howard-pm-sued-over-3-5m-in-unpaid-trading-profits",
+   "status": "rejected",
+   "reason": "no corroborating coverage found; litigation with an ex-employee, not a fund event",
+   "at": "2026-10-22T09:17:40.410Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNTTNaSlh0UGNYTTBxZE12UmtJcHVmT1BzWUw2S1N3clFxRjdIQTN4bmpzNlhJZmhxQUs2RW5wUXUxejFnT2dUSkdHdDgxUXJnUkc4bWRkbDJMSE1hWDVYYkhPNlZ0MXRSb1ZvMXlrLVlMd0VEWHRuZ2V0N0p3eGFTXy05eWg0RWhxbENiZ1k5c0JQelBRR1NsZm0yV0tDaHRlOEJLaVJudEhLakV6bzY0SnNObjNIUFJjWk4yX1NDSW9FdFZTV0lVQTFuMWNnY0kwU1d4T3lnVnc2Y0U?oc=5",
+   "status": "rejected",
+   "reason": "no primary release or tier-1 article found for the Sound Point team expansion; Google News redirect unresolvable",
+   "at": "2026-10-22T09:17:40.410Z"
+  },
+  {
+   "url": "https://www.privateequitywire.co.uk/cvc-explores-verisure-take-private-one-year-after-e13-7bn-ipo/",
+   "status": "rejected",
+   "reason": "PE take-private, not a credit event; no corroboration of CVC involvement",
+   "at": "2026-10-22T09:17:40.410Z"
+  },
+  {
+   "url": "https://www.privateequitywire.co.uk/permira-exits-octus-in-3-5bn-lseg-acquisition/",
+   "status": "rejected",
+   "reason": "PE equity exit, not credit; deal not completed (talks only)",
+   "at": "2026-10-22T09:17:40.410Z"
+  },
+  {
+   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-bnp-paribas-and-unicredit-on-slv-refinancing",
+   "status": "recorded",
+   "recordId": "u3901",
+   "at": "2026-10-22T09:17:40.410Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOMkYtczhsdHVSNnJxX1lUMkctd3lOa3ItMk9tQUFILU90RDAydVYtTjg2aTN6S2hJNVg4VTFvRDhCMWJHeGg5U1VWOE1RclVJZ0NraHdUTWlzMFc5MlFFVGs1UUVNMVloXzFndDlIVWxfcWJsQnhhSnZNY1hkTXZSMXNaX0ZRUkN3MWZObllaY2U2OGNYQTQzNVdqWQ?oc=5",
+   "status": "rejected",
+   "reason": "original 2 Oct item has no primary source with an exact date (Google News redirect); merger talks noted in firm release of 14 Oct",
+   "at": "2026-10-22T09:17:40.410Z"
   }
  ]
 }
