@@ -2940,6 +2940,31 @@
    "status": "rejected",
    "reason": "interview/profile piece with no verifiable primary source or checkable deal/news facts",
    "at": "2026-10-22T17:14:14.589Z"
+  },
+  {
+   "url": "https://www.prnewswire.com/news-releases/canyon-partners-real-estate-provides-48m-senior-loan-to-refinance-class-a-multifamily-property-in-greenville-302908916.html",
+   "status": "recorded",
+   "recordId": "d1340",
+   "at": "2026-10-22T19:17:37.481Z"
+  },
+  {
+   "url": "https://www.cnbc.com/2026/10/22/elon-musk-midterm-election-spacex-tesla.html",
+   "status": "rejected",
+   "reason": "Political donations story; not a SpaceX debt/stress data point",
+   "at": "2026-10-22T19:17:38.024Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQXzRxRFR1TFVKRDBENWlraEJLMWVVdE1HcGVvYnV6T0o3OGFhaTlVd002VXF2MGF4SGxTV1YxQVo1UVFxWEJ6Nm9FZkw4X1FadWJZVVVwMHRQMGpwSWFxYVNINWNmY01kc2NxZW56X3V4ZEpZLTIzS1AwWWpxZlJLdmVVNXctVmpJcHdla01BNjliejRyMm1hU01wamdFcFNkdEZ1bmszbDA4d2hxd3doZWNKcFFZYmFRRGR6SEtaNDlrWXYtMlp3WXhrSVlFUmtSZExBUGZ3aUFJaFk?oc=5",
+   "status": "rejected",
+   "reason": "No primary PR Newswire/JPM release found for the Solana expansion; unverifiable",
+   "at": "2026-10-22T19:17:38.024Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNUmlwXy1TNGkyRVBNZXhlX1NNR2Zjc0RPdl9iU3hURTVKOHpkamhDZUxFWlZ1aW9UcEF4WFY5UmtqNkcxVFBxQ3JueXB1WDJWVFNxMUNZMXNLckxIcDlhUWU3Qm01YzkwYnl5VEhVcEt0QjR0eTVvbnZJUXlDdHVaLUN2LWxzYUlLcVBhMnB3OVdXRXRCNVVWdk5kUzVrcnZNWjU2TzJFbzRPTThkRmpxc1NDa1RCckk4Q1dZWWY0b3hHM3FWdkpN?oc=5",
+   "status": "recorded",
+   "recordId": "d992",
+   "reason": "already held (d992, IPE Real Assets)",
+   "at": "2026-10-22T19:17:38.024Z"
   }
  ]
 }

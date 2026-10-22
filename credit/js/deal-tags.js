@@ -1219,6 +1219,7 @@ const T = {
   d1337: {"c":"UK","s":"Real estate","a":"financing"},
   d1338: {"c":"Asia","s":"Infrastructure & energy","a":"financing"},
   d1339: {"c":"Asia","s":"Industrials","a":"financing"},
+  d1340: {"c":"US","s":"Real estate","a":"financing"},
 };
 // A role (r) without a party name (p) labels the deal's own audited `borrower` (data audit
 // 2026-10-21: manager M&A → Target, fund closes / CVs → Fund / vehicle, CLOs → Issuer).
