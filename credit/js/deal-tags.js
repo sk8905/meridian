@@ -1067,7 +1067,7 @@ const T = {
   d1182: {"c":"France","s":"Financial services","a":"ev","m":1,"p":"AXA Investment Managers","r":"target"},
   d1183: {"c":"France","s":"Financial services","a":"ev","m":1,"p":"AXA Investment Managers","r":"target"},
   d1184: {"c":"US","s":"Financial services","a":"financing","p":"Trucordia","r":"borrower"},
-  d1185: {"c":null,"s":"TMT","a":null,"p":"Nokia Enterprise Campus Edge business","r":"target"},
+  d1185: {"c":"Finland","s":"TMT","a":null,"p":"Nokia Enterprise Campus Edge business","r":"target"},
   d1186: {"c":"Global","s":"Diversified","a":"fund","r":"fund"},
   d1187: {"c":"Global","s":"Infrastructure & energy","a":"fund","r":"fund"},
   d1188: {"c":"US","s":"Diversified","a":"fund","r":"fund"},
@@ -1217,6 +1217,8 @@ const T = {
   d1335: {"c":"US","s":"Industrials","a":"ev","p":"Infinity Transportation","r":"target"},
   d1336: {"c":"Asia","s":"TMT","a":"financing","p":"DayOne","r":"borrower"},
   d1337: {"c":"UK","s":"Real estate","a":"financing"},
+  d1338: {"c":"Asia","s":"Infrastructure & energy","a":"financing"},
+  d1339: {"c":"Asia","s":"Industrials","a":"financing"},
 };
 // A role (r) without a party name (p) labels the deal's own audited `borrower` (data audit
 // 2026-10-21: manager M&A → Target, fund closes / CVs → Fund / vehicle, CLOs → Issuer).

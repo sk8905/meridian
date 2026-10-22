@@ -2922,6 +2922,18 @@
    "status": "recorded",
    "recordId": "u3211",
    "at": "2026-10-22T13:20:46.654Z"
+  },
+  {
+   "url": "https://alternativecreditinvestor.com/2026/10/22/blackstones-credit-and-insurance-business-pulls-in-35-8bn-in-q3/",
+   "status": "recorded",
+   "recordId": "i1478",
+   "at": "2026-10-22T15:21:26.512Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxOQk1NaDVpMGswc1BRXzBURlpJNEhqR3kwSEF1YjlXQUl3S2g0S3p6dncydm9yT1FyZ3YyTUFyelpwOXNPVWx0akZqeEFqckJXU1pYcmg3Y296WS14c2FDeE1ZSy1Ec0hHbVUwdm5LY3RCVkdfMUNYNjdGZjlUMkF3ZHNmaS0yQ0NndXV6d3I5OVBTZ2F2NWt3eGFZZlo4RGZWd1IzSks4bkpTN1NYSmxycXhDYm9FSFFfNldmOG1teHlzREl6QUItZ2ZTam5MekJkSHNudm1XRGEzT2Z6SGc?oc=5",
+   "status": "rejected",
+   "reason": "drone-product press release; spurious entity match, no tracked-entity link or credit/LP allocation",
+   "at": "2026-10-22T15:21:26.512Z"
   }
  ]
 }
