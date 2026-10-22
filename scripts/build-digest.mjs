@@ -203,7 +203,15 @@ export function emailRows(d, which) {
   sec("Fund closes & fundraising", W.closes, (x) => `${x.title} — ${x.date}`);
   sec("Restructuring & legal", W.legal, (x) => `${x.title}${x.who ? ` — ${x.who}` : ""} — ${x.date}`);
   sec("People moves", W.people, (x) => `${x.title} — ${x.date}`);
-  if (W.rates.items.length) sec(`Rates & spreads (${which === "daily" ? "1-day" : "1-week"} change)`, W.rates, (x) => `${x.label} ${x.display}${x.unit === "bp" ? "bp" : "%"} (${x.chg > 0 ? "+" : ""}${x.chg}${x.chgUnit}, ${x.asOf ? fmt(x.asOf) : "date n/a"})`);   // "12 Oct": short enough that no line wraps on a phone
+  if (W.rates.items.length) {
+    // "12 Oct": short enough that no line wraps on a phone. The change carries its
+    // direction so the HTML body can colour it (up green / down red, as the app's Digest).
+    rows.push({ h: `Rates & spreads (${which === "daily" ? "1-day" : "1-week"} change)`.toUpperCase() });
+    for (const x of W.rates.items) {
+      const rate = { head: `${x.label} ${x.display}${x.unit === "bp" ? "bp" : "%"}`, chg: `${x.chg > 0 ? "+" : ""}${x.chg}${x.chgUnit}`, dir: x.chg > 0 ? "up" : x.chg < 0 ? "down" : "flat", date: x.asOf ? fmt(x.asOf) : "date n/a" };
+      rows.push({ text: `${rate.head} (${rate.chg}, ${rate.date})`, url: x.url, rate });
+    }
+  }
   // The live origin is not in the repo, so it is passed in (--origin= / WIRE_ORIGIN);
   // without one the in-app path alone is printed.
   const origin = String(opt("--origin") || process.env.WIRE_ORIGIN || "").replace(/\/+$/, "");
@@ -222,6 +230,9 @@ export function emailText(d, which) {
   return lines.join("\n");
 }
 const escH = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+// Rate-change colours = the app Digest's light theme (v2/css/app.css --cov-good / --cov-fail):
+// an increase reads green, a decrease red, no change grey.
+export const RATE_COLOUR = { up: "#0f9d68", down: "#df4763", flat: "#8b96ac" };
 // HTML body: each item ends in a short orange-underlined "[link]" (the house link style).
 export function emailHtml(d, which) {
   const { subject, rows, app } = emailRows(d, which);
@@ -232,7 +243,8 @@ export function emailHtml(d, which) {
   for (const r of rows) {
     if (r.h) { close(); out.push(`<p style="margin:18px 0 6px;font-weight:bold;letter-spacing:.04em">${escH(r.h)}</p>`); continue; }
     if (!open) { out.push('<ul style="margin:0;padding-left:18px">'); open = true; }
-    out.push(r.empty ? `<li style="margin:3px 0;color:#777">${escH(r.empty)}</li>` : `<li style="margin:3px 0">${escH(r.text)} ${a(r.url)}</li>`);
+    const body = r.rate ? `${escH(r.rate.head)} (<span style="color:${RATE_COLOUR[r.rate.dir]}">${escH(r.rate.chg)}</span>, ${escH(r.rate.date)})` : escH(r.text);
+    out.push(r.empty ? `<li style="margin:3px 0;color:#777">${escH(r.empty)}</li>` : `<li style="margin:3px 0">${body} ${a(r.url)}</li>`);
   }
   close();
   out.push(`<p style="margin:18px 0 0">In Wire: ${/^https?:/.test(app) ? a(app, "open the digest") : escH(app)}</p>`);

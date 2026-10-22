@@ -45,7 +45,12 @@ if (D) {
   // Rates & spreads lines carry a short "12 Oct" date (owner 2026-10-22) — not "as of 2026-10-12",
   // which wrapped on a phone.
   const rates = (textOnly.split(/RATES &amp; SPREADS|RATES & SPREADS/)[1] || "").split(/<\/ul>|In Wire|open the digest/)[0];
-  check(rates && !/as of \d{4}-\d{2}-\d{2}/.test(rates) && /\(\S+, \d{1,2} [A-Z][a-z]{2}\)/.test(rates), `email --html: rate dates read "12 Oct", never "as of YYYY-MM-DD" (${(rates.match(/\(\S+, \d{1,2} [A-Z][a-z]{2}\)/) || [""])[0]})`);
+  // Each change is coloured by direction (owner 2026-10-22): up green, down red, nil grey —
+  // the app Digest's colours. The colour follows the sign, never the other way round.
+  const spans = [...html.matchAll(/<span style="color:(#[0-9a-f]{6})">([^<]*)<\/span>/g)].map((m) => ({ c: m[1], t: m[2] }));
+  const want = (t) => (/^\+/.test(t) ? "#0f9d68" : /^-/.test(t) ? "#df4763" : "#8b96ac");
+  check(spans.length > 0 && spans.every((x) => x.c === want(x.t)), `email --html: rate changes are green when up, red when down, grey when flat (${spans.slice(0, 3).map((x) => x.t + " " + x.c).join(", ")})`);
+  check(rates && !/as of \d{4}-\d{2}-\d{2}/.test(rates) && /\(\s*\S+\s*, \d{1,2} [A-Z][a-z]{2}\)/.test(rates), `email --html: rate dates read "12 Oct", never "as of YYYY-MM-DD" (${(rates.match(/\(\s*\S+\s*, \d{1,2} [A-Z][a-z]{2}\)/) || [""])[0]})`);
 }
 
 const srv = await serve();
