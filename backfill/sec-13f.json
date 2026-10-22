@@ -1,7 +1,7 @@
 {
- "generated": "2026-10-21T13:08:02.595Z",
- "tracked": 105,
- "filed": 104,
+ "generated": "2026-10-22T10:17:28.591Z",
+ "tracked": 104,
+ "filed": 103,
  "panel": {
   "quarter": "Q2 2026",
   "asOf": "2026-06-30",
@@ -5054,28 +5054,6 @@
      "name": "BANCO SANTANDER CHILE NEW",
      "cusip": "05965X109",
      "value": 20099957
-    }
-   ]
-  },
-  "h88": {
-   "name": "Emso Asset Management",
-   "entity": {
-    "name": "Emso Asset Management Ltd",
-    "formerNames": [],
-    "city": "LONDON",
-    "state": "X0",
-    "stateName": "United Kingdom"
-   },
-   "asOf": "2023-09-30",
-   "filedAt": "2023-11-14",
-   "src": "https://www.sec.gov/Archives/edgar/data/1595951/000159595123000009/0001595951-23-000009-index.htm",
-   "total": 1,
-   "positions": 1,
-   "top": [
-    {
-     "name": "NA",
-     "cusip": "000000000",
-     "value": 1
     }
    ]
   },

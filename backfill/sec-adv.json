@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T13:04:42.238Z",
+ "generated": "2026-10-22T10:17:29.276Z",
  "file": "ia09012026.csv",
  "byId": {
   "h1": {
@@ -309,13 +309,6 @@
    "crd": "110858",
    "name": "TT INTERNATIONAL",
    "src": "https://adviserinfo.sec.gov/firm/summary/110858"
-  },
-  "h88": {
-   "raum": 5,
-   "filed": "2026-04-30",
-   "crd": "139217",
-   "name": "KIRKOSWALD CAPITAL MANAGEMENT LIMITED",
-   "src": "https://adviserinfo.sec.gov/firm/summary/139217"
   },
   "h91": {
    "raum": 2.9,
