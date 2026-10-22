@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-22T12:19:11.205Z",
+ "generated": "2026-10-22T17:33:40.261Z",
  "since": "2026-10-08",
  "firms": {
   "proskauerrose": {
@@ -27,8 +27,8 @@
    ],
    "sitemaps": 5,
    "urls": 7443,
-   "kept": 5,
-   "fetched": 5,
+   "kept": 4,
+   "fetched": 4,
    "errors": 0,
    "carried": 0
   },
@@ -38,19 +38,6 @@
    ],
    "sitemaps": 1,
    "urls": 6309,
-   "kept": 5,
-   "fetched": 5,
-   "errors": 0,
-   "carried": 0
-  },
-  "linklaters": {
-   "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
-   ],
-   "sitemaps": 6,
-   "urls": 17810,
    "kept": 5,
    "fetched": 5,
    "errors": 0,
@@ -75,6 +62,19 @@
    ],
    "carried": 0
   },
+  "linklaters": {
+   "domains": [
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
+   ],
+   "sitemaps": 6,
+   "urls": 17814,
+   "kept": 7,
+   "fetched": 7,
+   "errors": 0,
+   "carried": 0
+  },
   "hsf": {
    "domains": [
     "www.hsfkramer.com"
@@ -91,9 +91,20 @@
     "www.macfarlanes.com"
    ],
    "sitemaps": 4,
-   "urls": 2409,
-   "kept": 1,
-   "fetched": 1,
+   "urls": 2413,
+   "kept": 3,
+   "fetched": 3,
+   "errors": 0,
+   "carried": 0
+  },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5023,
+   "kept": 5,
+   "fetched": 5,
    "errors": 0,
    "carried": 0
   },
@@ -110,17 +121,6 @@
    "disallowed": 1,
    "carried": 0
   },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5023,
-   "kept": 5,
-   "fetched": 5,
-   "errors": 0,
-   "carried": 0
-  },
   "aoshearman": {
    "domains": [
     "www.aoshearman.com",
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 9639,
+   "urls": 9642,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -145,17 +145,6 @@
    "errors": 0,
    "carried": 0
   },
-  "kirkland": {
-   "domains": [
-    "www.kirkland.com"
-   ],
-   "sitemaps": 11,
-   "urls": 17435,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
   "whitecase": {
    "domains": [
     "www.whitecase.com"
@@ -167,15 +156,26 @@
    "errors": 0,
    "carried": 0
   },
+  "kirkland": {
+   "domains": [
+    "www.kirkland.com"
+   ],
+   "sitemaps": 11,
+   "urls": 17437,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
   "sidley": {
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 5,
-   "urls": 6778,
+   "sitemaps": 7,
+   "urls": 7599,
    "kept": 1,
    "fetched": 1,
-   "errors": 12,
+   "errors": 10,
    "carried": 0
   },
   "ropesgray": {
@@ -214,9 +214,9 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16234,
-   "kept": 8,
-   "fetched": 8,
+   "urls": 16235,
+   "kept": 9,
+   "fetched": 9,
    "errors": 0,
    "carried": 0
   },
@@ -225,7 +225,7 @@
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2856,
+   "urls": 2858,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -244,7 +244,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12302,
+   "urls": 12306,
    "kept": 5,
    "fetched": 5,
    "errors": 0,
@@ -255,10 +255,10 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11597,
-   "kept": 14,
-   "fetched": 14,
-   "errors": 0,
+   "urls": 11605,
+   "kept": 16,
+   "fetched": 15,
+   "errors": 1,
    "carried": 0
   },
   "weil": {
@@ -302,21 +302,10 @@
     "content.clearygottlieb.com"
    ],
    "sitemaps": 1,
-   "urls": 18718,
+   "urls": 18723,
    "kept": 40,
    "fetched": 40,
    "errors": 1,
-   "carried": 0
-  },
-  "mayerbrown": {
-   "domains": [
-    "www.mayerbrown.com"
-   ],
-   "sitemaps": 9,
-   "urls": 16368,
-   "kept": 19,
-   "fetched": 19,
-   "errors": 0,
    "carried": 0
   },
   "southsquare": {
@@ -338,6 +327,17 @@
    ],
    "carried": 0
   },
+  "mayerbrown": {
+   "domains": [
+    "www.mayerbrown.com"
+   ],
+   "sitemaps": 9,
+   "urls": 16371,
+   "kept": 20,
+   "fetched": 20,
+   "errors": 0,
+   "carried": 0
+  },
   "cliffordchance": {
    "domains": [
     "www.cliffordchance.com"
@@ -352,22 +352,94 @@
  },
  "items": [
   {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-advised-banks-on-clarianes-eur2-26-billion-financing-package",
-   "title": "A&O Shearman advised banks on Clariane’s EUR2.26 billion financing package",
-   "description": "A&O Shearman advised banks on Clariane's EUR2.26bn financing package, including inaugural high yield notes, hybrid notes and a new revolving credit facility.",
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-qiagen-on-recommended-voluntary-all-cash-public-takeover-offer-by-eqt",
+   "title": "QIAGEN €10.8bn takeover offer by EQT",
+   "description": "Linklaters advises QIAGEN on EQT’s recommended €10.8bn all-cash public takeover offer, a landmark cross-border M&A transaction.",
+   "date": "2026-10-22",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-22"
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-schneider-electric-on-its-share-capital-increase",
+   "title": "Linklaters advises Schneider Electric on its €6bn share capital increase",
+   "description": "Linklaters has advised Schneider Electric on its share capital increase without shareholders’ preferential subscription rights, conducted through an accelerated bookbuilding process for an amount of approximately €6bn.",
+   "date": "2026-10-22",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-22"
+  },
+  {
+   "firm": "macfarlanes",
+   "url": "https://www.macfarlanes.com/insights/102o5zo/the-unique-dynamics-of-sports-investment-finding-opportunities-in-a-concentratin",
+   "title": "The unique dynamics of sports investment: finding opportunities in a concentrating market",
+   "description": "The recent avalanche of investment into global sports assets from private capital and private wealth is well publicised. Investors...",
+   "date": "2026-10-22",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-22"
+  },
+  {
+   "firm": "macfarlanes",
+   "url": "https://www.macfarlanes.com/insights/102o66m/investment-management-update-october-2026",
+   "title": "Investment management update - October 2026",
+   "description": "Welcome to the latest edition of our investment management update. This publication has been tailored to highlight topical news, cases...",
    "date": "2026-10-22",
    "dateSource": "datePublished",
    "lastmod": "2026-10-22"
   },
   {
    "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-naxicap-partners-on-its-majority-investment-in-bharal-developpement",
-   "title": "AO Shearman advises Naxicap Partners on its majority investment in Bharal Developpement",
-   "description": "A&O Shearman advised Naxicap Partners on its majority investment in Bharal Développement, a French animal nutrition group, acquired from FrenchFood Capital.",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-represents-zopa-on-its-debut-uk-consumer-abs",
+   "title": "A&O Shearman advises Zopa on debut UK consumer ABS",
+   "description": "A&O Shearman advised Zopa on its debut UK consumer ABS, a GBP450 million securitisation marking its first public ABS transaction.",
    "date": "2026-10-22",
    "dateSource": "datePublished",
    "lastmod": "2026-10-22"
+  },
+  {
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-tpg-on-debt-financing-for-its-acquisition-of-zembl-group",
+   "title": "Kirkland Advises TPG on Debt Financing for its Acquisition of Zembl Group",
+   "description": null,
+   "date": "2026-10-22",
+   "dateSource": "page date label",
+   "lastmod": null
+  },
+  {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/news/reed-smith-advises-bauer-media-on-acquisition-of-eisbachmedia/",
+   "title": "Reed Smith advises Bauer Media on acquisition of eisbach.media",
+   "description": null,
+   "date": "2026-10-22",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-22"
+  },
+  {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/news/reed-smith-advises-on-cornish-metals-proposed-135-million-fundraising/",
+   "title": "Reed Smith advises on Cornish Metals’ proposed £135 million fundraising",
+   "description": null,
+   "date": "2026-10-22",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-22"
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
+   "title": "News Listing",
+   "description": null,
+   "date": "2026-10-22",
+   "dateSource": "datePublished",
+   "lastmod": null
+  },
+  {
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/insights/articles-books/english-restructuring-plan-guide-comi-tourism",
+   "title": "The English restructuring plan: A guide to “COMI tourism”",
+   "description": "Davis Polk partner and co-lead of London restructuring practice Jifree Cader, counsel Raveena Channa and associate Ciara Foley authored \"The English...",
+   "date": "2026-10-21",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-21"
   },
   {
    "firm": "reedsmith",
@@ -377,15 +449,6 @@
    "date": "2026-10-21",
    "dateSource": "datePublished",
    "lastmod": "2026-10-21"
-  },
-  {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
-   "description": null,
-   "date": "2026-10-21",
-   "dateSource": "datePublished",
-   "lastmod": null
   },
   {
    "firm": "cleary",
@@ -414,15 +477,6 @@
    "dateSource": null,
    "lastmod": "2026-10-20",
    "dateProbe": []
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-bolsters-u.s.-life-sciences-practice-with-partner-carlo-felizardo-in-washington",
-   "title": "Freshfields Adds FDA Regulatory Partner Carlo Felizardo",
-   "description": "FDA regulatory partner Carlo Felizardo joins Freshfields in Washington, expanding its transactional support for life sciences companies and investors.",
-   "date": "2026-10-19",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-19"
   },
   {
    "firm": "freshfields",
@@ -468,7 +522,7 @@
    "description": "A&O Shearman raised over GBP66,000 for Northern Ireland Hospice, exceeding its target through fundraising and volunteering.",
    "date": "2026-10-19",
    "dateSource": "datePublished",
-   "lastmod": "2026-10-19"
+   "lastmod": "2026-10-22"
   },
   {
    "firm": "kirkland",
