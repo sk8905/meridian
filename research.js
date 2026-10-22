@@ -109,6 +109,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+      "id": "rsch-pimco-macrosignposts-octfedpreview-20261022",
+      "publication": "PIMCO",
+      "author": null,
+      "series": "Macro Signposts",
+      "title": "October Fed Meeting Preview: A Pause Is Still a Recalibration",
+      "date": "2026-10-22",
+      "time": "17:45",
+      "summary": "PIMCO expects the FOMC to hold at 3.75%–4.0% on 27–28 October while keeping a tightening bias, with a 25bp hike in December the most likely next move.",
+      "url": "https://mktg-alerts.pimco.com/v/ODc5LUFFTC0xNTgAAAGlA3oC_R9zQIjPBnJxdt6zE0-3sLlycsWOM2G-ysht7AL2CvgIV3xNjlkcVw8Dx99gs27vH7c="
+  },
+  {
       "id": "rsch-mandg-bondvigilantes-bestrelativevaluetrade-20261022",
       "publication": "M&G Bond Vigilantes",
       "author": "Miles Tym",

@@ -21,6 +21,90 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "0a5c7582-133c-4e24-8e3d-daa30f5dad56",
+    "title": "UK waters down ‘fit and proper’ rules set up to hold bankers to account",
+    "date": "2026-10-22",
+    "time": "21:00",
+    "url": "https://www.ft.com/content/0a5c7582-133c-4e24-8e3d-daa30f5dad56"
+  },
+  {
+    "id": "8ada683f-9534-461d-9a3a-fc541550df16",
+    "title": "Donald Trump ordered to face BBC questioning in $10bn defamation lawsuit",
+    "date": "2026-10-22",
+    "time": "19:36",
+    "url": "https://www.ft.com/content/8ada683f-9534-461d-9a3a-fc541550df16"
+  },
+  {
+    "id": "9a072c7a-b0ee-4a43-ae73-b19bbde9261b",
+    "title": "Ecuador opposition leader arrested in money laundering investigation",
+    "date": "2026-10-22",
+    "time": "18:47",
+    "url": "https://www.ft.com/content/9a072c7a-b0ee-4a43-ae73-b19bbde9261b"
+  },
+  {
+    "id": "d774c15e-22e4-4873-9a1d-92d6561290f9",
+    "title": "US to fund speculative nuclear fusion venture backed by investors with ties to Trump",
+    "date": "2026-10-22",
+    "time": "18:20",
+    "url": "https://www.ft.com/content/d774c15e-22e4-4873-9a1d-92d6561290f9"
+  },
+  {
+    "id": "73986a48-b513-458b-b8ea-f9e11ed3e941",
+    "title": "Starlink saga shows why Europe must catch up in space",
+    "date": "2026-10-22",
+    "time": "17:39",
+    "url": "https://www.ft.com/content/73986a48-b513-458b-b8ea-f9e11ed3e941"
+  },
+  {
+    "id": "52b728a2-3075-4310-bffb-4f17b587724d",
+    "title": "Number of UK founders choosing to sell not scale hits eight-year high",
+    "date": "2026-10-22",
+    "time": "17:25",
+    "url": "https://www.ft.com/content/52b728a2-3075-4310-bffb-4f17b587724d"
+  },
+  {
+    "id": "c514f3c5-b174-4a92-ab45-aa19ddc63fc1",
+    "title": "Steve Cohen takes Hertz for a defensive spin",
+    "date": "2026-10-22",
+    "time": "16:48",
+    "url": "https://www.ft.com/content/c514f3c5-b174-4a92-ab45-aa19ddc63fc1"
+  },
+  {
+    "id": "63ed58ac-f9ef-41b7-a172-dc540337b698",
+    "title": "Creditors to Sanjeev Gupta’s first UK steel plant appoint liquidators",
+    "date": "2026-10-22",
+    "time": "16:44",
+    "url": "https://www.ft.com/content/63ed58ac-f9ef-41b7-a172-dc540337b698"
+  },
+  {
+    "id": "42176f60-b2fd-431c-9f2c-e7e015b07315",
+    "title": "Would you take out a mortgage backed by bitcoin?",
+    "date": "2026-10-22",
+    "time": "16:00",
+    "url": "https://www.ft.com/content/42176f60-b2fd-431c-9f2c-e7e015b07315"
+  },
+  {
+    "id": "a88ac504-4d86-4f27-a1e9-cf63db032ab5",
+    "title": "Britain secures gas supply from Belgium before winter crunch",
+    "date": "2026-10-22",
+    "time": "15:26",
+    "url": "https://www.ft.com/content/a88ac504-4d86-4f27-a1e9-cf63db032ab5"
+  },
+  {
+    "id": "6517874d-25b5-446f-9c9a-9326ab30dfa9",
+    "title": "Germany’s Friedrich Merz warns of ‘intense’ Russian espionage after arrest",
+    "date": "2026-10-22",
+    "time": "15:24",
+    "url": "https://www.ft.com/content/6517874d-25b5-446f-9c9a-9326ab30dfa9"
+  },
+  {
+    "id": "9ddd1583-9296-4264-8ddd-dbf11469def9",
+    "title": "Donald Trump’s tourism push fails to lure visitors",
+    "date": "2026-10-22",
+    "time": "14:54",
+    "url": "https://www.ft.com/content/9ddd1583-9296-4264-8ddd-dbf11469def9"
+  },
+  {
     "id": "a7957ed9-0124-451d-ba34-5e015c58e351",
     "title": "Barclays stands out from the crowd for the wrong reasons",
     "date": "2026-10-22",
@@ -215,89 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-22",
     "time": "08:52",
     "url": "https://www.ft.com/content/39224d70-632e-4cac-ae1c-59f7efbbccaf"
-  },
-  {
-    "id": "991ac37c-289b-40e5-b2e6-220ee2aebe5d",
-    "title": "Ukraine to buy military supplies via Nato agency",
-    "date": "2026-10-22",
-    "time": "08:49",
-    "url": "https://www.ft.com/content/991ac37c-289b-40e5-b2e6-220ee2aebe5d"
-  },
-  {
-    "id": "cbf8759b-ec19-4728-ab65-5706bc3343af",
-    "title": "Liquidators of Chinese property giant pursue Harvard to recoup donation",
-    "date": "2026-10-22",
-    "time": "08:45",
-    "url": "https://www.ft.com/content/cbf8759b-ec19-4728-ab65-5706bc3343af"
-  },
-  {
-    "id": "abe0ee90-b0ad-45c2-95db-93f0663af34b",
-    "title": "LSEG nears $3.5bn deal to buy credit  data specialist Octus",
-    "date": "2026-10-21",
-    "time": "22:55",
-    "url": "https://www.ft.com/content/abe0ee90-b0ad-45c2-95db-93f0663af34b"
-  },
-  {
-    "id": "f39aa4d2-e290-451f-ae91-b19138b6172f",
-    "title": "US orders some personnel to leave Saudi Arabia after Houthi attacks",
-    "date": "2026-10-21",
-    "time": "21:58",
-    "url": "https://www.ft.com/content/f39aa4d2-e290-451f-ae91-b19138b6172f"
-  },
-  {
-    "id": "16bdf332-2a75-4e57-81ea-a37caf50ec0f",
-    "title": "Tesla’s profits slip on weaker vehicle sales",
-    "date": "2026-10-21",
-    "time": "21:44",
-    "url": "https://www.ft.com/content/16bdf332-2a75-4e57-81ea-a37caf50ec0f"
-  },
-  {
-    "id": "637bb10e-b5b4-4db2-ac7c-b42348595c4c",
-    "title": "Republicans head into midterms with huge spending advantage",
-    "date": "2026-10-21",
-    "time": "21:26",
-    "url": "https://www.ft.com/content/637bb10e-b5b4-4db2-ac7c-b42348595c4c"
-  },
-  {
-    "id": "5eb997eb-6031-40c4-b2f3-e2a09f4d64f1",
-    "title": "GM aims to leapfrog rivals with new generation of autonomous cars",
-    "date": "2026-10-21",
-    "time": "21:10",
-    "url": "https://www.ft.com/content/5eb997eb-6031-40c4-b2f3-e2a09f4d64f1"
-  },
-  {
-    "id": "47777033-6a91-42c3-bc9e-249d4bf7a961",
-    "title": "EU set to delay push for cheaper UK university fees for bloc’s students",
-    "date": "2026-10-21",
-    "time": "19:58",
-    "url": "https://www.ft.com/content/47777033-6a91-42c3-bc9e-249d4bf7a961"
-  },
-  {
-    "id": "5b7c2fdf-2300-4208-860e-6389ceb18886",
-    "title": "Scott Bessent shrugs off ‘systemic’ AI risks at closed-door investor conference",
-    "date": "2026-10-21",
-    "time": "19:46",
-    "url": "https://www.ft.com/content/5b7c2fdf-2300-4208-860e-6389ceb18886"
-  },
-  {
-    "id": "245778d9-597b-492d-b5b6-a2967c77e853",
-    "title": "NSA warns on ‘critical’ cyber vulnerabilities detected using AI",
-    "date": "2026-10-21",
-    "time": "19:46",
-    "url": "https://www.ft.com/content/245778d9-597b-492d-b5b6-a2967c77e853"
-  },
-  {
-    "id": "d7345d46-f000-49b1-99f6-57edfbd5f0af",
-    "title": "Trump envoy floats Ukraine talks and summit with Putin and Xi",
-    "date": "2026-10-21",
-    "time": "18:53",
-    "url": "https://www.ft.com/content/d7345d46-f000-49b1-99f6-57edfbd5f0af"
-  },
-  {
-    "id": "7c0fb51a-2c17-414e-96a7-ac33f40af3de",
-    "title": "CVC explores bid for Verisure just 1 year after IPO",
-    "date": "2026-10-21",
-    "time": "18:43",
-    "url": "https://www.ft.com/content/7c0fb51a-2c17-414e-96a7-ac33f40af3de"
   }
 ];

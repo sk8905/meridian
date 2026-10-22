@@ -49,6 +49,30 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+      "id": "nl-bloomberg-authoralert-arinisonajunkrout-20261022",
+      "publication": "Bloomberg",
+      "author": "Nishant Kumar",
+      "series": "Author Alert",
+      "title": "Rapid Junk Rout Amplifies Arini’s Losses and Erases Sona’s Gains",
+      "date": "2026-10-22",
+      "time": "21:02",
+      "summary": "Arini Capital Management and Sona Asset Management’s main hedge funds were pummeled in recent weeks as a sharp decline in pockets of the junk-debt market slammed their holdings.",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-22/rapid-junk-rout-amplifies-arini-s-losses-and-erases-sona-s-gains",
+      "body": true
+  },
+  {
+      "id": "nl-bloomberg-authoralert-brevanhowardandysilver-20261022",
+      "publication": "Bloomberg",
+      "author": "Nishant Kumar",
+      "series": "Author Alert",
+      "title": "Brevan Howard Credit-Trading Head Andy Silver is Stepping Back",
+      "date": "2026-10-22",
+      "time": "20:19",
+      "summary": "Andy Silver, credit-trading head at Brevan Howard Asset Management, is leaving his role, according to people with knowledge of the matter.",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-22/brevan-howard-credit-trading-head-andy-silver-is-stepping-back",
+      "body": true
+  },
+  {
       "id": "nl-legalbusiness-alert-lsegoctus-20261022",
       "publication": "Legal Business",
       "author": null,
