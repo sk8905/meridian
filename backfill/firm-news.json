@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-22T05:15:47.404Z",
+ "generated": "2026-10-22T12:19:11.205Z",
  "since": "2026-10-08",
  "firms": {
   "proskauerrose": {
@@ -27,8 +27,19 @@
    ],
    "sitemaps": 5,
    "urls": 7443,
-   "kept": 10,
-   "fetched": 10,
+   "kept": 5,
+   "fetched": 5,
+   "errors": 0,
+   "carried": 0
+  },
+  "slaughtermay": {
+   "domains": [
+    "www.slaughterandmay.com"
+   ],
+   "sitemaps": 1,
+   "urls": 6309,
+   "kept": 5,
+   "fetched": 5,
    "errors": 0,
    "carried": 0
   },
@@ -64,17 +75,6 @@
    ],
    "carried": 0
   },
-  "slaughtermay": {
-   "domains": [
-    "www.slaughterandmay.com"
-   ],
-   "sitemaps": 1,
-   "urls": 6309,
-   "kept": 6,
-   "fetched": 6,
-   "errors": 0,
-   "carried": 0
-  },
   "hsf": {
    "domains": [
     "www.hsfkramer.com"
@@ -84,17 +84,6 @@
    "kept": 0,
    "fetched": 0,
    "errors": 1,
-   "carried": 0
-  },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5022,
-   "kept": 5,
-   "fetched": 5,
-   "errors": 0,
    "carried": 0
   },
   "macfarlanes": {
@@ -121,6 +110,17 @@
    "disallowed": 1,
    "carried": 0
   },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5023,
+   "kept": 5,
+   "fetched": 5,
+   "errors": 0,
+   "carried": 0
+  },
   "aoshearman": {
    "domains": [
     "www.aoshearman.com",
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 9634,
+   "urls": 9639,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -162,8 +162,8 @@
    ],
    "sitemaps": 11,
    "urls": 10413,
-   "kept": 22,
-   "fetched": 22,
+   "kept": 20,
+   "fetched": 20,
    "errors": 0,
    "carried": 0
   },
@@ -171,11 +171,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 7,
-   "urls": 7595,
-   "kept": 2,
-   "fetched": 2,
-   "errors": 10,
+   "sitemaps": 5,
+   "urls": 6778,
+   "kept": 1,
+   "fetched": 1,
+   "errors": 12,
    "carried": 0
   },
   "ropesgray": {
@@ -215,8 +215,8 @@
    ],
    "sitemaps": 11,
    "urls": 16234,
-   "kept": 10,
-   "fetched": 10,
+   "kept": 8,
+   "fetched": 8,
    "errors": 0,
    "carried": 0
   },
@@ -225,7 +225,7 @@
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2853,
+   "urls": 2856,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -244,7 +244,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12303,
+   "urls": 12302,
    "kept": 5,
    "fetched": 5,
    "errors": 0,
@@ -255,7 +255,7 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11596,
+   "urls": 11597,
    "kept": 14,
    "fetched": 14,
    "errors": 0,
@@ -271,7 +271,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7754,
+   "urls": 7753,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -282,7 +282,7 @@
     "www.hoganlovells.com"
    ],
    "sitemaps": 2,
-   "urls": 21449,
+   "urls": 21460,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -308,6 +308,17 @@
    "errors": 1,
    "carried": 0
   },
+  "mayerbrown": {
+   "domains": [
+    "www.mayerbrown.com"
+   ],
+   "sitemaps": 9,
+   "urls": 16368,
+   "kept": 19,
+   "fetched": 19,
+   "errors": 0,
+   "carried": 0
+  },
   "southsquare": {
    "domains": [
     "southsquare.com"
@@ -327,119 +338,36 @@
    ],
    "carried": 0
   },
-  "mayerbrown": {
-   "domains": [
-    "www.mayerbrown.com"
-   ],
-   "sitemaps": 9,
-   "urls": 16368,
-   "kept": 19,
-   "fetched": 19,
-   "errors": 0,
-   "carried": 0
-  },
   "cliffordchance": {
    "domains": [
     "www.cliffordchance.com"
    ],
    "sitemaps": 27,
-   "urls": 13013,
+   "urls": 13016,
    "kept": 40,
-   "fetched": 40,
-   "errors": 7,
+   "fetched": 38,
+   "errors": 9,
    "carried": 0
   }
  },
  "items": [
   {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/new-insights/restructuring-plans-where-are-we-a-year-on/",
-   "title": "Restructuring plans: where are we a year on?",
-   "description": null,
-   "date": "2026-10-21",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-21"
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-advised-banks-on-clarianes-eur2-26-billion-financing-package",
+   "title": "A&O Shearman advised banks on Clariane’s EUR2.26 billion financing package",
+   "description": "A&O Shearman advised banks on Clariane's EUR2.26bn financing package, including inaugural high yield notes, hybrid notes and a new revolving credit facility.",
+   "date": "2026-10-22",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-22"
   },
   {
    "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-on-bank-of-nova-scotias-usd2-3-billion-senior-medium-term-notes-offering",
-   "title": "A&O Shearman advises on Bank of Nova Scotia’s USD2.3 billion senior medium-term notes offering",
-   "description": "A&O Shearman advised Bank of Nova Scotia on its USD2.3 billion senior medium-term notes offering under its U.S. Senior Medium-Term Notes Program.",
-   "date": "2026-10-21",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-naxicap-partners-on-its-majority-investment-in-bharal-developpement",
+   "title": "AO Shearman advises Naxicap Partners on its majority investment in Bharal Developpement",
+   "description": "A&O Shearman advised Naxicap Partners on its majority investment in Bharal Développement, a French animal nutrition group, acquired from FrenchFood Capital.",
+   "date": "2026-10-22",
    "dateSource": "datePublished",
-   "lastmod": "2026-10-21"
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-openai-on-acquisition-of-orchestra-bio",
-   "title": "Kirkland Advises OpenAI on Acquisition of Orchestra Bio",
-   "description": null,
-   "date": "2026-10-21",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-represents-gi-partners-fund-vi-on-acquisition-of-clinical-ink-alongside-ardan-equity",
-   "title": "Kirkland Represents GI Partners Fund VI on Acquisition of Clinical Ink Alongside Ardan Equity",
-   "description": null,
-   "date": "2026-10-21",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-arctos-on-minority-stake-acquisition-in-atlanta-falcons",
-   "title": "Kirkland Advises Arctos on Minority Stake Acquisition in Atlanta Falcons Organization Ownership Group",
-   "description": null,
-   "date": "2026-10-21",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-banijay-group-and-banijay-gaming-on-ssno-to-fund-banijay-gamings-acquisition-of-joa",
-   "title": "Kirkland Advises Banijay Group and Banijay Gaming on Senior Secured Notes Offering to Fund Banijay Gaming’s Acquisition of JOA",
-   "description": null,
-   "date": "2026-10-21",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/press-release/white-case-advises-pep-credit-a175-million-debt-facilities-corporate-travel",
-   "title": "White & Case advises PEP Credit on A$175 million debt facilities for Corporate Travel Management",
-   "description": "Global law firm White & Case LLP has advised the credit division of Pacific Equity Partners (PEP Credit) on the provision of A$175 million of debt facilities to Corporate Travel Management Limited (CTM).",
-   "date": "2026-10-21",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-21"
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/media/lawcom-white-case-builds-its-mena-ipo-track-record-amid-market-drought",
-   "title": "Law.com",
-   "description": "Law.com reports that White & Case is building on its Middle East and North Africa (MENA) IPO track record and is one of the few international firms that continues to advise on notable IPOs in MENA at a time when new listings are relatively scarce.",
-   "date": "2026-10-21",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-21"
-  },
-  {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/sec-approves-finra-rule-change-permitting-projected-performance-and-targeted-returns",
-   "title": "SEC Approves FINRA Rule Change Permitting Projected Performance and Targeted Returns in Broker-Dealer Communications",
-   "description": null,
-   "date": "2026-10-21",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-21"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/insights/client-update/case-update-winding-following-assignment-debt-hong-kong",
-   "title": "Case update: Winding-up following assignment of debt in Hong Kong",
-   "description": "The Hong Kong Court of Final Appeal confirmed that the court can grant or uphold a winding-up order where the petitioner has assigned its debt to a third...",
-   "date": "2026-10-21",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-21"
+   "lastmod": "2026-10-22"
   },
   {
    "firm": "reedsmith",
@@ -448,24 +376,6 @@
    "description": "Following the abolition of fixed term assured shorthold tenancies and",
    "date": "2026-10-21",
    "dateSource": "datePublished",
-   "lastmod": "2026-10-21"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-otpp-and-trivium-packaging-in-3-point-4-b-acquisition",
-   "title": "Weil Advises OTPP and Trivium Packaging in $3.4B Acquisition by Silgan Holdings and American Industrial Partners",
-   "description": "Weil Advises OTPP and Trivium Packaging in $3.4B Acquisition by Silgan Holdings and American Industrial Partners",
-   "date": "2026-10-21",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-21"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-earns-top-rankings-in-octus-emea-restructuring-league-tables-for-q3-9m-2026",
-   "title": "Weil Earns Top Rankings in Octus EMEA Restructuring League Tables for Q3/9M 2026",
-   "description": "These results highlight Weil’s leading position in the European restructuring market, as well as the breadth of the matters we advise on across our offices in London, Paris and Germany.",
-   "date": "2026-10-21",
-   "dateSource": "page date label",
    "lastmod": "2026-10-21"
   },
   {
@@ -506,15 +416,6 @@
    "dateProbe": []
   },
   {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/experience/sentinelone-1-44b-convertible-notes-offering-and-capped-call-transactions",
-   "title": "SentinelOne $1.44B convertible notes offering and capped call transactions",
-   "description": "We advised the initial purchasers on the offering",
-   "date": "2026-10-20",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-21"
-  },
-  {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-bolsters-u.s.-life-sciences-practice-with-partner-carlo-felizardo-in-washington",
    "title": "Freshfields Adds FDA Regulatory Partner Carlo Felizardo",
@@ -534,21 +435,21 @@
    "dateProbe": []
   },
   {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/insights/blogs/pensionlinks/2026/october/from-surplus-to-security-navigating-the-next-phase-for-defined-benefit-pension-schemes",
-   "title": "From surplus to security: Navigating the next phase for defined benefit pension schemes",
-   "description": "Explore key issues for defined benefit pension schemes, including surplus, endgame planning, Virgin Media, cyber risk and trustee governance.",
-   "date": "2026-10-19",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-19"
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/new-insights/tax-and-the-city-october-2026/",
    "title": "Tax and the city - October 2026",
    "description": "Tax and the City - October 2026",
    "date": "2026-10-19",
    "dateSource": "<time datetime>",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/insights/blogs/pensionlinks/2026/october/from-surplus-to-security-navigating-the-next-phase-for-defined-benefit-pension-schemes",
+   "title": "From surplus to security: Navigating the next phase for defined benefit pension schemes",
+   "description": "Explore key issues for defined benefit pension schemes, including surplus, endgame planning, Virgin Media, cyber risk and trustee governance.",
+   "date": "2026-10-19",
+   "dateSource": "page date label",
    "lastmod": "2026-10-19"
   },
   {
@@ -635,21 +536,21 @@
    ]
   },
   {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-venture-insights-the-changing-shape-of-venture-capital/",
-   "title": "Travers Smith's Venture Insights: The changing shape of Venture Capital",
-   "description": null,
-   "date": "2026-10-16",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-16"
-  },
-  {
    "firm": "macfarlanes",
    "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
    "title": "Incorporating an LLP: direct tax considerations",
    "description": "In an article for Tax Journal, Partner Joe Robinson and Associate Harvey Innocent explain how LLP members may defer gains when...",
    "date": "2026-10-16",
    "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-venture-insights-the-changing-shape-of-venture-capital/",
+   "title": "Travers Smith's Venture Insights: The changing shape of Venture Capital",
+   "description": null,
+   "date": "2026-10-16",
+   "dateSource": "<time datetime>",
    "lastmod": "2026-10-16"
   },
   {
@@ -671,33 +572,6 @@
    "lastmod": "2026-10-16"
   },
   {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-london-infrastructure-team-shortlisted-for-legal-adviser-of-the-year-emea",
-   "title": "Weil London Infrastructure Team Shortlisted for Legal Adviser of the Year",
-   "description": "Weil’s London Infrastructure team has been shortlisted for Legal Adviser of the Year – EMEA at the Infra Global Investor Awards 2026.",
-   "date": "2026-10-16",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-16"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-all-for-one-group-on-planned-delisting",
-   "title": "Freshfields advises All for One Group on planned delisting",
-   "description": null,
-   "date": "2026-10-15",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-penske-automotive-group-in-its-$16.3bn-take-private-acquisition-by-penske-corporation-and-mitsui-co",
-   "title": "Freshfields Advises Penske Automotive Group on $16.3bn Take-Private",
-   "description": "Freshfields is advising Penske Automotive Group on its $16.3 billion take-private acquisition by Penske Corporation and Mitsui & Co.",
-   "date": "2026-10-15",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-15"
-  },
-  {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/en/our-thinking/podcasts/perspectives-from-paris/perspectives-from-paris-1-ia-et-infrastructures-digitales-un-nouveau-cycle-dinvestissement",
    "title": "Perspectives from Paris #1: IA et infrastructures digitales, un nouveau cycle d’investissement",
@@ -712,15 +586,6 @@
    ]
   },
   {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
-   "title": "Capital, regulation and capability in a new era",
-   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
-   "date": "2026-10-15",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-15"
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/client-case-studies/cpp-investments-and-equinix-s-us-4bn-joint-acquisition/",
    "title": "CPP Investments and Equinix’s US$4bn joint acquisition",
@@ -731,6 +596,15 @@
    "dateProbe": [
     "td style=\"width: 49.9044%; border-style: none; padding: 20px;\"> <p>On 27 February 2026, Canada Pension Pla"
    ]
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
+   "title": "Capital, regulation and capability in a new era",
+   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
+   "date": "2026-10-15",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-15"
   },
   {
    "firm": "latham",
@@ -756,33 +630,6 @@
    "title": "Chambers UK 2027 ranks 31 Mayer Brown practices and 67 lawyers",
    "description": "London – The 2027 edition of Chambers UK has ranked Mayer Brown in 31 practice areas. Of these rankings, three are in the top tier: Asset",
    "date": "2026-10-15",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-15"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-bnp-paribas-and-unicredit-on-slv-refinancing",
-   "title": "Freshfields advises BNP Paribas and UniCredit on SLV refinancing",
-   "description": "Global law firm Freshfields has advised BNP Paribas and UniCredit as super senior revolving facility lenders on the refinancing of SLV Lighting Group.",
-   "date": "2026-10-14",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-tristar-group-on-aegis-logistics-proposed-us$809-million-acquisition-of-an-89.8-stake",
-   "title": "Freshfields advises Tristar Group on Aegis Logistics’ proposed US$809 million acquisition of an 89.8% stake",
-   "description": null,
-   "date": "2026-10-14",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-15"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-euricom-on-the-acquisition-of-mullers-muhle",
-   "title": "Freshfields Advises Euricom on the Acquisition of Müller’s Mühle",
-   "description": null,
-   "date": "2026-10-14",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
   },
