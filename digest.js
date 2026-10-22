@@ -4,32 +4,56 @@
 // hand-edit; re-run the script. Tokenless + no-cache (see _headers).
 // =============================================================================
 export const DIGEST = {
- "asOf": "2026-10-21",
- "built": "2026-10-21T01:37:54.984Z",
+ "asOf": "2026-10-22",
+ "built": "2026-10-22T01:38:42.676Z",
  "daily": {
   "label": "Daily",
-  "from": "2026-10-20",
-  "to": "2026-10-21",
+  "from": "2026-10-21",
+  "to": "2026-10-22",
   "deals": {
-   "total": 0,
-   "items": []
+   "total": 1,
+   "items": [
+    {
+     "id": "d1321",
+     "date": "2026-10-21",
+     "title": "Eiffel Investment Group provides financing for Bencis' partnership with KODIAK",
+     "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-eiffel-investment-group-on-financing-of-bencis-partnership-with-kodiak",
+     "src": "hlc.com",
+     "who": "Eiffel Investment Group",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1321",
+     "amount": null
+    }
+   ]
   },
   "closes": {
-   "total": 0,
-   "items": []
+   "total": 1,
+   "items": [
+    {
+     "id": "i1455",
+     "date": "2026-10-21",
+     "title": "Arini closes inaugural European direct lending fund",
+     "url": "https://alternativecreditinvestor.com/2026/10/21/arini-closes-inaugural-direct-lending-fund/",
+     "src": "alternativecreditinvestor.com",
+     "who": "Arini Capital Management",
+     "kind": "Final Close",
+     "href": "/v2/profiles/#/manager/m40",
+     "amount": null
+    }
+   ]
   },
   "legal": {
    "total": 1,
    "items": [
     {
-     "id": "u3490",
-     "date": "2026-10-20",
-     "title": "UK FCA Guidance on AI in Financial Services: Good Practices and Areas for Improvement",
-     "url": "https://www.traverssmith.com/knowledge/knowledge-container/uk-fca-guidance-on-ai-in-financial-services-good-practices-and-areas-for-improvement/",
-     "src": "traverssmith.com",
-     "who": "Travers Smith",
+     "id": "u3768",
+     "date": "2026-10-21",
+     "title": "Liability Management and Special Situations: When Traditional Finance Falls Short",
+     "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/liability-management-and-special-situations-when-traditional-finance-falls-short",
+     "src": "mayerbrown.com",
+     "who": "Mayer Brown",
      "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/traverssmith"
+     "href": "/v2/profiles/#/firm/mayerbrown"
     }
    ]
   },
@@ -38,7 +62,7 @@ export const DIGEST = {
    "items": []
   },
   "rates": {
-   "savedAt": "2026-10-20T11:27:28.632Z",
+   "savedAt": "2026-10-21T11:40:34.377Z",
    "items": [
     {
      "label": "SONIA",
@@ -53,34 +77,34 @@ export const DIGEST = {
     },
     {
      "label": "SOFR",
-     "value": 3.88,
+     "value": 3.87,
      "unit": "%",
-     "display": 3.88,
+     "display": 3.87,
      "chg": -0.01,
      "chgUnit": "pp",
-     "asOf": "2026-10-16",
+     "asOf": "2026-10-19",
      "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
      "src": "newyorkfed.org"
     },
     {
      "label": "US 10Y",
-     "value": 5.15,
+     "value": 5.12,
      "unit": "%",
-     "display": 5.15,
-     "chg": 0.06,
+     "display": 5.12,
+     "chg": -0.03,
      "chgUnit": "pp",
-     "asOf": "2026-10-19",
+     "asOf": "2026-10-20",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
     {
      "label": "US 2Y",
-     "value": 4.77,
+     "value": 4.79,
      "unit": "%",
-     "display": 4.77,
-     "chg": 0.03,
+     "display": 4.79,
+     "chg": 0.02,
      "chgUnit": "pp",
-     "asOf": "2026-10-19",
+     "asOf": "2026-10-20",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
@@ -135,18 +159,18 @@ export const DIGEST = {
      "display": 2.5,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-20",
+     "asOf": "2026-10-21",
      "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
      "src": "data.ecb.europa.eu"
     },
     {
      "label": "€STR",
-     "value": 2.441,
+     "value": 2.44,
      "unit": "%",
-     "display": 2.441,
-     "chg": 0,
+     "display": 2.44,
+     "chg": -0.001,
      "chgUnit": "pp",
-     "asOf": "2026-10-19",
+     "asOf": "2026-10-20",
      "url": "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT",
      "src": "data.ecb.europa.eu"
     },
@@ -157,7 +181,7 @@ export const DIGEST = {
      "display": 3.75,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-19",
+     "asOf": "2026-10-20",
      "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
      "src": "bankofengland.co.uk"
     }
@@ -166,10 +190,10 @@ export const DIGEST = {
  },
  "weekly": {
   "label": "Weekly",
-  "from": "2026-10-15",
-  "to": "2026-10-21",
+  "from": "2026-10-16",
+  "to": "2026-10-22",
   "deals": {
-   "total": 6,
+   "total": 7,
    "items": [
     {
      "id": "d1234",
@@ -181,17 +205,6 @@ export const DIGEST = {
      "kind": "NPL / Portfolio",
      "href": "/v2/transactions/#/deal/d1234",
      "amount": "$7.7bn"
-    },
-    {
-     "id": "d1150",
-     "date": "2026-10-15",
-     "title": "Castlelake prices $1.1bn commercial real estate CLO, CLCRE 2026-FL1, its first",
-     "url": "https://www.castlelake.com/article/castlelake-prices-1-1-billion-commercial-real-estate-clo-clcre-2026-fl1/",
-     "src": "castlelake.com",
-     "who": "Castlelake, L.P.",
-     "kind": "Financing",
-     "href": "/v2/transactions/#/deal/d1150",
-     "amount": "$1.1bn"
     },
     {
      "id": "d1233",
@@ -216,6 +229,17 @@ export const DIGEST = {
      "amount": "$401.9 million"
     },
     {
+     "id": "d1296",
+     "date": "2026-10-16",
+     "title": "Santander and UniCredit arrange restructuring of ViViBanca's c.€340m CQS securitisation",
+     "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-banco-santander-and-unicredit-on-the-restructuring-of-vivibancas-cqs-securitisation",
+     "src": "hlc.com",
+     "who": "Santander",
+     "kind": "Structured Credit",
+     "href": "/v2/transactions/#/deal/d1296",
+     "amount": "€340m"
+    },
+    {
      "id": "d1255",
      "date": "2026-10-16",
      "title": "Fortress provides $175M senior secured credit facilities to The RealReal",
@@ -227,21 +251,43 @@ export const DIGEST = {
      "amount": "$175M"
     },
     {
-     "id": "d1147",
-     "date": "2026-10-15",
-     "title": "Pemberton provides financing to support Exponent's buyout of Killarney Telecommunications",
-     "url": "https://pembertonam.com/news/pemberton-provides-financing-to-support-exponents-buyout-of-killarney-telecommunications/",
-     "src": "pembertonam.com",
-     "who": "Pemberton Asset Management",
+     "id": "d1322",
+     "date": "2026-10-20",
+     "title": "Trinity Capital provides $20m growth capital to ABM Respiratory Care",
+     "url": "https://www.prnewswire.com/news-releases/trinity-capital-inc-provides-20-million-in-growth-capital-to-abm-respiratory-care-to-advance-breathing-therapies-302913098.html",
+     "src": "prnewswire.com",
+     "who": "Trinity Capital",
      "kind": "Financing",
-     "href": "/v2/transactions/#/deal/d1147",
+     "href": "/v2/transactions/#/deal/d1322",
+     "amount": "$20m"
+    },
+    {
+     "id": "d1321",
+     "date": "2026-10-21",
+     "title": "Eiffel Investment Group provides financing for Bencis' partnership with KODIAK",
+     "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-eiffel-investment-group-on-financing-of-bencis-partnership-with-kodiak",
+     "src": "hlc.com",
+     "who": "Eiffel Investment Group",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1321",
      "amount": null
     }
    ]
   },
   "closes": {
-   "total": 1,
+   "total": 3,
    "items": [
+    {
+     "id": "i1457",
+     "date": "2026-10-19",
+     "title": "Nuveen Private Capital passes $100bn in committed capital after three-year fundraising drive",
+     "url": "https://alternativecreditinvestor.com/2026/10/19/exclusive-nuveen-private-capital-hits-100bn-after-three-year-fundraising-drive/",
+     "src": "alternativecreditinvestor.com",
+     "who": "Nuveen Private Capital",
+     "kind": "Fundraising",
+     "href": "/v2/profiles/#/manager/m63",
+     "amount": "$100bn"
+    },
     {
      "id": "i1414",
      "date": "2026-10-19",
@@ -252,11 +298,22 @@ export const DIGEST = {
      "kind": "Fundraising",
      "href": "/v2/profiles/#/manager/m29",
      "amount": "$100 billion"
+    },
+    {
+     "id": "i1455",
+     "date": "2026-10-21",
+     "title": "Arini closes inaugural European direct lending fund",
+     "url": "https://alternativecreditinvestor.com/2026/10/21/arini-closes-inaugural-direct-lending-fund/",
+     "src": "alternativecreditinvestor.com",
+     "who": "Arini Capital Management",
+     "kind": "Final Close",
+     "href": "/v2/profiles/#/manager/m40",
+     "amount": null
     }
    ]
   },
   "legal": {
-   "total": 10,
+   "total": 8,
    "items": [
     {
      "id": "c296",
@@ -299,24 +356,14 @@ export const DIGEST = {
      "href": null
     },
     {
-     "id": "c300",
-     "date": "2026-10-15",
-     "title": "Nebahat Evyap İşbilen v Selman Turk & Ors [2026] EWHC 2635 (BP)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2635",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (BP)",
-     "kind": "Judgment",
-     "href": null
-    },
-    {
-     "id": "c303",
-     "date": "2026-10-15",
-     "title": "FW Aviation (Holdings) 1 Limited v VietJet Aviation Joint Stock Company [2026] EWHC 2633 (Comm)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2633",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (Commercial Court)",
-     "kind": "Judgment",
-     "href": null
+     "id": "u3768",
+     "date": "2026-10-21",
+     "title": "Liability Management and Special Situations: When Traditional Finance Falls Short",
+     "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/liability-management-and-special-situations-when-traditional-finance-falls-short",
+     "src": "mayerbrown.com",
+     "who": "Mayer Brown",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/mayerbrown"
     },
     {
      "id": "u3490",
@@ -347,22 +394,22 @@ export const DIGEST = {
      "who": "Davis Polk",
      "kind": "R&I alert",
      "href": "/v2/profiles/#/firm/davispolk"
-    },
-    {
-     "id": "u3491",
-     "date": "2026-10-15",
-     "title": "What's happening in Digital Markets Competition Regulation? Edition 1",
-     "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/whats-happening-in-digital-markets-competition-regulation-edition-1",
-     "src": "mayerbrown.com",
-     "who": "Mayer Brown",
-     "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/mayerbrown"
     }
    ]
   },
   "people": {
-   "total": 3,
+   "total": 4,
    "items": [
+    {
+     "id": "i1456",
+     "date": "2026-10-20",
+     "title": "Macquarie Asset Management hires Linso Pals from Blackstone as head of credit, client solutions",
+     "url": "https://alternativecreditinvestor.com/2026/10/20/maquarie-hires-credit-head-blackstone/",
+     "src": "alternativecreditinvestor.com",
+     "who": "Macquarie Asset Management (Credit & Insurance)",
+     "kind": "Credit",
+     "href": "/v2/profiles/#/manager/m120"
+    },
     {
      "id": "i1430",
      "date": "2026-10-19",
@@ -384,19 +431,19 @@ export const DIGEST = {
      "href": "/v2/profiles/#/manager/m438"
     },
     {
-     "id": "i1348",
-     "date": "2026-10-15",
-     "title": "LendInvest adds three portfolio managers to its property development finance team",
-     "url": "https://www.mortgagesolutions.co.uk/specialist-lending/commercial-finance/2026/10/15/lendinvest-strengthens-development-finance-team-with-three-hires/",
-     "src": "mortgagesolutions.co.uk",
-     "who": "LendInvest",
+     "id": "i1474",
+     "date": "2026-10-16",
+     "title": "Blackstone hires from M&G to grow Brio platform in Europe",
+     "url": "https://www.pei-privaterealestate.com/credit/blackstone-hires-from-mg-to-grow-brio-platform-in-europe/",
+     "src": "pei-privaterealestate.com",
+     "who": "Blackstone (funds managed by Blackstone)",
      "kind": "Credit",
-     "href": "/v2/profiles/#/manager/m232"
+     "href": "/v2/profiles/#/manager/m438"
     }
    ]
   },
   "rates": {
-   "savedAt": "2026-10-20T11:27:28.632Z",
+   "savedAt": "2026-10-21T11:40:34.377Z",
    "items": [
     {
      "label": "SONIA",
@@ -411,34 +458,34 @@ export const DIGEST = {
     },
     {
      "label": "SOFR",
-     "value": 3.88,
+     "value": 3.87,
      "unit": "%",
-     "display": 3.88,
-     "chg": 0.01,
+     "display": 3.87,
+     "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-16",
+     "asOf": "2026-10-19",
      "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
      "src": "newyorkfed.org"
     },
     {
      "label": "US 10Y",
-     "value": 5.15,
+     "value": 5.12,
      "unit": "%",
-     "display": 5.15,
+     "display": 5.12,
      "chg": -0.09,
      "chgUnit": "pp",
-     "asOf": "2026-10-19",
+     "asOf": "2026-10-20",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
     {
      "label": "US 2Y",
-     "value": 4.77,
+     "value": 4.79,
      "unit": "%",
-     "display": 4.77,
-     "chg": -0.03,
+     "display": 4.79,
+     "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-19",
+     "asOf": "2026-10-20",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov"
     },
@@ -493,18 +540,18 @@ export const DIGEST = {
      "display": 2.5,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-20",
+     "asOf": "2026-10-21",
      "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
      "src": "data.ecb.europa.eu"
     },
     {
      "label": "€STR",
-     "value": 2.441,
+     "value": 2.44,
      "unit": "%",
-     "display": 2.441,
-     "chg": 0.002,
+     "display": 2.44,
+     "chg": 0.001,
      "chgUnit": "pp",
-     "asOf": "2026-10-19",
+     "asOf": "2026-10-20",
      "url": "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT",
      "src": "data.ecb.europa.eu"
     },
@@ -515,7 +562,7 @@ export const DIGEST = {
      "display": 3.75,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-19",
+     "asOf": "2026-10-20",
      "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
      "src": "bankofengland.co.uk"
     }

@@ -15,7 +15,7 @@
 import { check, finish } from "./lib.mjs";
 import { managers } from "../credit/js/data.js";
 
-export const REVIEW = new Set(["m97", "m110"]);
+export const REVIEW = new Set([]);
 
 const ccyOf = (t) => {
   const s = String(t || "").trim();
