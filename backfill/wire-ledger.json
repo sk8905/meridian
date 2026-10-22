@@ -2844,6 +2844,42 @@
    "status": "rejected",
    "reason": "original 2 Oct item has no primary source with an exact date (Google News redirect); merger talks noted in firm release of 14 Oct",
    "at": "2026-10-22T09:17:40.410Z"
+  },
+  {
+   "url": "https://alternativecreditinvestor.com/2026/10/22/sound-point-hires-ninety-ones-european-secured-lending-team/",
+   "status": "recorded",
+   "recordId": "i1477",
+   "at": "2026-10-22T11:21:18.050Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/arinis-ytd-losses-exceed-21-as-distressed-bets-deteriorate",
+   "status": "recorded",
+   "recordId": "hi568",
+   "at": "2026-10-22T11:21:18.050Z"
+  },
+  {
+   "url": "https://www.stephensonharwood.com/news/stephenson-harwood-advises-dbs-and-ing-on-1-billion-loan-for-landmark-london-office/",
+   "status": "recorded",
+   "recordId": "d1337",
+   "at": "2026-10-22T11:21:18.050Z"
+  },
+  {
+   "url": "https://alternativecreditinvestor.com/2026/10/22/carlyle-and-basic-capital-expand-private-markets-offering-for-us-retirement-savers/",
+   "status": "recorded",
+   "recordId": "webNews:m189",
+   "at": "2026-10-22T11:21:18.050Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPMFJ1cVFXNGpOZ2RETEcxUXV6dHAwTzVTZzk3d1J0RmdnMjZIQ0JTU0JvRVZTZzYyTmNSOG1YU1VEd0dCNWZleDdlTTJ0azBpUlVVS2FxYjdvcXp3MEVDdERfaTM0RDBCOG1HdDMyT3VxUmItNzktcDl5OTFRd2pQWS1WcE5rVGQ3RFJta2ZVaEJkajBnMU5Fb3I5VFVQcXlzLUdRcXNjUDYtZHlZOUFmc2hYVmxsb1V6M0xKYUhHRWtYNjVob0NDWjRsLXpvUEZNd2RZNHkxb1hEdXdm?oc=5",
+   "status": "rejected",
+   "reason": "Not verified: LSEG's own 2026-10-13 release only confirms talks with Permira (~$3.5bn), no definitive agreement; subject entities are LSEG/Octus/Permira, not the tagged PIF; Google News redirect is not citable. Re-check for a signed deal.",
+   "at": "2026-10-22T11:21:18.050Z"
+  },
+  {
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-dbs-on-its-triple-tranche-bond-issuance",
+   "status": "rejected",
+   "reason": "DBS's own senior unsecured bond issuance (bank funding, US$1.5bn under its GMTN programme), not a credit-manager credit event; the Linklaters release is already held as a legal item.",
+   "at": "2026-10-22T11:21:18.050Z"
   }
  ]
 }
