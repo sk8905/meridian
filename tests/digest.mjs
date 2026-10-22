@@ -45,11 +45,15 @@ if (D) {
   // Rates & spreads lines carry a short "12 Oct" date (owner 2026-10-22) — not "as of 2026-10-12",
   // which wrapped on a phone.
   const rates = (textOnly.split(/RATES &amp; SPREADS|RATES & SPREADS/)[1] || "").split(/<\/ul>|In Wire|open the digest/)[0];
-  // Each change is coloured by direction (owner 2026-10-22): up green, down red, nil grey —
-  // the app Digest's colours. The colour follows the sign, never the other way round.
-  const spans = [...html.matchAll(/<span style="color:(#[0-9a-f]{6})">([^<]*)<\/span>/g)].map((m) => ({ c: m[1], t: m[2] }));
-  const want = (t) => (/^\+/.test(t) ? "#0f9d68" : /^-/.test(t) ? "#df4763" : "#8b96ac");
-  check(spans.length > 0 && spans.every((x) => x.c === want(x.t)), `email --html: rate changes are green when up, red when down, grey when flat (${spans.slice(0, 3).map((x) => x.t + " " + x.c).join(", ")})`);
+  // Each change is coloured by what it means (owner 2026-10-22): a rate / yield up green,
+  // down red; a credit SPREAD (bp) the other way — widening red, tightening green; nil grey.
+  const spans = [...html.matchAll(/ [\d.]+(bp|%) \(<span style="color:(#[0-9a-f]{6})">([^<]*)<\/span>/g)].map((m) => ({ spread: m[1] === "bp", c: m[2], t: m[3] }));
+  const want = (x) => { const up = /^\+/.test(x.t), down = /^-/.test(x.t); if (!up && !down) return "#8b96ac"; return (x.spread ? down : up) ? "#0f9d68" : "#df4763"; };
+  check(spans.length > 0 && spans.every((x) => x.c === want(x)), `email --html: rates up green / down red; spreads widening red / tightening green; flat grey (${spans.length} lines)`);
+  // The tone is stored on each digest item, so the app's Digest page reads the same rule.
+  const tone = (x) => (!x.chg ? "flat" : (x.unit === "bp" ? x.chg < 0 : x.chg > 0) ? "good" : "bad");
+  const its = D ? [...D.daily.rates.items, ...D.weekly.rates.items] : [];
+  check(its.length > 0 && its.every((x) => x.tone === tone(x)), `digest data: every rate item carries its tone (spread widening = bad) (${its.length})`);
   check(rates && !/as of \d{4}-\d{2}-\d{2}/.test(rates) && /\(\s*\S+\s*, \d{1,2} [A-Z][a-z]{2}\)/.test(rates), `email --html: rate dates read "12 Oct", never "as of YYYY-MM-DD" (${(rates.match(/\(\s*\S+\s*, \d{1,2} [A-Z][a-z]{2}\)/) || [""])[0]})`);
 }
 
@@ -78,6 +82,7 @@ const read = (pg) => pg.evaluate(() => {
     allLinked: links.every((a) => /^https?:\/\//.test(a.getAttribute("href") || "") && a.target === "_blank"),
     rateRows: dg.querySelectorAll(".dg-rates tr").length,
     rateLinked: [...dg.querySelectorAll(".dg-rates a")].every((a) => /^https?:\/\//.test(a.getAttribute("href") || "")),
+    rateTone: [...dg.querySelectorAll(".dg-rates tr")].map((tr) => ({ v: tr.querySelector(".dg-r-v").textContent, c: tr.querySelector(".dg-r-c").textContent, cls: tr.querySelector(".dg-r-c").className })),
     share: (document.querySelector("#v2-dg-share") || {}).dataset?.path,
     on: (document.querySelector("#v2-dg-seg .is-on") || {}).dataset?.dgMode,
     overflow: document.documentElement.scrollWidth > window.innerWidth + 1,
@@ -95,6 +100,10 @@ for (const [dev, name] of [[PHONE, "phone"], [DESKTOP, "desktop"]]) {
   checkEq(s.items, count("daily"), `${name}: daily renders every digest item`);
   check(s.allLinked, `${name}: every daily item links its source`);
   check(s.rateLinked, `${name}: every daily rate row links its source`);
+  { // Spreads (bp) widening read red (is-down), rates rising green (is-up) — the email's rule.
+    const ok = s.rateTone.length > 0 && s.rateTone.every((r) => { const up = /^\+/.test(r.c), dn = /^[−-]/.test(r.c); const want = !up && !dn ? "is-flat" : ((/bp$/.test(r.v) ? dn : up) ? "is-up" : "is-down"); return r.cls.includes(want); });
+    check(ok, `${name}: Digest rate colours — spreads widening red, rates rising green (${s.rateTone.length} rows)`);
+  }
   checkEq(s.share, "/v2/menu/digest", `${name}: Share link carries the daily URL`);
   check(!s.overflow, `${name}: no horizontal page scroll`);
   await pg.evaluate(() => document.querySelector('#v2-dg-seg [data-dg-mode="weekly"]').click());

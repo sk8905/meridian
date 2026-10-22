@@ -128,6 +128,15 @@ function people(w) {
 }
 
 // ---- Rates & spreads from the committed last-known payloads -------------------
+// The colour of a move (owner 2026-10-22), stored on each item as `tone` so the email and
+// the app's Digest read ONE rule: a rate / yield up is "good" (green), down "bad" (red);
+// a credit SPREAD (OAS, unit bp) is the other way round — widening is "bad" (red),
+// tightening "good" (green). No change is "flat" (grey).
+export function rateTone(x) {
+  if (!x || !x.chg) return "flat";
+  const up = x.chg > 0;
+  return (x.unit === "bp" ? !up : up) ? "good" : "bad";
+}
 let SNAP = null;
 try { SNAP = (await import("../dashboard/js/live-snapshot.js")).LIVE_SNAPSHOT || null; } catch { SNAP = null; }
 const RATE_PICK = /OAS$|^US (2Y|10Y)$|^SOFR$|^SONIA$/i;
@@ -164,6 +173,7 @@ function rates(win) {
     } else out.push({ label: s.label, value: s.value, unit: "%", display: s.value, chg: Math.round(chg * 1000) / 1000, chgUnit: "pp", asOf: s.asOf || null, url: s.href, src: host(s.href) });
   }
   const savedAt = ((p["/api/rates"] || {}).savedAt) || ((p["/api/eurates"] || {}).savedAt) || null;
+  for (const x of out) x.tone = rateTone(x);
   return { savedAt, items: out };
 }
 
@@ -205,10 +215,10 @@ export function emailRows(d, which) {
   sec("People moves", W.people, (x) => `${x.title} — ${x.date}`);
   if (W.rates.items.length) {
     // "12 Oct": short enough that no line wraps on a phone. The change carries its
-    // direction so the HTML body can colour it (up green / down red, as the app's Digest).
+    // tone so the HTML body can colour it (rateTone: spreads widening red, rates up green).
     rows.push({ h: `Rates & spreads (${which === "daily" ? "1-day" : "1-week"} change)`.toUpperCase() });
     for (const x of W.rates.items) {
-      const rate = { head: `${x.label} ${x.display}${x.unit === "bp" ? "bp" : "%"}`, chg: `${x.chg > 0 ? "+" : ""}${x.chg}${x.chgUnit}`, dir: x.chg > 0 ? "up" : x.chg < 0 ? "down" : "flat", date: x.asOf ? fmt(x.asOf) : "date n/a" };
+      const rate = { head: `${x.label} ${x.display}${x.unit === "bp" ? "bp" : "%"}`, chg: `${x.chg > 0 ? "+" : ""}${x.chg}${x.chgUnit}`, tone: x.tone || rateTone(x), date: x.asOf ? fmt(x.asOf) : "date n/a" };
       rows.push({ text: `${rate.head} (${rate.chg}, ${rate.date})`, url: x.url, rate });
     }
   }
@@ -230,9 +240,9 @@ export function emailText(d, which) {
   return lines.join("\n");
 }
 const escH = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-// Rate-change colours = the app Digest's light theme (v2/css/app.css --cov-good / --cov-fail):
-// an increase reads green, a decrease red, no change grey.
-export const RATE_COLOUR = { up: "#0f9d68", down: "#df4763", flat: "#8b96ac" };
+// Rate-change colours = the app Digest's light theme (v2/css/app.css --cov-good / --cov-fail),
+// keyed by the item's `tone` (rateTone): good green, bad red, flat grey.
+export const RATE_COLOUR = { good: "#0f9d68", bad: "#df4763", flat: "#8b96ac" };
 // HTML body: each item ends in a short orange-underlined "[link]" (the house link style).
 export function emailHtml(d, which) {
   const { subject, rows, app } = emailRows(d, which);
@@ -243,7 +253,7 @@ export function emailHtml(d, which) {
   for (const r of rows) {
     if (r.h) { close(); out.push(`<p style="margin:18px 0 6px;font-weight:bold;letter-spacing:.04em">${escH(r.h)}</p>`); continue; }
     if (!open) { out.push('<ul style="margin:0;padding-left:18px">'); open = true; }
-    const body = r.rate ? `${escH(r.rate.head)} (<span style="color:${RATE_COLOUR[r.rate.dir]}">${escH(r.rate.chg)}</span>, ${escH(r.rate.date)})` : escH(r.text);
+    const body = r.rate ? `${escH(r.rate.head)} (<span style="color:${RATE_COLOUR[r.rate.tone]}">${escH(r.rate.chg)}</span>, ${escH(r.rate.date)})` : escH(r.text);
     out.push(r.empty ? `<li style="margin:3px 0;color:#777">${escH(r.empty)}</li>` : `<li style="margin:3px 0">${body} ${a(r.url)}</li>`);
   }
   close();

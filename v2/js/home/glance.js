@@ -2446,16 +2446,21 @@ function renderFeed() {
   byDesk.research = dedupe([...rschFeed, ...[...credit, ...macro].filter((x) => x.lane === "research").map((x) => ({ ...x, desk: "rsch", type: undefined }))].sort(byDateDesc));
   // A story carried by two sources is still ONE item: each lane gives up any headline
   // a higher lane already holds — Deals › Profiles › Research › Newsletters › News.
+  // Claimed by headline AND by link (2026-10-22: a Legal Business alert carried under its
+  // own title by Newsletters and under the deal's title by a manager's Profiles item).
   const claimed = new Set(byDesk.deals.map((x) => norm(x.title)));
+  const claimedL = new Set(byDesk.deals.map(_laneLink).filter(Boolean));
   _dealTitles = new Set(claimed); _dealLinks = null;
-  if (_feedDesk === "all" || _feedDesk === "research" || _feedDesk === "n") profilesEvents().forEach((e) => claimed.add(norm(e.title)));
-  byDesk.research = byDesk.research.filter((x) => !claimed.has(norm(x.title)));
-  byDesk.research.forEach((x) => claimed.add(norm(x.title)));
-  byDesk.n = byDesk.n.filter((x) => !claimed.has(norm(x.title)));
-  byDesk.n.forEach((x) => claimed.add(norm(x.title)));
+  if (_feedDesk === "all" || _feedDesk === "research" || _feedDesk === "n") profilesEvents().forEach((e) => { claimed.add(norm(e.title)); const l = _laneLink(e); if (l) claimedL.add(l); });
+  const free = (x) => !claimed.has(norm(x.title)) && !claimedL.has(_laneLink(x));
+  const take = (x) => { claimed.add(norm(x.title)); const l = _laneLink(x); if (l) claimedL.add(l); };
+  byDesk.research = byDesk.research.filter(free);
+  byDesk.research.forEach(take);
+  byDesk.n = byDesk.n.filter(free);
+  byDesk.n.forEach(take);
   // Court judgments are NOT news (owner 2026-10-21): they live in Dashboard ▸ Legal ▸
   // "Case law — latest judgments", never on the News lane.
-  const isNews = (x) => !x.lane && x.type !== "case" && !claimed.has(norm(x.title));
+  const isNews = (x) => !x.lane && x.type !== "case" && free(x);
   byDesk.eq = byDesk.m.filter((x) => FEED_EQ_RE.test(x.title || ""));
   byDesk.fi = dedupe([...byDesk.fisrc, ...byDesk.m.filter((x) => FEED_FI_RE.test(x.title || ""))].sort(byDateDesc));
   // "Views" — a cross-desk COMMENTARY lane: serious analysis, not headlines. Every
@@ -2596,6 +2601,11 @@ function _dealTitleSet() {
 // (a law firm's own "X advises …" alert next to the deal record written from it — data
 // audit 2026-10-21) is still the one story, so Profiles gives it up too (R50).
 let _dealLinks = null;
+// An item's link, normalised for lane claims (scheme, www, query and trailing slash off).
+function _laneLink(x) {
+  const u = x && (x.href || x.url || x.link || x.sourceUrl);
+  return /^https?:/i.test(String(u || "")) ? String(u).toLowerCase().replace(/^https?:\/\/(www\.)?/, "").split(/[?#]/)[0].replace(/\/+$/, "") : "";
+}
 function _dealLinkSet() {
   if (_dealLinks) return _dealLinks;
   const nu = (u) => String(u || "").toLowerCase().replace(/^https?:\/\/(www\.)?/, "").split(/[?#]/)[0].replace(/\/+$/, "");

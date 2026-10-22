@@ -5,14 +5,36 @@
 // =============================================================================
 export const DIGEST = {
  "asOf": "2026-10-22",
- "built": "2026-10-22T01:38:42.676Z",
+ "built": "2026-10-22T14:40:14.034Z",
  "daily": {
   "label": "Daily",
   "from": "2026-10-21",
   "to": "2026-10-22",
   "deals": {
-   "total": 1,
+   "total": 3,
    "items": [
+    {
+     "id": "d1333",
+     "date": "2026-10-22",
+     "title": "Belk secures $1.275bn senior secured ABL and FILO facilities from Wells Fargo and Pathlight Capital",
+     "url": "https://www.abfjournal.com/belk-secures-1-275b-in-new-financing-from-wells-fargo-and-pathlight-capital/",
+     "src": "abfjournal.com",
+     "who": "Wells Fargo",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1333",
+     "amount": "$1.275bn"
+    },
+    {
+     "id": "d1334",
+     "date": "2026-10-22",
+     "title": "Pivot Energy secures $500m corporate credit facility from Nuveen Energy Infrastructure Capital",
+     "url": "https://www.abfjournal.com/pivot-energy-secures-500mm-corporate-credit-facility-from-nuveen-energy-infrastructure-capital/",
+     "src": "abfjournal.com",
+     "who": "Nuveen Private Capital",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1334",
+     "amount": "$500m"
+    },
     {
      "id": "d1321",
      "date": "2026-10-21",
@@ -43,8 +65,18 @@ export const DIGEST = {
    ]
   },
   "legal": {
-   "total": 1,
+   "total": 4,
    "items": [
+    {
+     "id": "u3836",
+     "date": "2026-10-21",
+     "title": "Restructuring plans: where are we a year on?",
+     "url": "https://www.slaughterandmay.com/insights/new-insights/restructuring-plans-where-are-we-a-year-on/",
+     "src": "slaughterandmay.com",
+     "who": "Slaughter and May",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/slaughtermay"
+    },
     {
      "id": "u3768",
      "date": "2026-10-21",
@@ -54,6 +86,26 @@ export const DIGEST = {
      "who": "Mayer Brown",
      "kind": "R&I alert",
      "href": "/v2/profiles/#/firm/mayerbrown"
+    },
+    {
+     "id": "u3898",
+     "date": "2026-10-21",
+     "title": "Case update: Winding-up following assignment of debt in Hong Kong",
+     "url": "https://www.davispolk.com/insights/client-update/case-update-winding-following-assignment-debt-hong-kong",
+     "src": "davispolk.com",
+     "who": "Davis Polk",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/davispolk"
+    },
+    {
+     "id": "u3899",
+     "date": "2026-10-21",
+     "title": "Weil Earns Top Rankings in Octus EMEA Restructuring League Tables for Q3/9M 2026",
+     "url": "https://www.weil.com/articles/weil-earns-top-rankings-in-octus-emea-restructuring-league-tables-for-q3-9m-2026",
+     "src": "weil.com",
+     "who": "Weil, Gotshal & Manges",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/weil"
     }
    ]
   },
@@ -62,7 +114,7 @@ export const DIGEST = {
    "items": []
   },
   "rates": {
-   "savedAt": "2026-10-21T11:40:34.377Z",
+   "savedAt": "2026-10-22T11:42:38.579Z",
    "items": [
     {
      "label": "SONIA",
@@ -73,40 +125,44 @@ export const DIGEST = {
      "chgUnit": "pp",
      "asOf": "2026-10-12",
      "url": "https://fred.stlouisfed.org/series/IUDSOIA",
-     "src": "fred.stlouisfed.org"
+     "src": "fred.stlouisfed.org",
+     "tone": "bad"
     },
     {
      "label": "SOFR",
-     "value": 3.87,
+     "value": 3.88,
      "unit": "%",
-     "display": 3.87,
-     "chg": -0.01,
+     "display": 3.88,
+     "chg": 0.01,
      "chgUnit": "pp",
-     "asOf": "2026-10-19",
+     "asOf": "2026-10-20",
      "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
-     "src": "newyorkfed.org"
+     "src": "newyorkfed.org",
+     "tone": "good"
     },
     {
      "label": "US 10Y",
-     "value": 5.12,
+     "value": 5.13,
      "unit": "%",
-     "display": 5.12,
-     "chg": -0.03,
+     "display": 5.13,
+     "chg": 0.01,
      "chgUnit": "pp",
-     "asOf": "2026-10-20",
+     "asOf": "2026-10-21",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
-     "src": "home.treasury.gov"
+     "src": "home.treasury.gov",
+     "tone": "good"
     },
     {
      "label": "US 2Y",
-     "value": 4.79,
+     "value": 4.81,
      "unit": "%",
-     "display": 4.79,
+     "display": 4.81,
      "chg": 0.02,
      "chgUnit": "pp",
-     "asOf": "2026-10-20",
+     "asOf": "2026-10-21",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
-     "src": "home.treasury.gov"
+     "src": "home.treasury.gov",
+     "tone": "good"
     },
     {
      "label": "US IG OAS",
@@ -117,7 +173,8 @@ export const DIGEST = {
      "chgUnit": "bp",
      "asOf": "2026-10-13",
      "url": "https://fred.stlouisfed.org/series/BAMLC0A0CM",
-     "src": "fred.stlouisfed.org"
+     "src": "fred.stlouisfed.org",
+     "tone": "flat"
     },
     {
      "label": "US HY OAS",
@@ -128,7 +185,8 @@ export const DIGEST = {
      "chgUnit": "bp",
      "asOf": "2026-10-13",
      "url": "https://fred.stlouisfed.org/series/BAMLH0A0HYM2",
-     "src": "fred.stlouisfed.org"
+     "src": "fred.stlouisfed.org",
+     "tone": "bad"
     },
     {
      "label": "US CCC OAS",
@@ -139,7 +197,8 @@ export const DIGEST = {
      "chgUnit": "bp",
      "asOf": "2026-10-13",
      "url": "https://fred.stlouisfed.org/series/BAMLH0A3HYC",
-     "src": "fred.stlouisfed.org"
+     "src": "fred.stlouisfed.org",
+     "tone": "bad"
     },
     {
      "label": "EURO HY OAS",
@@ -150,7 +209,8 @@ export const DIGEST = {
      "chgUnit": "bp",
      "asOf": "2026-10-13",
      "url": "https://fred.stlouisfed.org/series/BAMLHE00EHYIOAS",
-     "src": "fred.stlouisfed.org"
+     "src": "fred.stlouisfed.org",
+     "tone": "bad"
     },
     {
      "label": "ECB deposit rate",
@@ -159,20 +219,22 @@ export const DIGEST = {
      "display": 2.5,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-21",
+     "asOf": "2026-10-22",
      "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
-     "src": "data.ecb.europa.eu"
+     "src": "data.ecb.europa.eu",
+     "tone": "flat"
     },
     {
      "label": "€STR",
      "value": 2.44,
      "unit": "%",
      "display": 2.44,
-     "chg": -0.001,
+     "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-20",
+     "asOf": "2026-10-21",
      "url": "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT",
-     "src": "data.ecb.europa.eu"
+     "src": "data.ecb.europa.eu",
+     "tone": "flat"
     },
     {
      "label": "BoE Bank Rate",
@@ -181,9 +243,10 @@ export const DIGEST = {
      "display": 3.75,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-20",
+     "asOf": "2026-10-21",
      "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
-     "src": "bankofengland.co.uk"
+     "src": "bankofengland.co.uk",
+     "tone": "flat"
     }
    ]
   }
@@ -193,7 +256,7 @@ export const DIGEST = {
   "from": "2026-10-16",
   "to": "2026-10-22",
   "deals": {
-   "total": 7,
+   "total": 11,
    "items": [
     {
      "id": "d1234",
@@ -205,6 +268,50 @@ export const DIGEST = {
      "kind": "NPL / Portfolio",
      "href": "/v2/transactions/#/deal/d1234",
      "amount": "$7.7bn"
+    },
+    {
+     "id": "d1335",
+     "date": "2026-10-19",
+     "title": "KKR to sell Infinity Transportation to Ares for $2.9 billion",
+     "url": "https://www.businesswire.com/news/home/20261019755280/en/KKR-to-Sell-Infinity-Transportation-to-Ares-for-$2.9-Billion",
+     "src": "businesswire.com",
+     "who": "KKR (KKR Credit)",
+     "kind": "Disposal / Exit",
+     "href": "/v2/transactions/#/deal/d1335",
+     "amount": "$2.9 billion"
+    },
+    {
+     "id": "d1332",
+     "date": "2026-10-19",
+     "title": "SOCAR Türkiye secures $1.6B in refinancing led by FAB, Mizuho",
+     "url": "https://www.trend.az/azerbaijan/4236613.html",
+     "src": "trend.az",
+     "who": "Mizuho",
+     "kind": "Refinancing",
+     "href": "/v2/transactions/#/deal/d1332",
+     "amount": "$1.6B"
+    },
+    {
+     "id": "d1333",
+     "date": "2026-10-22",
+     "title": "Belk secures $1.275bn senior secured ABL and FILO facilities from Wells Fargo and Pathlight Capital",
+     "url": "https://www.abfjournal.com/belk-secures-1-275b-in-new-financing-from-wells-fargo-and-pathlight-capital/",
+     "src": "abfjournal.com",
+     "who": "Wells Fargo",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1333",
+     "amount": "$1.275bn"
+    },
+    {
+     "id": "d1334",
+     "date": "2026-10-22",
+     "title": "Pivot Energy secures $500m corporate credit facility from Nuveen Energy Infrastructure Capital",
+     "url": "https://www.abfjournal.com/pivot-energy-secures-500mm-corporate-credit-facility-from-nuveen-energy-infrastructure-capital/",
+     "src": "abfjournal.com",
+     "who": "Nuveen Private Capital",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1334",
+     "amount": "$500m"
     },
     {
      "id": "d1233",
@@ -260,17 +367,6 @@ export const DIGEST = {
      "kind": "Financing",
      "href": "/v2/transactions/#/deal/d1322",
      "amount": "$20m"
-    },
-    {
-     "id": "d1321",
-     "date": "2026-10-21",
-     "title": "Eiffel Investment Group provides financing for Bencis' partnership with KODIAK",
-     "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-eiffel-investment-group-on-financing-of-bencis-partnership-with-kodiak",
-     "src": "hlc.com",
-     "who": "Eiffel Investment Group",
-     "kind": "Financing",
-     "href": "/v2/transactions/#/deal/d1321",
-     "amount": null
     }
    ]
   },
@@ -313,7 +409,7 @@ export const DIGEST = {
    ]
   },
   "legal": {
-   "total": 8,
+   "total": 11,
    "items": [
     {
      "id": "c296",
@@ -356,6 +452,16 @@ export const DIGEST = {
      "href": null
     },
     {
+     "id": "u3836",
+     "date": "2026-10-21",
+     "title": "Restructuring plans: where are we a year on?",
+     "url": "https://www.slaughterandmay.com/insights/new-insights/restructuring-plans-where-are-we-a-year-on/",
+     "src": "slaughterandmay.com",
+     "who": "Slaughter and May",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/slaughtermay"
+    },
+    {
      "id": "u3768",
      "date": "2026-10-21",
      "title": "Liability Management and Special Situations: When Traditional Finance Falls Short",
@@ -364,6 +470,26 @@ export const DIGEST = {
      "who": "Mayer Brown",
      "kind": "R&I alert",
      "href": "/v2/profiles/#/firm/mayerbrown"
+    },
+    {
+     "id": "u3898",
+     "date": "2026-10-21",
+     "title": "Case update: Winding-up following assignment of debt in Hong Kong",
+     "url": "https://www.davispolk.com/insights/client-update/case-update-winding-following-assignment-debt-hong-kong",
+     "src": "davispolk.com",
+     "who": "Davis Polk",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/davispolk"
+    },
+    {
+     "id": "u3899",
+     "date": "2026-10-21",
+     "title": "Weil Earns Top Rankings in Octus EMEA Restructuring League Tables for Q3/9M 2026",
+     "url": "https://www.weil.com/articles/weil-earns-top-rankings-in-octus-emea-restructuring-league-tables-for-q3-9m-2026",
+     "src": "weil.com",
+     "who": "Weil, Gotshal & Manges",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/weil"
     },
     {
      "id": "u3490",
@@ -384,16 +510,6 @@ export const DIGEST = {
      "who": "Weil, Gotshal & Manges",
      "kind": "R&I alert",
      "href": "/v2/profiles/#/firm/weil"
-    },
-    {
-     "id": "u3059",
-     "date": "2026-10-16",
-     "title": "Key developments and trends in DIP financing (2025/2026)",
-     "url": "https://www.davispolk.com/insights/articles-books/key-developments-and-trends-dip-financing-2025-2026",
-     "src": "davispolk.com",
-     "who": "Davis Polk",
-     "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/davispolk"
     }
    ]
   },
@@ -443,7 +559,7 @@ export const DIGEST = {
    ]
   },
   "rates": {
-   "savedAt": "2026-10-21T11:40:34.377Z",
+   "savedAt": "2026-10-22T11:42:38.579Z",
    "items": [
     {
      "label": "SONIA",
@@ -454,40 +570,44 @@ export const DIGEST = {
      "chgUnit": "pp",
      "asOf": "2026-10-12",
      "url": "https://fred.stlouisfed.org/series/IUDSOIA",
-     "src": "fred.stlouisfed.org"
+     "src": "fred.stlouisfed.org",
+     "tone": "flat"
     },
     {
      "label": "SOFR",
-     "value": 3.87,
+     "value": 3.88,
      "unit": "%",
-     "display": 3.87,
-     "chg": 0,
+     "display": 3.88,
+     "chg": -0.01,
      "chgUnit": "pp",
-     "asOf": "2026-10-19",
+     "asOf": "2026-10-20",
      "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
-     "src": "newyorkfed.org"
+     "src": "newyorkfed.org",
+     "tone": "bad"
     },
     {
      "label": "US 10Y",
-     "value": 5.12,
+     "value": 5.13,
      "unit": "%",
-     "display": 5.12,
-     "chg": -0.09,
+     "display": 5.13,
+     "chg": -0.06,
      "chgUnit": "pp",
-     "asOf": "2026-10-20",
+     "asOf": "2026-10-21",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
-     "src": "home.treasury.gov"
+     "src": "home.treasury.gov",
+     "tone": "bad"
     },
     {
      "label": "US 2Y",
-     "value": 4.79,
+     "value": 4.81,
      "unit": "%",
-     "display": 4.79,
-     "chg": 0,
+     "display": 4.81,
+     "chg": -0.01,
      "chgUnit": "pp",
-     "asOf": "2026-10-20",
+     "asOf": "2026-10-21",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
-     "src": "home.treasury.gov"
+     "src": "home.treasury.gov",
+     "tone": "bad"
     },
     {
      "label": "US IG OAS",
@@ -498,7 +618,8 @@ export const DIGEST = {
      "chgUnit": "bp",
      "asOf": "2026-10-13",
      "url": "https://fred.stlouisfed.org/series/BAMLC0A0CM",
-     "src": "fred.stlouisfed.org"
+     "src": "fred.stlouisfed.org",
+     "tone": "flat"
     },
     {
      "label": "US HY OAS",
@@ -509,7 +630,8 @@ export const DIGEST = {
      "chgUnit": "bp",
      "asOf": "2026-10-13",
      "url": "https://fred.stlouisfed.org/series/BAMLH0A0HYM2",
-     "src": "fred.stlouisfed.org"
+     "src": "fred.stlouisfed.org",
+     "tone": "bad"
     },
     {
      "label": "US CCC OAS",
@@ -520,7 +642,8 @@ export const DIGEST = {
      "chgUnit": "bp",
      "asOf": "2026-10-13",
      "url": "https://fred.stlouisfed.org/series/BAMLH0A3HYC",
-     "src": "fred.stlouisfed.org"
+     "src": "fred.stlouisfed.org",
+     "tone": "bad"
     },
     {
      "label": "EURO HY OAS",
@@ -531,7 +654,8 @@ export const DIGEST = {
      "chgUnit": "bp",
      "asOf": "2026-10-13",
      "url": "https://fred.stlouisfed.org/series/BAMLHE00EHYIOAS",
-     "src": "fred.stlouisfed.org"
+     "src": "fred.stlouisfed.org",
+     "tone": "bad"
     },
     {
      "label": "ECB deposit rate",
@@ -540,20 +664,22 @@ export const DIGEST = {
      "display": 2.5,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-21",
+     "asOf": "2026-10-22",
      "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
-     "src": "data.ecb.europa.eu"
+     "src": "data.ecb.europa.eu",
+     "tone": "flat"
     },
     {
      "label": "€STR",
      "value": 2.44,
      "unit": "%",
      "display": 2.44,
-     "chg": 0.001,
+     "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-20",
+     "asOf": "2026-10-21",
      "url": "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT",
-     "src": "data.ecb.europa.eu"
+     "src": "data.ecb.europa.eu",
+     "tone": "flat"
     },
     {
      "label": "BoE Bank Rate",
@@ -562,9 +688,10 @@ export const DIGEST = {
      "display": 3.75,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-20",
+     "asOf": "2026-10-21",
      "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
-     "src": "bankofengland.co.uk"
+     "src": "bankofengland.co.uk",
+     "tone": "flat"
     }
    ]
   }

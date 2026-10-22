@@ -31,12 +31,15 @@ function itemHTML(x) {
 function ratesHTML(R, mode) {
   if (!R || !R.items || !R.items.length) return "";
   const sign = (v) => (v > 0 ? "+" : v < 0 ? "−" : "±") + String(Math.abs(v));
-  const cls = (v) => (v > 0 ? "is-up" : v < 0 ? "is-down" : "is-flat");
+  // Colour by the item's tone (build-digest rateTone): a spread widening reads red, a rate
+  // rising green. Older digest files carry no tone → by sign, spreads inverted.
+  const TONE = { good: "is-up", bad: "is-down", flat: "is-flat" };
+  const cls = (x) => TONE[x.tone] || (!x.chg ? "is-flat" : ((x.unit === "bp") !== (x.chg > 0)) ? "is-up" : "is-down");
   return `<div class="dg-sec" data-dg="rates"><div class="na-menu-recent-h">Rates &amp; spreads <span class="dg-sub">${mode === "weekly" ? "1-week" : "1-day"} change</span></div>`
     + `<table class="dg-rates"><tbody>`
     + R.items.map((x) => `<tr><td class="dg-r-nm"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a></td>`
       + `<td class="dg-r-v">${esc(String(x.display))}${x.unit === "bp" ? "bp" : "%"}</td>`
-      + `<td class="dg-r-c ${cls(x.chg)}">${sign(x.chg)}${x.chgUnit === "bp" ? "bp" : ""}</td>`
+      + `<td class="dg-r-c ${cls(x)}">${sign(x.chg)}${x.chgUnit === "bp" ? "bp" : ""}</td>`
       + `<td class="dg-r-d">${esc(fmtDay(x.asOf))}</td></tr>`).join("")
     + `</tbody></table>`
     + (R.savedAt ? `<p class="dg-note">Last-known values committed ${esc(fmtStamp(R.savedAt))}.</p>` : "")
