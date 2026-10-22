@@ -100,12 +100,12 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-22",
-  time: "07:10 BST",
+  time: "09:10 BST",
   lede: "Wall Street closed higher on AI earnings, with the Nasdaq up 1% and the S&P 500 up 0.6%, while France's 10-year yield topped 5% for the first time since 2002 and UK inflation at 3.5% firmed bets on a Bank of England hike on 5 November.",
   bullets: [
     { html: "<strong>Macro &mdash; UK CPI rose to 3.5% in September</strong> from 3.1% in August (consensus 3.4%), with petrol up 29.8% on the year and core at 2.8%; markets expect the Bank of England to hike from 3.75% on 5 November, while the US 10-year yield sits near 5.1%.", src: "https://www.fxstreet.com/news/uk-cpi-set-to-accelerate-paving-the-way-for-a-boe-interest-rate-hike-in-november-202610210200", srcName: "FXStreet", date: "2026-10-21" },
     { html: "<strong>Bonds &mdash; France&rsquo;s 10-year borrowing costs hit 5%</strong> for the first time since 2002, while UK September inflation at 3.5% fuelled expectations of an imminent Bank of England rate rise.", src: "https://www.ft.com/content/76f076e4-9db2-4971-8ac9-73d9f39e4876", srcName: "Financial Times", date: "2026-10-21" },
-    { html: "<strong>Equities &mdash; The Nasdaq rose 1%, the Dow 0.7% and the S&amp;P 500 0.6%</strong> as SpaceX and Super Micro results lifted AI sentiment; tech gained 1.6% on the S&amp;P 500, while Meta rose 4% and IBM 7% after the bell.", src: "https://www.reuters.com/newsletters/trading-day", srcName: "Reuters (Trading Day)", date: "2026-10-21" },
+    { html: "<strong>Equities &mdash; The S&amp;P 500 closed up 0.6% at 7,757, the Nasdaq up 1.05% at 26,703 and the Dow up 0.7% at 52,856</strong> as SpaceX and Super Micro results revived the AI trade; the 10-year Treasury yield held near 5.1%.", src: "https://www.bbntimes.com/global-economy/north-american-stock-markets-today-s-p-500-dow-jones-nasdaq-and-tsx-rise-as-spacex-and-super-micro-revive-the-ai-trade", srcName: "BBN Times", date: "2026-10-21" },
     { html: "<strong>Credit &mdash; Oracle five-year CDS now costs about 3.3% a year,</strong> against about 0.33% five years ago, as more than $9bn a week of CDS tied to AI-linked issuers traded in September, up from under $2bn in July, per Morgan Stanley Research cited by the FT.", src: "https://bloom.bg/4z1tpy0", srcName: "Bloomberg (Money Stuff)", date: "2026-10-20" },
     { html: "<strong>Credit &mdash; Thames Water and some creditors offered Pimco a compromise</strong> on a plan to raise &pound;2.4bn of extra rescue debt, lifting its super-senior facility to &pound;5.4bn: the first &pound;600m would be shared across three creditor groups, the remaining &pound;1.8bn among super-senior holders.", src: "https://www.bloomberg.com/news/articles/2026-10-20/thames-water-creditors-offer-pimco-a-compromise-on-new-debt", srcName: "Bloomberg", date: "2026-10-20" },
   ],
