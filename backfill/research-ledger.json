@@ -11136,6 +11136,49 @@
      "to": "hq"
     }
    ]
+  },
+  {
+   "at": "2026-10-22",
+   "collection": "funds",
+   "id": "f310",
+   "verdict": "CONFIRMED",
+   "source": "https://www.blackstone.com/news/press/blackstone-closes-flagship-opportunistic-credit-fund-at-over-10b-hitting-hard-cap/",
+   "sourceLabel": "Blackstone press release (final close of COF V, 7 Apr 2026)",
+   "asOf": "2026-04-07",
+   "evidence": "Blackstone announced the final close of Blackstone Capital Opportunities Fund V on 7 Apr 2026: oversubscribed, hard cap, over US$10bn; matches held status Final Close and raised=10000 USD.",
+   "changes": [
+    {
+     "field": "lastChecked",
+     "from": null,
+     "to": {
+      "date": "2026-10-22",
+      "url": "https://www.blackstone.com/news/press/blackstone-closes-flagship-opportunistic-credit-fund-at-over-10b-hitting-hard-cap/"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-22",
+   "collection": "firms",
+   "id": "freshfields",
+   "verdict": "CONFIRMED",
+   "source": "https://www.legalcheek.com/2025/12/freshfields-profits-slip-despite-rising-revenue/",
+   "sourceLabel": "Legal Cheek on Freshfields' accounts to 30 Apr 2025",
+   "asOf": "2025-04-30",
+   "evidence": "FY2024/25 (income GBP 2.25bn) remains the latest published set; no FY2026 figures found.",
+   "changes": [
+    {
+     "field": "lastChecked",
+     "from": {
+      "date": "2026-10-21",
+      "url": "https://www.legalcheek.com/2025/12/freshfields-profits-slip-despite-rising-revenue/"
+     },
+     "to": {
+      "date": "2026-10-22",
+      "url": "https://www.legalcheek.com/2025/12/freshfields-profits-slip-despite-rising-revenue/"
+     }
+    }
+   ]
   }
  ]
 }

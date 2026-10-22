@@ -2772,6 +2772,36 @@
    "status": "rejected",
    "reason": "PE/strategic acquisition by OTPP-backed company, not a private-credit allocation; held as legal item u3834",
    "at": "2026-10-22T05:17:55.517Z"
+  },
+  {
+   "url": "https://www.abfjournal.com/belk-secures-1-275b-in-new-financing-from-wells-fargo-and-pathlight-capital/",
+   "status": "recorded",
+   "recordId": "d1333",
+   "at": "2026-10-22T07:21:19.132Z"
+  },
+  {
+   "url": "https://www.abfjournal.com/channel-and-cibc-bank-usa-expand-long-term-financing-partnership-to-135mm/",
+   "status": "rejected",
+   "reason": "article is about Channel (equipment finance) and CIBC Bank USA; the tagged managers (m175/m454/m455) are not named in it",
+   "at": "2026-10-22T07:21:19.132Z"
+  },
+  {
+   "url": "https://www.abfjournal.com/pivot-energy-secures-500mm-corporate-credit-facility-from-nuveen-energy-infrastructure-capital/",
+   "status": "recorded",
+   "recordId": "d1334",
+   "at": "2026-10-22T07:21:19.132Z"
+  },
+  {
+   "url": "https://www.euronews.com/2026/10/22/teslas-profit-drops-as-it-explores-a-possible-merger-with-musks-other-public-company-space",
+   "status": "rejected",
+   "reason": "Tesla earnings / possible merger story, not a credit-stress or debt event for SpaceX",
+   "at": "2026-10-22T07:21:19.132Z"
+  },
+  {
+   "url": "https://hedgenordic.com/2026/09/varma-practical-considerations-for-embracing-a-total-portfolio-view/",
+   "status": "rejected",
+   "reason": "opinion piece; no dated Varma allocation or commitment",
+   "at": "2026-10-22T07:21:19.132Z"
   }
  ]
 }

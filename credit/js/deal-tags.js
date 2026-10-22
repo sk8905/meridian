@@ -1212,6 +1212,9 @@ const T = {
   d1329: {"c":"France","s":"Financial services","a":"portfolio","p":"BNP Paribas Personal Finance","r":"seller"},
   d1330: {"c":"UK","s":"Real estate","a":null,"p":"Saltwater Place and Mary Parker House","r":"target"},
   d1331: {"c":"Spain","s":"Financial services","a":"financing","p":"Novicap","r":"borrower"},
+  d1333: {"c":"US","s":"Consumer & retail","a":"financing","p":"Belk","r":"borrower"},
+  d1334: {"c":"US","s":"Infrastructure & energy","a":"financing","p":"Pivot Energy","r":"borrower"},
+  d1335: {"c":"US","s":"Industrials","a":"ev","p":"Infinity Transportation","r":"target"},
 };
 // A role (r) without a party name (p) labels the deal's own audited `borrower` (data audit
 // 2026-10-21: manager M&A → Target, fund closes / CVs → Fund / vehicle, CLOs → Issuer).
