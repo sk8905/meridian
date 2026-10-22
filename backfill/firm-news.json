@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-21T23:40:21.014Z",
- "since": "2026-10-07",
+ "generated": "2026-10-22T05:15:47.404Z",
+ "since": "2026-10-08",
  "firms": {
   "proskauerrose": {
    "domains": [
@@ -26,20 +26,22 @@
     "www.freshfields.com"
    ],
    "sitemaps": 5,
-   "urls": 7365,
-   "kept": 2,
-   "fetched": 2,
+   "urls": 7443,
+   "kept": 10,
+   "fetched": 10,
    "errors": 0,
    "carried": 0
   },
-  "slaughtermay": {
+  "linklaters": {
    "domains": [
-    "www.slaughterandmay.com"
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
    ],
-   "sitemaps": 1,
-   "urls": 6309,
-   "kept": 6,
-   "fetched": 6,
+   "sitemaps": 6,
+   "urls": 17810,
+   "kept": 5,
+   "fetched": 5,
    "errors": 0,
    "carried": 0
   },
@@ -48,7 +50,7 @@
     "www.ashurst.com"
    ],
    "sitemaps": 1,
-   "urls": 5655,
+   "urls": 5659,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -62,16 +64,14 @@
    ],
    "carried": 0
   },
-  "linklaters": {
+  "slaughtermay": {
    "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
+    "www.slaughterandmay.com"
    ],
-   "sitemaps": 6,
-   "urls": 17809,
-   "kept": 5,
-   "fetched": 5,
+   "sitemaps": 1,
+   "urls": 6309,
+   "kept": 6,
+   "fetched": 6,
    "errors": 0,
    "carried": 0
   },
@@ -84,6 +84,17 @@
    "kept": 0,
    "fetched": 0,
    "errors": 1,
+   "carried": 0
+  },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5022,
+   "kept": 5,
+   "fetched": 5,
+   "errors": 0,
    "carried": 0
   },
   "macfarlanes": {
@@ -108,17 +119,6 @@
    "errors": 0,
    "samples": [],
    "disallowed": 1,
-   "carried": 0
-  },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5022,
-   "kept": 6,
-   "fetched": 6,
-   "errors": 0,
    "carried": 0
   },
   "aoshearman": {
@@ -150,7 +150,7 @@
     "www.kirkland.com"
    ],
    "sitemaps": 11,
-   "urls": 17434,
+   "urls": 17435,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -161,9 +161,9 @@
     "www.whitecase.com"
    ],
    "sitemaps": 11,
-   "urls": 10406,
-   "kept": 26,
-   "fetched": 26,
+   "urls": 10413,
+   "kept": 22,
+   "fetched": 22,
    "errors": 0,
    "carried": 0
   },
@@ -171,11 +171,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 5,
-   "urls": 6779,
+   "sitemaps": 7,
+   "urls": 7595,
    "kept": 2,
    "fetched": 2,
-   "errors": 12,
+   "errors": 10,
    "carried": 0
   },
   "ropesgray": {
@@ -214,9 +214,9 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16231,
-   "kept": 8,
-   "fetched": 8,
+   "urls": 16234,
+   "kept": 10,
+   "fetched": 10,
    "errors": 0,
    "carried": 0
   },
@@ -406,10 +406,37 @@
    "lastmod": null
   },
   {
+   "firm": "whitecase",
+   "url": "https://www.whitecase.com/news/press-release/white-case-advises-pep-credit-a175-million-debt-facilities-corporate-travel",
+   "title": "White & Case advises PEP Credit on A$175 million debt facilities for Corporate Travel Management",
+   "description": "Global law firm White & Case LLP has advised the credit division of Pacific Equity Partners (PEP Credit) on the provision of A$175 million of debt facilities to Corporate Travel Management Limited (CTM).",
+   "date": "2026-10-21",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-21"
+  },
+  {
+   "firm": "whitecase",
+   "url": "https://www.whitecase.com/news/media/lawcom-white-case-builds-its-mena-ipo-track-record-amid-market-drought",
+   "title": "Law.com",
+   "description": "Law.com reports that White & Case is building on its Middle East and North Africa (MENA) IPO track record and is one of the few international firms that continues to advise on notable IPOs in MENA at a time when new listings are relatively scarce.",
+   "date": "2026-10-21",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-21"
+  },
+  {
    "firm": "sidley",
    "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/sec-approves-finra-rule-change-permitting-projected-performance-and-targeted-returns",
    "title": "SEC Approves FINRA Rule Change Permitting Projected Performance and Targeted Returns in Broker-Dealer Communications",
    "description": null,
+   "date": "2026-10-21",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-21"
+  },
+  {
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/insights/client-update/case-update-winding-following-assignment-debt-hong-kong",
+   "title": "Case update: Winding-up following assignment of debt in Hong Kong",
+   "description": "The Hong Kong Court of Final Appeal confirmed that the court can grant or uphold a winding-up order where the petitioner has assigned its debt to a third...",
    "date": "2026-10-21",
    "dateSource": "datePublished",
    "lastmod": "2026-10-21"
@@ -460,6 +487,15 @@
    "lastmod": null
   },
   {
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/podcasts/the-ai-drop/the-ai-drop-27-on-the-front-lines-tracking-ai-regulation-from-california-to-new-york-with-megan-kayo",
+   "title": "The AI Drop™ #27: California and New York AI Regulation",
+   "description": "How are California and New York regulating AI? Anna Gressel and Megan Kayo discuss new state laws, governance requirements and business compliance risks.",
+   "date": "2026-10-20",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-20"
+  },
+  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/expertise-in-practice/",
    "title": "Expertise in practice",
@@ -479,13 +515,23 @@
    "lastmod": "2026-10-21"
   },
   {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/new-insights/tax-and-the-city-october-2026/",
-   "title": "Tax and the city - October 2026",
-   "description": "Tax and the City - October 2026",
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-bolsters-u.s.-life-sciences-practice-with-partner-carlo-felizardo-in-washington",
+   "title": "Freshfields Adds FDA Regulatory Partner Carlo Felizardo",
+   "description": "FDA regulatory partner Carlo Felizardo joins Freshfields in Washington, expanding its transactional support for life sciences companies and investors.",
    "date": "2026-10-19",
-   "dateSource": "<time datetime>",
+   "dateSource": "datePublished",
    "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/campaigns/capital-as-a-catalyst-investments-that-shape-markets-and-momentum",
+   "title": "Capital as a catalyst: investments that shape markets and momentum",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-19",
+   "dateProbe": []
   },
   {
    "firm": "linklaters",
@@ -494,6 +540,15 @@
    "description": "Explore key issues for defined benefit pension schemes, including surplus, endgame planning, Virgin Media, cyber risk and trustee governance.",
    "date": "2026-10-19",
    "dateSource": "page date label",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "slaughtermay",
+   "url": "https://www.slaughterandmay.com/insights/new-insights/tax-and-the-city-october-2026/",
+   "title": "Tax and the city - October 2026",
+   "description": "Tax and the City - October 2026",
+   "date": "2026-10-19",
+   "dateSource": "<time datetime>",
    "lastmod": "2026-10-19"
   },
   {
@@ -580,15 +635,6 @@
    ]
   },
   {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
-   "title": "Incorporating an LLP: direct tax considerations",
-   "description": "In an article for Tax Journal, Partner Joe Robinson and Associate Harvey Innocent explain how LLP members may defer gains when...",
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
-  },
-  {
    "firm": "traverssmith",
    "url": "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-venture-insights-the-changing-shape-of-venture-capital/",
    "title": "Travers Smith's Venture Insights: The changing shape of Venture Capital",
@@ -598,13 +644,13 @@
    "lastmod": "2026-10-16"
   },
   {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/venture-capital-insights/",
-   "title": "Venture Capital Insights",
-   "description": null,
+   "firm": "macfarlanes",
+   "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
+   "title": "Incorporating an LLP: direct tax considerations",
+   "description": "In an article for Tax Journal, Partner Joe Robinson and Associate Harvey Innocent explain how LLP members may defer gains when...",
    "date": "2026-10-16",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-07"
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
   },
   {
    "firm": "kirkland",
@@ -634,15 +680,35 @@
    "lastmod": "2026-10-16"
   },
   {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/client-case-studies/cpp-investments-and-equinix-s-us-4bn-joint-acquisition/",
-   "title": "CPP Investments and Equinix’s US$4bn joint acquisition",
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-all-for-one-group-on-planned-delisting",
+   "title": "Freshfields advises All for One Group on planned delisting",
+   "description": null,
+   "date": "2026-10-15",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-penske-automotive-group-in-its-$16.3bn-take-private-acquisition-by-penske-corporation-and-mitsui-co",
+   "title": "Freshfields Advises Penske Automotive Group on $16.3bn Take-Private",
+   "description": "Freshfields is advising Penske Automotive Group on its $16.3 billion take-private acquisition by Penske Corporation and Mitsui & Co.",
+   "date": "2026-10-15",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/podcasts/perspectives-from-paris/perspectives-from-paris-1-ia-et-infrastructures-digitales-un-nouveau-cycle-dinvestissement",
+   "title": "Perspectives from Paris #1: IA et infrastructures digitales, un nouveau cycle d’investissement",
    "description": null,
    "date": null,
    "dateSource": null,
    "lastmod": "2026-10-15",
    "dateProbe": [
-    "td style=\"width: 49.9044%; border-style: none; padding: 20px;\"> <p>On 27 February 2026, Canada Pension Pla"
+    "podcasts/essential-antitrust\\\",\\\"expanded\\\":null}\\n4ff:{\\\"text\\\":\\\"On 6 April 2025, key consumer prote",
+    ":\\\"richText\\\",\\\"children\\\":\\\"$4fc\\\"}\\n4fa:{\\\"html\\\":\\\"\\u003cp\\u003eOn 6 April 2025, key consumer prote",
+    "podcasts/essential-antitrust\\\",\\\"expanded\\\":null}\\n535:{\\\"text\\\":\\\"On October 10, 2024 the US Federal Trad"
    ]
   },
   {
@@ -653,6 +719,18 @@
    "date": "2026-10-15",
    "dateSource": "page date label",
    "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "slaughtermay",
+   "url": "https://www.slaughterandmay.com/insights/client-case-studies/cpp-investments-and-equinix-s-us-4bn-joint-acquisition/",
+   "title": "CPP Investments and Equinix’s US$4bn joint acquisition",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-15",
+   "dateProbe": [
+    "td style=\"width: 49.9044%; border-style: none; padding: 20px;\"> <p>On 27 February 2026, Canada Pension Pla"
+   ]
   },
   {
    "firm": "latham",
@@ -678,6 +756,33 @@
    "title": "Chambers UK 2027 ranks 31 Mayer Brown practices and 67 lawyers",
    "description": "London – The 2027 edition of Chambers UK has ranked Mayer Brown in 31 practice areas. Of these rankings, three are in the top tier: Asset",
    "date": "2026-10-15",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-bnp-paribas-and-unicredit-on-slv-refinancing",
+   "title": "Freshfields advises BNP Paribas and UniCredit on SLV refinancing",
+   "description": "Global law firm Freshfields has advised BNP Paribas and UniCredit as super senior revolving facility lenders on the refinancing of SLV Lighting Group.",
+   "date": "2026-10-14",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-tristar-group-on-aegis-logistics-proposed-us$809-million-acquisition-of-an-89.8-stake",
+   "title": "Freshfields advises Tristar Group on Aegis Logistics’ proposed US$809 million acquisition of an 89.8% stake",
+   "description": null,
+   "date": "2026-10-14",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-euricom-on-the-acquisition-of-mullers-muhle",
+   "title": "Freshfields Advises Euricom on the Acquisition of Müller’s Mühle",
+   "description": null,
+   "date": "2026-10-14",
    "dateSource": "datePublished",
    "lastmod": "2026-10-15"
   },
@@ -855,45 +960,6 @@
    "date": "2026-10-08",
    "dateSource": "datePublished",
    "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/media/cnbc-uk-leading-destination-defense-tech-investment",
-   "title": "CNBC | UK is a leading destination for defense tech investment",
-   "description": "White & Case partner Angus Nunn was interviewed on CNBC's Squawk Box about White & Case's new Defense Technology Sector Report.",
-   "date": "2026-10-07",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/publications/insight/us-infrastructure-2021",
-   "title": "US infrastructure 2021 – 22: The path to growth",
-   "description": "Our survey shows investment in infrastructure assets looks set to accelerate with an anticipated boost from the US infrastructure bill and a growing focus on sustainability and technology",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07",
-   "dateProbe": []
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/publications/insight/global-ipos-blockbuster-year",
-   "title": "Global IPOs: A blockbuster year",
-   "description": "IPOs boomed in 2021, with both the number of new listings and the total proceeds raised breaking records. But dealmakers face a tougher road ahead.",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07",
-   "dateProbe": []
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/publications/insight/financial-ma-july-2022",
-   "title": "Financial institutions M&A: Sector trends - July 2022",
-   "description": "We highlight the key UK & European M&A trends in H2 2021 and H1 2022, and provide our insights into the outlook for M&A moving forward.",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07",
-   "dateProbe": []
   },
   {
    "firm": "kirkland",
