@@ -11038,6 +11038,104 @@
      }
     }
    ]
+  },
+  {
+   "at": "2026-10-22",
+   "collection": "HEDGE_FUNDS",
+   "id": "h106",
+   "verdict": "CONFIRMED_REDATED",
+   "source": "https://www.brummer.se/siteassets/document/english/funds/brummer-multi-strategy/onshore-engelska/2025/bms_semiannual_report_2025_eng.pdf",
+   "sourceLabel": "Brummer Multi-Strategy Semi-Annual Report 2025",
+   "asOf": "2025-06-30",
+   "evidence": "Firm's own semi-annual report states for Brummer & Partners: AUM USD 12bn, figures as of 30 June 2025.",
+   "changes": [
+    {
+     "field": "aumAsOf",
+     "from": "2021-06",
+     "to": "2025-06-30"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://www.bloomberg.com/news/articles/2021-06-15/hedge-fund-brummer-partners-expands-its-top-management",
+     "to": "https://www.brummer.se/siteassets/document/english/funds/brummer-multi-strategy/onshore-engelska/2025/bms_semiannual_report_2025_eng.pdf"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-22",
+   "collection": "HEDGE_FUNDS",
+   "id": "h3",
+   "verdict": "SOURCE_UPGRADE",
+   "source": "https://www.bloomberg.com/news/features/2026-09-07/millennium-nears-100-billion-as-izzy-englander-s-hedge-fund-passes-rivals",
+   "sourceLabel": "Bloomberg, 2026-09-07",
+   "asOf": "2026-09-07",
+   "evidence": "HEDGE_INTEL hi157 (Bloomberg 2026-09-07) reports assets about $97bn, equal to the profile aum; source and date copied back.",
+   "changes": [
+    {
+     "field": "aumAsOf",
+     "from": "2026-09",
+     "to": "2026-09-07"
+    },
+    {
+     "field": "aumSource",
+     "from": "https://hedgeweek.com/news/millenniums-20bn-capital-raise-attracts-more-than-30bn-of-investor-demand",
+     "to": "https://www.bloomberg.com/news/features/2026-09-07/millennium-nears-100-billion-as-izzy-englander-s-hedge-fund-passes-rivals"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-22",
+   "collection": "DEAL_TAGS",
+   "id": "d1041",
+   "verdict": "GAP_FILLED",
+   "source": "https://www.clearwatercf.com/experience/transactions/clearwater-advises-chequers-capital-on-raising-finance-to-support-the-acquisition-of-nayak/",
+   "sourceLabel": "Clearwater International deal page (Chequers/Nayak)",
+   "asOf": "2024-02-16",
+   "evidence": "Clearwater page describes Nayak headquartered in Düsseldorf, Germany.",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "Germany"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.clearwatercf.com/experience/transactions/clearwater-advises-chequers-capital-on-raising-finance-to-support-the-acquisition-of-nayak/"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "hq"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-22",
+   "collection": "DEAL_TAGS",
+   "id": "d1322",
+   "verdict": "GAP_FILLED",
+   "source": "https://www.vcaonline.com/news/2025061712/abm-respiratory-care-closes-14-8m-oversubscribed-series-b-to-accelerate-commercialization-of-biwaze-clear/",
+   "sourceLabel": "VCA Online - ABM Respiratory Care Series B",
+   "asOf": "2025-06-17",
+   "evidence": "ABM Respiratory Care press release datelined Eagan, Minnesota.",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "US"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.vcaonline.com/news/2025061712/abm-respiratory-care-closes-14-8m-oversubscribed-series-b-to-accelerate-commercialization-of-biwaze-clear/"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "hq"
+    }
+   ]
   }
  ]
 }

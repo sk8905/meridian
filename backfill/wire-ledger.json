@@ -2742,6 +2742,36 @@
    "status": "rejected",
    "reason": "about a former BlackRock executive joining another firm's advisory board; not a BlackRock capital event, hire or credit item",
    "at": "2026-10-21T21:17:50.287Z"
+  },
+  {
+   "url": "https://debtserious.substack.com/p/round-65-blackstone-covid-nav-ai",
+   "status": "rejected",
+   "reason": "Substack newsletter (paywalled); only general commentary, no verifiable Blackstone transaction or data point",
+   "at": "2026-10-22T05:17:19.344Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPcVdSZl9XUDI3UEVxVmhUd3ctS1ExX2xXWjdjWHVJQ2NaZHlCWW1CQ2NoSllESm1pZnJEY1l2MGtqcngybHhWbGRsS29qVFZTYXQ4aFpFLVV0RjFPVWJuNkJFMHpreDltcnFmN083TnZQZ2dqR0dtMHFlSnFicGEyUFE3RnNMVU5sTTFsMDRzd3poRkJMYm5MOVNsNHY5VkFuQ2V6Q1hCVHlHaE01SVZCQzJucFBsVjBfakVQczRsSzJEd0FXR0hJ?oc=5",
+   "status": "rejected",
+   "reason": "not an LP allocation: in-house GC appointment at a horse association; LP tag spurious",
+   "at": "2026-10-22T05:17:19.344Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQTzRCNU1WazBubUlpVy1KU1lOb2YyaE5mM2xaX2Zld1BySHBRaV9BbkZYbEFFY2FibldEeDNGN0o3bDZHZTFlc3kxV05pYnVYM2trcVduQlBIVng2SVlzWnZyVEZXMldWYTZaNlNwNWQycm1jdU1TNHM2emVpX2tOdE9wVFpSOWRMU25HbVRJWUk?oc=5",
+   "status": "rejected",
+   "reason": "equity merger speculation, not a credit-stress or debt event",
+   "at": "2026-10-22T05:17:19.344Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQSXdhQWprLWpWNjJ2VUVrV2ZDdngwcmprc212cGxBU19LVlhVeW92NHU2M1Fka1FydDduT0VoUXc4cFFWMGFTZkZ0eTE4bFp3UVJRWV9JRU9yN3JVU3cyWDZjRTN0NGdIX2FRSVNQVW5rOFhtV085d29Eb1h2NHR0YV91UzlMTWtRY2xJVFRTQ3k1cTZVcHN3SWV2OUtBUkRlVDBNSQ?oc=5",
+   "status": "rejected",
+   "reason": "corporate earnings/merger story, not a credit-stress or debt event",
+   "at": "2026-10-22T05:17:19.344Z"
+  },
+  {
+   "url": "https://www.weil.com/articles/weil-advises-otpp-and-trivium-packaging-in-3-point-4-b-acquisition",
+   "status": "rejected",
+   "reason": "PE/strategic acquisition by OTPP-backed company, not a private-credit allocation; held as legal item u3834",
+   "at": "2026-10-22T05:17:55.517Z"
   }
  ]
 }

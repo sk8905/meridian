@@ -32,6 +32,9 @@ const read = (p) => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, p)
 // and "Paragon Bank" → a Memphis bank were rejected). New confirmations come from the
 // rota's `stubLeiCandidates` slice.
 export const STUB_CONFIRMED = {
+  m252: "213800YVAMJQBM7BRW40",                         // GREENSLEDGE ASSET MANAGEMENT LLC, Wilmington US
+  m423: "RCNB6OTYUAMMP879YW96",                         // BNP PARIBAS SECURITIES CORP., Wilmington US
+  m433: "7TK5RJIZDFROZCA6XF66",                         // MIZUHO SECURITIES USA LLC, Wilmington US
   m425: "9R7GPTSO7KV3UQJZQ078",                         // MORGAN STANLEY & CO. LLC, New York US
   m419: "GGDZP1UYGU9STUHRDP48",                         // MERRILL LYNCH INTERNATIONAL, London GB
   m318: "TUKDD90GPC79G1KOE162",                         // Hamburg Commercial Bank AG, Hamburg DE

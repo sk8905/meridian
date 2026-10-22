@@ -29,6 +29,7 @@
 // Compact keys (c country · s sector · a amountKind · e event · m managerMA) — expanded
 // by tagsOf() in credit/js/tx.js. Tagged 2026-10 from each deal's own text.
 const T = {
+  d1332: {"c":"Türkiye","s":"Infrastructure & energy","a":"financing","p":"SOCAR Türkiye","r":"borrower"},
   d2: {"c":"UK","s":"TMT","a":"financing"},
   d3: {"c":"France","s":"Consumer & retail","a":"financing"},
   d4: {"c":"Australia","s":"Transport & logistics","a":null,"cs":"https://www.scf.com.au/locations/","cb":"hq"},
@@ -928,7 +929,7 @@ const T = {
   d1038: {"c":"France","s":"Healthcare","a":"other","cs":"https://www.lbofrance.com/en/lbo-france-announces-the-sale-of-dutscher-group-to-vivo-capital/","cb":"hq","p":"Dutscher Group","r":"target"},
   d1039: {"c":"Pan-European","s":"Diversified","a":"fund","e":"new","p":"Victory Street CLO I","r":"issuer"},
   d1040: {"c":"UK","s":"Financial services","a":"financing"},
-  d1041: {"c":null,"s":"Transport & logistics","a":null,"p":"Nayak Aircraft Services","r":"borrower"},
+  d1041: {"c":"Germany","s":"Transport & logistics","a":null,"p":"Nayak Aircraft Services","r":"borrower","cs":"https://www.clearwatercf.com/experience/transactions/clearwater-advises-chequers-capital-on-raising-finance-to-support-the-acquisition-of-nayak/","cb":"hq"},
   d1042: {"c":null,"s":"TMT","a":null},
   d1043: {"c":"US","s":"TMT","a":"financing","p":"SourceCode","r":"borrower","cs":"https://www.lincolninternational.com/transactions/jmc-capital-partners-has-sold-source-code-to-cerberus/","cb":"hq"},
   d1044: {"c":"France","s":"TMT","a":"financing","p":"Enersweet","r":"borrower"},
@@ -1200,7 +1201,7 @@ const T = {
   d1318: {"c":"Switzerland","s":"Infrastructure & energy","p":"Safe Host SA","r":"borrower","a":null},
   d1319: {"c":"UK","cs":"https://restaurantonline.co.uk/Article/2022/01/14/Caffe-Nero-completes-330m-debt-refinancing-as-it-looks-to-grow","cb":"hq","s":"Leisure & hospitality","p":"Caffè Nero","r":"borrower","a":"financing"},
   d1320: {"s":"Financial services","m":1,"p":"Metropolitan Real Estate Equity, LLC","r":"target","c":null,"a":null},
-  d1322: {"s":"Healthcare","p":"ABM Respiratory Care","r":"borrower","a":"financing","c":null},
+  d1322: {"s":"Healthcare","p":"ABM Respiratory Care","r":"borrower","a":"financing","c":"US","cs":"https://www.vcaonline.com/news/2025061712/abm-respiratory-care-closes-14-8m-oversubscribed-series-b-to-accelerate-commercialization-of-biwaze-clear/","cb":"hq"},
   d1321: {"c":"Germany","cs":"https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-eiffel-investment-group-on-financing-of-bencis-partnership-with-kodiak","cb":"hq","s":"Industrials","p":"KODIAK GmbH","r":"borrower","a":null},
   d1323: {"c":"UK","s":"Financial services","a":null,"p":"DNA Payments Group","r":"target"},
   d1324: {"c":"UK","s":"Financial services","a":null,"p":"Apollo Group Holdings","r":"target"},
