@@ -2934,6 +2934,12 @@
    "status": "rejected",
    "reason": "drone-product press release; spurious entity match, no tracked-entity link or credit/LP allocation",
    "at": "2026-10-22T15:21:26.512Z"
+  },
+  {
+   "url": "https://www.legalbusiness.co.uk/law-firms/if-you-cant-be-yourself-its-limiting-justin-dagostino-on-ambition-inclusion-and-leading-hsf-kramer/",
+   "status": "rejected",
+   "reason": "interview/profile piece with no verifiable primary source or checkable deal/news facts",
+   "at": "2026-10-22T17:14:14.589Z"
   }
  ]
 }

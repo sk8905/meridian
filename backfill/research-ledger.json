@@ -11179,6 +11179,23 @@
      }
     }
    ]
+  },
+  {
+   "at": "2026-10-22",
+   "collection": "DEAL_TAGS",
+   "id": "d1258",
+   "verdict": "GAP",
+   "source": "https://peprofessional.com/2026/08/monogram-gives-mountaintop-beverage-a-refill/",
+   "sourceLabel": "PE Professional",
+   "asOf": "2026-08-12",
+   "evidence": "Mountaintop Beverage manufacturing campus is in Morgantown, West Virginia",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "US"
+    }
+   ]
   }
  ]
 }

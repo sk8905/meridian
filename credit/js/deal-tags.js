@@ -1138,7 +1138,7 @@ const T = {
   d1255: {"c":"US","s":"Consumer & retail","a":"financing","p":"The RealReal","r":"borrower"},
   d1256: {"c":"Asia","s":"Real estate","a":"financing","p":"ESR Group","r":"borrower"},
   d1257: {"c":"France","s":"Healthcare","p":"SEQENS Group","r":"borrower","a":null},
-  d1258: {"s":"Consumer & retail","p":"Mountaintop Beverage","r":"fund","c":null,"a":null},
+  d1258: {"s":"Consumer & retail","p":"Mountaintop Beverage","r":"fund","c":"US","a":null},
   d1259: {"c":"US","s":"Industrials","p":"NEOTech","r":"borrower","a":null},
   d1260: {"s":"Financial services","a":"fund","p":"Savant Capital Holdings","r":"fund","c":null},
   d1261: {"s":"Industrials","p":"Sentry Aerospares","r":"borrower","c":null,"a":null},
