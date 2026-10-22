@@ -2965,6 +2965,24 @@
    "recordId": "d992",
    "reason": "already held (d992, IPE Real Assets)",
    "at": "2026-10-22T19:17:38.024Z"
+  },
+  {
+   "url": "https://www.cnbc.com/2026/10/22/openai-funding-round-uae-investors.html",
+   "status": "rejected",
+   "reason": "false restructuring match (rx11); OpenAI venture round, not a court step",
+   "at": "2026-10-22T21:15:46.337668Z"
+  },
+  {
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-tpg-on-debt-financing-for-its-acquisition-of-zembl-group",
+   "status": "rejected",
+   "reason": "Kirkland release: PE acquisition financing for TPG/Zembl, no lenders or credit terms; not a TPG credit event",
+   "at": "2026-10-22T21:15:46.337668Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMihgJBVV95cUxQbFdvQm5UUlpNT3g3c1FlZ3NFelg5X1lWVTNiQW1oN2Z0SzVpdnp4WlhQclByQ3hiWExVQkxoVlM4UWgyUENGajVWekdQT3BNR0dTWlB4Ujc2cU5lZl9TYlhmN00wOGRaeWdmSWp5dlBXY3pWMWRWMVZ5enpJNzV1eUlqUlA0T0VKMUZfRDQyZmxCZHNEZmotU1RLSl94eFEwV1BDcDJsUS1YLTV2bDUwX0xqUmtTejBxU2ZPVlpzTVRId2gxS0I2NFhBT3hrRlllZXU3eFJlYklOUkFvc1lKQ3AxR1c5YW1Cb3FuRHFxZDhwSHc2TFp5OVVKYU83QTlPT1lYNmFB?oc=5",
+   "status": "rejected",
+   "reason": "false borrower match (d1316); generic Credit Benchmark research, no verifiable primary URL",
+   "at": "2026-10-22T21:15:46.337668Z"
   }
  ]
 }
