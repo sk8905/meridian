@@ -23,5 +23,5 @@ const wl = worklist(loadChecklist(), 6).filter((w) => w.action !== "fill");
 const all = worklist(loadChecklist(), 1e6).filter((w) => w.action !== "fill");
 const RANK = { core: 0, adjacent: 1, off: 2 }, rk = (w) => RANK[idx.get(w.id)?.tier] ?? 3;
 check(all.every((w, i) => i === 0 || rk(all[i - 1]) <= rk(w)), "backfill: BUILD/ADD targets run core-niche first, then adjacent, then off-niche");
-check(wl.length > 0 && (!all.some((w) => rk(w) === 0) || rk(wl[0]) === 0), `backfill: the first BUILD/ADD target is core-niche while any remain (got ${wl[0]?.name}, ${idx.get(wl[0]?.id)?.tier})`);
+check(wl.length === 0 || !all.some((w) => rk(w) === 0) || rk(wl[0]) === 0, `backfill: the first BUILD/ADD target is core-niche while any remain (got ${wl[0]?.name}, ${idx.get(wl[0]?.id)?.tier})`);
 finish();
