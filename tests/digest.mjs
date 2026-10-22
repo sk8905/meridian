@@ -42,6 +42,10 @@ if (D) {
   const textOnly = html.replace(/<[^>]+>/g, " ");
   check(!/https?:\/\//.test(textOnly), "email --html: no bare URL is printed in the text");
   check(/open the digest/.test(html) && html.includes('href="https://wire.example/v2/menu/digest/weekly"'), "email --html: the In Wire line is a short link to the app digest");
+  // Rates & spreads lines carry a short "12 Oct" date (owner 2026-10-22) — not "as of 2026-10-12",
+  // which wrapped on a phone.
+  const rates = (textOnly.split(/RATES &amp; SPREADS|RATES & SPREADS/)[1] || "").split(/<\/ul>|In Wire|open the digest/)[0];
+  check(rates && !/as of \d{4}-\d{2}-\d{2}/.test(rates) && /\(\S+, \d{1,2} [A-Z][a-z]{2}\)/.test(rates), `email --html: rate dates read "12 Oct", never "as of YYYY-MM-DD" (${(rates.match(/\(\S+, \d{1,2} [A-Z][a-z]{2}\)/) || [""])[0]})`);
 }
 
 const srv = await serve();

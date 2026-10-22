@@ -203,7 +203,7 @@ export function emailRows(d, which) {
   sec("Fund closes & fundraising", W.closes, (x) => `${x.title} — ${x.date}`);
   sec("Restructuring & legal", W.legal, (x) => `${x.title}${x.who ? ` — ${x.who}` : ""} — ${x.date}`);
   sec("People moves", W.people, (x) => `${x.title} — ${x.date}`);
-  if (W.rates.items.length) sec(`Rates & spreads (${which === "daily" ? "1-day" : "1-week"} change)`, W.rates, (x) => `${x.label} ${x.display}${x.unit === "bp" ? "bp" : "%"} (${x.chg > 0 ? "+" : ""}${x.chg}${x.chgUnit}, as of ${x.asOf})`);
+  if (W.rates.items.length) sec(`Rates & spreads (${which === "daily" ? "1-day" : "1-week"} change)`, W.rates, (x) => `${x.label} ${x.display}${x.unit === "bp" ? "bp" : "%"} (${x.chg > 0 ? "+" : ""}${x.chg}${x.chgUnit}, ${x.asOf ? fmt(x.asOf) : "date n/a"})`);   // "12 Oct": short enough that no line wraps on a phone
   // The live origin is not in the repo, so it is passed in (--origin= / WIRE_ORIGIN);
   // without one the in-app path alone is printed.
   const origin = String(opt("--origin") || process.env.WIRE_ORIGIN || "").replace(/\/+$/, "");

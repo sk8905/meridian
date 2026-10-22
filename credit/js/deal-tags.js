@@ -29,7 +29,7 @@
 // Compact keys (c country · s sector · a amountKind · e event · m managerMA) — expanded
 // by tagsOf() in credit/js/tx.js. Tagged 2026-10 from each deal's own text.
 const T = {
-  d1332: {"c":"Türkiye","s":"Infrastructure & energy","a":"financing","p":"SOCAR Türkiye","r":"borrower"},
+  d1332: {"c":"Other Europe","s":"Infrastructure & energy","a":"financing","p":"SOCAR Türkiye","r":"borrower"},
   d2: {"c":"UK","s":"TMT","a":"financing"},
   d3: {"c":"France","s":"Consumer & retail","a":"financing"},
   d4: {"c":"Australia","s":"Transport & logistics","a":null,"cs":"https://www.scf.com.au/locations/","cb":"hq"},
