@@ -2442,7 +2442,7 @@ export function readProxyAllowed(host) {
 // Reader extractor version — bump on ANY extraction change so BOTH the per-colo edge cache
 // (read.internal/<ver>) and the GLOBAL KV pre-warm (rdr:<ver>:<url>) discard bodies produced
 // by the old extractor. Keep the two in lockstep through this one constant.
-const READ_VER = "v19";   // v19: strip publisher contact-footer junk (Company / registered address / T:/E: contact lines)
+const READ_VER = "v20";   // v20: proxy bot-wall / consent pages are misses; Cloudflare front matter stripped (v19: contact-footer junk)
 const _readKvKey = (url) => "rdr:" + READ_VER + ":" + url;
 // A host is fetchable only if it is a real, public, dotted domain name — never an
 // IP literal (v4/v6), a port, or a reserved/internal name. This is the SSRF gate.
@@ -2957,13 +2957,35 @@ export const readMissIsTransient = (d) => !!d && !d.accessible && /(^|\/)(cf|pro
 // How long to wait before ONE retry after a Cloudflare 429: its Retry-After (seconds), capped
 // at 10s (the free plan allows one render every 10s); null = no retry.
 export const cfRetryWait = (status, retryAfter) => (Number(status) === 429 ? Math.min(Math.max(Number(retryAfter) || 10, 1), 10) * 1000 : null);
+// A page a browser proxy rendered that is NOT the article — a bot wall ("Access Denied",
+// "Just a moment…"), a consent interstitial ("Before you continue to Google" — an
+// undecodable Google News link lands there) — counts as a MISS, so the reader falls
+// through instead of showing it (owner report 2026-10-22: Business Wire, PR Newswire).
+const PROXY_BLOCK_TITLE = /^\s*(access denied|attention required|just a moment|before you continue|are you a (robot|human)|403 forbidden|forbidden|request blocked|you have been blocked|pardon our interruption|security check|verify(ing)? you are (a )?human|one more step|captcha)/i;
+const PROXY_BLOCK_TEXT = /you don'?t have permission to access .{0,200} on this server|enable javascript and cookies to continue|unusual traffic from your computer network|g\.co\/privacytools|consent\.google\.com|checking (if the site connection is secure|your browser before accessing)|reference #?\s*\d+\.[0-9a-f]+\.\d+\.[0-9a-f]+/i;
+export function proxyBlocked(d) {
+  if (!d || !d.accessible) return false;
+  const text = (d.paragraphs || []).slice(0, 6).join(" ").slice(0, 1500);
+  return PROXY_BLOCK_TITLE.test(d.title || "") || PROXY_BLOCK_TEXT.test(text);
+}
+// Cloudflare's /markdown output opens with a YAML front-matter block (title / meta) — it
+// is not article text. Returns { md, title } with the block removed and its title kept.
+export function stripFrontMatter(md) {
+  const m = String(md || "").match(/^\s*---\s*\n([\s\S]{0,6000}?)\n---\s*(\n|$)/);
+  if (!m) return { md: String(md || ""), title: "" };
+  const t = (m[1].match(/^title:\s*(.+)$/m) || [])[1] || "";
+  return { md: String(md).slice(m[0].length), title: t.trim().replace(/^["']|["']$/g, "") };
+}
 export const cfReaderOn = (env) => !!(env && env.CF_ACCOUNT_ID && env.CF_BROWSER_TOKEN);
 // Pure order of the browser proxies tried for a host (a spec locks it): Firecrawl first
 // only for an allowlisted host with its key, then Cloudflare when configured, then Jina.
 export function readProxyOrder(host, env) {
   const out = [];
   if (readProxyChoice(host, !!(env && env.FIRECRAWL_API_KEY)) === "firecrawl") out.push("firecrawl");
-  if (cfReaderOn(env)) out.push("cloudflare");
+  // A Google News link we could not decode: Cloudflare's browser stops on Google's consent
+  // wall (EU colo), while Jina follows the redirect to the article — as it always did (owner
+  // 2026-10-22). So it goes to Jina only, and spends no Cloudflare render.
+  if (cfReaderOn(env) && !/(^|\.)news\.google\.com$/i.test(String(host || ""))) out.push("cloudflare");
   out.push("jina");
   return out;
 }
@@ -2974,6 +2996,7 @@ async function _readViaProxy(u, host, env) {
     // Past 25s the reader pane (42s) would time out before another render returns — stop.
     if (last && Date.now() - t0 > 25000) { why.push(p + "-skipped"); break; }
     last = await VIA[p](u, host, env);
+    if (proxyBlocked(last)) last = { ...last, accessible: false, paragraphs: [], blocks: [], reason: (p === "jina" ? "proxy" : p === "cloudflare" ? "cf" : "fc") + "-blocked" };
     if (last && last.accessible) return last;
     if (last && last.reason) why.push(last.reason);
   }
@@ -3005,11 +3028,12 @@ async function _readViaCloudflare(u, host, env) {
       return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "cf-" + r.status };
     }
     const j = await r.json().catch(() => null);
-    const md = j && j.success !== false && typeof j.result === "string" ? j.result : "";
+    const fm = stripFrontMatter(j && j.success !== false && typeof j.result === "string" ? j.result : "");
+    const md = fm.md.trim();
     if (!md) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "cf-empty" };
     const blks = proxyBlocks(md, u.toString());
     const paras = blks.filter((x) => !x.h && !x.img && !x.tweetId && !x.embed).map((x) => x.t);
-    return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(mdTitle(md)), byline: "", date: "", accessible: paras.length >= 2, paragraphs: paras, blocks: blks, via: "cloudflare" };
+    return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(fm.title || mdTitle(md)), byline: "", date: "", accessible: paras.length >= 2, paragraphs: paras, blocks: blks, via: "cloudflare" };
   } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "cf-failed" }; }
 }
 async function _readViaFirecrawl(u, host, env) {
