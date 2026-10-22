@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-22",
-  time: "05:05 BST",
+  time: "07:10 BST",
   lede: "Wall Street closed higher on AI earnings, with the Nasdaq up 1% and the S&P 500 up 0.6%, while France's 10-year yield topped 5% for the first time since 2002 and UK inflation at 3.5% firmed bets on a Bank of England hike on 5 November.",
   bullets: [
     { html: "<strong>Macro &mdash; UK CPI rose to 3.5% in September</strong> from 3.1% in August (consensus 3.4%), with petrol up 29.8% on the year and core at 2.8%; markets expect the Bank of England to hike from 3.75% on 5 November, while the US 10-year yield sits near 5.1%.", src: "https://www.fxstreet.com/news/uk-cpi-set-to-accelerate-paving-the-way-for-a-boe-interest-rate-hike-in-november-202610210200", srcName: "FXStreet", date: "2026-10-21" },
