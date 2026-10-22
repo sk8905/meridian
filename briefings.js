@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-22",
-  time: "15:20 BST",
+  time: "17:10 BST",
   lede: "Global equities fell on Thursday as Brent crude topped $112 on Middle East supply fears, with French 10-year yields at 5% and UK inflation of 3.5% keeping a Bank of England hike on 5 November in view, while asset-based lending to US retail drew a $1.275bn package.",
   bullets: [
     { html: "<strong>Macro &mdash; UK CPI rose to 3.5% in September</strong> from 3.1% in August (consensus 3.4%), with petrol up 29.8% on the year and core at 2.8%; markets expect the Bank of England to hike from 3.75% on 5 November, while the US 10-year yield sits near 5.1%.", src: "https://www.fxstreet.com/news/uk-cpi-set-to-accelerate-paving-the-way-for-a-boe-interest-rate-hike-in-november-202610210200", srcName: "FXStreet", date: "2026-10-21" },
