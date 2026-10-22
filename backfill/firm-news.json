@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-22T17:33:40.261Z",
+ "generated": "2026-10-22T21:57:55.151Z",
  "since": "2026-10-08",
  "firms": {
   "proskauerrose": {
@@ -69,9 +69,9 @@
     "sustainablefutures.linklaters.com"
    ],
    "sitemaps": 6,
-   "urls": 17814,
-   "kept": 7,
-   "fetched": 7,
+   "urls": 17815,
+   "kept": 6,
+   "fetched": 6,
    "errors": 0,
    "carried": 0
   },
@@ -92,19 +92,8 @@
    ],
    "sitemaps": 4,
    "urls": 2413,
-   "kept": 3,
-   "fetched": 3,
-   "errors": 0,
-   "carried": 0
-  },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5023,
-   "kept": 5,
-   "fetched": 5,
+   "kept": 2,
+   "fetched": 2,
    "errors": 0,
    "carried": 0
   },
@@ -121,6 +110,17 @@
    "disallowed": 1,
    "carried": 0
   },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5023,
+   "kept": 5,
+   "fetched": 5,
+   "errors": 0,
+   "carried": 0
+  },
   "aoshearman": {
    "domains": [
     "www.aoshearman.com",
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 9642,
+   "urls": 9645,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -145,6 +145,17 @@
    "errors": 0,
    "carried": 0
   },
+  "kirkland": {
+   "domains": [
+    "www.kirkland.com"
+   ],
+   "sitemaps": 11,
+   "urls": 17442,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
   "whitecase": {
    "domains": [
     "www.whitecase.com"
@@ -156,23 +167,12 @@
    "errors": 0,
    "carried": 0
   },
-  "kirkland": {
-   "domains": [
-    "www.kirkland.com"
-   ],
-   "sitemaps": 11,
-   "urls": 17437,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
   "sidley": {
    "domains": [
     "www.sidley.com"
    ],
    "sitemaps": 7,
-   "urls": 7599,
+   "urls": 7603,
    "kept": 1,
    "fetched": 1,
    "errors": 10,
@@ -215,8 +215,8 @@
    ],
    "sitemaps": 11,
    "urls": 16235,
-   "kept": 9,
-   "fetched": 9,
+   "kept": 8,
+   "fetched": 8,
    "errors": 0,
    "carried": 0
   },
@@ -244,7 +244,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12306,
+   "urls": 12308,
    "kept": 5,
    "fetched": 5,
    "errors": 0,
@@ -256,9 +256,9 @@
    ],
    "sitemaps": 5,
    "urls": 11605,
-   "kept": 16,
-   "fetched": 15,
-   "errors": 1,
+   "kept": 14,
+   "fetched": 14,
+   "errors": 0,
    "carried": 0
   },
   "weil": {
@@ -271,7 +271,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7753,
+   "urls": 7754,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -302,7 +302,7 @@
     "content.clearygottlieb.com"
    ],
    "sitemaps": 1,
-   "urls": 18723,
+   "urls": 18727,
    "kept": 40,
    "fetched": 40,
    "errors": 1,
@@ -332,9 +332,9 @@
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16371,
-   "kept": 20,
-   "fetched": 20,
+   "urls": 16373,
+   "kept": 22,
+   "fetched": 22,
    "errors": 0,
    "carried": 0
   },
@@ -345,30 +345,12 @@
    "sitemaps": 27,
    "urls": 13016,
    "kept": 40,
-   "fetched": 38,
-   "errors": 9,
+   "fetched": 40,
+   "errors": 7,
    "carried": 0
   }
  },
  "items": [
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-qiagen-on-recommended-voluntary-all-cash-public-takeover-offer-by-eqt",
-   "title": "QIAGEN €10.8bn takeover offer by EQT",
-   "description": "Linklaters advises QIAGEN on EQT’s recommended €10.8bn all-cash public takeover offer, a landmark cross-border M&A transaction.",
-   "date": "2026-10-22",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-22"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-schneider-electric-on-its-share-capital-increase",
-   "title": "Linklaters advises Schneider Electric on its €6bn share capital increase",
-   "description": "Linklaters has advised Schneider Electric on its share capital increase without shareholders’ preferential subscription rights, conducted through an accelerated bookbuilding process for an amount of approximately €6bn.",
-   "date": "2026-10-22",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-22"
-  },
   {
    "firm": "macfarlanes",
    "url": "https://www.macfarlanes.com/insights/102o5zo/the-unique-dynamics-of-sports-investment-finding-opportunities-in-a-concentratin",
@@ -379,46 +361,10 @@
    "lastmod": "2026-10-22"
   },
   {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o66m/investment-management-update-october-2026",
-   "title": "Investment management update - October 2026",
-   "description": "Welcome to the latest edition of our investment management update. This publication has been tailored to highlight topical news, cases...",
-   "date": "2026-10-22",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-22"
-  },
-  {
    "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-represents-zopa-on-its-debut-uk-consumer-abs",
-   "title": "A&O Shearman advises Zopa on debut UK consumer ABS",
-   "description": "A&O Shearman advised Zopa on its debut UK consumer ABS, a GBP450 million securitisation marking its first public ABS transaction.",
-   "date": "2026-10-22",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-22"
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-tpg-on-debt-financing-for-its-acquisition-of-zembl-group",
-   "title": "Kirkland Advises TPG on Debt Financing for its Acquisition of Zembl Group",
-   "description": null,
-   "date": "2026-10-22",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/news/reed-smith-advises-bauer-media-on-acquisition-of-eisbachmedia/",
-   "title": "Reed Smith advises Bauer Media on acquisition of eisbach.media",
-   "description": null,
-   "date": "2026-10-22",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-22"
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/news/reed-smith-advises-on-cornish-metals-proposed-135-million-fundraising/",
-   "title": "Reed Smith advises on Cornish Metals’ proposed £135 million fundraising",
-   "description": null,
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-advised-banks-on-schneider-electrics-eur6-billion-capital-increase",
+   "title": "A&O Shearman advised banks on Schneider Electric’s EUR6 billion capital increase",
+   "description": "A&O Shearman advised the banks on Schneider Electric's EUR6bn capital increase via accelerated private placement to part-fund its PTC acquisition.",
    "date": "2026-10-22",
    "dateSource": "datePublished",
    "lastmod": "2026-10-22"
@@ -433,13 +379,22 @@
    "lastmod": null
   },
   {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/insights/articles-books/english-restructuring-plan-guide-comi-tourism",
-   "title": "The English restructuring plan: A guide to “COMI tourism”",
-   "description": "Davis Polk partner and co-lead of London restructuring practice Jifree Cader, counsel Raveena Channa and associate Ciara Foley authored \"The English...",
-   "date": "2026-10-21",
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
+   "title": "Publications",
+   "description": null,
+   "date": "2026-10-22",
    "dateSource": "datePublished",
-   "lastmod": "2026-10-21"
+   "lastmod": null
+  },
+  {
+   "firm": "mayerbrown",
+   "url": "https://www.mayerbrown.com/en/news/2026/10/mayer-browns-sonal-majmudar-named-vice-chair-of-aba-tax-sections-transfer-pricing-committee",
+   "title": "Mayer Brown’s Sonal Majmudar Named Vice Chair of ABA Tax Section’s Transfer Pricing Committee",
+   "description": "Sonal Majmudar, a partner in Mayer Brown’s Tax practice, has been appointed Vice Chair of the American Bar Association Section of Taxation’s Transfer",
+   "date": "2026-10-22",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-22"
   },
   {
    "firm": "reedsmith",
@@ -449,15 +404,6 @@
    "date": "2026-10-21",
    "dateSource": "datePublished",
    "lastmod": "2026-10-21"
-  },
-  {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
-   "title": "Publications",
-   "description": null,
-   "date": "2026-10-21",
-   "dateSource": "datePublished",
-   "lastmod": null
   },
   {
    "firm": "freshfields",
