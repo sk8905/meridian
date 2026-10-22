@@ -160,7 +160,9 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
 - **R3e — Reader speed: global pre-warm + client prefetch.** First opens must not wait on a
   cold fetch. Three layers: (1) the client memoises per load and **prefetches the top 6
   stories** on every wire render, both surfaces (`prefetchTopReads` — warms the viewer's own
-  edge colo); (2) a **15-min cron** (`prewarmReads`) extracts the day's top stories into
+  edge colo; it asks `/api/read?warm=1`, which is **direct-fetch only** and uncached on a miss,
+  so it never spends the Cloudflare free plan's 6 renders/min or Jina's keyless limit — owner
+  report 2026-10-22; a 429 miss is never cached and a Cloudflare 429 is retried once); (2) a **15-min cron** (`prewarmReads`) extracts the day's top stories into
   **global KV** so a first open is instant *everywhere*, even a cold colo — and it is
   **direct-fetch only** and covers every non-paywalled host, so it spends **zero**
   Jina/Firecrawl proxy quota on a schedule (bot-walled sources stay on the on-demand

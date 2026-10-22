@@ -2952,6 +2952,11 @@ export function readProxyChoice(host, hasKey) {
 // with the "Browser Rendering - Edit" permission) — and it sits IN FRONT of Jina, which
 // stays the backstop (keyless free tier when JINA_API_KEY is unset or exhausted), so a
 // Cloudflare quota / rate-limit / error never blanks the reader.
+// A reader miss that only a rate limit caused (e.g. "fetch-403/cf-429/proxy-429") is not cached.
+export const readMissIsTransient = (d) => !!d && !d.accessible && /(^|\/)(cf|proxy|fc)-429(\/|$)/.test(String(d.reason || ""));
+// How long to wait before ONE retry after a Cloudflare 429: its Retry-After (seconds), capped
+// at 10s (the free plan allows one render every 10s); null = no retry.
+export const cfRetryWait = (status, retryAfter) => (Number(status) === 429 ? Math.min(Math.max(Number(retryAfter) || 10, 1), 10) * 1000 : null);
 export const cfReaderOn = (env) => !!(env && env.CF_ACCOUNT_ID && env.CF_BROWSER_TOKEN);
 // Pure order of the browser proxies tried for a host (a spec locks it): Firecrawl first
 // only for an allowlisted host with its key, then Cloudflare when configured, then Jina.
@@ -2964,8 +2969,10 @@ export function readProxyOrder(host, env) {
 }
 async function _readViaProxy(u, host, env) {
   const VIA = { firecrawl: _readViaFirecrawl, cloudflare: _readViaCloudflare, jina: _readViaJina };
-  let last = null; const why = [];
+  let last = null; const why = []; const t0 = Date.now();
   for (const p of readProxyOrder(host, env)) {
+    // Past 25s the reader pane (42s) would time out before another render returns — stop.
+    if (last && Date.now() - t0 > 25000) { why.push(p + "-skipped"); break; }
     last = await VIA[p](u, host, env);
     if (last && last.accessible) return last;
     if (last && last.reason) why.push(last.reason);
@@ -2979,14 +2986,20 @@ export const mdTitle = (md) => ((String(md || "").match(/^#\s+(.+?)\s*#*\s*$/m) 
 async function _readViaCloudflare(u, host, env) {
   try {
     const api = `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(env.CF_ACCOUNT_ID)}/browser-rendering/markdown?cacheTTL=3600`;
-    const r = await fetch(api, {
+    const t0 = Date.now();
+    const call = (ms) => fetch(api, {
       method: "POST",
       headers: { "content-type": "application/json", authorization: "Bearer " + env.CF_BROWSER_TOKEN },
       // networkidle2 lets a script-rendered article body arrive; cacheTTL (1h) makes a
       // re-open of the same page a cached, near-free hit.
       body: JSON.stringify({ url: u.toString(), gotoOptions: { waitUntil: "networkidle2", timeout: 20000 } }),
-      signal: AbortSignal.timeout(28000),
+      signal: AbortSignal.timeout(ms),
     });
+    let r = await call(24000);
+    // Rate-limited (free plan: 6 renders/min) → wait what Cloudflare asks (≤10s), retry once —
+    // only when the 429 came back fast, so the reader's 42s window still holds.
+    const wait = cfRetryWait(r.status, r.headers.get("retry-after"));
+    if (wait != null && Date.now() - t0 < 3000) { await new Promise((ok) => setTimeout(ok, wait)); r = await call(18000); }
     if (!r.ok) {
       if (r.status === 401 || r.status === 403) console.warn(`reader: Cloudflare Browser Rendering refused the token (HTTP ${r.status}) — check CF_BROWSER_TOKEN; falling back to Jina`);
       return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "cf-" + r.status };
@@ -3055,6 +3068,10 @@ async function handleRead(request, env, ctx) {
   // Unwrap a Google-News redirect link (defence for any already-cached client rows that
   // still carry the wrapped URL) so the reader fetches the real publisher article.
   const target = unwrapGnews(new URL(request.url).searchParams.get("url") || "");
+  // warm=1 — the client's background prefetch (prefetchTopReads): DIRECT fetch only, never
+  // the browser proxies (Cloudflare free plan = 6 renders/min; a 6-story prefetch on every
+  // feed render spent it before the reader clicked — owner report 2026-10-22, cf-429).
+  const warm = new URL(request.url).searchParams.get("warm") === "1";
   let u; try { u = new URL(target); } catch { return json({ error: "bad url", accessible: false, paragraphs: [] }, 400); }
   if (u.protocol !== "https:") return json({ error: "https only", accessible: false, paragraphs: [] }, 400);
   const host = u.hostname.replace(/^www\./, "");
@@ -3090,7 +3107,11 @@ async function handleRead(request, env, ctx) {
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources still read (never a paywall).
   let data = await _readDirect(u, host);
-  if (!(data.accessible && Array.isArray(data.paragraphs) && data.paragraphs.length) && readProxyAllowed(host)) {
+  const directOk = data.accessible && Array.isArray(data.paragraphs) && data.paragraphs.length;
+  // A prefetch that the direct fetch could not read stops here — not cached, so the reader's
+  // own open still gets the proxy.
+  if (warm && !directOk) { const r = json({ ...data, warm: true }); r.headers.set("cache-control", "no-store"); return r; }
+  if (!directOk && readProxyAllowed(host)) {
     const viaProxy = await _readViaProxy(u, host, env);
     if (viaProxy.accessible && viaProxy.paragraphs.length) data = viaProxy;
     // Both paths failed: keep BOTH reasons (e.g. "fetch-503/proxy-402") so the note
@@ -3107,7 +3128,8 @@ async function handleRead(request, env, ctx) {
   // old text after a deploy with no way to refresh it on the PWA (see the hit path + client).
   const edge = resp.clone();
   edge.headers.set("cache-control", data.accessible ? "public, max-age=3600" : "public, max-age=120");
-  if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(key, edge));
+  // A miss caused by a proxy RATE LIMIT (429) is transient — never cached, so the next open retries.
+  if (ctx && ctx.waitUntil && !readMissIsTransient(data)) ctx.waitUntil(cache.put(key, edge));
   resp.headers.set("cache-control", "no-store");
   return resp;
 }

@@ -3094,7 +3094,10 @@ let _readSeq = 0;
 // browser HTTP cache stays bypassed (cache:"no-store"); the EDGE still serves fast.
 const _readMem = new Map();
 function _timeoutSignal(ms) { try { const c = new AbortController(); setTimeout(() => { try { c.abort(); } catch { /* noop */ } }, ms); return c.signal; } catch { return undefined; } }
-function _fetchRead(href) {
+// warm = a background prefetch: the server reads it DIRECT only (never the paid / rate-limited
+// browser proxies), and a prefetch it could not read is not remembered — the reader's own
+// open then gets the full direct → Cloudflare → Jina path.
+function _fetchRead(href, warm) {
   if (!href) return Promise.resolve(null);
   const hit = _readMem.get(href); if (hit) return hit;
   // A 40s ceiling so a hung fetch always resolves, but with enough room for the SERVER to
@@ -3105,10 +3108,10 @@ function _fetchRead(href) {
   const nl = _NL_BODY.get(href);   // a stored newsletter body → read it from KV (R38), not the publisher
   const p = (nl
     ? fetch(`/api/nl-body?id=${encodeURIComponent(nl)}`, { headers: { accept: "application/json" }, cache: "no-store", signal: _timeoutSignal(40000) })
-    : fetch(`/api/read?url=${encodeURIComponent(href)}`, { headers: { accept: "application/json" }, cache: "no-store", signal: _timeoutSignal(40000) }))
+    : fetch(`/api/read?url=${encodeURIComponent(href)}${warm ? "&warm=1" : ""}`, { headers: { accept: "application/json" }, cache: "no-store", signal: _timeoutSignal(40000) }))
     .then((r) => (r && r.ok) ? r.json() : null).catch(() => null);
   _readMem.set(href, p);
-  p.then((d) => { if (!d) _readMem.delete(href); });        // a failed/timed-out fetch retries on the next open
+  p.then((d) => { if (!d || (d.warm && !d.accessible)) _readMem.delete(href); });        // a failed/timed-out fetch retries on the next open
   return p;
 }
 // Warm the reader cache (and the edge) for the top few openable stories, so the auto-opened
@@ -3118,7 +3121,7 @@ function prefetchTopReads(n) {
   for (const row of document.querySelectorAll("#g-feed .g-feed-row")) {
     if (warmed >= (n || 3)) break;
     const it = _rowItem(row);
-    if (it && it.ext && it.href && !_opensExternally(it.src, it.href) && !_readMem.has(it.href)) { _fetchRead(it.href); warmed++; }
+    if (it && it.ext && it.href && !_opensExternally(it.src, it.href) && !_readMem.has(it.href)) { _fetchRead(it.href, true); warmed++; }
   }
 }
 function _readNiceDate(iso) {
