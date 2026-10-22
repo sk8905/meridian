@@ -21,6 +21,83 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "a7957ed9-0124-451d-ba34-5e015c58e351",
+    "title": "Barclays stands out from the crowd for the wrong reasons",
+    "date": "2026-10-22",
+    "time": "14:48",
+    "url": "https://www.ft.com/content/a7957ed9-0124-451d-ba34-5e015c58e351"
+  },
+  {
+    "id": "b34502b6-38dc-4a46-a8e7-d9131726cd31",
+    "title": "Meta agrees deal to keep Mark Zuckerberg in California despite wealth tax proposal",
+    "date": "2026-10-22",
+    "time": "14:40",
+    "url": "https://www.ft.com/content/b34502b6-38dc-4a46-a8e7-d9131726cd31"
+  },
+  {
+    "id": "2d4876ae-c707-4df5-a3ae-ae3268343ef2",
+    "title": "Shell and Exxon’s $8bn UK chemicals unit put up for sale",
+    "date": "2026-10-22",
+    "time": "14:36",
+    "url": "https://www.ft.com/content/2d4876ae-c707-4df5-a3ae-ae3268343ef2"
+  },
+  {
+    "id": "6e318b81-a771-4842-9754-e265fef2852f",
+    "title": "Global stocks tumble as oil price tops $112",
+    "date": "2026-10-22",
+    "time": "14:31",
+    "url": "https://www.ft.com/content/6e318b81-a771-4842-9754-e265fef2852f"
+  },
+  {
+    "id": "93852564-cae6-41f6-aa79-8db53e2b7774",
+    "title": "ECB on course for another rate rise in 2026",
+    "date": "2026-10-22",
+    "time": "14:30",
+    "url": "https://www.ft.com/content/93852564-cae6-41f6-aa79-8db53e2b7774"
+  },
+  {
+    "id": "9f0c58d3-1833-40de-b805-f5ac53f05ff0",
+    "title": "Russia drops cluster warheads on Kyiv after Witkoff-Putin peace talks",
+    "date": "2026-10-22",
+    "time": "14:18",
+    "url": "https://www.ft.com/content/9f0c58d3-1833-40de-b805-f5ac53f05ff0"
+  },
+  {
+    "id": "c6c68f72-4d00-4475-b7ec-847fd2c4d2fa",
+    "title": "Turkey cuts interest rates despite $18bn investment funds scandal",
+    "date": "2026-10-22",
+    "time": "14:06",
+    "url": "https://www.ft.com/content/c6c68f72-4d00-4475-b7ec-847fd2c4d2fa"
+  },
+  {
+    "id": "43f3144f-7aa8-4821-b5c6-0da470b9af34",
+    "title": "Macron warns some protests will be banned",
+    "date": "2026-10-22",
+    "time": "13:36",
+    "url": "https://www.ft.com/content/43f3144f-7aa8-4821-b5c6-0da470b9af34"
+  },
+  {
+    "id": "43f5c6af-5b1f-4995-9263-b7882013cb99",
+    "title": "Serbia’s students should take a leaf out of Magyar’s book",
+    "date": "2026-10-22",
+    "time": "13:30",
+    "url": "https://www.ft.com/content/43f5c6af-5b1f-4995-9263-b7882013cb99"
+  },
+  {
+    "id": "b97d2ce4-43b0-4551-8ad8-059abb9d3f3e",
+    "title": "Europe’s moderates must stop treating politics as a spectator sport",
+    "date": "2026-10-22",
+    "time": "13:22",
+    "url": "https://www.ft.com/content/b97d2ce4-43b0-4551-8ad8-059abb9d3f3e"
+  },
+  {
+    "id": "587f1f89-3bff-4aae-9130-41f142f1cc5f",
+    "title": "China steps up ‘grey zone’ tactics to isolate Taiwan and punish its allies",
+    "date": "2026-10-22",
+    "time": "13:16",
+    "url": "https://www.ft.com/content/587f1f89-3bff-4aae-9130-41f142f1cc5f"
+  },
+  {
     "id": "5a5f8d2c-94d0-4e90-b9f4-27e398e4e108",
     "title": "Rapid UK pay growth raises pressure on John Healey over minimum wage",
     "date": "2026-10-22",
@@ -61,13 +138,6 @@ export const FT_ITEMS = [
     "date": "2026-10-22",
     "time": "12:00",
     "url": "https://www.ft.com/content/057670d7-c917-41b8-97c2-f45ac3b3241e"
-  },
-  {
-    "id": "6e318b81-a771-4842-9754-e265fef2852f",
-    "title": "Global stocks tumble as oil prices rise",
-    "date": "2026-10-22",
-    "time": "11:39",
-    "url": "https://www.ft.com/content/6e318b81-a771-4842-9754-e265fef2852f"
   },
   {
     "id": "b739c6e8-5b77-46e3-91a5-382fd52389bc",
@@ -168,13 +238,6 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/abe0ee90-b0ad-45c2-95db-93f0663af34b"
   },
   {
-    "id": "b34502b6-38dc-4a46-a8e7-d9131726cd31",
-    "title": "Meta agrees deal to keep Mark Zuckerberg in California despite wealth tax proposal",
-    "date": "2026-10-21",
-    "time": "22:43",
-    "url": "https://www.ft.com/content/b34502b6-38dc-4a46-a8e7-d9131726cd31"
-  },
-  {
     "id": "f39aa4d2-e290-451f-ae91-b19138b6172f",
     "title": "US orders some personnel to leave Saudi Arabia after Houthi attacks",
     "date": "2026-10-21",
@@ -236,68 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-21",
     "time": "18:43",
     "url": "https://www.ft.com/content/7c0fb51a-2c17-414e-96a7-ac33f40af3de"
-  },
-  {
-    "id": "68e28f90-cbc3-4fa6-950b-451cf7c49c87",
-    "title": "Ghana in talks with European nations for reparations, president says",
-    "date": "2026-10-21",
-    "time": "18:43",
-    "url": "https://www.ft.com/content/68e28f90-cbc3-4fa6-950b-451cf7c49c87"
-  },
-  {
-    "id": "bef7e107-3922-4312-acd9-3c96af60c309",
-    "title": "Italy’s buffalo mozzarella production grinds to a halt in truckers’ strike",
-    "date": "2026-10-21",
-    "time": "18:37",
-    "url": "https://www.ft.com/content/bef7e107-3922-4312-acd9-3c96af60c309"
-  },
-  {
-    "id": "8c443652-5c29-4711-81d1-dd985f2e4578",
-    "title": "Indonesia should heed MSCI’s warning",
-    "date": "2026-10-21",
-    "time": "18:36",
-    "url": "https://www.ft.com/content/8c443652-5c29-4711-81d1-dd985f2e4578"
-  },
-  {
-    "id": "7f8e97b4-bd2e-4414-858a-bc746cb515f6",
-    "title": "Tesla-SpaceX: a huge corporate constellation with Musk at its centre",
-    "date": "2026-10-21",
-    "time": "18:25",
-    "url": "https://www.ft.com/content/7f8e97b4-bd2e-4414-858a-bc746cb515f6"
-  },
-  {
-    "id": "93ba5184-e21c-4af2-8121-c92df82a95f3",
-    "title": "Ohio governor’s campaign engulfed in controversy over attack ad",
-    "date": "2026-10-21",
-    "time": "18:09",
-    "url": "https://www.ft.com/content/93ba5184-e21c-4af2-8121-c92df82a95f3"
-  },
-  {
-    "id": "576c025a-b4e2-47d8-88e8-3ac0fcf8e16d",
-    "title": "Hungary detains Orbán’s former central bank chief",
-    "date": "2026-10-21",
-    "time": "18:07",
-    "url": "https://www.ft.com/content/576c025a-b4e2-47d8-88e8-3ac0fcf8e16d"
-  },
-  {
-    "id": "9cfa52b2-77cb-4b53-ad74-badd53f24fc6",
-    "title": "UK approves development of Jackdaw gasfield in North Sea",
-    "date": "2026-10-21",
-    "time": "17:49",
-    "url": "https://www.ft.com/content/9cfa52b2-77cb-4b53-ad74-badd53f24fc6"
-  },
-  {
-    "id": "76f076e4-9db2-4971-8ac9-73d9f39e4876",
-    "title": "France’s borrowing costs hit 5% for first time since 2002",
-    "date": "2026-10-21",
-    "time": "17:33",
-    "url": "https://www.ft.com/content/76f076e4-9db2-4971-8ac9-73d9f39e4876"
-  },
-  {
-    "id": "443ce2f3-ba36-4dc7-aa0b-a2bc593fa563",
-    "title": "UK inflation and borrowing top forecasts in blow to John Healey",
-    "date": "2026-10-21",
-    "time": "17:31",
-    "url": "https://www.ft.com/content/443ce2f3-ba36-4dc7-aa0b-a2bc593fa563"
   }
 ];

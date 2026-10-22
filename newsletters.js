@@ -49,6 +49,64 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+      "id": "nl-legalbusiness-alert-lsegoctus-20261022",
+      "publication": "Legal Business",
+      "author": null,
+      "series": "Legal Business Alert",
+      "title": "US firms lead as LSEG acquires Octus from Permira for $3.5bn",
+      "date": "2026-10-22",
+      "time": "14:14",
+      "summary": "All-cash transaction marks Permira's sixth strategic exit this year.",
+      "url": "https://www.legalbusiness.co.uk/law-firms/us-firms-lead-as-lseg-acquires-octus-from-permira-for-3-5bn/"
+  },
+    {
+      "id": "nl-reuters-econworld-kalshisupremecourt-20261022",
+      "publication": "Reuters",
+      "author": "Carmel Crimmins",
+      "series": "Econ World",
+      "title": "Kalshi’s odds at the Supreme Court",
+      "date": "2026-10-22",
+      "time": "14:00",
+      "summary": "Kalshi CEO Tarek Mansour on the sports-bet fight that may reach the Supreme Court, and Meta’s wealth-tax hedge for Zuckerberg.",
+      "url": "https://www.reuters.com/newsletters/reuters-econ-world",
+      "body": true
+    },
+    {
+      "id": "nl-bloomberg-morningbriefingeurope-metaaipayoff-20261022",
+      "publication": "Bloomberg",
+      "author": "Joe Flynn",
+      "series": "Morning Briefing Europe",
+      "title": "Meta’s AI payoff",
+      "date": "2026-10-22",
+      "time": "07:36",
+      "summary": "Meta raises capex guidance as its AI bet pays off; stocks fall as megacap earnings fail to reassure and Brent jumps above $110.",
+      "url": "https://www.bloomberg.com/news/newsletters/2026-10-22/meta-raises-capex-guidance-as-its-ai-bet-pays-off",
+      "body": true
+    },
+    {
+      "id": "nl-bloomberg-pointsofreturn-midtermmarketmess-20261022",
+      "publication": "Bloomberg",
+      "author": "John Authers",
+      "series": "Points of Return",
+      "title": "Brace for a midterm market mess — and maybe a buying opportunity",
+      "date": "2026-10-22",
+      "time": "05:04",
+      "summary": "The aftermath of 2018 is a good guide.",
+      "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-22/midterms-brace-for-a-market-mess-and-opportunity",
+      "body": true
+    },
+    {
+      "id": "nl-taxpolicy-shouldbanktaxgoup-20261022",
+      "publication": "Tax Policy Associates",
+      "author": "Dan Neidle",
+      "series": null,
+      "title": "Should bank tax go up?",
+      "date": "2026-10-22",
+      "time": "07:21",
+      "summary": "Widespread reports that the Budget will increase tax on banks; a comparison of bank taxation in the UK and eight other countries.",
+      "url": "https://newsletter.taxpolicy.org.uk/campaign/0d4f99ba-2fa5-459d-b219-c3d0841fe6da/fd0b23db-b61a-4813-bcbf-44577160c2d1"
+  },
+  {
     "id": "nl-reuters-tradingday-techitaway-20261021",
     "publication": "Reuters",
     "author": "Jamie McGeever",

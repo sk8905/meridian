@@ -109,6 +109,39 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+      "id": "rsch-mandg-bondvigilantes-bestrelativevaluetrade-20261022",
+      "publication": "M&G Bond Vigilantes",
+      "author": "Miles Tym",
+      "series": null,
+      "title": "The Best Relative Value Trade We Have Ever Seen",
+      "date": "2026-10-22",
+      "time": "15:04",
+      "summary": "Distortions in the index-linked market have created the most compelling relative-value opportunity…",
+      "url": "https://bondvigilantes.com/blog/2026/10/the-best-relative-value-trade-we-have-ever-seen/"
+    },
+    {
+      "id": "rsch-spdji-dailyindexinsights-20261022",
+      "publication": "S&P Dow Jones Indices",
+      "author": null,
+      "series": "Daily Index Insights",
+      "title": "Daily Index Insights",
+      "date": "2026-10-22",
+      "time": "14:30",
+      "summary": "Happy birthday to the Prime Meridian! On this day in 1884, delegates from 25 countries gathered in Washington, D.C., and adopted the meridian passing through the Royal Observatory.",
+      "url": "https://www.spglobal.com/spdji/en/commentary/article/daily-index-insights"
+    },
+    {
+      "id": "rsch-ubs-morningaudio-oilandbonds-20261022",
+      "publication": "UBS CIO",
+      "author": "Paul Donovan",
+      "series": "Morning audio comment",
+      "title": "Oil and bonds",
+      "date": "2026-10-22",
+      "time": "08:09",
+      "summary": "Oil prices are not showing much sign of moderating, and the US has withdrawn some diplomats from Saudi Arabia.",
+      "url": "https://www.ubs.com/global/en/wealth-management/insights/chief-investment-office/market-insights/paul-donovan.html"
+    },
+  {
     "id": "rsch-spdji-indexology-islamicbenchmarksq3-20261021",
     "publication": "S&P Dow Jones Indices",
     "author": null,
