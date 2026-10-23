@@ -11386,6 +11386,52 @@
      }
     }
    ]
+  },
+  {
+   "at": "2026-10-23",
+   "collection": "HEDGE_INTEL",
+   "id": "hi572",
+   "verdict": "GAP",
+   "source": "https://www.hedgeweek.com/ex-citadel-duos-ilex-capital-reaches-7bn-aum/",
+   "evidence": "Hedgeweek page published 2025-12-12",
+   "changes": [
+    {
+     "field": "(new record)",
+     "to": {
+      "id": "hi572",
+      "hfId": "h142",
+      "date": "2025-12-12",
+      "type": "Fundraise",
+      "headline": "Ex-Citadel duo's Ilex Capital reaches $7bn AUM",
+      "summary": "Hedgeweek, citing Bloomberg, reported that London equity long-short multi-manager Ilex Capital Partners has grown to about $7bn after a fresh capital raise, with roughly $2bn of new allocations between June and August 2025. The flagship fund returned 9.1% year-to-date through November (17.5% in the prior year, 4.2% in 2023). The firm has 42 employees across five sector-focused trading teams; this is its third raise since its 2023 launch.",
+      "outlet": "Hedgeweek",
+      "url": "https://www.hedgeweek.com/ex-citadel-duos-ilex-capital-reaches-7bn-aum/"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-23",
+   "collection": "HEDGE_INTEL",
+   "id": "hi573",
+   "verdict": "GAP",
+   "source": "https://www.hedgeweek.com/ilex-capitals-top-earner-paid-78m-amid-surge-in-profits/",
+   "evidence": "Hedgeweek page published 2025-12-30",
+   "changes": [
+    {
+     "field": "(new record)",
+     "to": {
+      "id": "hi573",
+      "hfId": "h142",
+      "date": "2025-12-30",
+      "type": "Performance",
+      "headline": "Ilex Capital's top earner paid GBP78m amid surge in profits",
+      "summary": "Hedgeweek, citing a Financial News review of Companies House filings, reported that Ilex Capital's highest-paid individual received GBP78m for the year ending 31 March 2025, up from GBP20m, and that the UK entity's profits reached GBP117m (+290%) on a GBP100m rise in turnover. The piece also notes 2025 hires of Adrien Brus (ex-Naya Management) as a portfolio manager and Sebastian Yoshida (ex-Citadel) in May, and that the flagship fund returned 9.1% YTD to November.",
+      "outlet": "Hedgeweek",
+      "url": "https://www.hedgeweek.com/ilex-capitals-top-earner-paid-78m-amid-surge-in-profits/"
+     }
+    }
+   ]
   }
  ]
 }
