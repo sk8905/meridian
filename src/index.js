@@ -2589,6 +2589,57 @@ async function _readTeaser(u) {
     return t && t.length >= 20 ? t.slice(0, 600) : "";
   } catch { return ""; }
 }
+// The owner's session cookie for a site: the one saved on Menu ▸ Settings ▸ Subscriptions
+// (KV subck:<site>, Access-gated — no size cap, no Cloudflare dashboard) wins; else the
+// Worker secret SUB_COOKIE_X (split across _2…_4 when it was too big for one secret).
+export async function subCookie(env, base) {
+  if (!env) return "";
+  try { const raw = env.WATCHLIST && await env.WATCHLIST.get("subck:" + base); const c = raw && JSON.parse(raw).cookie; if (c) return c; } catch { /* fall back to secrets */ }
+  const ck = SUB_COOKIE_ENV[base];
+  return [env[ck], env[ck + "_2"], env[ck + "_3"], env[ck + "_4"]].map((x) => String(x || "").trim().replace(/^;+|;+$/g, "").trim()).filter(Boolean).join("; ");
+}
+// A pasted cookie → the bare header value ("cookie: a=1; b=2" / wrapped lines → "a=1; b=2").
+export function cleanCookie(raw) {
+  return String(raw || "").replace(/^\s*cookie\s*:\s*/i, "").replace(/[\r\n]+/g, "").replace(/^['"]|['"]$/g, "").trim().replace(/^;+|;+$/g, "").trim();
+}
+const SUB_ORDER = ["ft.com", "bloomberg.com", "wsj.com", "economist.com", "fnlondon.com"];
+// /api/subs — Menu ▸ Settings ▸ Subscriptions. Access identity required.
+//   GET  → per site: { site, name, saved: "page"|"secret"|null, savedAt, last: {ok, reason, at}, usedToday, cap }
+//          (the cookie itself is NEVER returned)
+//   POST {site, cookie} → save it (KV subck:<site>, no expiry); cookie "" → clear it.
+async function handleSubs(request, env) {
+  if (!identity(request)) return json({ error: "auth" }, 401);
+  const kv = env && env.WATCHLIST; if (!kv) return json({ error: "no kv" }, 503);
+  const priv = (d, st) => { const r = json(d, st); r.headers.set("cache-control", "private, no-store"); return r; };
+  if (request.method === "POST") {
+    // JSON only + same-origin: a cross-site form can't send either.
+    if (!/application\/json/i.test(request.headers.get("content-type") || "")) return priv({ error: "json only" }, 415);
+    const origin = request.headers.get("origin");
+    if (origin && origin !== new URL(request.url).origin) return priv({ error: "cross-origin" }, 403);
+    let b; try { b = await request.json(); } catch { return priv({ error: "bad json" }, 400); }
+    const base = SUB_ORDER.includes(b && b.site) ? b.site : "";
+    if (!base) return priv({ error: "unknown site" }, 400);
+    const cookie = cleanCookie(b.cookie);
+    if (!cookie) {
+      try { if (kv.delete) await kv.delete("subck:" + base); else await kv.put("subck:" + base, "", { expirationTtl: 60 }); } catch { /* ignore */ }
+    } else {
+      if (cookie.length > 32768 || !/=/.test(cookie)) return priv({ error: "that doesn't look like a cookie" }, 400);
+      await kv.put("subck:" + base, JSON.stringify({ cookie, at: new Date().toISOString() }));
+    }
+    try { if (kv.delete) await kv.delete("subst:" + base); } catch { /* ignore */ }
+  }
+  const day = new Date().toISOString().slice(0, 10), cap = +(env.SUB_DAILY_MAX || SUB_DAILY_MAX);
+  const sites = await Promise.all(SUB_ORDER.map(async (base) => {
+    const ck = SUB_COOKIE_ENV[base];
+    let page = null, last = null, used = 0;
+    try { const r = await kv.get("subck:" + base); page = r ? JSON.parse(r) : null; } catch { page = null; }
+    try { const r = await kv.get("subst:" + base); last = r ? JSON.parse(r) : null; } catch { last = null; }
+    try { used = +((await kv.get("subn:" + base + ":" + day)) || 0); } catch { used = 0; }
+    const saved = page && page.cookie ? "page" : (env[ck] ? "secret" : null);
+    return { site: base, name: SUB_NAMES[base], saved, savedAt: page && page.at || null, last, usedToday: used, cap };
+  }));
+  return priv({ sites });
+}
 async function handleSubscriberRead(request, env, u, base, warm) {
   const target = u.toString(), source = SUB_NAMES[base] || _readTidy(base);
   const priv = (data, status) => { const r = json(data, status); r.headers.set("cache-control", "private, no-store"); return r; };
@@ -2614,8 +2665,7 @@ async function handleSubscriberRead(request, env, u, base, warm) {
   let reason = "subscriber";
   // Cloudflare caps one secret at ~5 kB and some sites' cookies are bigger (Bloomberg ~10 kB),
   // so a cookie may be split across SUB_COOKIE_X, SUB_COOKIE_X_2 … _4 (joined back with "; ").
-  const ck = SUB_COOKIE_ENV[base];
-  const cookie = env ? [env[ck], env[ck + "_2"], env[ck + "_3"], env[ck + "_4"]].map((x) => String(x || "").trim().replace(/^;+|;+$/g, "").trim()).filter(Boolean).join("; ") : "";
+  const cookie = await subCookie(env, base);
   if (cookie) {
     const day = new Date().toISOString().slice(0, 10), nKey = "subn:" + base + ":" + day;
     let used = 0; try { used = +((kv && await kv.get(nKey)) || 0); } catch { used = 0; }
@@ -2624,6 +2674,7 @@ async function handleSubscriberRead(request, env, u, base, warm) {
     else {
       try { if (kv) await kv.put(nKey, String(used + 1), { expirationTtl: 2 * 86400 }); } catch { /* best effort */ }
       const d = await _readSubscriber(u, base, cookie);
+      try { if (kv) await kv.put("subst:" + base, JSON.stringify({ ok: !!d.accessible, reason: d.accessible ? "" : (d.reason || "session-thin"), at: new Date().toISOString(), url: target }), { expirationTtl: 90 * 86400 }); } catch { /* best effort */ }
       if (d.accessible) {
         const out = { ...d, source };
         try { if (kv) await kv.put(subKey, JSON.stringify(out), { expirationTtl: SUB_TTL }); } catch { /* best effort */ }
@@ -6349,6 +6400,7 @@ export default {
     if (url.pathname === "/api/research-targets") return handleResearchTargets(request, env);
     if (url.pathname === "/api/nl-ingest") return handleNlIngest(request, env);   // routine write — Access-Bypass this path, secret-guarded
     if (url.pathname === "/api/nl-body") return handleNlBody(request, env);       // reader read — stays behind Access
+    if (url.pathname === "/api/subs") return handleSubs(request, env);            // Menu ▸ Settings ▸ Subscriptions — behind Access
     if (url.pathname === "/api/feedback") return handleFeedback(request, env);
     if (url.pathname === "/api/feedback-export") return handleFeedback(request, env);   // admin dump path — Access-Bypass this one, secret-guarded
     if (url.pathname === "/api/notif-macro") return handleNotifSeen(request, env, notifMacroKey);

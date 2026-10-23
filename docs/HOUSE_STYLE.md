@@ -1852,12 +1852,15 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   shared edge cache and **never** in the repo; **(3) otherwise** the public standfirst
   (`og:description`) + "Wire doesn't have the text of this <pub> story yet" + the link —
   labelled "Open in the <pub> app" on a phone (iOS hands it to the installed app), "Open at
-  <pub>" on desktop. Every response is `private, no-store`. **Setting a session (owner;
-  pilot = FT only):** sign in to ft.com in a desktop browser → DevTools ▸ Network → reload
-  an article → copy that request's `Cookie` header → Cloudflare dashboard ▸ Workers ▸
-  meridian ▸ Settings ▸ Variables and secrets ▸ add the secret `SUB_COOKIE_FT` (or
-  `npx wrangler secret put SUB_COOKIE_FT`). Replace it when the pane shows
-  `(session-expired)`. Spec: `tests/subscriber-reader.mjs`.
+  <pub>" on desktop. Every response is `private, no-store`. **Setting a session (owner):** sign in to the
+  site in a desktop browser → DevTools ▸ Network ▸ Doc → reload an article → copy the first
+  row's Request Headers `cookie` value → paste it on **Menu ▸ Settings ▸ Subscriptions**
+  (`v2/js/subs-panel.js` → `/api/subs`, Access-only; stored in KV `subck:<site>`, no size cap,
+  never returned to the page). That page shows each site's state (Not set / Saved / Reading
+  in full / Not working + why), from `subst:<site>`, which the reader writes after every
+  session read. A page-saved cookie wins over the `SUB_COOKIE_*` secrets (the older route,
+  still honoured). Replace it when the page says "Logged out". Specs:
+  `tests/subscriber-reader.mjs`, `tests/subs-panel.mjs`.
 
 - **R51 — Emails show "[link]", never a bare URL (owner 2026-10-20).** Every email Wire
   sends that carries links (the morning credit digest, and the health email or any

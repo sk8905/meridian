@@ -525,6 +525,22 @@ html.wire-boot #out { visibility: hidden; }
 .na-menu-recent-h { padding: 12px var(--m-gutter, 12px) 4px; font-family: var(--t-mono, ui-monospace, monospace);
   font-size:var(--fs-micro); font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
   color: var(--t-faint); }
+/* Menu ▸ Settings ▸ Subscriptions (v2/js/subs-panel.js): one row per site — name, a state
+   pill, a detail line, and a paste box. The box uses --fs-title (≥16px) so iOS doesn't zoom. */
+.subs-intro, .subs-sub, .subs-msg { padding: 0 var(--m-gutter, 12px); margin: 0 0 6px; font-family: var(--t-mono); font-size: var(--fs-micro); color: var(--t-mut); }
+.subs-row { padding: 8px 0 10px; border-bottom: 1px solid var(--t-grid); }
+.subs-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 0 var(--m-gutter, 12px) 3px; }
+.subs-name { font-family: var(--t-mono); font-size: var(--fs-body); font-weight: 600; color: var(--t-ink); }
+.subs-pill { font-family: var(--t-mono); font-size: var(--fs-micro); letter-spacing: .03em; color: var(--t-faint); }
+.subs-pill.is-ok { color: var(--t-up); } .subs-pill.is-bad { color: var(--t-down); } .subs-pill.is-wait { color: var(--t-amber); }
+.subs-box { display: block; box-sizing: border-box; width: calc(100% - 2 * var(--m-gutter, 12px)); margin: 4px var(--m-gutter, 12px) 6px;
+  padding: 6px 8px; font-family: var(--t-mono); font-size: var(--fs-title); color: var(--t-ink); background: transparent;
+  border: 1px solid var(--t-grid); border-radius: 0; resize: vertical; word-break: break-all; }
+.subs-acts { display: flex; gap: 8px; padding: 2px var(--m-gutter, 12px) 0; }
+.subs-btn { padding: 5px 10px; border: 1px solid var(--t-grid); background: transparent; color: var(--t-ink); border-radius: 0; cursor: pointer;
+  font-family: var(--t-mono); font-size: var(--fs-micro); }
+.subs-btn-q { color: var(--t-mut); }
+.subs-btn:disabled { opacity: .5; cursor: default; }
 /* Appearance — the theme chip reuses the Push-notifications row style
    (.na-menu-pushrow + .na-menu-push), so no bespoke control CSS is needed. */
 /* Push-notifications toggle — a small ghost chip on the RIGHT of the footer,

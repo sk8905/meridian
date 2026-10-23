@@ -14,7 +14,8 @@
 //     GOOD / STALE / FAILING pill, with failing/stale first + the fix; live /api probes;
 //     a role-based "Start here"; and "Add a law firm" (C, opens a review PR).
 //   • Settings — Notifications (push toggle), Appearance (theme) + Text size (a
-//     1px-step adjuster on the app-wide --fs-adj knob). Sign out and
+//     1px-step adjuster on the app-wide --fs-adj knob), and Subscriptions (the
+//     subscriber reader's site logins — v2/js/subs-panel.js, HOUSE_STYLE R53). Sign out and
 //     density live elsewhere: sign out in the phone bottom strip; density is not
 //     user-configurable.
 // On PHONES this is where Search + the Ask/Add assistant live (the header keeps
@@ -121,7 +122,10 @@ function settingsPaneHTML() {
     + `<button type="button" class="na-fs-opt" data-fs="down" aria-label="Smaller text"${fsStored() <= FS_MIN ? " disabled" : ""}>A&minus;</button>`
     + `<span class="na-fs-val" role="status" aria-live="polite">${fsLabel(fsStored())}</span>`
     + `<button type="button" class="na-fs-opt" data-fs="up" aria-label="Larger text"${fsStored() >= FS_MAX ? " disabled" : ""}>A+</button>`
-    + `</div></div>`;
+    + `</div></div>`
+    // Subscriptions (v2/js/subs-panel.js paints #v2-menu-subs after render()).
+    + `<div class="na-menu-recent-h">Subscriptions</div>`
+    + `<div class="subs" id="v2-menu-subs"><p class="watch-loading">Loading your subscriptions…</p></div>`;
 }
 function paneHTML(sec) {
   if (sec === "settings") return settingsPaneHTML();
@@ -182,6 +186,8 @@ export function mount(host, ctx) {
     if (sec === "watchlist") mountWatchlist();
     if (sec === "new") mountWhatsNew();
     if (sec === "digest") mountDigest();
+    if (sec === "settings") import("/v2/js/subs-panel.js").then((S) => S.mountSubs(() => host.querySelector("#v2-menu-subs")))
+      .catch(() => { const b = host.querySelector("#v2-menu-subs"); if (b) b.innerHTML = `<p class="watch-empty">Couldn’t load your subscriptions.</p>`; });
   };
 
   // Coverage & sources: lazy-load the status page and paint it into its box (it
