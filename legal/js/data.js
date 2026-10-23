@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-10-23";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "09:08 BST";
+export const LAST_CHECKED_TIME = "10:16 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -131,6 +131,8 @@ export const updateTypes = [
 // area: primary practice-area id. areas: all relevant practice-area ids.
 // For case notes, court/citation are populated.
 export const items = [
+  {"id":"u4101","title":"White & Case advises EverWind on its CAD 10 billion investment in Nova Scotia data center campus","area":"corporate","areas":["corporate"],"type":"alert","firm":"whitecase","date":"2026-10-22","summary":"Global law firm White & Case LLP has advised EverWind, the Nova Scotia–based energy infrastructure company, on its CAD 10 billion private investment in a data center campus at its existing Point Tupper industrial site.","url":"https://www.whitecase.com/news/press-release/white-case-advises-everwind-its-cad-10-billion-investment-nova-scotia-data"},
+  {"id":"u4102","title":"QIAGEN $12.1 billion takeover offer by EQT Private Equity","area":"corporate","areas":["corporate"],"type":"alert","firm":"davispolk","date":"2026-10-22","summary":"Davis Polk is advising QIAGEN on the transaction.","url":"https://www.davispolk.com/experience/qiagen-12-1-billion-takeover-offer-eqt-private-equity"},
   {"id":"u4100","title":"Kirkland Advises Arlington Capital Partners on Acquisition of Gooch & Housego PLC","area":"corporate","areas":["corporate"],"type":"alert","firm":"kirkland","date":"2026-10-22","summary":"Kirkland Advises Arlington Capital Partners on Acquisition of Gooch & Housego PLC.","url":"https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-arlington-capital-partners-on-acquisition-of-gooch-housego-plc"},
   {"id":"u3837","title":"Clifford Chance advises Vattenfall on battery storage tolling agreement with Royal Vopak","area":"corporate","areas":["corporate"],"type":"alert","firm":"cliffordchance","date":"2026-10-21","summary":"Clifford Chance advised Vattenfall on a tolling agreement with Royal Vopak for part of a planned battery energy storage system near Meeden, Groningen, the Netherlands. Vattenfall gains access to 100 MW / 400 MWh of the system's 150 MW, four-hour capacity, which Vopak will develop and operate; commercial operations are expected in Q2 2028.","url":"https://www.cliffordchance.com/news/news/2026/10/clifford-chance-advises-vattenfall-on-battery-storage-tolling-agreement-with-royal-vopak.html"},
   {"id":"u3838","title":"Clifford Chance advises MTN Group on strategic partnership to accelerate AI-ready digital infrastructure across Africa","area":"corporate","areas":["corporate"],"type":"alert","firm":"cliffordchance","date":"2026-10-21","summary":"Clifford Chance advised MTN Group on establishing a strategic partnership with an investment entity founded by Tarek Al Ashram to pursue digital infrastructure opportunities across Africa through Africa Data Hub Holding Limited, initially focused on South Africa and Nigeria. Financial terms were not disclosed.","url":"https://www.cliffordchance.com/news/news/2026/10/clifford-chance-advises-mtn-group-on-strategic-partnership-to-accelerate-ai-ready-digital-infrastructure-across-africa.html"},

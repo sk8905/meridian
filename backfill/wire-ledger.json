@@ -3001,6 +3001,30 @@
    "status": "rejected",
    "reason": "Latham partner-class announcement could not be verified on lw.com (page not found by search); people news, no deal",
    "at": "2026-10-23T05:15:01.428Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/blackstone-multi-strategy-fund-reaches-276-9m-in-assets-following-new-unit-sales",
+   "status": "rejected",
+   "reason": "hedge fund unit sale, not a credit event; $276.9m figure not verifiable (SEC 8-Ks show ~$109.5m aggregate)",
+   "at": "2026-10-23T09:14:55.335Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/calpers-considers-hedge-fund-return-12-years-after-high-profile-exit",
+   "status": "rejected",
+   "reason": "CalPERS only considering a hedge fund return; no commitment or mandate, no primary source",
+   "at": "2026-10-23T09:14:55.335Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMimAJBVV95cUxNNDNKd01Wb2hNLTFRQmRlTm1EQ3VmV1ZJTE1DTkx2RGxlUFU0UUhJY3pjN0lqNnVSelZwbjhzMjJzWFhibFFrOW1VNXFJSEJaQXhDcGhPRTdQeV9LdnI2S2p6aEVKcWFVbTZLYUNZZUlxbURrQllkRlBXYjV6cHBuOHl6MVl1TG5TeVhfYzd2aGRkaU10c0thcmlBSDFwdEl2SG1BTWVJQ1BqRXNMZjRvWkFOR0F2bXVZVE9DWG82ZXdtMzFBX1N1X3o3TzNuczJzeEpibVI4a0FnNlN4MVp6UjhWUExwZE12VTd0QlFBcHdBLVNTUFVBOWFZdDdvbFB5b2ZNd0dBVnNrT1lOcG5pb19tMVdpM3kw?oc=5",
+   "status": "rejected",
+   "reason": "earnings-call scheduling notice; no deal/fund/hire fact",
+   "at": "2026-10-23T09:14:55.335Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMilAJBVV95cUxNeVVJTGtpRTFPcmF5dG5yUF9OZ1M1b1FtWmUxc0pWcXBHeE8yQ1dtaGJvYUt6c2RQeGU3bUQxellLaWVPZ3hoT1MxbTl4QjJTUTJtby1ZYlE4YzJ2VHg1ZERiZ0FwSlZNczlOOS05X1BJNTQzaEFyeTVpXzNZelBPcDhJOG5ZLTdnZklXTGlhSFJKQ1BqOTZCOEVYa182ZVRPVXU1bm9RN1JIU21FZTBaOWlXR056YWVtMUpuUFZuSWJJNkRYM0JwRGtTOS1LNXBrSWpmTFdYVWxnLXBkX1R1a2NycmVxS0dQUXNNc0p4LVpGZUxaM3FjVnQzcnN2Tk1MYlZMVF9NdmF0R2FyeHZDblQySjU?oc=5",
+   "status": "rejected",
+   "reason": "promotion of a founder media feature; not a credit transaction",
+   "at": "2026-10-23T09:14:55.335Z"
   }
  ]
 }
