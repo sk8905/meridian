@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-23T07:54:56.988Z",
+ "generated": "2026-10-23T13:48:35.102Z",
  "since": "2026-10-09",
  "firms": {
   "proskauerrose": {
@@ -43,19 +43,6 @@
    "errors": 0,
    "carried": 0
   },
-  "linklaters": {
-   "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
-   ],
-   "sitemaps": 6,
-   "urls": 17816,
-   "kept": 6,
-   "fetched": 6,
-   "errors": 0,
-   "carried": 0
-  },
   "ashurst": {
    "domains": [
     "www.ashurst.com"
@@ -86,25 +73,27 @@
    "errors": 1,
    "carried": 0
   },
+  "linklaters": {
+   "domains": [
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
+   ],
+   "sitemaps": 6,
+   "urls": 17822,
+   "kept": 10,
+   "fetched": 10,
+   "errors": 0,
+   "carried": 0
+  },
   "macfarlanes": {
    "domains": [
     "www.macfarlanes.com"
    ],
    "sitemaps": 4,
-   "urls": 2413,
-   "kept": 1,
-   "fetched": 1,
-   "errors": 0,
-   "carried": 0
-  },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5023,
-   "kept": 4,
-   "fetched": 4,
+   "urls": 2415,
+   "kept": 2,
+   "fetched": 2,
    "errors": 0,
    "carried": 0
   },
@@ -121,6 +110,17 @@
    "disallowed": 1,
    "carried": 0
   },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5025,
+   "kept": 5,
+   "fetched": 5,
+   "errors": 0,
+   "carried": 0
+  },
   "aoshearman": {
    "domains": [
     "www.aoshearman.com",
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 9644,
+   "urls": 9646,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -162,8 +162,8 @@
    ],
    "sitemaps": 11,
    "urls": 10423,
-   "kept": 21,
-   "fetched": 21,
+   "kept": 20,
+   "fetched": 20,
    "errors": 0,
    "carried": 0
   },
@@ -171,11 +171,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 7,
-   "urls": 7603,
+   "sitemaps": 5,
+   "urls": 6784,
    "kept": 1,
    "fetched": 1,
-   "errors": 10,
+   "errors": 12,
    "carried": 0
   },
   "ropesgray": {
@@ -244,7 +244,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12308,
+   "urls": 12309,
    "kept": 4,
    "fetched": 4,
    "errors": 0,
@@ -256,9 +256,9 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16241,
-   "kept": 8,
-   "fetched": 8,
+   "urls": 16240,
+   "kept": 7,
+   "fetched": 7,
    "errors": 0,
    "carried": 0
   },
@@ -267,9 +267,9 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11606,
-   "kept": 13,
-   "fetched": 13,
+   "urls": 11607,
+   "kept": 14,
+   "fetched": 14,
    "errors": 0,
    "carried": 0
   },
@@ -278,7 +278,7 @@
     "www.hoganlovells.com"
    ],
    "sitemaps": 2,
-   "urls": 21460,
+   "urls": 21472,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -321,7 +321,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7754,
+   "urls": 7753,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -332,7 +332,7 @@
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16373,
+   "urls": 16375,
    "kept": 19,
    "fetched": 19,
    "errors": 0,
@@ -352,22 +352,67 @@
  },
  "items": [
   {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/press-release/white-case-advises-everwind-its-cad-10-billion-investment-nova-scotia-data",
-   "title": "White & Case advises EverWind on its CAD 10 billion investment in Nova Scotia data center campus",
-   "description": "Global law firm White & Case LLP has advised EverWind, the Nova Scotia–based energy infrastructure company, on its CAD 10 billion private investment in a data center campus at its existing Point Tupper industrial site.",
-   "date": "2026-10-22",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-22"
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-boc-on-two-landmark-offshore-renminbi-notes-issuances-in-dubai-and-europe",
+   "title": "Linklaters advises BOC on two landmark offshore Renminbi notes issuances in Dubai and Europe",
+   "description": "Linklaters has advised Bank of China on two landmark offshore Renminbi notes issuances by its Dubai and Frankfurt branches, supporting the development of international financing and investment channels for Renminbi-denominated instruments.",
+   "date": "2026-10-23",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-23"
   },
   {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/experience/qiagen-12-1-billion-takeover-offer-eqt-private-equity",
-   "title": "QIAGEN $12.1 billion takeover offer by EQT Private Equity",
-   "description": "We are advising QIAGEN on the transaction",
-   "date": "2026-10-22",
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-cip-on-five-estuaries-acquisition",
+   "title": "CIP acquires 25% stake in Five Estuaries wind farm",
+   "description": "Linklaters advises Copenhagen Infrastructure Partners on its acquisition of a 25% interest in the 1,080MW Five Estuaries Offshore Wind Farm.",
+   "date": "2026-10-23",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-23"
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-on-adani-group-company-cemindia-projects",
+   "title": "Linklaters advises on Adani Group company Cemindia Projects’ US$146m qualified institutional placement of shares in India",
+   "description": "Linklaters advises the book running lead managers on Cemindia Projects’ qualified institutional placement of shares in India, raising US$146m.",
+   "date": "2026-10-23",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-23"
+  },
+  {
+   "firm": "macfarlanes",
+   "url": "https://www.macfarlanes.com/insights/102o6a3/a-return-of-the-uk-investor-visa-still-on-the-agenda",
+   "title": "A return of the UK investor visa: still on the agenda",
+   "description": "The Financial Times reported this week that Chancellor John Healey will not include a new investor visa route in his Budget on 28 October...",
+   "date": "2026-10-23",
    "dateSource": "datePublished",
-   "lastmod": "2026-10-22"
+   "lastmod": "2026-10-23"
+  },
+  {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/knowledge-container/divided-loyalties-feedback-from-the-uk-fcas-conflicts-of-interest-review/",
+   "title": "Divided Loyalties? Feedback from the UK FCA's Conflicts of Interest Review",
+   "description": "Back in October 2025, the UK Financial Conduct Authority (FCA) began a review into how UK private market firms were identifying, managing and mitigating conflicts of interest. The scope of the review focused on fund management, discretionary portfolio management and advisory activities carried out in or from the UK in connection with investment in private equity, private credit or real estate.",
+   "date": "2026-10-23",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-23"
+  },
+  {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-represents-cip-on-eur155-million-private-credit-financing",
+   "title": "A&O Shearman advises CIP on EUR155m HoldCo deal",
+   "description": "A&O Shearman advised CIP on a EUR155m private credit financing for MaxSolar, funding its growth into a German independent power producer.",
+   "date": "2026-10-23",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-23"
+  },
+  {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/our-insights/blogs/real-estate-legal-update/102o69t/cautious-creative-and-still-closing-what-we-learnt-from-expo-real-2026/",
+   "title": "Cautious, Creative and Still Closing: What we learnt from EXPO REAL 2026",
+   "description": "We have just returned from EXPO REAL 2026 in Munich. The mood was cautious, but the market is still moving, and we came away with a...",
+   "date": "2026-10-23",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-23"
   },
   {
    "firm": "mayerbrown",
