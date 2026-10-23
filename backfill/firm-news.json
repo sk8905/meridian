@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-23T18:42:20.977Z",
+ "generated": "2026-10-23T23:26:38.628Z",
  "since": "2026-10-09",
  "firms": {
   "proskauerrose": {
@@ -145,17 +145,6 @@
    "errors": 0,
    "carried": 0
   },
-  "kirkland": {
-   "domains": [
-    "www.kirkland.com"
-   ],
-   "sitemaps": 11,
-   "urls": 17461,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
   "whitecase": {
    "domains": [
     "www.whitecase.com"
@@ -167,15 +156,26 @@
    "errors": 0,
    "carried": 0
   },
+  "kirkland": {
+   "domains": [
+    "www.kirkland.com"
+   ],
+   "sitemaps": 11,
+   "urls": 17461,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
   "sidley": {
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 5,
-   "urls": 6786,
+   "sitemaps": 7,
+   "urls": 7606,
    "kept": 1,
    "fetched": 1,
-   "errors": 12,
+   "errors": 10,
    "carried": 0
   },
   "ropesgray": {
@@ -214,7 +214,7 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16240,
+   "urls": 16241,
    "kept": 7,
    "fetched": 7,
    "errors": 0,
@@ -271,7 +271,7 @@
     "european-disputes-blog.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7750,
+   "urls": 7744,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -281,19 +281,11 @@
    "domains": [
     "www.hoganlovells.com"
    ],
-   "sitemaps": 2,
-   "urls": 21472,
+   "sitemaps": 0,
+   "urls": 0,
    "kept": 0,
    "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://www.hlc.com/en/knowledge @2023-12-08",
-    "https://www.hlc.com/de/knowledge @2023-12-08",
-    "https://www.hlc.com/fr/knowledge @2023-12-08",
-    "https://www.hlc.com/ja/knowledge @2023-12-08",
-    "https://www.hlc.com/es/knowledge @2023-12-08",
-    "https://www.hlc.com/en/knowledge/topic-centers/fintech-mentor-program @2026-01-06"
-   ],
+   "errors": 1,
    "carried": 0
   },
   "cleary": {
@@ -302,7 +294,7 @@
     "content.clearygottlieb.com"
    ],
    "sitemaps": 1,
-   "urls": 18727,
+   "urls": 18731,
    "kept": 40,
    "fetched": 40,
    "errors": 1,
@@ -332,7 +324,7 @@
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16377,
+   "urls": 16380,
    "kept": 20,
    "fetched": 20,
    "errors": 0,
@@ -345,8 +337,8 @@
    "sitemaps": 27,
    "urls": 13016,
    "kept": 40,
-   "fetched": 38,
-   "errors": 9,
+   "fetched": 40,
+   "errors": 7,
    "carried": 0
   }
  },
@@ -370,27 +362,9 @@
    "lastmod": "2026-10-23"
   },
   {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/insights/a-decade-in-ao-shearmans-leveraged-finance-training-camp-draws-its-biggest-audience-yet",
-   "title": "A&O Shearman's Leveraged Finance Training Camp turns 10",
-   "description": "A&O Shearman's 10th annual Leveraged Finance Training Camp drew 1,600+ participants for insights on private credit, covenants, and restructuring.",
-   "date": "2026-10-23",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-23"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/luxembourg-issues-europes-first-dlt-native-benchmark-bond",
-   "title": "Luxembourg Issues Europe’s First DLT-Native Benchmark Bond",
-   "description": "A&O Shearman advised Spuerkeess on Luxembourg’s EUR1.7bn DLT-native sovereign bond, advancing digital capital markets in Europe.",
-   "date": "2026-10-23",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-23"
-  },
-  {
    "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-kohlberg-on-financing-for-acquisition-of-advanced-industrial-devices",
-   "title": "Kirkland Advises Kohlberg on Financing for Acquisition of Advanced Industrial Devices",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-kkr-on-acquisition-of-iep-and-ng-representing-the-majority-of-hoerbigers-sbu",
+   "title": "Kirkland Advises KKR on Acquisition of IEP Technologies and Newson Gale, Representing the Majority of HOERBIGER’s Safety Business Unit",
    "description": null,
    "date": "2026-10-23",
    "dateSource": "page date label",
