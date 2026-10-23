@@ -930,7 +930,7 @@ const T = {
   d1039: {"c":"Pan-European","s":"Diversified","a":"fund","e":"new","p":"Victory Street CLO I","r":"issuer"},
   d1040: {"c":"UK","s":"Financial services","a":"financing"},
   d1041: {"c":"Germany","s":"Transport & logistics","a":null,"p":"Nayak Aircraft Services","r":"borrower","cs":"https://www.clearwatercf.com/experience/transactions/clearwater-advises-chequers-capital-on-raising-finance-to-support-the-acquisition-of-nayak/","cb":"hq"},
-  d1042: {"c":null,"s":"TMT","a":null},
+  d1042: {"c":"Germany","s":"TMT","a":null,"cs":"https://www.lw.com/en/news/2026/10/latham-watkins-advises-kartesia-acquisition-financing-schlafender-hase","cb":"incorporated"},
   d1043: {"c":"US","s":"TMT","a":"financing","p":"SourceCode","r":"borrower","cs":"https://www.lincolninternational.com/transactions/jmc-capital-partners-has-sold-source-code-to-cerberus/","cb":"hq"},
   d1044: {"c":"France","s":"TMT","a":"financing","p":"Enersweet","r":"borrower"},
   d1045: {"c":"Pan-European","s":"Diversified","a":"fund","e":"new","p":"Capital Four CLO X DAC","r":"issuer"},

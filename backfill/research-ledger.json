@@ -11196,6 +11196,33 @@
      "to": "US"
     }
    ]
+  },
+  {
+   "at": "2026-10-23",
+   "collection": "DEAL_TAGS",
+   "id": "d1042",
+   "verdict": "GAP",
+   "source": "https://www.lw.com/en/news/2026/10/latham-watkins-advises-kartesia-acquisition-financing-schlafender-hase",
+   "sourceLabel": "Latham & Watkins",
+   "asOf": "2026-10-12",
+   "evidence": "Latham advised Kartesia as senior lender on Maguar Capital's majority-stake acquisition of Schlafender Hase GmbH, a German GmbH.",
+   "changes": [
+    {
+     "field": "country",
+     "from": null,
+     "to": "Germany"
+    },
+    {
+     "field": "countrySource",
+     "from": null,
+     "to": "https://www.lw.com/en/news/2026/10/latham-watkins-advises-kartesia-acquisition-financing-schlafender-hase"
+    },
+    {
+     "field": "countryBasis",
+     "from": null,
+     "to": "incorporated"
+    }
+   ]
   }
  ]
 }
