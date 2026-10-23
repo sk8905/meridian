@@ -72,6 +72,9 @@ globalThis.fetch = async (input, init = {}) => {
   if (url.startsWith("https://www.ft.com/content/") || url.startsWith("https://ft.com/content/")) {
     if (!headers.get("cookie")) return new Response(`<html><head><meta property="og:description" content="UK borrowing costs fell as inflation cooled."></head><body><p>Subscribe to read.</p></body></html>`, { status: 200, headers: { "content-type": "text/html" } });
     if (ftMode === "expired") return new Response(null, { status: 302, headers: { location: "https://accounts.ft.com/login?location=x" } });
+    if (ftMode === "thin") return new Response(`<html><head><title>Some FT video</title><script src="https://client.perimeterx.net/main.min.js"></script></head><body>${"<div>video player</div>".repeat(3000)}</body></html>`, { status: 200, headers: { "content-type": "text/html" } });
+    if (ftMode === "barrier") return new Response(`<html><head><title>Gilts</title></head><body><div class="o-barrier">Subscribe to unlock this article</div><p>Teaser line one of the article that the barrier page shows to everyone.</p></body></html>`, { status: 200, headers: { "content-type": "text/html" } });
+    if (ftMode === "next") return new Response(`<html><head><title>Gilts</title></head><body><script id="__NEXT_DATA__" type="application/json">${JSON.stringify({ props: { pageProps: { article: { body: Array.from({ length: 6 }, (_, i) => ({ type: "paragraph", text: `Gilts rallied for a ${i}th session as traders priced in faster rate cuts after the inflation print surprised the market and the Bank, while sterling slipped against the dollar and the euro in thin afternoon trading.` })) } } } })}</script></body></html>`, { status: 200, headers: { "content-type": "text/html" } });
     if (ftMode === "bot") return new Response("<html><head><title>Are you a robot?</title></head><body><div id=\"px-captcha\"></div></body></html>", { status: 403, headers: { "content-type": "text/html" } });
     return new Response(FT_HTML, { status: 200, headers: { "content-type": "text/html" } });
   }
@@ -131,6 +134,18 @@ try {
   ftMode = "bot";
   const bot = await (await read("https://www.ft.com/content/abababab-1111-2222-3333-444455556666", { env: senv })).json();
   check(bot.reason === "session-blocked", `a robot-check page reads as session-blocked (got ${bot.reason})`);
+  // A thin page that merely LOADS bot-protection scripts is not "blocked"; a paywall prompt
+  // is "expired"; text embedded as page data (Bloomberg / Economist style) is read.
+  ftMode = "thin";
+  const th = await (await read("https://www.ft.com/content/aaaa0000-1111-2222-3333-444455556666", { env: senv })).json();
+  check(th.reason === "session-no-text" && th.diag && th.diag.title === "Some FT video" && th.diag.bot === false, `a thin page with bot scripts → session-no-text + diagnosis (got ${th.reason})`);
+  ftMode = "barrier";
+  const br = await (await read("https://www.ft.com/content/bbbb0000-1111-2222-3333-444455556666", { env: senv })).json();
+  check(br.reason === "session-expired", `a paywall prompt → session-expired (got ${br.reason})`);
+  ftMode = "next";
+  const nx = await (await read("https://www.ft.com/content/cccc0000-1111-2222-3333-444455556666", { env: senv })).json();
+  check(nx.accessible && nx.paragraphs.length === 6, `article text embedded as page data is read (${nx.paragraphs && nx.paragraphs.length} ¶)`);
+  check(!JSON.stringify(th.diag).includes("video player"), "the diagnosis carries no page text");
   calls.length = 0;
   const capEnv = { ...senv, SUB_DAILY_MAX: "0" };
   const cap = await (await read("https://www.ft.com/content/12341234-1234-1234-1234-123412341234", { env: capEnv })).json();

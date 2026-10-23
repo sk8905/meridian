@@ -8,7 +8,10 @@ const WHY = {
   "session-expired": "Logged out — paste a fresh cookie",
   "session-blocked": "The site blocks Wire's server (a new cookie won't help)",
   "session-daily-cap": "Daily limit reached — resets tomorrow",
+  "session-no-text": "The page loaded but Wire found no article text",
 };
+// A one-line diagnosis of the last failed read (no article text) to pass on for a fix.
+const diagLine = (d) => d ? `Details: HTTP ${d.status} · "${d.title || ""}" · ${d.kb} kB · ${d.p} ¶${d.ld ? " · ld" : ""}${d.next ? " · next" : ""}${d.embedded != null ? " · emb " + d.embedded : ""}${d.bot ? " · bot" : ""}${d.barrier ? " · barrier" : ""}` : "";
 const when = (iso) => {
   const t = Date.parse(iso || ""); if (!t) return "";
   const d = new Date(t);
@@ -25,6 +28,7 @@ function rowHTML(s, open, msg) {
   return `<div class="subs-row" data-site="${esc(s.site)}">`
     + `<div class="subs-head"><span class="subs-name">${esc(s.name)}</span><span class="subs-pill ${st.cls}">${esc(st.txt)}</span></div>`
     + `<div class="subs-sub">${esc(st.sub)}${s.saved === "secret" ? " · from a Cloudflare secret" : ""}</div>`
+    + (s.last && !s.last.ok && s.last.diag ? `<div class="subs-sub subs-diag">${esc(diagLine(s.last.diag))}</div>` : "")
     + (open
       ? `<textarea class="subs-box" rows="4" spellcheck="false" autocomplete="off" placeholder="Paste the whole cookie value from DevTools (Request Headers ▸ cookie)"></textarea>`
         + `<div class="subs-acts"><button type="button" class="subs-btn" data-act="save">Save</button><button type="button" class="subs-btn subs-btn-q" data-act="cancel">Cancel</button></div>`

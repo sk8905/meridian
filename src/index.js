@@ -2565,19 +2565,75 @@ async function _readSubscriber(u, base, cookie) {
       if (!next || next.protocol !== "https:" || nh !== base || /login|signin|barrier|subscribe/i.test(next.pathname)) return { accessible: false, paragraphs: [], reason: "session-expired" };
       cur = next.toString(); continue;
     }
-    // A thin page is either a bot check (the site refused a server, cookie or not — copying a
-    // new cookie won't help) or a logged-out teaser (the cookie has lapsed). Tell them apart.
-    const BOT = /px-captcha|perimeterx|captcha-delivery|datadome|are you a robot|security verification|verify you are (?:a )?human|access denied|unusual activity/i;
-    if (!r.ok) {
-      const t = await r.text().catch(() => "");
-      return { accessible: false, paragraphs: [], reason: (r.status === 403 || r.status === 429 || r.status === 401) && BOT.test(t.slice(0, 200000)) ? "session-blocked" : "session-" + r.status };
+    const html = (await r.text().catch(() => "")).slice(0, 3000000);
+    const diag = subDiag(r.status, html);
+    if (!r.ok) return { accessible: false, paragraphs: [], diag, reason: diag.bot || r.status === 429 ? "session-blocked" : "session-" + r.status };
+    let d = extractReadable(html, new URL(cur), { subscriber: true });
+    if (!(d.paragraphs && d.paragraphs.length >= 4)) {
+      // Many sites (Bloomberg, The Economist, WSJ) build the article from data embedded in the
+      // page rather than plain <p> tags — read the text from there.
+      const emb = readEmbeddedBody(html);
+      diag.embedded = emb.length;
+      if (emb.length >= 4) d = { ...d, accessible: true, paragraphs: emb, blocks: emb.map((t) => ({ t, h: false })) };
     }
-    const html = (await r.text()).slice(0, 2000000);
-    const d = extractReadable(html, new URL(cur), { subscriber: true });
-    if (!(d.paragraphs && d.paragraphs.length >= 4)) return { ...d, accessible: false, reason: BOT.test(html.slice(0, 200000)) ? "session-blocked" : "session-expired" };
-    return { ...d, url: u.toString(), via: "subscription" };
+    if (!(d.paragraphs && d.paragraphs.length >= 4)) {
+      // Name the cause only when the page says so plainly; otherwise "no text found", with a
+      // diagnosis (never any article text) the owner can pass on.
+      return { ...d, accessible: false, diag, reason: diag.bot ? "session-blocked" : diag.barrier ? "session-expired" : "session-no-text" };
+    }
+    return { ...d, accessible: true, url: u.toString(), via: "subscription" };
   }
   return { accessible: false, paragraphs: [], reason: "session-redirects" };
+}
+// What a session read got back, for diagnosis — status, title, size, what the extractor found
+// and which tell-tale markers appear. No article text. bot = the page IS a robot check (its
+// title says so, or a small page carrying a captcha); barrier = the page IS a paywall prompt.
+export function subDiag(status, html) {
+  const head = String(html || "").slice(0, 300000);
+  const title = _readStrip((/<title[^>]*>([\s\S]*?)<\/title>/i.exec(head) || [])[1] || "").slice(0, 90);
+  const bot = /\b(?:are you a robot|robot check|verify(?:ing)? you are|security verification|access denied|just a moment|attention required|captcha|request blocked|pardon our interruption)\b/i.test(title)
+    || (head.length < 40000 && /px-captcha|captcha-delivery|cf-chl-|challenge-platform\/h\/|are you a robot|verify you are (?:a )?human/i.test(head));
+  const barrier = /subscribe to (?:read|unlock|continue reading)|to continue reading,? (?:subscribe|sign in|log in)|already a subscriber\?|o-barrier|"barrier"|paywall-(?:wrapper|container)|regwall/i.test(head);
+  return { status, title, kb: Math.round(String(html || "").length / 1024), p: (head.match(/<p[\s>]/gi) || []).length,
+    ld: /"articleBody"\s*:/.test(head), next: /id=["']__NEXT_DATA__["']/i.test(head), bot, barrier };
+}
+// Article text embedded as data: JSON-LD "articleBody", else prose strings inside the page's
+// JSON (__NEXT_DATA__ / application/json blocks) under body/content/article-ish keys.
+// Returns paragraphs in order; [] when nothing convincing. Pure — unit-tested.
+export function readEmbeddedBody(html) {
+  const out = [], seen = new Set();
+  const push = (t) => {
+    t = _readDec(String(t || "")).replace(/\s+/g, " ").trim();
+    if (t.length < 60 || t.split(" ").length < 10 || !/[a-z]/.test(t) || /^https?:|[{}]|function\s*\(/.test(t) || READ_BOILER.test(t.slice(0, 120))) return;
+    const k = t.slice(0, 80); if (seen.has(k)) return; seen.add(k); out.push(t);
+  };
+  const fromString = (str) => {
+    if (/<p[\s>]/i.test(str)) { _readBlocks(str, null).filter((b) => !b.h && b.t).forEach((b) => push(b.t)); return; }
+    String(str).split(/\n{1,}/).forEach(push);
+  };
+  // 1. JSON-LD articleBody
+  const ldRe = /<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi; let m;
+  const walkLd = (o, d) => { if (!o || d > 6) return; if (Array.isArray(o)) return o.forEach((x) => walkLd(x, d + 1)); if (typeof o !== "object") return;
+    if (typeof o.articleBody === "string" && o.articleBody.length > 400) fromString(o.articleBody);
+    if (o["@graph"]) walkLd(o["@graph"], d + 1); };
+  while ((m = ldRe.exec(html))) { try { walkLd(JSON.parse(m[1].trim()), 0); } catch { /* skip */ } }
+  if (out.length >= 4) return out;
+  // 2. Embedded app data
+  const jsRe = /<script[^>]+(?:id=["']__NEXT_DATA__["']|type=["']application\/json["'])[^>]*>([\s\S]*?)<\/script>/gi;
+  const KEY = /body|content|article|story|paragraph|text|blocks|children/i;
+  const walk = (o, d, inBody) => {
+    if (o == null || d > 40 || out.length > 300) return;
+    if (typeof o === "string") { if (inBody) fromString(o); return; }
+    if (Array.isArray(o)) { o.forEach((x) => walk(x, d + 1, inBody)); return; }
+    if (typeof o !== "object") return;
+    for (const [k, v] of Object.entries(o)) {
+      if (/^(?:related|recommend|more|promo|ads?|nav|menu|footer|header|author|byline|caption|credit|seo|meta|tags?|topics?|teaser|summary|headline|title)/i.test(k)) continue;
+      walk(v, d + 1, inBody || KEY.test(k));
+    }
+  };
+  while ((m = jsRe.exec(html))) { try { walk(JSON.parse(m[1].trim()), 0, false); } catch { /* skip */ } }
+  const total = out.reduce((n, t) => n + t.length, 0);
+  return out.length >= 4 && total >= 1200 ? out : [];
 }
 // The publicly-published standfirst (og:description) — what anyone sees before the paywall.
 async function _readTeaser(u) {
@@ -2662,9 +2718,8 @@ async function handleSubscriberRead(request, env, u, base, warm) {
   try { const hit = kv && await kv.get(subKey); if (hit) return priv(JSON.parse(hit)); } catch { /* fall through */ }
   if (warm) return priv({ url: target, source, accessible: false, paragraphs: [], subscriber: true, warm: true, reason: "subscriber" });
   // 3. the owner's own session, on an explicit open only, within the daily cap
-  let reason = "subscriber";
-  // Cloudflare caps one secret at ~5 kB and some sites' cookies are bigger (Bloomberg ~10 kB),
-  // so a cookie may be split across SUB_COOKIE_X, SUB_COOKIE_X_2 … _4 (joined back with "; ").
+  let reason = "subscriber", diagOut = null;
+  // The page-saved cookie, else the SUB_COOKIE_X secret (split across _2 … _4 if it was big).
   const cookie = await subCookie(env, base);
   if (cookie) {
     const day = new Date().toISOString().slice(0, 10), nKey = "subn:" + base + ":" + day;
@@ -2674,18 +2729,18 @@ async function handleSubscriberRead(request, env, u, base, warm) {
     else {
       try { if (kv) await kv.put(nKey, String(used + 1), { expirationTtl: 2 * 86400 }); } catch { /* best effort */ }
       const d = await _readSubscriber(u, base, cookie);
-      try { if (kv) await kv.put("subst:" + base, JSON.stringify({ ok: !!d.accessible, reason: d.accessible ? "" : (d.reason || "session-thin"), at: new Date().toISOString(), url: target }), { expirationTtl: 90 * 86400 }); } catch { /* best effort */ }
+      try { if (kv) await kv.put("subst:" + base, JSON.stringify({ ok: !!d.accessible, reason: d.accessible ? "" : (d.reason || "session-no-text"), at: new Date().toISOString(), url: target, diag: d.diag || null }), { expirationTtl: 90 * 86400 }); } catch { /* best effort */ }
       if (d.accessible) {
         const out = { ...d, source };
         try { if (kv) await kv.put(subKey, JSON.stringify(out), { expirationTtl: SUB_TTL }); } catch { /* best effort */ }
         return priv(out);
       }
-      reason = d.reason || "session-thin";
+      reason = d.reason || "session-no-text"; diagOut = d.diag || null;
       if (reason === "session-expired") console.warn(`reader: ${base} session looks logged out — refresh ${SUB_COOKIE_ENV[base]}`);
     }
   }
   // 4. the public standfirst + the app link
-  return priv({ url: target, source, accessible: false, paragraphs: [], subscriber: true, reason, summary: await _readTeaser(u) });
+  return priv({ url: target, source, accessible: false, paragraphs: [], subscriber: true, reason, summary: await _readTeaser(u), ...(diagOut ? { diag: diagOut } : {}) });
 }
 // The proxy may render any non-paywalled host whose direct fetch came back blocked or
 // dry (bot-shielded sources such as The Straits Times / AP read this way).

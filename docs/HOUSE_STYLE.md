@@ -1846,9 +1846,14 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   secret limit is split across `<NAME>_2` … `<NAME>_4` and joined back with "; "). Fetched only on an explicit
   open — **never** a prefetch (`warm=1`), the cron pre-warm or a third-party proxy —
   capped at `SUB_DAILY_MAX` (200; raised from 60 by the owner 2026-10-23) per site per day; the cookie is sent only to that site
-  (manual redirects; a bounce to a login/other host or a logged-out teaser = `session-expired`,
-  logged as a warning; a robot-check page = `session-blocked` — the site refuses the server, so a
-  new cookie won't help). The body is kept 30 days in KV (`sub:<READ_VER>:<url>`), **never** in the
+  (manual redirects). When the page has no `<p>` body the text is also read from data embedded
+  in the page (`readEmbeddedBody`: JSON-LD `articleBody`, `__NEXT_DATA__` / JSON blocks — the
+  Bloomberg / Economist / WSJ build). The cause of a failure is named only when the page says
+  it plainly (`subDiag`): a bounce to a login/other host or a paywall prompt = `session-expired`;
+  a page that IS a robot check (its title, or a small captcha page — merely loading bot-protection
+  scripts doesn't count) or HTTP 429 = `session-blocked`; anything else = `session-no-text`.
+  Each failure stores a diagnosis (status, title, size, ¶ count, embedded-data flags — never
+  article text) shown on the Subscriptions page for the owner to pass on. The body is kept 30 days in KV (`sub:<READ_VER>:<url>`), **never** in the
   shared edge cache and **never** in the repo; **(3) otherwise** the public standfirst
   (`og:description`) + "Wire doesn't have the text of this <pub> story yet" + the link —
   labelled "Open in the <pub> app" on a phone (iOS hands it to the installed app), "Open at
