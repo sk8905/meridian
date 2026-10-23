@@ -11223,6 +11223,40 @@
      "to": "incorporated"
     }
    ]
+  },
+  {
+   "at": "2026-10-23",
+   "collection": "managers",
+   "id": "m234",
+   "verdict": "GAP",
+   "source": "https://www.adnkronos.com/selina-burdell-of-lcm-partners-recognised-as-one-of-private-debt-investors-women-of-influence-in-private-markets_6njJ4bdy2DXDOQhfuxXgvn",
+   "sourceLabel": "LCM Partners release (2021)",
+   "asOf": "2021-07",
+   "evidence": "LCM Partners' 2021 release: 'the Group was founded in 1998'; PitchBook also lists 1998.",
+   "changes": [
+    {
+     "field": "founded",
+     "from": null,
+     "to": 1998
+    }
+   ]
+  },
+  {
+   "at": "2026-10-23",
+   "collection": "managers",
+   "id": "m154",
+   "verdict": "GAP",
+   "source": "https://www.rothschildandco.com/en/newsroom/press-releases/2021/10/five-arrows-debt-partners-final-closing/",
+   "sourceLabel": "Rothschild & Co",
+   "asOf": "2021-10",
+   "evidence": "Rothschild & Co release (Oct 2021): the Merchant Banking business, which manages the Five Arrows funds, was launched in 2009.",
+   "changes": [
+    {
+     "field": "founded",
+     "from": null,
+     "to": 2009
+    }
+   ]
   }
  ]
 }
