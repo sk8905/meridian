@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-23T00:56:57.480Z",
+ "generated": "2026-10-23T07:54:56.988Z",
  "since": "2026-10-09",
  "firms": {
   "proskauerrose": {
@@ -43,12 +43,25 @@
    "errors": 0,
    "carried": 0
   },
+  "linklaters": {
+   "domains": [
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
+   ],
+   "sitemaps": 6,
+   "urls": 17816,
+   "kept": 6,
+   "fetched": 6,
+   "errors": 0,
+   "carried": 0
+  },
   "ashurst": {
    "domains": [
     "www.ashurst.com"
    ],
    "sitemaps": 1,
-   "urls": 5659,
+   "urls": 5664,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -62,19 +75,6 @@
    ],
    "carried": 0
   },
-  "linklaters": {
-   "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
-   ],
-   "sitemaps": 6,
-   "urls": 17814,
-   "kept": 6,
-   "fetched": 6,
-   "errors": 0,
-   "carried": 0
-  },
   "hsf": {
    "domains": [
     "www.hsfkramer.com"
@@ -86,6 +86,17 @@
    "errors": 1,
    "carried": 0
   },
+  "macfarlanes": {
+   "domains": [
+    "www.macfarlanes.com"
+   ],
+   "sitemaps": 4,
+   "urls": 2413,
+   "kept": 1,
+   "fetched": 1,
+   "errors": 0,
+   "carried": 0
+  },
   "traverssmith": {
    "domains": [
     "www.traverssmith.com"
@@ -94,17 +105,6 @@
    "urls": 5023,
    "kept": 4,
    "fetched": 4,
-   "errors": 0,
-   "carried": 0
-  },
-  "macfarlanes": {
-   "domains": [
-    "www.macfarlanes.com"
-   ],
-   "sitemaps": 4,
-   "urls": 2413,
-   "kept": 2,
-   "fetched": 2,
    "errors": 0,
    "carried": 0
   },
@@ -145,17 +145,6 @@
    "errors": 0,
    "carried": 0
   },
-  "whitecase": {
-   "domains": [
-    "www.whitecase.com"
-   ],
-   "sitemaps": 11,
-   "urls": 10414,
-   "kept": 20,
-   "fetched": 20,
-   "errors": 0,
-   "carried": 0
-  },
   "kirkland": {
    "domains": [
     "www.kirkland.com"
@@ -167,27 +156,26 @@
    "errors": 0,
    "carried": 0
   },
-  "cleary": {
+  "whitecase": {
    "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
+    "www.whitecase.com"
    ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 2,
+   "sitemaps": 11,
+   "urls": 10423,
+   "kept": 21,
+   "fetched": 21,
+   "errors": 0,
    "carried": 0
   },
   "sidley": {
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 6,
-   "urls": 7208,
+   "sitemaps": 7,
+   "urls": 7603,
    "kept": 1,
    "fetched": 1,
-   "errors": 11,
+   "errors": 10,
    "carried": 0
   },
   "ropesgray": {
@@ -218,6 +206,18 @@
     "https://www.stblaw.com/our-team @2025-03-20",
     "https://www.stblaw.com/client-services/practices/corporate @2025-03-20"
    ],
+   "carried": 0
+  },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 2,
    "carried": 0
   },
   "stephensonharwood": {
@@ -256,9 +256,9 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16235,
-   "kept": 7,
-   "fetched": 7,
+   "urls": 16241,
+   "kept": 8,
+   "fetched": 8,
    "errors": 0,
    "carried": 0
   },
@@ -267,7 +267,7 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11605,
+   "urls": 11606,
    "kept": 13,
    "fetched": 13,
    "errors": 0,
@@ -311,17 +311,6 @@
    ],
    "carried": 0
   },
-  "mayerbrown": {
-   "domains": [
-    "www.mayerbrown.com"
-   ],
-   "sitemaps": 9,
-   "urls": 16373,
-   "kept": 19,
-   "fetched": 19,
-   "errors": 0,
-   "carried": 0
-  },
   "weil": {
    "domains": [
     "www.weil.com",
@@ -331,11 +320,22 @@
     "tax.weil.com",
     "european-disputes-blog.weil.com"
    ],
-   "sitemaps": 35,
-   "urls": 7245,
+   "sitemaps": 36,
+   "urls": 7754,
    "kept": 40,
    "fetched": 40,
-   "errors": 1,
+   "errors": 0,
+   "carried": 0
+  },
+  "mayerbrown": {
+   "domains": [
+    "www.mayerbrown.com"
+   ],
+   "sitemaps": 9,
+   "urls": 16373,
+   "kept": 19,
+   "fetched": 19,
+   "errors": 0,
    "carried": 0
   },
   "cliffordchance": {
@@ -352,31 +352,22 @@
  },
  "items": [
   {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o5zo/the-unique-dynamics-of-sports-investment-finding-opportunities-in-a-concentratin",
-   "title": "The unique dynamics of sports investment: finding opportunities in a concentrating market",
-   "description": "The recent avalanche of investment into global sports assets from private capital and private wealth is well publicised. Investors...",
+   "firm": "whitecase",
+   "url": "https://www.whitecase.com/news/press-release/white-case-advises-everwind-its-cad-10-billion-investment-nova-scotia-data",
+   "title": "White & Case advises EverWind on its CAD 10 billion investment in Nova Scotia data center campus",
+   "description": "Global law firm White & Case LLP has advised EverWind, the Nova Scotia–based energy infrastructure company, on its CAD 10 billion private investment in a data center campus at its existing Point Tupper industrial site.",
    "date": "2026-10-22",
-   "dateSource": "datePublished",
+   "dateSource": "<time datetime>",
    "lastmod": "2026-10-22"
   },
   {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-advised-banks-on-schneider-electrics-eur6-billion-capital-increase",
-   "title": "A&O Shearman advised banks on Schneider Electric’s EUR6 billion capital increase",
-   "description": "A&O Shearman advised the banks on Schneider Electric's EUR6bn capital increase via accelerated private placement to part-fund its PTC acquisition.",
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/experience/qiagen-12-1-billion-takeover-offer-eqt-private-equity",
+   "title": "QIAGEN $12.1 billion takeover offer by EQT Private Equity",
+   "description": "We are advising QIAGEN on the transaction",
    "date": "2026-10-22",
    "dateSource": "datePublished",
    "lastmod": "2026-10-22"
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-arlington-capital-partners-on-acquisition-of-gooch-housego-plc",
-   "title": "Kirkland Advises Arlington Capital Partners on Acquisition of Gooch & Housego PLC",
-   "description": null,
-   "date": "2026-10-22",
-   "dateSource": "page date label",
-   "lastmod": null
   },
   {
    "firm": "mayerbrown",
@@ -527,21 +518,21 @@
    ]
   },
   {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-venture-insights-the-changing-shape-of-venture-capital/",
-   "title": "Travers Smith's Venture Insights: The changing shape of Venture Capital",
-   "description": null,
-   "date": "2026-10-16",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-16"
-  },
-  {
    "firm": "macfarlanes",
    "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
    "title": "Incorporating an LLP: direct tax considerations",
    "description": "In an article for Tax Journal, Partner Joe Robinson and Associate Harvey Innocent explain how LLP members may defer gains when...",
    "date": "2026-10-16",
    "dateSource": "datePublished",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-venture-insights-the-changing-shape-of-venture-capital/",
+   "title": "Travers Smith's Venture Insights: The changing shape of Venture Capital",
+   "description": null,
+   "date": "2026-10-16",
+   "dateSource": "<time datetime>",
    "lastmod": "2026-10-16"
   },
   {
