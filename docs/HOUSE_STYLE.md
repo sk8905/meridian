@@ -1991,7 +1991,10 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   vendor (R45a).
 - **T22 — Native iPhone shell (Capacitor): decision record (owner 2026-10-16).**
   **Status: NOT adopted** — Wire stays a home-screen web app (PWA) while the R46–R49
-  polish is lived with; revisit if it still doesn't feel native. **If adopted, the
+  polish is lived with; revisit if it still doesn't feel native. **Re-declined 2026-10-23
+  (owner)** when scoped as the way to read WSJ / Bloomberg / The Economist in-pane (those
+  sites robot-check Cloudflare's servers — R53): do not propose it again unless the owner
+  raises it. **If adopted, the
   rules are:** **(a) one codebase** — Capacitor wraps the same Vite `dist/` build; no
   forked native copy of any view, and the web app keeps working on its own (desktop and
   browser stay first-class). **(b) Distribution: TestFlight** (personal/small-team use,
