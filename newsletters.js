@@ -28,23 +28,37 @@ export const PUBLISHERS = {
   "news.bloomberg.com": "Bloomberg",
   "e.economist.com": "The Economist",
   "legalbusiness.co.uk": "Legal Business",
-  "mail.sailthru.com": "Thomson Reuters",
-  "thomsonreuters.com": "Thomson Reuters",
-  "mailbrew.com": "Mailbrew",
-  "cntraveller.com": "Condé Nast Traveller",
-  "mail.nonbillable.co.uk": "Non-Billable",
-  "businesspost.ie": "Business Post",
-  "cf.com": "Chatham Financial",
-  "newsletter.newyorker.com": "The New Yorker",
-  "pe-insights.com": "Private Equity Insights",
-  "getmatter.com": "Matter",
-  "editorial.theguardian.com": "The Guardian",
-  "taxpolicy.org.uk": "Tax Policy Associates",
-  "infos.lemonde.fr": "Le Monde",
-  "the42.ie": "The 42",
-  "equitypartner.substack.com": "Equity Partner",
+  // Reuters newsletters (Morning Bid, Trading Day, Econ World — morningbid@ / tradingday@ /
+  // econworld@thomsonreuters.com — and thomsonreuters@mail.sailthru.com) read "Reuters".
+  "mail.sailthru.com": "Reuters",
+  "thomsonreuters.com": "Reuters",
   "go.reuters.com": "Reuters",
+  "mailbrew.com": "Mailbrew",
+  "mail.nonbillable.co.uk": "Non-Billable",
+  "pe-insights.com": "Private Equity Insights",
+  "taxpolicy.org.uk": "Tax Policy Associates",
+  "equitypartner.substack.com": "Equity Partner",
   "mail.thelawyer.com": "The Lawyer",
+  // The Wall Street Journal and Financial News (Dow Jones): add each newsletter's real
+  // content sender on its first delivery. notice.dowjones.com / mail.dowjones.com send
+  // only account, renewal and marketing mail so far — never swept (NOT_FOR_WIRE).
+};
+
+// NOT FOR WIRE (owner 2026-10-23) — newsletters the owner receives that are off Wire's beat
+// (general news, lifestyle, sport, local property, marketing, calendar alerts, a bank's IR
+// releases). The routine never sweeps these and the Home feed hides any already recorded.
+// `senders` match the From address/domain; `publications` match a recorded item.
+export const NOT_FOR_WIRE = {
+  senders: [
+    "newsletter.newyorker.com", "the42.ie", "infos.lemonde.fr", "cntraveller.com", "getmatter.com",
+    "editorial.theguardian.com", "smh.com.au", "watchcharts.com", "businesspost.ie",
+    "notification.gcs-web.com",   // Evercore Inc. investor-relations releases
+    "tradingeconomics.com",       // calendar alerts ("… released in 30 minutes"), no content
+    "notice.dowjones.com", "mail.dowjones.com",   // WSJ / Financial News account + marketing mail
+  ],
+  publications: ["The New Yorker", "The New Yorker Weekly", "The 42", "Le Monde", "Le Monde - Le brief", "Condé Nast Traveller", "Matter", "The Guardian",
+    "The Sydney Morning Herald", "Herald - Note from the Editor", "WatchCharts", "Business Post", "Business Post Commercial Real Estate",
+    "Evercore Inc.", "TRADING ECONOMICS", "Trading Economics", "Alina | Preqin Marketing Team"],
 };
 
 export const NEWSLETTERS = [

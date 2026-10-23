@@ -1617,10 +1617,16 @@ misses every auto-forwarded newsletter:
    `in:anywhere {from:news.bloomberg.com from:e.economist.com from:legalbusiness.co.uk …} newer_than:2d`
 3. **Catch-all sweep** for NEW senders (self-healing):
    `in:anywhere deliveredto:skaidrive2@gmail.com newer_than:2d` — ignore system/admin
-   mail (google.com / workspace, forwarding confirmations). Anything that reads as a
-   newsletter from a sender NOT yet in `PUBLISHERS` is a newly-added subscription: ADD
-   its sender domain → publication name to the map (unless it is a research house —
-   that goes to §1), then parse it like any other.
+   mail (google.com / workspace, forwarding confirmations, account / renewal / marketing
+   mail). **Skip every sender in `NOT_FOR_WIRE.senders` (newsletters.js)** — off-beat
+   newsletters the owner receives (owner 2026-10-23: lifestyle, sport, general or local
+   news, marketing, calendar alerts, a bank's IR releases); never record them. A
+   newsletter from a sender in neither map is a newly-added subscription: if it is on
+   Wire's beat (markets, macro, credit, private capital, hedge funds, Big Law, deals)
+   ADD its sender domain → publication name to `PUBLISHERS` (a research house goes to
+   §1 instead); if it is off-beat, ADD the domain to `NOT_FOR_WIRE.senders` (and its
+   name to `NOT_FOR_WIRE.publications`) and skip it. Edit both maps in place — never
+   regenerate newsletters.js wholesale (it carries `NOT_FOR_WIRE`).
 
 Parse each: **publication/author** from the forwarded `From:` line (map domain →
 publication via `PUBLISHERS`; set `series` for Bloomberg "Money Stuff" etc.); **title**

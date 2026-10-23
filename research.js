@@ -32,6 +32,13 @@ export const PUBLISHERS = {
   // newsletters.js, isResearchPublication() reclassifies it into the Research lane
   // (Research wins over Newsletters).
   "newsletter.mail.gs.com": "Goldman Sachs Research",
+  // Added 2026-10-23 (owner's sender list): Morgan Stanley "Five Ideas" (ourideas@morganstanley.com),
+  // Oaktree Insights / Howard Marks memos (EmailNotifications@oaktreecapital.com — confirm the
+  // content sender on the first real memo; only the sign-up confirmation so far) and Chatham
+  // Financial's rates notes (moved here from newsletters.js: a rates-advisory house is research).
+  "morganstanley.com": "Morgan Stanley",
+  "oaktreecapital.com": "Oaktree",
+  "cf.com": "Chatham Financial",
   "guggenheiminvestments.com": "Guggenheim Investments",
   // Rating-agency private-credit / credit research — signed up 2026-10-07. Routed here so
   // the moment real content arrives it lands in Research. Confirm the content-sender domain
@@ -92,7 +99,7 @@ export const PUBLISHERS = {
 // Gmail sweep misfiled into newsletters.js back into Research — a runtime safety net
 // so a routing slip can never again show house research under "Newsletters". Keep this
 // list in step with the PUBLISHERS map above (same houses, by display-name pattern).
-const RESEARCH_PUBLISHER_RE = /\b(?:apollo|goldman\s+sachs|guggenheim|fitch|moody'?s|s&p\s+global|s&p\s+dow\s+jones|morgan\s+stanley|jp\.?\s*morgan|jpmorgan|pimco|blackrock|preqin|ubs|with\s+intelligence|oaktree|aqr|m&g|bond\s+vigilantes)\b/i;
+const RESEARCH_PUBLISHER_RE = /\b(?:apollo|goldman\s+sachs|guggenheim|fitch|moody'?s|s&p\s+global|s&p\s+dow\s+jones|morgan\s+stanley|jp\.?\s*morgan|jpmorgan|pimco|blackrock|preqin|ubs|with\s+intelligence|oaktree|chatham|aqr|m&g|bond\s+vigilantes)\b/i;
 export function isResearchPublication(name) {
   return RESEARCH_PUBLISHER_RE.test(String(name || ""));
 }

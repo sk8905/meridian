@@ -12,6 +12,7 @@ import { markUpdate } from "/v2/js/update.js";
 import { lastKnown, lastKnownLabel } from "/v2/js/live-cache.js";
 import { isPaywalledSrc, linksOutSrc, isSubscribedSrc, subscribedApp } from "/v2/js/read-policy.js";
 import { NEWSLETTERS } from "/newsletters.js";
+import * as NLX from "/newsletters.js";   // optional exports (NOT_FOR_WIRE) — a namespace so an older copy without them still loads
 import { RESEARCH, isResearchPublication } from "/research.js";
 import { FT_ITEMS } from "/ft.js";
 import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
@@ -2356,7 +2357,11 @@ function renderFeed() {
   // here (RSCH desk) so it never shows under "Newsletters"; it folds into rschFeed
   // below and dedupes against the research.js copy. Everything else stays a newsletter.
   const nlResearch = [];
+  // Off-beat newsletters the owner receives (NOT_FOR_WIRE in newsletters.js — lifestyle, sport,
+  // general/local news, marketing) never reach the wire, even one already recorded.
+  const nlSkip = new Set(((NLX.NOT_FOR_WIRE || {}).publications || []).map((p) => String(p).toLowerCase()));
   (NEWSLETTERS || []).forEach((n) => {
+    if (nlSkip.has(String(n.publication || "").toLowerCase())) return;
     const rsch = isResearchPublication(n.publication);
     const src = n.author ? `${n.author} · ${n.publication}` : n.publication;
     if (rsch) nlResearch.push(mk("rsch", n.url, n.title, src, true, n.date, n.time));
