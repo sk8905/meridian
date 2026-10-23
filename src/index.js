@@ -191,7 +191,15 @@ async function handleNlIngest(request, env) {
   const rec = { id, title: String(b.title || "").slice(0, 300), source: String(b.publication || "").slice(0, 80),
     byline: String(b.author || "").slice(0, 160), date: String(b.date || "").slice(0, 10), url: String(b.url || "").slice(0, 600), blocks, at: new Date().toISOString() };
   await env.WATCHLIST.put(_nlKey(id), JSON.stringify(rec), { expirationTtl: NL_TTL });
-  return json({ ok: true, id, blocks: blocks.length });
+  // Index the subscriber-site articles this issue links, so a wire headline for one of
+  // them opens this issue in the reading pane (handleSubscriberRead). Best effort.
+  let indexed = 0;
+  try {
+    const links = await nlArticleLinks(b.text, b.links);
+    await Promise.all(links.map((l) => env.WATCHLIST.put("nlu:" + l.url, JSON.stringify({ id, snip: l.snip, at: rec.at }), { expirationTtl: NL_TTL })));
+    indexed = links.length;
+  } catch { /* the body is stored either way */ }
+  return json({ ok: true, id, blocks: blocks.length, indexed });
 }
 async function handleNlBody(request, env) {
   if (request.method !== "GET") return json({ error: "method not allowed" }, 405);
@@ -2435,6 +2443,188 @@ const READ_LINKONLY = new Set([]);
 const READ_OPEN = new Set([
   "scmp.com",
 ]);
+// ---- Subscriber reader (owner 2026-10-23) ------------------------------------------
+// The owner holds paid subscriptions to the PREMIUM FOUR. A story from one of them reads
+// in-pane from, in order:
+//   1. a newsletter issue that LINKS the story — /api/nl-ingest indexes every article link
+//      in a stored issue (nlu:<canonical url> → issue id), so the pane opens that issue at
+//      the part about the story;
+//   2. the owner's OWN logged-in session — the browser Cookie header for that site, held as
+//      a Worker secret (SUB_COOKIE_FT / _ECONOMIST / _WSJ / _BLOOMBERG). Fetched only on an
+//      explicit open by the Access-verified owner (never a prefetch, never the cron, never a
+//      third-party proxy), capped per site per day, and the cookie is only ever sent to
+//      that site. The extracted body is kept in KV (sub:<ver>:<url>), behind Access — never
+//      in the shared edge cache and never in the public repo;
+//   3. otherwise the public standfirst + "Open in the app".
+// Anonymous requests get the old paywall answer. Every response is private, no-store.
+const READ_SUBSCRIBED = new Set(["ft.com", "bloomberg.com", "wsj.com", "economist.com"]);
+const SUB_COOKIE_ENV = { "ft.com": "SUB_COOKIE_FT", "economist.com": "SUB_COOKIE_ECONOMIST", "wsj.com": "SUB_COOKIE_WSJ", "bloomberg.com": "SUB_COOKIE_BLOOMBERG" };
+const SUB_TTL = 30 * 86400;            // the wire's own 30-day window
+const SUB_DAILY_MAX = 60;              // per site per day (SUB_DAILY_MAX env overrides) — stays well inside normal reading
+const _subBase = (host) => { const h = String(host || "").toLowerCase().replace(/^www\./, ""); for (const b of READ_SUBSCRIBED) if (h === b || h.endsWith("." + b)) return b; return ""; };
+// One canonical form per article so a feed link, a newsletter link and a shared link
+// all meet: https, no www, no query/hash, no trailing slash.
+export function subCanon(url) {
+  try { const u = new URL(url); return "https://" + u.hostname.toLowerCase().replace(/^www\./, "") + (u.pathname.replace(/\/+$/, "") || "/"); } catch { return ""; }
+}
+// An ARTICLE page on a subscribed site (not a section front, account or subscribe page).
+export function isSubscriberArticle(url) {
+  let u; try { u = new URL(url); } catch { return false; }
+  const b = _subBase(u.hostname), p = u.pathname;
+  if (!b || u.hostname.replace(/^www\./, "") !== b) return false;
+  if (/\/(?:account|subscriptions?|subscribe|login|signin|register|myaccount|preferences|podcasts?|videos?)(?:\/|$)/i.test(p)) return false;   // whole path segments only
+  if (b === "ft.com") return /^\/content\/[0-9a-f-]{20,}$/i.test(p);
+  if (b === "bloomberg.com") return /^\/(news|opinion|features)\/(articles|features|newsletters|storythreads)\/\d{4}-\d{2}-\d{2}\/[\w-]+/i.test(p);
+  if (b === "wsj.com") return /^\/(articles\/[\w-]+|[a-z-]+(\/[a-z-]+)?\/[\w-]+-[a-z0-9]{6,})$/i.test(p);
+  if (b === "economist.com") return /^\/[a-z-]+\/\d{4}\/\d{2}\/\d{2}\/[\w-]+$/i.test(p);
+  return false;
+}
+// Links never followed or indexed: unsubscribe / preference / ad-click / app-store URLs
+// (matched on the URL), and footer-ish link words (matched on the text before a link).
+// Kept narrow on purpose — an article slug or headline may well say "manager" or "account".
+const NL_LINK_SKIP = /unsubscri|opt-?out|\/preferences|newsletter_unsub|sli\.bloomberg|\/click\?s=|apps\.apple\.com|play\.google\.com|(?:twitter|x|facebook|linkedin|instagram)\.com\//i;
+const NL_SNIP_SKIP = /\b(?:unsubscribe|view (?:this email )?in (?:your )?browser|manage (?:your )?(?:preferences|subscriptions|email)|privacy (?:policy|notice)|contact us|follow us|sign up|subscribe (?:here|now|at|to (?:this|our|the) newsletter))\b/i;
+// Every article link in the BODY of a newsletter email (before its footer), with the text
+// just before it (the link's own words) as a snippet the pane uses to find "the part about
+// this story". Pure — unit-tested. Handles <url>, (url) and [text](url) forms.
+export function nlLinkCandidates(text) {
+  const lines = String(text || "").replace(/\r\n?/g, "\n").split("\n");
+  const body = [];
+  for (const l of lines) { if (body.length > 3 && NL_FOOTER.test(l.trim())) break; body.push(l); }
+  const paras = body.join("\n").split(/\n\s*\n/);
+  const out = [], seen = new Set();
+  const re = /\[([^\]]{2,200})\]\((https?:\/\/[^)\s]+)\)|<(https?:\/\/[^>\s]+)>|\((https?:\/\/[^)\s]+)\)|(?<![(<\w])(https?:\/\/[^\s<>()]+)/g;
+  for (const para of paras) {
+    let m; re.lastIndex = 0;
+    while ((m = re.exec(para))) {
+      const url = (m[2] || m[3] || m[4] || m[5] || "").replace(/[.,;]+$/, "");
+      if (!url || NL_LINK_SKIP.test(url)) continue;
+      const before = m[1] || para.slice(0, m.index).replace(/\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/<https?:[^>]*>|\(https?:[^)]*\)|https?:\/\/\S+/g, " ");
+      const snip = before.replace(/\s+/g, " ").trim().slice(-100);
+      if (NL_SNIP_SKIP.test(snip.slice(-40))) continue;
+      if (seen.has(url)) continue; seen.add(url);
+      out.push({ url, snip });
+      if (out.length >= 120) return out;
+    }
+  }
+  return out;
+}
+// Hosts whose links are newsletter short-links / click-trackers that redirect to the
+// article (bloom.bg, econ.st, …). Only these are followed, HEAD-only, a few hops.
+const NL_REDIRECT_HOST = /^(?:bloom\.bg|links?\.message\.bloomberg\.com|link\.mail\.bloombergbusiness\.com|econ\.st|[a-z0-9-]+\.e\.economist\.com|click\.e\.economist\.com|on\.ft\.com|ft\.trib\.al|[a-z0-9-]+\.ft\.com|on\.wsj\.com|[a-z0-9-]+\.wsj\.com|[a-z0-9-]+\.dowjones\.(?:com|io))$/i;
+async function _nlResolve(url, budget) {
+  let cur = url;
+  for (let hop = 0; hop < 3; hop++) {
+    if (isSubscriberArticle(cur)) return cur;
+    let h; try { h = new URL(cur).hostname.toLowerCase(); } catch { return ""; }
+    if (!NL_REDIRECT_HOST.test(h) || budget.n <= 0) return "";
+    budget.n--;
+    try {
+      const r = await fetch(cur, { method: "HEAD", redirect: "manual", headers: { "user-agent": READ_UA }, signal: AbortSignal.timeout(4000) });
+      const loc = r.headers.get("location"); if (!loc) return "";
+      cur = new URL(loc, cur).toString();
+    } catch { return ""; }
+  }
+  return isSubscriberArticle(cur) ? cur : "";
+}
+// The article links an issue covers → [{ url (canonical), snip }]. `extra` lets the routine
+// pass links it already resolved ({url, text}). Bounded: ≤ 40 redirect lookups per issue.
+export async function nlArticleLinks(text, extra) {
+  const cands = nlLinkCandidates(text);
+  for (const x of (Array.isArray(extra) ? extra : []).slice(0, 80)) if (x && x.url) cands.push({ url: String(x.url), snip: String(x.text || "").slice(-100) });
+  const budget = { n: 40 }, out = new Map();
+  for (let i = 0; i < cands.length; i += 8) {
+    const res = await Promise.all(cands.slice(i, i + 8).map(async (c) => ({ c, url: await _nlResolve(c.url, budget) })));
+    for (const { c, url } of res) { const k = url && subCanon(url); if (k && !out.has(k)) out.set(k, { url: k, snip: c.snip }); }
+  }
+  return [...out.values()];
+}
+const _nlNorm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+// Which stored block carries a link's snippet → its index (the pane highlights it), or -1.
+export function nlFocusIndex(blocks, snip) {
+  const s = _nlNorm(snip); if (s.length < 8 || !Array.isArray(blocks)) return -1;
+  const tries = [s.slice(-60), s.slice(0, 50), s.split(" ").slice(-5).join(" ")].filter((x) => x.length >= 8);
+  for (const t of tries) { const i = blocks.findIndex((b) => b && !b.h && _nlNorm(b.t).includes(t)); if (i >= 0) return i; }
+  return -1;
+}
+// One fetch with the owner's own session cookie. Manual redirects: the cookie is never
+// sent off the site, and a bounce to a login/other host means the session has lapsed.
+async function _readSubscriber(u, base, cookie) {
+  let cur = u.toString();
+  for (let hop = 0; hop < 4; hop++) {
+    let r;
+    try {
+      r = await fetch(cur, { redirect: "manual", cache: "no-store", signal: AbortSignal.timeout(12000),
+        headers: { cookie, "user-agent": READ_UA, accept: "text/html,application/xhtml+xml", "accept-language": "en-GB,en;q=0.9" } });
+    } catch { return { accessible: false, paragraphs: [], reason: "session-fetch-failed" }; }
+    if (r.status >= 300 && r.status < 400) {
+      let next; try { next = new URL(r.headers.get("location") || "", cur); } catch { next = null; }
+      const nh = next ? next.hostname.toLowerCase().replace(/^www\./, "") : "";
+      if (!next || next.protocol !== "https:" || nh !== base || /login|signin|barrier|subscribe/i.test(next.pathname)) return { accessible: false, paragraphs: [], reason: "session-expired" };
+      cur = next.toString(); continue;
+    }
+    if (!r.ok) return { accessible: false, paragraphs: [], reason: "session-" + r.status };
+    const d = extractReadable((await r.text()).slice(0, 2000000), new URL(cur), { subscriber: true });
+    // A logged-out page reads as a teaser: a couple of paragraphs at most.
+    if (!(d.paragraphs && d.paragraphs.length >= 4)) return { ...d, accessible: false, reason: "session-expired" };
+    return { ...d, url: u.toString(), via: "subscription" };
+  }
+  return { accessible: false, paragraphs: [], reason: "session-redirects" };
+}
+// The publicly-published standfirst (og:description) — what anyone sees before the paywall.
+async function _readTeaser(u) {
+  try {
+    const r = await fetch(u.toString(), { headers: { "user-agent": READ_UA, accept: "text/html" }, cache: "no-store", signal: AbortSignal.timeout(5000) });
+    if (!r.ok) return "";
+    const html = (await r.text()).slice(0, 400000);
+    const t = _readMeta(html, ["og:description", "twitter:description", "description"]);
+    return t && t.length >= 20 ? t.slice(0, 600) : "";
+  } catch { return ""; }
+}
+async function handleSubscriberRead(request, env, u, base, warm) {
+  const target = u.toString(), source = _readTidy(base);
+  const priv = (data, status) => { const r = json(data, status); r.headers.set("cache-control", "private, no-store"); return r; };
+  if (!identity(request)) return priv({ url: target, source, accessible: false, paragraphs: [], reason: "paywall" });
+  const kv = env && env.WATCHLIST, canon = subCanon(target);
+  // 1. a stored newsletter issue that links this story
+  try {
+    const idx = kv && await kv.get("nlu:" + canon);
+    if (idx) {
+      const ref = JSON.parse(idx), raw = await kv.get(_nlKey(ref.id)), rec = raw ? JSON.parse(raw) : null;
+      if (rec && Array.isArray(rec.blocks) && rec.blocks.length) {
+        return priv({ url: target, source, title: "", byline: rec.byline || "", date: rec.date || "", accessible: true, via: "newsletter",
+          nl: { id: rec.id, title: rec.title, source: rec.source, date: rec.date }, focus: nlFocusIndex(rec.blocks, ref.snip),
+          blocks: rec.blocks, paragraphs: rec.blocks.filter((x) => !x.h).map((x) => x.t) });
+      }
+    }
+  } catch { /* fall through */ }
+  // 2. a body already read through the owner's session
+  const subKey = "sub:" + READ_VER + ":" + canon;
+  try { const hit = kv && await kv.get(subKey); if (hit) return priv(JSON.parse(hit)); } catch { /* fall through */ }
+  if (warm) return priv({ url: target, source, accessible: false, paragraphs: [], subscriber: true, warm: true, reason: "subscriber" });
+  // 3. the owner's own session, on an explicit open only, within the daily cap
+  let reason = "subscriber";
+  const cookie = env && env[SUB_COOKIE_ENV[base]];
+  if (cookie) {
+    const day = new Date().toISOString().slice(0, 10), nKey = "subn:" + base + ":" + day;
+    let used = 0; try { used = +((kv && await kv.get(nKey)) || 0); } catch { used = 0; }
+    const cap = +(env.SUB_DAILY_MAX || SUB_DAILY_MAX);
+    if (used >= cap) reason = "session-daily-cap";
+    else {
+      try { if (kv) await kv.put(nKey, String(used + 1), { expirationTtl: 2 * 86400 }); } catch { /* best effort */ }
+      const d = await _readSubscriber(u, base, String(cookie).trim());
+      if (d.accessible) {
+        const out = { ...d, source };
+        try { if (kv) await kv.put(subKey, JSON.stringify(out), { expirationTtl: SUB_TTL }); } catch { /* best effort */ }
+        return priv(out);
+      }
+      reason = d.reason || "session-thin";
+      if (reason === "session-expired") console.warn(`reader: ${base} session looks logged out — refresh ${SUB_COOKIE_ENV[base]}`);
+    }
+  }
+  // 4. the public standfirst + the app link
+  return priv({ url: target, source, accessible: false, paragraphs: [], subscriber: true, reason, summary: await _readTeaser(u) });
+}
 // The proxy may render any non-paywalled host whose direct fetch came back blocked or
 // dry (bot-shielded sources such as The Straits Times / AP read this way).
 export function readProxyAllowed(host) {
@@ -2700,7 +2890,7 @@ function _dropBodylessHeadings(blocks) {
   return (blocks || []).filter((b, i) => !b.h || (blocks[i + 1] && !blocks[i + 1].h));
 }
 function _readTidy(host) { const p = host.replace(/\.(com|co\.uk|org|net|gov|edu|io|us)$/i, "").split(".").pop() || host; return p.charAt(0).toUpperCase() + p.slice(1); }
-export function extractReadable(html, u) {
+export function extractReadable(html, u, opts) {
   const host = u.hostname.replace(/^www\./, "");
   const source = _readTidy(host);
   const title = _readMeta(html, ["og:title", "twitter:title"])
@@ -2712,7 +2902,9 @@ export function extractReadable(html, u) {
   // READ_OPEN hosts are rendered from whatever their public page serves, so their
   // "metered" flag is ignored; every other host honours it (a metered teaser stays
   // behind its link). Body length still decides — no body, no render.
-  let accessible = _readInSet(host, READ_OPEN) ? true : !(/false/i.test(freeMeta) || jsonldFree);
+  // A page fetched through the owner's own subscriber session (opts.subscriber) is read in
+  // full whatever its free flag says — that flag only describes the logged-out page.
+  let accessible = (opts && opts.subscriber) || _readInSet(host, READ_OPEN) ? true : !(/false/i.test(freeMeta) || jsonldFree);
   // Body: prefer paragraphs inside <article>, else [itemprop=articleBody]. Many
   // sites (e.g. a page whose first <article> is a related-story card, with the real
   // copy in a <div class="articleBody/WYSIWYG/story-body…">) leave the body OUTSIDE
@@ -3100,6 +3292,8 @@ async function handleRead(request, env, ctx) {
   let u; try { u = new URL(target); } catch { return json({ error: "bad url", accessible: false, paragraphs: [] }, 400); }
   if (u.protocol !== "https:") return json({ error: "https only", accessible: false, paragraphs: [] }, 400);
   const host = u.hostname.replace(/^www\./, "");
+  const subBase = _subBase(host);
+  if (subBase) return handleSubscriberRead(request, env, u, subBase, warm);
   if (_readInSet(host, READ_PAYWALL)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "paywall" });
   if (_readInSet(host, READ_LINKONLY)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "link-only" });
   if (!readHostAllowed(host)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "blocked-host" });
@@ -3859,16 +4053,16 @@ export const INSOLVENCY_SRC = { url: "https://www.gov.uk/government/organisation
 export const FEED_WINDOW_DAYS = 30;
 export const FEED_SOURCES = [
   // ══════════════════════════════════════════════════════════════════════════
-  // PREMIUM FOUR — SWITCHED OFF (readable-only policy, 2026-10). FT, Bloomberg,
-  // WSJ and The Economist are hard paywalls: their stories open at the publisher
-  // and never render in the reading pane, so they are disabled here. They are
-  // COMMENTED OUT (not deleted) so they can be switched back on by uncommenting.
-  // The FT desk's static side is gated by FT_DESK_ON in v2/js/home/glance.js.
+  // PREMIUM FOUR — BACK ON (owner 2026-10-23). FT, Bloomberg, WSJ and The Economist
+  // are the owner's own paid subscriptions. Their stories read in-pane through the
+  // subscriber reader (handleSubscriberRead): a newsletter issue that links the story,
+  // then the owner's own logged-in session (SUB_COOKIE_* secrets), else the public
+  // standfirst + "Open in the app". The FT desk's static side is FT_DESK_ON in glance.js.
   // ══════════════════════════════════════════════════════════════════════════
   // The reader's personalised myFT (followed-topics) feed. `myft: true` marks the
   // emitted items so the Home page routes them to the FT stream, not Macro; no
   // topic/quality filters — the reader curated this feed themselves.
-  // { url: "https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss", source: "Financial Times", region: "GEN", myft: true, soft: true },
+  { url: "https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss", source: "Financial Times", region: "GEN", myft: true, soft: true },
   // Reuters — SWITCHED OFF (2026-10). reuters.com is bot-walled and never opens in the
   // reading pane (even the browser proxy fails), so its headlines were read-nowhere
   // dead-ends. Removed as a wire source; AP (below) carries the openly-readable global
@@ -3881,21 +4075,21 @@ export const FEED_SOURCES = [
   // general/sport/human-interest copy, keeping only macro/markets/policy (verified
   // ~18/100 kept). Bot-shielded, so rendered in-pane via the browser proxy (Firecrawl).
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aapnews.com%20(economy%20OR%20markets%20OR%20Fed%20OR%20inflation%20OR%20%22Wall%20Street%22%20OR%20%22interest%20rate%22%20OR%20Treasury%20OR%20GDP%20OR%20%22stock%20market%22%20OR%20earnings%20OR%20tariff%20OR%20jobs)%20when%3A30d", source: "Associated Press", region: "US", gnews: true },
-  // { url: "https://news.google.com/rss/search?q=site%3Abloomberg.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20economy%20OR%20%22Bank%20of%20England%22%20OR%20bonds%29%20when%3A2d&hl=en-US&gl=US&ceid=US%3Aen", source: "Bloomberg", region: "GEN", gnews: true },  // OFF: premium four
+  { url: "https://news.google.com/rss/search?q=site%3Abloomberg.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20economy%20OR%20%22Bank%20of%20England%22%20OR%20bonds%29%20when%3A30d&hl=en-US&gl=US&ceid=US%3Aen", source: "Bloomberg", region: "GEN", gnews: true },
   // Bloomberg's OFFICIAL section feeds (feeds.bloomberg.com) — live, so stories
   // stream in as published. They carry the Asia-desk's broad industrial/politics
   // coverage overnight, so they take the STANDARD macro-relevance title filter
   // (same as the FT/CNBC/MarketWatch sections) rather than filter:false;
   // title-dedupe collapses overlap with the Google-News Bloomberg fallback.
-  // { url: "https://feeds.bloomberg.com/markets/news.rss", source: "Bloomberg", region: "GEN", soft: true },   // OFF: premium four
-  // { url: "https://feeds.bloomberg.com/business/news.rss", source: "Bloomberg", region: "GEN", soft: true },  // OFF: premium four
-  // { url: "https://feeds.bloomberg.com/economics/news.rss", source: "Bloomberg", region: "GEN", soft: true }, // OFF: premium four
+  { url: "https://feeds.bloomberg.com/markets/news.rss", source: "Bloomberg", region: "GEN", soft: true },
+  { url: "https://feeds.bloomberg.com/business/news.rss", source: "Bloomberg", region: "GEN", soft: true },
+  { url: "https://feeds.bloomberg.com/economics/news.rss", source: "Bloomberg", region: "GEN", soft: true },
   // Nishant Kumar (Bloomberg hedge-fund reporter) — his byline via Google News,
   // so his hedge-fund stories are picked up LIVE (the macro Bloomberg feeds above
   // are Fed/inflation-scoped and miss them). hdg:true routes them to the Hedge
   // (HDG) desk; filter:false since hedge-fund copy rarely hits the macro vocab.
   // Title-dedupe collapses overlap with the curated HEDGE_INTEL backfill.
-  // { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=%22Nishant%20Kumar%22%20site%3Abloomberg.com%20when%3A7d", source: "Bloomberg", region: "GEN", gnews: true, hdg: true, filter: false },  // OFF: premium four (Bloomberg)
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=%22Nishant%20Kumar%22%20site%3Abloomberg.com%20when%3A30d", source: "Bloomberg", region: "GEN", gnews: true, hdg: true, filter: false },
   // Hedge-fund specialist desks — dedicated industry publications, every item
   // badged HDG (hdg:true) and filter:false (hedge-fund copy rarely hits the macro
   // vocab). Direct publisher RSS; any feed that blocks the Worker's datacenter IP
@@ -3903,7 +4097,7 @@ export const FEED_SOURCES = [
   // empty, bridge that DOMAIN via Google News (site:<domain>, gnews:true) the way
   // the Bloomberg/Reuters sources above are.
   { url: "https://www.hedgeweek.com/feed/", source: "Hedgeweek", region: "GEN", hdg: true, filter: false },
-  // { url: "https://www.ft.com/hedge-funds?format=rss", source: "Financial Times", region: "GEN", hdg: true, filter: false },  // OFF: premium four (FT)
+  { url: "https://www.ft.com/hedge-funds?format=rss", source: "Financial Times", region: "GEN", hdg: true, filter: false },
   { url: "https://thehedgefundjournal.com/feed/", source: "The Hedge Fund Journal", region: "GEN", hdg: true, filter: false },
   // Hedge Fund Alpha — DROPPED 2026-10-21 (owner): its feed returns no items.
   // HedgeNordic — Nordic hedge-fund trade desk (manager moves, launches, fund
@@ -3944,13 +4138,13 @@ export const FEED_SOURCES = [
   // ("Northrop lifts outlook", "luxury taxi tracking") that isn't wire-relevant,
   // so only genuine macro/markets/megacap headlines ("Oil gains on Iran risks")
   // pass. title-dedupe collapses overlap between the two.
-  // { url: "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain", source: "The Wall Street Journal", region: "US" },   // OFF: premium four
-  // { url: "https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness", source: "The Wall Street Journal", region: "US" }, // OFF: premium four
+  { url: "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain", source: "The Wall Street Journal", region: "US" },
+  { url: "https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness", source: "The Wall Street Journal", region: "US" },
   // WSJ backup behind the direct feeds + last-good cache: the Google-News bridge
   // (5-day depth), used only when the direct feeds miss. (The WSJ GDELT route was
   // removed — the direct feeds solved WSJ, and dropping it leaves GDELT's tight
   // per-IP rate limit entirely for TradingEconomics below.)
-  // { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Awsj.com%20when%3A5d", source: "The Wall Street Journal", region: "US", gnews: true },  // OFF: premium four
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Awsj.com%20when%3A30d", source: "The Wall Street Journal", region: "US", gnews: true },
   // Macro-data desk (always MAC) — the economic-INDICATOR releases (CPI / GDP /
   // PMI / jobs / rates) TradingEconomics was meant to supply. TE itself is
   // unreachable from this Worker on EVERY route (its RSS 403s the datacenter IP;
@@ -4061,14 +4255,14 @@ export const FEED_SOURCES = [
   { url: "https://libertystreeteconomics.newyorkfed.org/feed/", source: "Liberty Street Economics", region: "US", filter: false, research: true },
   { url: "https://cepr.org/rss/vox-content", source: "CEPR VoxEU", region: "GEN", research: true },
   // Financial specialists — UK / Europe
-  // { url: "https://www.ft.com/markets?format=rss", source: "Financial Times", region: "UK" },       // OFF: premium four (FT)
-  // { url: "https://www.ft.com/global-economy?format=rss", source: "Financial Times", region: "UK" }, // OFF: premium four (FT)
+  { url: "https://www.ft.com/markets?format=rss", source: "Financial Times", region: "UK" },
+  { url: "https://www.ft.com/global-economy?format=rss", source: "Financial Times", region: "UK" },
   // Premium, already-curated finance/economics sections — trusted like the Fed feed
   // (filter:false), so the strict macro-keyword title filter doesn't drop their
   // (often oblique) headlines. Capped, so they can't flood the feed.
-  // { url: "https://www.ft.com/alphaville?format=rss", source: "FT Alphaville", region: "GEN", filter: false },                        // OFF: premium four (FT)
-  // { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", filter: false },        // OFF: premium four (Economist)
-  // { url: "https://www.economist.com/business/rss.xml", source: "The Economist", region: "GEN", filter: false },                      // OFF: premium four (Economist)
+  { url: "https://www.ft.com/alphaville?format=rss", source: "FT Alphaville", region: "GEN", filter: false },
+  { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", filter: false },
+  { url: "https://www.economist.com/business/rss.xml", source: "The Economist", region: "GEN", filter: false },
   { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK" },
   // G7 / euro-area central banks (owner-approved 2026-10; each trialled by
   // scripts/source-trial.mjs: live feed, articles render in the reading pane). The ECB
@@ -4655,8 +4849,8 @@ export function feedQualityKeep(it) {
   // Podcast / audio items (e.g. Bloomberg podcasts) are not news — drop them
   // BEFORE the premium bypass so a Bloomberg/FT audio show doesn't slip through.
   if (/\bpodcasts?\b/i.test(it.title) || /\/podcasts?\/|\/audio\/|\.mp3\b/i.test(it.url || "")) return false;
-  // Paywalled premium newsrooms (FT/Bloomberg/WSJ/Economist) can't be read in-pane, so
-  // they earn a slot ONLY when the headline is strictly on one of the six focus verticals
+  // The premium newsrooms (FT/Bloomberg/WSJ/Economist) publish far more than the app's
+  // beat, so they earn a slot ONLY when the headline is strictly on one of the six focus verticals
   // — reader-curated myFT items are exempt (the reader chose those topics themselves).
   if (FEED_PAY_PREMIUM.has(s) && !it.myft) return FEED_FOCUS_RE.test(it.title) && !FEED_PR_NOISE.test(it.title);
   // Premium newsrooms, the curated legal wire, and reader-flagged streams

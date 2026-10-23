@@ -939,6 +939,11 @@
     .g-read-diag{ color:var(--t-faint); opacity:.75; }
     .g-read-loading{ color:var(--t-mut); }
     .g-read-byline{ font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); margin:0 0 13px; }
+    /* Subscriber reader: which newsletter issue a story is read from, and the part of it on
+       this story (a left rule, no fill — R-colour tokens only). */
+    .g-read-via{ font-size:var(--fs-micro); color:var(--t-mut); }
+    .g-read-focus{ border-left:2px solid var(--t-amber); padding-left:10px; margin-left:-12px; }
+    .g-read-standfirst{ color:var(--t-mut); }
     /* Justified, but COMPRESSED for the monospace face: tighter letter/word spacing +
        hyphenation lets more fit per line, so justification has far less empty space to
        distribute — no ragged "rivers" of white on a narrow phone column (mockup C). */

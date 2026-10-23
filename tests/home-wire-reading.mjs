@@ -83,13 +83,14 @@ const def = await pg.evaluate(() => ({
 check(def.title.length > 0 && def.kicker, "reading pane: opening the top story renders it (kicker + headline)");
 check(def.open, "reading pane: carries an 'Open original at …' link out");
 
-// Paywall treatment: a subscriber source (FT/Bloomberg/WSJ) shows the lock WITHOUT
+// Paywall treatment: a subscriber source the owner does NOT hold (NYT, The Times, Nikkei…)
+// shows the lock WITHOUT
 // fetching; an openly-readable source fetches the reader service and prints the body.
 // (A newsletter whose full text was ingested — `body: true` — is deliberately NOT locked: it
 // reads in-pane from KV, so those rows are skipped here.)
 const pay = await pg.evaluate(async () => {
   const bodyUrls = new Set(((await import("/newsletters.js")).NEWSLETTERS || []).filter((n) => n.body).map((n) => n.url));
-  const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => !bodyUrls.has(r.getAttribute("href")) && /financial times|bloomberg|wall street journal/i.test(((r.querySelector(".g-feed-src") || {}).textContent || "")));
+  const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => !bodyUrls.has(r.getAttribute("href")) && /new york times|\bnyt\b|the times|telegraph|nikkei|barron|forbes|washington post/i.test(((r.querySelector(".g-feed-src") || {}).textContent || "")));
   if (!row) return null; row.click();
   const box = document.getElementById("g-readpane");
   return { lock: !!box.querySelector(".g-read-lock"), paras: box.querySelectorAll(".g-read-p").length };
@@ -104,12 +105,15 @@ const rowLocks = await pg.evaluate(async (walledPattern) => {
   const has = (r) => !!(r && r.querySelector(".g-feed-lock svg"));
   const src = (r) => ((r.querySelector(".g-feed-src") || {}).textContent || "").trim();
   const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
-  const paid = rows.find((r) => !bodyUrls.has(r.getAttribute("href")) && /financial times|bloomberg|wall street journal|economist|new york times/i.test(src(r)));
+  const paid = rows.find((r) => !bodyUrls.has(r.getAttribute("href")) && /new york times|\bnyt\b|the times|telegraph|nikkei|barron|forbes|washington post/i.test(src(r)));
   const free = rows.find((r) => { const s = src(r); return s && !walled.test(s); });
-  return { paidFound: !!paid, paidLock: has(paid), paidClass: !!(paid && paid.classList.contains("is-locked")), freeFound: !!free, freeLock: has(free) };
+  // The owner's own subscriptions (FT/Bloomberg/WSJ/Economist) read in-pane — never padlocked.
+  const subd = rows.find((r) => /financial times|^ft$|bloomberg|wall street journal|economist/i.test(src(r)) || /\/\/(www\.)?(ft|bloomberg|wsj|economist)\.com\//.test(r.getAttribute("href") || ""));
+  return { paidFound: !!paid, paidLock: has(paid), paidClass: !!(paid && paid.classList.contains("is-locked")), freeFound: !!free, freeLock: has(free), subFound: !!subd, subLock: !!(subd && (has(subd) || subd.classList.contains("is-locked"))) };
 }, WALLED_SRC_PATTERN);
 if (rowLocks.paidFound) check(rowLocks.paidLock && rowLocks.paidClass, "wire row: a subscriber source carries the outline padlock (.g-feed-lock / .is-locked)");
 if (rowLocks.freeFound) check(!rowLocks.freeLock, "wire row: an openly-readable source is not padlocked");
+check(rowLocks.subFound && !rowLocks.subLock, "wire row: the owner's subscriptions (FT here) are on the wire and not padlocked");
 
 // Openly-readable → the reader service body prints in-pane (paragraphs + byline).
 const freeSel = await pg.evaluate((walledPattern) => {

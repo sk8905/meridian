@@ -1323,7 +1323,9 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   back to the "open the original" link. `nlBlocks` (src/index.js) turns the email into
   blocks: section titles → headings, URLs / markdown links dropped, everything from the
   footer (unsubscribe / preferences / "you received this" / ©) cut. Spec:
-  `tests/newsletter-reader.mjs`.
+  `tests/newsletter-reader.mjs`. The ingest also indexes the issue's article links so a
+  wire headline for one of the owner's four subscriptions opens that issue (R53) — so
+  the routine must post the body WITH its links (the `get_thread` PLAIN_TEXT body as is).
 
 - **R40 — Dashboard: one anatomy, responsive packing, fill cards.** (Design review
   2026-10; supersedes R37(f).) **(a) One anatomy.** Card header = title (`--fs-body`/600
@@ -1828,6 +1830,33 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   (`tests/profile-blanks.mjs`). **(f)** The gaps rotate through `scripts/profile-rota.mjs`
   (docs/refresh-routines.md "Profile rota"). Guards are ratchets: known cases listed by id,
   new ones fail, the lists only shrink (`tests/data-guards.mjs`).
+- **R53 — The subscriber reader: the owner's four subscriptions read in-pane (owner
+  2026-10-23).** FT, Bloomberg, WSJ and The Economist are the owner's paid subscriptions,
+  so their wire stories open in the reading pane (they are NOT "paywalled" in
+  `v2/js/read-policy.js` — `isSubscribedSrc`; no padlock). The Worker
+  (`handleSubscriberRead`, `src/index.js`) answers `/api/read` for those sites, **only for
+  an Access-verified identity** (anonymous → the old `paywall` answer), in this order:
+  **(1) a newsletter issue that links the story** — `/api/nl-ingest` indexes every article
+  link in a stored issue (`nlu:<canonical url>` → issue id; `bloom.bg`/click-tracker links
+  are followed HEAD-only, ≤40 per issue, never unsubscribe/ad links), and the pane shows
+  the issue with "From your <pub> newsletter · <issue>" and the part on the story marked
+  (`.g-read-focus`); **(2) the owner's own session** — the browser `Cookie` header for that
+  site held as a Worker secret (`SUB_COOKIE_FT`, `SUB_COOKIE_ECONOMIST`, `SUB_COOKIE_WSJ`,
+  `SUB_COOKIE_BLOOMBERG`; none set = this step is skipped). Fetched only on an explicit
+  open — **never** a prefetch (`warm=1`), the cron pre-warm or a third-party proxy —
+  capped at `SUB_DAILY_MAX` (60) per site per day; the cookie is sent only to that site
+  (manual redirects; a bounce to a login/other host = `session-expired`, logged as a
+  warning). The body is kept 30 days in KV (`sub:<READ_VER>:<url>`), **never** in the
+  shared edge cache and **never** in the repo; **(3) otherwise** the public standfirst
+  (`og:description`) + "Wire doesn't have the text of this <pub> story yet" + the link —
+  labelled "Open in the <pub> app" on a phone (iOS hands it to the installed app), "Open at
+  <pub>" on desktop. Every response is `private, no-store`. **Setting a session (owner;
+  pilot = FT only):** sign in to ft.com in a desktop browser → DevTools ▸ Network → reload
+  an article → copy that request's `Cookie` header → Cloudflare dashboard ▸ Workers ▸
+  meridian ▸ Settings ▸ Variables and secrets ▸ add the secret `SUB_COOKIE_FT` (or
+  `npx wrangler secret put SUB_COOKIE_FT`). Replace it when the pane shows
+  `(session-expired)`. Spec: `tests/subscriber-reader.mjs`.
+
 - **R51 — Emails show "[link]", never a bare URL (owner 2026-10-20).** Every email Wire
   sends that carries links (the morning credit digest, and the health email or any
   routine report when it links anything) is sent as **HTML** (Gmail `send_message` `htmlBody`, with the plain text as `body` fallback). Each
@@ -2034,11 +2063,13 @@ item keeps a real outbound source link (R7).
 > recorded. (A data item whose `sourceUrl` is a paywalled outlet is correct; its "open
 > original" link simply opens externally rather than in the reading pane.)
 >
-> **Readable-only policy (2026-10).** The live wire carries only sources that render
-> in the reading pane. The hard-paywalled **premium four — Financial Times, Bloomberg,
-> The Wall Street Journal, The Economist** — are **switched off** at source (commented
-> out in `FEED_SOURCES`, reversibly; the FT desk's static side is gated by `FT_DESK_ON`
-> in `v2/js/home/glance.js`). **Nikkei Asia** (hard paywall) and **The Lawyer** are
+> **Readable-only policy (2026-10; premium four restored 2026-10-23).** The live wire
+> carries only sources that render in the reading pane. The **premium four — Financial
+> Times, Bloomberg, The Wall Street Journal, The Economist** — were switched off on
+> 2026-10-08 and are **back on (owner 2026-10-23)**: they are the owner's own paid
+> subscriptions and read in-pane through the **subscriber reader (R53)** — `FEED_SOURCES`
+> carries them again and `FT_DESK_ON` is `true`. Every other hard paywall stays off the
+> wire. **Nikkei Asia** (hard paywall) and **The Lawyer** are
 > dropped. **Channel NewsAsia was removed as a wire source (2026-10, owner request).**
 > **Reuters was removed as a wire source (2026-10)** — reuters.com is bot-walled
 > and never opened in the reading pane, so its headlines were dead-ends. 
@@ -2048,8 +2079,10 @@ item keeps a real outbound source link (R7).
 > that serves its article publicly is read in-pane — including bot-shielded ones via the
 > on-demand browser proxy (**Cloudflare Browser Rendering when configured, then Jina;
 > Firecrawl only for the `READ_FC_HOSTS` allowlist** — `readProxyOrder`, `readProxyAllowed`) and SCMP's metered pages via `READ_OPEN`. The one hard
-> line: **`READ_PAYWALL` hosts are never fetched** (no paywall is ever bypassed); the
-> owner's own subscriber content reaches the pane through their newsletter emails (R38).
+> line: **`READ_PAYWALL` hosts are never fetched** (no paywall is ever bypassed) —
+> **except the owner's four subscriptions**, which the owner relaxed on 2026-10-23: those
+> are read through the owner's own newsletter emails (R38) and the owner's own logged-in
+> session, on the owner's explicit open only (R53).
 > `READ_LINKONLY` is an empty switch to send a host back to headline + link. Spec:
 > `tests/reader-terms.mjs`. The old ≤30% paywalled-share cap was removed.
 **No limits but age (owner 2026-10-21).** The live wire keeps EVERY item a source publishes
@@ -2071,6 +2104,11 @@ macro/megacap title gate; **topic** = the source's own `match`/`drop` screen.
 | Source | Desk / lane | Screen | Route |
 |---|---|---|---|
 | CNBC (Economy, Markets, Finance, Top News, World) | Markets | macro | RSS |
+| Financial Times (Markets, Global Economy, Hedge Funds, myFT) | Markets / Hedge funds / FT desk | macro (Hedge Funds open; myFT soft) | RSS — owner's subscription (R53) |
+| FT Alphaville | Markets | open | RSS — owner's subscription (R53) |
+| Bloomberg (Markets, Business, Economics, Nishant Kumar byline) | Markets / Hedge funds | macro (byline open) | RSS + Google News bridge — owner's subscription (R53) |
+| The Wall Street Journal (Markets, US Business) | Markets | macro | RSS + Google News bridge — owner's subscription (R53) |
+| The Economist (Finance & Economics, Business) | Markets | open | RSS — owner's subscription (R53) |
 | Associated Press | Markets | macro | Google News bridge |
 | Axios | Markets | macro | RSS (whole site — only markets/economy pass) |
 | Euronews Business | Markets | macro | RSS |

@@ -87,7 +87,13 @@ export function openReader(url, o = {}) {
       if (my !== seq || ov.hidden) return;
       if (d && d.accessible && ((Array.isArray(d.blocks) && d.blocks.length) || (Array.isArray(d.paragraphs) && d.paragraphs.length))) {
         const meta = [d.byline, d.date ? String(d.date).slice(0, 10) : ""].filter(Boolean).map(esc).join(" · ");
-        box.innerHTML = shell({ title: d.title || title, src, url, meta, body: bodyFrom(d) });
+        // A subscribed story read from a newsletter issue that links it (subscriber reader).
+        const nl = d.via === "newsletter" && d.nl ? `<p class="wr-p wr-via">From your ${esc(d.nl.source || src || "")} newsletter · ${esc(d.nl.title || "")}</p>` : "";
+        box.innerHTML = shell({ title: d.title || title, src, url, meta, body: nl + bodyFrom(d) });
+      } else if (d && d.subscriber) {
+        // One of the owner's subscriptions with no stored text yet: the public standfirst + the link.
+        box.innerHTML = shell({ title, src, url, body: d.summary ? `<p class="wr-p">${esc(d.summary)}</p>` : "",
+          note: "Wire doesn't have the text of this story yet — open it at the publisher." + (d.reason ? ` <span class="wr-diag">(${esc(d.reason)})</span>` : "") });
       } else {
         box.innerHTML = shell({ title, src, url, note: "The full text isn't available inside Wire for this page." + (d && d.reason ? ` <span class="wr-diag">(${esc(d.reason)})</span>` : "") });
       }

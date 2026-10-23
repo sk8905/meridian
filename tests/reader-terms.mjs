@@ -11,7 +11,9 @@ const read = async (url) => {
   const res = await worker.fetch(new Request("https://wire.test/api/read?url=" + encodeURIComponent(url)), {}, { waitUntil() {} });
   return res.json();
 };
-// Paywalls are refused before any fetch, cache or proxy step.
+// Paywalls are refused before any fetch, cache or proxy step. (For the owner's four
+// subscriptions an ANONYMOUS request gets this same answer; an Access-verified owner gets
+// the subscriber reader — tests/subscriber-reader.mjs.)
 for (const url of ["https://www.ft.com/content/x", "https://www.bloomberg.com/news/articles/x", "https://www.wsj.com/articles/x", "https://www.economist.com/x"]) {
   const r = await read(url);
   check(r.accessible === false && r.reason === "paywall", `reader: ${new URL(url).host} (paywall) is never fetched (got ${r.reason})`);

@@ -1651,8 +1651,19 @@ then opens the full issue from KV (`/api/nl-body`, behind Access) instead of a p
 `422 no body` (a teaser-only email) → leave `body` unset. If `/api/nl-ingest` is
 unreachable (no bypass yet / 5xx), leave `body` unset and carry on — never fail the run.
 Bodies live 60 days in KV. The owner subscribes these newsletters to the ingestion
-mailbox: Bloomberg, The Economist, Reuters and **The Wall Street Journal** (add the WSJ
-sender domain to `PUBLISHERS` on its first delivery — confirm the real sender).
+mailbox: Bloomberg, The Economist, Reuters, **The Wall Street Journal** and the **Financial
+Times** (add each new sender domain to `PUBLISHERS` on its first delivery — confirm the real
+sender; never guess one).
+
+**Post the body WITH its links (subscriber reader, HOUSE_STYLE R53, owner 2026-10-23).**
+`/api/nl-ingest` indexes every FT / Bloomberg / WSJ / Economist article an issue links
+(short links such as `bloom.bg` are resolved by the Worker), so a wire headline for that
+article opens this issue in the reading pane at the part about it. So send the
+`get_thread` PLAIN_TEXT body unedited — do not strip the `<https://…>` links. The response
+reports `indexed: N` (articles linked). Optionally pass `"links": [{"url": "<article url>",
+"text": "<the words linking it>"}]` for links you have already resolved. Bloomberg
+"An author you are following" alerts are newsletters too — sweep and ingest them like any
+issue (they link the article they announce).
 
 ### 3. myFT → `ft.js` (independent of Gmail — run every time)
 

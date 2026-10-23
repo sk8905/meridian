@@ -24,10 +24,16 @@ check((b.contexts()[0] ? b.contexts()[0].pages().length : 0) === pages0, "no new
 await pg.goBack(); await pg.waitForTimeout(200);
 check(await pg.evaluate(() => document.querySelector("#wire-reader").hidden && /dashboard\/credit/.test(location.pathname)), "Back closes the reader and stays on the Dashboard");
 
-// 2) A paywalled source never fetches — reason + external link.
-await pg.evaluate(() => window.__wireRead("https://www.ft.com/content/abc", { title: "An FT story" }));
+// 2) A paywalled source the owner doesn't subscribe to never fetches — reason + external link.
+await pg.evaluate(() => window.__wireRead("https://www.nytimes.com/2026/10/22/business/x.html", { title: "A NYT story" }));
 const r2 = await pg.evaluate(() => ({ note: document.querySelector("#wire-reader .wr-note").textContent, out: document.querySelector("#wire-reader .wr-open").href }));
-check(/subscriber login/.test(r2.note) && /ft\.com/.test(r2.out), `paywalled → reason + external link (${r2.note})`);
+check(/subscriber login/.test(r2.note) && /nytimes\.com/.test(r2.out), `paywalled → reason + external link (${r2.note})`);
+await pg.keyboard.press("Escape"); await pg.waitForTimeout(150);
+// 2b) One of the owner's subscriptions (FT) is NOT refused: it goes to the subscriber reader.
+await pg.evaluate(() => window.__wireRead("https://www.ft.com/content/abc", { title: "An FT story" }));
+await pg.waitForFunction(() => !/Loading the text/.test((document.querySelector("#wire-reader .wr-note") || {}).textContent || ""), null, { timeout: 8000 }).catch(() => {});
+const r2b = await pg.evaluate(() => (document.querySelector("#wire-reader .wr-note") || {}).textContent || "");
+check(!/subscriber login/.test(r2b), `a subscribed FT story is not refused as a paywall (${r2b})`);
 await pg.keyboard.press("Escape"); await pg.waitForTimeout(150);
 
 // 3) A PDF says it is a document file.

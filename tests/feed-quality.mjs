@@ -158,10 +158,14 @@ check(!feedQualityKeep({ source: "Investing.com Economics", title: "China’s ex
 check(!feedQualityKeep({ source: "Investing.com Economics", title: "Singapore core inflation eases in August" }),
   "geo-macro: an out-of-scope country's inflation print is still dropped");
 
-// ---- Readable-only policy: the paywalled premium four are switched OFF at source
-// (commented out of FEED_SOURCES, reversibly), and the openly-readable replacements
-// are wired in. ------------------------------------------------------------------
-for (const off of ["Financial Times", "Bloomberg", "The Wall Street Journal", "The Economist", "FT Alphaville", "The Lawyer", "Nikkei Asia", "Channel NewsAsia"]) {
+// ---- The premium four are BACK ON (owner 2026-10-23 — the owner's own subscriptions,
+// read in-pane via the subscriber reader). The other hard paywalls stay off, and the
+// openly-readable sources added in their absence stay wired in. ---------------------
+for (const on of ["Financial Times", "Bloomberg", "The Wall Street Journal", "The Economist", "FT Alphaville"]) {
+  check(FEED_SOURCES.some((f) => f.source === on), `subscribed: ${on} is an active feed source`);
+}
+check(FEED_SOURCES.some((f) => f.myft === true && /ft\.com\/myft\//.test(f.url)), "subscribed: the owner's myFT feed is active");
+for (const off of ["The Lawyer", "Nikkei Asia", "Channel NewsAsia"]) {
   check(!FEED_SOURCES.some((f) => f.source === off), `readable-only: ${off} is switched off (not an active feed source)`);
 }
 for (const [on, want] of [["Associated Press", {}], ["Moody's", { fi: true }], ["European Central Bank", {}], ["Bank of Japan", {}], ["Bank of Canada", {}], ["Euronews Business", {}], ["AltAssets", {}]]) {
