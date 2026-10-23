@@ -33,7 +33,7 @@ export const LAST_CHECKED = "2026-10-23";
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "13:08 BST";
+export const LAST_CHECKED_TIME = "14:35 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -2567,6 +2567,8 @@ export const intel = [
   {"id":"i1527","date":"2026-10-22","type":"AUM","headline":"Blackstone's credit and insurance business pulls in $35.8bn in Q3","managerId":"m438","fundId":null,"summary":"Blackstone's Credit & Insurance segment recorded inflows of $35.8bn in the third quarter of 2026 and $142.8bn over the last twelve months. Capital deployed was $13.4bn and realizations were $15.4bn in the quarter. Inflows included $18.0bn for infrastructure and asset-based credit strategies, including $16.5bn for insurance SMAs, and $11.9bn for global direct lending.","sourceUrl":"https://www.blackstone.com/wp-content/uploads/sites/2/2026/10/Blackstone3Q26EarningsPressRelease.pdf"},
   {"id":"i1528","date":"2026-10-23","type":"AUM","headline":"Tikehau deploys €3.4bn in first nine months of 2026","managerId":"m3","fundId":null,"summary":"Tikehau Capital has deployed €3.4bn so far in 2026, covering the first nine months. Credit investments reached €943m in Q3, the busiest quarter of the year for that asset class. AUM stood at €51.7bn at the end of September. Net new money was €459m in Q3, of which €215m went to private credit, versus €715m in Q3 2025. The firm also returned €2.2bn to investors year to date.","sourceUrl":"https://alternativecreditinvestor.com/2026/10/23/tikehau-deploys-e3-4bn-amid-market-volatility/"},
   {"id":"i1529","date":"2026-10-01","type":"Acquisition","headline":"Nuveen completes acquisition of Schroders","managerId":"m63","fundId":null,"summary":"Nuveen completed its acquisition of Schroders on 1 October 2026, creating a firm with about $2.6 trillion in assets under management. Saira Malik is chief investment officer of the combined investment platform, reporting to CEO William Huffman. Johanna Kyrklund leads public markets and solutions as CIO. Richard Oldfield continues as Schroders group chief executive during the transition, reporting to Huffman. London becomes the combined firm's non-US headquarters.","sourceUrl":"https://www.nuveen.com/global/insights/news/nuveen-completes-acquisition-of-schroders"},
+  {"id":"i1538","date":"2026-10-23","type":"CLO","managerId":"m43","fundId":null,"headline":"Polus resets US CLO at $400m","summary":"Polus Capital Management has reset a US CLO at $400m, per Alternative Credit Investor, which cites the firm's LinkedIn announcement. The report describes it as the firm's first US CLO reset.","sourceUrl":"https://alternativecreditinvestor.com/2026/10/23/polus-resets-us-clo-at-400m/"},
+  {"id":"i1539","date":"2026-10-23","type":"Restructuring","managerId":"m35","fundId":null,"headline":"VietJet faces aircraft, cash seizures in FitzWalter debt fight","summary":"Bloomberg reports on FitzWalter's enforcement fight against VietJet over aircraft-lease debt.","sourceUrl":"https://www.bloomberg.com/news/articles/2026-10-23/vietjet-faces-aircraft-cash-seizures-in-fitzwalter-debt-fight"},
 ];
 
 // ---------------------------------------------------------------------------
