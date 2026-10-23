@@ -21,6 +21,48 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "ce0e9d68-c63f-4666-9909-512b929e6284",
+    "title": "Winter arrives in markets",
+    "date": "2026-10-23",
+    "time": "06:30",
+    "url": "https://www.ft.com/content/ce0e9d68-c63f-4666-9909-512b929e6284"
+  },
+  {
+    "id": "575c54b3-b194-4338-930b-3f446da5044f",
+    "title": "Serbia’s Vučić faces tough election as fraud fears mount",
+    "date": "2026-10-23",
+    "time": "06:00",
+    "url": "https://www.ft.com/content/575c54b3-b194-4338-930b-3f446da5044f"
+  },
+  {
+    "id": "9193784c-9b3b-4626-bd69-15806b0221ed",
+    "title": "Healey to promise end of ‘pointless paperwork’ for small UK companies",
+    "date": "2026-10-23",
+    "time": "06:00",
+    "url": "https://www.ft.com/content/9193784c-9b3b-4626-bd69-15806b0221ed"
+  },
+  {
+    "id": "9aa4549e-26f4-4963-94eb-50cf0fc0b8f9",
+    "title": "How nervous are bond markets about France?",
+    "date": "2026-10-23",
+    "time": "06:00",
+    "url": "https://www.ft.com/content/9aa4549e-26f4-4963-94eb-50cf0fc0b8f9"
+  },
+  {
+    "id": "8948193b-438b-4d71-a0b1-31dff56fc308",
+    "title": "Global tech sell-off sparks flight to safety",
+    "date": "2026-10-23",
+    "time": "05:42",
+    "url": "https://www.ft.com/content/8948193b-438b-4d71-a0b1-31dff56fc308"
+  },
+  {
+    "id": "5587abab-d5c8-480d-923d-b7b68afcb3f0",
+    "title": "FirstFT: OpenAI trims valuation target to $1.25tn",
+    "date": "2026-10-23",
+    "time": "05:30",
+    "url": "https://www.ft.com/content/5587abab-d5c8-480d-923d-b7b68afcb3f0"
+  },
+  {
     "id": "cea71497-6fdb-4e97-8661-6336bd77b347",
     "title": "Investing in Argentina",
     "date": "2026-10-23",
@@ -257,47 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-22",
     "time": "14:40",
     "url": "https://www.ft.com/content/b34502b6-38dc-4a46-a8e7-d9131726cd31"
-  },
-  {
-    "id": "2d4876ae-c707-4df5-a3ae-ae3268343ef2",
-    "title": "Shell and Exxon’s $8bn UK chemicals unit put up for sale",
-    "date": "2026-10-22",
-    "time": "14:36",
-    "url": "https://www.ft.com/content/2d4876ae-c707-4df5-a3ae-ae3268343ef2"
-  },
-  {
-    "id": "6e318b81-a771-4842-9754-e265fef2852f",
-    "title": "Global stocks tumble as oil price tops $112",
-    "date": "2026-10-22",
-    "time": "14:31",
-    "url": "https://www.ft.com/content/6e318b81-a771-4842-9754-e265fef2852f"
-  },
-  {
-    "id": "93852564-cae6-41f6-aa79-8db53e2b7774",
-    "title": "ECB on course for another rate rise in 2026",
-    "date": "2026-10-22",
-    "time": "14:30",
-    "url": "https://www.ft.com/content/93852564-cae6-41f6-aa79-8db53e2b7774"
-  },
-  {
-    "id": "9f0c58d3-1833-40de-b805-f5ac53f05ff0",
-    "title": "Russia drops cluster warheads on Kyiv after Witkoff-Putin peace talks",
-    "date": "2026-10-22",
-    "time": "14:18",
-    "url": "https://www.ft.com/content/9f0c58d3-1833-40de-b805-f5ac53f05ff0"
-  },
-  {
-    "id": "c6c68f72-4d00-4475-b7ec-847fd2c4d2fa",
-    "title": "Turkey cuts interest rates despite $18bn investment funds scandal",
-    "date": "2026-10-22",
-    "time": "14:06",
-    "url": "https://www.ft.com/content/c6c68f72-4d00-4475-b7ec-847fd2c4d2fa"
-  },
-  {
-    "id": "43f3144f-7aa8-4821-b5c6-0da470b9af34",
-    "title": "Macron warns some protests will be banned",
-    "date": "2026-10-22",
-    "time": "13:36",
-    "url": "https://www.ft.com/content/43f3144f-7aa8-4821-b5c6-0da470b9af34"
   }
 ];
