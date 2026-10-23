@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-23T13:48:35.102Z",
+ "generated": "2026-10-23T18:42:20.977Z",
  "since": "2026-10-09",
  "firms": {
   "proskauerrose": {
@@ -27,8 +27,8 @@
    ],
    "sitemaps": 5,
    "urls": 7443,
-   "kept": 4,
-   "fetched": 4,
+   "kept": 2,
+   "fetched": 2,
    "errors": 0,
    "carried": 0
   },
@@ -37,7 +37,7 @@
     "www.slaughterandmay.com"
    ],
    "sitemaps": 1,
-   "urls": 6309,
+   "urls": 6310,
    "kept": 5,
    "fetched": 5,
    "errors": 0,
@@ -62,6 +62,19 @@
    ],
    "carried": 0
   },
+  "linklaters": {
+   "domains": [
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
+   ],
+   "sitemaps": 6,
+   "urls": 17822,
+   "kept": 7,
+   "fetched": 7,
+   "errors": 0,
+   "carried": 0
+  },
   "hsf": {
    "domains": [
     "www.hsfkramer.com"
@@ -73,27 +86,14 @@
    "errors": 1,
    "carried": 0
   },
-  "linklaters": {
+  "traverssmith": {
    "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
+    "www.traverssmith.com"
    ],
-   "sitemaps": 6,
-   "urls": 17822,
-   "kept": 10,
-   "fetched": 10,
-   "errors": 0,
-   "carried": 0
-  },
-  "macfarlanes": {
-   "domains": [
-    "www.macfarlanes.com"
-   ],
-   "sitemaps": 4,
-   "urls": 2415,
-   "kept": 2,
-   "fetched": 2,
+   "sitemaps": 1,
+   "urls": 5025,
+   "kept": 3,
+   "fetched": 3,
    "errors": 0,
    "carried": 0
   },
@@ -110,14 +110,14 @@
    "disallowed": 1,
    "carried": 0
   },
-  "traverssmith": {
+  "macfarlanes": {
    "domains": [
-    "www.traverssmith.com"
+    "www.macfarlanes.com"
    ],
-   "sitemaps": 1,
-   "urls": 5025,
-   "kept": 5,
-   "fetched": 5,
+   "sitemaps": 4,
+   "urls": 2416,
+   "kept": 2,
+   "fetched": 2,
    "errors": 0,
    "carried": 0
   },
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 9646,
+   "urls": 9652,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -140,8 +140,8 @@
    ],
    "sitemaps": 9,
    "urls": 20207,
-   "kept": 9,
-   "fetched": 9,
+   "kept": 8,
+   "fetched": 8,
    "errors": 0,
    "carried": 0
   },
@@ -150,7 +150,7 @@
     "www.kirkland.com"
    ],
    "sitemaps": 11,
-   "urls": 17449,
+   "urls": 17461,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -172,7 +172,7 @@
     "www.sidley.com"
    ],
    "sitemaps": 5,
-   "urls": 6784,
+   "urls": 6786,
    "kept": 1,
    "fetched": 1,
    "errors": 12,
@@ -208,16 +208,16 @@
    ],
    "carried": 0
   },
-  "cleary": {
+  "davispolk": {
    "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
+    "www.davispolk.com",
+    "davispolk.com"
    ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 2,
+   "sitemaps": 11,
+   "urls": 16240,
+   "kept": 7,
+   "fetched": 7,
+   "errors": 0,
    "carried": 0
   },
   "stephensonharwood": {
@@ -244,21 +244,9 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12309,
+   "urls": 12310,
    "kept": 4,
    "fetched": 4,
-   "errors": 0,
-   "carried": 0
-  },
-  "davispolk": {
-   "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
-   ],
-   "sitemaps": 11,
-   "urls": 16240,
-   "kept": 7,
-   "fetched": 7,
    "errors": 0,
    "carried": 0
   },
@@ -267,9 +255,25 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11607,
-   "kept": 14,
-   "fetched": 14,
+   "urls": 11608,
+   "kept": 13,
+   "fetched": 13,
+   "errors": 0,
+   "carried": 0
+  },
+  "weil": {
+   "domains": [
+    "www.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "tax.weil.com",
+    "european-disputes-blog.weil.com"
+   ],
+   "sitemaps": 36,
+   "urls": 7750,
+   "kept": 40,
+   "fetched": 40,
    "errors": 0,
    "carried": 0
   },
@@ -292,12 +296,24 @@
    ],
    "carried": 0
   },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 1,
+   "urls": 18727,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
+   "carried": 0
+  },
   "southsquare": {
    "domains": [
     "southsquare.com"
    ],
    "sitemaps": 9,
-   "urls": 451,
+   "urls": 452,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -311,30 +327,14 @@
    ],
    "carried": 0
   },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "governance.weil.com",
-    "restructuring.weil.com",
-    "eurorestructuring.weil.com",
-    "tax.weil.com",
-    "european-disputes-blog.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7753,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
   "mayerbrown": {
    "domains": [
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16375,
-   "kept": 19,
-   "fetched": 19,
+   "urls": 16377,
+   "kept": 20,
+   "fetched": 20,
    "errors": 0,
    "carried": 0
   },
@@ -345,39 +345,12 @@
    "sitemaps": 27,
    "urls": 13016,
    "kept": 40,
-   "fetched": 40,
-   "errors": 7,
+   "fetched": 38,
+   "errors": 9,
    "carried": 0
   }
  },
  "items": [
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-boc-on-two-landmark-offshore-renminbi-notes-issuances-in-dubai-and-europe",
-   "title": "Linklaters advises BOC on two landmark offshore Renminbi notes issuances in Dubai and Europe",
-   "description": "Linklaters has advised Bank of China on two landmark offshore Renminbi notes issuances by its Dubai and Frankfurt branches, supporting the development of international financing and investment channels for Renminbi-denominated instruments.",
-   "date": "2026-10-23",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-23"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-cip-on-five-estuaries-acquisition",
-   "title": "CIP acquires 25% stake in Five Estuaries wind farm",
-   "description": "Linklaters advises Copenhagen Infrastructure Partners on its acquisition of a 25% interest in the 1,080MW Five Estuaries Offshore Wind Farm.",
-   "date": "2026-10-23",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-23"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-on-adani-group-company-cemindia-projects",
-   "title": "Linklaters advises on Adani Group company Cemindia Projects’ US$146m qualified institutional placement of shares in India",
-   "description": "Linklaters advises the book running lead managers on Cemindia Projects’ qualified institutional placement of shares in India, raising US$146m.",
-   "date": "2026-10-23",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-23"
-  },
   {
    "firm": "macfarlanes",
    "url": "https://www.macfarlanes.com/insights/102o6a3/a-return-of-the-uk-investor-visa-still-on-the-agenda",
@@ -388,31 +361,77 @@
    "lastmod": "2026-10-23"
   },
   {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/knowledge-container/divided-loyalties-feedback-from-the-uk-fcas-conflicts-of-interest-review/",
-   "title": "Divided Loyalties? Feedback from the UK FCA's Conflicts of Interest Review",
-   "description": "Back in October 2025, the UK Financial Conduct Authority (FCA) began a review into how UK private market firms were identifying, managing and mitigating conflicts of interest. The scope of the review focused on fund management, discretionary portfolio management and advisory activities carried out in or from the UK in connection with investment in private equity, private credit or real estate.",
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/insights/eu-tax-blacklist-october-2026-panama-and-vietnam-removed",
+   "title": "EU tax blacklist October 2026 Panama and Vietnam Removed",
+   "description": "Panama and Vietnam have been removed from the EU tax blacklist. Learn what this means for StAbwG, DAC6 reporting and public CbCR in Germany.",
    "date": "2026-10-23",
-   "dateSource": "<time datetime>",
+   "dateSource": "datePublished",
    "lastmod": "2026-10-23"
   },
   {
    "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-represents-cip-on-eur155-million-private-credit-financing",
-   "title": "A&O Shearman advises CIP on EUR155m HoldCo deal",
-   "description": "A&O Shearman advised CIP on a EUR155m private credit financing for MaxSolar, funding its growth into a German independent power producer.",
+   "url": "https://www.aoshearman.com/en/insights/a-decade-in-ao-shearmans-leveraged-finance-training-camp-draws-its-biggest-audience-yet",
+   "title": "A&O Shearman's Leveraged Finance Training Camp turns 10",
+   "description": "A&O Shearman's 10th annual Leveraged Finance Training Camp drew 1,600+ participants for insights on private credit, covenants, and restructuring.",
    "date": "2026-10-23",
    "dateSource": "datePublished",
    "lastmod": "2026-10-23"
   },
   {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/our-insights/blogs/real-estate-legal-update/102o69t/cautious-creative-and-still-closing-what-we-learnt-from-expo-real-2026/",
-   "title": "Cautious, Creative and Still Closing: What we learnt from EXPO REAL 2026",
-   "description": "We have just returned from EXPO REAL 2026 in Munich. The mood was cautious, but the market is still moving, and we came away with a...",
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/luxembourg-issues-europes-first-dlt-native-benchmark-bond",
+   "title": "Luxembourg Issues Europe’s First DLT-Native Benchmark Bond",
+   "description": "A&O Shearman advised Spuerkeess on Luxembourg’s EUR1.7bn DLT-native sovereign bond, advancing digital capital markets in Europe.",
    "date": "2026-10-23",
    "dateSource": "datePublished",
    "lastmod": "2026-10-23"
+  },
+  {
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-kohlberg-on-financing-for-acquisition-of-advanced-industrial-devices",
+   "title": "Kirkland Advises Kohlberg on Financing for Acquisition of Advanced Industrial Devices",
+   "description": null,
+   "date": "2026-10-23",
+   "dateSource": "page date label",
+   "lastmod": null
+  },
+  {
+   "firm": "weil",
+   "url": "https://restructuring.weil.com/category/news/",
+   "title": "News Archives",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-23",
+   "dateProbe": []
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
+   "title": "News Listing",
+   "description": null,
+   "date": "2026-10-23",
+   "dateSource": "datePublished",
+   "lastmod": null
+  },
+  {
+   "firm": "mayerbrown",
+   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/general-repercussion-theme-no-topic-118-stf-rules-in-favor-of-taxpayers-on-the-exclusion-of-iss-from-the-pis-cofins-tax-basis",
+   "title": "General Repercussion Theme No. Topic 118: STF Rules in Favor of Taxpayers on the Exclusion of ISS from the PIS/COFINS Tax Basis",
+   "description": "On October 21, 2026, sitting in a Plenary Session, the Brazilian Federal Supreme Court (STF) concluded the judgment of Extraordinary Appeal No. 592",
+   "date": "2026-10-23",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-23"
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
+   "title": "Publications",
+   "description": null,
+   "date": "2026-10-22",
+   "dateSource": "datePublished",
+   "lastmod": null
   },
   {
    "firm": "mayerbrown",
@@ -431,15 +450,6 @@
    "date": "2026-10-21",
    "dateSource": "datePublished",
    "lastmod": "2026-10-21"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/podcasts/the-ai-drop/the-ai-drop-27-on-the-front-lines-tracking-ai-regulation-from-california-to-new-york-with-megan-kayo",
-   "title": "The AI Drop™ #27: California and New York AI Regulation",
-   "description": "How are California and New York regulating AI? Anna Gressel and Megan Kayo discuss new state laws, governance requirements and business compliance risks.",
-   "date": "2026-10-20",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-20"
   },
   {
    "firm": "slaughtermay",
@@ -563,21 +573,21 @@
    ]
   },
   {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
-   "title": "Incorporating an LLP: direct tax considerations",
-   "description": "In an article for Tax Journal, Partner Joe Robinson and Associate Harvey Innocent explain how LLP members may defer gains when...",
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
-  },
-  {
    "firm": "traverssmith",
    "url": "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-venture-insights-the-changing-shape-of-venture-capital/",
    "title": "Travers Smith's Venture Insights: The changing shape of Venture Capital",
    "description": null,
    "date": "2026-10-16",
    "dateSource": "<time datetime>",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "macfarlanes",
+   "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
+   "title": "Incorporating an LLP: direct tax considerations",
+   "description": "In an article for Tax Journal, Partner Joe Robinson and Associate Harvey Innocent explain how LLP members may defer gains when...",
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
    "lastmod": "2026-10-16"
   },
   {
@@ -588,15 +598,6 @@
    "date": "2026-10-16",
    "dateSource": "page date label",
    "lastmod": null
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/our-insights/blogs/viewpoints/102o5at/sdaia-consults-on-extensive-amendments-to-the-saudi-pdpl-implementing-regulation/",
-   "title": "SDAIA Consults on Extensive Amendments to the Saudi PDPL Implementing Regulation",
-   "description": "On 6 October 2026 the Saudi Data and Artificial Intelligence Authority (SDAIA) published draft amendments to the Implementing Regulation...",
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
   },
   {
    "firm": "freshfields",
@@ -673,15 +674,6 @@
    ]
   },
   {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/knowledge-container/litigation-funding-in-english-seated-commercial-arbitration/",
-   "title": "Litigation funding in English-seated commercial arbitration",
-   "description": "Third-party litigation funding – whereby an independent funder pays some or all of a party's costs in connection with legal proceedings in exchange for a financial return should the case succeed – is has become an established feature of commercial arbitration seated in England & Wales. In this article, we explore the use of litigation funding in English-seated commercial arbitration, including its interaction with institutional rules, potential pitfalls and practical guidance to ensure its effective use.",
-   "date": "2026-10-13",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-14"
-  },
-  {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/award/2026/10/american-bankruptcy-institute-40-under-40",
    "title": "Partner Aparna Yenamandra Among American Bankruptcy Institute’s “40 Under 40”",
@@ -727,15 +719,6 @@
    "lastmod": "2026-10-12"
   },
   {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/podcasts/the-ai-drop/the-ai-drop-26-a-view-from-two-desks-the-dispatch-from-london-on-ai-policy-ip-and-the-future-of-personal-agents-with-giles-pratt",
-   "title": "The AI Drop #26: AI Policy, Copyright and Personal Agents",
-   "description": "Who owns AI-generated code? Anna Gressel and Giles Pratt examine UK copyright law, AI policy, model training and the rise of personal AI agents. Listen to episode 26 of the AI Drop here.",
-   "date": "2026-10-12",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-13"
-  },
-  {
    "firm": "klgates",
    "url": "https://www.klgates.com/thought-leadership/New-South-Wales-No-Shortcuts-on-Scope-3-High-Court-Puts-Scope-3-Emissions-Back-on-the-Table-for-Resource-Projects-10-12-2026",
    "title": "New South Wales–No Shortcuts on Scope 3: High Court Puts Scope 3 Emissions Back on the Table for Resource Projects",
@@ -743,15 +726,6 @@
    "date": "2026-10-12",
    "dateSource": "page date label",
    "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/fca-finalises-uk-srs-aligned-disclosure-rules-for-uk-listings",
-   "title": "FCA Finalises UK SRS-Aligned Disclosure Rules for UK Listings",
-   "description": "In response to feedback, the FCA has moved to a comply-or-explain model for all of the sustainability disclosure obligations. By Mark Austin CBE, Michael",
-   "date": "2026-10-09",
-   "dateSource": "article:published_time",
-   "lastmod": "2026-10-09"
   },
   {
    "firm": "whitecase",
