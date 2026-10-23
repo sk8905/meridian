@@ -1228,6 +1228,7 @@ const T = {
   d1346: {"c":"US","s":"Leisure & hospitality","p":"Aspyr Holdings LLC","r":"borrower","a":null},
   d1347: {"c":"France","s":"Business services","p":"Impulsa","r":"borrower","a":null},
   d1348: {"c":"Germany","s":"TMT","p":"Drooms","r":"borrower","a":null},
+  d1349: {"c":"UK","s":"Industrials","p":"Gooch & Housego","r":"borrower","a":null},
 };
 // A role (r) without a party name (p) labels the deal's own audited `borrower` (data audit
 // 2026-10-21: manager M&A → Target, fund closes / CVs → Fund / vehicle, CLOs → Issuer).
