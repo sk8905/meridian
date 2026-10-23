@@ -3,7 +3,7 @@
 // the story, (2) the owner's own logged-in session (SUB_COOKIE_* secret), else (3) the public
 // standfirst + an "Open in the app" link. Pure helpers + the Worker paths, no egress (fetch is
 // stubbed), plus a browser check of the pane.
-import worker, { subCanon, isSubscriberArticle, nlLinkCandidates, nlFocusIndex } from "../src/index.js";
+import worker, { subCanon, isSubscriberArticle, nlLinkCandidates, nlFocusIndex, readAuthors, extractReadable } from "../src/index.js";
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 // ---- pure helpers ---------------------------------------------------------------------
@@ -37,6 +37,16 @@ check(legit.length === 1 && /Asset manager accounting probe widens/.test(legit[0
 const blocks = [{ h: true, t: "Things happen" }, { t: "Musk Tries to Lock In His Tesla-SpaceX Dream Before Trump’s Exit. Barclays to cut 5,000 jobs as bank steps up AI adoption." }, { t: "Gilts rallied after UK inflation cooled." }];
 checkEq(nlFocusIndex(blocks, "Musk Tries to Lock In His Tesla-SpaceX Dream Before Trump’s Exit. Barclays to cut 5,000 jobs"), 1, "nlFocusIndex: the block carrying the link's words");
 checkEq(nlFocusIndex(blocks, "nothing like this"), -1, "nlFocusIndex: no match → -1");
+
+// ---- Author line when the page has no author <meta> (FT-style) --------------------------
+const LD = `<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle","author":[{"@type":"Person","name":"Leo Lewis"},{"@type":"Person","name":"Song Jung-a"},{"@type":"Person","name":"Ian Smith"}],"publisher":{"@type":"Organization","name":"Financial Times"},"datePublished":"2026-10-23T03:41:23.368Z"}</script>`;
+checkEq(readAuthors(LD), "Leo Lewis, Song Jung-a and Ian Smith", "readAuthors: JSON-LD authors, organisations ignored");
+checkEq(readAuthors(`<script type="application/ld+json">{"@graph":[{"@type":"Article","author":{"@type":"Person","name":"Matt Levine"}}]}</script>`), "Matt Levine", "readAuthors: an author inside @graph");
+checkEq(readAuthors(`<p>By <a href="/stream/x" class="n-content-tag--author">Leo Lewis</a> and <a href="/y" data-trackable="author">Ian Smith</a></p>`), "Leo Lewis and Ian Smith", "readAuthors: byline links when there is no JSON-LD");
+checkEq(readAuthors(`<a class="author" href="https://x.com/p">https://www.ft.com/leo-lewis</a>`), "", "readAuthors: a URL is never an author");
+const ftPage = `<html><head><meta property="og:title" content="Oil hits $114"><meta property="article:author" content="https://www.ft.com/leo-lewis">${LD}</head><body><article>${"<p>Oil surged past $114 a barrel for the first time since May on Friday, weighing on markets.</p>".repeat(3)}</article></body></html>`;
+const ftx = extractReadable(ftPage, new URL("https://www.ft.com/content/x"), { subscriber: true });
+check(ftx.byline === "Leo Lewis, Song Jung-a and Ian Smith" && /^2026-10-23/.test(ftx.date), `extractReadable: FT-style page gets its byline + date (${ftx.byline} · ${ftx.date})`);
 
 // ---- Worker paths (in-memory KV, stubbed fetch) -----------------------------------------
 const kv = new Map();

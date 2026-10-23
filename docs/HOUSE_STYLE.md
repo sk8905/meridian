@@ -1844,7 +1844,7 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   site held as a Worker secret (`SUB_COOKIE_FT`, `SUB_COOKIE_ECONOMIST`, `SUB_COOKIE_WSJ`,
   `SUB_COOKIE_BLOOMBERG`; none set = this step is skipped). Fetched only on an explicit
   open — **never** a prefetch (`warm=1`), the cron pre-warm or a third-party proxy —
-  capped at `SUB_DAILY_MAX` (60) per site per day; the cookie is sent only to that site
+  capped at `SUB_DAILY_MAX` (200; raised from 60 by the owner 2026-10-23) per site per day; the cookie is sent only to that site
   (manual redirects; a bounce to a login/other host = `session-expired`, logged as a
   warning). The body is kept 30 days in KV (`sub:<READ_VER>:<url>`), **never** in the
   shared edge cache and **never** in the repo; **(3) otherwise** the public standfirst

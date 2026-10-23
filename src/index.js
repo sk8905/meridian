@@ -2458,9 +2458,10 @@ const READ_OPEN = new Set([
 //   3. otherwise the public standfirst + "Open in the app".
 // Anonymous requests get the old paywall answer. Every response is private, no-store.
 const READ_SUBSCRIBED = new Set(["ft.com", "bloomberg.com", "wsj.com", "economist.com"]);
+const SUB_NAMES = { "ft.com": "FT", "bloomberg.com": "Bloomberg", "wsj.com": "WSJ", "economist.com": "The Economist" };
 const SUB_COOKIE_ENV = { "ft.com": "SUB_COOKIE_FT", "economist.com": "SUB_COOKIE_ECONOMIST", "wsj.com": "SUB_COOKIE_WSJ", "bloomberg.com": "SUB_COOKIE_BLOOMBERG" };
 const SUB_TTL = 30 * 86400;            // the wire's own 30-day window
-const SUB_DAILY_MAX = 60;              // per site per day (SUB_DAILY_MAX env overrides) — stays well inside normal reading
+const SUB_DAILY_MAX = 200;             // per site per day (owner 2026-10-23: raised from 60; SUB_DAILY_MAX env overrides)
 const _subBase = (host) => { const h = String(host || "").toLowerCase().replace(/^www\./, ""); for (const b of READ_SUBSCRIBED) if (h === b || h.endsWith("." + b)) return b; return ""; };
 // One canonical form per article so a feed link, a newsletter link and a shared link
 // all meet: https, no www, no query/hash, no trailing slash.
@@ -2582,7 +2583,7 @@ async function _readTeaser(u) {
   } catch { return ""; }
 }
 async function handleSubscriberRead(request, env, u, base, warm) {
-  const target = u.toString(), source = _readTidy(base);
+  const target = u.toString(), source = SUB_NAMES[base] || _readTidy(base);
   const priv = (data, status) => { const r = json(data, status); r.headers.set("cache-control", "private, no-store"); return r; };
   if (!identity(request)) return priv({ url: target, source, accessible: false, paragraphs: [], reason: "paywall" });
   const kv = env && env.WATCHLIST, canon = subCanon(target);
@@ -2633,7 +2634,7 @@ export function readProxyAllowed(host) {
 // Reader extractor version — bump on ANY extraction change so BOTH the per-colo edge cache
 // (read.internal/<ver>) and the GLOBAL KV pre-warm (rdr:<ver>:<url>) discard bodies produced
 // by the old extractor. Keep the two in lockstep through this one constant.
-const READ_VER = "v20";   // v20: proxy bot-wall / consent pages are misses; Cloudflare front matter stripped (v19: contact-footer junk)
+const READ_VER = "v21";   // v21: byline from JSON-LD / byline links when no author meta (v20: proxy bot-wall / consent pages are misses; Cloudflare front matter stripped (v19: contact-footer junk))
 const _readKvKey = (url) => "rdr:" + READ_VER + ":" + url;
 // A host is fetchable only if it is a real, public, dotted domain name — never an
 // IP literal (v4/v6), a port, or a reserved/internal name. This is the SSRF gate.
@@ -2889,14 +2890,51 @@ function _stripTrailingRecirc(blocks) {
 function _dropBodylessHeadings(blocks) {
   return (blocks || []).filter((b, i) => !b.h || (blocks[i + 1] && !blocks[i + 1].h));
 }
+// Author names when the page has no author <meta>: the JSON-LD (schema.org) "author" that
+// news sites publish for search engines — FT, WSJ, Bloomberg, The Economist all do — else
+// the page's own byline links (rel=author / an author- or byline- class / data-trackable) —
+// those only on a subscriber page, where the layout is known (elsewhere a related-story card
+// could lend its author).
+// Names only: URLs and organisation names are dropped. Pure — unit-tested.
+export function readAuthors(html, links = true) {
+  const names = [];
+  const add = (n) => {
+    const t = _readDec(String(n || "")).replace(/\s+/g, " ").trim();
+    if (!t || t.length > 60 || /^https?:|\.(com|co\.uk)\b|^(by|staff|reuters|bloomberg( news)?|financial times|the economist|wsj|dow jones)$/i.test(t)) return;
+    if (!names.some((x) => x.toLowerCase() === t.toLowerCase())) names.push(t);
+  };
+  const walk = (o, depth) => {
+    if (!o || depth > 6) return;
+    if (Array.isArray(o)) { o.forEach((x) => walk(x, depth + 1)); return; }
+    if (typeof o !== "object") return;
+    if (o.author) [].concat(o.author).forEach((a) => {
+      if (typeof a === "string") add(a);
+      else if (a && (!a["@type"] || /person/i.test([].concat(a["@type"]).join(" ")))) add(a.name);
+    });
+    if (o["@graph"]) walk(o["@graph"], depth + 1);
+    if (o.mainEntity) walk(o.mainEntity, depth + 1);
+  };
+  const ldRe = /<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi; let m;
+  while ((m = ldRe.exec(html))) { try { walk(JSON.parse(m[1].trim()), 0); } catch { /* malformed block */ } }
+  if (!names.length && links) {
+    const aRe = /<a\b([^>]*)>([\s\S]{1,120}?)<\/a>/gi; let a;
+    while ((a = aRe.exec(html)) && names.length < 6) {
+      if (/rel=["'][^"']*\bauthor\b|class=["'][^"']*(?:author|byline)[^"']*["']|data-trackable=["']author["']/i.test(a[1])) add(_readStrip(a[2]));
+    }
+  }
+  const n = names.slice(0, 4);
+  return n.length <= 1 ? (n[0] || "") : n.slice(0, -1).join(", ") + " and " + n[n.length - 1];
+}
 function _readTidy(host) { const p = host.replace(/\.(com|co\.uk|org|net|gov|edu|io|us)$/i, "").split(".").pop() || host; return p.charAt(0).toUpperCase() + p.slice(1); }
 export function extractReadable(html, u, opts) {
   const host = u.hostname.replace(/^www\./, "");
   const source = _readTidy(host);
   const title = _readMeta(html, ["og:title", "twitter:title"])
     || _readStrip(((/<title[^>]*>([\s\S]*?)<\/title>/i.exec(html)) || [])[1] || "").replace(/\s*[|\-–—]\s*[^|\-–—]+$/, "");
-  const byline = _readMeta(html, ["author", "article:author", "parsely-author"]);
-  const date = _readMeta(html, ["article:published_time", "og:published_time", "parsely-pub-date", "datePublished"]);
+  const metaBy = _readMeta(html, ["author", "article:author", "parsely-author"]);
+  const byline = (metaBy && !/^https?:/i.test(metaBy)) ? metaBy : readAuthors(html, !!(opts && opts.subscriber));   // some sites put a profile URL in article:author
+  const date = _readMeta(html, ["article:published_time", "og:published_time", "parsely-pub-date", "datePublished"])
+    || ((/"datePublished"\s*:\s*"([^"]{10,40})"/.exec(html) || [])[1] || "");
   const freeMeta = _readMeta(html, ["isAccessibleForFree"]);
   const jsonldFree = /"isAccessibleForFree"\s*:\s*(?:false|"false")/i.test(html);
   // READ_OPEN hosts are rendered from whatever their public page serves, so their
