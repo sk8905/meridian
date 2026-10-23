@@ -11366,6 +11366,26 @@
      }
     }
    ]
+  },
+  {
+   "at": "2026-10-23",
+   "collection": "HEDGE_FUNDS",
+   "id": "h142",
+   "verdict": "unchanged",
+   "source": "https://www.hedgeweek.com/ex-citadel-duos-ilex-capital-reaches-7bn-aum/",
+   "sourceLabel": "Hedgeweek (relaying Bloomberg)",
+   "asOf": "2025-12",
+   "evidence": "Hedgeweek/Bloomberg: Ilex manages about $7bn; matches held aum 7.",
+   "changes": [
+    {
+     "field": "lastChecked",
+     "from": null,
+     "to": {
+      "date": "2026-10-23",
+      "url": "https://www.hedgeweek.com/ex-citadel-duos-ilex-capital-reaches-7bn-aum/"
+     }
+    }
+   ]
   }
  ]
 }
