@@ -2983,6 +2983,24 @@
    "status": "rejected",
    "reason": "false borrower match (d1316); generic Credit Benchmark research, no verifiable primary URL",
    "at": "2026-10-22T21:15:46.337668Z"
+  },
+  {
+   "url": "https://www.cnbc.com/2026/10/22/spacex-records-561-million-investment-gain-from-stake-in-boring-co.html",
+   "status": "rejected",
+   "reason": "investment gain, not a distressed-credit event",
+   "at": "2026-10-23T05:15:01.428Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi7AJBVV95cUxPcmxvUFhBVzFHQUhONkNtU1c4QXE5RVZmQW93TUQyTlBiOXVmZS1pZklNaTEtdF82VTVDVXQ2X3ZZbzFWVDdMU0RmS2VqZUkxTDBWNVY5Q0xJVzNLQzZZUGRGaWVGS2t4MEhocHBFOHRpOFdWSlRQcHUzVEJJRlk4WWhEdWxIZVRqZ01rSmpyTm0wMUktQ2N0LUp0cWpLc1RjUFo3bWpZaVc3X1ctSGw1c2VtZ1ZEYkJvY0NxY25YcjhsTEdQSzJTOW5BTlRQaksxS3dmVklRX0F3NnRFYlp6dkQyRks0Nkswb3BfSVo2b1FfU2xBNWRMcXkzU0xaTjhzb1NERndZdWs2YV9WVmc5TWh2dnctekdpOW9jZF9PYmQxMkNTVlZzcEEzaGF5R3NEd3RrWnU2WUJrVFVfMnc2aFVqWjZoNjcyS2lBWU9nRU1ObV9aTFpNT1VkUERJd3NKNDRMQklRNjhmZGVw?oc=5",
+   "status": "rejected",
+   "reason": "LP only a passing mention in an unrelated press release",
+   "at": "2026-10-23T05:15:01.428Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPYlhqakh3NUNJM1NTUXZ4US1hSWJKNDFaUEF2c3Z1RjFEX2tBRVN0ZEdpVk95b3BxQjV3OEpmdUFJUkM0SmMyT2ZRWnV6S0NuWjJIRTBkUDRheW9kcUQ1ZTVTU09nLThoTmVTZ3lKcmZpdEY0RkE3VlJKSlhIY1MxTXJnT1pmbnZUYUZoWFptd2ZUbU5P?oc=5",
+   "status": "rejected",
+   "reason": "Latham partner-class announcement could not be verified on lw.com (page not found by search); people news, no deal",
+   "at": "2026-10-23T05:15:01.428Z"
   }
  ]
 }
