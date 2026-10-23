@@ -41,10 +41,9 @@ const srv = await serve({
 const b = await launchChromium();
 const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/`);
 await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
-await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === "Newsletters").click());
 await pg.waitForTimeout(400);
 const row = pg.locator(`#g-feed .g-feed-row[href="${NL.url}"]`).first();
-check(await row.count() === 1, "newsletter row is on the Newsletters lane");
+check(await row.count() === 1, "newsletter row is on the News lane (Newsletters lane folded in, owner 2026-10-23)");
 check(!(await row.evaluate((r) => r.classList.contains("is-locked") || !!r.querySelector(".g-feed-lock"))), "a stored newsletter carries no padlock");
 await row.click();
 await pg.waitForFunction(() => /Bondholders are weighing/.test((document.getElementById("g-readpane") || {}).textContent || ""), null, { timeout: 8000 }).catch(() => {});

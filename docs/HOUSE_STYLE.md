@@ -995,15 +995,17 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   date + URL, none future-dated; backfilled reference profiles keep depth).
 - **R33 — Lane-coverage invariant: an item reaches the lane its nature implies** (and,
   by R50, ONLY that lane — Watchlist, a follow filter, is the one overlap).
-  The Home wire lanes are **News · Deals · Profiles · Research · Newsletters · Watchlist**
-  (owner 2026-10-16, reordered 2026-10-20; `WIRE_LANES` in `glance.js` — keys `all` = News, the full wire;
+  The Home wire lanes are **News · Deals · Profiles · Research · Watchlist**
+  (owner 2026-10-16, reordered 2026-10-20; the Newsletters lane folded into News 2026-10-23; `WIRE_LANES` in `glance.js` — keys `all` = News, the full wire;
   `deals` = deal flow: deals, fund raises (incl. hedge-fund launches/closes), CLOs,
   restructurings and law-firm advisory mandates; `manager` = **Profiles**, the NON-deal
   activity of every profiled entity — team moves, strategy, mandates, press, hedge-fund
   and law-firm news — current + previous month, newest first, ★ on followed rows; `profilesEvents()` in `glance.js`,
-  spec `tests/profiles-lane.mjs`). On iPhone the six keep the usual heading-row spacing (chips `0 12px`) and the row scrolls sideways (R42b), the selected lane kept in view (owner 2026-10-16). Each of these MUST catch what belongs to it:
+  spec `tests/profiles-lane.mjs`). On iPhone the five keep the usual heading-row spacing (chips `0 12px`) and the row scrolls sideways (R42b), the selected lane kept in view (owner 2026-10-16). Each of these MUST catch what belongs to it:
   (a) **research** → the **Research** lane (`RSH` desk code / `research[]`);
-  (b) a **newsletter** → the **Newsletters** lane (`LTR` / `newsletters.js`);
+  (b) a **newsletter** → the **News** lane (`LTR` / `newsletters.js`; owner 2026-10-23 — no
+  padlock: one with a stored body reads in full, one without opens as its one-line summary,
+  credited, + "Open at <publication>");
   (c) anything **about a covered manager / fund / hedge fund** → the **Deals** lane if
   it is a deal, else the **Profiles** lane — via a `managerId`-tagged
   `deals`/`intel`/`webNews` record (never also News, R50); (d) anything **about a watchlisted name** → the **Watchlist** lane. The
@@ -1042,7 +1044,7 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   own bottom tab** — `/v2/news/` resolves to the **Home view in news mode** (so the
   feed engine is never double-mounted): the runtime flags `data-v2tab="news"` and calls
   `ctrl.showNews()` (`setWire("news")` → `.wire-newsmode`), which shows the aggregated
-  feed + the lane selector (`News · Deals · Profiles · Research · Newsletters · Watchlist`) and
+  feed + the lane selector (`News · Deals · Profiles · Research · Watchlist`) and
   **hides the four home tabs**. The desktop terminal is untouched (all of this is
   `≤1200px` / phone-gated). Specs: `tests/v2-shell.mjs`, `tests/v2-header.mjs`,
   `tests/home-mobile-wire-tabs.mjs`, `tests/markets-panel.mjs`.
@@ -1734,9 +1736,11 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   on …", `legalLane()`); **Profiles** — team moves, strategy, mandates, firm press,
   other hedge-fund and law-firm news (`intelLane()` / `eventLane()`; a Personnel item is a
   team move even when filed on a CLO desk); **Research** — house research, strategist
-  commentary and credit white papers (drawn with the RSH code); **Newsletters** — the
-  reader's newsletters. The same story from two sources is still ONE item: lanes give up
-  a headline a higher lane holds — **Deals › Profiles › Research › Newsletters › News**.
+  commentary and credit white papers (drawn with the RSH code); **News** — journalism plus
+  the reader's newsletters (no lane of their own since 2026-10-23). The same story from two
+  sources is still ONE item: lanes give up a headline a higher lane holds — **Deals ›
+  Profiles › Research › News**, and within News a newsletter row wins over the same story
+  from the wire.
   **Watchlist** is a follow FILTER across all of them and is exempt. Followed items carry
   **no ★ marker** anywhere — not in the Watchlist lane, the wire, or Menu ▸ What's new
   (owner 2026-10-20); the ☆/★ follow toggle and the "★ Following" filter are controls,
@@ -1854,10 +1858,10 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   scripts doesn't count) or HTTP 429 = `session-blocked`; anything else = `session-no-text`.
   Each failure stores a diagnosis (status, title, size, ¶ count, embedded-data flags — never
   article text) shown on the Subscriptions page for the owner to pass on. The body is kept 30 days in KV (`sub:<READ_VER>:<url>`), **never** in the
-  shared edge cache and **never** in the repo; **(3) otherwise** the public standfirst
-  (`og:description`) + "Wire doesn't have the text of this <pub> story yet" + the link —
-  labelled "Open in the <pub> app" on a phone (iOS hands it to the installed app), "Open at
-  <pub>" on desktop. Every response is `private, no-store`. **Setting a session (owner):** sign in to the
+  shared edge cache and **never** in the repo; **(3) otherwise** — **owner 2026-10-23: "Summary · <source>" + the publisher's own summary (the RSS
+  description the Worker keeps as `sum` for these sources — `feedSummary` — else the page's
+  `og:description`) + "Open at <source>"** (the full publication name; on iPhone the link
+  still hands off to the publisher's app). No "doesn't have the text" note. Every response is `private, no-store`. **Setting a session (owner):** sign in to the
   site in a desktop browser → DevTools ▸ Network ▸ Doc → reload an article → copy the first
   row's Request Headers `cookie` value → paste it on **Menu ▸ Settings ▸ Subscriptions**
   (`v2/js/subs-panel.js` → `/api/subs`, Access-only; stored in KV `subck:<site>`, no size cap,

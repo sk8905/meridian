@@ -3,7 +3,7 @@
 // the story, (2) the owner's own logged-in session (SUB_COOKIE_* secret), else (3) the public
 // standfirst + an "Open in the app" link. Pure helpers + the Worker paths, no egress (fetch is
 // stubbed), plus a browser check of the pane.
-import worker, { subCanon, isSubscriberArticle, nlLinkCandidates, nlFocusIndex, readAuthors, extractReadable } from "../src/index.js";
+import worker, { subCanon, isSubscriberArticle, nlLinkCandidates, nlFocusIndex, readAuthors, extractReadable, feedParse } from "../src/index.js";
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 // ---- pure helpers ---------------------------------------------------------------------
@@ -38,6 +38,12 @@ check(legit.length === 1 && /Asset manager accounting probe widens/.test(legit[0
 const blocks = [{ h: true, t: "Things happen" }, { t: "Musk Tries to Lock In His Tesla-SpaceX Dream Before Trump’s Exit. Barclays to cut 5,000 jobs as bank steps up AI adoption." }, { t: "Gilts rallied after UK inflation cooled." }];
 checkEq(nlFocusIndex(blocks, "Musk Tries to Lock In His Tesla-SpaceX Dream Before Trump’s Exit. Barclays to cut 5,000 jobs"), 1, "nlFocusIndex: the block carrying the link's words");
 checkEq(nlFocusIndex(blocks, "nothing like this"), -1, "nlFocusIndex: no match → -1");
+
+// ---- The publisher's RSS summary rides with subscription-source items only ----------------
+const RSS = `<rss><channel><item><title>Treasury Yields Rise as Dollar Gains</title><link>https://www.wsj.com/finance/x-1a2b3c4d</link><description><![CDATA[<p>Investors weigh the Fed&#8217;s next move as the dollar firms against the euro.</p>]]></description><pubDate>Fri, 23 Oct 2026 11:46:00 GMT</pubDate></item></channel></rss>`;
+checkEq((feedParse(RSS, { source: "The Wall Street Journal" })[0] || {}).sum, "Investors weigh the Fed’s next move as the dollar firms against the euro.", "feedParse: a subscription source keeps its RSS summary (tags/entities cleaned)");
+check(!(feedParse(RSS, { source: "CNBC" })[0] || {}).sum, "feedParse: other sources carry no summary (payload stays lean)");
+check(!(feedParse(RSS, { source: "Financial News", gnews: true })[0] || {}).sum, "feedParse: never a Google News description");
 
 // ---- Author line when the page has no author <meta> (FT-style) --------------------------
 const LD = `<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle","author":[{"@type":"Person","name":"Leo Lewis"},{"@type":"Person","name":"Song Jung-a"},{"@type":"Person","name":"Ian Smith"}],"publisher":{"@type":"Organization","name":"Financial Times"},"datePublished":"2026-10-23T03:41:23.368Z"}</script>`;
@@ -204,12 +210,12 @@ const pane = await pg.evaluate(() => {
 });
 check(/From your Financial Times newsletter · FirstFT: Gilts/.test(pane.text), "the pane says which newsletter issue the story is read from");
 check(/lowest reading since 2021/.test(pane.focus), "the part about the story is marked");
-check(/Open at FT/.test(pane.open), `the link out names the publisher (${pane.open})`);
+check(/^Open at Financial Times$/.test(pane.open.trim()), `the link out names the publisher (${pane.open})`);
 const bbRow = pg.locator('#g-feed .g-feed-row[href*="no-text"]').first();
 await bbRow.click();
 await pg.waitForFunction(() => /standfirst everyone can see/.test((document.getElementById("g-readpane") || {}).textContent || ""), null, { timeout: 8000 }).catch(() => {});
 const fbPane = await pg.evaluate(() => (document.getElementById("g-readpane") || {}).textContent || "");
-check(/The standfirst everyone can see/.test(fbPane) && /doesn't have the text of this Bloomberg story yet/.test(fbPane), "no stored text: the standfirst + an honest note + the link");
+check(/Summary · Bloomberg/.test(fbPane) && /The standfirst everyone can see/.test(fbPane) && /Open at Bloomberg/.test(fbPane), "can't open in full: the summary, credited to Bloomberg, + Open at Bloomberg");
 checkErrs(errs, "subscriber reader");
 await ctx.close(); await b.close(); srv.close();
 finish();

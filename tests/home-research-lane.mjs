@@ -1,4 +1,4 @@
-// Home wire — the Research lane. The lane row is News · Deals · Profiles · Research · Newsletters · Watchlist
+// Home wire — the Research lane. The lane row is News · Deals · Profiles · Research · Watchlist
 // · Newsletters (News retired, Research in its place). Research = the MANUAL Gmail-swept
 // notes (research.js) + the AUTO house-research shops tagged `research:true` on the live
 // feed (Apollo Academy / Oaktree / AQR, piped via gnews in the Worker). Research items
@@ -23,7 +23,7 @@ await pg.waitForTimeout(400);
 
 // The lane row carries Research in place of News.
 const lanes = await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].map((b) => b.textContent.trim()));
-checkEq(lanes.join(" · "), "News · Deals · Profiles · Research · Newsletters · Watchlist", "lane row: News · Deals · Profiles · Research · Newsletters · Watchlist (owner 2026-10-20)");
+checkEq(lanes.join(" · "), "News · Deals · Profiles · Research · Watchlist", "lane row: News · Deals · Profiles · Research · Watchlist (owner 2026-10-23: Newsletters folded into News)");
 
 // One item, one lane (R50): research items live ONLY in the Research lane — never News.
 const inAll = await pg.evaluate(() => {

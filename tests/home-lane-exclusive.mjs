@@ -12,7 +12,7 @@ const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v
 await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 15000 });
 await pg.waitForLoadState("networkidle");
 
-const LANES = ["News", "Deals", "Profiles", "Newsletters", "Research"];
+const LANES = ["News", "Deals", "Profiles", "Research"];   // Newsletters folded into News (owner 2026-10-23)
 const norm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 const got = {};
 for (const name of LANES) {

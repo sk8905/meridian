@@ -27,7 +27,7 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
     cols: getComputedStyle(document.querySelector(".g-layout")).gridTemplateColumns.trim().split(/\s+/).length,
     defaultRead: ((document.querySelector("#g-readpane .g-read-title") || {}).textContent || "").trim().length > 0,
   }));
-  checkEq(shell.lanes.join(" · "), "News · Deals · Profiles · Research · Newsletters · Watchlist", "merged wire: top-level lanes are News · Deals · Profiles · Research · Newsletters · Watchlist");
+  checkEq(shell.lanes.join(" · "), "News · Deals · Profiles · Research · Watchlist", "merged wire: top-level lanes are News · Deals · Profiles · Research · Watchlist");
   check(shell.readVisible && shell.mgrHidden, "desktop: the manager quadrant is now a reading pane (the manager wire is hidden here)");
   // At this width (1280, the narrow-desktop band ≤1500) the terminal collapses to a
   // FOUR-column grid — the Chart/Reading region and the X feed share one column behind
@@ -147,7 +147,7 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
     chipsRowHidden: (() => { const l = document.getElementById("g-wire-lanes"); return !l || l.offsetParent === null; })(),
   }));
   check(!shell.tabs.includes("Managers"), `phone: no separate Managers tab — lanes live in the news chip row (${shell.tabs.join(" · ")})`);
-  check(shell.chips.join(" · ") === "News · Deals · Profiles · Research · Newsletters · Watchlist", `phone: the news chip row carries the six lanes (${shell.chips.join(", ")})`);
+  check(shell.chips.join(" · ") === "News · Deals · Profiles · Research · Watchlist", `phone: the news chip row carries the five lanes (${shell.chips.join(", ")})`);
   check(shell.chipsRowHidden, "phone: the desktop lane chip row (#g-wire-lanes) is hidden");
   // Pick Managers from the chip row → manager events render in the shared feed.
   await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanechips .g-wire-lane")].find((c) => c.textContent.trim() === "Profiles").click());

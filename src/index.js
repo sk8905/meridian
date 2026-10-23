@@ -4657,6 +4657,14 @@ export function unwrapGnews(link) {
     return /^https?:\/\/[^/]+\.[a-z]{2,}/i.test(url) ? url : link;
   } catch { return link; }
 }
+const FEED_SUB_SUMMARY = new Set(["Financial Times", "FT Alphaville", "Bloomberg", "The Wall Street Journal", "The Economist", "Financial News"]);
+export function feedSummary(block, title) {
+  const raw = feedTag(block, "description") || feedTag(block, "summary") || feedTag(block, "media:description");
+  let t = feedDecode(raw).replace(/<!\[CDATA\[|\]\]>/g, "");
+  t = feedDecode(t.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
+  if (t.length < 30 || t.toLowerCase() === String(title || "").toLowerCase()) return "";
+  return t.length > 420 ? t.slice(0, 417).replace(/\s+\S*$/, "") + "…" : t;
+}
 export function feedParse(xml, feed) {
   const out = [];
   const blocks = xml.match(/<(item|entry)\b[\s\S]*?<\/\1>/gi) || [];
@@ -4681,7 +4689,11 @@ export function feedParse(xml, feed) {
     if (feed.gnews) link = unwrapGnews(link);
     const ds = feedTag(block, "pubDate") || feedTag(block, "published") || feedTag(block, "updated") || feedTag(block, "dc:date") || feedTag(block, "date");
     const when = ds ? new Date(feedDecode(ds)) : null;
-    out.push({ title, url: link, source: feed.source, region: feed.region, myft: feed.myft || undefined, substack: feed.substack || undefined, legal: feed.legal || undefined, hdg: feed.hdg || undefined, fi: feed.fi || undefined, research: feed.research || undefined, when: (when && !isNaN(when.getTime())) ? when : null });
+    // The publisher's own summary (RSS description) — kept only for the owner's subscription
+    // sources, whose stories may not open in the reading pane: the pane shows it with
+    // "Open at <source>". Google News descriptions are just link lists, so never those.
+    const sum = (!feed.gnews && FEED_SUB_SUMMARY.has(feed.source)) ? feedSummary(block, title) : "";
+    out.push({ title, url: link, source: feed.source, region: feed.region, sum: sum || undefined, myft: feed.myft || undefined, substack: feed.substack || undefined, legal: feed.legal || undefined, hdg: feed.hdg || undefined, fi: feed.fi || undefined, research: feed.research || undefined, when: (when && !isNaN(when.getTime())) ? when : null });
   }
   return out;
 }
@@ -5076,7 +5088,7 @@ async function feedAssemble(env, ctx, trace = null, stats = null) {
   try { lastGood = (await env.WATCHLIST.get("feed:lastgood", "json")) || {}; } catch { /* KV miss — no reuse this run */ }
   const nowT = Date.now();
   const LASTGOOD_MAX = 24 * 3600e3;
-  const serWhen = (x) => ({ title: x.title, url: x.url, source: x.source, region: x.region, myft: x.myft, substack: x.substack, hdg: x.hdg, fi: x.fi, research: x.research, when: x.when ? x.when.toISOString() : null });
+  const serWhen = (x) => ({ title: x.title, url: x.url, source: x.source, region: x.region, sum: x.sum, myft: x.myft, substack: x.substack, hdg: x.hdg, fi: x.fi, research: x.research, when: x.when ? x.when.toISOString() : null });
   const deWhen = (x) => ({ ...x, when: x.when ? new Date(x.when) : null });
   // ONE subrequest budget shared across every source (Cloudflare caps total
   // subrequests per invocation at ~50). Without it, a 429/503 retry burst blew
@@ -5177,7 +5189,7 @@ async function feedAssemble(env, ctx, trace = null, stats = null) {
     const { date, time } = feedLondon(it.when);
     if (!date) continue;
     // myFT links carry tracking params — keep the canonical /content/ URL.
-    items.push({ title: it.title, url: it.myft ? it.url.replace(/\?.*$/, "") : it.url, source: it.source, region: it.region, myft: it.myft || undefined, substack: it.substack || undefined, legal: it.legal || undefined, hdg: it.hdg || undefined, fi: it.fi || undefined, research: it.research || undefined, date, time });
+    items.push({ title: it.title, url: it.myft ? it.url.replace(/\?.*$/, "") : it.url, source: it.source, region: it.region, sum: it.sum || undefined, myft: it.myft || undefined, substack: it.substack || undefined, legal: it.legal || undefined, hdg: it.hdg || undefined, fi: it.fi || undefined, research: it.research || undefined, date, time });
     // No item ceiling (owner 2026-10-21): the 30-day window above is the only bound.
   }
   return items;

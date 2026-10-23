@@ -115,6 +115,7 @@ let _inited = false;
 // Seeded from last-good cache on load, refreshed on the 5-min live cadence, and
 // merged into the home feed's Macro items. Empty until the first fetch resolves.
 let _liveFeed = [];
+const _SUM = new Map();   // article link → publisher summary (subscription sources; see buildDesks)
 
 // The Markets dropdown is the SHARED nav-actions panel (#na-mkt-panel) on every
 // page, Home included — one identical Markets | Macro | Portfolio list. Home no
@@ -2296,6 +2297,9 @@ function renderFeed() {
   // LEGAL desk so it appears under the Legal chip — deskFor only knows macro/news,
   // so without this it would fall under All/News only. Everything else folds into
   // the Home newsfeed, the superset of every news item across the app.
+  // The publisher's own summary for the owner's subscription sources (the Worker keeps the
+  // RSS description as `sum`), by link — the reader shows it when a story can't open in full.
+  (_liveFeed || []).forEach((n) => { if (n && n.sum && n.url) _SUM.set(n.url, n.sum); });
   (_liveFeed || []).forEach((n) => {
     // myFT / Substack ride their own desks; fixed-income (fi:true) items ride the
     // dedicated `fixedincome` bucket below (desk "fi", badged FI) — routing them
@@ -2355,7 +2359,8 @@ function renderFeed() {
   (NEWSLETTERS || []).forEach((n) => {
     const rsch = isResearchPublication(n.publication);
     const src = n.author ? `${n.author} · ${n.publication}` : n.publication;
-    (rsch ? nlResearch : newsletter).push(mk(rsch ? "rsch" : nlDesk(n.title), n.url, n.title, src, true, n.date, n.time));
+    if (rsch) nlResearch.push(mk("rsch", n.url, n.title, src, true, n.date, n.time));
+    else newsletter.push({ ...mk(nlDesk(n.title), n.url, n.title, src, true, n.date, n.time), nl: true });
   });
 
   // The reader's personalised myFT (followed-topics) headlines — pulled from the
@@ -2517,8 +2522,10 @@ function renderFeed() {
   } else if (_feedDesk === "all") {
     // Today's items lead, interleaved across desks so no single desk dominates.
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
-    // News lane = journalism only (R50): no deals, profile records, newsletters or research.
-    const lists = [news, macro, hdg, legal, ft, substacks, brew, fixedincome].map((l) => pick(l.filter(isNews)));
+    // News lane = journalism + the owner's newsletters (R50; the Newsletters lane was folded in
+    // here 2026-10-23): no deals, profile records or research. Newsletter rows are already
+    // lane-claimed (byDesk.n), so they join as-is rather than through isNews.
+    const lists = [...[news, macro, hdg, legal, ft, substacks, brew, fixedincome].map((l) => pick(l.filter(isNews))), pick(byDesk.n)];
     const seen = new Set();
     feed = [];
     for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
@@ -2526,9 +2533,9 @@ function renderFeed() {
     });
     // Backfill older items newest-first — every News item, no count limit (owner
     // 2026-10-21: "remove all limits"; the Worker's 30-day window is the only bound).
-    // Deals / Profiles / Research / Newsletters records never reach this lane (isNews).
-    const pool = [byDesk.news, byDesk.m, byDesk.hdg, byDesk.l, byDesk.f, byDesk.s, byDesk.b, byDesk.fisrc]
-      .map((l) => l.filter(isNews))
+    // Deals / Profiles / Research records never reach this lane (isNews); newsletters do.
+    const pool = [...[byDesk.news, byDesk.m, byDesk.hdg, byDesk.l, byDesk.f, byDesk.s, byDesk.b, byDesk.fisrc]
+      .map((l) => l.filter(isNews)), byDesk.n]
       .flat().filter((x) => day(x) !== target).sort(byDateDesc);
     for (const x of pool) {
       const k = norm(x.title); if (!seen.has(k)) { seen.add(k); feed.push(x); }
@@ -2553,7 +2560,7 @@ function renderFeed() {
   // (_feedDesk "n") is exempt (subscriber content by nature). This replaces the old
   // ≤30% paywalled-share cap.
   if (groupedBody == null && _feedDesk !== "n") {
-    feed = feed.filter((x) => !_isPaywalled(x.src, x.href));
+    feed = feed.filter((x) => x.nl || !_isPaywalled(x.src, x.href));   // the owner's own newsletters always stay
     feed = stampAddedTimes(feed).sort(byFeedDesc);
   }
   // Row + day-header + source-bar + empty markup all come from the shared wire
@@ -2623,7 +2630,9 @@ function _dealLinkSet() {
 // kept so stored lanes and links still resolve: "all" (the full wire) reads News; "deals"
 // is the Credit desk's deal flow (deals, fund raises, CLOs); "manager" (managers'
 // activity) reads Profiles.
-const WIRE_LANES = [["all", "News"], ["deals", "Deals"], ["manager", "Profiles"], ["research", "Research"], ["newsletters", "Newsletters"], ["watchlist", "Watchlist"]];
+// Owner 2026-10-23: the Newsletters lane is retired — newsletters run in the News lane (a
+// stored "newsletters" lane falls back to News via _WIRE_LANE_KEYS).
+const WIRE_LANES = [["all", "News"], ["deals", "Deals"], ["manager", "Profiles"], ["research", "Research"], ["watchlist", "Watchlist"]];
 const _WIRE_LANE_KEYS = new Set(WIRE_LANES.map(([k]) => k));
 
 // Manager events, flattened + de-duped across managers, for the merged wire.
@@ -2989,8 +2998,12 @@ function renderWire() {
 // IN-PANE from /api/nl-body — so they are not "paywalled" here even though their
 // read-online link points at a subscriber site.
 const _NL_BODY = new Map((NEWSLETTERS || []).filter((n) => n && n.body && n.url && n.id).map((n) => [n.url, n.id]));
+// Every newsletter by its link (owner 2026-10-23: newsletters run in the News lane). One with
+// no stored body opens in the pane as its one-line summary + "Open at <publication>" — never a
+// padlock, and never fetched (its link is the publisher's click-tracker).
+const _NL_ALL = new Map((NEWSLETTERS || []).filter((n) => n && n.url).map((n) => [n.url, n]));
 function _isPaywalled(src, href) {
-  if (href && _NL_BODY.has(href)) return false;
+  if (href && (_NL_BODY.has(href) || _NL_ALL.has(href))) return false;
   return isPaywalledSrc(src, href);
 }
 // Openly-published sources that nonetheless BOT-WALL the reader — a plain AND a
@@ -3000,7 +3013,7 @@ function _isPaywalled(src, href) {
 // SEPARATE from PAYWALL_SRC: no "needs a login" padlock, but they DO count against
 // the readable-share throttle, open straight at the publisher (never a dead in-pane
 // fallback), and carry an "opens at publisher" mark. Grow as more are confirmed live.
-function _linksOut(src, href) { return linksOutSrc(src, href); }
+function _linksOut(src, href) { return !(href && _NL_ALL.has(href)) && linksOutSrc(src, href); }   // a newsletter is the owner's own email, never a bot-walled link-out
 // A row can't open in the reading pane — it opens EXTERNALLY — when it's paywalled
 // (subscriber login) OR bot-walled (Reuters &c). Both are "not readable in-pane".
 function _opensExternally(src, href) { return _isPaywalled(src, href) || _linksOut(src, href); }
@@ -3042,6 +3055,7 @@ function _rowItem(row) {
     code: ((row.querySelector(".g-feed-code") || {}).textContent || "").trim(),
     when: ((row.querySelector(".g-feed-time") || {}).textContent || "").trim(),
     href: row.getAttribute("href") || "",
+    sum: _SUM.get(row.getAttribute("href") || "") || "",
     ext: row.getAttribute("target") === "_blank" || /^https?:/i.test(row.getAttribute("href") || ""),
     ent: _entityOf(row.getAttribute("data-mgr") || ""),
   };
@@ -3130,11 +3144,11 @@ function _readNiceDate(iso) {
 function _readOpen(it) {
   // The source (external) and — for a story about a tracked manager / hedge fund / law
   // firm — that entity's profile (in-app), so an internal row is never a dead end.
-  // A story from one of the owner's subscriptions opens in that publisher's app on the
-  // phone (iOS hands the link to the installed app), at the site on desktop.
-  const app = (it.ext && it.href && isSubscribedSrc(it.src, it.href)) ? subscribedApp(it.src, it.href) : "";
-  const phone = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width:760px)").matches;
-  const label = app ? (phone ? `Open in the ${app} app` : `Open at ${app}`) : `Open original at ${it.src || "source"}`;
+  // A story from one of the owner's subscriptions: "Open at <publication>" (owner 2026-10-23;
+  // on iPhone the link still hands off to the publisher's app when it's installed).
+  const sub = it.ext && it.href && isSubscribedSrc(it.src, it.href);
+  const nlPub = it.href && _NL_ALL.has(it.href) ? (_NL_ALL.get(it.href).publication || "") : "";
+  const label = nlPub ? `Open at ${nlPub}` : sub ? `Open at ${it.src || subscribedApp(it.src, it.href) || "source"}` : `Open original at ${it.src || "source"}`;
   return ((it.ext && it.href) ? `<a class="g-read-open" href="${esc(it.href)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>` : "")
     + (it.ent ? `<a class="g-read-open g-read-ent" href="${esc(it.ent.href)}">Open ${esc(it.ent.name)} profile</a>` : "");
 }
@@ -3302,6 +3316,14 @@ function _renderReaderInto(box, it, emptyMsg) {
   if (!box) return;
   if (!it || !it.title) { box.innerHTML = `<div class="g-read-empty">${esc(emptyMsg || "Select a story to read it here.")}</div>`; return; }
   const seq = ++_readSeq;
+  const nlRec = it.href && !_NL_BODY.has(it.href) ? _NL_ALL.get(it.href) : null;
+  if (nlRec) {
+    const pub = nlRec.publication || it.src || "the publisher";
+    box.innerHTML = _readShell({ ...it, src: it.src || pub }, "",
+      (nlRec.summary ? `<div class="g-read-byline g-read-sumh">Summary · ${esc(pub)}</div><p class="g-read-p g-read-standfirst">${esc(nlRec.summary)}</p>`
+                     : `<div class="g-read-note">No summary from ${esc(pub)} for this issue.</div>`));
+    return;
+  }
   if (!it.ext || !it.href || _opensExternally(it.src, it.href)) {
     const paywalled = _isPaywalled(it.src, it.href);
     const linksOut = !paywalled && _linksOut(it.src, it.href);
@@ -3373,12 +3395,13 @@ function _renderReaderInto(box, it, emptyMsg) {
         // but no readable body was extracted. Helps decide fetch-proxy vs padlock.
         const why = (d && d.reason) ? ` <span class="g-read-diag">(${esc(d.reason)})</span>` : "";
         if (d && d.subscriber) {
-          // One of the owner's subscriptions with no stored text yet: the public standfirst,
-          // then the app link (_readOpen).
-          const app = subscribedApp(it.src, it.href) || it.src || "publisher";
+          // One of the owner's subscriptions that can't open in full (owner 2026-10-23):
+          // the publisher's summary, credited, then "Open at <source>" (_readOpen).
+          const sum = d.summary || it.sum || "";
+          const srcName = it.src || subscribedApp(it.src, it.href) || "the publisher";
           box.innerHTML = _readShell(it, "",
-            (d.summary ? `<p class="g-read-p g-read-standfirst">${esc(d.summary)}</p>` : "")
-            + `<div class="g-read-note">Wire doesn't have the text of this ${esc(app)} story yet — open it below.${why}</div>`);
+            (sum ? `<div class="g-read-byline g-read-sumh">Summary · ${esc(srcName)}</div><p class="g-read-p g-read-standfirst">${esc(sum)}</p>`
+                 : `<div class="g-read-note">No summary from ${esc(srcName)} for this story.</div>`));
           return;
         }
         box.innerHTML = _readShell(it, "",

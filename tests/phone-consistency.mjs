@@ -52,9 +52,10 @@ for (const [label, url, sel, inner, act] of PAGES) {
     return { n: chips.length, pads: [...new Set(chips.map((c) => getComputedStyle(c).paddingLeft + "/" + getComputedStyle(c).paddingRight))], oneLine: chips.every((c) => c.scrollWidth <= c.clientWidth + 1 && c.getBoundingClientRect().height < 40),
       scrolls: row.scrollWidth > row.clientWidth, ox: cs.overflowX, oy: cs.overflowY, pageW: document.documentElement.scrollWidth };
   });
-  check(r.n === 6 && r.pads.length === 1 && r.pads[0] === "12px/12px", `phone: six News lanes at the usual 0 12px chip spacing (${r.pads.join(", ")})`);
+  check(r.n === 5 && r.pads.length === 1 && r.pads[0] === "12px/12px", `phone: five News lanes (Newsletters folded into News, 2026-10-23) at the usual 0 12px chip spacing (${r.pads.join(", ")})`);
   check(r.oneLine, "phone: no lane label is squeezed or wrapped");
-  check(r.scrolls && r.ox === "auto" && r.oy === "hidden" && r.pageW <= 390, `phone: the lane row scrolls sideways only, the page does not (overflow ${r.ox}/${r.oy}, page ${r.pageW}px)`);
+  // Five lanes may now fit a 390px phone; the row still scrolls sideways if they don't, and never the page.
+check(r.ox === "auto" && r.oy === "hidden" && r.pageW <= 390, `phone: the lane row scrolls sideways only (when needed), the page does not (overflow ${r.ox}/${r.oy}, page ${r.pageW}px, row scrolls: ${r.scrolls})`);
   await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanechips .g-wire-lane")].find((c) => c.textContent.trim() === "Research").click());
   await pg.waitForTimeout(400);
   const seen = await pg.evaluate(() => { const row = document.querySelector("#g-wire-lanechips"), on = row.querySelector(".g-wire-lane.is-on"); const a = row.getBoundingClientRect(), c = on.getBoundingClientRect(); return { lbl: on.textContent.trim(), inView: c.left >= a.left - 1 && c.right <= a.right + 1 }; });

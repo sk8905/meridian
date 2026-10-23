@@ -92,8 +92,9 @@ export function openReader(url, o = {}) {
         box.innerHTML = shell({ title: d.title || title, src, url, meta, body: nl + bodyFrom(d) });
       } else if (d && d.subscriber) {
         // One of the owner's subscriptions with no stored text yet: the public standfirst + the link.
-        box.innerHTML = shell({ title, src, url, body: d.summary ? `<p class="wr-p">${esc(d.summary)}</p>` : "",
-          note: "Wire doesn't have the text of this story yet — open it at the publisher." + (d.reason ? ` <span class="wr-diag">(${esc(d.reason)})</span>` : "") });
+        // Can't open in full (owner 2026-10-23): the publisher's summary, credited, + the link.
+        box.innerHTML = shell({ title, src, url, body: d.summary ? `<p class="wr-p wr-via">Summary · ${esc(src || d.source || "")}</p><p class="wr-p">${esc(d.summary)}</p>` : "",
+          note: d.summary ? "" : `No summary from ${esc(src || d.source || "the publisher")} for this story.` });
       } else {
         box.innerHTML = shell({ title, src, url, note: "The full text isn't available inside Wire for this page." + (d && d.reason ? ` <span class="wr-diag">(${esc(d.reason)})</span>` : "") });
       }
