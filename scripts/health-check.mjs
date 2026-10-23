@@ -351,7 +351,7 @@ if (asJson) {
     for (const i of attention) console.log(`  • [${i.area}] ${i.detail}\n      → ${i.solution}`);
     console.log("");
   }
-  if (coverage) console.log(`Manager-profile backfill (ongoing, not a failure): ${coverage.reach2020}/${coverage.totalManagers} profiles reach ≤2020, ${coverage.flagged} flagged for depth.`);
+  if (coverage) console.log(`Manager-profile backfill (ongoing, not a failure): ${coverage.reach2020}/${coverage.totalManagers} credit-manager profiles reach ≤2020, ${coverage.flagged} flagged for depth (lender / bank profiles excluded).`);
   if (dataQuality) { const q = dataQuality; console.log(`Data-quality backlog (profile rota, shrinks each run): manager AUM gaps ${q.managerAumGaps} · investors with no AUM ${q.investorsNoAum} · hedge funds with no news ${q.hedgeFundsNoNews} · weak hedge-fund AUM sources ${q.hedgeFundWeakAum} · law firms behind results ${q.lawFirmsBehindResults} · stale open funds ${q.staleOpenFunds} · deal-tag gaps ${q.dealTagGaps} · EDGAR renames/moves to confirm ${q.edgarDrift}.`); }
   if (lanes) console.log(`Newswire lanes: Managers ${lanes.managers} events (this + last month) · Research ${lanes.research14} (14d) · Newsletters ${lanes.newsletters7} (7d) · Watchlist depth — hedge funds with news ${lanes.hfCovered}/${lanes.hfTotal}, law firms active in 30d ${lanes.firmRecent}/${lanes.firmTotal}.`);
   if (backfill) console.log(`2020 backfill (checklist): ${backfill.present}/${backfill.events} events present = ${backfill.pct}% · ${backfill.built}/${backfill.entities} priority entities researched.`);

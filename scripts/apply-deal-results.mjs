@@ -18,7 +18,7 @@
 // Every lender a deal names gets a profile (R39m): an existing profile of the same name
 // (legal form aside) is linked, otherwise a lender STUB is created (category bank |
 // lender, every fact null until a routine sources it) — also run alone with --link.
-// Usage: node scripts/apply-deal-results.mjs <results.json>… [--dry-run] | --link
+// Usage: node scripts/apply-deal-results.mjs <results.json>… [--dry-run] [--no-ledger] | --link
 // =============================================================================
 import fs from "node:fs";
 import path from "node:path";
@@ -147,7 +147,9 @@ if (import.meta.url === `file://${process.argv[1]}` && process.argv.includes("--
       const have = new Set([norm(d.sourceUrl), ...(d.alsoReported || []).map((x) => norm(x.url))]); const fresh = a.filter((x) => !have.has(norm(x.url)));
       if (!fresh.length) return false; d.alsoReported = [...(d.alsoReported || []), ...fresh]; return true;
     });
-    const L = JSON.parse(fs.readFileSync(LEDGER, "utf8")); L.items.push(...ledger); fs.writeFileSync(LEDGER, JSON.stringify(L, null, 1) + "\n");
+    // --no-ledger: research that did not come from the wire queue (e.g. a profile-history
+    // backfill) records its items without touching backfill/wire-ledger.json.
+    if (!process.argv.includes("--no-ledger")) { const L = JSON.parse(fs.readFileSync(LEDGER, "utf8")); L.items.push(...ledger); fs.writeFileSync(LEDGER, JSON.stringify(L, null, 1) + "\n"); }
     const stubs = linkLenders();
     if (stubs.length) console.log(`  lender profiles created: ${stubs.map((m) => `${m.id} ${m.name}`).join(", ")}`);
   }

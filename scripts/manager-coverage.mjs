@@ -43,7 +43,11 @@ const deals = CR.deals || [], intel = CR.intel || [], managers = CR.managers || 
 
 // Per-manager event aggregation (deals + intel + manager.webNews).
 const byId = new Map();
+// Lender / bank profiles awaiting research (profileStub, R39m) are deal counterparties, not
+// credit managers: "history back to 2020" doesn't apply to them, so they are not scored
+// (the ratchet in tests/manager-coverage.mjs already skips them — owner 2026-10-23).
 for (const m of managers) {
+  if (m.profileStub) continue;
   byId.set(m.id, {
     id: m.id, name: m.name, hq: m.hq || null,
     founded: m.founded != null ? Number(m.founded) : null,

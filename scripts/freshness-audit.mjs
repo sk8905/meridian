@@ -255,7 +255,8 @@ try {
     for (const d of CR.deals) note(d.managerId, d.date);
     for (const i of CR.intel) note(i.managerId, i.date);
     for (const m of CR.managers) if (Array.isArray(m.webNews)) for (const w of m.webNews) note(m.id, w.date);
-    let reach2020 = 0; for (const [, y] of oldest) if (y <= 2020) reach2020++;
+    const stub = new Set(CR.managers.filter((m) => m.profileStub).map((m) => m.id));   // lender / bank stubs aren't scored (manager-coverage)
+    let reach2020 = 0; for (const [id, y] of oldest) if (y <= 2020 && !stub.has(id)) reach2020++;
     coverage = { totalManagers: j.totalManagers, flagged: j.flagged, reach2020 };
     worklist = j.worklist || [];
   }
