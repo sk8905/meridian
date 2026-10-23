@@ -49,6 +49,54 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    "id": "nl-thelawyer-newsdaily-uk200top100-20261023",
+    "publication": "The Lawyer",
+    "author": "Richard Simmons",
+    "series": "News Daily",
+    "title": "UK200: £50m no longer enough for a top 100 spot",
+    "date": "2026-10-23",
+    "time": "08:23",
+    "summary": "Four firms have debuted in the UK200 this year, but for the first time revenue of £50m is not enough to secure a place in the top 100.",
+    "url": "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/gR5kowO_W0EW",
+    "body": true
+  },
+  {
+    "id": "nl-bloomberg-morningbriefingeurope-safetyfirst-20261023",
+    "publication": "Bloomberg",
+    "author": "Joe Flynn",
+    "series": "Morning Briefing Europe",
+    "title": "Haven Trade Returns as Investors Rotate Out of AI",
+    "date": "2026-10-23",
+    "time": "08:03",
+    "summary": "Safe havens are back in vogue as investors fret over AI; global credit spreads signal their biggest risk-off sentiment in over a year and France braces for fresh protests.",
+    "url": "https://www.bloomberg.com/news/newsletters/2026-10-23/haven-trade-returns-as-investors-rotate-out-of-ai",
+    "body": true
+  },
+  {
+    "id": "nl-economist-worldinbrief-techstockswobble-20261023",
+    "publication": "The Economist",
+    "author": null,
+    "series": "The World in Brief",
+    "title": "The World in Brief: Tech stocks wobble",
+    "date": "2026-10-23",
+    "time": "06:01",
+    "summary": "Also: France's fiscal outlook darkens.",
+    "url": "https://www.economist.com/the-world-in-brief",
+    "body": true
+  },
+  {
+    "id": "nl-reuters-tradingday-maximumpain-20261022",
+    "publication": "Reuters",
+    "author": "Jamie McGeever",
+    "series": "Trading Day",
+    "title": "Maximum pAIn",
+    "date": "2026-10-22",
+    "time": "22:00",
+    "summary": "Risk off, safety sought: AI worries crashed over global markets as investors sought the refuge of US Treasuries, with Brent at a five-month high and French bond stress deepening.",
+    "url": "https://www.reuters.com/newsletters/trading-day",
+    "body": true
+  },
+  {
       "id": "nl-bloomberg-authoralert-arinisonajunkrout-20261022",
       "publication": "Bloomberg",
       "author": "Nishant Kumar",

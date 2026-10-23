@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "ddd17044-0b38-446b-a973-d0ab80d5738c",
+    "title": "FTAV’s further reading",
+    "date": "2026-10-23",
+    "time": "08:17",
+    "url": "https://www.ft.com/content/ddd17044-0b38-446b-a973-d0ab80d5738c"
+  },
+  {
+    "id": "74bb3555-6f29-4ff9-bcaf-6cd20a9a3b1b",
+    "title": "‘Relentless’ cost of living pressures behind collapse in UK consumer confidence",
+    "date": "2026-10-23",
+    "time": "08:08",
+    "url": "https://www.ft.com/content/74bb3555-6f29-4ff9-bcaf-6cd20a9a3b1b"
+  },
+  {
     "id": "ce0e9d68-c63f-4666-9909-512b929e6284",
     "title": "Winter arrives in markets",
     "date": "2026-10-23",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-22",
     "time": "14:54",
     "url": "https://www.ft.com/content/9ddd1583-9296-4264-8ddd-dbf11469def9"
-  },
-  {
-    "id": "a7957ed9-0124-451d-ba34-5e015c58e351",
-    "title": "Barclays stands out from the crowd for the wrong reasons",
-    "date": "2026-10-22",
-    "time": "14:48",
-    "url": "https://www.ft.com/content/a7957ed9-0124-451d-ba34-5e015c58e351"
-  },
-  {
-    "id": "b34502b6-38dc-4a46-a8e7-d9131726cd31",
-    "title": "Meta agrees deal to keep Mark Zuckerberg in California despite wealth tax proposal",
-    "date": "2026-10-22",
-    "time": "14:40",
-    "url": "https://www.ft.com/content/b34502b6-38dc-4a46-a8e7-d9131726cd31"
   }
 ];

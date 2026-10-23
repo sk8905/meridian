@@ -109,6 +109,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    "id": "rsch-ubs-morningaudio-whocaresabouttechnology-20261023",
+    "publication": "UBS CIO",
+    "author": "Paul Donovan",
+    "series": "Morning audio comment",
+    "title": "Who cares about technology?",
+    "date": "2026-10-23",
+    "time": "07:08",
+    "summary": "Equity wealth effects from technology stocks may have had only a muted impact on consumer spending in advanced economies.",
+    "url": "https://www.ubs.com/global/en/wealth-management/insights/chief-investment-office/market-insights/paul-donovan.html"
+  },
+  {
       "id": "rsch-pimco-macrosignposts-octfedpreview-20261022",
       "publication": "PIMCO",
       "author": null,
