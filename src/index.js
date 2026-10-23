@@ -2564,10 +2564,16 @@ async function _readSubscriber(u, base, cookie) {
       if (!next || next.protocol !== "https:" || nh !== base || /login|signin|barrier|subscribe/i.test(next.pathname)) return { accessible: false, paragraphs: [], reason: "session-expired" };
       cur = next.toString(); continue;
     }
-    if (!r.ok) return { accessible: false, paragraphs: [], reason: "session-" + r.status };
-    const d = extractReadable((await r.text()).slice(0, 2000000), new URL(cur), { subscriber: true });
-    // A logged-out page reads as a teaser: a couple of paragraphs at most.
-    if (!(d.paragraphs && d.paragraphs.length >= 4)) return { ...d, accessible: false, reason: "session-expired" };
+    // A thin page is either a bot check (the site refused a server, cookie or not — copying a
+    // new cookie won't help) or a logged-out teaser (the cookie has lapsed). Tell them apart.
+    const BOT = /px-captcha|perimeterx|captcha-delivery|datadome|are you a robot|security verification|verify you are (?:a )?human|access denied|unusual activity/i;
+    if (!r.ok) {
+      const t = await r.text().catch(() => "");
+      return { accessible: false, paragraphs: [], reason: (r.status === 403 || r.status === 429 || r.status === 401) && BOT.test(t.slice(0, 200000)) ? "session-blocked" : "session-" + r.status };
+    }
+    const html = (await r.text()).slice(0, 2000000);
+    const d = extractReadable(html, new URL(cur), { subscriber: true });
+    if (!(d.paragraphs && d.paragraphs.length >= 4)) return { ...d, accessible: false, reason: BOT.test(html.slice(0, 200000)) ? "session-blocked" : "session-expired" };
     return { ...d, url: u.toString(), via: "subscription" };
   }
   return { accessible: false, paragraphs: [], reason: "session-redirects" };

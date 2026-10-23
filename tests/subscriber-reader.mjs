@@ -71,6 +71,7 @@ globalThis.fetch = async (input, init = {}) => {
   if (url.startsWith("https://www.ft.com/content/") || url.startsWith("https://ft.com/content/")) {
     if (!headers.get("cookie")) return new Response(`<html><head><meta property="og:description" content="UK borrowing costs fell as inflation cooled."></head><body><p>Subscribe to read.</p></body></html>`, { status: 200, headers: { "content-type": "text/html" } });
     if (ftMode === "expired") return new Response(null, { status: 302, headers: { location: "https://accounts.ft.com/login?location=x" } });
+    if (ftMode === "bot") return new Response("<html><head><title>Are you a robot?</title></head><body><div id=\"px-captcha\"></div></body></html>", { status: 403, headers: { "content-type": "text/html" } });
     return new Response(FT_HTML, { status: 200, headers: { "content-type": "text/html" } });
   }
   return new Response("", { status: 404 });
@@ -119,6 +120,10 @@ try {
   const FT2 = "https://www.ft.com/content/99998888-7777-6666-5555-444433332222";
   const ex = await (await read(FT2, { env: senv })).json();
   check(ex.accessible === false && ex.reason === "session-expired" && ex.subscriber, "a logged-out session reads as session-expired (standfirst fallback)");
+  // A robot check (Bloomberg / WSJ style) is "session-blocked", not a lapsed cookie.
+  ftMode = "bot";
+  const bot = await (await read("https://www.ft.com/content/abababab-1111-2222-3333-444455556666", { env: senv })).json();
+  check(bot.reason === "session-blocked", `a robot-check page reads as session-blocked (got ${bot.reason})`);
   calls.length = 0;
   const capEnv = { ...senv, SUB_DAILY_MAX: "0" };
   const cap = await (await read("https://www.ft.com/content/12341234-1234-1234-1234-123412341234", { env: capEnv })).json();
