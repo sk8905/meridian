@@ -21,6 +21,146 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "cea71497-6fdb-4e97-8661-6336bd77b347",
+    "title": "Investing in Argentina",
+    "date": "2026-10-23",
+    "time": "05:03",
+    "url": "https://www.ft.com/content/cea71497-6fdb-4e97-8661-6336bd77b347"
+  },
+  {
+    "id": "51df7b68-927a-49a5-b596-3b867695b102",
+    "title": "The dispute that blew up a $34bn deal",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/51df7b68-927a-49a5-b596-3b867695b102"
+  },
+  {
+    "id": "ab922590-7f73-4a84-a3bd-a42cf80c92f7",
+    "title": "Ukraine seeks to move customs checks inside EU to avoid Russian drones",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/ab922590-7f73-4a84-a3bd-a42cf80c92f7"
+  },
+  {
+    "id": "70379a26-c20e-4501-aec9-a9a0089cdd3d",
+    "title": "US is prepared for long stand-off with Iran, says Trump envoy",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/70379a26-c20e-4501-aec9-a9a0089cdd3d"
+  },
+  {
+    "id": "00471cd9-c579-4205-a573-b38a0237ddb8",
+    "title": "Summer heatwave linked to 50,000 deaths in Europe",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/00471cd9-c579-4205-a573-b38a0237ddb8"
+  },
+  {
+    "id": "e114059c-308d-4d8e-8127-f88b0faca879",
+    "title": "How a transatlantic mega-merger fell apart over a leadership tug of war",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/e114059c-308d-4d8e-8127-f88b0faca879"
+  },
+  {
+    "id": "6b7b5f61-3550-46ac-a032-4163164c0af0",
+    "title": "Credit insurers cut cover on struggling UK housebuilder Crest Nicholson",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/6b7b5f61-3550-46ac-a032-4163164c0af0"
+  },
+  {
+    "id": "b0d490eb-d136-4114-87d4-d7b013d9cb11",
+    "title": "Rolls-Royce nears taxpayer subsidy deal to develop new engine in UK",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/b0d490eb-d136-4114-87d4-d7b013d9cb11"
+  },
+  {
+    "id": "d66ab794-72e9-447b-b6f4-a633dd9fda91",
+    "title": "Should UK banks be taxed more?",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/d66ab794-72e9-447b-b6f4-a633dd9fda91"
+  },
+  {
+    "id": "bf959a1a-1cd8-41e2-8767-03aa1ac3ed48",
+    "title": "Beware Bessent’s tilt towards short-term debt",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/bf959a1a-1cd8-41e2-8767-03aa1ac3ed48"
+  },
+  {
+    "id": "ee40daa9-48a7-4157-b6a1-d2ea3c90dbd0",
+    "title": "Government accused of ‘fudging’ consultancy spending to meet pledge",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/ee40daa9-48a7-4157-b6a1-d2ea3c90dbd0"
+  },
+  {
+    "id": "57e5b584-78b8-49a5-be2b-c02bba63886a",
+    "title": "Europe’s largest landlord exposed to €8bn hit from Berlin apartment plans",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/57e5b584-78b8-49a5-be2b-c02bba63886a"
+  },
+  {
+    "id": "7f8e36d6-b044-4610-bdd5-db56c77a0c4f",
+    "title": "Interior designer Beata Heuman talks taste",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/7f8e36d6-b044-4610-bdd5-db56c77a0c4f"
+  },
+  {
+    "id": "26f97311-f72c-40a8-bc89-c46740f9cdc0",
+    "title": "Students seek to oust Serbia’s strongman in Sunday vote",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/26f97311-f72c-40a8-bc89-c46740f9cdc0"
+  },
+  {
+    "id": "e842173f-6f9f-4115-9e5f-a0f06f0df18d",
+    "title": "US pension giant Calpers retreats from Big Tech as AI rally falters",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/e842173f-6f9f-4115-9e5f-a0f06f0df18d"
+  },
+  {
+    "id": "f98be079-49af-45c8-9954-ea3bd774c585",
+    "title": "AI oversight needs a different model to banking",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/f98be079-49af-45c8-9954-ea3bd774c585"
+  },
+  {
+    "id": "0ce7d049-b264-47da-9aaa-08b33941585a",
+    "title": "Caught between the US and China",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/0ce7d049-b264-47da-9aaa-08b33941585a"
+  },
+  {
+    "id": "90bd7c83-f219-4d2c-be27-c31f77daa662",
+    "title": "A cure for ‘plant blindness’? Try London’s Royal Parks",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/90bd7c83-f219-4d2c-be27-c31f77daa662"
+  },
+  {
+    "id": "f1e6e30a-7f2b-49c9-bc8d-ef3821c9695a",
+    "title": "Argentina in global trading sweet spot",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/f1e6e30a-7f2b-49c9-bc8d-ef3821c9695a"
+  },
+  {
+    "id": "ecfefa34-a0c3-43c5-b892-21c715a355a4",
+    "title": "Could Peronism return as Milei’s popularity falters?",
+    "date": "2026-10-23",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/ecfefa34-a0c3-43c5-b892-21c715a355a4"
+  },
+  {
     "id": "0a5c7582-133c-4e24-8e3d-daa30f5dad56",
     "title": "UK waters down ‘fit and proper’ rules set up to hold bankers to account",
     "date": "2026-10-22",
@@ -159,145 +299,5 @@ export const FT_ITEMS = [
     "date": "2026-10-22",
     "time": "13:36",
     "url": "https://www.ft.com/content/43f3144f-7aa8-4821-b5c6-0da470b9af34"
-  },
-  {
-    "id": "43f5c6af-5b1f-4995-9263-b7882013cb99",
-    "title": "Serbia’s students should take a leaf out of Magyar’s book",
-    "date": "2026-10-22",
-    "time": "13:30",
-    "url": "https://www.ft.com/content/43f5c6af-5b1f-4995-9263-b7882013cb99"
-  },
-  {
-    "id": "b97d2ce4-43b0-4551-8ad8-059abb9d3f3e",
-    "title": "Europe’s moderates must stop treating politics as a spectator sport",
-    "date": "2026-10-22",
-    "time": "13:22",
-    "url": "https://www.ft.com/content/b97d2ce4-43b0-4551-8ad8-059abb9d3f3e"
-  },
-  {
-    "id": "587f1f89-3bff-4aae-9130-41f142f1cc5f",
-    "title": "China steps up ‘grey zone’ tactics to isolate Taiwan and punish its allies",
-    "date": "2026-10-22",
-    "time": "13:16",
-    "url": "https://www.ft.com/content/587f1f89-3bff-4aae-9130-41f142f1cc5f"
-  },
-  {
-    "id": "5a5f8d2c-94d0-4e90-b9f4-27e398e4e108",
-    "title": "Rapid UK pay growth raises pressure on John Healey over minimum wage",
-    "date": "2026-10-22",
-    "time": "12:33",
-    "url": "https://www.ft.com/content/5a5f8d2c-94d0-4e90-b9f4-27e398e4e108"
-  },
-  {
-    "id": "a5432bf6-44fc-494c-94c0-f3ab66419d4a",
-    "title": "How are AI agents changing work inside Anthropic?",
-    "date": "2026-10-22",
-    "time": "12:30",
-    "url": "https://www.ft.com/content/a5432bf6-44fc-494c-94c0-f3ab66419d4a"
-  },
-  {
-    "id": "1ca7e612-9a1a-4f26-a31a-651675ee67bb",
-    "title": "The tentative return of the old politics",
-    "date": "2026-10-22",
-    "time": "12:14",
-    "url": "https://www.ft.com/content/1ca7e612-9a1a-4f26-a31a-651675ee67bb"
-  },
-  {
-    "id": "df7c95d7-72d1-4cec-87f6-9f7968ac3e5e",
-    "title": "Blackstone cuts property valuations as higher rates hit returns",
-    "date": "2026-10-22",
-    "time": "12:03",
-    "url": "https://www.ft.com/content/df7c95d7-72d1-4cec-87f6-9f7968ac3e5e"
-  },
-  {
-    "id": "e6185f87-0f7a-4e95-80db-94462133c266",
-    "title": "Why climate could soon move back up the global agenda",
-    "date": "2026-10-22",
-    "time": "12:00",
-    "url": "https://www.ft.com/content/e6185f87-0f7a-4e95-80db-94462133c266"
-  },
-  {
-    "id": "057670d7-c917-41b8-97c2-f45ac3b3241e",
-    "title": "Hot property: five homes for sale in Boston",
-    "date": "2026-10-22",
-    "time": "12:00",
-    "url": "https://www.ft.com/content/057670d7-c917-41b8-97c2-f45ac3b3241e"
-  },
-  {
-    "id": "b739c6e8-5b77-46e3-91a5-382fd52389bc",
-    "title": "FirstFT: Global equities hit by rise in oil prices",
-    "date": "2026-10-22",
-    "time": "11:14",
-    "url": "https://www.ft.com/content/b739c6e8-5b77-46e3-91a5-382fd52389bc"
-  },
-  {
-    "id": "d438af1e-a48c-4aeb-8c84-00cdb5e741e3",
-    "title": "Websites taken offline in race to patch PHP security flaw",
-    "date": "2026-10-22",
-    "time": "11:13",
-    "url": "https://www.ft.com/content/d438af1e-a48c-4aeb-8c84-00cdb5e741e3"
-  },
-  {
-    "id": "92e1700d-7990-4c6a-bd3f-63685df2fdf6",
-    "title": "Europe’s bracing reality on US bond yields",
-    "date": "2026-10-22",
-    "time": "11:07",
-    "url": "https://www.ft.com/content/92e1700d-7990-4c6a-bd3f-63685df2fdf6"
-  },
-  {
-    "id": "2925257d-3d78-49f9-96d0-e9ee9aeb3610",
-    "title": "Objects With Narratives begins a new chapter in Antwerp",
-    "date": "2026-10-22",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/2925257d-3d78-49f9-96d0-e9ee9aeb3610"
-  },
-  {
-    "id": "09d62b14-3541-48de-9a8c-f198cbe0220b",
-    "title": "‘I don’t lose’: Rahm Emanuel makes an early pitch for the White House",
-    "date": "2026-10-22",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/09d62b14-3541-48de-9a8c-f198cbe0220b"
-  },
-  {
-    "id": "120fad19-1279-4e3c-8f60-2319acc21d11",
-    "title": "Europe’s underrated digital trailblazing",
-    "date": "2026-10-22",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/120fad19-1279-4e3c-8f60-2319acc21d11"
-  },
-  {
-    "id": "8cdf338e-d472-460c-8642-a8f033b99462",
-    "title": "Submit a question: Could Anthropic’s IPO be a turning point for AI?",
-    "date": "2026-10-22",
-    "time": "10:11",
-    "url": "https://www.ft.com/content/8cdf338e-d472-460c-8642-a8f033b99462"
-  },
-  {
-    "id": "5ae90cc4-a20d-4b65-9000-10421a663f89",
-    "title": "Fixing Britain’s welfare state and the limits of AI policymaking",
-    "date": "2026-10-22",
-    "time": "09:35",
-    "url": "https://www.ft.com/content/5ae90cc4-a20d-4b65-9000-10421a663f89"
-  },
-  {
-    "id": "d8e3ca1c-ef96-4148-9ca2-49d48f1604b8",
-    "title": "London credit hedge fund Arini’s losses mount",
-    "date": "2026-10-22",
-    "time": "09:24",
-    "url": "https://www.ft.com/content/d8e3ca1c-ef96-4148-9ca2-49d48f1604b8"
-  },
-  {
-    "id": "cc456111-4c0b-4eaa-8910-53d8933271a3",
-    "title": "Nestlé removes Russian business from accounts after Kremlin takeover",
-    "date": "2026-10-22",
-    "time": "08:55",
-    "url": "https://www.ft.com/content/cc456111-4c0b-4eaa-8910-53d8933271a3"
-  },
-  {
-    "id": "39224d70-632e-4cac-ae1c-59f7efbbccaf",
-    "title": "FT Wealth: October",
-    "date": "2026-10-22",
-    "time": "08:52",
-    "url": "https://www.ft.com/content/39224d70-632e-4cac-ae1c-59f7efbbccaf"
   }
 ];

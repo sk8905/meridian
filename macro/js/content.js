@@ -12,8 +12,8 @@ export const UPDATED = "28 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-10-22",
-  lastCheckedTime: "23:10 BST",
+  lastChecked: "2026-10-23",
+  lastCheckedTime: "05:06 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1040,20 +1040,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-22",
+  updated: "2026-10-23",
   us: [
+    {title: "US is prepared for long stand-off with Iran, says Trump envoy", source: "Financial Times", date: "2026-10-23", time: "05:00", url: "https://www.ft.com/content/70379a26-c20e-4501-aec9-a9a0089cdd3d"},
+    {title: "Beware Bessent’s tilt towards short-term debt", source: "Financial Times", date: "2026-10-23", time: "05:00", url: "https://www.ft.com/content/bf959a1a-1cd8-41e2-8767-03aa1ac3ed48"},
+    {title: "US pension giant Calpers retreats from Big Tech as AI rally falters", source: "Financial Times", date: "2026-10-23", time: "05:00", url: "https://www.ft.com/content/e842173f-6f9f-4115-9e5f-a0f06f0df18d"},
     {title: "Global stocks tumble as oil price tops $112", source: "Financial Times", date: "2026-10-22", time: "14:31", url: "https://www.ft.com/content/6e318b81-a771-4842-9754-e265fef2852f"},
     {title: "Blackstone cuts property valuations as higher rates hit returns", source: "Financial Times", date: "2026-10-22", time: "12:03", url: "https://www.ft.com/content/df7c95d7-72d1-4cec-87f6-9f7968ac3e5e"},
-    {title: "Scott Bessent shrugs off ‘systemic’ AI risks at closed-door investor conference", source: "Financial Times", date: "2026-10-21", time: "19:46", url: "https://www.ft.com/content/5b7c2fdf-2300-4208-860e-6389ceb18886"},
-    {title: "Iran war sparks heating crisis in US north-east as winter approaches", source: "Financial Times", date: "2026-10-21", time: "11:00", url: "https://www.ft.com/content/162c6dd8-5501-46f4-8f7c-b456a4e29539"},
-    {title: "US pending home sales fall to record low as mortgage rates surge", source: "Financial Times", date: "2026-10-20", time: "16:47", url: "https://www.ft.com/content/42ed6778-d350-48a6-ba3d-99efca3cd276"},
   ],
   uk: [
+    {title: "Should UK banks be taxed more?", source: "Financial Times", date: "2026-10-23", time: "05:00", url: "https://www.ft.com/content/d66ab794-72e9-447b-b6f4-a633dd9fda91"},
+    {title: "Government accused of ‘fudging’ consultancy spending to meet pledge", source: "Financial Times", date: "2026-10-23", time: "05:00", url: "https://www.ft.com/content/ee40daa9-48a7-4157-b6a1-d2ea3c90dbd0"},
     {title: "Rapid UK pay growth raises pressure on John Healey over minimum wage", source: "Financial Times", date: "2026-10-22", time: "12:33", url: "https://www.ft.com/content/5a5f8d2c-94d0-4e90-b9f4-27e398e4e108"},
     {title: "UK September inflation fuels expectations of imminent BoE rate rise", source: "Financial Times", date: "2026-10-21", time: "08:03", url: "https://www.ft.com/content/70f1da13-3c33-4881-aaa8-3458c1ba7eaf"},
-    {title: "UK inflation and borrowing top forecasts in blow to John Healey", source: "Financial Times", date: "2026-10-21", time: "08:18", url: "https://www.ft.com/content/443ce2f3-ba36-4dc7-aa0b-a2bc593fa563"},
     {title: "UK government borrowing rises to £24.5bn ahead of Budget", source: "Financial Times", date: "2026-10-21", time: "07:10", url: "https://www.ft.com/content/89322cfb-54cd-4fcd-9ba7-cd7e74382215"},
-    {title: "Gilt market catches up with peers as investor worries over Budget ease", source: "Financial Times", date: "2026-10-20", time: "17:10", url: "https://www.ft.com/content/31f86452-c16a-4fbf-b393-bb5282c1cb59"},
   ],
 };
 
