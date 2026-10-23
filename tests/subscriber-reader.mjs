@@ -13,6 +13,7 @@ check(isSubscriberArticle("https://www.bloomberg.com/news/articles/2026-10-22/ra
 check(isSubscriberArticle("https://www.economist.com/finance-and-economics/2026/10/22/a-slug"), "isSubscriberArticle: an Economist article");
 check(!isSubscriberArticle("https://www.bloomberg.com/account/newsletters/money-stuff"), "isSubscriberArticle: an account page is not an article");
 check(!isSubscriberArticle("https://www.ft.com/markets"), "isSubscriberArticle: a section front is not an article");
+check(isSubscriberArticle("https://www.fnlondon.com/articles/how-eisler-capitals-collapse-sparked-a-hedge-fund-hiring-frenzy-40f49581"), "isSubscriberArticle: a Financial News article");
 
 const EMAIL = [
   "Money Stuff", " Derivatives, onions.", "", "View in browser <https://bloom.bg/view>", "",
@@ -134,6 +135,25 @@ try {
   const capEnv = { ...senv, SUB_DAILY_MAX: "0" };
   const cap = await (await read("https://www.ft.com/content/12341234-1234-1234-1234-123412341234", { env: capEnv })).json();
   check(cap.reason === "session-daily-cap" && !calls.some((c) => c.cookie), "the per-day cap stops session fetches");
+  // A new-style Google News link (no URL inside) is resolved via Google's own lookup on open,
+  // then read through the subscriber reader (Financial News here), and remembered in KV.
+  const { resolveGnews } = await import("../src/index.js");
+  const FNART = "https://www.fnlondon.com/articles/how-eisler-capitals-collapse-sparked-a-hedge-fund-hiring-frenzy-40f49581";
+  const prev = globalThis.fetch; let gnCalls = 0;
+  globalThis.fetch = async (input, init = {}) => {
+    const url = typeof input === "string" ? input : input.url;
+    if (url.startsWith("https://news.google.com/rss/articles/")) { gnCalls++; return new Response('<c-wiz data-n-a-sg="SIG" data-n-a-ts="1700000000"></c-wiz>', { status: 200 }); }
+    if (url.includes("batchexecute")) { gnCalls++; return new Response(`)]}'\n\n[["wrb.fr","Fbv4je","[\\"garturlres\\",\\"${FNART}\\",1]",null,null,null,"generic"]]`, { status: 200 }); }
+    return prev(input, init);
+  };
+  const GN = "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOWmxJZE9oV1FlZGJt?oc=5";
+  checkEq(await resolveGnews(GN, env), FNART, "resolveGnews: a new-style Google News link → the publisher URL");
+  gnCalls = 0;
+  checkEq(await resolveGnews(GN, env), FNART, "resolveGnews: …and the answer is remembered");
+  check(gnCalls === 0, "resolveGnews: a second open costs no Google requests");
+  const fnr = await (await read(GN)).json();
+  check(fnr.accessible === false && fnr.subscriber === true && fnr.source === "Financial News", `a Financial News story via Google News reaches the subscriber reader (${fnr.source}/${fnr.reason})`);
+  globalThis.fetch = prev;
 } finally {
   globalThis.fetch = realFetch;
 }

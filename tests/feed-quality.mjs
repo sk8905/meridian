@@ -10,7 +10,7 @@ const bySource = (s) => FEED_SOURCES.find((f) => f.source === s);
 
 // ---- Roster: the quality accessible sources are present + correctly tagged -------
 for (const [name, want] of [
-  ["Legal Cheek", { legal: true }],
+  ["Legal Business", { legal: true }],
   ["Alternative Credit Investor", {}],
   ["Private Equity Wire", {}],
 ]) {
@@ -161,14 +161,14 @@ check(!feedQualityKeep({ source: "Investing.com Economics", title: "Singapore co
 // ---- The premium four are BACK ON (owner 2026-10-23 — the owner's own subscriptions,
 // read in-pane via the subscriber reader). The other hard paywalls stay off, and the
 // openly-readable sources added in their absence stay wired in. ---------------------
-for (const on of ["Financial Times", "Bloomberg", "The Wall Street Journal", "The Economist", "FT Alphaville"]) {
+for (const on of ["Financial Times", "Bloomberg", "The Wall Street Journal", "The Economist", "FT Alphaville", "Financial News"]) {
   check(FEED_SOURCES.some((f) => f.source === on), `subscribed: ${on} is an active feed source`);
 }
 check(FEED_SOURCES.some((f) => f.myft === true && /ft\.com\/myft\//.test(f.url)), "subscribed: the owner's myFT feed is active");
-for (const off of ["The Lawyer", "Nikkei Asia", "Channel NewsAsia"]) {
+for (const off of ["The Lawyer", "Nikkei Asia", "Channel NewsAsia", "Associated Press", "Axios", "Euronews Business", "Legal Cheek"]) {
   check(!FEED_SOURCES.some((f) => f.source === off), `readable-only: ${off} is switched off (not an active feed source)`);
 }
-for (const [on, want] of [["Associated Press", {}], ["Moody's", { fi: true }], ["European Central Bank", {}], ["Bank of Japan", {}], ["Bank of Canada", {}], ["Euronews Business", {}], ["AltAssets", {}]]) {
+for (const [on, want] of [["CNBC", {}], ["Moody's", { fi: true }], ["European Central Bank", {}], ["Bank of Japan", {}], ["Bank of Canada", {}], ["AltAssets", {}]]) {
   const src = bySource(on);
   check(!!src, `readable-only: ${on} is wired as an active source`);
   if (src && want.fi) check(src.fi === true, `readable-only: ${on} is routed to the FI (credit) desk`);
@@ -179,7 +179,7 @@ for (const [on, want] of [["Associated Press", {}], ["Moody's", { fi: true }], [
 {
   const { feedSourceKeep } = await import("../src/index.js");
   for (const off of ["MarketWatch", "Hedge Fund Alpha"]) check(!bySource(off), `fixed set: ${off} is dropped`);
-  for (const [on, want] of [["Financial Stability Board", {}], ["SEC", {}], ["PE Hub", {}], ["Axios", {}], ["BIS", { research: true }], ["Liberty Street Economics", { research: true }], ["CEPR VoxEU", { research: true }]]) {
+  for (const [on, want] of [["Financial Stability Board", {}], ["SEC", {}], ["PE Hub", {}], ["BIS", { research: true }], ["Liberty Street Economics", { research: true }], ["CEPR VoxEU", { research: true }]]) {
     const src = bySource(on);
     check(!!src && (!want.research || src.research === true), `fixed set: ${on} is wired${want.research ? " to the Research lane" : ""}`);
   }
@@ -198,7 +198,8 @@ for (const [on, want] of [["Associated Press", {}], ["Moody's", { fi: true }], [
   check(k(peh, "Weatherford Capital hires LLR Partners veteran Michael Pantilione for flagship strategy"), "PE Hub: a senior hire is kept");
   check(!k(peh, "Inflexion’s Ranger Fire and Security adds Midlands alarm firm D&G"), "PE Hub: a small add-on is dropped");
   check(!k(peh, "WestBridge completes investment in Foresight-backed financial planner Beckett"), "PE Hub: 'financial planner' is not a financing");
-  check(!k(bySource("Axios"), "Trump goes full apocalypse in anti-Dems midterms message"), "Axios: politics is dropped (default macro gate)");
+  check(!k(bySource("CNBC"), "Trump goes full apocalypse in anti-Dems midterms message"), "CNBC: politics is dropped (default macro gate)");
+  check(k(bySource("Financial News"), "How Eisler Capital’s collapse sparked a hedge fund hiring frenzy") && k(bySource("Financial News"), "Lazard CEO Orszag says deal boom shows no signs of slowing"), "Financial News: City deal / people stories pass (curated trade press)");
 }
 
 // ---- No limits but age (owner 2026-10-21): no source carries a cap; the 30-day window

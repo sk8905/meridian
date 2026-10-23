@@ -1830,7 +1830,7 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   (`tests/profile-blanks.mjs`). **(f)** The gaps rotate through `scripts/profile-rota.mjs`
   (docs/refresh-routines.md "Profile rota"). Guards are ratchets: known cases listed by id,
   new ones fail, the lists only shrink (`tests/data-guards.mjs`).
-- **R53 — The subscriber reader: the owner's four subscriptions read in-pane (owner
+- **R53 — The subscriber reader: the owner's subscriptions read in-pane (owner
   2026-10-23).** FT, Bloomberg, WSJ and The Economist are the owner's paid subscriptions,
   so their wire stories open in the reading pane (they are NOT "paywalled" in
   `v2/js/read-policy.js` — `isSubscribedSrc`; no padlock). The Worker
@@ -1842,7 +1842,7 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   the issue with "From your <pub> newsletter · <issue>" and the part on the story marked
   (`.g-read-focus`); **(2) the owner's own session** — the browser `Cookie` header for that
   site held as a Worker secret (`SUB_COOKIE_FT`, `SUB_COOKIE_ECONOMIST`, `SUB_COOKIE_WSJ`,
-  `SUB_COOKIE_BLOOMBERG`; none set = this step is skipped; a cookie over Cloudflare's ~5 kB
+  `SUB_COOKIE_BLOOMBERG`, `SUB_COOKIE_FN` (Financial News); none set = this step is skipped; a cookie over Cloudflare's ~5 kB
   secret limit is split across `<NAME>_2` … `<NAME>_4` and joined back with "; "). Fetched only on an explicit
   open — **never** a prefetch (`warm=1`), the cron pre-warm or a third-party proxy —
   capped at `SUB_DAILY_MAX` (200; raised from 60 by the owner 2026-10-23) per site per day; the cookie is sent only to that site
@@ -2073,6 +2073,13 @@ item keeps a real outbound source link (R7).
 > carries them again and `FT_DESK_ON` is `true`. Every other hard paywall stays off the
 > wire. **Nikkei Asia** (hard paywall) and **The Lawyer** are
 > dropped. **Channel NewsAsia was removed as a wire source (2026-10, owner request).**
+> **Dropped 2026-10-23 (owner), once the premium four were back:** Associated Press,
+> Axios, Euronews Business and Legal Cheek — general or trainee-facing copy the wire sweep
+> rarely recorded (wire-ledger: AP 0/5, Euronews 0/4, Legal Cheek 0/4); AP also needed the
+> paid browser proxy to read. CNBC was kept. **Financial News** (fnlondon.com, Dow Jones —
+> the owner's subscription) was added via a Google News bridge; its links are resolved on
+> open by `resolveGnews` (Google's own lookup, kept 30 days in KV), which also lets every
+> other Google-News-bridged source read in-pane.
 > **Reuters was removed as a wire source (2026-10)** — reuters.com is bot-walled
 > and never opened in the reading pane, so its headlines were dead-ends. 
 >
@@ -2108,12 +2115,10 @@ macro/megacap title gate; **topic** = the source's own `match`/`drop` screen.
 | CNBC (Economy, Markets, Finance, Top News, World) | Markets | macro | RSS |
 | Financial Times (Markets, Global Economy, Hedge Funds, myFT) | Markets / Hedge funds / FT desk | macro (Hedge Funds open; myFT soft) | RSS — owner's subscription (R53) |
 | FT Alphaville | Markets | open | RSS — owner's subscription (R53) |
+| Financial News (fnlondon.com) | Markets | open (curated trade press) | Google News bridge, links resolved on open — owner's subscription (R53) |
 | Bloomberg (Markets, Business, Economics, Nishant Kumar byline) | Markets / Hedge funds | macro (byline open) | RSS + Google News bridge — owner's subscription (R53) |
 | The Wall Street Journal (Markets, US Business) | Markets | macro | RSS + Google News bridge — owner's subscription (R53) |
 | The Economist (Finance & Economics, Business) | Markets | open | RSS — owner's subscription (R53) |
-| Associated Press | Markets | macro | Google News bridge |
-| Axios | Markets | macro | RSS (whole site — only markets/economy pass) |
-| Euronews Business | Markets | macro | RSS |
 | Investing.com Economics | Macro | open | RSS |
 | ING Think | Macro | open | RSS |
 | OECD | Macro | open | Google News bridge |
@@ -2138,7 +2143,6 @@ macro/megacap title gate; **topic** = the source's own `match`/`drop` screen.
 | The Hedge Fund Journal | Hedge funds | open | RSS |
 | HedgeNordic | Hedge funds | open | RSS |
 | Legal Business | Legal | open | RSS |
-| Legal Cheek | Legal | open | RSS |
 | Legal Futures | Legal | open | RSS |
 | The Global Legal Post | Legal | open | Google News bridge |
 | Mohamed El-Erian | Substack | open | RSS |
@@ -2218,7 +2222,7 @@ macro/megacap title gate; **topic** = the source's own `match`/`drop` screen.
   UK Supreme Court
 - The Lawyer (`thelawyer.com`) — _switched off: subscription-only, opens at publisher (in READ_PAYWALL)_
 - Legal Business (`legalbusiness.co.uk`)
-- Legal Cheek (`legalcheek.com`) — UK magic/silver-circle & Big-Law news
+- Legal Cheek (`legalcheek.com`) — _dropped from the wire 2026-10-23 (owner): trainee-facing; rarely recorded_
 - Legal Futures (`legalfutures.co.uk`) — UK legal-market regulation & litigation funding
 - The Global Legal Post (`globallegalpost.com`) — international legal-market news (via Google News /news bridge; image-chrome suppressed)
 - Bloomberg Law

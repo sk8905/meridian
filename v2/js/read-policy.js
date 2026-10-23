@@ -13,11 +13,11 @@ export const LINKOUT_SRC = /\breuters\b/i;
 export const LINKOUT_HOST = /(?:^|\/\/|\.)reuters\.[a-z]/i;
 export const FILE_URL = /\.(pdf|xlsx?|csv|zip|docx?|pptx?)(?:$|[?#])/i;
 // The owner's own paid subscriptions (owner 2026-10-23) — FT, Bloomberg, WSJ, The
-// Economist. Not "paywalled" here: their rows open in the pane, and the Worker's
+// Economist, Financial News. Not "paywalled" here: their rows open in the pane, and the Worker's
 // subscriber reader (handleSubscriberRead) serves a newsletter issue that links the story,
 // the owner's own logged-in read, or the standfirst + an "Open in the app" link.
-export const SUBSCRIBED_SRC = /financial times|^ft$|ft alphaville|bloomberg|wall street journal|\bwsj\b|economist/i;
-export const SUBSCRIBED_HOST = /(?:^|\/\/|\.)(?:ft|bloomberg|wsj|economist)\.com(?:[/:?#]|$)/i;
+export const SUBSCRIBED_SRC = /financial times|^ft$|ft alphaville|bloomberg|wall street journal|\bwsj\b|economist|^financial news$/i;
+export const SUBSCRIBED_HOST = /(?:^|\/\/|\.)(?:ft|bloomberg|wsj|economist|fnlondon)\.com(?:[/:?#]|$)/i;
 const _hostOf = (href) => { try { return new URL(href).hostname; } catch { return ""; } };
 export const isSubscribedSrc = (src, href) => {
   const h = _hostOf(href || "");
@@ -27,7 +27,8 @@ export const isSubscribedSrc = (src, href) => {
 // The app a subscribed story opens in ("Open in the FT app").
 export const subscribedApp = (src, href) => {
   const t = (_hostOf(href || "") + " " + (src || "")).toLowerCase();
-  return /ft\.com|financial times|\bft\b/.test(t) ? "FT" : /bloomberg/.test(t) ? "Bloomberg" : /wsj|wall street/.test(t) ? "WSJ" : /economist/.test(t) ? "Economist" : "";
+  if (/fnlondon\.com|financial news/.test(t)) return "Financial News";
+  return /(?:^|\.)ft\.com|financial times|\bft\b/.test(t) ? "FT" : /bloomberg/.test(t) ? "Bloomberg" : /wsj|wall street/.test(t) ? "WSJ" : /economist/.test(t) ? "Economist" : "";
 };
 export const isPaywalledSrc = (src, href) => !isSubscribedSrc(src, href) && (PAYWALL_SRC.test(src || "") || PAYWALL_HOST.test(href || ""));
 export const linksOutSrc = (src, href) => LINKOUT_SRC.test(src || "") || LINKOUT_HOST.test(href || "");

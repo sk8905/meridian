@@ -2421,7 +2421,7 @@ async function yahooSeries(symbol, range, interval) {
 const READ_PAYWALL = new Set([
   "ft.com", "bloomberg.com", "wsj.com", "economist.com", "nytimes.com", "barrons.com",
   "businessinsider.com", "thetimes.co.uk", "telegraph.co.uk", "nikkei.com", "forbes.com",
-  "washingtonpost.com", "theinformation.com", "seekingalpha.com",
+  "washingtonpost.com", "theinformation.com", "seekingalpha.com", "fnlondon.com",
   // The Lawyer is subscription-only: a public fetch (and the Firecrawl/Jina proxy)
   // returns only its subscribe-wall promo + 150px nav thumbnails, never the article —
   // so render nothing and let the row open at the publisher.
@@ -2457,9 +2457,9 @@ const READ_OPEN = new Set([
 //      in the shared edge cache and never in the public repo;
 //   3. otherwise the public standfirst + "Open in the app".
 // Anonymous requests get the old paywall answer. Every response is private, no-store.
-const READ_SUBSCRIBED = new Set(["ft.com", "bloomberg.com", "wsj.com", "economist.com"]);
-const SUB_NAMES = { "ft.com": "FT", "bloomberg.com": "Bloomberg", "wsj.com": "WSJ", "economist.com": "The Economist" };
-const SUB_COOKIE_ENV = { "ft.com": "SUB_COOKIE_FT", "economist.com": "SUB_COOKIE_ECONOMIST", "wsj.com": "SUB_COOKIE_WSJ", "bloomberg.com": "SUB_COOKIE_BLOOMBERG" };
+const READ_SUBSCRIBED = new Set(["ft.com", "bloomberg.com", "wsj.com", "economist.com", "fnlondon.com"]);
+const SUB_NAMES = { "ft.com": "FT", "bloomberg.com": "Bloomberg", "wsj.com": "WSJ", "economist.com": "The Economist", "fnlondon.com": "Financial News" };
+const SUB_COOKIE_ENV = { "ft.com": "SUB_COOKIE_FT", "economist.com": "SUB_COOKIE_ECONOMIST", "wsj.com": "SUB_COOKIE_WSJ", "bloomberg.com": "SUB_COOKIE_BLOOMBERG", "fnlondon.com": "SUB_COOKIE_FN" };
 const SUB_TTL = 30 * 86400;            // the wire's own 30-day window
 const SUB_DAILY_MAX = 200;             // per site per day (owner 2026-10-23: raised from 60; SUB_DAILY_MAX env overrides)
 const _subBase = (host) => { const h = String(host || "").toLowerCase().replace(/^www\./, ""); for (const b of READ_SUBSCRIBED) if (h === b || h.endsWith("." + b)) return b; return ""; };
@@ -2477,6 +2477,7 @@ export function isSubscriberArticle(url) {
   if (b === "ft.com") return /^\/content\/[0-9a-f-]{20,}$/i.test(p);
   if (b === "bloomberg.com") return /^\/(news|opinion|features)\/(articles|features|newsletters|storythreads)\/\d{4}-\d{2}-\d{2}\/[\w-]+/i.test(p);
   if (b === "wsj.com") return /^\/(articles\/[\w-]+|[a-z-]+(\/[a-z-]+)?\/[\w-]+-[a-z0-9]{6,})$/i.test(p);
+  if (b === "fnlondon.com") return /^\/articles\/[\w-]+$/i.test(p);
   if (b === "economist.com") return /^\/[a-z-]+\/\d{4}\/\d{2}\/\d{2}\/[\w-]+$/i.test(p);
   return false;
 }
@@ -3329,13 +3330,15 @@ async function _readViaJina(u, host, env) {
   } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-failed" }; }
 }
 async function handleRead(request, env, ctx) {
-  // Unwrap a Google-News redirect link (defence for any already-cached client rows that
-  // still carry the wrapped URL) so the reader fetches the real publisher article.
-  const target = unwrapGnews(new URL(request.url).searchParams.get("url") || "");
   // warm=1 — the client's background prefetch (prefetchTopReads): DIRECT fetch only, never
   // the browser proxies (Cloudflare free plan = 6 renders/min; a 6-story prefetch on every
   // feed render spent it before the reader clicked — owner report 2026-10-22, cf-429).
   const warm = new URL(request.url).searchParams.get("warm") === "1";
+  // Unwrap a Google-News redirect link so the reader fetches the real publisher article:
+  // offline when the link carries the URL, else (on a real open only) via Google's own
+  // lookup (resolveGnews — remembered in KV).
+  let target = unwrapGnews(new URL(request.url).searchParams.get("url") || "");
+  if (!warm) target = await resolveGnews(target, env);
   let u; try { u = new URL(target); } catch { return json({ error: "bad url", accessible: false, paragraphs: [] }, 400); }
   if (u.protocol !== "https:") return json({ error: "https only", accessible: false, paragraphs: [] }, 400);
   const host = u.hostname.replace(/^www\./, "");
@@ -4113,7 +4116,7 @@ export const FEED_SOURCES = [
   // Reuters — SWITCHED OFF (2026-10). reuters.com is bot-walled and never opens in the
   // reading pane (even the browser proxy fails), so its headlines were read-nowhere
   // dead-ends. Removed as a wire source; AP (below) carries the openly-readable global
-  // wire. Commented out (not deleted) so it can be restored by uncommenting if that
+  // wire (AP itself dropped 2026-10-23). Commented out (not deleted) so it can be restored by uncommenting if that
   // changes — but note the reader would still need to open reuters.com for it to be useful.
   // { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Areuters.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20economy%20OR%20Treasury%20OR%20%22stock%20market%22%20OR%20%22Bank%20of%20England%22%20OR%20gilt%20OR%20%22UK%20economy%22%20OR%20sterling%29%20when%3A2d", source: "Reuters", region: "GEN", gnews: true },
   // Associated Press — the openly-readable global wire (replaces the dropped
@@ -4121,7 +4124,15 @@ export const FEED_SOURCES = [
   // macro/markets terms; the STANDARD macro-relevance filter then culls AP's broad
   // general/sport/human-interest copy, keeping only macro/markets/policy (verified
   // ~18/100 kept). Bot-shielded, so rendered in-pane via the browser proxy (Firecrawl).
-  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aapnews.com%20(economy%20OR%20markets%20OR%20Fed%20OR%20inflation%20OR%20%22Wall%20Street%22%20OR%20%22interest%20rate%22%20OR%20Treasury%20OR%20GDP%20OR%20%22stock%20market%22%20OR%20earnings%20OR%20tariff%20OR%20jobs)%20when%3A30d", source: "Associated Press", region: "US", gnews: true },
+  // DROPPED 2026-10-23 (owner): the premium four are back, and this source's items were rarely recorded (wire-ledger) — a general wire that also needs the paid browser proxy to read.
+  // { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aapnews.com%20(economy%20OR%20markets%20OR%20Fed%20OR%20inflation%20OR%20%22Wall%20Street%22%20OR%20%22interest%20rate%22%20OR%20Treasury%20OR%20GDP%20OR%20%22stock%20market%22%20OR%20earnings%20OR%20tariff%20OR%20jobs)%20when%3A30d", source: "Associated Press", region: "US", gnews: true },
+  // Financial News (Dow Jones, fnlondon.com) — added 2026-10-23 (owner; the owner's own
+  // subscription). The City beat: private equity, hedge funds, banking, asset management,
+  // Big Law. Its own RSS returns nothing, so bridged via Google News; the links are
+  // resolved to fnlondon.com on open (resolveGnews) and read via the subscriber reader.
+  // filter:false + FEED_CURATED_SRC — its whole beat is on-universe (the premium focus
+  // gate kept only 40/100 and dropped real City deal/people stories).
+  { url: "https://news.google.com/rss/search?hl=en-GB&gl=GB&ceid=GB%3Aen&q=site%3Afnlondon.com%20when%3A30d", source: "Financial News", region: "UK", gnews: true, filter: false },
   { url: "https://news.google.com/rss/search?q=site%3Abloomberg.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20economy%20OR%20%22Bank%20of%20England%22%20OR%20bonds%29%20when%3A30d&hl=en-US&gl=US&ceid=US%3Aen", source: "Bloomberg", region: "GEN", gnews: true },
   // Bloomberg's OFFICIAL section feeds (feeds.bloomberg.com) — live, so stories
   // stream in as published. They carry the Asia-desk's broad industrial/politics
@@ -4295,7 +4306,8 @@ export const FEED_SOURCES = [
     drop: /\b(?:seed|series [a-f]|venture|VC|start-?ups?|add-ons?|bolt-ons?)\b/i },
   // Axios — its feed is all of Axios (politics included), so it takes the default
   // macro / megacap title gate: only the markets and economy pieces pass.
-  { url: "https://api.axios.com/feed/", source: "Axios", region: "US" },
+  // DROPPED 2026-10-23 (owner): the premium four are back, and this source's items were rarely recorded (wire-ledger) — mostly politics / tech.
+  // { url: "https://api.axios.com/feed/", source: "Axios", region: "US" },
   // Research lane (research: true → the RSCH desk, glance.js rschFeed): openly readable
   // central-bank / economics research.
   { url: "https://www.bis.org/doclist/bis_fsi_publs.rss", source: "BIS", region: "GEN", filter: false, research: true },
@@ -4320,7 +4332,8 @@ export const FEED_SOURCES = [
   { url: "https://www.bankofcanada.ca/content_type/press-releases/feed/", source: "Bank of Canada", region: "GEN" },
   // Open European business desk (trialled: in-pane readable). Standard macro /
   // relevance filter — they are general business sections.
-  { url: "https://www.euronews.com/rss?level=theme&name=business", source: "Euronews Business", region: "GEN" },
+  // DROPPED 2026-10-23 (owner): the premium four are back, and this source's items were rarely recorded (wire-ledger) — consumer-business copy.
+  // { url: "https://www.euronews.com/rss?level=theme&name=business", source: "Euronews Business", region: "GEN" },
   // (The Guardian, Sharecast and City AM removed as newswire sources.)
   // Asia — reputable regional business/finance desks for overnight coverage.
   // (Nikkei Asia dropped — a hard paywall that opens at the publisher.) SCMP reads
@@ -4357,7 +4370,8 @@ export const FEED_SOURCES = [
   // UK Big Law trade desk — openly-readable, covering magic/silver-circle and
   // global-elite firms (moves, deals, pay, strategy). legal:true routes it to the
   // Legal desk; filter:false so the macro screen doesn't drop law-market headlines.
-  { url: "https://www.legalcheek.com/feed/", source: "Legal Cheek", region: "UK", filter: false, legal: true },
+  // DROPPED 2026-10-23 (owner): the premium four are back, and this source's items were rarely recorded (wire-ledger) — trainee / student-facing; Legal Business and The Global Legal Post carry the Big Law beat.
+  // { url: "https://www.legalcheek.com/feed/", source: "Legal Cheek", region: "UK", filter: false, legal: true },
   // Legal Futures — UK legal-market news (regulation, litigation funding, law-firm
   // M&A, ABS/licensing, SRA). Openly readable in-pane; direct WordPress RSS.
   { url: "https://www.legalfutures.co.uk/feed", source: "Legal Futures", region: "UK", filter: false, legal: true },
@@ -4491,6 +4505,33 @@ function feedLondon(d) {
 // need a batchexecute round-trip); for those we can't decode offline, so we return the
 // original link unchanged and the reader falls back to preview + link. Pure + exported
 // so it can be unit-tested without egress.
+// Newer Google News links (no URL inside) → the publisher URL, the way news.google.com's own
+// page does it: read the article page's signature + timestamp, then ask its batchexecute
+// endpoint ("garturlreq"). Two requests, each ≤6s, only when a reader opens such a story;
+// the answer is kept 30 days in KV (gn:<id>). Any failure returns the link unchanged.
+export async function resolveGnews(link, env) {
+  let u; try { u = new URL(link); } catch { return link; }
+  if (!/(?:^|\.)news\.google\.com$/i.test(u.hostname)) return link;
+  const id = (u.pathname.match(/\/(?:rss\/)?(?:articles|read)\/([A-Za-z0-9_-]+)/) || [])[1];
+  if (!id) return link;
+  const kv = env && env.WATCHLIST, key = "gn:" + id;
+  try { const hit = kv && await kv.get(key); if (hit) return hit; } catch { /* resolve live */ }
+  try {
+    const page = await (await fetch("https://news.google.com/rss/articles/" + id, { headers: { "user-agent": READ_UA }, signal: AbortSignal.timeout(6000) })).text();
+    const sg = (page.match(/data-n-a-sg="([^"]+)"/) || [])[1], ts = (page.match(/data-n-a-ts="([^"]+)"/) || [])[1];
+    if (!sg || !ts) return link;
+    const inner = JSON.stringify(["garturlreq", [["X", "X", ["X", "X"], null, null, 1, 1, "US:en", null, 1, null, null, null, null, null, 0, 1], "X", "X", 1, [1, 1, 1], 1, 1, null, 0, 0, null, 0], id, +ts, sg]);
+    const r = await fetch("https://news.google.com/_/DotsSplashUi/data/batchexecute", { method: "POST", signal: AbortSignal.timeout(6000),
+      headers: { "content-type": "application/x-www-form-urlencoded;charset=UTF-8", "user-agent": READ_UA },
+      body: "f.req=" + encodeURIComponent(JSON.stringify([[["Fbv4je", inner, null, "generic"]]])) });
+    const m = (await r.text()).match(/garturlres\\*",\\*"(https?:\/\/[^"\\]+)/);
+    if (!m) return link;
+    let out; try { out = new URL(m[1]); } catch { return link; }
+    if (out.protocol !== "https:" || /(?:^|\.)google\.com$/i.test(out.hostname)) return link;
+    try { if (kv) await kv.put(key, out.toString(), { expirationTtl: 30 * 86400 }); } catch { /* best effort */ }
+    return out.toString();
+  } catch { return link; }
+}
 export function unwrapGnews(link) {
   try {
     const u = new URL(link);
@@ -4774,7 +4815,10 @@ const FEED_LEGAL_SRC = new Set(["Legal Business", "Legal Cheek", "Legal Futures"
 // they bypass the relevance gate like the legal wire, keeping that coverage readable.
 const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire", "GlobeNewswire", "PR Newswire", "ING Think",
   // 2026-10-21 additions: official / already screened by their own `match` (feedSourceKeep).
-  "Financial Stability Board", "SEC", "PE Hub"]);
+  "Financial Stability Board", "SEC", "PE Hub",
+  // 2026-10-23 (owner): Financial News — the City trade paper (PE, hedge funds, banking, Big Law);
+  // its whole beat is on-universe, so it passes like the other specialist trade press.
+  "Financial News"]);
 // The app's SIX focus verticals — used to hold the paywalled premium newsrooms
 // (FT/Bloomberg/WSJ/Economist) strictly on-beat: (i) G20 macro (ii) public equity &
 // bond markets (iii) private capital markets (iv) credit markets (v) hedge funds
