@@ -120,6 +120,12 @@ try {
   const FT2 = "https://www.ft.com/content/99998888-7777-6666-5555-444433332222";
   const ex = await (await read(FT2, { env: senv })).json();
   check(ex.accessible === false && ex.reason === "session-expired" && ex.subscriber, "a logged-out session reads as session-expired (standfirst fallback)");
+  // A cookie too big for one Cloudflare secret is split across _2/_3 and joined back.
+  ftMode = "ok"; calls.length = 0;
+  const splitEnv = { ...env, SUB_COOKIE_FT: "FTSession_s=abc; a=1;", SUB_COOKIE_FT_2: " b=2; c=3", SUB_COOKIE_FT_3: "d=4" };
+  const sp = await (await read("https://www.ft.com/content/cdcdcdcd-1111-2222-3333-444455556666", { env: splitEnv })).json();
+  const sentCookie = (calls.find((c) => c.cookie) || {}).cookie;
+  check(sp.accessible && sentCookie === "FTSession_s=abc; a=1; b=2; c=3; d=4", `a split cookie is sent whole (${sentCookie})`);
   // A robot check (Bloomberg / WSJ style) is "session-blocked", not a lapsed cookie.
   ftMode = "bot";
   const bot = await (await read("https://www.ft.com/content/abababab-1111-2222-3333-444455556666", { env: senv })).json();

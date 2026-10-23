@@ -2611,7 +2611,10 @@ async function handleSubscriberRead(request, env, u, base, warm) {
   if (warm) return priv({ url: target, source, accessible: false, paragraphs: [], subscriber: true, warm: true, reason: "subscriber" });
   // 3. the owner's own session, on an explicit open only, within the daily cap
   let reason = "subscriber";
-  const cookie = env && env[SUB_COOKIE_ENV[base]];
+  // Cloudflare caps one secret at ~5 kB and some sites' cookies are bigger (Bloomberg ~10 kB),
+  // so a cookie may be split across SUB_COOKIE_X, SUB_COOKIE_X_2 … _4 (joined back with "; ").
+  const ck = SUB_COOKIE_ENV[base];
+  const cookie = env ? [env[ck], env[ck + "_2"], env[ck + "_3"], env[ck + "_4"]].map((x) => String(x || "").trim().replace(/^;+|;+$/g, "").trim()).filter(Boolean).join("; ") : "";
   if (cookie) {
     const day = new Date().toISOString().slice(0, 10), nKey = "subn:" + base + ":" + day;
     let used = 0; try { used = +((kv && await kv.get(nKey)) || 0); } catch { used = 0; }
@@ -2619,7 +2622,7 @@ async function handleSubscriberRead(request, env, u, base, warm) {
     if (used >= cap) reason = "session-daily-cap";
     else {
       try { if (kv) await kv.put(nKey, String(used + 1), { expirationTtl: 2 * 86400 }); } catch { /* best effort */ }
-      const d = await _readSubscriber(u, base, String(cookie).trim());
+      const d = await _readSubscriber(u, base, cookie);
       if (d.accessible) {
         const out = { ...d, source };
         try { if (kv) await kv.put(subKey, JSON.stringify(out), { expirationTtl: SUB_TTL }); } catch { /* best effort */ }

@@ -1842,7 +1842,8 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   the issue with "From your <pub> newsletter · <issue>" and the part on the story marked
   (`.g-read-focus`); **(2) the owner's own session** — the browser `Cookie` header for that
   site held as a Worker secret (`SUB_COOKIE_FT`, `SUB_COOKIE_ECONOMIST`, `SUB_COOKIE_WSJ`,
-  `SUB_COOKIE_BLOOMBERG`; none set = this step is skipped). Fetched only on an explicit
+  `SUB_COOKIE_BLOOMBERG`; none set = this step is skipped; a cookie over Cloudflare's ~5 kB
+  secret limit is split across `<NAME>_2` … `<NAME>_4` and joined back with "; "). Fetched only on an explicit
   open — **never** a prefetch (`warm=1`), the cron pre-warm or a third-party proxy —
   capped at `SUB_DAILY_MAX` (200; raised from 60 by the owner 2026-10-23) per site per day; the cookie is sent only to that site
   (manual redirects; a bounce to a login/other host or a logged-out teaser = `session-expired`,
