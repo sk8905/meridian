@@ -1,12 +1,12 @@
 {
- "generated": "2026-10-23T14:07:52.434Z",
+ "generated": "2026-10-23T14:29:04.302Z",
  "windowDays": 30,
  "summary": {
-  "wireItems": 806,
+  "wireItems": 833,
   "lawFirmDeals": 52,
-  "matched": 222,
-  "open": 3,
-  "total": 333,
+  "matched": 235,
+  "open": 18,
+  "total": 348,
   "entities": 1555,
   "failedSources": [
    "Accredited Investor Insights",
@@ -38,7 +38,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:46:24.789Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "i1538",
    "reason": null,
@@ -58,7 +58,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "i1528",
    "reason": null,
@@ -113,7 +113,7 @@
     }
    ],
    "firstSeen": "2026-10-23T13:20:31.148Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "i1539",
    "reason": null,
@@ -133,7 +133,7 @@
     }
    ],
    "firstSeen": "2026-10-23T01:36:37.090Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "investment gain, not a distressed-credit event",
@@ -153,7 +153,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Tesla-merger speculation after earnings; no distress or debt event",
@@ -173,7 +173,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:19:23.701Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Citi is a bank; China securities licence is not credit",
@@ -193,7 +193,7 @@
     }
    ],
    "firstSeen": "2026-10-23T12:16:21.619Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "KKR founders personal football-club equity deal; not credit",
@@ -223,7 +223,7 @@
     }
    ],
    "firstSeen": "2026-10-23T09:03:56.217Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "hedge fund unit sale, not a credit event; $276.9m figure not verifiable (SEC 8-Ks show ~$109.5m aggregate)",
@@ -243,7 +243,7 @@
     }
    ],
    "firstSeen": "2026-10-23T09:03:56.217Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "CalPERS only considering a hedge fund return; no commitment or mandate, no primary source",
@@ -263,7 +263,7 @@
     }
    ],
    "firstSeen": "2026-10-23T14:07:52.434Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "open"
   },
   {
@@ -280,7 +280,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Partnership-round headcount commentary; not a banking/RI/corporate/funds alert",
@@ -300,7 +300,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Firm-merger/academic-partnership feature; not a banking/RI/corporate/funds alert",
@@ -330,7 +330,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "No source confirms a Blackstone-led $300m financing; only the Arlington take-private of Gooch & Housego found",
@@ -360,7 +360,7 @@
     }
    ],
    "firstSeen": "2026-10-23T09:21:24.257Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Generic Blackstone market commentary; no discrete deal, fund raise or hire",
@@ -380,7 +380,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Allocation commentary; no commitment to a tracked manager or fund named",
@@ -400,7 +400,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "No verifiable primary source found for the Oct-2026 report",
@@ -500,7 +500,7 @@
     }
    ],
    "firstSeen": "2026-10-22T15:16:50.918Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "i1478",
    "reason": null,
@@ -520,7 +520,7 @@
     }
    ],
    "firstSeen": "2026-10-22T10:06:47.586Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m189",
    "reason": null,
@@ -545,7 +545,7 @@
     }
    ],
    "firstSeen": "2026-10-22T10:06:47.586Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "i1477",
    "reason": null,
@@ -565,7 +565,7 @@
     }
    ],
    "firstSeen": "2026-10-22T18:39:17.115Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Political donations story; not a SpaceX debt/stress data point",
@@ -680,7 +680,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "FT paywalled; no primary-verifiable facts retrievable",
@@ -705,7 +705,7 @@
     }
    ],
    "firstSeen": "2026-10-22T10:06:47.586Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi568",
    "reason": null,
@@ -725,7 +725,7 @@
     }
    ],
    "firstSeen": "2026-10-22T08:25:04.705Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "could not verify a $300m overseas raise by Lingjun from any primary source or second outlet",
@@ -745,7 +745,7 @@
     }
    ],
    "firstSeen": "2026-10-22T08:25:04.705Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "no corroborating coverage found; litigation with an ex-employee, not a fund event",
@@ -767,7 +767,7 @@
    "via": "law-firm",
    "legalId": "u4033",
    "firstSeen": "2026-10-22T19:16:33.903Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Kirkland release: PE acquisition financing for TPG/Zembl, no lenders or credit terms; not a TPG credit event",
@@ -787,7 +787,7 @@
     }
    ],
    "firstSeen": "2026-10-22T16:10:26.440Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "interview/profile piece with no verifiable primary source or checkable deal/news facts",
@@ -807,7 +807,7 @@
     }
    ],
    "firstSeen": "2026-10-22T13:14:14.458Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m5",
    "reason": null,
@@ -827,7 +827,7 @@
     }
    ],
    "firstSeen": "2026-10-22T08:18:07.834Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "no primary release or tier-1 article found for the Sound Point team expansion; Google News redirect unresolvable",
@@ -847,7 +847,7 @@
     }
    ],
    "firstSeen": "2026-10-22T18:06:06.303Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "No primary PR Newswire/JPM release found for the Solana expansion; unverifiable",
@@ -872,7 +872,7 @@
     }
    ],
    "firstSeen": "2026-10-22T11:16:08.190Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Not verified: LSEG's own 2026-10-13 release only confirms talks with Permira (~$3.5bn), no definitive agreement; subject entities are LSEG/Octus/Permira, not the tagged PIF; Google News redirect is not citable. Re-check for a signed deal.",
@@ -897,7 +897,7 @@
     }
    ],
    "firstSeen": "2026-10-22T13:22:55.465Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "drone-product press release; spurious entity match, no tracked-entity link or credit/LP allocation",
@@ -917,7 +917,7 @@
     }
    ],
    "firstSeen": "2026-10-23T01:36:37.090Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "LP only a passing mention in an unrelated press release",
@@ -1002,7 +1002,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Bank job-cuts story; not credit-manager scope; no primary URL resolved",
@@ -1047,7 +1047,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Bank earnings commentary; not credit-manager scope",
@@ -1067,11 +1067,45 @@
     }
    ],
    "firstSeen": "2026-10-23T13:20:31.148Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Only a Google redirect; FN article and staff-cost figure not verifiable",
    "closed": "2026-10-23T13:24:09.625Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmipwfbvv95cuxprkv6d0xtzi1wmu1vludtyxvxyjftzs1lz08zatzpckqtoehvbelhywzodellyupvudlxefhzwgjfylrfzugwquk5clbpzxzednb5nm50oux1nezuszfiy3g3ddjyyjfvewfitdb4tnvnx1lustdaunvzuvnkc2disu1kd3jhakpwswj2tkdozxpalvdfyklky1zyrdhvejztmvdjuy1fcw",
+   "title": "Exclusive | Weil Gotshal Bleeds More Top Lawyers as It Holds Merger Talks",
+   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPRkV6d0xTZi1WMU1VLUdTYXVxYjFTZS1LZ08zaTZpckQtOEhVbElhYWZOdEllYUpVUDlxeFhZWGJFYlRFZUgwQUk5clBPZXZEdnB5Nm50OUx1NEZuSzFiY3g3dDJYYjFveWFITDB4TnVnX1luSTdaUnVZUVNKc2dISU1kd3JHakpWSWJ2TkdOZXpaLVdFYklkY1ZyRDhvejZTMVdJUy1Fcw?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-22",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "weil",
+     "name": "Weil, Gotshal & Manges"
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmisgfbvv95cuxnb2ffy0xlehjrcjm5wg9tvffbotdkofj2svfha2fxn05jt2h1cxfpa2w2am9lenl3tmhidehrz25rrkiyr19kbgc0znhlx0owv1dlqudtwdbud3i1mez6adc0bnbmuw9yrg1satjoswvvym0xq1dtclntmmg1dwthlujkvlpuz0vcd3feug9xufhoyth0vmfuek1xudz0ehdlsdhlawfht1ztmmvhukt6ek9n",
+   "title": "Aberdeen creates new role to bolster business with global consultants",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNb2FFY0xleHJrcjM5WG9TVFFBOTdkOFJ2SVFHa2FXN05JT2h1cXFPa2w2am9Lenl3TmhIdEhrZ25rRkIyR19KbGc0ZnhLX0owV1dLQUdtWDBud3I1MEZ6aDc0bnBMUW9yRG1saTJoSWVvYm0xQ1dtclNtMmg1dWtHLUJkVlpuZ0VCd3FEUG9XUFhOYTh0VmFUek1XUDZ0eHdlSDhLaWFHT1ZtMmVhUkt6ek9n?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-22",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m171",
+     "name": "Aberdeen Investments"
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmiswfbvv95cuxncentaxktsu5wnmvnqulrakh0zkpiqxzhczdwzli5sldkvldkzutyd29yy1pouni0dxhdlutvsvb4sdbhsf9vnhhyrfdvbkhruxnmrldtc0vselprdfq2weeyuhr2x0w1s0nbn0rhulfnymlqcjnjbhrhwdbusxnsuux3vnblohpxlvitadlzutewv2rim245rlkyq05mszjuaddadvlncmdidhrqx2j0of9cvq",
@@ -1087,7 +1121,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Event and date not confirmed by any retrievable report",
@@ -1117,7 +1151,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Generic earnings headline; no credit capital event",
@@ -1144,6 +1178,28 @@
    "closed": "2026-10-23T11:16:51.086Z"
   },
   {
+   "key": "news.google.com/rss/articles/cbmiuafbvv95cuxqsxjwbhq2nu1vshdhaehvmtb2eglpn0q4ujyyzgnxuwxobxqwqxryyvlllw14qxrjdtctugx3bmtjskv2b21neeprali3snjgczzzoe5htlf2cdjounh3bzfynmz5s3notl9vzhpbnhkwmgrvsfmwatfwmu1qyulxby02bfpyauzirw5msdvfslvod1oysjjiqmj1uwwyzxy1t1lfte16vnb0c1nwovptvmdvrfvqx29y",
+   "title": "Barclays investment bank misses expectations despite 47% stock-trading gain",
+   "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQSXJwbHQ2NU1VSHdhaEhVMTB2eGlPN0Q4UjYyZGNXUWxObXQwQXRyYVllLW14QXRjdTctUGx3bmtJSkV2b21NeEpRalI3SnJGczZzOE5hTlF2cDJOUnh3bzFYNmZ5S3NoTl9vZHpBNHkwMGRvSFMwaTFwMU1qYUlxby02bFpyaUZIRW5mSDVfSlVod1oySjJIQmJ1UWwyZXY1T1lFTE16VnB0c1NwOVptVmdVRFVqX29Y?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-22",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m59",
+     "name": "Barclays"
+    },
+    {
+     "kind": "manager",
+     "id": "m426",
+     "name": "Barclays Capital Inc."
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
+  },
+  {
    "key": "news.google.com/rss/articles/cbmiwwfbvv95cuxnyxc2bkfkuetfzthxzhhismnsntbjsw5nc21wamtnywdvqkrvnwhovggyue01ugjntdzychzgatvuqvzfttlpnnrrvwn0dgdnywpmcnranezua2n4tdvhqne3ovptsxdabutjwk0xrddxvdbzavp6alvpsnvftlc1ck9utuvwq3e4r0fuqkvwsmrkx2rvtwtqv3rkofvxddv0uuk0umthmmmzznhmyu9iqvfosgxusu40v1mwzlf3awjwmhc",
    "title": "Trading Places: Evercore’s succession play, NatWest’s new markets head",
    "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNYXc2bkFkUEtFZThXZHhiSmNSNTBjSW5Nc21wamtNYWdvQkRVNWhoVGgyUE01UGJnTDZYcHZGaTVuQVZFTTlPNnRrVWN0dGdnYWpmcnRaNEZua2N4TDVhQnE3OVptSXdabUtjWk0xRDdXVDBZaVp6alVPSnVFTlc1ck9uTUVwQ3E4R0FuQkVWSmRKX2RVTWtQV3RkOFVXdDV0UUk0UmtHMmMzZnhmYU9iQVFoSGxuSU40V1MwZlF3aWJwMHc?oc=5",
@@ -1162,7 +1218,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "People-moves roundup about banks; not credit managers",
@@ -1182,7 +1238,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Bank wealth-advice commentary; not credit scope",
@@ -1202,7 +1258,7 @@
     }
    ],
    "firstSeen": "2026-10-22T05:20:58.161Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "not an LP allocation: in-house GC appointment at a horse association; LP tag spurious",
@@ -1347,7 +1403,7 @@
     }
    ],
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "equity-market/earnings commentary; not a stressed-credit update or credit event",
@@ -1517,7 +1573,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Barclays is a bank, not a tracked credit manager; not a capital event",
@@ -1542,7 +1598,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Griffin macro/AI-bubble opinion; not hedge-fund news of record",
@@ -1567,7 +1623,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "equity position commentary, not credit",
@@ -1589,7 +1645,7 @@
    "via": "law-firm",
    "legalId": "u3694",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "d1321",
    "reason": null,
@@ -1609,7 +1665,7 @@
     }
    ],
    "firstSeen": "2026-10-21T17:47:17.551Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "merger speculation Weil denied; no firm announcement, article not retrievable",
@@ -1669,7 +1725,7 @@
     }
    ],
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "IREN Spanish campus announcement carries no financing — the financing is already held as d829",
@@ -1744,7 +1800,7 @@
     }
    ],
    "firstSeen": "2026-10-21T20:56:01.384Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m263",
    "reason": null,
@@ -1764,7 +1820,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Opinion on possible merger; no firm announcement",
@@ -1824,7 +1880,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Investment-bank M&A hire; not a credit manager hire",
@@ -1849,6 +1905,33 @@
    "recordId": null,
    "reason": "corporate earnings/merger story, not a credit-stress or debt event",
    "closed": "2026-10-22T05:17:19.344Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiqwfbvv95cuxqatjjswpfyxructvmzkjzu2kyvnbvzl9lctziexpxylpteknqu0jvykhgttf5mettykxlzm5iug5urm1ab281wuy3zmp1qzbongf2denqyknwawr1udlva1n4q1zvbffvcnbzq1nnlxnhcwcwvkfytmvfuwhbbfcznudpzwffzwpsy1hsnvlwshnyem9aew1in19wnevuc2njwgr0uhrrmla5r1k",
+   "title": "Balyasny hires former Citadel portfolio manager in equities push",
+   "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQaTJJSWpFYXRUcTVmZkJzU2kyVnBvZl9lcTZIeXpxYlptekNQU0JVYkhGTTF5MEttYkxlZm5IUG5URm1ab281WUY3Zmp1QzBoNGF2dENqYkNWaWR1UDlva1N4Q1ZVbFFvcnBZQ1NNLXNhcWcwVkFYTmVfUWhBbFczNUdpZWFfZWpSY1hsNVlwSHNyem9aeW1IN19WNEVuc2NJWGR0UHRrMlA5R1k?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m385",
+     "name": "Citadel"
+    },
+    {
+     "kind": "hf",
+     "id": "h4",
+     "name": "Citadel"
+    },
+    {
+     "kind": "hf",
+     "id": "h17",
+     "name": "Balyasny Asset Management"
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmirgjbvv95cuxpzvjwuuvmwuxjrljks3lmrjlhvujqumttmuvuexk5tuv2x09jm2twzktmvxrgaenmaepva2lwtffkmxa5vl9tmxf5nvdtbevvwmq4be9vttfom2mymtfpx0lwdxvzs3zhogx2tmhpu0njrfzoovpuawhgenc0vs1vq3vslwdfeja2dwpwsjdbcglsm2hrd3hmehvoy3jcrw85rlvivmr4t0ldx091ckjonnvyz1k1sktudgpqykzut3zsthbccu9uymm4vlfjuxzdzw9emzvjsu1isgvpwmpclxlfd1pzve9uatzqmhdsvdi2qm9tdmxtn3j5rmc2telfahm4auvidwnjbu9fci11qv9xtuvcqw5rtnzks0douutzuhptb3jfsnphbudbqq",
@@ -1899,7 +1982,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Market commentary on bond prices; no restructuring/default event verified",
@@ -1919,7 +2002,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Video commentary; no capital event",
@@ -1939,7 +2022,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Generic market commentary",
@@ -1959,7 +2042,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Group AUM/platform update; not credit-specific",
@@ -1979,7 +2062,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Generic CEO commentary; no capital event",
@@ -2086,7 +2169,7 @@
    "via": "law-firm",
    "legalId": "u3834",
    "firstSeen": "2026-10-22T05:21:48.205Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "PE/strategic acquisition by OTPP-backed company, not a private-credit allocation; held as legal item u3834",
@@ -2206,7 +2289,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi534",
    "reason": null,
@@ -2231,7 +2314,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "passing mention; trader departure not a senior hire of record",
@@ -2251,7 +2334,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Story is Optiver's hire; Rokos is a passing mention (his departure was ~2 years ago, non-compete)",
@@ -2271,7 +2354,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "macro commentary, not a tracked-entity event",
@@ -2291,7 +2374,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi535",
    "reason": null,
@@ -2313,7 +2396,7 @@
    "via": "law-firm",
    "legalId": "u3767",
    "firstSeen": "2026-10-21T21:16:59.012Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3767",
    "reason": null,
@@ -2488,7 +2571,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "i1469",
    "reason": null,
@@ -2573,7 +2656,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "conference commentary, no capital event; unresolvable Google News redirect",
@@ -2643,7 +2726,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Merger-talk commentary; no confirmed event",
@@ -2678,7 +2761,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Private-equity sale process for W1M; not credit; entities mis-tagged",
@@ -2698,7 +2781,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Citi Australia CEO market commentary; not a tracked credit event",
@@ -2718,7 +2801,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3698",
    "reason": null,
@@ -2738,7 +2821,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Bank of England story; mis-tagged, tracked manager not the subject",
@@ -2778,7 +2861,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Ranking list mention; no capital event",
@@ -2825,7 +2908,7 @@
    "via": "law-firm",
    "legalId": "u3522",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m242",
    "reason": null,
@@ -2945,7 +3028,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi477",
    "reason": null,
@@ -2975,7 +3058,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -3010,7 +3093,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "passing mention; individual trader retiring, not a tracked-entity event",
@@ -3035,7 +3118,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi478",
    "reason": null,
@@ -3055,7 +3138,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m91",
    "reason": null,
@@ -3075,7 +3158,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi479",
    "reason": null,
@@ -3105,7 +3188,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -3132,7 +3215,7 @@
    "via": "law-firm",
    "legalId": "u3421",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m20",
    "reason": null,
@@ -3259,7 +3342,7 @@
    "via": "law-firm",
    "legalId": "u3319",
    "firstSeen": "2026-10-22T09:19:05.200Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "DBS's own senior unsecured bond issuance (bank funding, US$1.5bn under its GMTN programme), not a credit-manager credit event; the Linklaters release is already held as a legal item.",
@@ -3324,7 +3407,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m401",
    "reason": null,
@@ -3369,7 +3452,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "macro research publication, not a credit capital event",
@@ -3389,7 +3472,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Bank markets-CEO hire; not a credit manager",
@@ -3429,7 +3512,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3615",
    "reason": null,
@@ -3449,7 +3532,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3616",
    "reason": null,
@@ -3469,7 +3552,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3616",
    "reason": null,
@@ -3489,7 +3572,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Bank litigation story; not credit-manager scope",
@@ -3509,7 +3592,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "could not verify an Oct 2026 hire",
@@ -3534,7 +3617,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Bank CFO interview; not credit scope (duplicate of an earlier rejected item)",
@@ -3554,7 +3637,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Hiring-trend feature; no new verifiable event for a tracked fund",
@@ -3574,7 +3657,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Investment-bank leadership change; not a tracked credit manager",
@@ -3601,6 +3684,45 @@
    "closed": "2026-10-23T11:16:51.086Z"
   },
   {
+   "key": "news.google.com/rss/articles/cbmiekfvx3lxte5fshozdxrcu3fosmvcswj6r0tfuhqxdmjyctk1qw5oahn6yvhtx3fackpfnun1v3lruwzrdfznc1psz3gwv1foqlmyexz6y2lry3jnsetbr2w3svnfu1y3anl0wgpcuutcv3fxbufuskrrcud6uez0bvfr",
+   "title": "Ropes & Gray",
+   "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5FSHozdXRCU3FoSmVCSWJ6R0tfUHQxdmJYcTk1QW5OaHN6YVhTX3FackpfNUN1V3lrUWZrdFZnc1pSZ3gwV1FoQlMyeXZ6Y2lrY3JnSEtBR2w3SVNfU1Y3anl0WGpCUUtCV3FXbUFuSkRrcUd6UEZ0bVFR?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-17",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "ropesgray",
+     "name": "Ropes & Gray"
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmihafbvv95cuxpr3fzctnqmfvswhjtzkhywlnvsevhsvretxlhv1aznm9texbjdc1xekhtodnfsthlngn2mvzhou9wvlvhyl95rwzvq29mafplrno2alu4dehdv0l4nvfpz3c2zxvuukv4cwdbyvlpuva5t3phevjcawzyzkhiv0xua1jsmee",
+   "title": "Blue Owl Founders Promised a Comeback. The Company’s Share Price Hasn’t Budged.",
+   "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPR3FZcTNQMFVSWHJTZkhyWlNVSEVHSVRETXlhV1AzNm9teXBjdC1xekhTODNFSThLNGN2MVZHOU9wVlVHYl95RWZvQ29maFpLRno2alU4dEhDV0l4NVFpZ3c2ZXVUUkV4cWdBYVlPUVA5T3pHeVJCaWZyZkhIV0xua1JSMEE?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-17",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m90",
+     "name": "Blue Owl Capital"
+    },
+    {
+     "kind": "borrower",
+     "id": "d1001",
+     "name": "Blue Owl Capital Inc."
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
+  },
+  {
    "key": "news.google.com/rss/articles/cbmiswfbvv95cuxpagzuunhynzjun1bfbdc3ts1fazdfvevsuvnotunxa0trrkzcnujcqwzjehk4tfl3mvbyvhr1anhvznjfzgfmswjezvphdc16ctvyvjdtukv0y09hvxzqru5mnmfjcgdszjnzyki4tjy2ytbxavnjdwvjalzvn3i5rlbat2yxmxhtzvldzgq3mgkzz2lwv3vycwe5wfrstm1cahzmtfjkmvlcywn2c0ztv3zzdw",
    "title": "Stephenson Harwood announces CEO change amid Taylor Wessing talks",
    "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPaGZUUnhYNzJUN1BFbDc3TS1FazdfVEVsUVNOTUNxa0tRRkZCNUJCQWZJeHk4TFl3MVBYVHR1anhvZnJfZGFmSWJEZVphdC16cTVyVjdTUkV0Y09HVXZQRU5MNmFjcGdsZjNzYkI4TjY2YTBXaVNJdWVjalZvN3I5RlBaT2YxMXhtZVlDZGQ3MGkzZ2lwV3VycWE5WFRsTm1CaHZmTFJKMVlCYWN2c0ZtV3Zzdw?oc=5",
@@ -3614,7 +3736,7 @@
     }
    ],
    "firstSeen": "2026-10-22T13:14:47.473Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3211",
    "reason": null,
@@ -3639,7 +3761,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi480",
    "reason": null,
@@ -3671,7 +3793,7 @@
    "via": "law-firm",
    "legalId": "u3323",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "d1296",
    "reason": null,
@@ -3733,7 +3855,7 @@
    "via": "law-firm",
    "legalId": "u3123",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: 'Latin American Development Bank' (CAF) is not American International Group; CAF's own bond issue",
@@ -3755,7 +3877,7 @@
    "via": "law-firm",
    "legalId": "u2976",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "i1464",
    "reason": null,
@@ -3780,7 +3902,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Group-level AUM results, not credit-specific",
@@ -3800,7 +3922,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3618",
    "reason": null,
@@ -3820,7 +3942,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3619",
    "reason": null,
@@ -3840,7 +3962,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "endowment return citing SpaceX holding; equity chatter",
@@ -3860,7 +3982,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi481",
    "reason": null,
@@ -3885,7 +4007,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi482",
    "reason": null,
@@ -3912,7 +4034,7 @@
    "via": "law-firm",
    "legalId": "u3324",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "d1263",
    "reason": null,
@@ -3939,7 +4061,7 @@
    "via": "law-firm",
    "legalId": "u2776",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi480",
    "reason": null,
@@ -3986,7 +4108,7 @@
    "via": "law-firm",
    "legalId": "u2845",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: 'American' (American Express GBT) is not AIG; QIA appears only as an equity shareholder adviser client in a take-private, not a fund commitment",
@@ -4011,7 +4133,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "i1452",
    "reason": null,
@@ -4096,7 +4218,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Generic market-outlook commentary",
@@ -4116,7 +4238,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Already held as u2922 (Simmons & Simmons Luxembourg finance hire, 2026-10-15)",
@@ -4141,11 +4263,28 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Mis-tagged: about a different trader's fund, not Citadel",
    "closed": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmirwfbvv95cuxoavr0zvdymgvisuc4ewtqczjqwec2bmm4q1zhoxhibc1soxm5ady3vunubnvlx0voovdan3lqrhlrnzfoswdiufprull0berdqkrvlw1vrvdxcuhznjlcdvhzoe9yskjmwkzzcetjm3vltgtzskvemwhkos1gvtlnre83wllybjlyt0vjznl0yjhhmm9ly3o0mxnaefzweenlcfn0rgf1eejsuxfsdhzj",
+   "title": "Amundi, BlackRock, M&G bosses star in FN’s Most Influential Women list",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOaVR0ZVdYMGViSUc4eWtqczJQWEc2bmM4Q1ZHOXhIbC1SOXM5aDY3VUNubnVLX0VOOVdaN3lqRHlrNzFOSWdiUFpRUll0bERDQkRvLW1VRVdxcUhzNjlCdVhZOE9YSkJmWkZZcEtJM3VLTGtZSkVEMWhKOS1GVTlnRE83WllYbjlyT0VjZnl0YjhhMm9LY3o0MXNaeFZWeENLcFN0RGF1eEJSUXFsdHZJ?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-15",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m310",
+     "name": "BlackRock"
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmivafbvv95cuxqbhbyrtvycdn1wva3umtqemj1ys0yqlg4throc0jkbnl6wgpurwfiau5pns1pnwxtrdzwuwzdqzzjnm45u2twzutrmtjzdmiwrnzkx3vxyzrydgrkchqzthdirl9mnjbcnjlln0i2njnobji4dfdsvvb1z0n2lwzmztfuehbzdhrbszr2rfv5b0nnaudxoxvrbtvuvetkcfvzd2fystbsag5ontv1z1nmbm5sy3raau9uzgfrtq",
@@ -4161,7 +4300,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "speculative early-stage internal discussions, no announcement",
@@ -4181,7 +4320,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "WSJ paywalled; no primary text, no discrete credit capital event",
@@ -4203,7 +4342,7 @@
    "via": "law-firm",
    "legalId": "u2882",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: 'Oasis de Atacama' is a Grenergy solar platform, not Oasis Management; no tracked lender (BNP Paribas, BBVA, JPM etc. bank deal)",
@@ -4228,7 +4367,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "bank earnings, not a tracked-entity event",
@@ -4255,7 +4394,7 @@
    "via": "law-firm",
    "legalId": "u3901",
    "firstSeen": "2026-10-22T07:22:31.477Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3901",
    "reason": null,
@@ -4285,7 +4424,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi483",
    "reason": null,
@@ -4305,7 +4444,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi484",
    "reason": null,
@@ -4325,7 +4464,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi485",
    "reason": null,
@@ -4385,7 +4524,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "primary release not located; date conflict; PE sponsors not credit subjects",
@@ -4405,7 +4544,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "same source already held in the database",
@@ -4425,7 +4564,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "primary Business Wire release not located; only Yahoo Finance and a secondary summary carry the NAV/NII estimates, and Yahoo is a low-grade citation",
@@ -4485,7 +4624,7 @@
     }
    ],
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "barrister chambers hire; entity matched to 'Chambers and Partners' wrongly, not a tracked firm",
@@ -4505,7 +4644,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Firmwide AUM/earnings commentary; no credit capital event",
@@ -4530,7 +4669,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Single-trader move; not a firm-level hire or capital event",
@@ -4575,7 +4714,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -4607,7 +4746,7 @@
    "via": "law-firm",
    "legalId": "u3685",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m438",
    "reason": null,
@@ -4637,7 +4776,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "asset-allocation commentary, not a tracked-entity item",
@@ -4657,7 +4796,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3620",
    "reason": null,
@@ -4679,7 +4818,7 @@
    "via": "law-firm",
    "legalId": "u3132",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "tracked LP (BCI) is only an equity co-sponsor of the buyout; the private-credit lenders are not named in the release, so no tracked lender/manager to file under",
@@ -4701,7 +4840,7 @@
    "via": "law-firm",
    "legalId": "u2712",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m91",
    "reason": null,
@@ -4781,7 +4920,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Bank equity-trading earnings; not a credit-manager capital event",
@@ -4816,6 +4955,23 @@
    "recordId": null,
    "reason": "Bank equity-trading earnings; not a credit-manager capital event",
    "closed": "2026-10-23T11:17:29.258Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiqwfbvv95cuxoa3dpyjzmtunls3hzszbzaeznynpqagfsmk1xb0tjtev1szl5oevlz0zyluq3wnvyvfhur2htc3jhvexku1flsljsrldiwl94tgcwqnc2ruzpsnpwtlk5y1lwexvjnvfbtnv3zw9fddzgyndudlj4ltbfrdjns0hwmetfqwiyadktddi2suhsynzsckvuuxvksjbhddvkc1nvrtjsn2zwd21aa2s",
+   "title": "LSEG mulls $3.5bn bid for Permira-owned financial data firm Octus",
+   "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOa3dpYjZmTUNlS3hZSzBZaEZNYnpqaGFsMk1xb0tJTEV1Szl5OEVLZ0ZyLUQ3WnVyVFhuR2htc3JHVExkU1FLSlJSRldIWl94TGcwQnc2RUZPSnpWTlk5Y1lWeXVJNVFBTnV3ZW9FdDZGYndUdlJ4LTBFRDJnS0hWMEtfQWIyaDktdDI2SUhsYnZsckVUUXVKSjBhdDVkc1NvRTJSN2Zwd21aa2s?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-13",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m5",
+     "name": "Permira Credit"
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmiswfbvv95cuxpmdf5sffxmnftaxntwxlqzfo1lv9ia0fxzmp3tlp5y1dhdmnknlzbzevmmxn2ck1vnupvvtleuzzdaxb3zflyamp6zfpyb3ptv2jaqurvqkxmqxfdqkvmoxpjcxdmt09dlwltb05sxy1zwkjvdvbnatrwbgtitzffm2rbztq0ndktcui3ywftaejottdlb0hlvzllwvdocfy3mhbhrtbcq04yc1zfdupzqtc3qq",
@@ -4868,6 +5024,23 @@
    "closed": "2026-10-23T11:16:51.086Z"
   },
   {
+   "key": "news.google.com/rss/articles/cbmiugfbvv95cuxor1f0sve2qw1qdnj1q0s3ntvqn1fkrxziams1ynhlszzyekvom005wkvwx01ydwo2avrfa21itjdxtfptwvd5cwdjakzlbelsbm0yafnzq0ftqtfmnmzrbxbawjrmemrwqzrla3dlsnfsz3frykt3zthpvwfnrw1pulzqlwd6rw03wf83dk9os0nobtvjtktpu0hwt1jzz2rxzelbmkvzcjzuberrv1vnr0xgyljtt3rmdve",
+   "title": "Ninety One, Impax assets fall as fund managers battle to ride out volatility",
+   "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOR1F0SVE2QW1QdnJ1Q0s3NTVQN1FkRXZiams1YnhLSzZyekVOM005WkVWX01YdWo2aVRfa21ITjdXTFpTWVd5cWdJakZlbElSbm0yaFNZQ0FtQTFMNmZRbXBaWjRmemRwQzRla3dLSnFSZ3FRYkt3ZThPVWFnRW1PUlZQLWd6RW03WF83dk9OS0NObTVJTktPU0hWT1JZZ2RXZElBMkVZcjZubERrV1VnR0xGYlJTT3RmdVE?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-13",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m178",
+     "name": "Ninety One"
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
+  },
+  {
    "key": "news.google.com/rss/articles/cbmivafbvv95cuxqqxj2cu1qnuqwq1n4dzjbmgotx2zhog0xsfpmamzqnzbhznpisklyythqnwlhoedbtmntwjf3zgx3vgfzenn3yunibhzouex2ohzlt0nryjvnquhntfpsnjllrlv1cfznoxzdzjdvmu5sbzuzzwe4bu4watfydhyyvc1bnuznukp5znnwt25qdmhibxrovevgujvurlboyjbjswdlm1pvcedmnhmzafc4yllitlaxrjvhdtlmbq",
    "title": "Tiger Finance Provides $20 Million Credit Facility to Garage Beer",
    "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQQXJ2cU1QNUQwQ1N4dzJBMGotX2ZHOG0xSFpMamZQNzBHZnpiSklyYThqNWlHOEdBTmNTWjF3ZGx3VGFzenN3YUNIbHZOUEx2OHZlT0NRYjVnQUhnTFpsNjllRlV1cFZnOXZDZjdvMU5SbzUzZWE4bU4waTFYdHYyVC1BNUZNUkp5ZnNWT25qdmhibXROVEVGUjVURlBOYjBJSWdLM1pvcEdmNHMzaFc4YlliTlAxRjVhdTlmbQ?oc=5",
@@ -4906,7 +5079,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "unverified; no report found",
@@ -4928,7 +5101,7 @@
    "via": "law-firm",
    "legalId": "u2084",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "OMERS (tracked LP) is only the PE sponsor of the borrower; no tracked credit manager or lender is a party",
@@ -4950,7 +5123,7 @@
    "via": "law-firm",
    "legalId": "u1764",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "d1264",
    "reason": null,
@@ -4977,7 +5150,7 @@
    "via": "law-firm",
    "legalId": "u2571",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m120",
    "reason": null,
@@ -5002,7 +5175,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi480",
    "reason": null,
@@ -5034,7 +5207,7 @@
    "via": "law-firm",
    "legalId": "u2705",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "d1042",
    "reason": null,
@@ -5061,7 +5234,7 @@
    "via": "law-firm",
    "legalId": "u2698",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "d1284",
    "reason": null,
@@ -5118,6 +5291,28 @@
    "closed": "2026-10-23T11:16:51.086Z"
   },
   {
+   "key": "news.google.com/rss/articles/cbmitafbvv95cuxnvklybzdycxrmmevkx3h4n0vxwwn6tjzjdvpsmdvimwpwtf9hnzhkthncuww3nux3evrwstnwofljr1jpltbmawrmohvxv1draviyc3fzylrxuhvmwthlrgpwajatueu0rly5z1dicuznog1yvzvwrjbjtwhtykeyuvpgyvrxbexlzdi2wlbldxpmwuu2dvphalnvbzbzmljluzzqcxexyxjbntvwwu9ozwrkx3e",
+   "title": "Citigroup hires BNP Paribas duo to bolster financial sponsors team in Europe",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNVklybzdycXRMMEVkX3h4N0VXWWN6TjZJdVpSMDViMWpWTF9HNzhKTHNCUWw3NUx3eVRwSTNwOFlJR1JpLTBmaWRMOHVxV1draVIyc3FzYlRXUHVMWThlRGpwajAtUEU0RlY5Z1dIcUZNOG1YVzVwRjBJTWhtYkEyUVpGYVRXbExLZDI2WlBLdXpmWUU2dVphalNVbzBzMlJLUzZqcXExYXJBNTVwWU9oZWRkX3E?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-12",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m176",
+     "name": "BNP Paribas Asset Management (Private Debt & Real Assets)"
+    },
+    {
+     "kind": "manager",
+     "id": "m239",
+     "name": "BNP Paribas"
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
+  },
+  {
    "key": "news.google.com/rss/articles/cbmitwjbvv95cuxoedzongzyem5oz19gbnjyu2pfm21xx2vay05iv0npt2u5nni4mfzsuks2sfytenblmc1nrvj3m0jyzuvxb0u4cwxyudd0du9ln3btenfszlnnbgdwn0ftc0r6zwm3ru1nulpuym1fs1rhtdazcldsvfffbnzqaxbizgtubux6bla5u2ryq3otwks0aze4mzhunfvpzmc0qtbqm2xvrxhhvy1ynvuzzgtzu2xmehphzgzem3pxthk1ekhwr3bmymxptjzytnnlr3jorwi1bkzea0hlm2dlc2rey19lrufhrw1jv0piwmhotvhsbv9jmglqmhgtedrxwlu1nlzrvxbztjmxykwtden3zdrzevrmrkeyntfgnnpimvnns1lirtzlq1rzx3gtddfvegxublizoa",
    "title": "Blackstone Credit & Insurance Leads $1 Billion Financing to Support Combination of Analogic Corporation and Leidos' Security Enterprise Solutions Businesses",
    "url": "https://news.google.com/rss/articles/CBMitwJBVV95cUxOeDZoNGZYem5OZ19GbnJyU2pfM21xX2VaY05iV0NpT2U5NnI4MFZSUks2SFYtenBlMC1NRVJ3M0JYZUVXb0U4cWxyUDd0dU9lN3BtenFSZlNNbGdWN0Ftc0R6ZWM3RU1nUlpuYm1fS1RHTDAzcldSVFFFbnZqaXBiZGtubUx6blA5U2RyQ3otWks0azE4MzhUNFVPZmc0QTBQM2xvRXhhVy1yNVUzZGtzU2xMeHpHZGZEM3pxTHk1ekhWR3BMYmxpTjZyTnNLR3JORWI1bkZEa0hLM2dLc2REY19lRUFhRW1JV0piWmhOTVhsbV9JMGlqMHgteDRxWlU1NlZrVXBzTjMxYkwtdEN3ZDRZeVRmRkEyNTFGNnpiMVNnS1lIRTZlQ1RZX3gtdDFveGxUblIzOA?oc=5",
@@ -5141,7 +5336,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -5166,7 +5361,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3622",
    "reason": null,
@@ -5186,7 +5381,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi486",
    "reason": null,
@@ -5206,7 +5401,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "vendor selection, not fund/capital news",
@@ -5231,7 +5426,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi487",
    "reason": null,
@@ -5251,7 +5446,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi488",
    "reason": null,
@@ -5273,7 +5468,7 @@
    "via": "law-firm",
    "legalId": "u2702",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "SpaceX is the buyer in a spectrum asset sale (regulatory work) — no debt raised, not a credit transaction",
@@ -5295,7 +5490,7 @@
    "via": "law-firm",
    "legalId": "u2714",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m24",
    "reason": null,
@@ -5317,7 +5512,7 @@
    "via": "law-firm",
    "legalId": "u1770",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "i1467",
    "reason": null,
@@ -5339,7 +5534,7 @@
    "via": "law-firm",
    "legalId": "u1908",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": null,
    "reason": "cited by a deal-side record",
@@ -5361,7 +5556,7 @@
    "via": "law-firm",
    "legalId": "u1993",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: 'Bridge' is the Mobile River Bridge project, not tracked borrower d815; US DOT TIFIA loan with no tracked party",
@@ -5386,7 +5581,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -5411,7 +5606,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi489",
    "reason": null,
@@ -5436,7 +5631,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "unverified; no report found",
@@ -5456,7 +5651,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -5483,7 +5678,7 @@
    "via": "law-firm",
    "legalId": "u1995",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "d1285",
    "reason": null,
@@ -5505,7 +5700,7 @@
    "via": "law-firm",
    "legalId": "u1997",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "d967",
    "reason": null,
@@ -5545,7 +5740,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "law-firm disclosure policy, not deal/advisory/people news",
@@ -5565,7 +5760,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3623",
    "reason": null,
@@ -5612,7 +5807,7 @@
    "via": "law-firm",
    "legalId": "u3387",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "d1312",
    "reason": null,
@@ -5634,7 +5829,7 @@
    "via": "law-firm",
    "legalId": "u1803",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m92",
    "reason": null,
@@ -5659,7 +5854,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "FT paywalled; performance commentary, exact date not verifiable",
@@ -5689,7 +5884,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "hi490",
    "reason": null,
@@ -5761,7 +5956,7 @@
    "via": "law-firm",
    "legalId": "u2157",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: 'Public' (public offerings) is not Public Investment Fund (PIF)",
@@ -5783,7 +5978,7 @@
    "via": "law-firm",
    "legalId": "u1909",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m81",
    "reason": null,
@@ -5805,7 +6000,7 @@
    "via": "law-firm",
    "legalId": "u2003",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u2003",
    "reason": null,
@@ -5830,7 +6025,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "same source already held in the database",
@@ -5850,7 +6045,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Monthly performance note; no capital event",
@@ -5892,7 +6087,7 @@
    "via": "law-firm",
    "legalId": "u2159",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false/irrelevant match: release concerns McKesson Corporation's equity M&A (acquisition of Option Care Health with CD&R), not the tracked borrower McKesson UK; no credit transaction",
@@ -5914,7 +6109,7 @@
    "via": "law-firm",
    "legalId": "u2161",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "TalkTalk (tracked stressed credit) is the target of a corporate acquisition by BT Group — equity M&A, no credit transaction or tracked lender named; worth a note on the TalkTalk stress profile rather than a deals record.",
@@ -6021,7 +6216,7 @@
    "via": "law-firm",
    "legalId": "u1885",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m41",
    "reason": null,
@@ -6043,7 +6238,7 @@
    "via": "law-firm",
    "legalId": "u2163",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: McKesson Corporation (US buyer) is not the tracked McKesson UK borrower; equity M&A with no tracked credit party",
@@ -6063,11 +6258,28 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "league-table commentary, not a deal/advisory/people move",
    "closed": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmid0fvx3lxtfbkmlzjzwzkni1joexzsejwdudzu0x3d1zutm5zngtrmkkxqlr2zkvyrfa1dlr6mmd6ue05d05qqknvzflbrtbuwktltuntqkytsgjrmhppq1mtderrrlf4udk5tjnzri01ou94m0rpskdkemjgcdv3",
+   "title": "Prime Minister",
+   "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBKMlZjZWZKNi1JOExZSEJwdUdZU0x3d1ZuTm5ZNGtRMkkxQlR2ZkVyRFA1dlR6Mmd6UE05d05QQkNvZFlBRTBUWktlTUNTQkYtSGJRMHpPQ1MtdERrRlF4UDk5TjNZRi01OU94M0RPSkdkemJGcDV3?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-06",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m208",
+     "name": "Prime Capital AG"
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmirafbvv95cuxqanzbank3mldiuhlpntdssuhznliysjcylvzqndqzrxrwutzzcg0xufjzn3jldktjugpzbgtpbvjbakhftwhkzm5yuefwcgpvqwhzsm9mz0dca3gwmkppefblvekzntjfmgk4uloxslfwmk5pefluampct05wy2rrwjr4u2toyjhmwew1unz6znvktelwq2zpx19hzlprwxppvtv2svayzkfrcgq2",
@@ -6103,11 +6315,33 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
    "closed": "2026-10-23T10:06:47.135Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiwgfbvv95cuxqzupboufya2niq0z4z3m1rgj1aulgu0xibxllqlg3s0rmlwg3d2v2cgnzm2nywkjfrvh3d1bvtvzqzuzftufrdhjyr3nxnnl3sxvxs0zpbhh2yu82ctr2eljluufcnv9lvuh0curbmvrmymhldmg4nel5ujvrqwq2ndhmt21smflxc3o3b3d3d0dnlup4ofryewncwxpinwu0yzlvq2m0qvptrm5wohvjsxnhz05gdmdsttf1r0ntykk4uq",
+   "title": "‘Project Gunner’: How A&O Shearman hired Stephenson Harwood’s entire secondaries team",
+   "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQZUpBOUFYa2NiQ0Z4Z3M1RGJ1aUlGU0xibXllQlg3S0RmLWg3d2V2cGNzM2NyWkJfRVh3d1BVTVZQZUZFTUFRdHJyR3NxNnl3SXVxS0ZpbHh2YU82cTR2elJLUUFCNV9LVUh0cURBMVRmYmhLdmg4NEl5UjVrQWQ2NDhMT21sMFlXc3o3b3d3d0dNLUp4OFRYeWNCWXpiNWU0YzlVQ2M0QVpTRm5wOHVJSXNHZ05GdmdSTTF1R0NTYkk4UQ?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-06",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "aoshearman",
+     "name": "A&O Shearman"
+    },
+    {
+     "kind": "firm",
+     "id": "stephensonharwood",
+     "name": "Stephenson Harwood"
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
   },
   {
    "key": "whitecase.com/news/press-release/white-case-advises-atalian-global-recapitalization-and-change-ownership",
@@ -6125,7 +6359,7 @@
    "via": "law-firm",
    "legalId": "u1785",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "CR_STRESS:Atalian",
    "reason": null,
@@ -6150,7 +6384,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "not about the tracked entity (name match only)",
@@ -6170,7 +6404,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "equities hire, not credit",
@@ -6195,7 +6429,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "third-party tender offer, not a Blue Owl capital event",
@@ -6215,7 +6449,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Interview commentary; no event",
@@ -6257,7 +6491,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Interview commentary; the substantive Schroders event is recorded separately",
@@ -6306,7 +6540,7 @@
    "via": "law-firm",
    "legalId": "u1795",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "d992",
    "reason": null,
@@ -6333,7 +6567,7 @@
    "via": "law-firm",
    "legalId": "u2194",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "d1297",
    "reason": null,
@@ -6355,7 +6589,7 @@
    "via": "law-firm",
    "legalId": "u2192",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m2",
    "reason": null,
@@ -6380,7 +6614,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "i1453",
    "reason": null,
@@ -6420,7 +6654,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Monthly performance note; no capital event",
@@ -6442,7 +6676,7 @@
    "via": "law-firm",
    "legalId": "u2014",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "ESR acquiring a renewables platform (equity M&A); no debt raised and no tracked lender — not a credit transaction",
@@ -6462,7 +6696,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m389",
    "reason": null,
@@ -6482,7 +6716,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "same source already held in the database",
@@ -6522,7 +6756,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3688",
    "reason": null,
@@ -6572,7 +6806,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "same source already held in the database",
@@ -6592,7 +6826,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "in-house legal succession, not a tracked-entity event",
@@ -6612,7 +6846,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "The actor is Greenberg Traurig (not a tracked firm) hiring Ben Patton, head of construction at Ashurst Perkins Coie, as head of its London construction practice (GT release 2026-10-01, https://www.gtlaw.com/ar/news/2026/",
@@ -6664,7 +6898,7 @@
    "via": "law-firm",
    "legalId": "u1898",
    "firstSeen": "2026-10-22T09:19:05.200Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "d1337",
    "reason": null,
@@ -6746,7 +6980,7 @@
    "via": "law-firm",
    "legalId": "u2202",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m405",
    "reason": null,
@@ -6778,7 +7012,7 @@
    "via": "law-firm",
    "legalId": "u2201",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "d1275",
    "reason": null,
@@ -6800,7 +7034,7 @@
    "via": "law-firm",
    "legalId": "u2283",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: 'American' (American Express Global Business Travel) ≠ American International Group",
@@ -6820,7 +7054,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "i1454",
    "reason": null,
@@ -6840,7 +7074,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3689",
    "reason": null,
@@ -6860,7 +7094,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Could not verify from a primary source; wealth-fund product closure, not a KKR Credit capital event",
@@ -6895,7 +7129,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "FX trader hire at a bank; not a credit hire",
@@ -6920,7 +7154,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u3699",
    "reason": null,
@@ -6947,6 +7181,28 @@
    "closed": "2026-10-23T11:16:51.086Z"
   },
   {
+   "key": "news.google.com/rss/articles/cbmingfbvv95cuxncjjimjfkdzm0emfytg00ek43b2dmaxets1l4mlltagllduo0r1hjvjfmdgs5alh0swnud2nuogdxcxnvrufybetmafy4tkv0qwtavzn6yzqttgh4tg5ztdlfd1iyvk1vzme3sxbttgzcq09tskxmtuc5d0hyulrfc2tewjjvu0rtwmpfrkjxttn0yvvwc0vwvzrrdg1vuq",
+   "title": "Schroders among potential suitors engaging in W1M deal",
+   "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNcjJiMjFkdzM0emFYTG00ek43b2dmaXEtS1l4MlltaGlldUo0R1hjVjFmdGs5alh0SWNud2NuOGdXcXNVRUFybEtMaFY4TkV0QWtaVzN6YzQtTGh4TG5ZTDlfd1IyVk1VZmE3SXBtTGZCQ09TSkxMTUc5d0hYUlRFc2tEWjJVU0RtWmpfRkJxTTN0YVVWc0VwVzRrdG1vUQ?oc=5",
+   "source": "Financial News",
+   "date": "2026-09-29",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m111",
+     "name": "Schroders Capital"
+    },
+    {
+     "kind": "borrower",
+     "id": "d281",
+     "name": "Schroders plc"
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
+  },
+  {
    "key": "news.google.com/rss/articles/cbmisafbvv95cuxna3fsvnjpm2zxqvvwwgrdslyymnnkwlvatzf6uendownkefr0vhjonm9ox2jscg16luvcm3fer28zmwjsanpzdllrafldzkqwowjxbknrsznqrwnlmlrxnks5ouhzs3kwejdqmkutttnbwurmt3duz3pqrnvts3hzn05tevzjqlcwwlllc205ql9knjiznwzjevrgderrv0nuvu85wkz1mndtweviyk9vua",
    "title": "Parmenion kick-starts sales process a year after appointing Evercore",
    "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNa3FsVnJPM2ZXQVVwWGRDSlYyMnNKWlVaTzF6UENDOWNkeFR0VHJoNm9oX2JscG16LUVCM3FER28zMWJSanpzdllRaFlDZkQwOWJxbkNrSzNqRWNLMlRxNks5OUhzS3kwejdQMkUtTTNBWURmT3dUZ3pQRnVTS3hzN05teVZJQlcwWllLc205Ql9KNjIzNWZJeVRGdERrV0NuVU85WkZ1MndTWEVIYk9VUA?oc=5",
@@ -6960,7 +7216,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Advisory mandate for an investment bank; not a credit event",
@@ -6980,7 +7236,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Technology partnership, not a credit/capital event",
@@ -7000,7 +7256,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Unverifiable: searches found no 2026 source naming the two hires from Clyde & Co and Mishcon de Reya; only older unrelated moves, and no shlegal.com release located.",
@@ -7020,11 +7276,28 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
    "closed": "2026-10-21T11:09:20.581Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmirgfbvv95cuxpcupnaw9mbjzvsupcevpvltfvti1vre1kbjv4y0zwwfvbclhhofnidnfatjfzchrcvtzrlwo0dm11tgphv1v5wdvlrnh3mutnqvhamjrwtuhtq01eqxlkm1lumwxktwxfaerubgnsejv1u3kzbvlbyu5izljlzeswava3yu1xzkfmceding54uxpyudhhlxfizkzpnhjabfvfyzrvuy1wddn5uus3tve",
+   "title": "Bank of America names new industrials dealmaking leaders in Europe",
+   "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPcUpnaW9mbjZVSUpCeVpVLTFvTi1VRE1kbjV4Y0ZwWFVBclhHOFNIdnFaTjFzcHRCVTZrLWo0dm11TGphV1V5WDVLRnh3MUtNQVhaMjRwTUhtQ01EQXlkM1lUMWxKTWxfaERubGNSejV1U3kzbVlBYU5IZlJlZEswaVA3YU1XZkFMcEdiNG54UXpyUDhhLXFiZkZpNHJabFVFYzRvUy1wdDN5UUs3TVE?oc=5",
+   "source": "Financial News",
+   "date": "2026-09-28",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m248",
+     "name": "Bank of America"
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmisgfbvv95cuxpwgfxru1wehjxzgxlvfbym3h5d0d6tlvmvnpjqjjydmrmcfa0wtvoy1hywv9vt1ztnddvnwd1stryahbyzjn1awjkejlmy0rzsf9xslnuwjn4odv1d3jitudfsw1dd25kwwtvcgliukdbn1atzjdoslq2u1bwbercdw5xuxrovzf0y1a2be4xugtwbndkc3o5n1prcujvqvy5yy1xmgpubtlwuni4u2q0efdr",
@@ -7047,6 +7320,28 @@
    "closed": "2026-10-21T13:19:11.372Z"
   },
   {
+   "key": "news.google.com/rss/articles/cbmiswfbvv95cuxoztrodhrroggwew1gstn3mufwr3rxwtb0vfnpqmfbc3jini1srms0wtn1nlnralf3wtk2ufblsdixu09paxcxuvfvzghds3k5zwf6mzk3evnxuxnvumdunedydzvwu2szb0hnruyzanzcbwffr0d4zjc1sznfmgrhmuh1a3jxqudfzhptdujxref5tjb6axnor1zqm0zunnjlt2n6zzvlz3zzt2hfrzhwqjbjuq",
+   "title": "Verition hires ex-Balyasny money manager Jason Dailey in equities push",
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOZTROdHRROGgweW1GSTN3MUFwR3RXWTB0VFNPQmFBc3JINi1sRms0WTN1NlNralF3WTk2UFBLSDIxU09paXcxUVFvZGhDS3k5ZWF6Mzk3eVNXUXNVUmduNEdydzVWU2szb0hnRUYzanZCbWFFR0d4Zjc1SzNFMGRhMUh1a3JXQUdfZHpTdUJxREF5TjB6aXNoR1ZQM0ZUNnJLT2N6ZzVLZ3ZzT2hFRzhWQjBjUQ?oc=5",
+   "source": "Financial News",
+   "date": "2026-09-28",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h17",
+     "name": "Balyasny Asset Management"
+    },
+    {
+     "kind": "hf",
+     "id": "h25",
+     "name": "Verition Fund Management"
+    }
+   ],
+   "firstSeen": "2026-10-23T14:29:04.302Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
+   "status": "open"
+  },
+  {
    "key": "news.google.com/rss/articles/cbmipwfbvv95cuxoy0pslwxuczlwt0lkuzdkbxjsqvz6tvgxmhrozhdyrgs5ulvet0q3ew9haellu05zvhk2r3hecgpwqudsmjd6b1vevudyeflrzknhqkxjbhd4c2nozznzcexwawfan2kwqzlarti1dkhktenjcnh1cnnsnjfybmlque1ftvbulwe0thpod25avtrlovpkodm0v3rlbdnmu1zoau9jdzyzuq",
    "title": "Kirkland & Ellis’s ‘up or out’ culture is getting more complicated",
    "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOY0psLWxuczlWT0lkUzdKbXJSQVZ6TVgxMHROZHdYRGs5UlVET0Q3eW9HaElLU05ZVHk2R3hEcGpwQUdsMjd6b1VEVUdyeFlrZkNhQkxjbHd4c2NoZzNzcExWaWFaN2kwQzlaRTI1dkhKTENjcnh1cnNSNjFYbmlqUE1FTVBULWE0THpOd25aVTRlOVpKODM0V3RLbDNmU1ZoaU9JdzYzUQ?oc=5",
@@ -7060,7 +7355,7 @@
     }
    ],
    "firstSeen": "2026-10-23T11:11:22.370Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Kirkland not tracked; culture feature",
@@ -7085,7 +7380,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "same source already held in the database",
@@ -7105,7 +7400,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T13:25:18.215Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "disputes lateral, outside tracked areas",
@@ -7130,7 +7425,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Generic hiring feature; no named hire",
@@ -7150,7 +7445,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Not verifiable from a primary source; not credit",
@@ -7180,7 +7475,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Single-trader gossip; no firm-level event",
@@ -7200,7 +7495,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Unverified; multi-strategy equity, not credit",
@@ -7220,7 +7515,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Goldman fee income; not a tracked-entity capital event, text unverifiable",
@@ -7242,7 +7537,7 @@
    "via": "law-firm",
    "legalId": "u1703",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m20",
    "reason": null,
@@ -7264,7 +7559,7 @@
    "via": "law-firm",
    "legalId": "u1701",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m1",
    "reason": null,
@@ -7286,7 +7581,7 @@
    "via": "law-firm",
    "legalId": "u1705",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "u1705",
    "reason": null,
@@ -7306,7 +7601,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "investment-bank in-house GC hire, not a manager event",
@@ -7326,7 +7621,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Fund performance note; no capital event",
@@ -7346,7 +7641,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "arbitration hire, outside tracked areas",
@@ -7371,7 +7666,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "already held as d971 (Monroe joint lead arranger on Sweetmore Bakeries / Fantasy Baking, 2026-09-24)",
@@ -7391,7 +7686,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "rejected",
    "recordId": null,
    "reason": "market-wide research publication; entity name mismatch",
@@ -7413,7 +7708,7 @@
    "via": "law-firm",
    "legalId": "u1700",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T14:07:52.434Z",
+   "lastSeen": "2026-10-23T14:29:04.302Z",
    "status": "recorded",
    "recordId": "webNews:m21",
    "reason": null,
