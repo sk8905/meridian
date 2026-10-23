@@ -1,11 +1,11 @@
 {
- "generated": "2026-10-20T07:57:59.127Z",
+ "generated": "2026-10-23T07:59:53.757Z",
  "source": "The Gazette (OGL v3.0; personal data excluded) — https://www.thegazette.co.uk/insolvency/notice/data.json",
  "companies": {
   "Iguanas Holdings Limited": {
    "name": "Iguanas Holdings Limited",
    "from": "restructuring",
-   "notices": []
+   "error": "The operation was aborted due to timeout"
   },
   "Fossil (UK) Global Services Limited": {
    "name": "Fossil (UK) Global Services Limited",
@@ -15,7 +15,7 @@
   "Arxada Group": {
    "name": "Arxada Group",
    "from": "restructuring",
-   "notices": []
+   "error": "The operation was aborted due to timeout"
   },
   "Waldorf Production UK Plc": {
    "name": "Waldorf Production UK Plc",
@@ -304,7 +304,7 @@
   "Virgin Atlantic Airways Limited": {
    "name": "Virgin Atlantic Airways Limited",
    "from": "restructuring",
-   "notices": []
+   "error": "The operation was aborted due to timeout"
   },
   "Swissport Fuelling Limited": {
    "name": "Swissport Fuelling Limited",
@@ -374,7 +374,7 @@
   "Atento UK Limited and Atento Luxco 1 S.A.": {
    "name": "Atento UK Limited and Atento Luxco 1 S.A.",
    "from": "restructuring",
-   "notices": []
+   "error": "The operation was aborted due to timeout"
   },
   "New Look Financing plc (New Look Group)": {
    "name": "New Look Financing plc (New Look Group)",
@@ -454,7 +454,7 @@
   "TI Fluid Systems": {
    "name": "TI Fluid Systems",
    "from": "credits",
-   "notices": []
+   "error": "The operation was aborted due to timeout"
   },
   "Virgin Media O2": {
    "name": "Virgin Media O2",
@@ -492,7 +492,7 @@
   "Garfunkelux Holdco 2 (Lowell)": {
    "name": "Garfunkelux Holdco 2 (Lowell)",
    "from": "credits",
-   "notices": []
+   "error": "The operation was aborted due to timeout"
   },
   "Iceland Foods": {
    "name": "Iceland Foods",
@@ -507,29 +507,7 @@
   "Merlin Entertainments": {
    "name": "Merlin Entertainments",
    "from": "credits",
-   "notices": [
-    {
-     "company": "MERLIN ENTERTAINMENTS (BLACKPOOL) LIMITED",
-     "noticeCode": "2431",
-     "category": "Resolutions for Winding-up",
-     "published": "2026-09-29",
-     "url": "https://www.thegazette.co.uk/notice/5219890"
-    },
-    {
-     "company": "MERLIN ENTERTAINMENTS (BLACKPOOL) LIMITED",
-     "noticeCode": "2432",
-     "category": "Appointment of Liquidators",
-     "published": "2026-09-29",
-     "url": "https://www.thegazette.co.uk/notice/5219891"
-    },
-    {
-     "company": "MERLIN ENTERTAINMENTS (BLACKPOOL) LIMITED",
-     "noticeCode": "2433",
-     "category": "Notices to Creditors",
-     "published": "2026-09-29",
-     "url": "https://www.thegazette.co.uk/notice/5219892"
-    }
-   ]
+   "error": "http-500"
   },
   "Miller Homes": {
    "name": "Miller Homes",
@@ -569,7 +547,7 @@
  },
  "summary": {
   "targets": 93,
-  "queried": 93,
-  "notices": 13
+  "queried": 86,
+  "notices": 10
  }
 }
