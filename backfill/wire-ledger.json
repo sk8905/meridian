@@ -3025,6 +3025,457 @@
    "status": "rejected",
    "reason": "promotion of a founder media feature; not a credit transaction",
    "at": "2026-10-23T09:14:55.335Z"
+  },
+  {
+   "url": "https://www.privateequitywire.co.uk/162319-2/",
+   "status": "rejected",
+   "reason": "No source confirms a Blackstone-led $300m financing; only the Arlington take-private of Gooch & Housego found",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://www.privateequitywire.co.uk/blackstone-sees-opportunity-in-widening-ai-credit-spreads-as-exits-fall-34/",
+   "status": "rejected",
+   "reason": "Generic Blackstone market commentary; no discrete deal, fund raise or hire",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://www.privateequitywire.co.uk/calpers-cuts-big-tech-holdings-26-as-it-expands-private-equity-exposure/",
+   "status": "rejected",
+   "reason": "Allocation commentary; no commitment to a tracked manager or fund named",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://www.privateequitywire.co.uk/partners-group-backed-eyecare-seeks-up-to-400m-debt-discount/",
+   "status": "rejected",
+   "reason": "No verifiable primary source found for the Oct-2026 report",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://www.ft.com/content/d8e3ca1c-ef96-4148-9ca2-49d48f1604b8?syn-25a6b1a6=1",
+   "status": "rejected",
+   "reason": "FT paywalled; no primary-verifiable facts retrievable",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNcENTaXktSU5WNmVNQUlrakh0ZkpiQXZhczdwZlI5SldkVldkZUtyd29YY1poUnI0dXhDLUtVSVB4SDBhSF9vNHhyRFdVbkhrUXNmRldTc0VselpRdFQ2WEEyUHR2X0w1S0NBN0RhUlFnYmlqcjNJbHRHWDBuSXNsUUx3VnBLOHpXLVItaDlZUTEwV2RIM245RlkyQ05mSzJUaDdadVlncmdidHRQX2J0OF9CVQ?oc=5",
+   "status": "rejected",
+   "reason": "Event and date not confirmed by any retrievable report",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNMVFVX29IVVF0cGRMNUpGNW9fZzVpMlN3dGwxaG14T0xWUjk1SWQtR0I0WmtyTzBIS0dVTERxXzNsY1BsTDM0ZVRYbndFbElpMTFUcFRKRElQeHpqUEtRVXNIUVhTdVoxYWJfM2N6VS03bkNOVWFXV0RiLVlsNVFkcC1mX0dwRjcxc0hhZEJkZi1wSGtzVmd2UWxzWDhtRzJTMFBlSGE1Z2ZvN2xkZG5LRmp4bw?oc=5",
+   "status": "rejected",
+   "reason": "Generic earnings headline; no credit capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPTVBrcmJ1QUhYSUVmRlRMQTZpZUFITTJIdHlWY0w4STQ4REg4QlA1eERxS0dOVFdPcGxPMWdrVlNfSGhxZ24weFdQZEpfS0hVZ3dMSmV3TC1kZFkzRjg3SXF3SEhTeVV3NTNFMHlKRi1hbDlQYXRhdWdaSHZZWERzaTBKSEJQLVlOVTV6bUpsY2kxV0dKSklrZFNnSXBULXZCNVlXUnpnSjlVLUJTdy1Z?oc=5",
+   "status": "rejected",
+   "reason": "Market commentary on bond prices; no restructuring/default event verified",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOakdDU0ZVTERNSG5VQUJZMXVrejlQYWp0OW0xcjR1QXM4REs4bG11cTE0TlZNUEtTMkFzbG51V2VuRkpuNk1wQkFfZ05ma1ZFNlBtcm1aSTI2M0prVE9OQXVpX0RtTkhucW1rYWZYNjNZdmw2X09hWl9WYVhQWUZxMDdoREFlZ1RJbEVLeTdZRkRhanVkdTdBckFSQVVkaTRuYnZQY3JuWGxNZmxnY1Flbw?oc=5",
+   "status": "rejected",
+   "reason": "Video commentary; no capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOckZIcmxweVA0NU1LVDcxR0R3dVV4TWh5QzVMdVpBQ2pEN25OQXhRTlRZdnBGa1htZVF3NktnY0JmamkzdlU5ZjRGZjA0OW5aaUpLWlhPVWhIVFE3dEtDNTBZS2t6TzNmdFNzRnExQ3l4QmI5SkcyOXVCSGdoUTBDVkZSeUV3dC0tWXhFUjc3Y2IzQ1M5alI5Y2hzUEpZbGVERWpVT3MtSEEwcUdpcFQ5cQ?oc=5",
+   "status": "rejected",
+   "reason": "Generic market commentary",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPenBrbGQwVUtxZFJSMFc5Q3BMUkxJUWVJTVJlNUdkUHhWNmd5RTczLVZkSHhhY1R0OUxJTUR0WW9CZklMM05HdVNkSWhhVG10ZkV5X29XTlJVbVZVcnp5bEYtWDQtNUNTNU1KUmJqZTl5bkw0WGw5b2JHU1NvMXVhZzYxbDllVllJUTBJNVBvR3JodGtMekVLSTVaZ1JNeDVnY2pub2RNd3UtUEJycV9la0hKRno?oc=5",
+   "status": "rejected",
+   "reason": "Generic CEO commentary; no capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQTjdvS2s1bWV6SlRqdVkxd3JKYmpOc2l5VjJWM2l3b0ZQbWMyMTZUQ0R4cjdZS0FDNWxxTThIbUJDdS1mT1prT0hCRmlRMXF2WGV3c1ItM3BJelJDd2lNWERwUkRYVDA3WWxjMnRmcUhKdGFFUy14NUl0TDk1TE5SVTZTemJ5c3FlUDVPVE9Rb1ZmXzVVaUVLY1ZTNFUzQmFvSmFxdmF5M0k4ekprUG9zTFBQZw?oc=5",
+   "status": "rejected",
+   "reason": "Citi Australia CEO market commentary; not a tracked credit event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNOFpQS1dKYTNoeUVQMUkzWFZXTUk4cjV0eVpFaWZScnJnMGxwZFhmRVlWUkZ3aXNQSUxZWlpOTHhjTlJ0YkdqQ2J4VVhFTjRoMVNkakxmdDVnRUZLQk1SdG5fMXJpS19HRUZRbUtuUk1YTVZiZll1WHF0UmtWZHhBV3M4clBOOUV3STJIMmxCWGluTDlja3doeDJfa1N4TjhqOFpSaDUycTJGb202WTFxYmpsTnItTEJJQ0Y3UFdNMkZkWmpHbkE?oc=5",
+   "status": "rejected",
+   "reason": "Bank of England story; mis-tagged, tracked manager not the subject",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQYW11cEdiUkM4SGh4eDNTZ0VxSUhjUzJpeVVIZ3p5ekxoQVJyTlNob0p0Vm0yMlNsOFJhLTJoRUxYbDVYa01FMjI3blJGbFBJZVZNTUNZQXBSd29IVE0wQ0JzcU1ZOFQ5cGlIQjRGeXVOeW9HaHRXOHg4eWthdVdJSFZua0x4V0hTcG9HdFpfWG53YVptMG0tWA?oc=5",
+   "status": "rejected",
+   "reason": "Generic market-outlook commentary",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://www.wsj.com/finance/investing/mark-walter-probe-dings-a-guggenheim-funding-machine-that-powers-wall-street-f73f5f11?mod=rss_markets_main",
+   "status": "rejected",
+   "reason": "WSJ paywalled; no primary text, no discrete credit capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNS2wtT2Y3WkkyelJGVElsdVNPb0dLTXpWVE9HQmRyTFpNQ0xSNTQ5M21aTDBiV3hsbGlsSVBOTWMzSVljaEExck9kS2VHaHlJUFNHZ3JoZTNjTS1qWTRsVGpEZWtwR3RqN1RpYmg0SC1YWWxBc1pic3JsYVNNTjNfdy1QZEVpNjFOOTdUTTVQXzA0R3NXNnhkSXVmTXJKeUVfVGl0cEJ2bGtPX2x5TE56SEI2TQ?oc=5",
+   "status": "rejected",
+   "reason": "Single-trader move; not a firm-level hire or capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://www.ft.com/content/b52c8acc-7ea5-4bd0-b26a-b9956e19867b?syn-25a6b1a6=1",
+   "status": "rejected",
+   "reason": "FT paywalled; performance commentary, exact date not verifiable",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPS25tMEVDNHNwUXgxOTM3bUpQX2xMUFUtUV9QVFhZNEQtX05aYndBRUIxLU40ZmZ5SlUzOWRVUFlHbVJIOTc5Y1ZhREZZTmhiVkFwSndQMGFQeVg1c3lkNnVzd1BVdDlwakEwaHpDLVRENnNhTlFCTndVWWFKSnNEZE9wQVBXY2VZdU9GaHlSTlpjSXhlOVFCMXpJdGVWU2Y0REtuVFVyanRqYWF5c1dPbA?oc=5",
+   "status": "rejected",
+   "reason": "Monthly performance note; no capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNRTNlYUY5YnlKcXhhb0RlLUR5ZnM2UVczb2dlQ2F5MlVRams4YWJtYXpXdUFNM3o3b3p4ZENqNExkTnVtTGdsN3NqSGxPSHczSElJWmpEOXRIdjduNFJlOEhiNkt6Y3VFVmtNV1hyZDJ1b1RTUmJMVVNQb0FfMlVOUFpBMWQwQXZDZEtJVWVMZ0hBVElzZVF3c0kwWWlvUXdfZThjQnFlbVdoNkNfT1F6Sjg5U3JLdw?oc=5",
+   "status": "rejected",
+   "reason": "Monthly performance note; no capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxObEdmY3pmb1hFWEZ2VTR3TWRuTzZWU19QZTk0ZEVpcHMxV1hYcVVmN2dqNWpia1FISDR4SmkxUURqU1NVbUhIN1UyZk8tNlJ5cUNPcFZCSGhTX1Azb0hjMC1vV09GVHZPRE9iVFpIcGJHT0Z0Rnphd2Z3ek4tOUtrLU9NV3VBMTZYTEhjc3ltT0JweVlfZTZSSEZNajBIM3pMWmc2d1d1LXRKYVZXSGdHUUdxOTM?oc=5",
+   "status": "rejected",
+   "reason": "Technology partnership, not a credit/capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPNkliU3BHckJBVHJNWGlSZWE4eHMxVVV3OG5vTU9tZi1QUmFuaV9oOE02aUcyN1BzVDEyTDZGT3BHT0NlbGQxMEljZkFrT2RnanB2TXB3NUNtVGRFdXdpMm9CaVYwMWZXOFRGamFyaFNzNnIydVRrV3ZZbHZ6b0lTcjYzcmk2bXI3MTdzVEZOTU1XOEs5Rzg5SHJGcXkzREN4MDhxVmxEaF95NG1OYk9R?oc=5",
+   "status": "rejected",
+   "reason": "Generic hiring feature; no named hire",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOMkhHVDBCcUN2VC0wRUZtTjFvLU0zbTBubnkyV2x1OUVKbVpGSjVSdmdBejlMWGdTVmtjaGpJblRsZDRNeldkU01aZFJ5N0UzZmVNcUJ2QzlpS0FuRlNTS1N5SGp6TkpFclZQREtpSDZoajc0LWt6NHlkODU4d0VTRGhnUE00WVgzQTRDYmI0ZGtLVlNnSGRZek9EcVhHM3UzRDRTMlZwV0lSVnMxd3YxOFVB?oc=5",
+   "status": "rejected",
+   "reason": "Not verifiable from a primary source; not credit",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNMktheHdhTHhCVUR3bzZIY0l4VE5Va3o2Y0dzRVdPT1dWVDVKYUdPMHRpUTg5OHVoRk5nQnhXQ0RBR3ZrSExSTHE5d1RoRnYxNDNnNExHRi1Nc05FRG9VQjlDWmVuODZSVW05NDhrOFBWblkzTUtUd2FFQXFoeW1xOVA4UG9VVXpyOWtmalRIQW9CaW9ydTgzN3Q5S3BpR0hfSFRGSWhwYWxvMXBGTXdINGpjQ0M?oc=5",
+   "status": "rejected",
+   "reason": "Single-trader gossip; no firm-level event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOeTMzaGVTakM5aWZudVRhMnhlYS1fbHRrUGxhV1NNUEphbG5EeS1nSU0yUmptTkdwc196RDRBcVpkV0E3Ukh6NUJkUzB3NFB1bGIway1NRFVfV1JjenFSYVhSOExJY2RtRm5wUWlEVV9kaHMtdTUzb3RnUWVkbE1LSzhsd0NSZHNGZVhSTDlNeTh0dHc1Sml1TTl2TUhRcmhubmVtcFI4czZ1Z05iY2FCYjAtdXlNQQ?oc=5",
+   "status": "rejected",
+   "reason": "Unverified; multi-strategy equity, not credit",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://www.ft.com/content/bdec4129-ccac-4149-aa53-90ddd50cb925?syn-25a6b1a6=1",
+   "status": "rejected",
+   "reason": "Goldman fee income; not a tracked-entity capital event, text unverifiable",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQX0lYQ0Eyb1BmcGVsenhvZ3FBT2w5SEdPNHZ3VmlHYXNzTE1FNE84NDdaT1BnNzhZU2xISExIYnlmWGMwbGk4Zm9YTTZKZ3ZvRWxnUm8zZ0dURURtMklhU2J6RVZ3ejNCZWNzMElLdjY3a2NNSHZqb0xGaW0xWlBxRGdrUEVDcFlMbnZycWJuc0xnU0VUMnZzTVJNRWZrbXlTbDBqN2FlbFBiOUxic0dsTA?oc=5",
+   "status": "rejected",
+   "reason": "Fund performance note; no capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://www.cnbc.com/2026/10/23/spacex-tesla-merger-chatter-takes-center-stage-after-earnings.html",
+   "status": "rejected",
+   "reason": "Tesla-merger speculation after earnings; no distress or debt event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://www.legalbusiness.co.uk/law-firms/latham-makes-up-36-partners-with-none-outside-us-and-eu-for-second-year-running/",
+   "status": "rejected",
+   "reason": "Partnership-round headcount commentary; not a banking/RI/corporate/funds alert",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://www.legalbusiness.co.uk/law-firms/we-need-everybody-rowing-in-the-same-direction-hogan-lovells-cadwalader-teams-up-with-cambridge/",
+   "status": "rejected",
+   "reason": "Firm-merger/academic-partnership feature; not a banking/RI/corporate/funds alert",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPS3E5VVVnQ0JHTUhaM3dDNHI4Y2EtckdRWl90S0staVZxWGY2MlhNVWFtdEhYam5Od0UwRGljVzhGTTdOVTZYcy1ZdEM0Ujc4Y2c2c0ZUeTNGQjF0a1lhSVJmUWl0Z0Z3Ml9XeHJRNGE3WVBhaDhZbndHUW9SWEhUd2dEZzQzVEp3cG9qSGp2OTlEUmpWVTVn?oc=5",
+   "status": "rejected",
+   "reason": "Bank job-cuts story; not credit-manager scope; no primary URL resolved",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOcGxIM3MxTFlaQWdHZ3FLQjZFaThCQUczcGVCWkkzdjJBM1JFLWFJMndQVm1Vbi1HbS1tdmtsRHdSR1lCYUFzbXBZQlptOGl0STZESG9WR2k0M1BRRXA3QUMtUGE2X0RBLWd1SWVjT0ZPeVE5VG9UZnc3Y3lfLThOTEx4ZGU5VnZxVEV5T21jTnZ5NUJxZkF4R0kzdw?oc=5",
+   "status": "rejected",
+   "reason": "Bank earnings commentary; not credit-manager scope",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNTWk1MjQwRUVqNWxwaEV0TGZLeWxTVENvRjktM19oQzRSdlhXQ1ZVLU1iU3dmU2VxWmY5S2RuQVpZczNHSmQzaW5nRmpLRUMxU0pfTHZjOFVmUGpjQ09mNGZzMmtLbm0tMmZIcFNvUFdhUXRhaTlOalc3LUdJWXpaYWRYUkFUekkySWNmV3dqanBVMnRNekF0azlWYmdSVFhpc01UQjdQT09BNDhDUVdkeUVZTQ?oc=5",
+   "status": "rejected",
+   "reason": "Staff-cost accounts story; no capital event; paywalled",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNYXc2bkFkUEtFZThXZHhiSmNSNTBjSW5Nc21wamtNYWdvQkRVNWhoVGgyUE01UGJnTDZYcHZGaTVuQVZFTTlPNnRrVWN0dGdnYWpmcnRaNEZua2N4TDVhQnE3OVptSXdabUtjWk0xRDdXVDBZaVp6alVPSnVFTlc1ck9uTUVwQ3E4R0FuQkVWSmRKX2RVTWtQV3RkOFVXdDV0UUk0UmtHMmMzZnhmYU9iQVFoSGxuSU40V1MwZlF3aWJwMHc?oc=5",
+   "status": "rejected",
+   "reason": "People-moves roundup about banks; not credit managers",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOcld6U3FDWmQxZjdmU1NYQTMxUzZTcUI5YmZkNnVrMzFsc0I4T1BOMTFpeEhBVGhkNEhTaGtLbWZQQlV6R1VMbk5NcDkzSjRsWUJxTC1lX0RvSElKTmV4YlljZlU1ckwwMGxkR3dTXzlQZFpOTnZoeDZxeXZybXRCLXl1RGNOcVF5d0g3S2ZTQkhuTXhleXZfWlRPSC0tYzU2ZjI1X2R2X2E2UmlXUGtubHROWWZ4WXFFRnNFT0ZWblFfTENUZ3c?oc=5",
+   "status": "rejected",
+   "reason": "Bank wealth-advice commentary; not credit scope",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQalZobVVLTmF6bnVXTUQtWFNpWHJBUVIwOGxnNkYySC1fUjRXQVBxNVZEZEI2Vlgtdm85Q1lWam9YeDhvX2FTYS1OeDNXY0hZSUllZXZVRHBCb0tHWWc2YjRzS21wTXpqYWNxVUszVVFFWFVNMHcxTlpYNjFRMlBXMHJidHRfRXpzVnpvYU95VmY?oc=5",
+   "status": "rejected",
+   "reason": "Opinion on possible merger; no firm announcement",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNVzczYm1vUS1xZmZvcnl1WGgxX0VEOWNXVHBDb21tVlE4U2tscmVhTTlGSFpCTmp3ZWYxR2RrNUpLc19rQ3FDa0x1VUhaNTZOM0QzNFlIMUJYamZKc1hWQmk4bWtTWTNRYmFfQndkWV85b0V4WEFyMGhBWkJmREkyUFZFUG9nYXBteVRkMTBvRlVCaGdhU1RUYjdyMVhBc3RZN2c?oc=5",
+   "status": "rejected",
+   "reason": "Investment-bank M&A hire; not a credit manager hire",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQQWl5bDdFcXBsRVI5YTY1aGZka3Zqbml0Nkl3aG9WU1RWU2xGeTVHZzRVUzV2M1NnLVRodFNWWXFJbHZCSXM1SVVtQVhjQnpJSk5tR0VhNEpLN3VTNmRoSGt0cl9HS3h2RFp4Q3dVQm5kODYtYWgxaXRubnZLdTN3RjlDVVRqT0dId2ZzcjllYWlYLWlIMXhGN3lzcWhuYktVT2MyT0hXb0RCWC1FaVdtbW4xSQ?oc=5",
+   "status": "rejected",
+   "reason": "Group AUM/platform update; not credit-specific",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQNjZQd044RjFxUkQxNE9CZHdfMy1nVzRDcU5EM3dVdWxPV2VkWlNaMEZEM0tXUkxrRi1feFhSVjZxTXhENnh6UGJOcnJib0MzZHlBbUwwakE4bTZ0SzRZOGM0b01HTV9ncmh5WUJSQVdRaUtkUzRXUV92ZXdxZmFJTjBOQ3hJTGpDdGNER3R6blJvMDBXMDJCRkpfdFBkU3RHaFpJ?oc=5",
+   "status": "rejected",
+   "reason": "Merger-talk commentary; no confirmed event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPTy1xMVExUkFXdFRmTjl4eEEybEpWZWNGdzJvYkZSazBLdWJDX2xVbDBZSmp3X0ExbVpZVWdUTExJeGY2VXEwUFduSkFyLU9kX0hxcTcwYVlkN3lBWkpCVl9wQk9hQTFOUnI0d3VwdTd6aUg0NGJVRlRjYkQyR3FFby03RWtnVWluMU5FY3A0WjlDVFVCaThxaHZORlh4VnhkR3ppYnNkVmlBOXJt?oc=5",
+   "status": "rejected",
+   "reason": "Private-equity sale process for W1M; not credit; entities mis-tagged",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNOURaa0lnSHloWG9MZzd1WXJDRkN5M1AxdVpxS2VGVno5QWd6MDlqY0NxaFBjbGdUNjBWLUlaY09QN0xwd0c4OHl3S1d5R2k4ejk2NzRhaUo4Q08wWUcxaFJNZ3NtSFBBc00xTFZBTGtta3RsQ0xPS2pHaENZcHBTNWR0S19waWE2Wlh0QkY5QWU2SEJRUjE1eDJkRUsyYzU4cmIxcHN5ZkZRS1phSHRlX0UtTEZMOU1IMGQ5X2VxTUM4TDBDc2ZNcnhEZUY?oc=5",
+   "status": "rejected",
+   "reason": "Ranking list mention; no capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOek1LSGJjTnlKWmpMdXhkaUNpZlJTcVRVTWdNcjAxckpaTER5ZUhkbmJSdkktdW0xTHBIek5WcWUxSmJiSW5UcFItNjM1aWx5d2lwSk5xN0JRNlIybncwZk9MWWZwLVk1Q19nWFFrU2ZMd2RKTnNPb1haWVpmWUp2Z3BuNVdFQmE4QnpWbXNGdkhuN0N1azFsM1BxaFNPaVVXd1F5R1diVklrc1pXMW9wanA0OTY3THNtT1Y5dE11dG1ZNTI0S3dZVjREYUxzU2tmRlZZU2tYRQ?oc=5",
+   "status": "rejected",
+   "reason": "Bank CFO interview; not credit scope",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOVnlqY3JiS0R3a1hKS0Zxak0zNVBVcmZKOEk0cGt3eGxWVU9qNEU0TWxZUXBIOEpDUGphU2NCUVpwcGxoSlhsR1Fsd3BqNDJxS1RZNFFEWnlaOVh3emJPQzh4NHRKR3Y4YTZBd2NqYzNMMWJsUl9kT1doMEozaE1maGgtTnB6Yjdrenh3ZEVTVU5TWUh0Wmc?oc=5",
+   "status": "rejected",
+   "reason": "Bank markets-CEO hire; not a credit manager",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOZkh0N0ppV1ZweHl1RzdZZHFMVzhCNmNYTzdyeEtpUUdnSDRoNVRJS09abUNhZVp4OEdGd2RTajhXUWw2M3BYRkhSemkydjh6OTE1aXNiLVp3akRnN1d1S2phOFdoNHhNTzRlM3VTZzMtamFLZmN3NW0tZk9mZWVwQ0pLbVlwdm05Vnd4QU43R2p1MThtMEVKeVJ6dE5qRTh6Rkk2NW4tblpOVFNEbWNsUHJOUEZlaDY4TUNWTmtGZmw?oc=5",
+   "status": "rejected",
+   "reason": "Bank litigation story; not credit-manager scope",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOWmxJZE9oV1FlZGJtbTVWazh6NnF3WEx0amJaQnE2SnFaSkdBQVZhYjZtZXFqakFvalVhcTRwbFNTOVBqMmhJaHRQek9VdThaZXRKVUgtcDlJNmlhQ1I3elFpeVhDSG5tc3dWaUthOFhxcGdPR25wemphOG1uT1NyTk1ZUVNUaHZ1ZnBmRHdIV1JSbXgyaG9CWnlndUZ3RjNIampmXzNfQ01nUQ?oc=5",
+   "status": "rejected",
+   "reason": "Hiring-trend feature; no new verifiable event for a tracked fund",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQQWZKLWY2dHc4U1F3dTNBalJYSV9ZYk1uV1l0QmR5QzlqclpMeUE2NXJLQVZqOFdXSmRKVXZWdTVmd1dOQmxRY1ZlR2JCemFVNkFZUm1wbzByVHA1U2xXV291WGR5YnFnTkFTVTBfUVQ0UWhyUWFOWjVUY2ZSaHBoY1NJNUVDemhBbXlwVXpoSGo0OXhId0JobXJPdC1lbEFLUWJqV3Z5ZGVLYjZ0c1d4eg?oc=5",
+   "status": "rejected",
+   "reason": "Investment-bank leadership change; not a tracked credit manager",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1pbHFpS21vODhwZkZTd3JzOVBoS1N1bHlHd05kc1hQeG9BQ0dfNnAtX0pHZ01fWHRWSmZpRWNObW54Qmt6SDhtQVdzazF3RGlMQ2NtVVVDRFB4MTJ6WW5NSFNmakFBWDBYS0hYb1pzRU9lNEFM?oc=5",
+   "status": "rejected",
+   "reason": "Headline carries no identifiable story",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOeVVQRXJDV19DSFc0MkZfMFBsSElYRVJkSG9jdEp3Y1BCUXVwXy1pTTVsT0ZJMmN0Mldsd1d0M3c3SFZIVzdDa2tBZDZUU1dHbVRwT3lrLUZDRTc1SmYtdVNfWHZHeG1tR2REc2ZnVGdFSDVpWjNKamoxaE1FQmJnTHR1eGx1WTI0Q2NyY3Qxc25OZjJhMWZ0Y2xjZ1BBbGpzdk5NZw?oc=5",
+   "status": "rejected",
+   "reason": "Group-level AUM results, not credit-specific",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOV2xjVnFlcVlWNHMxVTdQLXVmeUhXaGFFM2o4eFFmd0FNVE45YzFuamEwVGZVS01xQ0RBQnNBaWI1VUJ5ekZYZUpCN3JqeUlNcEp3bHpWZFJlQ0NsWXZ0NGphOW4tREFJaVhSWE91bWc1eFdWRGJDM19FeWpoa1gzU2tPaDVyRjZpTWJXMDlqSlBYYWVCYXVqOXRYZmVYZmFZUTFOcmpUTXV3Zw?oc=5",
+   "status": "rejected",
+   "reason": "Already held as u2922 (Simmons & Simmons Luxembourg finance hire, 2026-10-15)",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNdnlvZmlwSE83VEpmRnRrVEtKYXhCQXR4aWFoaXBZNWJ4ZDJSR2hJZFRhWVRScXFtbUlvQkVCbXZXVU1IZ3FIeEhyeWFXb2EwNDNtczFNTlduSkJsZnR3bWc0VTRCNEp6b2xTSzFPWGx6WUxoU3VocFRnSHBMdmxSTlpUWGl0Y2l4VUlpemw4aDM5el9fbVdFOEFnRFBscjN5TzNvZTU0bkRhNWc?oc=5",
+   "status": "rejected",
+   "reason": "Mis-tagged: about a different trader's fund, not Citadel",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOZTg5bXhaVG1NTi1GT3VqYW41QjhDLXJGNVUzXzM4NHRuMEpQbzhNVlRpVU1sSWNnRWNySml4Rkl2TlpvdTJHZGFJdm5FUktrRUZuY0RPQjFidThydEdQN242ZXVoR0t5ejNpZFVVbXlkelNTU3VUWWxwTF84VlZfUXpMYTh4RXRmNFJacW9pSFJfaU1oeDFPY0tEWUwzd3NXc2c?oc=5",
+   "status": "rejected",
+   "reason": "Headcount colour piece; no capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNaVNIUDJ3eGhZRWs3RXMtZDF3dmthakl4X1Q4MU5BdjcwZS1lR3FCdThzd01yRlFIZUJFUkRWX2NGSGUxRlJSR1JtNmVOb2dZZGR5Vzdxa2ZJbmlzWXMwb3UzWTlVSjNOTTFmTWpVUndYVWdFS09lLWtrd1ZtejFQUjJfWlp0bHBnbTVoUmFPT3ctMzBJSEtDbEIxZ1J2QURUa19Td3pn?oc=5",
+   "status": "rejected",
+   "reason": "Kirkland & Ellis not a tracked firm; promotions round not verified",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQVWJlNFV0bjFBUW11R3pKemVGLWl2QzZacjZBZzVacXlHUkhNUDhVYlpremxjOTRDcFMyR0xzSy1GUGpOcVlBV0wwQmsyX3A0VkRoM2FIeUw1azh6THhPRkl2M0NMMFhzUGY3RXliZDFvLUpPNEpvY2RjQmQ4UUFCdmlTZGdhNkY3cVllTUNCS3BqSDZBOW9fNUoxLTcyTEZ5UTFkZ3pqRFZuUldB?oc=5",
+   "status": "rejected",
+   "reason": "Firmwide AUM/earnings commentary; no credit capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNM015UTlTRk9nS1NtanZjdmlsSWZGSzV6SFV3TDNmbTZMdVdCczR3a3NGSk93UmRicGZ2X0xpLTVQZnN5TGJpZng4RThTaHVYU1lJOFdIdkNYUWkzY0dWN1ltV3E2T1RnTTEzUTYzcGpTNk5FWXFqT3dBNktneWd0eDhXVTBoQ2NBdFA3SFAwVGQ1RDhmTHBuUHdsTlF4eUxWb0E?oc=5",
+   "status": "rejected",
+   "reason": "Bank equity-trading earnings; not a credit-manager capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPMDF5SFFxMnFtaXNTWXlqZFo1LV9ia0FxZmp3Tlp5Y1dHdmNKNlZBZEVmMXN2ck1VNUpvVTlEUzZDaXB3ZFlyamp6ZFpYb3ptV2JaQURvQkxMQXFDQkVmOXpJcXdmT09DLWlTb05SXy1zWkJVdVBnaTRwbGtiTzFfM2RBZTQ0NDktcUI3YWFTaEJOTTdLb0hlVzllWVdOcFY3MHBHRTBCQ04yc1ZFdUpZQTc3QQ?oc=5",
+   "status": "rejected",
+   "reason": "Equity-type IPO delay of a portfolio company; not Blackstone credit",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPd2htYUFMR21MMG1xcklWVXdRSXRWeGl1dV84bUhzdWpqSGdxckphcUc2YUpnd0NKbWxzaUpMRWx4UVJHckhqV3Q2XzlNSVVLcmtvck1ZYVBJeXhNd0Q5QXBOcTZBZnlHY1d6bXBSWUhsUEJ6eXlCM1VrUW02WjVieFNnNjE1QzJmVVFVc0k5bUJ0ZGhXSjJVMlAxMWRtWUNjOVltUW1CX1FCQlpVVWVjZThrQjB3Tkwz?oc=5",
+   "status": "rejected",
+   "reason": "Could not verify; investment-bank hire, not a credit manager hire",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQM242aEw0aUhVcU84WDlXTVkydVZLNnlJWTkzYUZEVUFBSWtoZ3dhM2luU2k5WDUyX1FEUDhYLUdGMEhVRTliUXBXc3dWSkR5WlZmdmdkeF9wbXoyS3k3eVI2b2JlMnk5OEJhR0VqSEh5clBBQnZoaHl4U0JwY3FMdVZ0SDJ0eTRzcHU5NndkMzZ3SGF0WXFQU2hsSjVzTEk?oc=5",
+   "status": "rejected",
+   "reason": "Bank-wide pay story; not a credit capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNYlJjdG43SmFjZ2hMZFRxVmZYR0ZQWE5CRFNsZVBnTW9oQVpudXZRMXJyVkIxWkNnUnVucWZTV3h6TV9pNVBLWnpJbGc4NW5qbkNIM0UydXp5TlRVNFV4VEpieC1xUjR6aXVybkRKUUpLR1VtVUZuNE14a1F4WUFWdEFtWHZ1czVpU2J0d0R5UTRwVlkzWTRoZWd3?oc=5",
+   "status": "rejected",
+   "reason": "Roundup of investment-bank moves; not credit-manager hires",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNYm9wVEt0Y1NDaHotNHFMeXJsUjNoR2pOaktlQjdPdXhyZVhBNjBhQjE1NzFHQ1dQUHc5R0x0REVOV3FuX1FIZnlYVkhKejI2dENOU2dxZ2RKakR3aENRMlRWMDI2UGhYZkRFWjB6Z0VMUjRKbEpLT2FEVkt1TW95Z3dOSUUwSUo2QWlvUnhDYnE4ZDhwbmh5Vll0Wm5EYnFnVzZJN056S0tCbU44aElmMmxB?oc=5",
+   "status": "rejected",
+   "reason": "Commentary on UBS relocation; not a credit event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNOVVxbkI5Ym8zRHR1bXN5ZnBmV195THhIWDhHUTN6SS1La2dOYUt1bll5d29QYVV4UUY4aEstSUxBMDMyeHFkUUJDZlJWRlkwanpZZ1Z3UVB4VHZRRFlHWnlCaVM2UTk2UlZ2ZGI5T1lnTnl1RmlrdmJkM0RwWF9fSDluNVpfREVrTnFJTDU3bEdDQ0Ric2lma3dMMnU4YnRSVTB0WDZUcFRmNzhzQ3NDRHRWc1NGeFRoYVE?oc=5",
+   "status": "rejected",
+   "reason": "Bank compliance matter; not a credit-manager capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQalh3TWdVQ3lTUW5Ebk4xVnFRZUFQN1luNzZobFJjOEptVnNscmwtZGw2Tks1aFlTamtpbGhjOHo3QlhEYnVsVFRnQkVmUkgwWHZjdy1NN0dtWVJOMUJLcjlZMnBBNUJKZm5PR1R0Ty1vYklXOTRRdUw1X1ZybERxOGFPdFlVaVhOLTE5UlZ0cVUzZjZJUUVucWc3Vy1kc0JDWjAxQU9GSVZ5cV8tb1d0MHJIUkp2RkJIczVoUVJoR0ZjU1BLTmRwSExGVldCZVhj?oc=5",
+   "status": "rejected",
+   "reason": "Interview commentary; no event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQY1Jhak14Z00yaVN2N1o5WmhueFdBU2pLRHpROEU5R2ZzOWtFMW5zOEZsZmgtbjhWalpWclVHZWYxVXJLVWJnNXNRRUtSZHpKSGJtTlE0d1dkWVNKdl9RSmhpeGVqeF93TzRSQmZXT1hBbmpSNlU5LUxnZVBmci1IMHhDT0U4UW4yZ2oxT1NNaXRjVTNiYnM4T19mckx3Sy1IRjdPMjBtelRvdnV4VVBQQlJTNWRPc2RweUh2R2xvTQ?oc=5",
+   "status": "rejected",
+   "reason": "Interview commentary; the substantive Schroders event is recorded separately",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPSFQ2ZUpwWmxLNDBWQ2JqUWRucFZpU3gwa21ycVN3cjA0bGUzRUZLR3NWR3lHNVd2VDFTUUJ0MGNZUkhLSE1CUElDSnVuSUQ4cEpBdTJLUWtBLXZjMGNtT0ZsdHlYTE9RcnpWT1pTTWFDbVZKeXlBT1RQSE5yZUJnTXJRTkpOandiQmhieVFxaXltOEw5bEVvUE1UQ3Zxekd1ekVraw?oc=5",
+   "status": "rejected",
+   "reason": "Could not verify from a primary source; wealth-fund product closure, not a KKR Credit capital event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOMlVLSjRINV9PYWJ3dlc2cTgxZFE0OWhsb0ZHN0Y2bmJaUDYtSzFJeHFMZFhLQU0zS3FYNVlXZk9oeFczNkJDaG1DSnpiaG1QdVJFWnRlLTRPdWpnYUExWlZ3bXR2aHJZNDJPaWJoMWNuTlJNWWNTcFZvVmpVOW9nUEU1MDZvQWtLYng2bHZsc0pGTGNDcl9aelJtbnd3NUliVTNJc2JvZ0o?oc=5",
+   "status": "rejected",
+   "reason": "FX trader hire at a bank; not a credit hire",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOeVVrQ2ZpOHJnRW9NNERCZG42Q2J0Wl9xY05ueUhFZUtWZTF0TVM2OHpwRTh1aXQxaUpoTTQySGdmeHFndFlGRzBNbGk5TTJjSWliUE5jOXJLYjI2eUtIbEYweWhkTkVFVE5WUldSSHZBWlJHaFFhSTBIcGFCT2QzZTlMaGFVcWRTYjNLMElxVnB5d1lFbGtIdXpPeDdObTlqZXExeFVMb29IQ2lPUC1FN282ZHhNeEJRa0xobg?oc=5",
+   "status": "rejected",
+   "reason": "Kirkland not tracked; culture feature",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNa3FsVnJPM2ZXQVVwWGRDSlYyMnNKWlVaTzF6UENDOWNkeFR0VHJoNm9oX2JscG16LUVCM3FER28zMWJSanpzdllRaFlDZkQwOWJxbkNrSzNqRWNLMlRxNks5OUhzS3kwejdQMkUtTTNBWURmT3dUZ3pQRnVTS3hzN05teVZJQlcwWllLc205Ql9KNjIzNWZJeVRGdERrV0NuVU85WkZ1MndTWEVIYk9VUA?oc=5",
+   "status": "rejected",
+   "reason": "Advisory mandate for an investment bank; not a credit event",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOY0psLWxuczlWT0lkUzdKbXJSQVZ6TVgxMHROZHdYRGs5UlVET0Q3eW9HaElLU05ZVHk2R3hEcGpwQUdsMjd6b1VEVUdyeFlrZkNhQkxjbHd4c2NoZzNzcExWaWFaN2kwQzlaRTI1dkhKTENjcnh1cnNSNjFYbmlqUE1FTVBULWE0THpOd25aVTRlOVpKODM0V3RLbDNmU1ZoaU9JdzYzUQ?oc=5",
+   "status": "rejected",
+   "reason": "Kirkland not tracked; culture feature",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://hedgeweek.com/news/blackstone-multi-strategy-fund-reaches-276-9m-in-assets-following-new-unit-sales",
+   "status": "recorded",
+   "recordId": "webNews:m438",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://www.blackstone.com/wp-content/uploads/sites/2/2026/10/Blackstone3Q26EarningsPressRelease.pdf",
+   "status": "recorded",
+   "recordId": "i1527",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://alternativecreditinvestor.com/2026/10/23/tikehau-deploys-e3-4bn-amid-market-volatility/",
+   "status": "recorded",
+   "recordId": "i1528",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQanZBank3MldiUHlpNTdSSUhzNlIySjcyLVZqNDQzRXRWUTZZcG0xUFJZN3JLdktjUGpZbGtpbVJBakhfTWhKZm5YUEFwcGpVQWhZSm9MZ0dCa3gwMkpPeFBLVEkzNTJfMGk4UloxSlFwMk5peFluampCT05wY2RRWjR4U2toYjhmWEw1UnZ6ZnVkTElWQ2ZpX19HZlprWXppVTV2SVAyZkFrcGQ2?oc=5",
+   "status": "recorded",
+   "recordId": "webNews:m81",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQdVB5d1J4b1FIRi1wZlVmRFVHZ2ZVa2Q5Y2hGQVg4MkJjTGtsSzNud1BSVTBaUFZkWnBRa3dhUU5UbzBRaUxOTjIxcExuSWRpa3pkcWc0eS1lcERJZ255bUdYX2g0c3VpMXVnOXdERGRmQ1FZQXBWZk9nS05ndnV5aF9xQUdDS0RSbTNiY2VrWElPNjZ1MUdyTGo1cDNzd0hDYUJ3SGw4MjFpNDZ4bUVvOXV1OA?oc=5",
+   "status": "recorded",
+   "recordId": "i1529",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://www.apollo.com/insights-news/news/2026/10/read-the-memo-apollo-sent-to-put-the-brakes-on-private-equity-s-",
+   "status": "recorded",
+   "recordId": "webNews:m7",
+   "at": "2026-10-23T11:16:51.086Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPcXNCN0lBZ2ZDeVlad2puR2RGOVBBWGJELVVMUTkwdk1LYVdfZm9yckFfSWhyZDdwY0pISlIyQndmZVdiOXJZYWx5b2poelVXTlU1MDg4M3hsZnpvY3VCemJWbmc5WjM2UE5xQ3lybzFmMnM1bkZWRVFRTHkxMngxaFV1LWxpejZ5Z2IzcjRsSXN6bk1BXzlxOGZ1eFlRWk5ubGpqT2drakluUkw1RXJSTTF0TlNmdkdRZHozX19fa3JTUnZmNi1xM0g3ZzdVYVFHOUE?oc=5",
+   "status": "rejected",
+   "reason": "Bank CFO interview; not credit scope (duplicate of an earlier rejected item)",
+   "at": "2026-10-23T11:17:29.258Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQOGdtWGdYSTRWVWpfZ1VNUno5ZDV6a19xRHhrZkNIdmF2dzI0TXdvdnZ3Y3Z3Y0JPc3k1bU1HRGJDM0l6RHhaZUJsa19qUFd2UlJaUnZnVmlhVGFtREV0QkFHRzBkR0dpRm11aE9PTXZGNXNYUjhUdlhTVVF2aTlwWXU3VGRPS1loZkhhaWxJYnBnWFMtaEdCZzd5RDgxOGVsWHhCQzZuZw?oc=5",
+   "status": "rejected",
+   "reason": "Bank equity-trading earnings; not a credit-manager capital event",
+   "at": "2026-10-23T11:17:29.258Z"
+  },
+  {
+   "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQZE5nOUd0NVQwMVRWZ1JITG9XdkJkSVV2QVpVSm1EeVNJNTV5U2hkc0pyTWxING5fQnFEZ2Z1R01yTjVLeTVGWFZ6NEpBT051cW96UC1FNy1BdnplNENyTlJ6dFg2WDQ0aE13RlVDTDBjQTMxTWdQbWlkZjRVektFSEIyaDgyQ251RTM0QTU1a2g2UUR0ZzJ6MVlqcDREZw?oc=5",
+   "status": "recorded",
+   "recordId": "u3211",
+   "reason": "already held (firm release)",
+   "at": "2026-10-23T11:17:29.258Z"
   }
  ]
 }

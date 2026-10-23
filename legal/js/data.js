@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-10-23";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "11:06 BST";
+export const LAST_CHECKED_TIME = "12:18 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -8973,6 +8973,8 @@ export const items = [
   {"id":"u4097","title":"Weil Advises on Financing of Vitruvian’s Investment in Aduro Advisors","area":"banking","areas":["banking"],"type":"alert","firm":"weil","date":"2024-07-15","summary":"Weil Advises on Financing of Vitruvian’s Investment in Aduro Advisors","url":"https://www.weil.com/articles/weil-advises-on-financing-of-vitruvians-investment-in-aduro-advisors"},
   {"id":"u4098","title":"Weil Advises AMC in Major Refinancing Transactions to Extend Up to $2.45B of Debt Maturities","area":"banking","areas":["banking"],"type":"alert","firm":"weil","date":"2024-07-24","summary":"Weil advised AMC Entertainment Holdings, Inc. in a series of refinancing transactions, extending the maturity of approximately $1.6 billion in debt from 2026 to 2029 and 2030. This strategic transaction provides AMC with significant incremental financial runway.","url":"https://www.weil.com/articles/weil-advises-amc-in-major-liability-management-refinancing-transactions-to-extend-debt-maturities"},
   {"id":"u4099","title":"Weil Advises Agellus Capital in Closing of $400M Inaugural Fund","area":"funds","areas":["funds"],"type":"alert","firm":"weil","date":"2024-07-24","summary":"Weil Advises Agellus Capital in Closing of $400M Inaugural Fund","url":"https://www.weil.com/articles/weil-advises-agellus-capital-in-closing-of-inaugural-fund"},
+  {"id":"u4103","title":"Freshfields acts for Tristar and its shareholders on Aegis Logistics' $809 million majority stake acquisition of Tristar Holdings","area":"corporate","areas":["corporate"],"type":"alert","firm":"freshfields","date":"2026-10-21","summary":"Aegis Logistics, through its Singapore subsidiary, agreed to acquire an 89.8% stake in Dubai-based Tristar Holdings for $809 million equity consideration, from Agility Tristar Holdings, Gulf Investment Corporation and Diamond Holdings. Veritas Legal and Norton Rose Fulbright advised Aegis; Freshfields advised Tristar Group and its shareholders.","url":"https://www.barandbench.com/law-firms/dealstreet/veritas-legal-norton-rose-fulbright-freshfields-act-on-aegis-logistics-809-million-majority-stake-acquisition-in-tristar-holdings"},
+  {"id":"u4104","title":"Ashurst Perkins Coie represents C1.ai in its acquisition by Workday","area":"corporate","areas":["corporate"],"type":"alert","firm":"ashurst","date":"2026-10-20","summary":"Ashurst Perkins Coie advised C1.ai, an identity governance platform, on its acquisition by Workday. The team was led by Fiona Brophy and Arian Galavis. Financial terms were not disclosed.","url":"https://www.ashurstperkinscoie.com/en/who-we-are/our-news-work-market-recognition/ashurst-perkins-coie-represents-c1ai-in-its-acquisition-by-workday/"},
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------

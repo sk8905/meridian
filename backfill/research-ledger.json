@@ -11257,6 +11257,49 @@
      "to": 2009
     }
    ]
+  },
+  {
+   "at": "2026-10-23",
+   "collection": "managers",
+   "id": "m126",
+   "verdict": "GAP",
+   "source": "https://www.santanderassetmanagement.com/content/view/19743/file/Press%20release%20-%20Santander%20Asset%20Management%20exceeds%20250%20billion%20euros%20in%20assets%20under%20management_%20%28003%29.pdf",
+   "sourceLabel": "Santander Asset Management — press release, 28 Oct 2025",
+   "asOf": "2025-10-28",
+   "evidence": "Release: 'Santander Asset Management is promoting its Alternatives platform, whose volume is now around 10 billion euros.' Footnote: figures include mandates.",
+   "changes": [
+    {
+     "field": "aumText",
+     "from": "€2bn+ committed across ~22 alternative vehicles since 2023 launch; current AUM not independently disclosed",
+     "to": "Alternatives platform volume now ~€10bn (Santander Asset Management press release, 28 Oct 2025; SAM total €255bn at end-Sep 2025, figures include mandates). Earlier: €2bn+ committed across ~22 vehicles (2023)."
+    },
+    {
+     "field": "aum",
+     "from": null,
+     "to": 11.19,
+     "reported": "10bn EUR"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-23",
+   "collection": "HEDGE_FUNDS",
+   "id": "h86",
+   "verdict": "CONFIRMED",
+   "source": "https://hedgeweek.com/news/tt-international-shrinks-as-assets-and-revenue-continue-to-decline",
+   "sourceLabel": "Hedgeweek 2026-09-25",
+   "asOf": "2025-12-31",
+   "evidence": "Article: ended 2025 with approximately $5bn under management; matches on-file aum 5 / aumAsOf 2025-12-31.",
+   "changes": [
+    {
+     "field": "lastChecked",
+     "from": null,
+     "to": {
+      "date": "2026-10-23",
+      "url": "https://hedgeweek.com/news/tt-international-shrinks-as-assets-and-revenue-continue-to-decline"
+     }
+    }
+   ]
   }
  ]
 }
