@@ -109,6 +109,50 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-apollo-dailyspark-monetarypolicynotrestrictive-20261023",
+    publication: "Apollo Academy",
+    author: "Torsten Slok",
+    series: "The Daily Spark",
+    title: "Monetary Policy Is Not Restrictive",
+    date: "2026-10-23",
+    time: "11:46",
+    summary: "A Richmond Fed CFO survey for Q3 2026 shows only 19% of firms say financing costs or credit access constrain their investment and spending plans, while 81% report no such constraints.",
+    url: "https://www.apolloacademy.com/the-daily-spark/"
+  },
+  {
+    id: "rsch-ubs-weeklyblog-theendofinflationagainandagain-20261023",
+    publication: "UBS CIO",
+    author: "Paul Donovan",
+    series: "UBS Weekly Blog",
+    title: "The end of inflation (again, and again)",
+    date: "2026-10-23",
+    time: "11:19",
+    summary: "Developed-economy inflation keeps ending as one-off shocks fade, but each new shock erodes consumer spending power, and economies lack the structural imbalances that drove past persistent inflation.",
+    url: "https://www.ubs.com/global/en/wealth-management/insights/chief-investment-office/market-insights/paul-donovan.html"
+  },
+  {
+    id: "rsch-fitch-insidecredit-fiaidisruptionrisk-20261023",
+    publication: "Fitch Ratings",
+    author: null,
+    series: "Inside Credit",
+    title: "Financial Institutions Face Moderate Business Disruption Risk from AI",
+    date: "2026-10-23",
+    time: "13:01",
+    summary: "AI-related business disruption poses moderate risk to financial institutions over the coming five years, with regulatory barriers to entry and client-relationship franchises as mitigants.",
+    url: "https://goto.fitchratings.com/NzMyLUNLSC03NjcAAAGlB5t6DItyhWGYmqo_McxIftPJD4Ao22o8RI13afzmauCpoKIOk-Mo7cDvfnlUJ2UGiiNct0w="
+  },
+  {
+    id: "rsch-fitch-insidecredit-europeandefaultsrise-20261023",
+    publication: "Fitch Ratings",
+    author: null,
+    series: "Inside Credit",
+    title: "European Defaults Rise as Stressed Issuers Restructure",
+    date: "2026-10-23",
+    time: "13:01",
+    summary: "European leveraged loan and high-yield default rates rose sharply in September as several large issuers on Fitch's Market Concern lists completed restructurings or missed payments.",
+    url: "https://goto.fitchratings.com/NzMyLUNLSC03NjcAAAGlB5t6DHgMWDUAWJYd4HZCaoq3gfeB7qlWmLECWOMdrUsYFCl4VdSlgoeb8C8neatIEbfqG70="
+  },
+  {
     "id": "rsch-ubs-morningaudio-whocaresabouttechnology-20261023",
     "publication": "UBS CIO",
     "author": "Paul Donovan",

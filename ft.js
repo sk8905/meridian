@@ -21,6 +21,125 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "f75c25c2-4164-4dfc-9d56-fc6a86704c47",
+    "title": "KKR founders back Valencia in deal valuing football club at €1.25bn",
+    "date": "2026-10-23",
+    "time": "13:02",
+    "url": "https://www.ft.com/content/f75c25c2-4164-4dfc-9d56-fc6a86704c47"
+  },
+  {
+    "id": "0db7d1cd-be3b-4034-b813-51fc8be88f11",
+    "title": "EU capitals moderate plans to help companies operate bloc-wide",
+    "date": "2026-10-23",
+    "time": "12:55",
+    "url": "https://www.ft.com/content/0db7d1cd-be3b-4034-b813-51fc8be88f11"
+  },
+  {
+    "id": "9743b853-1a19-4693-a353-78e014cf1833",
+    "title": "Author Hanif Kureishi: ‘The urge to write came back strongly’",
+    "date": "2026-10-23",
+    "time": "12:30",
+    "url": "https://www.ft.com/content/9743b853-1a19-4693-a353-78e014cf1833"
+  },
+  {
+    "id": "4e3f67c8-70d0-44aa-950e-62190717c2db",
+    "title": "London Underground blames rising delays on repair backlog",
+    "date": "2026-10-23",
+    "time": "12:30",
+    "url": "https://www.ft.com/content/4e3f67c8-70d0-44aa-950e-62190717c2db"
+  },
+  {
+    "id": "8f0b71c3-b097-4126-b0ff-ad7b66676107",
+    "title": "100 days of Burnham",
+    "date": "2026-10-23",
+    "time": "12:09",
+    "url": "https://www.ft.com/content/8f0b71c3-b097-4126-b0ff-ad7b66676107"
+  },
+  {
+    "id": "2fae96bf-4328-4aa6-b68f-af416a9cb4bf",
+    "title": "National Crime Agency wins freezing order over £15mn London flat",
+    "date": "2026-10-23",
+    "time": "12:08",
+    "url": "https://www.ft.com/content/2fae96bf-4328-4aa6-b68f-af416a9cb4bf"
+  },
+  {
+    "id": "e67a3d0e-5893-45a5-b098-64a68a4ef032",
+    "title": "Ukraine says Starlink speeds still throttled",
+    "date": "2026-10-23",
+    "time": "12:05",
+    "url": "https://www.ft.com/content/e67a3d0e-5893-45a5-b098-64a68a4ef032"
+  },
+  {
+    "id": "06209f51-de7c-4de0-8e66-5c621a960b87",
+    "title": "What the coming copper crunch means for the global economy",
+    "date": "2026-10-23",
+    "time": "12:01",
+    "url": "https://www.ft.com/content/06209f51-de7c-4de0-8e66-5c621a960b87"
+  },
+  {
+    "id": "bb1f2a5e-6a87-404a-a89e-4e0c88113827",
+    "title": "Confessions of a middle-class prepper",
+    "date": "2026-10-23",
+    "time": "12:00",
+    "url": "https://www.ft.com/content/bb1f2a5e-6a87-404a-a89e-4e0c88113827"
+  },
+  {
+    "id": "df94aaca-71f2-4788-9835-898b1cc79a05",
+    "title": "Austria expels Russian diplomats suspected of espionage",
+    "date": "2026-10-23",
+    "time": "11:53",
+    "url": "https://www.ft.com/content/df94aaca-71f2-4788-9835-898b1cc79a05"
+  },
+  {
+    "id": "4fa0c5ef-abfe-4a63-95c0-2ba69329abd0",
+    "title": "Citi wins long-awaited approval for China securities business",
+    "date": "2026-10-23",
+    "time": "11:40",
+    "url": "https://www.ft.com/content/4fa0c5ef-abfe-4a63-95c0-2ba69329abd0"
+  },
+  {
+    "id": "ebd9b327-a689-4872-b9d8-b8b494427a01",
+    "title": "20 à la mod buys",
+    "date": "2026-10-23",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/ebd9b327-a689-4872-b9d8-b8b494427a01"
+  },
+  {
+    "id": "3eab64ae-1a0b-4ac8-8341-847c1b6bf2d8",
+    "title": "How smart does my fridge need to be?",
+    "date": "2026-10-23",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/3eab64ae-1a0b-4ac8-8341-847c1b6bf2d8"
+  },
+  {
+    "id": "bcc464cc-9d12-4b15-866d-64642de66ca8",
+    "title": "US nuclear revival faces scrutiny after incidents at flagship plant",
+    "date": "2026-10-23",
+    "time": "11:00",
+    "url": "https://www.ft.com/content/bcc464cc-9d12-4b15-866d-64642de66ca8"
+  },
+  {
+    "id": "df70bf20-e809-48d0-8485-f8f514a7fbc4",
+    "title": "Anthropic strikes deal to launch European consultancy",
+    "date": "2026-10-23",
+    "time": "10:04",
+    "url": "https://www.ft.com/content/df70bf20-e809-48d0-8485-f8f514a7fbc4"
+  },
+  {
+    "id": "34946f6f-ccd9-4de5-9f57-136e1a0e2064",
+    "title": "Why the UK should greenlight both Jackdaw and Rosebank",
+    "date": "2026-10-23",
+    "time": "10:00",
+    "url": "https://www.ft.com/content/34946f6f-ccd9-4de5-9f57-136e1a0e2064"
+  },
+  {
+    "id": "f968f40c-ecc8-4981-ba60-a826f808505b",
+    "title": "September inflation keeps BoJ on tightening course",
+    "date": "2026-10-23",
+    "time": "09:48",
+    "url": "https://www.ft.com/content/f968f40c-ecc8-4981-ba60-a826f808505b"
+  },
+  {
     "id": "ddd17044-0b38-446b-a973-d0ab80d5738c",
     "title": "FTAV’s further reading",
     "date": "2026-10-23",

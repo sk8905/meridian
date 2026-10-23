@@ -49,6 +49,50 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    "id": "nl-bloomberg-parisedition-feelingofdread-20261023",
+    "publication": "Bloomberg",
+    "author": "Lionel Laurent",
+    "series": "Paris Edition",
+    "title": "Out Goes the Art Fair, in Come the Riot Police",
+    "date": "2026-10-23",
+    "time": "13:04",
+    "summary": "France prepares for another day of protests over the cost of living, with the army on stand-by, the French-German bond spread at its widest since 2011 and Carrefour cutting full-year targets.",
+    "url": "https://www.bloomberg.com/news/newsletters/2026-10-23/french-protests-out-goes-the-art-fair-in-come-the-riot-police"
+  },
+  {
+    "id": "nl-bloomberg-goingprivate-privateequitysdangerzone-20261023",
+    "publication": "Bloomberg",
+    "author": "Sinead Cruise",
+    "series": "Going Private",
+    "title": "Private Equity’s Stale Marks Fuel Debate Over Fairness, Study Finds",
+    "date": "2026-10-23",
+    "time": "12:13",
+    "summary": "An EDHEC study of 333 private equity and infrastructure exits finds last published valuations systematically understated exit prices; also covers Arini’s debut European direct lending fund and Pantheon’s $6bn secondaries close.",
+    "url": "https://www.bloomberg.com/news/newsletters/2026-10-23/private-equity-s-stale-marks-fuel-debate-over-fairness-trust"
+  },
+  {
+    "id": "nl-bloomberg-economicsdaily-chinasunwantedmail-20261023",
+    "publication": "Bloomberg",
+    "author": "James Mayger",
+    "series": "Economics Daily",
+    "title": "China’s Parcel Sales Are Shrinking as They Become Tax Targets",
+    "date": "2026-10-23",
+    "time": "12:00",
+    "summary": "Chinese small-parcel exports have fallen almost every month this year as the EU, Thailand and the US close duty loopholes, even as overall exports hit a record $447bn.",
+    "url": "https://www.bloomberg.com/news/newsletters/2026-10-23/china-s-parcel-sales-are-shrinking-as-they-become-tax-targets"
+  },
+  {
+    "id": "nl-bloomberg-marketsdaily-siftingthroughelectionscenarios-20261023",
+    "publication": "Bloomberg",
+    "author": "Matthew Griffin",
+    "series": "Markets Daily",
+    "title": "US Election Angst Looms for Stocks and the AI Boom",
+    "date": "2026-10-23",
+    "time": "11:04",
+    "summary": "Stocks stabilise after the AI rout with Brent at $114 and the US 10-year at 4.98%; the US IPO market is ‘paralyzed’ ahead of Anthropic’s expected debut.",
+    "url": "https://www.bloomberg.com/news/newsletters/2026-10-23/us-election-angst-looms-for-stocks-and-the-ai-boom"
+  },
+  {
     "id": "nl-thelawyer-newsdaily-uk200top100-20261023",
     "publication": "The Lawyer",
     "author": "Richard Simmons",
