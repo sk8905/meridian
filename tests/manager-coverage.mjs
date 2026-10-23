@@ -79,8 +79,8 @@ for (const [id, name] of Object.entries(REF)) {
 // history/depth was lost, or a new profile was added without backfilling it, and that
 // is exactly what must turn the suite red (see docs/refresh-routines.md → backfill, and
 // HOUSE_STYLE R16/§8).
-const COVERAGE_FLOOR_2020 = 90;   // ≥ this many profiles must reach ≤2020 (today: 90 — 2026-10-23 manager-depth backfill, +16 from 74; was 47 on 2026-10-15)
-const DEPTH_DEFICIT_CEILING = 116; // ≤ this many may still be thin / missing-history (today: 116 — 2026-10-23 manager-depth backfill; was 160)
+const COVERAGE_FLOOR_2020 = 124;  // ≥ this many profiles must reach ≤2020 (today: 124 — 2026-10-23 manager-depth backfill passes 1+2, from 74; was 47 on 2026-10-15)
+const DEPTH_DEFICIT_CEILING = 83;  // ≤ this many may still be thin / missing-history (today: 83 — 2026-10-23 backfill passes 1+2; was 160)
 const BACKFILL_YEAR = 2020, THIN_TOTAL = 4;   // history to 2020 (R32) — matches scripts/manager-coverage.mjs
 let reach2020 = 0, depthDeficit = 0;
 for (const m of managers) {

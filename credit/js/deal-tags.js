@@ -1224,6 +1224,10 @@ const T = {
   d1342: {"c":"Asia","s":"Asset-backed / specialty finance","a":"financing","p":"Kredivo","r":"borrower"},
   d1343: {"c":"UK","s":"Real estate","a":"financing","p":"Oranim Group","r":"borrower"},
   d1344: {"c":"UK","s":"Asset-backed / specialty finance","a":"financing","p":"Accelerated Payments","r":"borrower"},
+  d1345: {"c":"US","s":"Industrials","a":"financing","p":"Cassavant Holdings, LLC","r":"borrower"},
+  d1346: {"c":"US","s":"Leisure & hospitality","p":"Aspyr Holdings LLC","r":"borrower","a":null},
+  d1347: {"c":"France","s":"Business services","p":"Impulsa","r":"borrower","a":null},
+  d1348: {"c":"Germany","s":"TMT","p":"Drooms","r":"borrower","a":null},
 };
 // A role (r) without a party name (p) labels the deal's own audited `borrower` (data audit
 // 2026-10-21: manager M&A → Target, fund closes / CVs → Fund / vehicle, CLOs → Issuer).
