@@ -4,12 +4,12 @@
 // hand-edit; re-run the script. Tokenless + no-cache (see _headers).
 // =============================================================================
 export const DIGEST = {
- "asOf": "2026-10-22",
- "built": "2026-10-22T14:40:14.034Z",
+ "asOf": "2026-10-23",
+ "built": "2026-10-23T01:36:10.698Z",
  "daily": {
   "label": "Daily",
-  "from": "2026-10-21",
-  "to": "2026-10-22",
+  "from": "2026-10-22",
+  "to": "2026-10-23",
   "deals": {
    "total": 3,
    "items": [
@@ -36,15 +36,15 @@ export const DIGEST = {
      "amount": "$500m"
     },
     {
-     "id": "d1321",
-     "date": "2026-10-21",
-     "title": "Eiffel Investment Group provides financing for Bencis' partnership with KODIAK",
-     "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-eiffel-investment-group-on-financing-of-bencis-partnership-with-kodiak",
-     "src": "hlc.com",
-     "who": "Eiffel Investment Group",
+     "id": "d1338",
+     "date": "2026-10-22",
+     "title": "BlackRock's HPS to invest up to $434m in TBS Energi Utama's Asian waste platform",
+     "url": "https://www.bloomberg.com/news/articles/2026-10-22/blackrock-s-hps-to-invest-434-million-in-asian-waste-company",
+     "src": "bloomberg.com",
+     "who": "BlackRock",
      "kind": "Financing",
-     "href": "/v2/transactions/#/deal/d1321",
-     "amount": null
+     "href": "/v2/transactions/#/deal/d1338",
+     "amount": "$434m"
     }
    ]
   },
@@ -52,62 +52,21 @@ export const DIGEST = {
    "total": 1,
    "items": [
     {
-     "id": "i1455",
-     "date": "2026-10-21",
-     "title": "Arini closes inaugural European direct lending fund",
-     "url": "https://alternativecreditinvestor.com/2026/10/21/arini-closes-inaugural-direct-lending-fund/",
-     "src": "alternativecreditinvestor.com",
-     "who": "Arini Capital Management",
-     "kind": "Final Close",
-     "href": "/v2/profiles/#/manager/m40",
-     "amount": null
+     "id": "i1478",
+     "date": "2026-10-22",
+     "title": "Blackstone Credit & Insurance reports $35.8bn of Q3 2026 inflows, AUM up 11% to $480.0bn",
+     "url": "https://www.sec.gov/Archives/edgar/data/0001393818/000119312526428297/d160590dex991.htm",
+     "src": "sec.gov",
+     "who": "Blackstone Credit & Insurance (BXCI)",
+     "kind": "Fundraising",
+     "href": "/v2/profiles/#/manager/m8",
+     "amount": "$35.8bn"
     }
    ]
   },
   "legal": {
-   "total": 4,
-   "items": [
-    {
-     "id": "u3836",
-     "date": "2026-10-21",
-     "title": "Restructuring plans: where are we a year on?",
-     "url": "https://www.slaughterandmay.com/insights/new-insights/restructuring-plans-where-are-we-a-year-on/",
-     "src": "slaughterandmay.com",
-     "who": "Slaughter and May",
-     "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/slaughtermay"
-    },
-    {
-     "id": "u3768",
-     "date": "2026-10-21",
-     "title": "Liability Management and Special Situations: When Traditional Finance Falls Short",
-     "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/liability-management-and-special-situations-when-traditional-finance-falls-short",
-     "src": "mayerbrown.com",
-     "who": "Mayer Brown",
-     "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/mayerbrown"
-    },
-    {
-     "id": "u3898",
-     "date": "2026-10-21",
-     "title": "Case update: Winding-up following assignment of debt in Hong Kong",
-     "url": "https://www.davispolk.com/insights/client-update/case-update-winding-following-assignment-debt-hong-kong",
-     "src": "davispolk.com",
-     "who": "Davis Polk",
-     "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/davispolk"
-    },
-    {
-     "id": "u3899",
-     "date": "2026-10-21",
-     "title": "Weil Earns Top Rankings in Octus EMEA Restructuring League Tables for Q3/9M 2026",
-     "url": "https://www.weil.com/articles/weil-earns-top-rankings-in-octus-emea-restructuring-league-tables-for-q3-9m-2026",
-     "src": "weil.com",
-     "who": "Weil, Gotshal & Manges",
-     "kind": "R&I alert",
-     "href": "/v2/profiles/#/firm/weil"
-    }
-   ]
+   "total": 0,
+   "items": []
   },
   "people": {
    "total": 0,
@@ -253,22 +212,11 @@ export const DIGEST = {
  },
  "weekly": {
   "label": "Weekly",
-  "from": "2026-10-16",
-  "to": "2026-10-22",
+  "from": "2026-10-17",
+  "to": "2026-10-23",
   "deals": {
-   "total": 11,
+   "total": 9,
    "items": [
-    {
-     "id": "d1234",
-     "date": "2026-10-16",
-     "title": "Carlyle to acquire $7.7bn consumer loan portfolio from Truist",
-     "url": "https://alternativecreditinvestor.com/2026/10/16/carlyle-to-acquire-7-7bn-consumer-loan-portfolio-from-truist/",
-     "src": "alternativecreditinvestor.com",
-     "who": "Carlyle Global Credit",
-     "kind": "NPL / Portfolio",
-     "href": "/v2/transactions/#/deal/d1234",
-     "amount": "$7.7bn"
-    },
     {
      "id": "d1335",
      "date": "2026-10-19",
@@ -325,37 +273,15 @@ export const DIGEST = {
      "amount": "€403.75m"
     },
     {
-     "id": "d1173",
-     "date": "2026-10-16",
-     "title": "Permira Credit prices Menlo CLO VI at $401.9 million",
-     "url": "https://www.permira.com/news-and-insights/announcements/permira-credit-prices-menlo-clo-vi-at-4019-million",
-     "src": "permira.com",
-     "who": "Permira Credit",
-     "kind": "Structured Credit",
-     "href": "/v2/transactions/#/deal/d1173",
-     "amount": "$401.9 million"
-    },
-    {
-     "id": "d1296",
-     "date": "2026-10-16",
-     "title": "Santander and UniCredit arrange restructuring of ViViBanca's c.€340m CQS securitisation",
-     "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-banco-santander-and-unicredit-on-the-restructuring-of-vivibancas-cqs-securitisation",
-     "src": "hlc.com",
-     "who": "Santander",
-     "kind": "Structured Credit",
-     "href": "/v2/transactions/#/deal/d1296",
-     "amount": "€340m"
-    },
-    {
-     "id": "d1255",
-     "date": "2026-10-16",
-     "title": "Fortress provides $175M senior secured credit facilities to The RealReal",
-     "url": "https://www.abfjournal.com/?p=173640",
-     "src": "abfjournal.com",
-     "who": "Fortress Investment Group",
-     "kind": "Refinancing",
-     "href": "/v2/transactions/#/deal/d1255",
-     "amount": "$175M"
+     "id": "d1338",
+     "date": "2026-10-22",
+     "title": "BlackRock's HPS to invest up to $434m in TBS Energi Utama's Asian waste platform",
+     "url": "https://www.bloomberg.com/news/articles/2026-10-22/blackrock-s-hps-to-invest-434-million-in-asian-waste-company",
+     "src": "bloomberg.com",
+     "who": "BlackRock",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1338",
+     "amount": "$434m"
     },
     {
      "id": "d1322",
@@ -367,11 +293,33 @@ export const DIGEST = {
      "kind": "Financing",
      "href": "/v2/transactions/#/deal/d1322",
      "amount": "$20m"
+    },
+    {
+     "id": "d1339",
+     "date": "2026-10-20",
+     "title": "Standard Chartered increases financing facility for ALVA electric motorcycle maker PT EMI to $20m",
+     "url": "https://jakartaglobe.id/special-updates/standard-chartered-expands-financing-for-pt-emi-alva-electric-motorcycle-maker",
+     "src": "jakartaglobe.id",
+     "who": "Standard Chartered",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1339",
+     "amount": "$20m"
+    },
+    {
+     "id": "d1321",
+     "date": "2026-10-21",
+     "title": "Eiffel Investment Group provides financing for Bencis' partnership with KODIAK",
+     "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-eiffel-investment-group-on-financing-of-bencis-partnership-with-kodiak",
+     "src": "hlc.com",
+     "who": "Eiffel Investment Group",
+     "kind": "Financing",
+     "href": "/v2/transactions/#/deal/d1321",
+     "amount": null
     }
    ]
   },
   "closes": {
-   "total": 3,
+   "total": 4,
    "items": [
     {
      "id": "i1457",
@@ -396,6 +344,17 @@ export const DIGEST = {
      "amount": "$100 billion"
     },
     {
+     "id": "i1478",
+     "date": "2026-10-22",
+     "title": "Blackstone Credit & Insurance reports $35.8bn of Q3 2026 inflows, AUM up 11% to $480.0bn",
+     "url": "https://www.sec.gov/Archives/edgar/data/0001393818/000119312526428297/d160590dex991.htm",
+     "src": "sec.gov",
+     "who": "Blackstone Credit & Insurance (BXCI)",
+     "kind": "Fundraising",
+     "href": "/v2/profiles/#/manager/m8",
+     "amount": "$35.8bn"
+    },
+    {
      "id": "i1455",
      "date": "2026-10-21",
      "title": "Arini closes inaugural European direct lending fund",
@@ -409,45 +368,15 @@ export const DIGEST = {
    ]
   },
   "legal": {
-   "total": 11,
+   "total": 8,
    "items": [
     {
-     "id": "c296",
-     "date": "2026-10-16",
-     "title": "Stor RB One Ltd v Sripiragash Kanthasamy [2026] EWHC 2625 (Comm)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2625",
+     "id": "c304",
+     "date": "2026-10-21",
+     "title": "The Republic of Mozambique v Privinvest Shipbuilding SAL (Holding) & Ors (appeal by Mrs Clara Martinez Thedy de Safa) [2026] EWCA Civ 1349",
+     "url": "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/1349",
      "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (Comm)",
-     "kind": "Judgment",
-     "href": null
-    },
-    {
-     "id": "c297",
-     "date": "2026-10-16",
-     "title": "Fairmead Insurance Limited & Ors, Re [2026] EWHC 2644 (BP)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2644",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (BP)",
-     "kind": "Judgment",
-     "href": null
-    },
-    {
-     "id": "c298",
-     "date": "2026-10-16",
-     "title": "Amber Construction Services Limited v Ilyrian Construction Ltd [2026] EWHC 2603 (BP)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2603",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (BP)",
-     "kind": "Judgment",
-     "href": null
-    },
-    {
-     "id": "c302",
-     "date": "2026-10-16",
-     "title": "3Kings Holdings Limited v TCF 1 GP Limited [2026] EWHC 2620 (BP)",
-     "url": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2620",
-     "src": "caselaw.nationalarchives.gov.uk",
-     "who": "High Court (BP)",
+     "who": "Court of Appeal",
      "kind": "Judgment",
      "href": null
     },
@@ -492,6 +421,16 @@ export const DIGEST = {
      "href": "/v2/profiles/#/firm/weil"
     },
     {
+     "id": "u4036",
+     "date": "2026-10-21",
+     "title": "The English restructuring plan: A guide to “COMI tourism”",
+     "url": "https://www.davispolk.com/insights/articles-books/english-restructuring-plan-guide-comi-tourism",
+     "src": "davispolk.com",
+     "who": "Davis Polk",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/davispolk"
+    },
+    {
      "id": "u3490",
      "date": "2026-10-20",
      "title": "UK FCA Guidance on AI in Financial Services: Good Practices and Areas for Improvement",
@@ -514,7 +453,7 @@ export const DIGEST = {
    ]
   },
   "people": {
-   "total": 4,
+   "total": 2,
    "items": [
     {
      "id": "i1456",
@@ -535,26 +474,6 @@ export const DIGEST = {
      "who": "Hamburg Commercial Bank",
      "kind": "Credit",
      "href": "/v2/profiles/#/manager/m318"
-    },
-    {
-     "id": "i1413",
-     "date": "2026-10-16",
-     "title": "Blackstone makes marquee hire for new European credit platform",
-     "url": "https://greenstreetnews.com/article/blackstone-makes-marquee-hire-for-new-european-lending-platform/",
-     "src": "greenstreetnews.com",
-     "who": "Blackstone (funds managed by Blackstone)",
-     "kind": "Credit",
-     "href": "/v2/profiles/#/manager/m438"
-    },
-    {
-     "id": "i1474",
-     "date": "2026-10-16",
-     "title": "Blackstone hires from M&G to grow Brio platform in Europe",
-     "url": "https://www.pei-privaterealestate.com/credit/blackstone-hires-from-mg-to-grow-brio-platform-in-europe/",
-     "src": "pei-privaterealestate.com",
-     "who": "Blackstone (funds managed by Blackstone)",
-     "kind": "Credit",
-     "href": "/v2/profiles/#/manager/m438"
     }
    ]
   },
