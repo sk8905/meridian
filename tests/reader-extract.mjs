@@ -863,4 +863,23 @@ const frBlob = JSON.stringify(fr.blocks || fr.paragraphs || []);
 check(!/Company|Legalease|4604 0667|legal500\.com/.test(frBlob), "footer: publisher Company/address/contact block is stripped from the reader");
 check((fr.paragraphs || []).length === 2, `footer: the two real body paragraphs survive (got ${(fr.paragraphs || []).length})`);
 
+// ---- Page chrome is never a paragraph (owner 2026-10-23: Legal Business showed its cookie
+// panel, Legal 500 menu and "N min read" line through the proxy) -----------------------------
+{
+  const { readChromeJunk, proxyBlocks: pb } = await import("../src/index.js");
+  const md = ["Set by WordPress when you log in. Identifies your account so you stay signed in as you move around the site.",
+    "Allows visitors who are not logged in to read one free article every 30 days. It records only which article was read free.",
+    "Stores an anonymized bucket identifier to group traffic for experiments, optimize content delivery.",
+    "Accept All Save My Preferences Reject All",
+    "- Rankings - Jurisdictions - Submissions - Research+ - Future Lawyers - Firms & Lawyers - Service Providers - Barristers’ Sets - Networks - Legal 500 - FAQs",
+    "Kate Peacock & Eliza Winter · 23 October 2026 · 2 min read",
+    "Merger discussions between Weil and Willkie Farr & Gallagher have ended, with partners at Willkie told the talks were off.",
+    "The news leaves Weil still actively looking for a tie-up, after it told partners in a firmwide meeting on Tuesday."].join("\n\n");
+  const got = pb(md).map((b) => b.t);
+  check(got.length === 2 && /^Merger discussions/.test(got[0]), `proxy: cookie panel, flattened menu and "N min read" line dropped (${got.length} kept)`);
+  check(!readChromeJunk("Set by the Bank of England, the base rate rose to 5% in a move that surprised traders and economists."), "chrome: real prose that starts 'Set by' is kept");
+  check(!readChromeJunk("The firm said it would hire 20 partners - including 5 in London - this year, a spokesman said."), "chrome: prose with dashes is kept");
+  const src = fs.readFileSync(new URL("../src/index.js", import.meta.url), "utf8");
+  check(/"scmp\.com", "legalbusiness\.co\.uk"/.test(src), "Legal Business reads its public page direct (READ_OPEN), not through the proxy");
+}
 finish();

@@ -949,11 +949,24 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 57px) + v
    the terminal aesthetic keeps the chrome clean. Applied to every element and its
    scrolling shadow root so nothing paints a grey track.
    ============================================================================= */
-/* !important so this wins over every per-element `scrollbar-width: thin` in the
-   view stylesheets (dashboard rails, home rails, etc.) — no visible bar anywhere,
-   scrolling still works. */
-* { scrollbar-width: none !important; -ms-overflow-style: none !important; }
-*::-webkit-scrollbar { width: 0 !important; height: 0 !important; display: none !important; }
+/* The hide rule is !important so it wins over every per-element `scrollbar-width: thin`
+   in the view stylesheets (dashboard rails, home rails, etc.); scrolling still works. */
+/* EXCEPTION (owner 2026-10-23): a THIN vertical bar on the Home news feed, the reading pane
+   (desktop pane + phone reader) and the X feed — the three long reading columns. They are
+   left out of the hide rule (:not(:is(…))), so no !important is needed to bring them back.
+   Squared, muted (--t-faint thumb on a clear track), no arrows. Chrome/Safari draw the
+   ::-webkit-scrollbar styles only while scrollbar-width is `auto` (a standard value overrides
+   them), so `auto` + a 5px bar; Firefox, which has no ::-webkit-scrollbar, gets the standard
+   thin bar. :is() carries id-level weight, so the view sheets' `scrollbar-width:thin` on
+   these elements doesn't win. */
+*:not(:is(#g-feed, #g-readpane, #g-reader-body, .g-x-body)) { scrollbar-width: none !important; -ms-overflow-style: none !important; }
+*:not(:is(#g-feed, #g-readpane, #g-reader-body, .g-x-body))::-webkit-scrollbar { width: 0 !important; height: 0 !important; display: none !important; }
+:is(#g-feed, #g-readpane, #g-reader-body, .g-x-body) { scrollbar-width: auto; }
+@supports not selector(::-webkit-scrollbar) {
+  :is(#g-feed, #g-readpane, #g-reader-body, .g-x-body) { scrollbar-width: thin; scrollbar-color: var(--t-faint) transparent; } }
+:is(#g-feed, #g-readpane, #g-reader-body, .g-x-body)::-webkit-scrollbar { width: 5px; height: 0; background: transparent; }
+:is(#g-feed, #g-readpane, #g-reader-body, .g-x-body)::-webkit-scrollbar-thumb { background: var(--t-faint); border-radius: 0; }
+:is(#g-feed, #g-readpane, #g-reader-body, .g-x-body)::-webkit-scrollbar-track { background: transparent; }
 
 /* ---- Row-bookmark toast + long-press support (Home feed) ---- */
 /* Long-press must reach our handler, not iOS's link callout / text selection. */

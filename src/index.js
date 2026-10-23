@@ -2441,7 +2441,10 @@ const READ_LINKONLY = new Set([]);
 // are never fetched at all). If a listed host serves only a teaser, extraction
 // stays thin and the reader still falls back to the link.
 const READ_OPEN = new Set([
-  "scmp.com",
+  "scmp.com", "legalbusiness.co.uk",
+  // Legal Business flags its pages metered ("one free article every 30 days") but serves the
+  // full story to a plain fetch; read that rather than the proxy's render, which drags in the
+  // cookie-consent panel and the Legal 500 menu (owner 2026-10-23).
 ]);
 // ---- Subscriber reader (owner 2026-10-23) ------------------------------------------
 // The owner holds paid subscriptions to the PREMIUM FOUR. A story from one of them reads
@@ -2750,7 +2753,7 @@ export function readProxyAllowed(host) {
 // Reader extractor version — bump on ANY extraction change so BOTH the per-colo edge cache
 // (read.internal/<ver>) and the GLOBAL KV pre-warm (rdr:<ver>:<url>) discard bodies produced
 // by the old extractor. Keep the two in lockstep through this one constant.
-const READ_VER = "v21";   // v21: byline from JSON-LD / byline links when no author meta (v20: proxy bot-wall / consent pages are misses; Cloudflare front matter stripped (v19: contact-footer junk))
+const READ_VER = "v22";   // v22: cookie-panel / menu / "N min read" chrome dropped; Legal Business read direct (v21: byline from JSON-LD / byline links when no author meta (v20: proxy bot-wall / consent pages are misses; Cloudflare front matter stripped (v19: contact-footer junk)))
 const _readKvKey = (url) => "rdr:" + READ_VER + ":" + url;
 // A host is fetchable only if it is a real, public, dotted domain name — never an
 // IP literal (v4/v6), a port, or a reserved/internal name. This is the SSRF gate.
@@ -3156,6 +3159,7 @@ function _readBlocks(scope, base) {
     const t = _readStrip(m[4]);
     if (!t || READ_BOILER.test(t)) continue;
     if (READ_NAV_LABEL.test(t)) continue;                        // nav/widget section label (any block)
+    if (!isH && readChromeJunk(t)) continue;                     // cookie panel / flattened menu / "N min read" line
     if (!isH && _blockIsLinkOnly(m[4])) continue;                // a headline that only links out — not prose
     if (!isH && _readIsNameList(t)) continue;                    // a byline + tag/related-firm strip (comma-separated names), not prose
     if (isH ? (t.length < 2 || t.length > 120) : (t.length < 40)) continue;
@@ -3207,6 +3211,20 @@ async function _readDirect(u, host) {
 // rendered bold in the pane), in document order, each {t, h}. The article title (# h1)
 // is shown separately, so it is skipped. A leading recirculation strip and a dangling
 // trailing heading are dropped, matching the direct extractor.
+// Page chrome that reaches a reader as "paragraphs" — a cookie-consent panel's per-cookie
+// descriptions and buttons, a site menu flattened into one dash-separated line, and the
+// "Author · date · N min read" meta line. Dropped from both the direct and proxy paths.
+// Pure — unit-tested (tests/reader-extract.mjs).
+export function readChromeJunk(t) {
+  const s = String(t || "").trim();
+  if (/^(?:set by (?:wordpress|wordfence|youtube|google|vimeo|cloudflare|hubspot|facebook|linkedin|the site|this site|our)\b|stores? an? anonymi[sz]ed|allows visitors who are not logged in|this cookie\b|these cookies\b|used to (?:track|identify|remember|store) )/i.test(s)) return true;
+  if (/^(?:accept all|reject all|save (?:my )?preferences|manage (?:cookies|preferences)|cookie (?:settings|preferences|policy))\b/i.test(s) && s.length < 120) return true;
+  if (/\bcookies?\b/i.test(s) && /\b(?:consent|preferences|necessary|functional|analytics|advertising)\b/i.test(s) && /\b(?:set by|we use|this site uses|expires)\b/i.test(s)) return true;
+  const segs = s.split(/\s+[-|•·]\s+/);
+  if (segs.length >= 7 && segs.reduce((n, x) => n + x.length, 0) / segs.length < 26 && !/[.!?]["”’)]?$/.test(s)) return true;   // a flattened menu
+  if (s.length < 140 && /\b\d+\s*min(?:ute)?s?\s+read\b/i.test(s)) return true;      // "Kate Peacock · 23 October 2026 · 2 min read"
+  return false;
+}
 export function proxyBlocks(md, base) {
   const out = [], seen = new Set(), seenImg = new Set(), seenTw = new Set(); let imgN = 0, embedN = 0;
   const imgHostSkip = _readImgHostSkip(base);
@@ -3256,7 +3274,7 @@ export function proxyBlocks(md, base) {
     const t = _readDec(raw.replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/[*_`>#]+/g, " "))   // links → visible text
       .replace(/,?\s*opens? (?:in )?(?:a )?new (?:tab|window)/gi, "")   // Reuters link a11y text
       .replace(/\s+/g, " ").replace(/\s+([,.;:])/g, "$1").trim();
-    if (t.length < 40 || READ_BOILER.test(t) || READ_NAV_LABEL.test(t)) continue;
+    if (t.length < 40 || READ_BOILER.test(t) || READ_NAV_LABEL.test(t) || readChromeJunk(t)) continue;
     if (/^\|/.test(t) || /^https?:\/\//i.test(t)) continue;    // table rows / stray URLs
     const k = "p:" + t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
     out.push({ t, h: false });
