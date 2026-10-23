@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-22T21:57:55.151Z",
- "since": "2026-10-08",
+ "generated": "2026-10-23T00:56:57.480Z",
+ "since": "2026-10-09",
  "firms": {
   "proskauerrose": {
    "domains": [
@@ -69,7 +69,7 @@
     "sustainablefutures.linklaters.com"
    ],
    "sitemaps": 6,
-   "urls": 17815,
+   "urls": 17814,
    "kept": 6,
    "fetched": 6,
    "errors": 0,
@@ -84,6 +84,17 @@
    "kept": 0,
    "fetched": 0,
    "errors": 1,
+   "carried": 0
+  },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5023,
+   "kept": 4,
+   "fetched": 4,
+   "errors": 0,
    "carried": 0
   },
   "macfarlanes": {
@@ -110,17 +121,6 @@
    "disallowed": 1,
    "carried": 0
   },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5023,
-   "kept": 5,
-   "fetched": 5,
-   "errors": 0,
-   "carried": 0
-  },
   "aoshearman": {
    "domains": [
     "www.aoshearman.com",
@@ -128,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 9645,
+   "urls": 9644,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -140,19 +140,8 @@
    ],
    "sitemaps": 9,
    "urls": 20207,
-   "kept": 10,
-   "fetched": 10,
-   "errors": 0,
-   "carried": 0
-  },
-  "kirkland": {
-   "domains": [
-    "www.kirkland.com"
-   ],
-   "sitemaps": 11,
-   "urls": 17442,
-   "kept": 40,
-   "fetched": 40,
+   "kept": 9,
+   "fetched": 9,
    "errors": 0,
    "carried": 0
   },
@@ -161,21 +150,44 @@
     "www.whitecase.com"
    ],
    "sitemaps": 11,
-   "urls": 10413,
+   "urls": 10414,
    "kept": 20,
    "fetched": 20,
    "errors": 0,
+   "carried": 0
+  },
+  "kirkland": {
+   "domains": [
+    "www.kirkland.com"
+   ],
+   "sitemaps": 11,
+   "urls": 17449,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 2,
    "carried": 0
   },
   "sidley": {
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 7,
-   "urls": 7603,
+   "sitemaps": 6,
+   "urls": 7208,
    "kept": 1,
    "fetched": 1,
-   "errors": 10,
+   "errors": 11,
    "carried": 0
   },
   "ropesgray": {
@@ -208,18 +220,6 @@
    ],
    "carried": 0
   },
-  "davispolk": {
-   "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
-   ],
-   "sitemaps": 11,
-   "urls": 16235,
-   "kept": 8,
-   "fetched": 8,
-   "errors": 0,
-   "carried": 0
-  },
   "stephensonharwood": {
    "domains": [
     "www.shlegal.com"
@@ -245,8 +245,20 @@
    ],
    "sitemaps": 1,
    "urls": 12308,
-   "kept": 5,
-   "fetched": 5,
+   "kept": 4,
+   "fetched": 4,
+   "errors": 0,
+   "carried": 0
+  },
+  "davispolk": {
+   "domains": [
+    "www.davispolk.com",
+    "davispolk.com"
+   ],
+   "sitemaps": 11,
+   "urls": 16235,
+   "kept": 7,
+   "fetched": 7,
    "errors": 0,
    "carried": 0
   },
@@ -256,24 +268,8 @@
    ],
    "sitemaps": 5,
    "urls": 11605,
-   "kept": 14,
-   "fetched": 14,
-   "errors": 0,
-   "carried": 0
-  },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "governance.weil.com",
-    "restructuring.weil.com",
-    "eurorestructuring.weil.com",
-    "tax.weil.com",
-    "european-disputes-blog.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7754,
-   "kept": 40,
-   "fetched": 40,
+   "kept": 13,
+   "fetched": 13,
    "errors": 0,
    "carried": 0
   },
@@ -294,18 +290,6 @@
     "https://www.hlc.com/es/knowledge @2023-12-08",
     "https://www.hlc.com/en/knowledge/topic-centers/fintech-mentor-program @2026-01-06"
    ],
-   "carried": 0
-  },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 1,
-   "urls": 18727,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
    "carried": 0
   },
   "southsquare": {
@@ -333,9 +317,25 @@
    ],
    "sitemaps": 9,
    "urls": 16373,
-   "kept": 22,
-   "fetched": 22,
+   "kept": 19,
+   "fetched": 19,
    "errors": 0,
+   "carried": 0
+  },
+  "weil": {
+   "domains": [
+    "www.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "tax.weil.com",
+    "european-disputes-blog.weil.com"
+   ],
+   "sitemaps": 35,
+   "urls": 7245,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
    "carried": 0
   },
   "cliffordchance": {
@@ -370,21 +370,12 @@
    "lastmod": "2026-10-22"
   },
   {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-arlington-capital-partners-on-acquisition-of-gooch-housego-plc",
+   "title": "Kirkland Advises Arlington Capital Partners on Acquisition of Gooch & Housego PLC",
    "description": null,
    "date": "2026-10-22",
-   "dateSource": "datePublished",
-   "lastmod": null
-  },
-  {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
-   "title": "Publications",
-   "description": null,
-   "date": "2026-10-22",
-   "dateSource": "datePublished",
+   "dateSource": "page date label",
    "lastmod": null
   },
   {
@@ -536,21 +527,21 @@
    ]
   },
   {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
-   "title": "Incorporating an LLP: direct tax considerations",
-   "description": "In an article for Tax Journal, Partner Joe Robinson and Associate Harvey Innocent explain how LLP members may defer gains when...",
-   "date": "2026-10-16",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
-  },
-  {
    "firm": "traverssmith",
    "url": "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-venture-insights-the-changing-shape-of-venture-capital/",
    "title": "Travers Smith's Venture Insights: The changing shape of Venture Capital",
    "description": null,
    "date": "2026-10-16",
    "dateSource": "<time datetime>",
+   "lastmod": "2026-10-16"
+  },
+  {
+   "firm": "macfarlanes",
+   "url": "https://www.macfarlanes.com/insights/102o5iz/incorporating-an-llp-direct-tax-considerations",
+   "title": "Incorporating an LLP: direct tax considerations",
+   "description": "In an article for Tax Journal, Partner Joe Robinson and Associate Harvey Innocent explain how LLP members may defer gains when...",
+   "date": "2026-10-16",
+   "dateSource": "datePublished",
    "lastmod": "2026-10-16"
   },
   {
@@ -753,60 +744,6 @@
    "date": "2026-10-09",
    "dateSource": "datePublished",
    "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/knowledge-container/oecd-updates-guidance-on-tax-treatment-of-remote-working/",
-   "title": "OECD updates guidance on tax treatment of remote working",
-   "description": "The OECD has updated its model double tax convention (the Model Treaty), and in doing so, has amended its guidance on when a home office of a team member can generate a taxable presence of the foreign business for which they work. Businesses with remote workers will want to ascertain whether the relevant tax authorities will change their practices in line with the new guidance and, if so, confirm that their policies on remote working remain appropriate.",
-   "date": "2026-10-08",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/award/2026/10/tmt-finance-awards-digital-infrastructure-legal-advisor-of-the-year",
-   "title": "Kirkland’s Digital Infrastructure Practice Honored at TMT Finance Awards",
-   "description": null,
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "klgates",
-   "url": "https://www.klgates.com/thought-leadership/California-Expands-Sales-and-Use-Tax-to-SaaS-and-Certain-Digital-Products-Starting-1-January-2027-CDTFA-Proposes-Emergency-Regulations-to-Implement-the-New-Law-10-8-2026",
-   "title": "California Expands Sales and Use Tax to SaaS and Certain Digital Products Starting 1 January 2027",
-   "description": "California",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/our-insights/blogs/health-industry-washington-watch/102o4v9/new-california-laws-regulate-ai-use-in-health-care/",
-   "title": "New California Laws Regulate AI Use in Health Care",
-   "description": "Three of the over twenty new AI-related laws that were signed into law in California last week will have significant impacts on the use...",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-16"
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/our-insights/blogs/ship-law-log/102o4rx/arrest-of-vessels-under-the-arrest-convention-1952-charterers-debts-and-privile/",
-   "title": "Arrest of Vessels Under the Arrest Convention 1952: Charterer",
-   "description": "The Reed Smith Paris Shipping team includes Andrew Tetley, Ana Atallah, Emmanuelle Faivre, Aurélie Lopez, Antoine Guillemot, Diana...",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/projet-de-loi-de-finances-pour-2027",
-   "title": "Projet de loi de finances pour 2027",
-   "description": "Le projet de loi de finances pour 2027 (« PLF 2027 ») a été présenté à l’Assemblée nationale le 1 er octobre 2026. Notre équipe fiscale",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
   },
   {
    "firm": "kirkland",
