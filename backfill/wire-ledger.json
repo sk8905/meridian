@@ -3650,6 +3650,18 @@
       "status": "rejected",
       "reason": "Equity stockpicker column mentioning Aberdeen as a listed stock; not about the manager as a credit manager and no capital event, hire or deal.",
       "at": "2026-10-23T17:20:06.831Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNY2U0ODB3ak5waWZCTWRXQVA5Z25aOFZCZ3U1M0xXQVdtTzNXSlN0WWRKdWNhMm9VNEs5U2MwdjYwaFlaYWx4WE52UXhTUzR6ZHU4NTU3X2hpQm5hcmFPcGRQc3luQVpES09rZTVRa0lua1c2RTVSdGJXdkREOXcyVmZmQkJQNW9EZWo0anVJVlJINlBXSzU1TQ?oc=5",
+      "status": "rejected",
+      "reason": "Partner-promotions round (36 new partners, effective 1 Jan 2027; Latham release lw.com/en/news/2026/10/latham-watkins-names-new-partners-2026) is people news, not a deal the firm advised on; out of legal-alert scope, as with the earlier promotions round.",
+      "at": "2026-10-23T19:14:42.185Z"
+    },
+    {
+      "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-arlington-capital-partners-on-acquisition-of-gooch-housego-plc",
+      "status": "recorded",
+      "recordId": "u4204",
+      "at": "2026-10-23T19:14:53.550Z"
     }
   ]
 }
