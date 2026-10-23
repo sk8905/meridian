@@ -3644,6 +3644,12 @@
       "status": "rejected",
       "reason": "Partner-promotions round (people news effective 1 Jan 2027), not a deal the firm advised on; out of legal-alert scope.",
       "at": "2026-10-23T17:16:40.956Z"
+    },
+    {
+      "url": "https://www.ft.com/content/2aeaf5c1-1fc2-45ae-a6dd-0634384ae9d7?segmentId=776b81d7-dd92-c731-e669-99cdd37d3a96#myft:my-news:rss",
+      "status": "rejected",
+      "reason": "Equity stockpicker column mentioning Aberdeen as a listed stock; not about the manager as a credit manager and no capital event, hire or deal.",
+      "at": "2026-10-23T17:20:06.831Z"
     }
   ]
 }
