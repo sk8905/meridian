@@ -5,11 +5,273 @@
 // =============================================================================
 export const DIGEST = {
  "asOf": "2026-10-23",
- "built": "2026-10-23T01:36:10.698Z",
+ "built": "2026-10-23T07:54:13.426Z",
  "daily": {
   "label": "Daily",
   "from": "2026-10-22",
   "to": "2026-10-23",
+  "equities": {
+   "savedAt": "2026-10-23T07:53:52.362Z",
+   "items": [
+    {
+     "label": "S&P 500",
+     "value": 7663.43,
+     "unit": "idx",
+     "display": "7,663",
+     "chg": -1.21,
+     "chgUnit": "%",
+     "asOf": "2026-10-22",
+     "url": "https://finance.yahoo.com/quote/%5EGSPC",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "Nasdaq Composite",
+     "value": 26008.86,
+     "unit": "idx",
+     "display": "26,009",
+     "chg": -2.6,
+     "chgUnit": "%",
+     "asOf": "2026-10-22",
+     "url": "https://finance.yahoo.com/quote/%5EIXIC",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "Dow Jones",
+     "value": 52867.98,
+     "unit": "idx",
+     "display": "52,868",
+     "chg": 0.02,
+     "chgUnit": "%",
+     "asOf": "2026-10-22",
+     "url": "https://finance.yahoo.com/quote/%5EDJI",
+     "src": "finance.yahoo.com",
+     "tone": "good"
+    },
+    {
+     "label": "Russell 2000",
+     "value": 2784.0261,
+     "unit": "idx",
+     "display": "2,784",
+     "chg": 0.11,
+     "chgUnit": "%",
+     "asOf": "2026-10-22",
+     "url": "https://finance.yahoo.com/quote/%5ERUT",
+     "src": "finance.yahoo.com",
+     "tone": "good"
+    },
+    {
+     "label": "Stoxx Europe 600",
+     "value": 635.84,
+     "unit": "idx",
+     "display": "636",
+     "chg": -0.3,
+     "chgUnit": "%",
+     "asOf": "2026-10-23",
+     "url": "https://finance.yahoo.com/quote/%5ESTOXX",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "FTSE 100",
+     "value": 10693.03,
+     "unit": "idx",
+     "display": "10,693",
+     "chg": -0.3,
+     "chgUnit": "%",
+     "asOf": "2026-10-23",
+     "url": "https://finance.yahoo.com/quote/%5EFTSE",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "DAX",
+     "value": 25242.19,
+     "unit": "idx",
+     "display": "25,242",
+     "chg": -0.51,
+     "chgUnit": "%",
+     "asOf": "2026-10-23",
+     "url": "https://finance.yahoo.com/quote/%5EGDAXI",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "CAC 40",
+     "value": 7758.29,
+     "unit": "idx",
+     "display": "7,758",
+     "chg": -0.68,
+     "chgUnit": "%",
+     "asOf": "2026-10-23",
+     "url": "https://finance.yahoo.com/quote/%5EFCHI",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "Nikkei 225",
+     "value": 62693.16,
+     "unit": "idx",
+     "display": "62,693",
+     "chg": -0.34,
+     "chgUnit": "%",
+     "asOf": "2026-10-23",
+     "url": "https://finance.yahoo.com/quote/%5EN225",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "Hang Seng",
+     "value": 23117.79,
+     "unit": "idx",
+     "display": "23,118",
+     "chg": 0.8,
+     "chgUnit": "%",
+     "asOf": "2026-10-23",
+     "url": "https://finance.yahoo.com/quote/%5EHSI",
+     "src": "finance.yahoo.com",
+     "tone": "good"
+    }
+   ]
+  },
+  "rates": {
+   "savedAt": "2026-10-23T07:53:52.362Z",
+   "items": [
+    {
+     "label": "SONIA",
+     "value": 3.7323,
+     "unit": "%",
+     "display": 3.7323,
+     "chg": -0.001,
+     "chgUnit": "pp",
+     "asOf": "2026-10-12",
+     "url": "https://fred.stlouisfed.org/series/IUDSOIA",
+     "src": "fred.stlouisfed.org",
+     "tone": "bad"
+    },
+    {
+     "label": "SOFR",
+     "value": 3.88,
+     "unit": "%",
+     "display": 3.88,
+     "chg": 0,
+     "chgUnit": "pp",
+     "asOf": "2026-10-21",
+     "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
+     "src": "newyorkfed.org",
+     "tone": "flat"
+    },
+    {
+     "label": "US 10Y",
+     "value": 4.96,
+     "unit": "%",
+     "display": 4.96,
+     "chg": -0.17,
+     "chgUnit": "pp",
+     "asOf": "2026-10-22",
+     "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+     "src": "home.treasury.gov",
+     "tone": "bad"
+    },
+    {
+     "label": "US 2Y",
+     "value": 4.65,
+     "unit": "%",
+     "display": 4.65,
+     "chg": -0.16,
+     "chgUnit": "pp",
+     "asOf": "2026-10-22",
+     "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+     "src": "home.treasury.gov",
+     "tone": "bad"
+    },
+    {
+     "label": "US IG OAS",
+     "value": 0.83,
+     "unit": "bp",
+     "display": 83,
+     "chg": 0,
+     "chgUnit": "bp",
+     "asOf": "2026-10-13",
+     "url": "https://fred.stlouisfed.org/series/BAMLC0A0CM",
+     "src": "fred.stlouisfed.org",
+     "tone": "flat"
+    },
+    {
+     "label": "US HY OAS",
+     "value": 3.16,
+     "unit": "bp",
+     "display": 316,
+     "chg": 5,
+     "chgUnit": "bp",
+     "asOf": "2026-10-13",
+     "url": "https://fred.stlouisfed.org/series/BAMLH0A0HYM2",
+     "src": "fred.stlouisfed.org",
+     "tone": "bad"
+    },
+    {
+     "label": "US CCC OAS",
+     "value": 12.67,
+     "unit": "bp",
+     "display": 1267,
+     "chg": 14,
+     "chgUnit": "bp",
+     "asOf": "2026-10-13",
+     "url": "https://fred.stlouisfed.org/series/BAMLH0A3HYC",
+     "src": "fred.stlouisfed.org",
+     "tone": "bad"
+    },
+    {
+     "label": "EURO HY OAS",
+     "value": 3.27,
+     "unit": "bp",
+     "display": 327,
+     "chg": 4,
+     "chgUnit": "bp",
+     "asOf": "2026-10-13",
+     "url": "https://fred.stlouisfed.org/series/BAMLHE00EHYIOAS",
+     "src": "fred.stlouisfed.org",
+     "tone": "bad"
+    },
+    {
+     "label": "ECB deposit rate",
+     "value": 2.5,
+     "unit": "%",
+     "display": 2.5,
+     "chg": 0,
+     "chgUnit": "pp",
+     "asOf": "2026-10-23",
+     "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
+     "src": "data.ecb.europa.eu",
+     "tone": "flat"
+    },
+    {
+     "label": "€STR",
+     "value": 2.442,
+     "unit": "%",
+     "display": 2.442,
+     "chg": 0.002,
+     "chgUnit": "pp",
+     "asOf": "2026-10-22",
+     "url": "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT",
+     "src": "data.ecb.europa.eu",
+     "tone": "good"
+    },
+    {
+     "label": "BoE Bank Rate",
+     "value": 3.75,
+     "unit": "%",
+     "display": 3.75,
+     "chg": 0,
+     "chgUnit": "pp",
+     "asOf": "2026-10-21",
+     "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
+     "src": "bankofengland.co.uk",
+     "tone": "flat"
+    }
+   ]
+  },
   "deals": {
    "total": 3,
    "items": [
@@ -71,57 +333,187 @@ export const DIGEST = {
   "people": {
    "total": 0,
    "items": []
+  }
+ },
+ "weekly": {
+  "label": "Weekly",
+  "from": "2026-10-17",
+  "to": "2026-10-23",
+  "equities": {
+   "savedAt": "2026-10-23T07:53:52.362Z",
+   "items": [
+    {
+     "label": "S&P 500",
+     "value": 7663.43,
+     "unit": "idx",
+     "display": "7,663",
+     "chg": -1.04,
+     "chgUnit": "%",
+     "asOf": "2026-10-22",
+     "url": "https://finance.yahoo.com/quote/%5EGSPC",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "Nasdaq Composite",
+     "value": 26008.86,
+     "unit": "idx",
+     "display": "26,009",
+     "chg": -2.64,
+     "chgUnit": "%",
+     "asOf": "2026-10-22",
+     "url": "https://finance.yahoo.com/quote/%5EIXIC",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "Dow Jones",
+     "value": 52867.98,
+     "unit": "idx",
+     "display": "52,868",
+     "chg": 1.32,
+     "chgUnit": "%",
+     "asOf": "2026-10-22",
+     "url": "https://finance.yahoo.com/quote/%5EDJI",
+     "src": "finance.yahoo.com",
+     "tone": "good"
+    },
+    {
+     "label": "Russell 2000",
+     "value": 2784.0261,
+     "unit": "idx",
+     "display": "2,784",
+     "chg": 0.61,
+     "chgUnit": "%",
+     "asOf": "2026-10-22",
+     "url": "https://finance.yahoo.com/quote/%5ERUT",
+     "src": "finance.yahoo.com",
+     "tone": "good"
+    },
+    {
+     "label": "Stoxx Europe 600",
+     "value": 635.84,
+     "unit": "idx",
+     "display": "636",
+     "chg": -1.38,
+     "chgUnit": "%",
+     "asOf": "2026-10-23",
+     "url": "https://finance.yahoo.com/quote/%5ESTOXX",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "FTSE 100",
+     "value": 10693.03,
+     "unit": "idx",
+     "display": "10,693",
+     "chg": -1.74,
+     "chgUnit": "%",
+     "asOf": "2026-10-23",
+     "url": "https://finance.yahoo.com/quote/%5EFTSE",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "DAX",
+     "value": 25242.19,
+     "unit": "idx",
+     "display": "25,242",
+     "chg": -1.48,
+     "chgUnit": "%",
+     "asOf": "2026-10-23",
+     "url": "https://finance.yahoo.com/quote/%5EGDAXI",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "CAC 40",
+     "value": 7758.29,
+     "unit": "idx",
+     "display": "7,758",
+     "chg": -2.49,
+     "chgUnit": "%",
+     "asOf": "2026-10-23",
+     "url": "https://finance.yahoo.com/quote/%5EFCHI",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "Nikkei 225",
+     "value": 62693.16,
+     "unit": "idx",
+     "display": "62,693",
+     "chg": -4.03,
+     "chgUnit": "%",
+     "asOf": "2026-10-23",
+     "url": "https://finance.yahoo.com/quote/%5EN225",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    },
+    {
+     "label": "Hang Seng",
+     "value": 23117.79,
+     "unit": "idx",
+     "display": "23,118",
+     "chg": -3.93,
+     "chgUnit": "%",
+     "asOf": "2026-10-23",
+     "url": "https://finance.yahoo.com/quote/%5EHSI",
+     "src": "finance.yahoo.com",
+     "tone": "bad"
+    }
+   ]
   },
   "rates": {
-   "savedAt": "2026-10-22T11:42:38.579Z",
+   "savedAt": "2026-10-23T07:53:52.362Z",
    "items": [
     {
      "label": "SONIA",
      "value": 3.7323,
      "unit": "%",
      "display": 3.7323,
-     "chg": -0.001,
+     "chg": 0,
      "chgUnit": "pp",
      "asOf": "2026-10-12",
      "url": "https://fred.stlouisfed.org/series/IUDSOIA",
      "src": "fred.stlouisfed.org",
-     "tone": "bad"
+     "tone": "flat"
     },
     {
      "label": "SOFR",
      "value": 3.88,
      "unit": "%",
      "display": 3.88,
-     "chg": 0.01,
+     "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-20",
+     "asOf": "2026-10-21",
      "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
      "src": "newyorkfed.org",
-     "tone": "good"
+     "tone": "flat"
     },
     {
      "label": "US 10Y",
-     "value": 5.13,
+     "value": 4.96,
      "unit": "%",
-     "display": 5.13,
-     "chg": 0.01,
+     "display": 4.96,
+     "chg": -0.14,
      "chgUnit": "pp",
-     "asOf": "2026-10-21",
+     "asOf": "2026-10-22",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov",
-     "tone": "good"
+     "tone": "bad"
     },
     {
      "label": "US 2Y",
-     "value": 4.81,
+     "value": 4.65,
      "unit": "%",
-     "display": 4.81,
-     "chg": 0.02,
+     "display": 4.65,
+     "chg": -0.12,
      "chgUnit": "pp",
-     "asOf": "2026-10-21",
+     "asOf": "2026-10-22",
      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
      "src": "home.treasury.gov",
-     "tone": "good"
+     "tone": "bad"
     },
     {
      "label": "US IG OAS",
@@ -140,7 +532,7 @@ export const DIGEST = {
      "value": 3.16,
      "unit": "bp",
      "display": 316,
-     "chg": 5,
+     "chg": 13,
      "chgUnit": "bp",
      "asOf": "2026-10-13",
      "url": "https://fred.stlouisfed.org/series/BAMLH0A0HYM2",
@@ -152,7 +544,7 @@ export const DIGEST = {
      "value": 12.67,
      "unit": "bp",
      "display": 1267,
-     "chg": 14,
+     "chg": 53,
      "chgUnit": "bp",
      "asOf": "2026-10-13",
      "url": "https://fred.stlouisfed.org/series/BAMLH0A3HYC",
@@ -164,7 +556,7 @@ export const DIGEST = {
      "value": 3.27,
      "unit": "bp",
      "display": 327,
-     "chg": 4,
+     "chg": 12,
      "chgUnit": "bp",
      "asOf": "2026-10-13",
      "url": "https://fred.stlouisfed.org/series/BAMLHE00EHYIOAS",
@@ -178,22 +570,22 @@ export const DIGEST = {
      "display": 2.5,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-22",
+     "asOf": "2026-10-23",
      "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
      "src": "data.ecb.europa.eu",
      "tone": "flat"
     },
     {
      "label": "€STR",
-     "value": 2.44,
+     "value": 2.442,
      "unit": "%",
-     "display": 2.44,
-     "chg": 0,
+     "display": 2.442,
+     "chg": 0.002,
      "chgUnit": "pp",
-     "asOf": "2026-10-21",
+     "asOf": "2026-10-22",
      "url": "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT",
      "src": "data.ecb.europa.eu",
-     "tone": "flat"
+     "tone": "good"
     },
     {
      "label": "BoE Bank Rate",
@@ -208,12 +600,7 @@ export const DIGEST = {
      "tone": "flat"
     }
    ]
-  }
- },
- "weekly": {
-  "label": "Weekly",
-  "from": "2026-10-17",
-  "to": "2026-10-23",
+  },
   "deals": {
    "total": 9,
    "items": [
@@ -474,143 +861,6 @@ export const DIGEST = {
      "who": "Hamburg Commercial Bank",
      "kind": "Credit",
      "href": "/v2/profiles/#/manager/m318"
-    }
-   ]
-  },
-  "rates": {
-   "savedAt": "2026-10-22T11:42:38.579Z",
-   "items": [
-    {
-     "label": "SONIA",
-     "value": 3.7323,
-     "unit": "%",
-     "display": 3.7323,
-     "chg": 0,
-     "chgUnit": "pp",
-     "asOf": "2026-10-12",
-     "url": "https://fred.stlouisfed.org/series/IUDSOIA",
-     "src": "fred.stlouisfed.org",
-     "tone": "flat"
-    },
-    {
-     "label": "SOFR",
-     "value": 3.88,
-     "unit": "%",
-     "display": 3.88,
-     "chg": -0.01,
-     "chgUnit": "pp",
-     "asOf": "2026-10-20",
-     "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
-     "src": "newyorkfed.org",
-     "tone": "bad"
-    },
-    {
-     "label": "US 10Y",
-     "value": 5.13,
-     "unit": "%",
-     "display": 5.13,
-     "chg": -0.06,
-     "chgUnit": "pp",
-     "asOf": "2026-10-21",
-     "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
-     "src": "home.treasury.gov",
-     "tone": "bad"
-    },
-    {
-     "label": "US 2Y",
-     "value": 4.81,
-     "unit": "%",
-     "display": 4.81,
-     "chg": -0.01,
-     "chgUnit": "pp",
-     "asOf": "2026-10-21",
-     "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
-     "src": "home.treasury.gov",
-     "tone": "bad"
-    },
-    {
-     "label": "US IG OAS",
-     "value": 0.83,
-     "unit": "bp",
-     "display": 83,
-     "chg": 0,
-     "chgUnit": "bp",
-     "asOf": "2026-10-13",
-     "url": "https://fred.stlouisfed.org/series/BAMLC0A0CM",
-     "src": "fred.stlouisfed.org",
-     "tone": "flat"
-    },
-    {
-     "label": "US HY OAS",
-     "value": 3.16,
-     "unit": "bp",
-     "display": 316,
-     "chg": 13,
-     "chgUnit": "bp",
-     "asOf": "2026-10-13",
-     "url": "https://fred.stlouisfed.org/series/BAMLH0A0HYM2",
-     "src": "fred.stlouisfed.org",
-     "tone": "bad"
-    },
-    {
-     "label": "US CCC OAS",
-     "value": 12.67,
-     "unit": "bp",
-     "display": 1267,
-     "chg": 53,
-     "chgUnit": "bp",
-     "asOf": "2026-10-13",
-     "url": "https://fred.stlouisfed.org/series/BAMLH0A3HYC",
-     "src": "fred.stlouisfed.org",
-     "tone": "bad"
-    },
-    {
-     "label": "EURO HY OAS",
-     "value": 3.27,
-     "unit": "bp",
-     "display": 327,
-     "chg": 12,
-     "chgUnit": "bp",
-     "asOf": "2026-10-13",
-     "url": "https://fred.stlouisfed.org/series/BAMLHE00EHYIOAS",
-     "src": "fred.stlouisfed.org",
-     "tone": "bad"
-    },
-    {
-     "label": "ECB deposit rate",
-     "value": 2.5,
-     "unit": "%",
-     "display": 2.5,
-     "chg": 0,
-     "chgUnit": "pp",
-     "asOf": "2026-10-22",
-     "url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
-     "src": "data.ecb.europa.eu",
-     "tone": "flat"
-    },
-    {
-     "label": "€STR",
-     "value": 2.44,
-     "unit": "%",
-     "display": 2.44,
-     "chg": 0,
-     "chgUnit": "pp",
-     "asOf": "2026-10-21",
-     "url": "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT",
-     "src": "data.ecb.europa.eu",
-     "tone": "flat"
-    },
-    {
-     "label": "BoE Bank Rate",
-     "value": 3.75,
-     "unit": "%",
-     "display": 3.75,
-     "chg": 0,
-     "chgUnit": "pp",
-     "asOf": "2026-10-21",
-     "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
-     "src": "bankofengland.co.uk",
-     "tone": "flat"
     }
    ]
   }

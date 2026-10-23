@@ -15,8 +15,13 @@
 //   • Restructuring & legal — schemes / restructuring plans, reported judgments,
 //     Restructuring & Insolvency client alerts, restructuring intel.
 //   • People moves — credit + hedge-fund `Personnel` intel.
+//   • Equities — the major indices (Dashboard ▸ Equities strip: S&P 500, Nasdaq, Dow,
+//     Russell 2000, Stoxx 600, FTSE 100, DAX, CAC 40, Nikkei 225, Hang Seng), 1-day % move
+//     (weekly: 1-week, from the daily closes) — owner 2026-10-23.
 //   • Rates & spreads — 1-day / 1-week moves from the committed last-known payloads
 //     (dashboard/js/live-snapshot.js); omitted when the snapshot has no series.
+// Order (owner 2026-10-23, HOUSE_STYLE R51): Equities, Rates & spreads, then deals, fund
+// closes, restructuring & legal, people moves.
 // Every item keeps its real source URL + date; an item without a source URL is left
 // out (never a dead row). Nothing is fetched and nothing is invented.
 //
@@ -177,10 +182,31 @@ function rates(win) {
   return { savedAt, items: out };
 }
 
+// ---- Equities: the major indices from the committed /api/eqindices payload ---------
+// 1-day = the feed's own daily % (live price vs prior close); 1-week = last close vs the
+// close 5 trading days earlier. Up reads green, down red (tone), as the app's tiles.
+export function equityMove(x, win) {
+  if (!x || x.value == null) return null;
+  if (win === "daily") return Number.isFinite(x.changePct) ? x.changePct : null;
+  const h = (x.history || []).filter(Number.isFinite);
+  return h.length >= 6 && h[h.length - 6] ? +(((h[h.length - 1] / h[h.length - 6]) - 1) * 100).toFixed(2) : null;
+}
+function equities(win) {
+  const P = (SNAP && SNAP.payloads && SNAP.payloads["/api/eqindices"]) || {};
+  const out = [];
+  for (const x of ((P.data || {}).indices || [])) {
+    if (!x || x.value == null || !isUrl(x.href)) continue;
+    const chg = equityMove(x, win);
+    if (chg == null) continue;
+    out.push({ label: x.label, value: x.value, unit: "idx", display: Math.round(x.value).toLocaleString("en-GB"), chg: +chg.toFixed(2), chgUnit: "%", asOf: x.asOf || null, url: x.href, src: host(x.href), tone: chg > 0 ? "good" : chg < 0 ? "bad" : "flat" });
+  }
+  return { savedAt: P.savedAt || null, items: out };
+}
+
 function build() {
   const out = { asOf: ASOF, built: new Date().toISOString(), daily: null, weekly: null };
   for (const [k, w] of Object.entries(WINDOWS)) {
-    out[k] = { label: w.label, from: w.from, to: w.to, deals: deals(w), closes: closes(w), legal: legal(w), people: people(w), rates: rates(k) };
+    out[k] = { label: w.label, from: w.from, to: w.to, equities: equities(k), rates: rates(k), deals: deals(w), closes: closes(w), legal: legal(w), people: people(w) };
   }
   return out;
 }
@@ -209,19 +235,24 @@ export function emailRows(d, which) {
     if (!block.items.length) rows.push({ empty: "Nothing new in this window." });
     for (const x of block.items) rows.push({ text: text(x), url: x.url });
   };
+  const per = which === "daily" ? "1-day" : "1-week";
+  // Markets first (owner 2026-10-23, HOUSE_STYLE R51): Equities, Rates & spreads, then the
+  // credit sections. "12 Oct": short enough that no line wraps on a phone; each change
+  // carries its tone so the HTML body can colour it (equities up green; spreads widening red).
+  const moves = (title, block, head) => {
+    if (!block || !block.items || !block.items.length) return;
+    rows.push({ h: `${title} (${per} change)`.toUpperCase() });
+    for (const x of block.items) {
+      const rate = { head: head(x), chg: `${x.chg > 0 ? "+" : ""}${x.chg}${x.chgUnit}`, tone: x.tone || rateTone(x), date: x.asOf ? fmt(x.asOf) : "date n/a" };
+      rows.push({ text: `${rate.head} (${rate.chg}, ${rate.date})`, url: x.url, rate });
+    }
+  };
+  moves("Equities", W.equities, (x) => `${x.label} ${x.display}`);
+  moves("Rates & spreads", W.rates, (x) => `${x.label} ${x.display}${x.unit === "bp" ? "bp" : "%"}`);
   sec("Top deals by size", W.deals, (x) => `${x.title}${x.who ? ` (${x.who})` : ""} — ${x.date}`);
   sec("Fund closes & fundraising", W.closes, (x) => `${x.title} — ${x.date}`);
   sec("Restructuring & legal", W.legal, (x) => `${x.title}${x.who ? ` — ${x.who}` : ""} — ${x.date}`);
   sec("People moves", W.people, (x) => `${x.title} — ${x.date}`);
-  if (W.rates.items.length) {
-    // "12 Oct": short enough that no line wraps on a phone. The change carries its
-    // tone so the HTML body can colour it (rateTone: spreads widening red, rates up green).
-    rows.push({ h: `Rates & spreads (${which === "daily" ? "1-day" : "1-week"} change)`.toUpperCase() });
-    for (const x of W.rates.items) {
-      const rate = { head: `${x.label} ${x.display}${x.unit === "bp" ? "bp" : "%"}`, chg: `${x.chg > 0 ? "+" : ""}${x.chg}${x.chgUnit}`, tone: x.tone || rateTone(x), date: x.asOf ? fmt(x.asOf) : "date n/a" };
-      rows.push({ text: `${rate.head} (${rate.chg}, ${rate.date})`, url: x.url, rate });
-    }
-  }
   // The live origin is not in the repo, so it is passed in (--origin= / WIRE_ORIGIN);
   // without one the in-app path alone is printed.
   const origin = String(opt("--origin") || process.env.WIRE_ORIGIN || "").replace(/\/+$/, "");

@@ -1350,7 +1350,8 @@ export async function handleEqIndices(request, env, ctx) {
       const prev = (f.value != null && f.change != null) ? f.value - f.change : null;
       r = { value: f.value, changePct: (f.change != null && prev) ? +((f.change / prev) * 100).toFixed(2) : null, asOf: f.asOf };
     }
-    return { id: s.id, label: s.label, value: r.value, changePct: r.changePct, asOf: r.asOf || null, href: s.href };
+    // history = the last ~22 daily closes (Yahoo path) — the digest's 1-week move reads it.
+    return { id: s.id, label: s.label, value: r.value, changePct: r.changePct, asOf: r.asOf || null, href: s.href, history: Array.isArray(r.history) ? r.history.map((v) => +(+v).toFixed(2)) : [] };
   }));
   const resp = new Response(JSON.stringify({ indices, ts: Date.now() }), {
     headers: { "content-type": "application/json", "cache-control": "public, max-age=120" },

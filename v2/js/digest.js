@@ -28,18 +28,18 @@ function itemHTML(x) {
   return evRow({ story: true, date: x.date || "", title: x.title, href: x.url, aCls: "dg-t", meta, src: x.src || "", srcHref: x.src ? "" : x.url,
     tag: x.amount ? `<span class="dg-amt">${esc(x.amount)}</span>` : "", cls: "dg-item" });
 }
-function ratesHTML(R, mode) {
+function ratesHTML(R, mode, title = "Rates &amp; spreads", key = "rates") {
   if (!R || !R.items || !R.items.length) return "";
   const sign = (v) => (v > 0 ? "+" : v < 0 ? "−" : "±") + String(Math.abs(v));
   // Colour by the item's tone (build-digest rateTone): a spread widening reads red, a rate
   // rising green. Older digest files carry no tone → by sign, spreads inverted.
   const TONE = { good: "is-up", bad: "is-down", flat: "is-flat" };
   const cls = (x) => TONE[x.tone] || (!x.chg ? "is-flat" : ((x.unit === "bp") !== (x.chg > 0)) ? "is-up" : "is-down");
-  return `<div class="dg-sec" data-dg="rates"><div class="na-menu-recent-h">Rates &amp; spreads <span class="dg-sub">${mode === "weekly" ? "1-week" : "1-day"} change</span></div>`
+  return `<div class="dg-sec" data-dg="${key}"><div class="na-menu-recent-h">${title} <span class="dg-sub">${mode === "weekly" ? "1-week" : "1-day"} change</span></div>`
     + `<table class="dg-rates"><tbody>`
     + R.items.map((x) => `<tr><td class="dg-r-nm"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a></td>`
-      + `<td class="dg-r-v">${esc(String(x.display))}${x.unit === "bp" ? "bp" : "%"}</td>`
-      + `<td class="dg-r-c ${cls(x)}">${sign(x.chg)}${x.chgUnit === "bp" ? "bp" : ""}</td>`
+      + `<td class="dg-r-v">${esc(String(x.display))}${x.unit === "bp" ? "bp" : x.unit === "idx" ? "" : "%"}</td>`
+      + `<td class="dg-r-c ${cls(x)}">${sign(x.chg)}${x.chgUnit === "bp" ? "bp" : x.chgUnit === "%" ? "%" : ""}</td>`
       + `<td class="dg-r-d">${esc(fmtDay(x.asOf))}</td></tr>`).join("")
     + `</tbody></table>`
     + (R.savedAt ? `<p class="dg-note">Last-known values committed ${esc(fmtStamp(R.savedAt))}.</p>` : "")
@@ -57,13 +57,15 @@ export function digestHTML(D, mode) {
     + `<div class="na-menu-row na-menu-pushrow dg-head"><span class="dg-h"><strong>${esc(W.label)} digest</strong> · ${esc(range)}</span>${seg}</div>`
     + `<div class="na-menu-row na-menu-pushrow dg-share"><span class="dg-built">Built ${esc(fmtStamp(D.built))} from Wire’s committed data</span>`
     + `<button type="button" class="na-menu-push" id="v2-dg-share" data-path="${esc(digestPath(mode))}">Share link</button></div>`
+    // Markets first (owner 2026-10-23, HOUSE_STYLE R51): Equities, Rates & spreads, then credit.
+    + ratesHTML(W.equities, mode, "Equities", "equities")
+    + ratesHTML(W.rates, mode)
     + SECTIONS.map(([k, label, empty]) => {
       const B = W[k] || { items: [], total: 0 };
       return `<div class="dg-sec" data-dg="${k}"><div class="na-menu-recent-h">${esc(label)}${B.total > B.items.length ? ` <span class="dg-sub">top ${B.items.length} of ${B.total}</span>` : ""}</div>`
         + (B.items.length ? `<ul class="g-evs dg-list">${B.items.map(itemHTML).join("")}</ul>` : `<p class="dg-empty">${esc(empty)}</p>`)
         + `</div>`;
     }).join("")
-    + ratesHTML(W.rates, mode)
     + `</div>`;
 }
 

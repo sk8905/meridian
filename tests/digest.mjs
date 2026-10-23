@@ -54,6 +54,14 @@ if (D) {
   const tone = (x) => (!x.chg ? "flat" : (x.unit === "bp" ? x.chg < 0 : x.chg > 0) ? "good" : "bad");
   const its = D ? [...D.daily.rates.items, ...D.weekly.rates.items] : [];
   check(its.length > 0 && its.every((x) => x.tone === tone(x)), `digest data: every rate item carries its tone (spread widening = bad) (${its.length})`);
+  // Order + equities (owner 2026-10-23, R51): Equities, Rates & spreads, then the credit
+  // sections in their usual order; equity moves up green / down red.
+  const heads = [...html.matchAll(/<p style="margin:18px 0 6px;font-weight:bold;letter-spacing:\.04em">([^<]+)<\/p>/g)].map((m) => m[1].replace(/ \(.*$/, "").replace(/&amp;/g, "&"));
+  const ORDER = ["EQUITIES", "RATES & SPREADS", "TOP DEALS BY SIZE", "FUND CLOSES & FUNDRAISING", "RESTRUCTURING & LEGAL", "PEOPLE MOVES"];
+  check(JSON.stringify(heads) === JSON.stringify(ORDER), `email --html: sections run Equities, Rates & spreads, then deals / closes / legal / people (${heads.join(" › ")})`);
+  const eq = (html.split(/EQUITIES \(/)[1] || "").split(/RATES &amp; SPREADS|RATES & SPREADS/)[0];
+  const eqSpans = [...eq.matchAll(/<span style="color:(#[0-9a-f]{6})">([^<]*)<\/span>/g)].map((m) => ({ c: m[1], t: m[2] }));
+  check(eqSpans.length >= 6 && eqSpans.every((x) => x.c === (/^\+/.test(x.t) ? "#0f9d68" : /^-/.test(x.t) ? "#df4763" : "#8b96ac")) && /S&amp;P 500|S&P 500/.test(eq) && /FTSE 100/.test(eq), `email --html: Equities lists the major indices, % move coloured up green / down red (${eqSpans.length})`);
   check(rates && !/as of \d{4}-\d{2}-\d{2}/.test(rates) && /\(\s*\S+\s*, \d{1,2} [A-Z][a-z]{2}\)/.test(rates), `email --html: rate dates read "12 Oct", never "as of YYYY-MM-DD" (${(rates.match(/\(\s*\S+\s*, \d{1,2} [A-Z][a-z]{2}\)/) || [""])[0]})`);
 }
 
@@ -82,6 +90,7 @@ const read = (pg) => pg.evaluate(() => {
     allLinked: links.every((a) => /^https?:\/\//.test(a.getAttribute("href") || "") && a.target === "_blank"),
     rateRows: dg.querySelectorAll(".dg-rates tr").length,
     rateLinked: [...dg.querySelectorAll(".dg-rates a")].every((a) => /^https?:\/\//.test(a.getAttribute("href") || "")),
+    order: [...dg.querySelectorAll(".dg-sec")].map((s) => s.dataset.dg),
     rateTone: [...dg.querySelectorAll(".dg-rates tr")].map((tr) => ({ v: tr.querySelector(".dg-r-v").textContent, c: tr.querySelector(".dg-r-c").textContent, cls: tr.querySelector(".dg-r-c").className })),
     share: (document.querySelector("#v2-dg-share") || {}).dataset?.path,
     on: (document.querySelector("#v2-dg-seg .is-on") || {}).dataset?.dgMode,
@@ -100,6 +109,7 @@ for (const [dev, name] of [[PHONE, "phone"], [DESKTOP, "desktop"]]) {
   checkEq(s.items, count("daily"), `${name}: daily renders every digest item`);
   check(s.allLinked, `${name}: every daily item links its source`);
   check(s.rateLinked, `${name}: every daily rate row links its source`);
+  check(JSON.stringify(s.order) === JSON.stringify(["equities", "rates", "deals", "closes", "legal", "people"]), `${name}: Digest page runs Equities, Rates & spreads, then the credit sections (${s.order.join(",")})`);
   { // Spreads (bp) widening read red (is-down), rates rising green (is-up) — the email's rule.
     const ok = s.rateTone.length > 0 && s.rateTone.every((r) => { const up = /^\+/.test(r.c), dn = /^[−-]/.test(r.c); const want = !up && !dn ? "is-flat" : ((/bp$/.test(r.v) ? dn : up) ? "is-up" : "is-down"); return r.cls.includes(want); });
     check(ok, `${name}: Digest rate colours — spreads widening red, rates rising green (${s.rateTone.length} rows)`);
@@ -112,7 +122,7 @@ for (const [dev, name] of [[PHONE, "phone"], [DESKTOP, "desktop"]]) {
   checkEq(s.path, "/v2/menu/digest/weekly", `${name}: Weekly moves the shareable URL to /v2/menu/digest/weekly`);
   checkEq(s.items, count("weekly"), `${name}: weekly renders every digest item`);
   check(s.items > 0 && s.allLinked, `${name}: every weekly item links its source (${s.items})`);
-  check(s.rateRows === D.weekly.rates.items.length && s.rateLinked, `${name}: weekly rate moves render with source links`);
+  check(s.rateRows === D.weekly.rates.items.length + ((D.weekly.equities || {}).items || []).length && s.rateLinked, `${name}: weekly equity + rate moves render with source links`);
   checkEq(s.share, "/v2/menu/digest/weekly", `${name}: Share link carries the weekly URL`);
   check(errs.length === 0, `${name}: no page errors (${errs.join(" | ")})`);
   await ctx.close();

@@ -16,7 +16,7 @@
 import fs from "node:fs";
 
 const FILE = new URL("../dashboard/js/live-snapshot.js", import.meta.url);
-export const ENDPOINTS = ["/api/rates", "/api/eurates", "/api/yield-curve", "/api/govyields", "/api/markets", "/api/predict"];
+export const ENDPOINTS = ["/api/rates", "/api/eurates", "/api/yield-curve", "/api/govyields", "/api/markets", "/api/predict", "/api/eqindices"];
 
 // Is a payload worth keeping? (Mirrors v2/js/live-cache.js `useful`.)
 export function useful(path, d) {
@@ -26,6 +26,7 @@ export function useful(path, d) {
   if (path === "/api/yield-curve") return Array.isArray(d.us) && d.us.some((v) => v != null);
   if (path === "/api/govyields") return Array.isArray(d.yields) && d.yields.some((x) => x && x.y10 && x.y10.v != null);
   if (path === "/api/markets") return Array.isArray(d.markets) && d.markets.some((x) => x && x.value != null);
+  if (path === "/api/eqindices") return Array.isArray(d.indices) && d.indices.some((x) => x && x.value != null);
   if (path === "/api/predict") return Array.isArray(d.markets) && d.markets.some((x) => x && x.yes != null);
   return Object.keys(d).length > 0;
 }
@@ -34,7 +35,7 @@ export function useful(path, d) {
 // FRED returned no ICE BofA OAS) used to replace good spreads with nulls because the
 // payload as a whole was still "useful". Now a row that comes back null keeps the
 // previous capture's value for that row, tagged keptFrom = that capture's savedAt.
-const ROW_LISTS = { "/api/rates": "rates", "/api/eurates": "series", "/api/markets": "markets" };
+const ROW_LISTS = { "/api/rates": "rates", "/api/eurates": "series", "/api/markets": "markets", "/api/eqindices": "indices" };
 const rowKey = (x) => x && (x.id || x.symbol || x.label);
 export function carryForward(path, prev, next) {
   const k = ROW_LISTS[path];

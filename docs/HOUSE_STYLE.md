@@ -1836,6 +1836,18 @@ token (audit 2026-10-16; it was a literal `#2f6cae` in three files).
   text. The app link reads "open the digest" (or similar short words), not the URL. The
   digest's HTML comes from `node scripts/build-digest.mjs --email --html`; the plain-text
   `--email` output is only the fallback part. Spec: `tests/digest.mjs`.
+  **The digest's content and order (owner 2026-10-22/23)** — the email and Menu ▸ Digest
+  alike: **(1) Equities** — the major indices of the Dashboard ▸ Equities strip
+  (`DASH_INDEX_SERIES`: S&P 500, Nasdaq, Dow, Russell 2000, Stoxx 600, FTSE 100, DAX, CAC 40,
+  Nikkei 225, Hang Seng), level + % move; **(2) Rates & spreads**; then **(3) Top deals by
+  size, (4) Fund closes & fundraising, (5) Restructuring & legal, (6) People moves**. The
+  daily digest shows the 1-day move, the weekly the 1-week move. Each market line reads
+  `Name level (move, 12 Oct) [link]` — a short day-month date so no line wraps on a phone —
+  and the move is coloured by what it means (`tone`, set once in build-digest): equities and
+  rates **up green / down red**; credit **spreads the other way — widening red, tightening
+  green**; no change grey. Market data comes only from the committed last-known snapshot
+  (`dashboard/js/live-snapshot.js`, which collects `/api/eqindices` with each index's daily
+  closes); a section with no data is omitted, never invented.
 
 ## 7. Technical rules
 

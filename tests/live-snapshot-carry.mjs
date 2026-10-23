@@ -14,4 +14,8 @@ checkEq(out.rates[1].value, 3.89, "a fresh value always wins");
 check(out.rates[2].value == null, "a row with no previous value stays null (never invented)");
 const rates = LIVE_SNAPSHOT.payloads["/api/rates"].data.rates;
 check(rates.filter((r) => /OAS/.test(r.label)).every((r) => r.value != null), "the committed snapshot carries every OAS spread");
+{ // The digest's Equities section reads the committed /api/eqindices payload (owner 2026-10-23).
+  const { ENDPOINTS, useful } = await import("../scripts/refresh-live-snapshot.mjs");
+  check(ENDPOINTS.includes("/api/eqindices") && useful("/api/eqindices", { indices: [{ id: "spx", value: 1 }] }) && !useful("/api/eqindices", { indices: [{ id: "spx", value: null }] }), "the live snapshot collects the major equity indices (/api/eqindices)");
+}
 finish();

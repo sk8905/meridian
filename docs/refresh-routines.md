@@ -1479,10 +1479,12 @@ refresh run, after the desk data, briefing and stamps and before publish:
    "Health check — last run" row STALE (>6h) and then FAILING (>48h). The exit code
    still reflects the verdict; a non-zero exit is NOT a reason to skip the commit.
 2. **Credit digest** — `node scripts/build-digest.mjs` → `digest.js` (`DIGEST`): the
-   daily (as-of day + the day before) and weekly (7 days) digest — top deals by the
-   size their own headline states, fund closes & fundraising, restructuring & legal
-   (schemes/RPs, judgments, R&I alerts), people moves, and 1-day / 1-week rate &
-   spread moves from `dashboard/js/live-snapshot.js` — built ONLY from committed data,
+   daily (as-of day + the day before) and weekly (7 days) digest — in this order
+   (HOUSE_STYLE **R51**, owner 2026-10-23): **equities** (the major indices, 1-day / 1-week %
+   move) and **rates & spreads** (1-day / 1-week moves) from `dashboard/js/live-snapshot.js`,
+   then top deals by the size their own headline states, fund closes & fundraising,
+   restructuring & legal (schemes/RPs, judgments, R&I alerts) and people moves — built ONLY
+   from committed data,
    every item with its source URL + date (an item without a URL is dropped). Shown at
    Menu ▸ **Digest**, shareable at `/v2/menu/digest` and `/v2/menu/digest/weekly`. It is
    deliberately **not** in `npm run build` (its windows move with the calendar, so it is
@@ -1501,6 +1503,10 @@ prints, so that read-only task can send it). On **Mondays** it sends the weekly 
    `--origin=https://<live host>`, supplies the app link; without it the in-app path
    alone is printed). Line 1 of the output is the subject; the rest is the plain-text
    body, every item followed by its source link — this is the **fallback** part only.
+   **Refresh the market snapshot first** (`node scripts/refresh-live-snapshot.mjs`, then
+   `node scripts/build-digest.mjs`) so the Equities and Rates & spreads lines are this
+   morning's, not the last refresh run's; if a feed is down the snapshot keeps its last values
+   (each line shows its own date).
    Then run the same command with **`--html`** for the body that is actually read: line 1
    is the subject again, the rest is the HTML, where every item ends in a short orange
    **"[link]"** and the long URL never shows (owner rule 2026-10-20, HOUSE_STYLE **R51**).
