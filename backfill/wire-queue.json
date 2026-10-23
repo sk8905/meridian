@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-23T10:06:47.135Z",
+ "generated": "2026-10-23T11:11:22.370Z",
  "windowDays": 30,
  "summary": {
-  "wireItems": 798,
+  "wireItems": 770,
   "lawFirmDeals": 52,
-  "matched": 203,
-  "open": 26,
-  "total": 278,
+  "matched": 235,
+  "open": 72,
+  "total": 324,
   "entities": 1555,
   "failedSources": [
-   "Mohamed El-Erian",
-   "Accredited Investor Insights",
-   "Debt Serious"
+   "Financial Times",
+   "FT Alphaville",
+   "The Economist"
   ]
  },
  "place": {
@@ -24,6 +24,23 @@
   "stress": "Dashboard ▸ Credit stress list (CR_STRESS latest/status) + deal/intel if a transaction"
  },
  "items": [
+  {
+   "key": "alternativecreditinvestor.com/2026/10/23/tikehau-deploys-e3-4bn-amid-market-volatility",
+   "title": "Tikehau deploys €3.4bn amid market volatility",
+   "url": "https://alternativecreditinvestor.com/2026/10/23/tikehau-deploys-e3-4bn-amid-market-volatility/",
+   "source": "Alternative Credit Investor",
+   "date": "2026-10-23",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m3",
+     "name": "Tikehau Capital"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
   {
    "key": "cnbc.com/2026/10/22/spacex-records-561-million-investment-gain-from-stake-in-boring-co.html",
    "title": "SpaceX records $561 million investment gain from stake in Elon Musk's Boring Co.",
@@ -38,11 +55,28 @@
     }
    ],
    "firstSeen": "2026-10-23T01:36:37.090Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "investment gain, not a distressed-credit event",
    "closed": "2026-10-23T05:15:01.428Z"
+  },
+  {
+   "key": "cnbc.com/2026/10/23/spacex-tesla-merger-chatter-takes-center-stage-after-earnings.html",
+   "title": "With earnings in rearview mirror, SpaceX-Tesla merger chatter takes center stage",
+   "url": "https://www.cnbc.com/2026/10/23/spacex-tesla-merger-chatter-takes-center-stage-after-earnings.html",
+   "source": "CNBC",
+   "date": "2026-10-23",
+   "entities": [
+    {
+     "kind": "stress",
+     "id": "SpaceX",
+     "name": "SpaceX"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "hedgeweek.com/news/blackstone-multi-strategy-fund-reaches-276-9m-in-assets-following-new-unit-sales",
@@ -68,7 +102,7 @@
     }
    ],
    "firstSeen": "2026-10-23T09:03:56.217Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "hedge fund unit sale, not a credit event; $276.9m figure not verifiable (SEC 8-Ks show ~$109.5m aggregate)",
@@ -88,11 +122,45 @@
     }
    ],
    "firstSeen": "2026-10-23T09:03:56.217Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "CalPERS only considering a hedge fund return; no commitment or mandate, no primary source",
    "closed": "2026-10-23T09:14:55.335Z"
+  },
+  {
+   "key": "legalbusiness.co.uk/law-firms/latham-makes-up-36-partners-with-none-outside-us-and-eu-for-second-year-running",
+   "title": "Latham makes up 36 partners, with none outside US and EU",
+   "url": "https://www.legalbusiness.co.uk/law-firms/latham-makes-up-36-partners-with-none-outside-us-and-eu-for-second-year-running/",
+   "source": "Legal Business",
+   "date": "2026-10-23",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "latham",
+     "name": "Latham & Watkins"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "legalbusiness.co.uk/law-firms/we-need-everybody-rowing-in-the-same-direction-hogan-lovells-cadwalader-teams-up-with-cambridge",
+   "title": "‘We need everybody rowing in the same direction’ – Hogan Lovells Cadwalader teams up with Cambridge",
+   "url": "https://www.legalbusiness.co.uk/law-firms/we-need-everybody-rowing-in-the-same-direction-hogan-lovells-cadwalader-teams-up-with-cambridge/",
+   "source": "Legal Business",
+   "date": "2026-10-23",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "hoganlovells",
+     "name": "Hogan Lovells"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "privateequitywire.co.uk/162319-2",
@@ -118,7 +186,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -145,7 +213,7 @@
     }
    ],
    "firstSeen": "2026-10-23T09:21:24.257Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -162,7 +230,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -179,7 +247,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -276,7 +344,7 @@
     }
    ],
    "firstSeen": "2026-10-22T15:16:50.918Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "i1478",
    "reason": null,
@@ -296,7 +364,7 @@
     }
    ],
    "firstSeen": "2026-10-22T10:06:47.586Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m189",
    "reason": null,
@@ -321,7 +389,7 @@
     }
    ],
    "firstSeen": "2026-10-22T10:06:47.586Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "i1477",
    "reason": null,
@@ -341,7 +409,7 @@
     }
    ],
    "firstSeen": "2026-10-22T18:39:17.115Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Political donations story; not a SpaceX debt/stress data point",
@@ -361,7 +429,7 @@
     }
    ],
    "firstSeen": "2026-10-22T21:12:47.506Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false restructuring match (rx11); OpenAI venture round, not a court step",
@@ -391,7 +459,7 @@
     }
    ],
    "firstSeen": "2026-10-22T05:21:48.205Z",
-   "lastSeen": "2026-10-23T09:10:51.606Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Substack newsletter (paywalled); only general commentary, no verifiable Blackstone transaction or data point",
@@ -478,7 +546,7 @@
     }
    ],
    "firstSeen": "2026-10-22T10:06:47.586Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi568",
    "reason": null,
@@ -498,7 +566,7 @@
     }
    ],
    "firstSeen": "2026-10-22T08:25:04.705Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "could not verify a $300m overseas raise by Lingjun from any primary source or second outlet",
@@ -518,7 +586,7 @@
     }
    ],
    "firstSeen": "2026-10-22T08:25:04.705Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "no corroborating coverage found; litigation with an ex-employee, not a fund event",
@@ -540,7 +608,7 @@
    "via": "law-firm",
    "legalId": "u4033",
    "firstSeen": "2026-10-22T19:16:33.903Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Kirkland release: PE acquisition financing for TPG/Zembl, no lenders or credit terms; not a TPG credit event",
@@ -560,7 +628,7 @@
     }
    ],
    "firstSeen": "2026-10-22T16:10:26.440Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "interview/profile piece with no verifiable primary source or checkable deal/news facts",
@@ -580,7 +648,7 @@
     }
    ],
    "firstSeen": "2026-10-22T13:14:14.458Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m5",
    "reason": null,
@@ -600,7 +668,7 @@
     }
    ],
    "firstSeen": "2026-10-22T08:18:07.834Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "no primary release or tier-1 article found for the Sound Point team expansion; Google News redirect unresolvable",
@@ -620,7 +688,7 @@
     }
    ],
    "firstSeen": "2026-10-22T18:06:06.303Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "No primary PR Newswire/JPM release found for the Solana expansion; unverifiable",
@@ -645,7 +713,7 @@
     }
    ],
    "firstSeen": "2026-10-22T11:16:08.190Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Not verified: LSEG's own 2026-10-13 release only confirms talks with Permira (~$3.5bn), no definitive agreement; subject entities are LSEG/Octus/Permira, not the tagged PIF; Google News redirect is not citable. Re-check for a signed deal.",
@@ -670,7 +738,7 @@
     }
    ],
    "firstSeen": "2026-10-22T13:22:55.465Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "drone-product press release; spurious entity match, no tracked-entity link or credit/LP allocation",
@@ -690,7 +758,7 @@
     }
    ],
    "firstSeen": "2026-10-23T01:36:37.090Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "LP only a passing mention in an unrelated press release",
@@ -757,6 +825,28 @@
    "closed": "2026-10-23T05:15:01.428Z"
   },
   {
+   "key": "news.google.com/rss/articles/cbmilwfbvv95cuxps3e5vvvnq0jhtuham3ddnhi4y2etckdrwl90s0stavzxwgy2mlhnvwftdehyam5od0uwrgljvzhgttdovtzycy1zdem0ujc4y2c2c0zuetngqjf0a1lhsvjmuwl0z0z3ml9xehjrnge3wvbhadhzbndhuw9swehud2dezzqzvep3cg9qsgp2otleumpwvtvn",
+   "title": "Barclays to cut 5,000 jobs as it increases AI use",
+   "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPS3E5VVVnQ0JHTUhaM3dDNHI4Y2EtckdRWl90S0staVZxWGY2MlhNVWFtdEhYam5Od0UwRGljVzhGTTdOVTZYcy1ZdEM0Ujc4Y2c2c0ZUeTNGQjF0a1lhSVJmUWl0Z0Z3Ml9XeHJRNGE3WVBhaDhZbndHUW9SWEhUd2dEZzQzVEp3cG9qSGp2OTlEUmpWVTVn?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-22",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m59",
+     "name": "Barclays"
+    },
+    {
+     "kind": "manager",
+     "id": "m426",
+     "name": "Barclays Capital Inc."
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
    "key": "news.google.com/rss/articles/cbmimajbvv95cuxnndnkd01wb2hnltfrqmrltm1eq3vmv1zjte1dtkx2rgxlufu0uuhjy3pjn0lqnnvselzwbjhzmjjzwfhibffrow1vnxfjsejaqxhdcghprtdqev9ldni2s2p6aevkcwfvbtzlyunzzulxburrqllkrlbxyjv6chbuohl6mvl1tg5tevhfyzd2agrkau10c0thcmlbsdfwdel2sg1btwvjq1bqrxnmzjrvwkfor0f2bxvzve9dwg82zxdtmzfbx1n1x3o3tznuczjzeepibvi4a0fnnln4mvp6ujhwuexwze12vtd0qlfbchdblvntufvbowfzdddvbfb5b2znd0dbvnnrt1locg5pb19tmvdpm3kw",
    "title": "Carlyle Credit Income Fund Schedules Fourth Quarter and",
    "url": "https://news.google.com/rss/articles/CBMimAJBVV95cUxNNDNKd01Wb2hNLTFRQmRlTm1EQ3VmV1ZJTE1DTkx2RGxlUFU0UUhJY3pjN0lqNnVSelZwbjhzMjJzWFhibFFrOW1VNXFJSEJaQXhDcGhPRTdQeV9LdnI2S2p6aEVKcWFVbTZLYUNZZUlxbURrQllkRlBXYjV6cHBuOHl6MVl1TG5TeVhfYzd2aGRkaU10c0thcmlBSDFwdEl2SG1BTWVJQ1BqRXNMZjRvWkFOR0F2bXVZVE9DWG82ZXdtMzFBX1N1X3o3TzNuczJzeEpibVI4a0FnNlN4MVp6UjhWUExwZE12VTd0QlFBcHdBLVNTUFVBOWFZdDdvbFB5b2ZNd0dBVnNrT1lOcG5pb19tMVdpM3kw?oc=5",
@@ -777,6 +867,28 @@
    "closed": "2026-10-23T09:14:55.335Z"
   },
   {
+   "key": "news.google.com/rss/articles/cbmimwfbvv95cuxocgxim3mxtflaqwdhz3flqjzfathcquczcgvcwkkzdjjbm1jflwfjmndqvm1vbi1hbs1tdmtsrhdsr1lcyufzbxbzqlptogl0stzesg9wr2k0m1brrxa3qumtuge2x0rblwd1swvjt0zpeve5vg9uznc3y3lflthotex4zgu5vnzxvev5t21jtnz5nujxzkf4r0kzdw",
+   "title": "Barclays CEO: Fixed income miss ‘will get my attention’",
+   "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOcGxIM3MxTFlaQWdHZ3FLQjZFaThCQUczcGVCWkkzdjJBM1JFLWFJMndQVm1Vbi1HbS1tdmtsRHdSR1lCYUFzbXBZQlptOGl0STZESG9WR2k0M1BRRXA3QUMtUGE2X0RBLWd1SWVjT0ZPeVE5VG9UZnc3Y3lfLThOTEx4ZGU5VnZxVEV5T21jTnZ5NUJxZkF4R0kzdw?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-22",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m59",
+     "name": "Barclays"
+    },
+    {
+     "kind": "manager",
+     "id": "m426",
+     "name": "Barclays Capital Inc."
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
    "key": "news.google.com/rss/articles/cbmiswfbvv95cuxncentaxktsu5wnmvnqulrakh0zkpiqxzhczdwzli5sldkvldkzutyd29yy1pouni0dxhdlutvsvb4sdbhsf9vnhhyrfdvbkhruxnmrldtc0vselprdfq2weeyuhr2x0w1s0nbn0rhulfnymlqcjnjbhrhwdbusxnsuux3vnblohpxlvitadlzutewv2rim245rlkyq05mszjuaddadvlncmdidhrqx2j0of9cvq",
    "title": "Brevan Howard Credit-Trading Head Andy Silver is Stepping Back",
    "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNcENTaXktSU5WNmVNQUlrakh0ZkpiQXZhczdwZlI5SldkVldkZUtyd29YY1poUnI0dXhDLUtVSVB4SDBhSF9vNHhyRFdVbkhrUXNmRldTc0VselpRdFQ2WEEyUHR2X0w1S0NBN0RhUlFnYmlqcjNJbHRHWDBuSXNsUUx3VnBLOHpXLVItaDlZUTEwV2RIM245RlkyQ05mSzJUaDdadVlncmdidHRQX2J0OF9CVQ?oc=5",
@@ -790,7 +902,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -817,7 +929,63 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiswfbvv95cuxntwk1mjqwruvqnwxwaev0tgzlewxtvenvrjktm19oqzrsdlhxq1zvlu1iu3dmu2vxwmy5s2ruqvpzcznhsmqzaw5nrmplrumxu0pfthzjofvmugpjq09mngzzmmtlbm0tmmzicfnvufdhuxrhatloalc3ludjwxpaywryukfuekkyswnmv3dqanbvmnrnekf0azlwymdsvfhpc01uqjdqt09bndhduvdkeuvztq",
+   "title": "Quadrature spends nearly £900m on staff as revenue booms",
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNTWk1MjQwRUVqNWxwaEV0TGZLeWxTVENvRjktM19oQzRSdlhXQ1ZVLU1iU3dmU2VxWmY5S2RuQVpZczNHSmQzaW5nRmpLRUMxU0pfTHZjOFVmUGpjQ09mNGZzMmtLbm0tMmZIcFNvUFdhUXRhaTlOalc3LUdJWXpaYWRYUkFUekkySWNmV3dqanBVMnRNekF0azlWYmdSVFhpc01UQjdQT09BNDhDUVdkeUVZTQ?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-22",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h107",
+     "name": "Quadrature Capital"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiwwfbvv95cuxnyxc2bkfkuetfzthxzhhismnsntbjsw5nc21wamtnywdvqkrvnwhovggyue01ugjntdzychzgatvuqvzfttlpnnrrvwn0dgdnywpmcnranezua2n4tdvhqne3ovptsxdabutjwk0xrddxvdbzavp6alvpsnvftlc1ck9utuvwq3e4r0fuqkvwsmrkx2rvtwtqv3rkofvxddv0uuk0umthmmmzznhmyu9iqvfosgxusu40v1mwzlf3awjwmhc",
+   "title": "Trading Places: Evercore’s succession play, NatWest’s new markets head",
+   "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNYXc2bkFkUEtFZThXZHhiSmNSNTBjSW5Nc21wamtNYWdvQkRVNWhoVGgyUE01UGJnTDZYcHZGaTVuQVZFTTlPNnRrVWN0dGdnYWpmcnRaNEZua2N4TDVhQnE3OVptSXdabUtjWk0xRDdXVDBZaVp6alVPSnVFTlc1ck9uTUVwQ3E4R0FuQkVWSmRKX2RVTWtQV3RkOFVXdDV0UUk0UmtHMmMzZnhmYU9iQVFoSGxuSU40V1MwZlF3aWJwMHc?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-22",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m254",
+     "name": "NatWest"
+    },
+    {
+     "kind": "manager",
+     "id": "m365",
+     "name": "Evercore"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmixgfbvv95cuxocld6u3fdwmqxzjdmu1nyqtmxuzztcui5ymzknnvrmzfsc0i4t1bomtfpeehbvghknehtagtlbwzqqlv6r1vmbk5ncdkzsjrswujxtc1lx0rvselktmv4ylljzlu1ckwwmgxkr3dtxzlqzfpotnzoedzxexzybxrclxl1rgnocvf5d0g3s2ztqkhutxhlexzfwlrpsc0tyzu2zji1x2r2x2e2umlxugtubhrowwz4wxffrnnft0zwblfftenuz3c",
+   "title": "Wealthy families want in on sports deals. Bank of America says they should be careful",
+   "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOcld6U3FDWmQxZjdmU1NYQTMxUzZTcUI5YmZkNnVrMzFsc0I4T1BOMTFpeEhBVGhkNEhTaGtLbWZQQlV6R1VMbk5NcDkzSjRsWUJxTC1lX0RvSElKTmV4YlljZlU1ckwwMGxkR3dTXzlQZFpOTnZoeDZxeXZybXRCLXl1RGNOcVF5d0g3S2ZTQkhuTXhleXZfWlRPSC0tYzU2ZjI1X2R2X2E2UmlXUGtubHROWWZ4WXFFRnNFT0ZWblFfTENUZ3c?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-22",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m248",
+     "name": "Bank of America"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -834,7 +1002,7 @@
     }
    ],
    "firstSeen": "2026-10-22T05:20:58.161Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "not an LP allocation: in-house GC appointment at a horse association; LP tag spurious",
@@ -919,7 +1087,7 @@
     }
    ],
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "i1469",
    "reason": null,
@@ -979,7 +1147,7 @@
     }
    ],
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "equity-market/earnings commentary; not a stressed-credit update or credit event",
@@ -1149,7 +1317,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Barclays is a bank, not a tracked credit manager; not a capital event",
@@ -1174,7 +1342,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Griffin macro/AI-bubble opinion; not hedge-fund news of record",
@@ -1199,7 +1367,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "equity position commentary, not credit",
@@ -1221,7 +1389,7 @@
    "via": "law-firm",
    "legalId": "u3694",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "d1321",
    "reason": null,
@@ -1241,7 +1409,7 @@
     }
    ],
    "firstSeen": "2026-10-21T17:47:17.551Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "merger speculation Weil denied; no firm announcement, article not retrievable",
@@ -1301,7 +1469,7 @@
     }
    ],
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "IREN Spanish campus announcement carries no financing — the financing is already held as d829",
@@ -1376,11 +1544,28 @@
     }
    ],
    "firstSeen": "2026-10-21T20:56:01.384Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m263",
    "reason": null,
    "closed": "2026-10-21T21:16:26.126Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmikafbvv95cuxqalzobvvltmf6bnvxtuqtwfnpwhjbuviwogxnnkyysc1fujrxqvbxnvzezei2vlgtdm85q1lwam9yedhvx2ftys1oednxy0hzsullzxzvrhbcb0thwwc2yjrzs21wtxpqywnxvuszvvffwfvnmhcxtlpynjfrmlbxmhjidhrfrxpzvnpvyu95vmy",
+   "title": "Why Weil doesn’t need a Shearman-style merger",
+   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQalZobVVLTmF6bnVXTUQtWFNpWHJBUVIwOGxnNkYySC1fUjRXQVBxNVZEZEI2Vlgtdm85Q1lWam9YeDhvX2FTYS1OeDNXY0hZSUllZXZVRHBCb0tHWWc2YjRzS21wTXpqYWNxVUszVVFFWFVNMHcxTlpYNjFRMlBXMHJidHRfRXpzVnpvYU95VmY?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "weil",
+     "name": "Weil, Gotshal & Manges"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmikafbvv95cuxqtzrcnu1wazbubulpvy1ku1lob2yyae5mm2xax2zld1byshbrav9bbkzybeffy2fibldeedngn0o3bdzhztflc3kxv05pynvym2trcvduqlbivng2svlzwnzyvezxmldwytzanlnwnwqycm1jdu1tnhm2emvpx2tode9wvfpsowrmu25hbvrjwuk",
@@ -1421,6 +1606,23 @@
    "recordId": null,
    "reason": "equity-market/earnings commentary; not a stressed-credit update or credit event",
    "closed": "2026-10-21T17:17:28.143Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiogfbvv95cuxnvzczym1vus1xzmzvcnl1wggxx0veownxvhbdb21tvle4u2tscmvhttlgsfpctmp3zwyxr2rrnuplc19rq3fda0x1vuhantzom0qznflimujyamzkc1hwqmk4bwttwtnrymffqndkwv85b0v4wefymghbwkjmrekyufzfug9nyxbtevrkmtbvrlvcagdhu1ruyjdymvhbc3rzn2c",
+   "title": "Citigroup boosts M&A team by tapping Bank of America’s Mee",
+   "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNVzczYm1vUS1xZmZvcnl1WGgxX0VEOWNXVHBDb21tVlE4U2tscmVhTTlGSFpCTmp3ZWYxR2RrNUpLc19rQ3FDa0x1VUhaNTZOM0QzNFlIMUJYamZKc1hWQmk4bWtTWTNRYmFfQndkWV85b0V4WEFyMGhBWkJmREkyUFZFUG9nYXBteVRkMTBvRlVCaGdhU1RUYjdyMVhBc3RZN2c?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m248",
+     "name": "Bank of America"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmipafbvv95cuxqsxdhqwprlwpwnjj2vuvrv2zddngwcmprc212cgxbu19lvlhvew92nhu2m1fka1fydddut0vouxc4cffwmgftzkz0ete4bfp3uvjrwv9jru9yn3jvu3cywdzjrtn0ngdix2frsvnqvw5rofhtv085d29eb1h2nhr0yv91uzlmtwtry2xjvfrtq3k1ctzvchn3swv2outbukrlvdbnsq",
@@ -1491,7 +1693,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -1508,7 +1710,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -1525,7 +1727,24 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiswfbvv95cuxqqwl5bddfcxbsrvi5yty1agzka3zqbml0nkl3ag9wu1rwu2xgetvhzzrvuzv2m1nnlvrodfnwwxfjbhzcsxm1svvtqvhjqnpjsk5tr0vhnepln3vtnmrosgt0cl9hs3h2rfp4q3dvqm5kodytywgxaxrubnzldtn3rjldvvrqt0did2zzcjllywlylwlimxhgn3lzcwhuyktvt2myt0hxb0rcwc1favdtbw4xsq",
+   "title": "Aberdeen assets edge up as Interactive Investor continues positive run",
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQQWl5bDdFcXBsRVI5YTY1aGZka3Zqbml0Nkl3aG9WU1RWU2xGeTVHZzRVUzV2M1NnLVRodFNWWXFJbHZCSXM1SVVtQVhjQnpJSk5tR0VhNEpLN3VTNmRoSGt0cl9HS3h2RFp4Q3dVQm5kODYtYWgxaXRubnZLdTN3RjlDVVRqT0dId2ZzcjllYWlYLWlIMXhGN3lzcWhuYktVT2MyT0hXb0RCWC1FaVdtbW4xSQ?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-21",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m171",
+     "name": "Aberdeen Investments"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -1542,7 +1761,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -1646,7 +1865,7 @@
    "via": "law-firm",
    "legalId": "u3834",
    "firstSeen": "2026-10-22T05:21:48.205Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "PE/strategic acquisition by OTPP-backed company, not a private-credit allocation; held as legal item u3834",
@@ -1766,7 +1985,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi534",
    "reason": null,
@@ -1791,7 +2010,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "passing mention; trader departure not a senior hire of record",
@@ -1811,7 +2030,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Story is Optiver's hire; Rokos is a passing mention (his departure was ~2 years ago, non-compete)",
@@ -1831,7 +2050,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "macro commentary, not a tracked-entity event",
@@ -1851,7 +2070,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi535",
    "reason": null,
@@ -1873,7 +2092,7 @@
    "via": "law-firm",
    "legalId": "u3767",
    "firstSeen": "2026-10-21T21:16:59.012Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3767",
    "reason": null,
@@ -1923,7 +2142,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "firm governance speculation, not a deal/advisory/people record",
@@ -2048,7 +2267,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "i1469",
    "reason": null,
@@ -2133,7 +2352,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "conference commentary, no capital event; unresolvable Google News redirect",
@@ -2190,6 +2409,55 @@
    "closed": "2026-10-21T17:17:28.143Z"
   },
   {
+   "key": "news.google.com/rss/articles/cbmiowfbvv95cuxqnjzqd044rjfxukqxne9czhdfmy1nvzrdcu5em3dvdwxpv2vkwlnamezem0txukxrri1fefhsvjzxtxhennh6ugjocnjib0mzzhlbbuwwake4btz0szrzogm0b01htv9ncmh5wujsqvdrautkuzrxuv92zxdxzmfjtjboq3hjtgpddgner3r6bljvmdbxmdjcrkpfdfbku3rhafpj",
+   "title": "Weil rivals distance themselves as merger talks begin",
+   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQNjZQd044RjFxUkQxNE9CZHdfMy1nVzRDcU5EM3dVdWxPV2VkWlNaMEZEM0tXUkxrRi1feFhSVjZxTXhENnh6UGJOcnJib0MzZHlBbUwwakE4bTZ0SzRZOGM0b01HTV9ncmh5WUJSQVdRaUtkUzRXUV92ZXdxZmFJTjBOQ3hJTGpDdGNER3R6blJvMDBXMDJCRkpfdFBkU3RHaFpJ?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "weil",
+     "name": "Weil, Gotshal & Manges"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmirafbvv95cuxpty1xmvexukfxdfrmtjl4eeeybepwzwngdzjvykzsazbldwjdx2xvbdbzsmp3x0exbvpzvwdutexjegy2vxewufduskfylu9kx0hxctcwyvlkn3lbwkpcvl9wqk9hqtfouni0d3vwdtd6aug0ngjvrlrjykqyr3ffby03rwtnvwlumu5fy3a0wjldvfvcathxahzorlh4vnhkr3ppynnkvmlboxjt",
+   "title": "Bain, Bridgepoint, Carlyle still in hunt as W1M sale talks progress",
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPTy1xMVExUkFXdFRmTjl4eEEybEpWZWNGdzJvYkZSazBLdWJDX2xVbDBZSmp3X0ExbVpZVWdUTExJeGY2VXEwUFduSkFyLU9kX0hxcTcwYVlkN3lBWkpCVl9wQk9hQTFOUnI0d3VwdTd6aUg0NGJVRlRjYkQyR3FFby03RWtnVWluMU5FY3A0WjlDVFVCaThxaHZORlh4VnhkR3ppYnNkVmlBOXJt?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m1",
+     "name": "Bridgepoint Credit"
+    },
+    {
+     "kind": "manager",
+     "id": "m65",
+     "name": "Bain Capital Credit"
+    },
+    {
+     "kind": "manager",
+     "id": "m189",
+     "name": "Carlyle Global Credit"
+    },
+    {
+     "kind": "manager",
+     "id": "m405",
+     "name": "Bain Capital"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
    "key": "news.google.com/rss/articles/cbmiswfbvv95cuxqtjdvs2s1bwv6slrqdvkxd3jkympoc2l5vjjwm2l3b0zqbwmymtzuq0r4cjdzs0fdnwxxtthibujdds1mt1prt0hcrmlrmxf2wgv3c1itm3bjeljdd2lnwerwukryvda3wwxjmnrmcuhkdgffuy14nul0tdk1te5svtztemj5c3fludvpve9rb1zmxzvvauvly1ztnfuzqmfvsmfxdmf5m0k4ekprug9ztfbqzw",
    "title": "Treasuries Losing Luster as Hedge Tool, Citi Australia CEO Says",
    "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQTjdvS2s1bWV6SlRqdVkxd3JKYmpOc2l5VjJWM2l3b0ZQbWMyMTZUQ0R4cjdZS0FDNWxxTThIbUJDdS1mT1prT0hCRmlRMXF2WGV3c1ItM3BJelJDd2lNWERwUkRYVDA3WWxjMnRmcUhKdGFFUy14NUl0TDk1TE5SVTZTemJ5c3FlUDVPVE9Rb1ZmXzVVaUVLY1ZTNFUzQmFvSmFxdmF5M0k4ekprUG9zTFBQZw?oc=5",
@@ -2203,7 +2471,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -2220,7 +2488,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3698",
    "reason": null,
@@ -2240,7 +2508,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -2262,6 +2530,23 @@
    "recordId": null,
    "reason": "Tiger Finance is Tiger Group's lending platform, not hedge fund Tiger Global",
    "closed": "2026-10-21T17:17:28.143Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmizafbvv95cuxnouraa0lnshlowg9mzzd1wxjdrkn5m1axdvpxs2vgvno5qwd6mdlqy0nxafbjbgdunjbwlulay09qn0xwd0c4ohl3s1d5r2k4ejk2nzrhauo4q08wwucxafjnz3ntsfbbc00xtfzbtgtta3rsq0xps2phaenzchbtnwr0s19wawe2wlh0qky5qwu2sejruje1edjkrusyyzu4cmixchn5zkzrs1phshrlx0uttezmou1imgq5x2vxtum4tdbdc2zncnhezuy",
+   "title": "Millennium, SRS Investment stars score spots as FN lines up South Asian Power Brokers list",
+   "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNOURaa0lnSHloWG9MZzd1WXJDRkN5M1AxdVpxS2VGVno5QWd6MDlqY0NxaFBjbGdUNjBWLUlaY09QN0xwd0c4OHl3S1d5R2k4ejk2NzRhaUo4Q08wWUcxaFJNZ3NtSFBBc00xTFZBTGtta3RsQ0xPS2pHaENZcHBTNWR0S19waWE2Wlh0QkY5QWU2SEJRUjE1eDJkRUsyYzU4cmIxcHN5ZkZRS1phSHRlX0UtTEZMOU1IMGQ5X2VxTUM4TDBDc2ZNcnhEZUY?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-20",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h3",
+     "name": "Millennium Management"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "privateequitywire.co.uk/ares-warns-australian-private-credit-faces-further-stress-as-rates-hit-4-6",
@@ -2304,7 +2589,7 @@
    "via": "law-firm",
    "legalId": "u3522",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m242",
    "reason": null,
@@ -2424,7 +2709,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi477",
    "reason": null,
@@ -2454,7 +2739,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -2489,7 +2774,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "passing mention; individual trader retiring, not a tracked-entity event",
@@ -2514,7 +2799,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi478",
    "reason": null,
@@ -2534,7 +2819,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m91",
    "reason": null,
@@ -2554,7 +2839,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi479",
    "reason": null,
@@ -2584,7 +2869,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -2611,7 +2896,7 @@
    "via": "law-firm",
    "legalId": "u3421",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m20",
    "reason": null,
@@ -2738,11 +3023,33 @@
    "via": "law-firm",
    "legalId": "u3319",
    "firstSeen": "2026-10-22T09:19:05.200Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "DBS's own senior unsecured bond issuance (bank funding, US$1.5bn under its GMTN programme), not a credit-manager credit event; the Linklaters release is already held as a legal item.",
    "closed": "2026-10-22T11:21:18.050Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi1wfbvv95cuxoek1lsgjjtnlkwmpmdxhkaunpzljtcvrvtwdncjaxckpater5zuhkbmjsdkktdw0xthbiek5wcwuxsmjisw5ucfitnjm1awx5d2lwsk5xn0jrnliybncwzk9mwwzwlvk1q19nwffru2zmd2rktnnpb1hawvpmwup2z3bunvdfqme4qnpwbxngdkhun0n1azfsm1bxafnpavvxd1f5r1divklrc1pxmw9wana0oty3thntt1y5de11dg1znti0s3dzvjreyuxzu2tmrlzzu2tyrq",
+   "title": "HSBC’s first female CFO Pam Kaur on 40 years in finance, stepping down and sewing her own gowns",
+   "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOek1LSGJjTnlKWmpMdXhkaUNpZlJTcVRVTWdNcjAxckpaTER5ZUhkbmJSdkktdW0xTHBIek5WcWUxSmJiSW5UcFItNjM1aWx5d2lwSk5xN0JRNlIybncwZk9MWWZwLVk1Q19nWFFrU2ZMd2RKTnNPb1haWVpmWUp2Z3BuNVdFQmE4QnpWbXNGdkhuN0N1azFsM1BxaFNPaVVXd1F5R1diVklrc1pXMW9wanA0OTY3THNtT1Y5dE11dG1ZNTI0S3dZVjREYUxzU2tmRlZZU2tYRQ?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m133",
+     "name": "HSBC Asset Management (Alternative Credit)"
+    },
+    {
+     "kind": "manager",
+     "id": "m273",
+     "name": "HSBC"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmi2wfbvv95cuxnqundynnrqlzhsevjqu8yn0zebthpdgi2uenmcgjawlvrqtbravhtawrommnhuvplmuewc2rjatvxv2pws1ltrgctowyttgdwdmw2effjy0tfx3rqtuzxnzlqbvptx2zcbwn0ri1vq01rdvz0wlrpczrkaujxwgzcmnlfbtfrmvfoaelnejrwd3yxmmytcuxtcmtsn2fxlwtlv3nztlu0d0fwvjk0mtlqzgrjbudiyk91ztzxzdhuy1u4zgxwnvvnbgzlmulbtzr5qwc1rnjeandpnta",
@@ -2778,7 +3085,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m401",
    "reason": null,
@@ -2823,11 +3130,28 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "macro research publication, not a credit capital event",
    "closed": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmilgfbvv95cuxovnlqy3jis0r3a1hks0zxak0znvbvcmzkoek0cgt3egxwvu9qneu0twxzuxbioepdugphu2ncuvpwcgxoslhsr1fsd3bqndjxs1rznffewnlaovh3emjpqzh4nhrkr3y4ytzbd2nqyznmmwjsul9kt1domeozae1maggttnb6yjdrenh3zevtvu5twuh0wmc",
+   "title": "NatWest taps Crédit Agricole for new markets CEO",
+   "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOVnlqY3JiS0R3a1hKS0Zxak0zNVBVcmZKOEk0cGt3eGxWVU9qNEU0TWxZUXBIOEpDUGphU2NCUVpwcGxoSlhsR1Fsd3BqNDJxS1RZNFFEWnlaOVh3emJPQzh4NHRKR3Y4YTZBd2NqYzNMMWJsUl9kT1doMEozaE1maGgtTnB6Yjdrenh3ZEVTVU5TWUh0Wmc?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m254",
+     "name": "NatWest"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmimafbvv95cuxpakpvq1nkrfntzutxvhd2v3d0n0lfcwrry0jlvufynuxiawt6unpacm5cqwttnhpvsy1quguynu5vnflzene2n2ncwjbqvu0teji5mwp3ww5tbndpc3nicl9fbfp0oglzotznrji5zlezxy1ytjv1qlnfx3jawfbaverevmjgnuhbmnzxtgz3ltjorjzsvwtvva",
@@ -2863,7 +3187,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3615",
    "reason": null,
@@ -2883,7 +3207,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3616",
    "reason": null,
@@ -2903,11 +3227,28 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3616",
    "reason": null,
    "closed": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiwafbvv95cuxozkh0n0ppv1zwehl1rzdzzhfmvzhcnmnytzdyeetpuudnsdronvrjs09abunhzvp4oedgd2rtajhxuww2m3byrkhsemkydjh6ote1axnilvp3akrnn1d1s2phofdonhhntzrlm3vtzzmtamflzmn3nw0tzk9mzwvwq0plbvlwdm05vnd4qu43r2p1mthtmevkevj6de5qrth6rkk2nw4tblpovfnebwnsuhjouezlady4tunwtmtgzmw",
+   "title": "Citi loses battle to keep Andy Sieg sexual harassment case out of New York court",
+   "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOZkh0N0ppV1ZweHl1RzdZZHFMVzhCNmNYTzdyeEtpUUdnSDRoNVRJS09abUNhZVp4OEdGd2RTajhXUWw2M3BYRkhSemkydjh6OTE1aXNiLVp3akRnN1d1S2phOFdoNHhNTzRlM3VTZzMtamFLZmN3NW0tZk9mZWVwQ0pLbVlwdm05Vnd4QU43R2p1MThtMEVKeVJ6dE5qRTh6Rkk2NW4tblpOVFNEbWNsUHJOUEZlaDY4TUNWTmtGZmw?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-19",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m244",
+     "name": "Citi"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmiwwfbvv95cuxnug9tutdiyzrvcmlwculaz25mnmh0a1hlbgz5nlzictrgq3vowfhfzk5nsfdms1bfovrtzdrrltvtckg5amzva1b0dnbsefpbdtfkzkv1n1rmueprt0rrmxc4yv9pn1bqzth5yvg5bi1fzm1manleohbjqzvmcxlfnkxkz2nybw5iehbmqnfot1vzmlloq1lcm1lxbwv3vgz5vmpdzvy2skc4rurlcufyagi0akg0ovbummxsymc2yus2zkk",
@@ -2923,11 +3264,84 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "could not verify an Oct 2026 hire",
    "closed": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi0gfbvv95cuxpcxncn0lbz2zdevlad2pur2rgovbbwgjelvvmutkwdk1lyvdfzm9yckffswhyzddwy0pisliyqndmzvdioxjzywx5b2poelvxtlu1mdg4m3hsznpvy3vcemjwbmc5wjm2ue5xq3lybzfmmnm1bkzwrvfrthkxmngxafv1lwxpejz5z2izcjrssxn6bk1bxzlxogz1eflrwk5ubgpqt2drakluukw1rxjsttf0tlnmdkdrzhozx19fa3jtunzmni1xm0g3zzdvyvfhoue",
+   "title": "HSBC’s first female CFO Pam Kaur on 40 years in finance, stepping down and sewing her own gowns",
+   "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPcXNCN0lBZ2ZDeVlad2puR2RGOVBBWGJELVVMUTkwdk1LYVdfZm9yckFfSWhyZDdwY0pISlIyQndmZVdiOXJZYWx5b2poelVXTlU1MDg4M3hsZnpvY3VCemJWbmc5WjM2UE5xQ3lybzFmMnM1bkZWRVFRTHkxMngxaFV1LWxpejZ5Z2IzcjRsSXN6bk1BXzlxOGZ1eFlRWk5ubGpqT2drakluUkw1RXJSTTF0TlNmdkdRZHozX19fa3JTUnZmNi1xM0g3ZzdVYVFHOUE?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-18",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m133",
+     "name": "HSBC Asset Management (Alternative Credit)"
+    },
+    {
+     "kind": "manager",
+     "id": "m273",
+     "name": "HSBC"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiqgfbvv95cuxowmxjze9ov1flzgjtbtvwazh6nnf3wex0amjaqne2snfaskdbqvzhyjztzxfqakfvalvhctrwbfntovbqmmhjahrqek9vdthazxrkvugtcdljnmlhq1i3elfpevhdsg5tc3dwauthofhxcgdpr25wemphog1ut1nytk1zuvnuahz1znbmrhdiv1jsbxgyag9cwnlnduz3rjniampmxznfq01nuq",
+   "title": "How Eisler Capital’s collapse sparked a hedge fund hiring frenzy",
+   "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOWmxJZE9oV1FlZGJtbTVWazh6NnF3WEx0amJaQnE2SnFaSkdBQVZhYjZtZXFqakFvalVhcTRwbFNTOVBqMmhJaHRQek9VdThaZXRKVUgtcDlJNmlhQ1I3elFpeVhDSG5tc3dWaUthOFhxcGdPR25wemphOG1uT1NyTk1ZUVNUaHZ1ZnBmRHdIV1JSbXgyaG9CWnlndUZ3RjNIampmXzNfQ01nUQ?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-18",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h29",
+     "name": "Eisler Capital"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmisafbvv95cuxqqwzklwy2dhc4u1f3dtnbaljysv9zyk1uv1l0qmr5qzlqclpmeue2nxjlqvzqofdxsmrkvxzwdtvmd1doqmxry1zlr2jcemfvnkfzum1wbzbyvha1u2xxv291wgr5ynfntkftvtbfuvq0uwhyuwfowjvuy2zsahboy1njnuvdemhbbxlwvxposgo0oxhid0jobxjpdc1lbefluwjqv3z5zgvlyjz0c1d4eg",
+   "title": "Evercore names Dawn and Nataraj co-presidents in leadership shake-up",
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQQWZKLWY2dHc4U1F3dTNBalJYSV9ZYk1uV1l0QmR5QzlqclpMeUE2NXJLQVZqOFdXSmRKVXZWdTVmd1dOQmxRY1ZlR2JCemFVNkFZUm1wbzByVHA1U2xXV291WGR5YnFnTkFTVTBfUVQ0UWhyUWFOWjVUY2ZSaHBoY1NJNUVDemhBbXlwVXpoSGo0OXhId0JobXJPdC1lbEFLUWJqV3Z5ZGVLYjZ0c1d4eg?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-18",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m365",
+     "name": "Evercore"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmidefvx3lxte1pbhfps21vodhwzkztd3jzovbos1n1bhlhd05kc1hqeg9bq0dfnnatx0phz01fwhrwsmzprwnobw54qmt6sdhtqvdzazf3rglmq2ntvvvdrfb4mtj6ww5nsfnmakfbwdbys0hyb1pzru9lnefm",
+   "title": "Linklaters",
+   "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1pbHFpS21vODhwZkZTd3JzOVBoS1N1bHlHd05kc1hQeG9BQ0dfNnAtX0pHZ01fWHRWSmZpRWNObW54Qmt6SDhtQVdzazF3RGlMQ2NtVVVDRFB4MTJ6WW5NSFNmakFBWDBYS0hYb1pzRU9lNEFM?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-17",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "linklaters",
+     "name": "Linklaters"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmiswfbvv95cuxpagzuunhynzjun1bfbdc3ts1fazdfvevsuvnotunxa0trrkzcnujcqwzjehk4tfl3mvbyvhr1anhvznjfzgfmswjezvphdc16ctvyvjdtukv0y09hvxzqru5mnmfjcgdszjnzyki4tjy2ytbxavnjdwvjalzvn3i5rlbat2yxmxhtzvldzgq3mgkzz2lwv3vycwe5wfrstm1cahzmtfjkmvlcywn2c0ztv3zzdw",
@@ -2943,7 +3357,7 @@
     }
    ],
    "firstSeen": "2026-10-22T13:14:47.473Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3211",
    "reason": null,
@@ -2968,7 +3382,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi480",
    "reason": null,
@@ -3000,7 +3414,7 @@
    "via": "law-firm",
    "legalId": "u3323",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "d1296",
    "reason": null,
@@ -3062,7 +3476,7 @@
    "via": "law-firm",
    "legalId": "u3123",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: 'Latin American Development Bank' (CAF) is not American International Group; CAF's own bond issue",
@@ -3084,11 +3498,33 @@
    "via": "law-firm",
    "legalId": "u2976",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "i1464",
    "reason": null,
    "closed": "2026-10-21T14:37:51.777Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmipafbvv95cuxoevvqrxjdv19dsfc0mkzfmfbsselyrvjksg9jdep3y1bcuxvwxy1pttvst0zjmmn0mldsd1d0m3c3sfzivzdda2tbzdzuu1dhbvrwt3lrluzdrtc1smytdvnfwhzheg1tr2rec2znvgdfsdvpwjnkamoxae1fqmjnthr1egx1wti0q2nyy3qxc25ozjjhmwz0y2xjz1bbbgpzdk5nzw",
+   "title": "Man Group rides alternatives, equities bets to higher assets",
+   "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOeVVQRXJDV19DSFc0MkZfMFBsSElYRVJkSG9jdEp3Y1BCUXVwXy1pTTVsT0ZJMmN0Mldsd1d0M3c3SFZIVzdDa2tBZDZUU1dHbVRwT3lrLUZDRTc1SmYtdVNfWHZHeG1tR2REc2ZnVGdFSDVpWjNKamoxaE1FQmJnTHR1eGx1WTI0Q2NyY3Qxc25OZjJhMWZ0Y2xjZ1BBbGpzdk5NZw?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-16",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m169",
+     "name": "Man Group (Credit)"
+    },
+    {
+     "kind": "hf",
+     "id": "h2",
+     "name": "Man Group"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmirgfbvv95cuxnq056rg50b0psnmz2a2vkuuntyxhpcm5tnvg1rjnqoufiu3n5am5tx2hmbljstdzjbtewsflfyvzlyi1usxznov9jv0ttawjqyv9kvs1mv2jlses2mnffaxk5ytbcr1e1ytbvemrcz1ruy3jhcexrsnjkzv9joxfsx3ptb3jqry1yytcxwkruvujnee02mf9qyvexmky1n245zjrkmglrykzhrudiu3c",
@@ -3104,7 +3540,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3618",
    "reason": null,
@@ -3124,7 +3560,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3619",
    "reason": null,
@@ -3144,7 +3580,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "endowment return citing SpaceX holding; equity chatter",
@@ -3164,7 +3600,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi481",
    "reason": null,
@@ -3189,7 +3625,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi482",
    "reason": null,
@@ -3216,7 +3652,7 @@
    "via": "law-firm",
    "legalId": "u3324",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "d1263",
    "reason": null,
@@ -3243,7 +3679,7 @@
    "via": "law-firm",
    "legalId": "u2776",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi480",
    "reason": null,
@@ -3290,7 +3726,7 @@
    "via": "law-firm",
    "legalId": "u2845",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: 'American' (American Express GBT) is not AIG; QIA appears only as an equity shareholder adviser client in a take-private, not a fund commitment",
@@ -3315,7 +3751,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "i1452",
    "reason": null,
@@ -3400,7 +3836,46 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiqgfbvv95cuxov2xjvnflcvlwnhmxvtdqlxvmeuhxagffm2o4effmd0fnve45yzfuamewvgzvs01xq0rbqnnbawi1vuj5ekzyzupcn3jqeulncep3bhpwzfjlq0nswxz0ngphow4trefjavhswe91bwc1efdwrgjdm19fewpoa1gzu2tpadvyrjzptwjxmdlqslbyywvcyxvqoxryzmvyzmfzutfocmputxv3zw",
+   "title": "Simmons & Simmons steps up fund finance push with Luxembourg hire",
+   "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOV2xjVnFlcVlWNHMxVTdQLXVmeUhXaGFFM2o4eFFmd0FNVE45YzFuamEwVGZVS01xQ0RBQnNBaWI1VUJ5ekZYZUpCN3JqeUlNcEp3bHpWZFJlQ0NsWXZ0NGphOW4tREFJaVhSWE91bWc1eFdWRGJDM19FeWpoa1gzU2tPaDVyRjZpTWJXMDlqSlBYYWVCYXVqOXRYZmVYZmFZUTFOcmpUTXV3Zw?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-15",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "simmons",
+     "name": "Simmons & Simmons"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiqwfbvv95cuxndnlvzmlwse83vepmrnrrvetkyxhcqxr4awfoaxbznwj4zdjsr2hjzfrhwvrscxftbulvqkvcbxzxvu1iz3fieehyewfxb2ewndntczfntlduskjsznr3bwc0vtrcnep6b2xtszfpwgx6wuxou3vocfrnshbmdmxstlpuwgl0y2l4vulpemw4adm5el9fbvdfoefnrfbscjn5tznvztu0bkrhnwc",
+   "title": "AI helps ex-Citadel trader’s hedge fund post 6% gains in September",
+   "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNdnlvZmlwSE83VEpmRnRrVEtKYXhCQXR4aWFoaXBZNWJ4ZDJSR2hJZFRhWVRScXFtbUlvQkVCbXZXVU1IZ3FIeEhyeWFXb2EwNDNtczFNTlduSkJsZnR3bWc0VTRCNEp6b2xTSzFPWGx6WUxoU3VocFRnSHBMdmxSTlpUWGl0Y2l4VUlpemw4aDM5el9fbVdFOEFnRFBscjN5TzNvZTU0bkRhNWc?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-15",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m385",
+     "name": "Citadel"
+    },
+    {
+     "kind": "hf",
+     "id": "h4",
+     "name": "Citadel"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -3417,7 +3892,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "speculative early-stage internal discussions, no announcement",
@@ -3437,7 +3912,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -3456,7 +3931,7 @@
    "via": "law-firm",
    "legalId": "u2882",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: 'Oasis de Atacama' is a Grenergy solar platform, not Oasis Management; no tracked lender (BNP Paribas, BBVA, JPM etc. bank deal)",
@@ -3481,7 +3956,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "bank earnings, not a tracked-entity event",
@@ -3508,7 +3983,7 @@
    "via": "law-firm",
    "legalId": "u3901",
    "firstSeen": "2026-10-22T07:22:31.477Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3901",
    "reason": null,
@@ -3538,7 +4013,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi483",
    "reason": null,
@@ -3558,7 +4033,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi484",
    "reason": null,
@@ -3578,7 +4053,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi485",
    "reason": null,
@@ -3608,7 +4083,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m125",
    "reason": null,
@@ -3638,7 +4113,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "primary release not located; date conflict; PE sponsors not credit subjects",
@@ -3658,7 +4133,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "same source already held in the database",
@@ -3678,11 +4153,45 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "primary Business Wire release not located; only Yahoo Finance and a secondary summary carry the NAV/NII estimates, and Yahoo is a low-grade citation",
    "closed": "2026-10-21T19:14:51.815Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiogfbvv95cuxoztg5bxhavg1nti1gt3vqyw41qjhdlxjgnvuzxzm4nhrumepqbzhnvlrpvu1sswnnrwnysml4rkl2tlpvdtjhzgfjdm5fuktrruzuy0rpqjfidthydedqn242zxvor0t5ejnpzfvvbxlkelntu3vuwwxwtf84vlzfuxpmyth4rxrmnfjacw9psfjfau1oedfpy0tewuwzd3nxc2c",
+   "title": "Millennium’s India headcount crosses 500 amid hiring spree",
+   "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOZTg5bXhaVG1NTi1GT3VqYW41QjhDLXJGNVUzXzM4NHRuMEpQbzhNVlRpVU1sSWNnRWNySml4Rkl2TlpvdTJHZGFJdm5FUktrRUZuY0RPQjFidThydEdQN242ZXVoR0t5ejNpZFVVbXlkelNTU3VUWWxwTF84VlZfUXpMYTh4RXRmNFJacW9pSFJfaU1oeDFPY0tEWUwzd3NXc2c?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-14",
+   "entities": [
+    {
+     "kind": "hf",
+     "id": "h3",
+     "name": "Millennium Management"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmipgfbvv95cuxnavniudj3eghzrws3rxmtzdf3dmthakl4x1q4mu5bdjcwzs1lr3fcdthzd01yrlfizujfukrwx2ngsguxrljsr1jtnmvob2dzzgr5vzdxa2zjbmlzwxmwb3uzwtlvsjnottfmtwpvundyvwdfs09llwtrd1ztejfqujjfwlp0bhbnbtvoumfpt3ctmzbjsetdbeixz1j2qurua19td3pn",
+   "title": "Kirkland promotes 26 to partner in London. Here are the names",
+   "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNaVNIUDJ3eGhZRWs3RXMtZDF3dmthakl4X1Q4MU5BdjcwZS1lR3FCdThzd01yRlFIZUJFUkRWX2NGSGUxRlJSR1JtNmVOb2dZZGR5Vzdxa2ZJbmlzWXMwb3UzWTlVSjNOTTFmTWpVUndYVWdFS09lLWtrd1ZtejFQUjJfWlp0bHBnbTVoUmFPT3ctMzBJSEtDbEIxZ1J2QURUa19Td3pn?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-14",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "kirkland",
+     "name": "Kirkland & Ellis"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmiqafbvv95cuxnzxf1tddiy1han0dtwvzmcedertitujhtanj5r3znt0jdu1dkywd5dthiq1dltwjkwnrwy0n6s0voctlyshzvv3zymupvadhhmxzmzxruvc1lzdfxd2dwdlrpsgdkem1swly3enbgx1pinjrab3pjymn5y3npywnft2tmaw5dwtz3wkthnddfsvvgzff3q2lpbdjgmxbuqw9nzujqu2tibxi",
@@ -3698,11 +4207,28 @@
     }
    ],
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "barrister chambers hire; entity matched to 'Chambers and Partners' wrongly, not a tracked firm",
    "closed": "2026-10-21T17:17:28.143Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmirafbvv95cuxqvwjlnfv0bjfbuw11r3pkemvglwl2qzzacjzbzzvacxlhukhnudhvylpremxjotrdcfmyr0xzsy1gugpocvlbv0wwqmsyx3a0vkrom2fieuw1azh6thhprkl2m0nmmfhzugy3rxlizdfvluppnepvy2rjqmq4uufcdmltzgdhnky3cvlltuncs3bqsdzbow9fnuoxltcytez5utfkz3pqrfzuuldb",
+   "title": "BlackRock assets hit $15.5tn as ETFs, private markets drive inflows",
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQVWJlNFV0bjFBUW11R3pKemVGLWl2QzZacjZBZzVacXlHUkhNUDhVYlpremxjOTRDcFMyR0xzSy1GUGpOcVlBV0wwQmsyX3A0VkRoM2FIeUw1azh6THhPRkl2M0NMMFhzUGY3RXliZDFvLUpPNEpvY2RjQmQ4UUFCdmlTZGdhNkY3cVllTUNCS3BqSDZBOW9fNUoxLTcyTEZ5UTFkZ3pqRFZuUldB?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-14",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m310",
+     "name": "BlackRock"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmiswfbvv95cuxns2wtt2y3wkkyeljgvelsdvnpb0dltxpwve9hqmrytfpnq0xsntq5m21atdbiv3hsbglssvbotwmzsvljaeexck9ks2vhahljufnhz3joztnjts1qwtrsvgpezwtwr3rqn1rpymg0sc1ywwxbc1pic3jsyvnntjnfdy1qzevpnjfootduttvqxza0r3nxnnhksxvmtxjkeuvfvgl0cej2bgtpx2x5te56sei2tq",
@@ -3723,7 +4249,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -3765,7 +4291,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -3797,7 +4323,7 @@
    "via": "law-firm",
    "legalId": "u3685",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m438",
    "reason": null,
@@ -3827,7 +4353,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "asset-allocation commentary, not a tracked-entity item",
@@ -3847,7 +4373,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3620",
    "reason": null,
@@ -3869,7 +4395,7 @@
    "via": "law-firm",
    "legalId": "u3132",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "tracked LP (BCI) is only an equity co-sponsor of the buyout; the private-credit lenders are not named in the release, so no tracked lender/manager to file under",
@@ -3891,7 +4417,7 @@
    "via": "law-firm",
    "legalId": "u2712",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m91",
    "reason": null,
@@ -3948,6 +4474,104 @@
    "closed": "2026-10-21T17:17:28.143Z"
   },
   {
+   "key": "news.google.com/rss/articles/cbmiogfbvv95cuxnm015utltrk9ns1ntanzjdmlsswzgszv6sfv3tdnmbtzmdvdcczr3a3ngsk93umricgz2x0xpltvqznn5tgjpzng4rthtahvyu1ljofdidknyuwkzy0dwn1ltv3e2t1rnttezutyzcgptnk5fwxfqt3dbnktnewd0edhxvtboq2nbdfa3sfawvgq1rdhmthbuuhdstlf4euxwb0e",
+   "title": "Goldman Sachs’ 72% equity trading jump fuels bumper quarter",
+   "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNM015UTlTRk9nS1NtanZjdmlsSWZGSzV6SFV3TDNmbTZMdVdCczR3a3NGSk93UmRicGZ2X0xpLTVQZnN5TGJpZng4RThTaHVYU1lJOFdIdkNYUWkzY0dWN1ltV3E2T1RnTTEzUTYzcGpTNk5FWXFqT3dBNktneWd0eDhXVTBoQ2NBdFA3SFAwVGQ1RDhmTHBuUHdsTlF4eUxWb0E?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-13",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m9",
+     "name": "Goldman Sachs Alternatives"
+    },
+    {
+     "kind": "manager",
+     "id": "m241",
+     "name": "Goldman Sachs"
+    },
+    {
+     "kind": "manager",
+     "id": "m435",
+     "name": "Goldman Sachs & Co. LLC"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmipwfbvv95cuxqogdtwgdystrwvwpfz1vnuno5zdv6a19xrhhrzknidmf2dzi0txdvdnz3y3z3y0jpc3k1bu1hrgjdm0l6rhhazujsa19qufd2uljaunznvmlhvgftrev0qkfhrzbkr0dprm11ae9ptxzgnxnyujhudlhtvvf2atlwwxu3vgrps1lozkhhawxjynbnwfmtaedczzd5rdgxogvswhhcqzzuzw",
+   "title": "Goldman Sachs’ 72% equity trading jump fuels bumper quarter",
+   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQOGdtWGdYSTRWVWpfZ1VNUno5ZDV6a19xRHhrZkNIdmF2dzI0TXdvdnZ3Y3Z3Y0JPc3k1bU1HRGJDM0l6RHhaZUJsa19qUFd2UlJaUnZnVmlhVGFtREV0QkFHRzBkR0dpRm11aE9PTXZGNXNYUjhUdlhTVVF2aTlwWXU3VGRPS1loZkhhaWxJYnBnWFMtaEdCZzd5RDgxOGVsWHhCQzZuZw?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-13",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m9",
+     "name": "Goldman Sachs Alternatives"
+    },
+    {
+     "kind": "manager",
+     "id": "m241",
+     "name": "Goldman Sachs"
+    },
+    {
+     "kind": "manager",
+     "id": "m435",
+     "name": "Goldman Sachs & Co. LLC"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiswfbvv95cuxpmdf5sffxmnftaxntwxlqzfo1lv9ia0fxzmp3tlp5y1dhdmnknlzbzevmmxn2ck1vnupvvtleuzzdaxb3zflyamp6zfpyb3ptv2jaqurvqkxmqxfdqkvmoxpjcxdmt09dlwltb05sxy1zwkjvdvbnatrwbgtitzffm2rbztq0ndktcui3ywftaejottdlb0hlvzllwvdocfy3mhbhrtbcq04yc1zfdupzqtc3qq",
+   "title": "Blackstone-Backed Hyperscale Data-Center Operator Delays Singapore IPO",
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPMDF5SFFxMnFtaXNTWXlqZFo1LV9ia0FxZmp3Tlp5Y1dHdmNKNlZBZEVmMXN2ck1VNUpvVTlEUzZDaXB3ZFlyamp6ZFpYb3ptV2JaQURvQkxMQXFDQkVmOXpJcXdmT09DLWlTb05SXy1zWkJVdVBnaTRwbGtiTzFfM2RBZTQ0NDktcUI3YWFTaEJOTTdLb0hlVzllWVdOcFY3MHBHRTBCQ04yc1ZFdUpZQTc3QQ?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-13",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m8",
+     "name": "Blackstone Credit & Insurance (BXCI)"
+    },
+    {
+     "kind": "manager",
+     "id": "m438",
+     "name": "Blackstone (funds managed by Blackstone)"
+    },
+    {
+     "kind": "borrower",
+     "id": "d780",
+     "name": "Blackstone Private Credit Fund"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiuafbvv95cuxpd2htyufmr21mmg1xcklwvxdrsxrwegl1dv84buhzdwpqsgdxckphcuc2yupnd0nkbwxzaupmrwx4uvjhckhqv3q2xzlnsvvlcmtvck1zyvbjexhnd0q5qxboctzbznlhy1d6bxbswuhsuej6exlcm1vruw02wjviefnnnje1qzjmvvfvc0k5buj0zghxsjjvmlaxmwrtwunjovltuw1cx1fcqlpvvwvjzthrqjb3tkwz",
+   "title": "UBS hires Citigroup’s Eydenberg to lead new private markets dealmaking unit",
+   "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPd2htYUFMR21MMG1xcklWVXdRSXRWeGl1dV84bUhzdWpqSGdxckphcUc2YUpnd0NKbWxzaUpMRWx4UVJHckhqV3Q2XzlNSVVLcmtvck1ZYVBJeXhNd0Q5QXBOcTZBZnlHY1d6bXBSWUhsUEJ6eXlCM1VrUW02WjVieFNnNjE1QzJmVVFVc0k5bUJ0ZGhXSjJVMlAxMWRtWUNjOVltUW1CX1FCQlpVVWVjZThrQjB3Tkwz?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-13",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m442",
+     "name": "UBS"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
    "key": "news.google.com/rss/articles/cbmivafbvv95cuxqqxj2cu1qnuqwq1n4dzjbmgotx2zhog0xsfpmamzqnzbhznpisklyythqnwlhoedbtmntwjf3zgx3vgfzenn3yunibhzouex2ohzlt0nryjvnquhntfpsnjllrlv1cfznoxzdzjdvmu5sbzuzzwe4bu4watfydhyyvc1bnuznukp5znnwt25qdmhibxrovevgujvurlboyjbjswdlm1pvcedmnhmzafc4yllitlaxrjvhdtlmbq",
    "title": "Tiger Finance Provides $20 Million Credit Facility to Garage Beer",
    "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQQXJ2cU1QNUQwQ1N4dzJBMGotX2ZHOG0xSFpMamZQNzBHZnpiSklyYThqNWlHOEdBTmNTWjF3ZGx3VGFzenN3YUNIbHZOUEx2OHZlT0NRYjVnQUhnTFpsNjllRlV1cFZnOXZDZjdvMU5SbzUzZWE4bU4waTFYdHYyVC1BNUZNUkp5ZnNWT25qdmhibXROVEVGUjVURlBOYjBJSWdLM1pvcEdmNHMzaFc4YlliTlAxRjVhdTlmbQ?oc=5",
@@ -3986,7 +4610,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "unverified; no report found",
@@ -4008,7 +4632,7 @@
    "via": "law-firm",
    "legalId": "u2084",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "OMERS (tracked LP) is only the PE sponsor of the borrower; no tracked credit manager or lender is a party",
@@ -4030,7 +4654,7 @@
    "via": "law-firm",
    "legalId": "u1764",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "d1264",
    "reason": null,
@@ -4057,7 +4681,7 @@
    "via": "law-firm",
    "legalId": "u2571",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m120",
    "reason": null,
@@ -4082,7 +4706,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi480",
    "reason": null,
@@ -4114,7 +4738,7 @@
    "via": "law-firm",
    "legalId": "u2705",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "d1042",
    "reason": null,
@@ -4141,7 +4765,7 @@
    "via": "law-firm",
    "legalId": "u2698",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "d1284",
    "reason": null,
@@ -4166,11 +4790,33 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3621",
    "reason": null,
    "closed": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbminwfbvv95cuxqm242aew0auhvcu84wdlxtvkydvzlnnljwtkzyuzevufbswtoz3dhm2luu2k5wduyx1feudhyludgmehvrtliuxbxc3dwskr5wlzmdmdkef9wbxoys3k3evi2b2jlmnk5oejhr0vqseh5clbbqnzoahl4u0jwy3fmdvz0sdj0etrzchu5nndkmzz3sgf0wxfqu2hssjvztek",
+   "title": "HSBC shifts pay structure by scrapping fixed allowances",
+   "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQM242aEw0aUhVcU84WDlXTVkydVZLNnlJWTkzYUZEVUFBSWtoZ3dhM2luU2k5WDUyX1FEUDhYLUdGMEhVRTliUXBXc3dWSkR5WlZmdmdkeF9wbXoyS3k3eVI2b2JlMnk5OEJhR0VqSEh5clBBQnZoaHl4U0JwY3FMdVZ0SDJ0eTRzcHU5NndkMzZ3SGF0WXFQU2hsSjVzTEk?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-12",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m133",
+     "name": "HSBC Asset Management (Alternative Credit)"
+    },
+    {
+     "kind": "manager",
+     "id": "m273",
+     "name": "HSBC"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmitwjbvv95cuxoedzongzyem5oz19gbnjyu2pfm21xx2vay05iv0npt2u5nni4mfzsuks2sfytenblmc1nrvj3m0jyzuvxb0u4cwxyudd0du9ln3btenfszlnnbgdwn0ftc0r6zwm3ru1nulpuym1fs1rhtdazcldsvfffbnzqaxbizgtubux6bla5u2ryq3otwks0aze4mzhunfvpzmc0qtbqm2xvrxhhvy1ynvuzzgtzu2xmehphzgzem3pxthk1ekhwr3bmymxptjzytnnlr3jorwi1bkzea0hlm2dlc2rey19lrufhrw1jv0piwmhotvhsbv9jmglqmhgtedrxwlu1nlzrvxbztjmxykwtden3zdrzevrmrkeyntfgnnpimvnns1lirtzlq1rzx3gtddfvegxublizoa",
@@ -4196,7 +4842,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -4221,7 +4867,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3622",
    "reason": null,
@@ -4241,7 +4887,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi486",
    "reason": null,
@@ -4261,7 +4907,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "vendor selection, not fund/capital news",
@@ -4286,7 +4932,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi487",
    "reason": null,
@@ -4306,7 +4952,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi488",
    "reason": null,
@@ -4328,7 +4974,7 @@
    "via": "law-firm",
    "legalId": "u2702",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "SpaceX is the buyer in a spectrum asset sale (regulatory work) — no debt raised, not a credit transaction",
@@ -4350,7 +4996,7 @@
    "via": "law-firm",
    "legalId": "u2714",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m24",
    "reason": null,
@@ -4372,7 +5018,7 @@
    "via": "law-firm",
    "legalId": "u1770",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "i1467",
    "reason": null,
@@ -4394,7 +5040,7 @@
    "via": "law-firm",
    "legalId": "u1908",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": null,
    "reason": "cited by a deal-side record",
@@ -4416,7 +5062,7 @@
    "via": "law-firm",
    "legalId": "u1993",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: 'Bridge' is the Mobile River Bridge project, not tracked borrower d815; US DOT TIFIA loan with no tracked party",
@@ -4441,7 +5087,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -4466,7 +5112,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi489",
    "reason": null,
@@ -4491,7 +5137,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "unverified; no report found",
@@ -4511,7 +5157,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -4538,7 +5184,7 @@
    "via": "law-firm",
    "legalId": "u1995",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "d1285",
    "reason": null,
@@ -4560,11 +5206,28 @@
    "via": "law-firm",
    "legalId": "u1997",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "d967",
    "reason": null,
    "closed": "2026-10-21T14:37:51.777Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmimgfbvv95cuxnyljjdg43smfjz2hmzfrxvmzyr0zqwe5crfnszvbntw9oqvpudxzrmxjyvkixwknnunvucwztv3h6tv9pnvblwnpjbgc4nw5qbknim0uydxp5tlrvnfv4vepiec1xujr6axvybkrkuuplr1vtvuzune14a1f4wufwdeftwhz1czvpu2j0d0r5utrwvlkzwtrozwd3",
+   "title": "Trading Places: Citi vs JPMorgan, ING boosts FIG team",
+   "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNYlJjdG43SmFjZ2hMZFRxVmZYR0ZQWE5CRFNsZVBnTW9oQVpudXZRMXJyVkIxWkNnUnVucWZTV3h6TV9pNVBLWnpJbGc4NW5qbkNIM0UydXp5TlRVNFV4VEpieC1xUjR6aXVybkRKUUpLR1VtVUZuNE14a1F4WUFWdEFtWHZ1czVpU2J0d0R5UTRwVlkzWTRoZWd3?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-08",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m244",
+     "name": "Citi"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmiowfbvv95cuxpbhdsytn4ehrmqmhsbmnbuw04z2lexzhxr0fouhpsaed3wthcqtbfdy16u0dkvhzlzgxmmdjfwjb3vdqwrnfrbw5vtlmtd0vkqu1pefzgrfppmg8zajdlyk9ycwxkv3o1atdpafjvn24wumn1ntlibs14uxuwrec1v204m3d6v01pcwhaywzmsepvutbsddfucud1yzkxshlrrfpf",
@@ -4580,7 +5243,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "law-firm disclosure policy, not deal/advisory/people news",
@@ -4600,11 +5263,28 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3623",
    "reason": null,
    "closed": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmisgfbvv95cuxnym9wvet0y1ndahotnhfmexjsujnor2poaktlqjdpdxhyzvhbnjbhqje1nzfhq1dquhc5r0x0revov3fux1fiznlyvkhkeji2denou2dxz2rkakr3aenrmlrwmdi2ughyzkrfwjb6z0vmujrkbeplt2fevkt1tw95z3dosuuwsuo2qwlvunhdyne4zdhwbmh5vll0wm5eynfnvzzjn056s0tcbu44aelmmmxb",
+   "title": "‘Do your job, don’t threaten us’: Swiss bankers split on possible UBS exit",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNYm9wVEt0Y1NDaHotNHFMeXJsUjNoR2pOaktlQjdPdXhyZVhBNjBhQjE1NzFHQ1dQUHc5R0x0REVOV3FuX1FIZnlYVkhKejI2dENOU2dxZ2RKakR3aENRMlRWMDI2UGhYZkRFWjB6Z0VMUjRKbEpLT2FEVkt1TW95Z3dOSUUwSUo2QWlvUnhDYnE4ZDhwbmh5Vll0Wm5EYnFnVzZJN056S0tCbU44aElmMmxB?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-08",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m442",
+     "name": "UBS"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "aoshearman.com/en/news/ao-shearman-advises-on-santander-consumer-banks",
@@ -4627,7 +5307,7 @@
    "via": "law-firm",
    "legalId": "u3387",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "d1312",
    "reason": null,
@@ -4649,7 +5329,7 @@
    "via": "law-firm",
    "legalId": "u1803",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m92",
    "reason": null,
@@ -4701,7 +5381,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "hi490",
    "reason": null,
@@ -4773,7 +5453,7 @@
    "via": "law-firm",
    "legalId": "u2157",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: 'Public' (public offerings) is not Public Investment Fund (PIF)",
@@ -4795,7 +5475,7 @@
    "via": "law-firm",
    "legalId": "u1909",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m81",
    "reason": null,
@@ -4817,7 +5497,7 @@
    "via": "law-firm",
    "legalId": "u2003",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u2003",
    "reason": null,
@@ -4842,7 +5522,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "same source already held in the database",
@@ -4862,7 +5542,24 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiugfbvv95cuxnovvxbki5ym8zrhr1bxn5znbmv195thhiwdhhutn6ss1la2doyut1bll5d29qyvv4uuy4aestsuxbmdmyehfkuujdzljwrlkwanpzz1z3uvb4vhzrrflhwnlcavm2utk2ulz2zgi5t1lntnl1rmlrdmjkm0rwwf9fsdlunvpfrevrtnfjtdu3beddq0ric2lma3dmmnu4ynrsvtb0wdzucfrmnzhzq3ndrhrwc1ngefroyve",
+   "title": "Exclusive | Wells Fargo Faces Regulator Probe Over Efforts to Boost Black Homeownership",
+   "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNOVVxbkI5Ym8zRHR1bXN5ZnBmV195THhIWDhHUTN6SS1La2dOYUt1bll5d29QYVV4UUY4aEstSUxBMDMyeHFkUUJDZlJWRlkwanpZZ1Z3UVB4VHZRRFlHWnlCaVM2UTk2UlZ2ZGI5T1lnTnl1RmlrdmJkM0RwWF9fSDluNVpfREVrTnFJTDU3bEdDQ0Ric2lma3dMMnU4YnRSVTB0WDZUcFRmNzhzQ3NDRHRWc1NGeFRoYVE?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-07",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m60",
+     "name": "Wells Fargo"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -4881,7 +5578,7 @@
    "via": "law-firm",
    "legalId": "u2159",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false/irrelevant match: release concerns McKesson Corporation's equity M&A (acquisition of Option Care Health with CD&R), not the tracked borrower McKesson UK; no credit transaction",
@@ -4903,7 +5600,7 @@
    "via": "law-firm",
    "legalId": "u2161",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "TalkTalk (tracked stressed credit) is the target of a corporate acquisition by BT Group — equity M&A, no credit transaction or tracked lender named; worth a note on the TalkTalk stress profile rather than a deals record.",
@@ -5010,7 +5707,7 @@
    "via": "law-firm",
    "legalId": "u1885",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m41",
    "reason": null,
@@ -5032,7 +5729,7 @@
    "via": "law-firm",
    "legalId": "u2163",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: McKesson Corporation (US buyer) is not the tracked McKesson UK borrower; equity M&A with no tracked credit party",
@@ -5052,11 +5749,28 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "league-table commentary, not a deal/advisory/people move",
    "closed": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmirafbvv95cuxqanzbank3mldiuhlpntdssuhznliysjcylvzqndqzrxrwutzzcg0xufjzn3jldktjugpzbgtpbvjbakhftwhkzm5yuefwcgpvqwhzsm9mz0dca3gwmkppefblvekzntjfmgk4uloxslfwmk5pefluampct05wy2rrwjr4u2toyjhmwew1unz6znvktelwq2zpx19hzlprwxppvtv2svayzkfrcgq2",
+   "title": "KKR Strikes Deal to Buy Private-Capital Fund Administrator Gen II",
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQanZBank3MldiUHlpNTdSSUhzNlIySjcyLVZqNDQzRXRWUTZZcG0xUFJZN3JLdktjUGpZbGtpbVJBakhfTWhKZm5YUEFwcGpVQWhZSm9MZ0dCa3gwMkpPeFBLVEkzNTJfMGk4UloxSlFwMk5peFluampCT05wY2RRWjR4U2toYjhmWEw1UnZ6ZnVkTElWQ2ZpX19HZlprWXppVTV2SVAyZkFrcGQ2?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-06",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m81",
+     "name": "KKR (KKR Credit)"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmisgfbvv95cuxqdgetre9iuzk4reuyymvub1pvrmzpm2vanwxhtdiyofpmcnnwnffgqnq0mkcwszrid2ntnnb6dgmxqw5od2x3ng1jdxbncjrbt0vmy2rozwvbaecycfdprnpzegjkcg1xykizemv0ngzprznbzddwt0nxexlnu0xpujhyb0ray19qrl90retzv3lwm2pkctm2ceu3nuv2stvjwm9lqlf5ogrxv3pmzdrlttjr",
@@ -5072,7 +5786,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -5094,7 +5808,7 @@
    "via": "law-firm",
    "legalId": "u1785",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "CR_STRESS:Atalian",
    "reason": null,
@@ -5119,7 +5833,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "not about the tracked entity (name match only)",
@@ -5139,7 +5853,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "equities hire, not credit",
@@ -5164,11 +5878,50 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "third-party tender offer, not a Blue Owl capital event",
    "closed": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmi0afbvv95cuxqalh3twdvq3ltuw5ebk4xvnfrzufqn1lunzzobfjjoeptvnnscmwtzgw2tks1afltamtpbghjoho3qlheynvsvfrnqkvmukgwwhzjdy1nn0dtwvjomujlcjlzmnbbnujkzm5pr1r0ty1vyklxotrrduw1x1zyberxogfpdflvavholte5ulz0cvuzzjzjuuvucwc3vy1kc0jdwjaxqu9gsvz5cv8tb1d0mhjiukp2rkjiczvouvjor0zju1bltmrwsexgvldczvhj",
+   "title": "Bank of America Private Bank president Katy Knox: What wealth managers will look like in 2050",
+   "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQalh3TWdVQ3lTUW5Ebk4xVnFRZUFQN1luNzZobFJjOEptVnNscmwtZGw2Tks1aFlTamtpbGhjOHo3QlhEYnVsVFRnQkVmUkgwWHZjdy1NN0dtWVJOMUJLcjlZMnBBNUJKZm5PR1R0Ty1vYklXOTRRdUw1X1ZybERxOGFPdFlVaVhOLTE5UlZ0cVUzZjZJUUVucWc3Vy1kc0JDWjAxQU9GSVZ5cV8tb1d0MHJIUkp2RkJIczVoUVJoR0ZjU1BLTmRwSExGVldCZVhj?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-04",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m248",
+     "name": "Bank of America"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmivwfbvv95cuxqy1jhak14z00yavn2n1o5wmhuefdbu2plrhproeu5r2zzowtfmw5zoezszmgtbjhwalpwclvhzwyxvxjlvwjnnxnrrutszhpksgjttle0d1dkwvnkdl9rsmhpegvqef93tzrsqmzxt1hbbmpsnlu5luxnzvbmci1imhhdt0u4uw4yz2oxt1nnaxrjvtniynm4t19mckx3sy1irjdpmjbtelrvdnv4vvbqqljtnwrpc2rweuh2r2xvtq",
+   "title": "Wealth is on the move. Here’s what Schroders’ Oliver Gregson thinks is coming next",
+   "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQY1Jhak14Z00yaVN2N1o5WmhueFdBU2pLRHpROEU5R2ZzOWtFMW5zOEZsZmgtbjhWalpWclVHZWYxVXJLVWJnNXNRRUtSZHpKSGJtTlE0d1dkWVNKdl9RSmhpeGVqeF93TzRSQmZXT1hBbmpSNlU5LUxnZVBmci1IMHhDT0U4UW4yZ2oxT1NNaXRjVTNiYnM4T19mckx3Sy1IRjdPMjBtelRvdnV4VVBQQlJTNWRPc2RweUh2R2xvTQ?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-04",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m111",
+     "name": "Schroders Capital"
+    },
+    {
+     "kind": "borrower",
+     "id": "d281",
+     "name": "Schroders plc"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-phoenix-tower-international-on-a-$6.5bn-financing",
@@ -5191,7 +5944,7 @@
    "via": "law-firm",
    "legalId": "u1795",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "d992",
    "reason": null,
@@ -5218,7 +5971,7 @@
    "via": "law-firm",
    "legalId": "u2194",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "d1297",
    "reason": null,
@@ -5240,7 +5993,7 @@
    "via": "law-firm",
    "legalId": "u2192",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m2",
    "reason": null,
@@ -5265,7 +6018,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "i1453",
    "reason": null,
@@ -5305,7 +6058,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -5324,7 +6077,7 @@
    "via": "law-firm",
    "legalId": "u2014",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "ESR acquiring a renewables platform (equity M&A); no debt raised and no tracked lender — not a credit transaction",
@@ -5344,7 +6097,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m389",
    "reason": null,
@@ -5364,11 +6117,28 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "same source already held in the database",
    "closed": "2026-10-21T11:25:24.982Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmingfbvv95cuxqze5noud0nvqwmvrwz1jitg9xdkjksvv2qvpvsm1eevnjntv5u2hkc0pytwxing5fqnfez2z1r01ytjvletvgwfz6nepbt051cw96uc1fny1bdnplnenytlj6dfg2wdq0ae13rlvdtdbjqtmxtwdqbwlkzjrvektfseiyadgyq251rtm0qtu1a2g2uur0zzj6mvlqcdrezw",
+   "title": "Taylor Wessing in merger talks with Stephenson Harwood",
+   "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQZE5nOUd0NVQwMVRWZ1JITG9XdkJkSVV2QVpVSm1EeVNJNTV5U2hkc0pyTWxING5fQnFEZ2Z1R01yTjVLeTVGWFZ6NEpBT051cW96UC1FNy1BdnplNENyTlJ6dFg2WDQ0aE13RlVDTDBjQTMxTWdQbWlkZjRVektFSEIyaDgyQ251RTM0QTU1a2g2UUR0ZzJ6MVlqcDREZw?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-01",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "stephensonharwood",
+     "name": "Stephenson Harwood"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmiowfbvv95cuxoavffzupkdjfndlrfsgnra3axzje1qkparlvmvulvn2hqrvnrdfh3vdvbcvj1mgljb3dyelptlvg0qvhtnk1wn3pxzgzgzhrwwjfvc1jynjjpr3fink1fwf9lu1bqdjf2rw5myvnlwg5kvnpjdwvxbkvoak9czlozmvjpnxluvvd4ahrub1nouzz6dxu2avzvae05tjrwvvzzbvjf",
@@ -5384,11 +6154,38 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3688",
    "reason": null,
    "closed": "2026-10-21T13:19:11.372Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiswfbvv95cuxqdvb5d1j4b1firi1wzlvmrfvhz2zva2q5y2hgqvg4mkjjtgtssznud1bsvtbaufzkwnbra3dhuu5ubzbrauxotjixcexuswrpa3pkcwc0es1lcerjz255budyx2g0c3vpmxvnoxdergrmq1fzqxbwzk9ns05ndnv5af9xqudds0rsbtniy2vrwelpnjz1mudytgo1cdnzd0hdyuj3sgw4mjfpndz4buvvoxv1oa",
+   "title": "Nuveen unveils key leadership roles as it completes Schroders takeover",
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQdVB5d1J4b1FIRi1wZlVmRFVHZ2ZVa2Q5Y2hGQVg4MkJjTGtsSzNud1BSVTBaUFZkWnBRa3dhUU5UbzBRaUxOTjIxcExuSWRpa3pkcWc0eS1lcERJZ255bUdYX2g0c3VpMXVnOXdERGRmQ1FZQXBWZk9nS05ndnV5aF9xQUdDS0RSbTNiY2VrWElPNjZ1MUdyTGo1cDNzd0hDYUJ3SGw4MjFpNDZ4bUVvOXV1OA?oc=5",
+   "source": "Financial News",
+   "date": "2026-10-01",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m63",
+     "name": "Nuveen Private Capital"
+    },
+    {
+     "kind": "manager",
+     "id": "m111",
+     "name": "Schroders Capital"
+    },
+    {
+     "kind": "borrower",
+     "id": "d281",
+     "name": "Schroders plc"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmitafbvv95cuxoltkycljvd1htmejnm1ozqxoxmutwrtlzvxyxuxhrd1vhrnpmtdhmqwtptmdtadl3d1rvdkhxb1jhzjlmsjvrsjf1tlatcnhhetrnmwhbtkttsuv0qtfxn3gwluo0cgp3vg80ogtltv9xnlhftllod05fd0dhoulpdk5va0zcchrzltjkluhpn2rhenq4r2pja2z5m0n5u2hiejf6bxzmale2a0tkcef1nngymek",
@@ -5404,7 +6201,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "same source already held in the database",
@@ -5424,7 +6221,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "in-house legal succession, not a tracked-entity event",
@@ -5444,7 +6241,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "The actor is Greenberg Traurig (not a tracked firm) hiring Ben Patton, head of construction at Ashurst Perkins Coie, as head of its London construction practice (GT release 2026-10-01, https://www.gtlaw.com/ar/news/2026/",
@@ -5496,7 +6293,7 @@
    "via": "law-firm",
    "legalId": "u1898",
    "firstSeen": "2026-10-22T09:19:05.200Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "d1337",
    "reason": null,
@@ -5531,7 +6328,7 @@
     }
    ],
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T09:10:51.606Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "newsletter issue could not be verified; no primary source for tracked-entity facts",
@@ -5551,7 +6348,7 @@
     }
    ],
    "firstSeen": "2026-10-22T07:17:58.683Z",
-   "lastSeen": "2026-10-23T09:10:51.606Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "opinion piece; no dated Varma allocation or commitment",
@@ -5578,7 +6375,7 @@
    "via": "law-firm",
    "legalId": "u2202",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m405",
    "reason": null,
@@ -5610,7 +6407,7 @@
    "via": "law-firm",
    "legalId": "u2201",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "d1275",
    "reason": null,
@@ -5632,7 +6429,7 @@
    "via": "law-firm",
    "legalId": "u2283",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "false match: 'American' (American Express Global Business Travel) ≠ American International Group",
@@ -5652,7 +6449,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "i1454",
    "reason": null,
@@ -5672,11 +6469,60 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3689",
    "reason": null,
    "closed": "2026-10-21T13:19:11.372Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmipafbvv95cuxpsfq2zupwwmxlndbwq2jquwrucfzpu3gwa21ycvn3cja0bguzruzlr3nwr3lhnvd2vdftuuj0mgnzukhlse1cueldsnvusuq4cepbdtjluwtblxzjmgntt0zsdhlyte9rcnpwt1pttwfdbvzkexlbt1rqse5yzujntxjrtkpoandiqmhievfxaxltoew5bevvue1uq3zxekd1ekvraw",
+   "title": "St James’s Place to shutter KKR managed private markets fund",
+   "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPSFQ2ZUpwWmxLNDBWQ2JqUWRucFZpU3gwa21ycVN3cjA0bGUzRUZLR3NWR3lHNVd2VDFTUUJ0MGNZUkhLSE1CUElDSnVuSUQ4cEpBdTJLUWtBLXZjMGNtT0ZsdHlYTE9RcnpWT1pTTWFDbVZKeXlBT1RQSE5yZUJnTXJRTkpOandiQmhieVFxaXltOEw5bEVvUE1UQ3Zxekd1ekVraw?oc=5",
+   "source": "Financial News",
+   "date": "2026-09-30",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m81",
+     "name": "KKR (KKR Credit)"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmiqafbvv95cuxomlvlsjrinv9pywj3dlc2ctgxzfe0owhsb0zhn0y2bmjaudytszfjehfmzfhlqu0zs3fynvlxzk9oefcznkjdag1dsnpiag1qdvjfwnrlltrpdwpnyuexwlz3bxr2ahjzndjpawjomwnutljnwwntcfzvvmpvow9nueu1mdzvqwtlyng2bhzsc0pgtgndcl9aeljtbnd3nulivtnjc2jvz0o",
+   "title": "Barclays hires senior BNP Paribas trader Wood to boost FX team",
+   "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOMlVLSjRINV9PYWJ3dlc2cTgxZFE0OWhsb0ZHN0Y2bmJaUDYtSzFJeHFMZFhLQU0zS3FYNVlXZk9oeFczNkJDaG1DSnpiaG1QdVJFWnRlLTRPdWpnYUExWlZ3bXR2aHJZNDJPaWJoMWNuTlJNWWNTcFZvVmpVOW9nUEU1MDZvQWtLYng2bHZsc0pGTGNDcl9aelJtbnd3NUliVTNJc2JvZ0o?oc=5",
+   "source": "Financial News",
+   "date": "2026-09-30",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m59",
+     "name": "Barclays"
+    },
+    {
+     "kind": "manager",
+     "id": "m176",
+     "name": "BNP Paribas Asset Management (Private Debt & Real Assets)"
+    },
+    {
+     "kind": "manager",
+     "id": "m239",
+     "name": "BNP Paribas"
+    },
+    {
+     "kind": "manager",
+     "id": "m426",
+     "name": "Barclays Capital Inc."
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmiugfbvv95cuxprxlpy2kwcmhxr1hsdhn3uzr2ru56r0ztufvfnm9izko1zue2vzldx1vnyva1mdixshpmdlrpvw1pmm83d0gxlvnbb1zgy19keuxiouhwdufrlur4wgrzd1vczgdnve9vogpmwmj4d0rjshl3mtbfy1voqudkqxpqeelknepgmm9fsvjqculzt1rqzvdwsdlwsvitcxu5dtj2mfhvsmxqrdvgn3qzs1u1n05wmmtznkrmchc",
@@ -5697,11 +6543,45 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u3699",
    "reason": null,
    "closed": "2026-10-21T15:18:26.672Z"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmivafbvv95cuxoevvrq2zpohjnrw9nnerczg42q2j0wl9xy05ueuhfzutwztf0tvm2ohpwrth1axqxaupottqysgdmehfndflgrzbnbgk5ttjjswliue5joxjlyji2eutibeywewhktkvfve5wuldsshzbwljhaffhstbicgfct2qzztlmagfvcwrtyjnlmelxvnb5d1lfbgtidxppeddobtlqzxexefvmb29iq2lpuc1fn282zhhneejra0xobg",
+   "title": "Kirkland lawyers were once expected to rise or leave. Now the game has changed",
+   "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOeVVrQ2ZpOHJnRW9NNERCZG42Q2J0Wl9xY05ueUhFZUtWZTF0TVM2OHpwRTh1aXQxaUpoTTQySGdmeHFndFlGRzBNbGk5TTJjSWliUE5jOXJLYjI2eUtIbEYweWhkTkVFVE5WUldSSHZBWlJHaFFhSTBIcGFCT2QzZTlMaGFVcWRTYjNLMElxVnB5d1lFbGtIdXpPeDdObTlqZXExeFVMb29IQ2lPUC1FN282ZHhNeEJRa0xobg?oc=5",
+   "source": "Financial News",
+   "date": "2026-09-30",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "kirkland",
+     "name": "Kirkland & Ellis"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
+   "key": "news.google.com/rss/articles/cbmisafbvv95cuxna3fsvnjpm2zxqvvwwgrdslyymnnkwlvatzf6uendownkefr0vhjonm9ox2jscg16luvcm3fer28zmwjsanpzdllrafldzkqwowjxbknrsznqrwnlmlrxnks5ouhzs3kwejdqmkutttnbwurmt3duz3pqrnvts3hzn05tevzjqlcwwlllc205ql9knjiznwzjevrgderrv0nuvu85wkz1mndtweviyk9vua",
+   "title": "Parmenion kick-starts sales process a year after appointing Evercore",
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNa3FsVnJPM2ZXQVVwWGRDSlYyMnNKWlVaTzF6UENDOWNkeFR0VHJoNm9oX2JscG16LUVCM3FER28zMWJSanpzdllRaFlDZkQwOWJxbkNrSzNqRWNLMlRxNks5OUhzS3kwejdQMkUtTTNBWURmT3dUZ3pQRnVTS3hzN05teVZJQlcwWllLc205Ql9KNjIzNWZJeVRGdERrV0NuVU85WkZ1MndTWEVIYk9VUA?oc=5",
+   "source": "Financial News",
+   "date": "2026-09-29",
+   "entities": [
+    {
+     "kind": "manager",
+     "id": "m365",
+     "name": "Evercore"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
   },
   {
    "key": "news.google.com/rss/articles/cbmitafbvv95cuxobedmy3pmb1hfwez2vtr3twrutzzwu19qztk0zevpchmxv1hycvvmn2dqnwpia1fisdr4smkxuurqu1nvbuhin1uyzk8tnlj5cunpcfzcsghtx1azb0hjmc1vv09gvhzpre9ivfpicgjht0z0rnphd2z3ek4toutrlu9nv3vbmtzytehjc3ltt0jwevlfztzsseznajbim3pmwmc2d1d1lxrkyvzxsgdhuudxotm",
@@ -5717,7 +6597,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -5734,7 +6614,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "Unverifiable: searches found no 2026 source naming the two hires from Clyde & Co and Mishcon de Reya; only older unrelated moves, and no shlegal.com release located.",
@@ -5754,7 +6634,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": null,
    "reason": "held in the data (URL or headline)",
@@ -5781,6 +6661,23 @@
    "closed": "2026-10-21T13:19:11.372Z"
   },
   {
+   "key": "news.google.com/rss/articles/cbmipwfbvv95cuxoy0pslwxuczlwt0lkuzdkbxjsqvz6tvgxmhrozhdyrgs5ulvet0q3ew9haellu05zvhk2r3hecgpwqudsmjd6b1vevudyeflrzknhqkxjbhd4c2nozznzcexwawfan2kwqzlarti1dkhktenjcnh1cnnsnjfybmlque1ftvbulwe0thpod25avtrlovpkodm0v3rlbdnmu1zoau9jdzyzuq",
+   "title": "Kirkland & Ellis’s ‘up or out’ culture is getting more complicated",
+   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOY0psLWxuczlWT0lkUzdKbXJSQVZ6TVgxMHROZHdYRGs5UlVET0Q3eW9HaElLU05ZVHk2R3hEcGpwQUdsMjd6b1VEVUdyeFlrZkNhQkxjbHd4c2NoZzNzcExWaWFaN2kwQzlaRTI1dkhKTENjcnh1cnNSNjFYbmlqUE1FTVBULWE0THpOd25aVTRlOVpKODM0V3RLbDNmU1ZoaU9JdzYzUQ?oc=5",
+   "source": "Financial News",
+   "date": "2026-09-27",
+   "entities": [
+    {
+     "kind": "firm",
+     "id": "kirkland",
+     "name": "Kirkland & Ellis"
+    }
+   ],
+   "firstSeen": "2026-10-23T11:11:22.370Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
+   "status": "open"
+  },
+  {
    "key": "news.google.com/rss/articles/cbmi0gfbvv95cuxqcwjvwhj2qlbxznvdnk5zr3h4cupwm1dpz0u1zzltulhmtfzotlzjellxq3dxou5mzzhpz1liynrsm0lhcnbmudran3gzzdjxnnl3ndrtqlnasfzhc2u4vevzyxhtynb4m1rtd2floxvbeurfehbwnfzcmxpdbmxrwkd3dlr6ykd6wvvtsf9hs1nvafjtcw9ues14nlvszgvpmmxpnkw5nhqxmzrxdwrqrvjvbes4blvhzffwy0zovzm0z2tvbdnztmd0v1bmu3biove",
    "title": "Kirkland, Latham and Jones Day steer Royal Caribbean’s $3bn acquisition of stake in Sandals",
    "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQcWJVWHJ2QlBXZnVDNk5zR3h4cUpwM1dpZ0U1ZzlTUlhmTFZOTlZjellXQ3dXOU5MZzhpZ1lIYnRSM0lhcnBMUDRaN3gzZDJxNnl3NDRTQlNaSFZhc2U4VEVzYXhtYnB4M1RTd2FLOXVBeURfeHBWNFZCMXpDbmxRWkd3dlR6Ykd6WVVTSF9HS1NVaFJTcW9ueS14NlVsZGVPMmxPNkw5NHQxMzRxdWRQRVJVbEs4blVHZFFwY0ZoVzM0Z2tVbDNzTmd0V1BmU3BiOVE?oc=5",
@@ -5799,7 +6696,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "same source already held in the database",
@@ -5819,7 +6716,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "disputes lateral, outside tracked areas",
@@ -5844,7 +6741,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -5861,7 +6758,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -5888,7 +6785,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -5905,7 +6802,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -5941,7 +6838,7 @@
    "via": "law-firm",
    "legalId": "u1703",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m20",
    "reason": null,
@@ -5963,7 +6860,7 @@
    "via": "law-firm",
    "legalId": "u1701",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m1",
    "reason": null,
@@ -5985,7 +6882,7 @@
    "via": "law-firm",
    "legalId": "u1705",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "u1705",
    "reason": null,
@@ -6005,7 +6902,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "investment-bank in-house GC hire, not a manager event",
@@ -6025,7 +6922,7 @@
     }
    ],
    "firstSeen": "2026-10-23T10:06:47.135Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "open"
   },
   {
@@ -6042,7 +6939,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "arbitration hire, outside tracked areas",
@@ -6067,7 +6964,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "already held as d971 (Monroe joint lead arranger on Sweetmore Bakeries / Fantasy Baking, 2026-09-24)",
@@ -6087,7 +6984,7 @@
     }
    ],
    "firstSeen": "2026-10-21T11:09:20.581Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "rejected",
    "recordId": null,
    "reason": "market-wide research publication; entity name mismatch",
@@ -6109,7 +7006,7 @@
    "via": "law-firm",
    "legalId": "u1700",
    "firstSeen": "2026-10-21T15:54:12.179Z",
-   "lastSeen": "2026-10-23T10:06:47.135Z",
+   "lastSeen": "2026-10-23T11:11:22.370Z",
    "status": "recorded",
    "recordId": "webNews:m21",
    "reason": null,
