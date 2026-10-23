@@ -193,6 +193,17 @@ export const RESEARCH = [
       "url": "https://bondvigilantes.com/blog/2026/10/the-best-relative-value-trade-we-have-ever-seen/"
     },
     {
+      "id": "rsch-spdji-dailyindexinsights-20261023",
+      "publication": "S&P Dow Jones Indices",
+      "author": null,
+      "series": "Daily Index Insights",
+      "title": "Daily Index Insights",
+      "date": "2026-10-23",
+      "time": "15:01",
+      "summary": "Happy 68th birthday to The Smurfs, who made their debut in the Belgian comic strip Johan and Peewit on this day in 1958.",
+      "url": "https://www.spglobal.com/spdji/en/commentary/article/daily-index-insights"
+    },
+    {
       "id": "rsch-spdji-dailyindexinsights-20261022",
       "publication": "S&P Dow Jones Indices",
       "author": null,

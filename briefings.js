@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-23",
-  time:"21:10 BST",
+  time:"23:20 BST",
   lede: "Global stocks fell and haven bonds rallied as AI worries hit tech, with the Nasdaq 100 down nearly 3% after Meta's capex guidance, oil at $114 a barrel on Middle East supply fears, French 10-year yields above 5% ahead of an expected Moody's downgrade, and global credit spreads at a 17-month high.",
   bullets: [
     { html: "<strong>Macro &mdash; Oil hit $114 a barrel</strong> for the first time since May as global stocks were hit by AI fears; the S&amp;P 500 was down 1.2% at 7,663 in early trading on Friday.", src: "https://www.ft.com/content/8948193b-438b-4d71-a0b1-31dff56fc308", srcName: "Financial Times", date: "2026-10-23" },

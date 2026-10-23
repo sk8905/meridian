@@ -21,6 +21,132 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "ba33fb18-1dea-4214-9221-228c155a6ac1",
+    "title": "Russia and Ukraine agree to temporary ceasefire around occupied town of Oleshky",
+    "date": "2026-10-23",
+    "time": "22:11",
+    "url": "https://www.ft.com/content/ba33fb18-1dea-4214-9221-228c155a6ac1"
+  },
+  {
+    "id": "d11b743a-cd2c-4f0d-a464-8750aa8f4170",
+    "title": "Xi Jinping gathers China’s top communist cadres with focus on discipline",
+    "date": "2026-10-23",
+    "time": "22:00",
+    "url": "https://www.ft.com/content/d11b743a-cd2c-4f0d-a464-8750aa8f4170"
+  },
+  {
+    "id": "d3d12f54-fcf0-400c-96f1-484aea980be5",
+    "title": "Donald Trump to cut Canadian tariffs after pressure from Republicans",
+    "date": "2026-10-23",
+    "time": "21:21",
+    "url": "https://www.ft.com/content/d3d12f54-fcf0-400c-96f1-484aea980be5"
+  },
+  {
+    "id": "b68b8544-4ce9-45d4-b522-cd2f8150e4cc",
+    "title": "Donald Trump moves to block certification of Alaska Senate result if Republican loses",
+    "date": "2026-10-23",
+    "time": "21:16",
+    "url": "https://www.ft.com/content/b68b8544-4ce9-45d4-b522-cd2f8150e4cc"
+  },
+  {
+    "id": "9bf81e98-08b7-450a-a804-51030934646e",
+    "title": "Macron says deadly shooting near Paris was racially motivated",
+    "date": "2026-10-23",
+    "time": "21:08",
+    "url": "https://www.ft.com/content/9bf81e98-08b7-450a-a804-51030934646e"
+  },
+  {
+    "id": "72a7cfd6-ab06-4638-8db2-94e02ebacab0",
+    "title": "Turn Downing Street into museum or flats, says Starmer’s cost of living tsar",
+    "date": "2026-10-23",
+    "time": "21:00",
+    "url": "https://www.ft.com/content/72a7cfd6-ab06-4638-8db2-94e02ebacab0"
+  },
+  {
+    "id": "bc13b5f1-387e-4fae-927e-d96ac24ea645",
+    "title": "Lunch break under threat as Hong Kong looks at longer trading day",
+    "date": "2026-10-23",
+    "time": "21:00",
+    "url": "https://www.ft.com/content/bc13b5f1-387e-4fae-927e-d96ac24ea645"
+  },
+  {
+    "id": "510e9189-bb32-43e0-8bf7-fec4a78ea353",
+    "title": "Tory gamblers stood to make nearly £50,000 from insider information, court told",
+    "date": "2026-10-23",
+    "time": "20:35",
+    "url": "https://www.ft.com/content/510e9189-bb32-43e0-8bf7-fec4a78ea353"
+  },
+  {
+    "id": "859676ae-5fa4-489a-99af-560771dd44a1",
+    "title": "Mark Zuckerberg’s deal to stay in California cheered by wealth tax campaign",
+    "date": "2026-10-23",
+    "time": "19:49",
+    "url": "https://www.ft.com/content/859676ae-5fa4-489a-99af-560771dd44a1"
+  },
+  {
+    "id": "84cc6388-8745-4ca2-8c70-536c89dfe9cb",
+    "title": "Reform’s former policy chief steps down from Cambridge management roles",
+    "date": "2026-10-23",
+    "time": "19:35",
+    "url": "https://www.ft.com/content/84cc6388-8745-4ca2-8c70-536c89dfe9cb"
+  },
+  {
+    "id": "5260aac3-e339-47f7-8473-d8ccee5d3bfc",
+    "title": "Global Insight: The ‘cockroach’ protesters Modi cannot stamp out",
+    "date": "2026-10-23",
+    "time": "18:18",
+    "url": "https://www.ft.com/content/5260aac3-e339-47f7-8473-d8ccee5d3bfc"
+  },
+  {
+    "id": "510f7213-e196-4af3-8ba8-fc51cd741228",
+    "title": "Directors’ Deals: Safestore directors raise stakes as shares struggle",
+    "date": "2026-10-23",
+    "time": "18:00",
+    "url": "https://www.ft.com/content/510f7213-e196-4af3-8ba8-fc51cd741228"
+  },
+  {
+    "id": "e3bd8426-defb-41d0-8680-81ce72948e83",
+    "title": "The ledger problem",
+    "date": "2026-10-23",
+    "time": "18:00",
+    "url": "https://www.ft.com/content/e3bd8426-defb-41d0-8680-81ce72948e83"
+  },
+  {
+    "id": "2aeaf5c1-1fc2-45ae-a6dd-0634384ae9d7",
+    "title": "Stockpickers: Aberdeen, ITM Power, Tristel",
+    "date": "2026-10-23",
+    "time": "18:00",
+    "url": "https://www.ft.com/content/2aeaf5c1-1fc2-45ae-a6dd-0634384ae9d7"
+  },
+  {
+    "id": "9f46db72-0a1e-42b0-8efe-974a04fa0fc7",
+    "title": "Latest savings rates",
+    "date": "2026-10-23",
+    "time": "17:40",
+    "url": "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7"
+  },
+  {
+    "id": "75ba3055-625c-4cb5-894b-0696a38f5e79",
+    "title": "Latest Isa rates",
+    "date": "2026-10-23",
+    "time": "17:32",
+    "url": "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79"
+  },
+  {
+    "id": "68b36b6d-71e7-4f44-bbfb-a202e36603a4",
+    "title": "Latest National Savings & Investments rates",
+    "date": "2026-10-23",
+    "time": "17:28",
+    "url": "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4"
+  },
+  {
+    "id": "e669f0f9-5042-4554-9cd6-39d2d9fd27df",
+    "title": "Burnham should not rush on giving tax powers to English mayors, experts warn",
+    "date": "2026-10-23",
+    "time": "17:27",
+    "url": "https://www.ft.com/content/e669f0f9-5042-4554-9cd6-39d2d9fd27df"
+  },
+  {
     "id": "f75c25c2-4164-4dfc-9d56-fc6a86704c47",
     "title": "KKR founders back Valencia in deal valuing football club at €1.25bn",
     "date": "2026-10-23",
@@ -313,110 +439,5 @@ export const FT_ITEMS = [
     "date": "2026-10-23",
     "time": "05:00",
     "url": "https://www.ft.com/content/0ce7d049-b264-47da-9aaa-08b33941585a"
-  },
-  {
-    "id": "90bd7c83-f219-4d2c-be27-c31f77daa662",
-    "title": "A cure for ‘plant blindness’? Try London’s Royal Parks",
-    "date": "2026-10-23",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/90bd7c83-f219-4d2c-be27-c31f77daa662"
-  },
-  {
-    "id": "f1e6e30a-7f2b-49c9-bc8d-ef3821c9695a",
-    "title": "Argentina in global trading sweet spot",
-    "date": "2026-10-23",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/f1e6e30a-7f2b-49c9-bc8d-ef3821c9695a"
-  },
-  {
-    "id": "ecfefa34-a0c3-43c5-b892-21c715a355a4",
-    "title": "Could Peronism return as Milei’s popularity falters?",
-    "date": "2026-10-23",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/ecfefa34-a0c3-43c5-b892-21c715a355a4"
-  },
-  {
-    "id": "0a5c7582-133c-4e24-8e3d-daa30f5dad56",
-    "title": "UK waters down ‘fit and proper’ rules set up to hold bankers to account",
-    "date": "2026-10-22",
-    "time": "21:00",
-    "url": "https://www.ft.com/content/0a5c7582-133c-4e24-8e3d-daa30f5dad56"
-  },
-  {
-    "id": "8ada683f-9534-461d-9a3a-fc541550df16",
-    "title": "Donald Trump ordered to face BBC questioning in $10bn defamation lawsuit",
-    "date": "2026-10-22",
-    "time": "19:36",
-    "url": "https://www.ft.com/content/8ada683f-9534-461d-9a3a-fc541550df16"
-  },
-  {
-    "id": "9a072c7a-b0ee-4a43-ae73-b19bbde9261b",
-    "title": "Ecuador opposition leader arrested in money laundering investigation",
-    "date": "2026-10-22",
-    "time": "18:47",
-    "url": "https://www.ft.com/content/9a072c7a-b0ee-4a43-ae73-b19bbde9261b"
-  },
-  {
-    "id": "d774c15e-22e4-4873-9a1d-92d6561290f9",
-    "title": "US to fund speculative nuclear fusion venture backed by investors with ties to Trump",
-    "date": "2026-10-22",
-    "time": "18:20",
-    "url": "https://www.ft.com/content/d774c15e-22e4-4873-9a1d-92d6561290f9"
-  },
-  {
-    "id": "73986a48-b513-458b-b8ea-f9e11ed3e941",
-    "title": "Starlink saga shows why Europe must catch up in space",
-    "date": "2026-10-22",
-    "time": "17:39",
-    "url": "https://www.ft.com/content/73986a48-b513-458b-b8ea-f9e11ed3e941"
-  },
-  {
-    "id": "52b728a2-3075-4310-bffb-4f17b587724d",
-    "title": "Number of UK founders choosing to sell not scale hits eight-year high",
-    "date": "2026-10-22",
-    "time": "17:25",
-    "url": "https://www.ft.com/content/52b728a2-3075-4310-bffb-4f17b587724d"
-  },
-  {
-    "id": "c514f3c5-b174-4a92-ab45-aa19ddc63fc1",
-    "title": "Steve Cohen takes Hertz for a defensive spin",
-    "date": "2026-10-22",
-    "time": "16:48",
-    "url": "https://www.ft.com/content/c514f3c5-b174-4a92-ab45-aa19ddc63fc1"
-  },
-  {
-    "id": "63ed58ac-f9ef-41b7-a172-dc540337b698",
-    "title": "Creditors to Sanjeev Gupta’s first UK steel plant appoint liquidators",
-    "date": "2026-10-22",
-    "time": "16:44",
-    "url": "https://www.ft.com/content/63ed58ac-f9ef-41b7-a172-dc540337b698"
-  },
-  {
-    "id": "42176f60-b2fd-431c-9f2c-e7e015b07315",
-    "title": "Would you take out a mortgage backed by bitcoin?",
-    "date": "2026-10-22",
-    "time": "16:00",
-    "url": "https://www.ft.com/content/42176f60-b2fd-431c-9f2c-e7e015b07315"
-  },
-  {
-    "id": "a88ac504-4d86-4f27-a1e9-cf63db032ab5",
-    "title": "Britain secures gas supply from Belgium before winter crunch",
-    "date": "2026-10-22",
-    "time": "15:26",
-    "url": "https://www.ft.com/content/a88ac504-4d86-4f27-a1e9-cf63db032ab5"
-  },
-  {
-    "id": "6517874d-25b5-446f-9c9a-9326ab30dfa9",
-    "title": "Germany’s Friedrich Merz warns of ‘intense’ Russian espionage after arrest",
-    "date": "2026-10-22",
-    "time": "15:24",
-    "url": "https://www.ft.com/content/6517874d-25b5-446f-9c9a-9326ab30dfa9"
-  },
-  {
-    "id": "9ddd1583-9296-4264-8ddd-dbf11469def9",
-    "title": "Donald Trump’s tourism push fails to lure visitors",
-    "date": "2026-10-22",
-    "time": "14:54",
-    "url": "https://www.ft.com/content/9ddd1583-9296-4264-8ddd-dbf11469def9"
   }
 ];

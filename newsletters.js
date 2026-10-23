@@ -179,6 +179,18 @@ export const NEWSLETTERS = [
       "body": true
   },
   {
+      "id": "nl-legalbusiness-alert-weilwillkie-20261023",
+      "publication": "Legal Business",
+      "author": null,
+      "series": "Legal Business Alert",
+      "title": "Weil and Willkie end merger talks",
+      "date": "2026-10-23",
+      "time": "16:47",
+      "summary": "US firms call end to discussions as Weil continues to seek tie-up.",
+      "url": "https://www.legalbusiness.co.uk/law-firms/weil-and-willkie-end-merger-talks/",
+      "body": true
+  },
+  {
       "id": "nl-legalbusiness-alert-lsegoctus-20261022",
       "publication": "Legal Business",
       "author": null,

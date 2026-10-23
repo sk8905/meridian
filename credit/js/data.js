@@ -24,7 +24,7 @@
 // =============================================================================
 
 // When the dataset was last compiled/updated (i.e. the last time data actually changed).
-export const DATA_UPDATED = "2026-10-21";
+export const DATA_UPDATED = "2026-10-23";
 
 // When the refresh routine last ran (even if it found nothing new) — shown in the
 // topbar as "Last refresh" so a run can be confirmed regardless of data changes.
@@ -33,7 +33,7 @@ export const LAST_CHECKED = "2026-10-23";
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "22:16 BST";
+export const LAST_CHECKED_TIME = "23:20 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -4003,6 +4003,8 @@ export const deals = [
   {"id":"d1346","date":"2020-02-10","type":"Financing","managerId":"m162","fundId":null,"headline":"Comvest Credit Partners provides senior credit facility to Orangetheory Fitness franchisee Aspyr Holdings","summary":"Comvest Credit Partners acted as Administrative Agent and Sole Lender in providing a Senior Credit Facility to Aspyr Holdings LLC, a franchisee of 33 Orangetheory Fitness locations. The facility amount was not given in the source summary.","sourceUrl":"https://www.globenewswire.com/news-release/2020/02/10/1982306/0/en/comvest-credit-partners-announces-investment-in-aspyr-holdings-llc.html","borrower":"Aspyr Holdings LLC","sponsor":"","lenders":[{"name":"Comvest Credit Partners","managerId":"m162","role":"lead","amount":null,"ccy":null}],"managerRole":"lender"},
   {"id":"d1347","date":"2026-07-27","type":"Unitranche","managerId":"m26","fundId":null,"headline":"Apera provides unitranche and acquisition facility for Activa Capital's investment in Impulsa","summary":"Apera Asset Management arranged bespoke debt facilities for Impulsa, a Paris-headquartered accounting and business advisory firm founded in 2012, supporting the investment by Activa Capital. The financing comprises a unitranche facility alongside a committed acquisition facility to support the company's continued buy-and-build strategy.","sourceUrl":"https://apera-am.com/news/apera-supports-activa-capital-in-its-investment-in-impulsa","borrower":"Impulsa","sponsor":"Activa Capital","lenders":[{"name":"Apera Asset Management","managerId":"m26","role":"lead","amount":null,"ccy":null}],"managerRole":"lender"},
   {"id":"d1348","date":"2026-06-19","type":"Unitranche","managerId":"m26","fundId":null,"headline":"Apera finances EOS Partners' acquisition of Drooms with unitranche and acquisition facility","summary":"Apera Asset Management arranged bespoke debt facilities for Drooms, a Frankfurt-headquartered provider of cloud-based virtual data room solutions for institutional real estate clients, supporting its acquisition by funds advised by EOS Partners GmbH. The financing comprises a unitranche facility alongside an acquisition facility to support the company's buy-and-build strategy.","sourceUrl":"https://apera-am.com/news/apera-supports-eos-partners-in-the-acquisition-of-drooms","borrower":"Drooms","sponsor":"EOS Partners","lenders":[{"name":"Apera Asset Management","managerId":"m26","role":"lead","amount":null,"ccy":null}],"managerRole":"lender"},
+  {"id":"d1350","date":"2022-05-09","type":"Structured Credit","managerId":"m206","fundId":null,"headline":"Capital Four prints two-year ESG European CLO","summary":"Creditflux reported that Capital Four printed a short-dated (two-year) ESG European CLO, Capital Four Euro CLO IV, arranged by JP Morgan at €351.6m.","sourceUrl":"https://www.creditflux.com/CLOs/2022-05-09/Capital-Four-prints-twoyear-ESG-European-CLO?d=1","clo":true,"borrower":"Capital Four Euro CLO IV","sponsor":"","lenders":[],"managerRole":"issuer"},
+  {"id":"d1351","date":"2022-11-22","type":"Structured Credit","managerId":"m206","fundId":null,"headline":"Capital Four US CLO issuance volume passes $1 billion","summary":"Creditflux reported that Capital Four's US CLO issuance volume had passed $1bn.","sourceUrl":"https://www.creditflux.com/CLOs/2022-11-22/Capital-Fours-US-CLO-issuance-volume-passes-1-billion?d=1","clo":true,"borrower":"Capital Four US CLOs","sponsor":"","lenders":[],"managerRole":"issuer"},
 ];
 
 // Keep both feeds strictly newest-first regardless of insertion order.
