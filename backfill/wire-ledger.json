@@ -3626,6 +3626,24 @@
       "status": "rejected",
       "reason": "Real-estate asset sale by an equity real-estate fund (EPISO 5); not credit. Held as legal item u4176",
       "at": "2026-10-23T15:23:05.034Z"
+    },
+    {
+      "url": "https://www.cnbc.com/2026/10/23/ukraine-says-starlink-restrictions-remain-despite-trump-assurances.html",
+      "status": "rejected",
+      "reason": "Geopolitical/military story about Starlink in Ukraine; no credit, distress or transaction event for SpaceX.",
+      "at": "2026-10-23T17:16:40.956Z"
+    },
+    {
+      "url": "https://www.legalbusiness.co.uk/law-firms/weil-and-willkie-end-merger-talks/",
+      "status": "rejected",
+      "reason": "Law-firm merger-talks business story, not a deal or legal development the firm advised on; could not be verified by search.",
+      "at": "2026-10-23T17:16:40.956Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQbHlnTzA3OUlCUmp1Qk9VTHF6X0Y5bjllLXNFZ3Joelo5WEttOXgwQXVESHBnTUtrU0g1VUJjNzkyaFlrUy1KSWdCUHJYaXo2aDdjQ1R1bmVzaHBNSmI0TmhicmZfMW5FRTFfUjRtT1RGZWpxWUJuNUIwZ1NhcEZlZHYxVVduV3ZEWnhPRFl2d1FpdU03ZHE2MlpVdnA3TmNFR3JfUF93YjFkb29CaDRBSm1pZmVrZFU?oc=5",
+      "status": "rejected",
+      "reason": "Partner-promotions round (people news effective 1 Jan 2027), not a deal the firm advised on; out of legal-alert scope.",
+      "at": "2026-10-23T17:16:40.956Z"
     }
   ]
 }
