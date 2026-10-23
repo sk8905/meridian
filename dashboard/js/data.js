@@ -16,9 +16,9 @@ export const EQ_INDICES = [
     "id": "spx",
     "name": "S&P 500",
     "region": "US",
-    "level": 7757.17,
-    "ytd": 13.32,
-    "asOf": "2026-10-21",
+    "level": 7663.43,
+    "ytd": 11.95,
+    "asOf": "2026-10-22",
     "stooq": "^spx",
     "source": "https://finance.yahoo.com/quote/%5EGSPC",
     "keyMoment": {
@@ -32,9 +32,9 @@ export const EQ_INDICES = [
     "id": "ndq",
     "name": "Nasdaq Composite",
     "region": "US",
-    "level": 26702.86,
-    "ytd": 14.89,
-    "asOf": "2026-10-21",
+    "level": 26008.86,
+    "ytd": 11.9,
+    "asOf": "2026-10-22",
     "stooq": "^ndq",
     "source": "https://finance.yahoo.com/quote/%5EIXIC",
     "keyMoment": {
@@ -48,9 +48,9 @@ export const EQ_INDICES = [
     "id": "dji",
     "name": "Dow Jones",
     "region": "US",
-    "level": 52856.09,
-    "ytd": 9.97,
-    "asOf": "2026-10-21",
+    "level": 52867.98,
+    "ytd": 10,
+    "asOf": "2026-10-22",
     "stooq": "^dji",
     "source": "https://finance.yahoo.com/quote/%5EDJI",
     "keyMoment": {
@@ -64,9 +64,9 @@ export const EQ_INDICES = [
     "id": "rut",
     "name": "Russell 2000",
     "region": "US",
-    "level": 2781.02,
-    "ytd": 12.05,
-    "asOf": "2026-10-21",
+    "level": 2784.03,
+    "ytd": 12.17,
+    "asOf": "2026-10-22",
     "stooq": "^rut",
     "source": "https://finance.yahoo.com/quote/%5ERUT"
   },
@@ -74,9 +74,9 @@ export const EQ_INDICES = [
     "id": "sxxp",
     "name": "Stoxx Europe 600",
     "region": "Europe",
-    "level": 638.96,
-    "ytd": 7.79,
-    "asOf": "2026-10-22",
+    "level": 634.62,
+    "ytd": 7.06,
+    "asOf": "2026-10-23",
     "stooq": "^stoxx",
     "source": "https://finance.yahoo.com/quote/%5ESTOXX"
   },
@@ -84,9 +84,9 @@ export const EQ_INDICES = [
     "id": "ukx",
     "name": "FTSE 100",
     "region": "Europe",
-    "level": 10712.01,
-    "ytd": 7.86,
-    "asOf": "2026-10-22",
+    "level": 10675.65,
+    "ytd": 7.49,
+    "asOf": "2026-10-23",
     "stooq": "^ftse",
     "source": "https://finance.yahoo.com/quote/%5EFTSE",
     "keyMoment": {
@@ -100,9 +100,9 @@ export const EQ_INDICES = [
     "id": "dax",
     "name": "DAX",
     "region": "Europe",
-    "level": 25413.47,
-    "ytd": 3.76,
-    "asOf": "2026-10-22",
+    "level": 25186.28,
+    "ytd": 2.84,
+    "asOf": "2026-10-23",
     "stooq": "^dax",
     "source": "https://finance.yahoo.com/quote/%5EGDAXI"
   },
@@ -110,9 +110,9 @@ export const EQ_INDICES = [
     "id": "cac",
     "name": "CAC 40",
     "region": "Europe",
-    "level": 7818.02,
-    "ytd": -4.07,
-    "asOf": "2026-10-22",
+    "level": 7765.24,
+    "ytd": -4.72,
+    "asOf": "2026-10-23",
     "stooq": "^cac",
     "source": "https://finance.yahoo.com/quote/%5EFCHI"
   },
@@ -120,9 +120,9 @@ export const EQ_INDICES = [
     "id": "nkx",
     "name": "Nikkei 225",
     "region": "Asia",
-    "level": 62907.84,
-    "ytd": 24.97,
-    "asOf": "2026-10-22",
+    "level": 62693.16,
+    "ytd": 24.54,
+    "asOf": "2026-10-23",
     "stooq": "^nkx",
     "source": "https://finance.yahoo.com/quote/%5EN225",
     "keyMoment": {
@@ -136,9 +136,9 @@ export const EQ_INDICES = [
     "id": "hsi",
     "name": "Hang Seng",
     "region": "Asia",
-    "level": 22934.68,
-    "ytd": -10.52,
-    "asOf": "2026-10-22",
+    "level": 23093.37,
+    "ytd": -9.9,
+    "asOf": "2026-10-23",
     "stooq": "^hsi",
     "source": "https://finance.yahoo.com/quote/%5EHSI",
     "keyMoment": {
@@ -348,7 +348,7 @@ export const CR_BONDS = [
   {"name": "SpaceX", "issuer": null, "bond": "6.65% notes due 2056 (50-year)", "coupon": 6.65, "maturity": "2056", "isin": null, "tv": null, "src": null, "checked": "2026-10-16", "px": {"v": 85, "asOf": "2026-10-10", "outlet": "TIKR (quoting the FT's John Foley)", "aggregator": true, "src": "https://www.tikr.com/blog/spacex-is-getting-riskier-by-the-minute-as-its-50-year-bonds-slip-to-85-cents", "quote": "trade at something like 85 cents on the dollar"}},
 ];
 
-export const DASH_ASOF = "2026-10-22";
+export const DASH_ASOF = "2026-10-23";
 
 // ---------------------------------------------------------------------------
 // World equity indices — major LOCAL benchmarks (not ETFs) grouped by
@@ -361,53 +361,53 @@ export const DASH_ASOF = "2026-10-22";
 // (3M/6M and many 1W) are null in the seed and filled live. Refreshed by the
 // daily routine.
 export const WORLD_INDICES = {
-  "asOf": "2026-10-22",
+  "asOf": "2026-10-23",
   "regions": [
     {
       "region": "US",
       "rows": [
         {
           "name": "S&P 500",
-          "level": 7757.17,
-          "w1": 0.5,
-          "m1": -0.1,
+          "level": 7663.43,
+          "w1": -1.04,
+          "m1": -1.3,
           "m3": 3.44,
-          "m6": 8.68,
-          "y1": 15.79,
-          "asOf": "2026-10-21",
+          "m6": 7.81,
+          "y1": 13.73,
+          "asOf": "2026-10-22",
           "source": "https://finance.yahoo.com/quote/%5EGSPC/"
         },
         {
           "name": "Nasdaq Composite",
-          "level": 26702.86,
-          "w1": 0.04,
-          "m1": -1.55,
-          "m3": 3.94,
-          "m6": 8.29,
-          "y1": 17.42,
-          "asOf": "2026-10-21",
+          "level": 26008.86,
+          "w1": -2.64,
+          "m1": -4.53,
+          "m3": 3.47,
+          "m6": 6.43,
+          "y1": 13.37,
+          "asOf": "2026-10-22",
           "source": "https://finance.yahoo.com/quote/%5EIXIC/"
         },
         {
           "name": "Dow Jones",
-          "level": 52856.09,
-          "w1": 2.39,
-          "m1": 1.55,
-          "m3": 1.22,
-          "m6": 6.8,
-          "y1": 13.45,
-          "asOf": "2026-10-21",
+          "level": 52867.98,
+          "w1": 1.32,
+          "m1": 1.94,
+          "m3": 2.24,
+          "m6": 7.21,
+          "y1": 13.12,
+          "asOf": "2026-10-22",
           "source": "https://finance.yahoo.com/quote/%5EDJI/"
         },
         {
           "name": "Russell 2000",
-          "level": 2781.02,
-          "w1": 1.89,
-          "m1": -3.28,
-          "m3": -6.04,
-          "m6": -0.16,
-          "y1": 13.44,
-          "asOf": "2026-10-21",
+          "level": 2784.03,
+          "w1": 0.61,
+          "m1": -3.66,
+          "m3": -5.31,
+          "m6": 0.32,
+          "y1": 12.14,
+          "asOf": "2026-10-22",
           "source": "https://finance.yahoo.com/quote/%5ERUT/"
         }
       ]
@@ -417,24 +417,24 @@ export const WORLD_INDICES = {
       "rows": [
         {
           "name": "FTSE 100",
-          "level": 10712.07,
-          "w1": -1.18,
-          "m1": 0.04,
-          "m3": 0.68,
-          "m6": 2.44,
-          "y1": 12.58,
-          "asOf": "2026-10-22",
+          "level": 10675.65,
+          "w1": -1.9,
+          "m1": -0.28,
+          "m3": -0.56,
+          "m6": 2.86,
+          "y1": 11.45,
+          "asOf": "2026-10-23",
           "source": "https://finance.yahoo.com/quote/%5EFTSE/"
         },
         {
           "name": "FTSE 250",
-          "level": 24232.07,
-          "w1": -0.79,
-          "m1": -1.2,
-          "m3": 2.56,
-          "m6": 6.45,
-          "y1": 9.01,
-          "asOf": "2026-10-22",
+          "level": 24261.15,
+          "w1": -1.11,
+          "m1": -0.41,
+          "m3": 1.93,
+          "m6": 7.43,
+          "y1": 8.5,
+          "asOf": "2026-10-23",
           "source": "https://finance.yahoo.com/quote/%5EFTMC/"
         }
       ]
@@ -444,46 +444,46 @@ export const WORLD_INDICES = {
       "rows": [
         {
           "name": "Euro Stoxx 50",
-          "level": 6111.69,
-          "w1": -0.92,
-          "m1": -3.37,
-          "m3": -1.59,
-          "m6": 3.68,
-          "y1": 8.38,
-          "asOf": "2026-10-22",
+          "level": 6052.68,
+          "w1": -2.44,
+          "m1": -3.92,
+          "m3": -3.63,
+          "m6": 2.88,
+          "y1": 6.78,
+          "asOf": "2026-10-23",
           "source": "https://finance.yahoo.com/quote/%5ESTOXX50E/"
         },
         {
           "name": "DAX",
-          "level": 25414.73,
-          "w1": 0.13,
-          "m1": -0.64,
-          "m3": 2.63,
-          "m6": 5.21,
-          "y1": 5.23,
-          "asOf": "2026-10-22",
+          "level": 25186.28,
+          "w1": -1.7,
+          "m1": -0.88,
+          "m3": 0.35,
+          "m6": 4.38,
+          "y1": 4.04,
+          "asOf": "2026-10-23",
           "source": "https://finance.yahoo.com/quote/%5EGDAXI/"
         },
         {
           "name": "CAC 40",
-          "level": 7818.02,
-          "w1": -1.47,
-          "m1": -4.13,
-          "m3": -5.8,
-          "m6": -4.97,
-          "y1": -4.74,
-          "asOf": "2026-10-22",
+          "level": 7765.24,
+          "w1": -2.41,
+          "m1": -4.41,
+          "m3": -7.25,
+          "m6": -4.81,
+          "y1": -5.6,
+          "asOf": "2026-10-23",
           "source": "https://finance.yahoo.com/quote/%5EFCHI/"
         },
         {
           "name": "IBEX 35",
-          "level": 18995.5,
-          "w1": -0.95,
+          "level": 18878,
+          "w1": -2.32,
           "m1": -3.84,
-          "m3": -1.41,
-          "m6": 6.2,
-          "y1": 20.36,
-          "asOf": "2026-10-22",
+          "m3": -3.61,
+          "m6": 6.71,
+          "y1": 19.54,
+          "asOf": "2026-10-23",
           "source": "https://finance.yahoo.com/quote/%5EIBEX/"
         }
       ]
@@ -493,46 +493,46 @@ export const WORLD_INDICES = {
       "rows": [
         {
           "name": "Nikkei 225",
-          "level": 62907.84,
-          "w1": -2.36,
-          "m1": -3.25,
-          "m3": -5.29,
-          "m6": 6.37,
-          "y1": 27.58,
-          "asOf": "2026-10-22",
+          "level": 62693.16,
+          "w1": -4.03,
+          "m1": -3.58,
+          "m3": -2.97,
+          "m6": 4.99,
+          "y1": 28.89,
+          "asOf": "2026-10-23",
           "source": "https://finance.yahoo.com/quote/%5EN225/"
         },
         {
           "name": "Hang Seng",
-          "level": 22934.68,
-          "w1": -4.69,
-          "m1": -8.58,
-          "m3": -9.03,
-          "m6": -11.5,
-          "y1": -11.04,
-          "asOf": "2026-10-22",
+          "level": 23093.37,
+          "w1": -4.52,
+          "m1": -7.01,
+          "m3": -7.49,
+          "m6": -11.1,
+          "y1": -11.07,
+          "asOf": "2026-10-23",
           "source": "https://finance.yahoo.com/quote/%5EHSI/"
         },
         {
           "name": "Shanghai Composite",
-          "level": 3658.03,
-          "w1": -1.33,
-          "m1": -7.44,
-          "m3": -5.64,
-          "m6": -10.63,
-          "y1": -6.53,
-          "asOf": "2026-10-22",
+          "level": 3690.48,
+          "w1": -0.69,
+          "m1": -6.25,
+          "m3": -3.24,
+          "m6": -9.54,
+          "y1": -5.91,
+          "asOf": "2026-10-23",
           "source": "https://finance.yahoo.com/quote/000001.SS/"
         },
         {
           "name": "KOSPI",
-          "level": 5533.77,
-          "w1": -0.37,
-          "m1": -21.15,
-          "m3": -22.03,
-          "m6": -14.55,
-          "y1": 42.49,
-          "asOf": "2026-10-22",
+          "level": 5550.3,
+          "w1": -2.08,
+          "m1": -21.62,
+          "m3": -17.04,
+          "m6": -14.29,
+          "y1": 44.33,
+          "asOf": "2026-10-23",
           "source": "https://finance.yahoo.com/quote/%5EKS11/"
         }
       ]
@@ -560,11 +560,11 @@ export const GOVT_YIELDS = {
       "rows": [
         {
           "country": "United States",
-          "y2": 4.81,
-          "y5": 4.95,
-          "y10": 5.13,
-          "y30": 5.42,
-          "asOf": "2026-10-21",
+          "y2": 4.65,
+          "y5": 4.78,
+          "y10": 4.96,
+          "y30": 5.29,
+          "asOf": "2026-10-22",
           "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
         }
       ]
@@ -659,32 +659,32 @@ export const GOVT_YIELDS = {
 export const GOVT_YIELD_CHG = {
   "United States": {
     "y2": {
-      "w1": -1,
-      "m1": 5,
-      "m3": 50,
-      "m6": 102,
-      "y1": 136
+      "w1": -12,
+      "m1": -6,
+      "m3": 28,
+      "m6": 82,
+      "y1": 120
     },
     "y5": {
-      "w1": -5,
-      "m1": 12,
-      "m3": 54,
-      "m6": 104,
-      "y1": 139
+      "w1": -13,
+      "m1": -5,
+      "m3": 32,
+      "m6": 82,
+      "y1": 122
     },
     "y10": {
-      "w1": -6,
-      "m1": 17,
-      "m3": 46,
-      "m6": 83,
-      "y1": 115
+      "w1": -14,
+      "m1": 0,
+      "m3": 25,
+      "m6": 62,
+      "y1": 99
     },
     "y30": {
-      "w1": -10,
-      "m1": 13,
-      "m3": 27,
-      "m6": 52,
-      "y1": 87
+      "w1": -14,
+      "m1": 0,
+      "m3": 12,
+      "m6": 37,
+      "y1": 75
     }
   },
   "United Kingdom": {
