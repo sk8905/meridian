@@ -34,7 +34,7 @@ await pg.evaluate(() => window.__wireRead("https://www.ft.com/content/abc", { ti
 await pg.waitForFunction(() => !/Loading the text/.test((document.querySelector("#wire-reader .wr-note") || {}).textContent || ""), null, { timeout: 8000 }).catch(() => {});
 const r2b = await pg.evaluate(() => (document.querySelector("#wire-reader .wr-note") || {}).textContent || "");
 check(!/subscriber login/.test(r2b), `a subscribed FT story is not refused as a paywall (${r2b})`);
-await pg.keyboard.press("Escape"); await pg.waitForTimeout(150);
+await pg.keyboard.press("Escape"); await pg.waitForFunction(() => document.querySelector("#wire-reader").hidden, null, { timeout: 3000 }).catch(() => {});
 
 // 3) A PDF says it is a document file.
 await pg.evaluate(() => window.__wireRead("https://www.afme.eu/media/x/report.pdf", { title: "AFME report" }));
