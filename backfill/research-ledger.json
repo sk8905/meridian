@@ -11300,6 +11300,72 @@
      }
     }
    ]
+  },
+  {
+   "at": "2026-10-23",
+   "collection": "HEDGE_FUNDS",
+   "id": "h77",
+   "verdict": "CONFIRMED-UNCHANGED",
+   "source": "https://www.hedgeweek.com/dymon-asia-capital-nears-8bn-aum/",
+   "sourceLabel": "Hedgeweek / Bloomberg",
+   "asOf": "2026-05-01",
+   "evidence": "US$7.5bn as of 1 May 2026 matches profile.",
+   "changes": [
+    {
+     "field": "lastChecked",
+     "from": null,
+     "to": {
+      "date": "2026-10-23",
+      "url": "https://www.hedgeweek.com/dymon-asia-capital-nears-8bn-aum/"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-23",
+   "collection": "firms",
+   "id": "freshfields",
+   "verdict": "CONFIRMED-UNCHANGED",
+   "source": "https://www.legalcheek.com/2025/12/freshfields-profits-slip-despite-rising-revenue/",
+   "sourceLabel": "Legal Cheek",
+   "asOf": "2025-04-30",
+   "evidence": "Latest published results still year to 30 Apr 2025; no FY2025/26 results found.",
+   "changes": [
+    {
+     "field": "lastChecked",
+     "from": {
+      "date": "2026-10-22",
+      "url": "https://www.legalcheek.com/2025/12/freshfields-profits-slip-despite-rising-revenue/"
+     },
+     "to": {
+      "date": "2026-10-23",
+      "url": "https://www.legalcheek.com/2025/12/freshfields-profits-slip-despite-rising-revenue/"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-23",
+   "collection": "HEDGE_INTEL",
+   "id": "hi570",
+   "verdict": "GAP",
+   "source": "https://www.forbes.com/sites/brandonkochkodin/2026/04/08/billionaire-karthik-sarma-scores-big-as-avis-stock-surges-160/",
+   "evidence": "Forbes 2026-04-08; content corroborated by Benzinga (2026-04-07).",
+   "changes": [
+    {
+     "field": "(new record)",
+     "to": {
+      "id": "hi570",
+      "hfId": "h121",
+      "date": "2026-04-08",
+      "type": "Position",
+      "headline": "SRS's Avis Budget stake worth about $3.7bn after stock surges more than 160% in a month",
+      "summary": "Forbes reported that Avis Budget Group shares had risen more than 160% over the prior month, lifting the value of SRS Investment Management's Avis stake to about $3.7bn from roughly $1.7bn at the end of February. Avis is SRS's largest holding.",
+      "outlet": "Forbes",
+      "url": "https://www.forbes.com/sites/brandonkochkodin/2026/04/08/billionaire-karthik-sarma-scores-big-as-avis-stock-surges-160/"
+     }
+    }
+   ]
   }
  ]
 }

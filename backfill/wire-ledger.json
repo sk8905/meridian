@@ -3512,6 +3512,120 @@
       "status": "rejected",
       "reason": "Only a Google redirect; FN article and staff-cost figure not verifiable",
       "at": "2026-10-23T13:24:09.625Z"
+    },
+    {
+      "url": "https://www.investing.com/news/economic-indicators/us-manufacturing-pmi-exceeds-expectations-signals-sector-expansion-93CH-4969770",
+      "status": "rejected",
+      "reason": "US PMI macro data, not about the tracked hedge fund",
+      "at": "2026-10-23T15:20:52.667Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQSXJwbHQ2NU1VSHdhaEhVMTB2eGlPN0Q4UjYyZGNXUWxObXQwQXRyYVllLW14QXRjdTctUGx3bmtJSkV2b21NeEpRalI3SnJGczZzOE5hTlF2cDJOUnh3bzFYNmZ5S3NoTl9vZHpBNHkwMGRvSFMwaTFwMU1qYUlxby02bFpyaUZIRW5mSDVfSlVod1oySjJIQmJ1UWwyZXY1T1lFTE16VnB0c1NwOVptVmdVRFVqX29Y?oc=5",
+      "status": "rejected",
+      "reason": "Barclays bank results; not credit-manager news (out of scope)",
+      "at": "2026-10-23T15:20:52.667Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNeEpZdWtUOFVkS0JLY2xyTGtTWTVBSThOSTF1Q3F0czhwRHdON3diNGIzN0ZMYmpnSDE2T1UwbGEzQlFzLWducXM1YlZQNTZiUmItMzVjVnl5R0oyVEVlOWduLXFabXBjWHA4VlRJaU1xdGhFcVZQSnh5Nm9qTXROcWZWaG9VVnh6amtzQXR5VV9hM0txQ0podDltSE5Vdm1rbjZYaTkzeTJHeXpHamhIWGZaVjdzdXdyalpzSEd1b0x4V09uOFE?oc=5",
+      "status": "rejected",
+      "reason": "HSBC private-banking interview; out of scope",
+      "at": "2026-10-23T15:20:52.667Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPcUpnaW9mbjZVSUpCeVpVLTFvTi1VRE1kbjV4Y0ZwWFVBclhHOFNIdnFaTjFzcHRCVTZrLWo0dm11TGphV1V5WDVLRnh3MUtNQVhaMjRwTUhtQ01EQXlkM1lUMWxKTWxfaERubGNSejV1U3kzbVlBYU5IZlJlZEswaVA3YU1XZkFMcEdiNG54UXpyUDhhLXFiZkZpNHJabFVFYzRvUy1wdDN5UUs3TVE?oc=5",
+      "status": "rejected",
+      "reason": "Bank hire in M&A advisory; out of credit scope",
+      "at": "2026-10-23T15:20:52.667Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNVklybzdycXRMMEVkX3h4N0VXWWN6TjZJdVpSMDViMWpWTF9HNzhKTHNCUWw3NUx3eVRwSTNwOFlJR1JpLTBmaWRMOHVxV1draVIyc3FzYlRXUHVMWThlRGpwajAtUEU0RlY5Z1dIcUZNOG1YVzVwRjBJTWhtYkEyUVpGYVRXbExLZDI2WlBLdXpmWUU2dVphalNVbzBzMlJLUzZqcXExYXJBNTVwWU9oZWRkX3E?oc=5",
+      "status": "rejected",
+      "reason": "Bank sponsor-coverage hires; out of credit scope",
+      "at": "2026-10-23T15:20:52.667Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOaVR0ZVdYMGViSUc4eWtqczJQWEc2bmM4Q1ZHOXhIbC1SOXM5aDY3VUNubnVLX0VOOVdaN3lqRHlrNzFOSWdiUFpRUll0bERDQkRvLW1VRVdxcUhzNjlCdVhZOE9YSkJmWkZZcEtJM3VLTGtZSkVEMWhKOS1GVTlnRE83WllYbjlyT0VjZnl0YjhhMm9LY3o0MXNaeFZWeENLcFN0RGF1eEJSUXFsdHZJ?oc=5",
+      "status": "rejected",
+      "reason": "Passing mention in a women-in-finance list",
+      "at": "2026-10-23T15:20:52.667Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPRkV6d0xTZi1WMU1VLUdTYXVxYjFTZS1LZ08zaTZpckQtOEhVbElhYWZOdEllYUpVUDlxeFhZWGJFYlRFZUgwQUk5clBPZXZEdnB5Nm50OUx1NEZuSzFiY3g3dDJYYjFveWFITDB4TnVnX1luSTdaUnVZUVNKc2dISU1kd3JHakpWSWJ2TkdOZXpaLVdFYklkY1ZyRDhvejZTMVdJUy1Fcw?oc=5",
+      "status": "rejected",
+      "reason": "Event real (merger talks, Bloomberg Law) but exact publication date unverified and FN original not retrievable; no verified dated source",
+      "at": "2026-10-23T15:22:55.305Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNb2FFY0xleHJrcjM5WG9TVFFBOTdkOFJ2SVFHa2FXN05JT2h1cXFPa2w2am9Lenl3TmhIdEhrZ25rRkIyR19KbGc0ZnhLX0owV1dLQUdtWDBud3I1MEZ6aDc0bnBMUW9yRG1saTJoSWVvYm0xQ1dtclNtMmg1dWtHLUJkVlpuZ0VCd3FEUG9XUFhOYTh0VmFUek1XUDZ0eHdlSDhLaWFHT1ZtMmVhUkt6ek9n?oc=5",
+      "status": "rejected",
+      "reason": "Unverified: FN article not retrievable, no primary source or date",
+      "at": "2026-10-23T15:22:55.305Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQaTJJSWpFYXRUcTVmZkJzU2kyVnBvZl9lcTZIeXpxYlptekNQU0JVYkhGTTF5MEttYkxlZm5IUG5URm1ab281WUY3Zmp1QzBoNGF2dENqYkNWaWR1UDlva1N4Q1ZVbFFvcnBZQ1NNLXNhcWcwVkFYTmVfUWhBbFczNUdpZWFfZWpSY1hsNVlwSHNyem9aeW1IN19WNEVuc2NJWGR0UHRrMlA5R1k?oc=5",
+      "status": "rejected",
+      "reason": "Unverified: no matching article found; equities PM hire, no credit angle",
+      "at": "2026-10-23T15:22:55.305Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5FSHozdXRCU3FoSmVCSWJ6R0tfUHQxdmJYcTk1QW5OaHN6YVhTX3FackpfNUN1V3lrUWZrdFZnc1pSZ3gwV1FoQlMyeXZ6Y2lrY3JnSEtBR2w3SVNfU1Y3anl0WGpCUUtCV3FXbUFuSkRrcUd6UEZ0bVFR?oc=5",
+      "status": "rejected",
+      "reason": "Headline is only the firm name; no article or event resolvable",
+      "at": "2026-10-23T15:22:55.305Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPR3FZcTNQMFVSWHJTZkhyWlNVSEVHSVRETXlhV1AzNm9teXBjdC1xekhTODNFSThLNGN2MVZHOU9wVlVHYl95RWZvQ29maFpLRno2alU4dEhDV0l4NVFpZ3c2ZXVUUkV4cWdBYVlPUVA5T3pHeVJCaWZyZkhIV0xua1JSMEE?oc=5",
+      "status": "rejected",
+      "reason": "Share-price market commentary; no deal, fund raise, hire or data point",
+      "at": "2026-10-23T15:22:55.305Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOa3dpYjZmTUNlS3hZSzBZaEZNYnpqaGFsMk1xb0tJTEV1Szl5OEVLZ0ZyLUQ3WnVyVFhuR2htc3JHVExkU1FLSlJSRldIWl94TGcwQnc2RUZPSnpWTlk5Y1lWeXVJNVFBTnV3ZW9FdDZGYndUdlJ4LTBFRDJnS0hWMEtfQWIyaDktdDI2SUhsYnZsckVUUXVKSjBhdDVkc1NvRTJSN2Zwd21aa2s?oc=5",
+      "status": "rejected",
+      "reason": "Octus is a Permira PE portfolio company, not credit; out of scope",
+      "at": "2026-10-23T15:22:55.305Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOR1F0SVE2QW1QdnJ1Q0s3NTVQN1FkRXZiams1YnhLSzZyekVOM005WkVWX01YdWo2aVRfa21ITjdXTFpTWVd5cWdJakZlbElSbm0yaFNZQ0FtQTFMNmZRbXBaWjRmemRwQzRla3dLSnFSZ3FRYkt3ZThPVWFnRW1PUlZQLWd6RW03WF83dk9OS0NObTVJTktPU0hWT1JZZ2RXZElBMkVZcjZubERrV1VnR0xGYlJTT3RmdVE?oc=5",
+      "status": "rejected",
+      "reason": "Listed-manager AUM/volatility commentary; no discrete tracked-entity event",
+      "at": "2026-10-23T15:22:55.305Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBKMlZjZWZKNi1JOExZSEJwdUdZU0x3d1ZuTm5ZNGtRMkkxQlR2ZkVyRFA1dlR6Mmd6UE05d05QQkNvZFlBRTBUWktlTUNTQkYtSGJRMHpPQ1MtdERrRlF4UDk5TjNZRi01OU94M0RPSkdkemJGcDV3?oc=5",
+      "status": "rejected",
+      "reason": "Unresolvable headline; no article linked to the tracked entity",
+      "at": "2026-10-23T15:22:55.305Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQZUpBOUFYa2NiQ0Z4Z3M1RGJ1aUlGU0xibXllQlg3S0RmLWg3d2V2cGNzM2NyWkJfRVh3d1BVTVZQZUZFTUFRdHJyR3NxNnl3SXVxS0ZpbHh2YU82cTR2elJLUUFCNV9LVUh0cURBMVRmYmhLdmg4NEl5UjVrQWQ2NDhMT21sMFlXc3o3b3d3d0dNLUp4OFRYeWNCWXpiNWU0YzlVQ2M0QVpTRm5wOHVJSXNHZ05GdmdSTTF1R0NTYkk4UQ?oc=5",
+      "status": "rejected",
+      "reason": "Same event already held as u3699 (A&O Shearman hires Stephenson Harwood secondaries co-heads)",
+      "at": "2026-10-23T15:22:55.305Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOOGJ3UzJVZlY5RnNMa2QwejVGc0VIVUlYeEpVbVR6OURnMjJjZzZISlBXc1pKNjhFSUUxTzRRbkhQdGFFWGttU2tSd0pPYmt4UHZ2cjFySEpyQndPNFgybHNISWVKaVJwczlIOGJLYmR3aVRYaDJxRk03UUtOMGpiNEJLRlhDX014MnhONWlDVmlHbGZvMzd6by1NelBVaDN5WFNKQU9PYVY3azBX?oc=5",
+      "status": "rejected",
+      "reason": "Interview/opinion piece with no discrete event",
+      "at": "2026-10-23T15:22:55.305Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNcjJiMjFkdzM0emFYTG00ek43b2dmaXEtS1l4MlltaGlldUo0R1hjVjFmdGs5alh0SWNud2NuOGdXcXNVRUFybEtMaFY4TkV0QWtaVzN6YzQtTGh4TG5ZTDlfd1IyVk1VZmE3SXBtTGZCQ09TSkxMTUc5d0hYUlRFc2tEWjJVU0RtWmpfRkJxTTN0YVVWc0VwVzRrdG1vUQ?oc=5",
+      "status": "rejected",
+      "reason": "Wealth-management M&A, not credit; no source found",
+      "at": "2026-10-23T15:22:55.305Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOZTROdHRROGgweW1GSTN3MUFwR3RXWTB0VFNPQmFBc3JINi1sRms0WTN1NlNralF3WTk2UFBLSDIxU09paXcxUVFvZGhDS3k5ZWF6Mzk3eVNXUXNVUmduNEdydzVWU2szb0hnRUYzanZCbWFFR0d4Zjc1SzNFMGRhMUh1a3JXQUdfZHpTdUJxREF5TjB6aXNoR1ZQM0ZUNnJLT2N6ZzVLZ3ZzT2hFRzhWQjBjUQ?oc=5",
+      "status": "rejected",
+      "reason": "Unverified: no source found; equities hire, no credit angle",
+      "at": "2026-10-23T15:22:55.305Z"
+    },
+    {
+      "url": "https://www.cliffordchance.com/news/news/2026/10/clifford-chance-advises-tristan-capital-partners-on-sale-of-berlin-property.html",
+      "status": "rejected",
+      "reason": "Real-estate asset sale by an equity real-estate fund (EPISO 5); not credit. Held as legal item u4176",
+      "at": "2026-10-23T15:23:05.034Z"
     }
   ]
 }
