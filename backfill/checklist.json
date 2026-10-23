@@ -3521,8 +3521,9 @@
      "date": "2020-07",
      "what": "Alkali Fund V first raise (>$618m reported)",
      "source": "https://www.institutionalinvestor.com/article/b1mj9vbhl96vtv/D-E-Shaw-Debuts-New-Funds",
-     "status": "rejected",
-     "note": "Only month/year from a paywalled snippet; exact date and figures unverified."
+     "status": "present",
+     "note": "Only month/year from a paywalled snippet; exact date and figures unverified.",
+     "recordId": "i1503"
     },
     {
      "key": "a5",
@@ -13712,6 +13713,103 @@
      "source": null,
      "status": "rejected",
      "note": "Only the Oct 2022 plan is reported; no completion announcement or named buyer found."
+    }
+   ]
+  },
+  "m126": {
+   "kind": "manager",
+   "name": "Santander Alternative Investments",
+   "priority": 130,
+   "status": "built",
+   "builtAt": "2026-10-23",
+   "events": [
+    {
+     "key": "m126-2020-08-26-de-comminges-hire",
+     "date": "2020-08-26",
+     "what": "Santander AM hires Bertrand de Comminges from HSBC to lead trade finance investments",
+     "source": "https://www.gtreview.com/news/on-the-move/santander-snaps-up-hsbc-exec-to-lead-trade-finance-investments/",
+     "status": "present",
+     "recordId": "i1530"
+    },
+    {
+     "key": "m126-2021-05-31-trade-finance-fund-launch",
+     "date": "2021-05-31",
+     "what": "Santander AM launches Trade Finance Real Economy Fund I with EUR 25m seed",
+     "source": "https://www.santander.com/en/press-room/press-releases/2021/05/santander-am-adds-trade-finance-fund-to-alternative-investment-proposition",
+     "status": "present",
+     "recordId": "i1531"
+    },
+    {
+     "key": "m126-2023-05-15-sai-launch",
+     "date": "2023-05-15",
+     "what": "Santander Asset Management launches Santander Alternative Investments",
+     "source": "https://www.santander.com/en/press-room/press-releases/2023/05/santander-asset-management-launches-a-new-alternatives-asset-manager",
+     "status": "present",
+     "recordId": "i1532"
+    },
+    {
+     "key": "m126-2023-12-04-secondaries-stepstone",
+     "date": "2023-12-04",
+     "what": "SAI partners with StepStone to launch Santander Secondaries 2023",
+     "source": "https://www.fundssociety.com/es/noticias/negocio/santander-alternative-investments-se-asocia-con-stepstone-para-lanzar-un-fondo-que-invierte-en-el-mercado-secundario/",
+     "status": "present",
+     "recordId": "i1533"
+    },
+    {
+     "key": "m126-2024-10-31-manzano-ceo",
+     "date": "2024-10-31",
+     "what": "Carlos Manzano to lead integrated Santander alternatives platform, replacing Luis Garcia Izquierdo",
+     "source": "https://www.fundssociety.com/en/news/business/santander-am-integrates-its-alternatives-business-into-a-single-platform-led-by-carlos-manzano",
+     "status": "present",
+     "recordId": "i1534"
+    },
+    {
+     "key": "m126-2025-03-20-trade-finance-1bn",
+     "date": "2025-03-20",
+     "what": "SAI trade finance fund reaches EUR 1bn raised",
+     "source": "https://forbes.es/economia/657600/el-fondo-trade-finance-del-santander-capta-1-000-millones/",
+     "status": "present",
+     "recordId": "i1535"
+    },
+    {
+     "key": "m126-2025-11-27-infra-select-registered",
+     "date": "2025-11-27",
+     "what": "SAI registers Santander Infra Select Portfolio FCR with the CNMV",
+     "source": "https://www.finect.com/usuario/eduardogarcia/articulos/asi-es-el-nuevo-fondo-santander-para-invertir-en-infraestructuras-aspirar-a-captar-200-millones",
+     "status": "present",
+     "recordId": "i1536"
+    },
+    {
+     "key": "m126-2026-04-01-stockdale-hire",
+     "date": "2026-04-01",
+     "what": "SAI hires Nicholas Stockdale as Global Head of Infrastructure Credit",
+     "source": "https://www.fundssociety.com/en/news/appointments/santander-alternative-investments-hires-nicholas-stockdale-as-global-head-of-infrastructure-credit/",
+     "status": "present",
+     "recordId": "i1537"
+    },
+    {
+     "key": "m126-2025-07-24-spruceview-first-close",
+     "date": "2025-07-24",
+     "what": "SAI and Spruceview first close of Spruceview Select LMM US Buyout Access Fund I",
+     "source": "https://www.santanderassetmanagement.com/content/view/19034/file/PR%20SAI%20partners%20with%20Spruceview%20reach%20a%20first%20close%20to%20invest%20in%20the%20US%20small%20and%20medium%20enterprise%20segment.pdf",
+     "status": "present",
+     "recordId": "i879"
+    },
+    {
+     "key": "m126-2026-07-07-abcl2-first-close",
+     "date": "2026-07-07",
+     "what": "SAI first close of ABCL II at EUR 150m+",
+     "source": "https://alternativecreditinvestor.com/2026/07/07/santander-alternative-investments-raises-e150m-for-european-fund/",
+     "status": "present",
+     "recordId": "i383"
+    },
+    {
+     "key": "m126-2026-01-12-kamco-partnership",
+     "date": "2026-01",
+     "what": "Kamco Invest and SAI EUR 300m partnership for Shariah-compliant European real estate private credit",
+     "source": "https://ifninvestor.com/kamco-invest-and-santander-forge-european-real-estate-partnership/",
+     "status": "rejected",
+     "note": "Exact date not confirmed from the source page (only a search snippet); re-verify before recording."
     }
    ]
   }
