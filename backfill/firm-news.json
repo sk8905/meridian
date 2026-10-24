@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-24T05:00:32.711Z",
+ "generated": "2026-10-24T11:29:12.253Z",
  "since": "2026-10-10",
  "firms": {
   "proskauerrose": {
@@ -81,8 +81,8 @@
    ],
    "sitemaps": 6,
    "urls": 17824,
-   "kept": 7,
-   "fetched": 7,
+   "kept": 6,
+   "fetched": 6,
    "errors": 0,
    "carried": 0
   },
@@ -134,14 +134,14 @@
    "errors": 0,
    "carried": 0
   },
-  "latham": {
+  "whitecase": {
    "domains": [
-    "www.lw.com"
+    "www.whitecase.com"
    ],
-   "sitemaps": 9,
-   "urls": 20207,
-   "kept": 8,
-   "fetched": 8,
+   "sitemaps": 11,
+   "urls": 10423,
+   "kept": 19,
+   "fetched": 19,
    "errors": 0,
    "carried": 0
   },
@@ -156,12 +156,12 @@
    "errors": 0,
    "carried": 0
   },
-  "whitecase": {
+  "latham": {
    "domains": [
-    "www.whitecase.com"
+    "www.lw.com"
    ],
-   "sitemaps": 11,
-   "urls": 10423,
+   "sitemaps": 9,
+   "urls": 20246,
    "kept": 19,
    "fetched": 19,
    "errors": 0,
@@ -171,11 +171,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 5,
-   "urls": 6788,
+   "sitemaps": 7,
+   "urls": 7603,
    "kept": 0,
    "fetched": 0,
-   "errors": 12,
+   "errors": 10,
    "samples": [
     "https://www.sidley.com/en/insights/newsupdates/2024/10/sidley-blockchain-bulletin-october-2024 @2026-03-26",
     "https://www.sidley.com/en/insights/newsupdates/2023/02/februarys-notable-cases-and-events-in-e-discovery @2026-03-26",
@@ -222,7 +222,7 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16245,
+   "urls": 16247,
    "kept": 8,
    "fetched": 8,
    "errors": 0,
@@ -252,7 +252,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12310,
+   "urls": 12307,
    "kept": 4,
    "fetched": 4,
    "errors": 0,
@@ -269,28 +269,12 @@
    "errors": 0,
    "carried": 0
   },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "governance.weil.com",
-    "restructuring.weil.com",
-    "eurorestructuring.weil.com",
-    "tax.weil.com",
-    "european-disputes-blog.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7744,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
   "hoganlovells": {
    "domains": [
     "www.hoganlovells.com"
    ],
    "sitemaps": 2,
-   "urls": 21472,
+   "urls": 21484,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -302,6 +286,34 @@
     "https://www.hlc.com/es/knowledge @2023-12-08",
     "https://www.hlc.com/en/knowledge/topic-centers/fintech-mentor-program @2026-01-06"
    ],
+   "carried": 0
+  },
+  "weil": {
+   "domains": [
+    "www.weil.com",
+    "tax.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "european-disputes-blog.weil.com"
+   ],
+   "sitemaps": 36,
+   "urls": 7745,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 1,
+   "urls": 18731,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
    "carried": 0
   },
   "southsquare": {
@@ -321,18 +333,6 @@
     "https://southsquare.com/rabin-kok-triumphs-in-royalelife-collapse/ @2024-01-23",
     "https://southsquare.com/south-square-integral-to-the-successful-sanction-of-aoyuans-restructuring-schemes/ @2024-01-23"
    ],
-   "carried": 0
-  },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 1,
-   "urls": 18731,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
    "carried": 0
   },
   "mayerbrown": {
@@ -367,24 +367,6 @@
    "date": "2026-10-23",
    "dateSource": "datePublished",
    "lastmod": "2026-10-23"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/insights/eu-tax-blacklist-october-2026-panama-and-vietnam-removed",
-   "title": "EU tax blacklist October 2026 Panama and Vietnam Removed",
-   "description": "Panama and Vietnam have been removed from the EU tax blacklist. Learn what this means for StAbwG, DAC6 reporting and public CbCR in Germany.",
-   "date": "2026-10-23",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-23"
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-kkr-on-acquisition-of-iep-and-ng-representing-the-majority-of-hoerbigers-sbu",
-   "title": "Kirkland Advises KKR on Acquisition of IEP Technologies and Newson Gale, Representing the Majority of HOERBIGER’s Safety Business Unit",
-   "description": null,
-   "date": "2026-10-23",
-   "dateSource": "page date label",
-   "lastmod": null
   },
   {
    "firm": "weil",
@@ -452,6 +434,33 @@
    "dateProbe": []
   },
   {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/latham-advises-morgan-stanley-capital-partners-on-acquisition-of-the-rapid-group",
+   "title": "Latham & Watkins Advises Morgan Stanley Capital Partners on Acquisition of The Rapid Group",
+   "description": "Firm represented the middle-market private equity platform in the transaction.",
+   "date": "2026-10-20",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-20"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/latham-advises-on-mynt-ipo",
+   "title": "Latham Advises on Mynt’s ₱53 Billion IPO",
+   "description": "Firm represents underwriters and bookrunners on one of the largest ever IPOs in the Philippines.",
+   "date": "2026-10-20",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-20"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/latham-advises-trumid-in-acquisition-by-tradeweb",
+   "title": "Latham & Watkins Advises Trumid in US$1.97 Billion Acquisition by Tradeweb",
+   "description": "Cross-border, multi-disciplinary Latham team represents the financial technology company and electronic credit trading marketplace in the transaction.",
+   "date": "2026-10-20",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-20"
+  },
+  {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/en/our-thinking/campaigns/capital-as-a-catalyst-investments-that-shape-markets-and-momentum",
    "title": "Capital as a catalyst: investments that shape markets and momentum",
@@ -507,6 +516,42 @@
    "lastmod": null
   },
   {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/insights/2026/10/key-takeaways-from-the-inaugural-fund-finance-association-fall-forum",
+   "title": "Key Takeaways From the Inaugural Fund Finance Association Fall Forum",
+   "description": "Panelists offer insights into evolving fund finance products, fundraising trends, and market dynamics for sponsors and lenders.",
+   "date": "2026-10-19",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/latham-advises-institutional-investors-on-kapla-holding-eur100-million-private-placement",
+   "title": "Latham Advises Institutional Investors on Kapla Holding’s €100 Million Private Placement",
+   "description": "Paris team advises the institutional investors in relation to the equipment rental company’s latest transaction.",
+   "date": "2026-10-19",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/latham-advises-on-financing-for-charlesbank-capital-partners-strategic-growth-investment",
+   "title": "Latham Advises on Financing for Charlesbank Capital Partners’ Strategic Growth Investment in Wood Smith Henning & Berman for Formation of MSO",
+   "description": "Firm represents the financing sources supporting the partnership that will support growth, technology, and expansion into new markets.",
+   "date": "2026-10-19",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-19"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/latham-advises-tcgx-acquisition-corp-in-business-combination-agreement-with-trigemx-bio",
+   "title": "Latham Advises TCGX Acquisition Corp. in Business Combination Agreement With TriGemX Bio to Create Publicly Listed Company",
+   "description": "Houston-based team represents the SPAC in the transaction to develop elismetrep, a potential first-in-class treatment for migraine.",
+   "date": "2026-10-19",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-19"
+  },
+  {
    "firm": "davispolk",
    "url": "https://www.davispolk.com/news/brian-hirsch-profiled-financier-worldwide-s-power-players-real-estate",
    "title": "Brian Hirsch profiled in Financier Worldwide’s “Power Players: Real Estate”",
@@ -514,29 +559,6 @@
    "date": "2026-10-19",
    "dateSource": "datePublished",
    "lastmod": "2026-10-19"
-  },
-  {
-   "firm": "weil",
-   "url": "https://tax.weil.com/insights/member-states-update-eu-list-of-non-cooperative-tax-jurisdictions-on-9-october-2026/",
-   "title": "Member States Update EU List of Non-Cooperative Tax Jurisdictions on 9 October 2026",
-   "description": "On 9 October 2026, the EU Council published an update to its so-called “Blacklist” of jurisdictions that are not cooperative for tax purposes and “Grey List” of cooperative jurisdictions that have not yet fully met their commitments to comply with tax good governance standards. The Blacklist and Grey List were last revised on 17 February",
-   "date": "2026-10-19",
-   "dateSource": "article:published_time",
-   "lastmod": "2026-10-19"
-  },
-  {
-   "firm": "weil",
-   "url": "https://tax.weil.com/category/insights/",
-   "title": "Insights Archives",
-   "description": null,
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-19",
-   "dateProbe": [
-    " Member States Update EU List of Non-Cooperative Tax Jurisdictions on 9 October 2026 </a> <div class=\"fo",
-    " Member States Update EU List of Non-Cooperative Tax Jurisdictions on 17 February 2026 </a> <div class=\"fo",
-    " <span class=\"f-book green-text font-small relative padding-right-5\"> January 27, 2026<span class=\"divider"
-   ]
   },
   {
    "firm": "slaughtermay",
