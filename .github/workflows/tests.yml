@@ -28,7 +28,10 @@ concurrency:
 
 jobs:
   suite:
-    runs-on: ubuntu-latest
+    # Pinned (2026-10-24): ubuntu-latest moved to Ubuntu 26.04, which Playwright 1.56.1 can't
+    # install Chromium on ("does not support chromium on ubuntu26.04-x64"), so every run died
+    # in setup before a test ran. Move to ubuntu-latest again with a Playwright that supports it.
+    runs-on: ubuntu-24.04
     # Two full passes (source + dist) at ~10 min each on a stock runner (613s, run 377,
     # 2026-10-21) — the old 15-min cap cancelled every run before it could report.
     timeout-minutes: 40
