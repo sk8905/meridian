@@ -11515,6 +11515,29 @@
      }
     }
    ]
+  },
+  {
+   "at": "2026-10-24",
+   "collection": "funds",
+   "id": "f310",
+   "verdict": "confirmed-unchanged",
+   "source": "https://www.blackstone.com/news/press/blackstone-closes-flagship-opportunistic-credit-fund-at-over-10b-hitting-hard-cap/",
+   "sourceLabel": "Blackstone press release",
+   "asOf": "2026-04-07",
+   "evidence": "Final close of COF V at over $10bn (hard cap) announced 2026-04-07; matches held status and raised.",
+   "changes": [
+    {
+     "field": "lastChecked",
+     "from": {
+      "date": "2026-10-22",
+      "url": "https://www.blackstone.com/news/press/blackstone-closes-flagship-opportunistic-credit-fund-at-over-10b-hitting-hard-cap/"
+     },
+     "to": {
+      "date": "2026-10-24",
+      "url": "https://www.blackstone.com/news/press/blackstone-closes-flagship-opportunistic-credit-fund-at-over-10b-hitting-hard-cap/"
+     }
+    }
+   ]
   }
  ]
 }
