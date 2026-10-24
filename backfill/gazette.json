@@ -1,11 +1,11 @@
 {
- "generated": "2026-10-23T07:59:53.757Z",
+ "generated": "2026-10-24T07:39:29.890Z",
  "source": "The Gazette (OGL v3.0; personal data excluded) — https://www.thegazette.co.uk/insolvency/notice/data.json",
  "companies": {
   "Iguanas Holdings Limited": {
    "name": "Iguanas Holdings Limited",
    "from": "restructuring",
-   "error": "The operation was aborted due to timeout"
+   "notices": []
   },
   "Fossil (UK) Global Services Limited": {
    "name": "Fossil (UK) Global Services Limited",
@@ -15,7 +15,7 @@
   "Arxada Group": {
    "name": "Arxada Group",
    "from": "restructuring",
-   "error": "The operation was aborted due to timeout"
+   "notices": []
   },
   "Waldorf Production UK Plc": {
    "name": "Waldorf Production UK Plc",
@@ -304,7 +304,7 @@
   "Virgin Atlantic Airways Limited": {
    "name": "Virgin Atlantic Airways Limited",
    "from": "restructuring",
-   "error": "The operation was aborted due to timeout"
+   "notices": []
   },
   "Swissport Fuelling Limited": {
    "name": "Swissport Fuelling Limited",
@@ -314,7 +314,7 @@
   "Big Table Group (Las Iguanas Holdings Ltd)": {
    "name": "Big Table Group (Las Iguanas Holdings Ltd)",
    "from": "restructuring",
-   "notices": []
+   "error": "http-500"
   },
   "SCUR-Alpha 1092 GmbH (Schleich Group)": {
    "name": "SCUR-Alpha 1092 GmbH (Schleich Group)",
@@ -374,7 +374,7 @@
   "Atento UK Limited and Atento Luxco 1 S.A.": {
    "name": "Atento UK Limited and Atento Luxco 1 S.A.",
    "from": "restructuring",
-   "error": "The operation was aborted due to timeout"
+   "notices": []
   },
   "New Look Financing plc (New Look Group)": {
    "name": "New Look Financing plc (New Look Group)",
@@ -454,7 +454,7 @@
   "TI Fluid Systems": {
    "name": "TI Fluid Systems",
    "from": "credits",
-   "error": "The operation was aborted due to timeout"
+   "notices": []
   },
   "Virgin Media O2": {
    "name": "Virgin Media O2",
@@ -492,7 +492,7 @@
   "Garfunkelux Holdco 2 (Lowell)": {
    "name": "Garfunkelux Holdco 2 (Lowell)",
    "from": "credits",
-   "error": "The operation was aborted due to timeout"
+   "notices": []
   },
   "Iceland Foods": {
    "name": "Iceland Foods",
@@ -507,7 +507,29 @@
   "Merlin Entertainments": {
    "name": "Merlin Entertainments",
    "from": "credits",
-   "error": "http-500"
+   "notices": [
+    {
+     "company": "MERLIN ENTERTAINMENTS (BLACKPOOL) LIMITED",
+     "noticeCode": "2431",
+     "category": "Resolutions for Winding-up",
+     "published": "2026-09-29",
+     "url": "https://www.thegazette.co.uk/notice/5219890"
+    },
+    {
+     "company": "MERLIN ENTERTAINMENTS (BLACKPOOL) LIMITED",
+     "noticeCode": "2432",
+     "category": "Appointment of Liquidators",
+     "published": "2026-09-29",
+     "url": "https://www.thegazette.co.uk/notice/5219891"
+    },
+    {
+     "company": "MERLIN ENTERTAINMENTS (BLACKPOOL) LIMITED",
+     "noticeCode": "2433",
+     "category": "Notices to Creditors",
+     "published": "2026-09-29",
+     "url": "https://www.thegazette.co.uk/notice/5219892"
+    }
+   ]
   },
   "Miller Homes": {
    "name": "Miller Homes",
@@ -547,7 +569,7 @@
  },
  "summary": {
   "targets": 93,
-  "queried": 86,
-  "notices": 10
+  "queried": 92,
+  "notices": 13
  }
 }
