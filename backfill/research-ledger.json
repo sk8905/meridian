@@ -11432,6 +11432,49 @@
      }
     }
    ]
+  },
+  {
+   "at": "2026-10-24",
+   "collection": "HEDGE_FUNDS",
+   "id": "h86",
+   "verdict": "unchanged",
+   "source": "https://hedgeweek.com/news/tt-international-shrinks-as-assets-and-revenue-continue-to-decline",
+   "sourceLabel": "Hedgeweek 2026-09-25",
+   "asOf": "2026-10-24",
+   "evidence": "TT ~$5bn end-2025 matches profile",
+   "changes": [
+    {
+     "field": "lastChecked",
+     "from": {
+      "date": "2026-10-23",
+      "url": "https://hedgeweek.com/news/tt-international-shrinks-as-assets-and-revenue-continue-to-decline"
+     },
+     "to": {
+      "date": "2026-10-24",
+      "url": "https://hedgeweek.com/news/tt-international-shrinks-as-assets-and-revenue-continue-to-decline"
+     }
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24",
+   "collection": "HEDGE_FUNDS",
+   "id": "h62",
+   "verdict": "unchanged",
+   "source": "https://www.seca.ch/en/find-members/cevian-capital/",
+   "sourceLabel": "SECA",
+   "asOf": "2026-10-24",
+   "evidence": "no newer net figure",
+   "changes": [
+    {
+     "field": "lastChecked",
+     "from": null,
+     "to": {
+      "date": "2026-10-24",
+      "url": "https://www.seca.ch/en/find-members/cevian-capital/"
+     }
+    }
+   ]
   }
  ]
 }

@@ -3662,6 +3662,24 @@
       "status": "recorded",
       "recordId": "u4204",
       "at": "2026-10-23T19:14:53.550Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxObmo0VFlUdzZGWkF2c0FndHFkdVpuNlFtZlR3SGRLX0xibEFhdFZFOHpKN0pPSUF3aG50TDlLS3FBOGROV055cWc2cGpBWGQybGd2SG5yTmFjUlF3aWZRM2JlNko3dWM4YW5PMlJKUXZVWGZKREJmZm5Fd1RTT1BvSVVVeTA0aHNJLVl4akRYeGNRLXZQTnRzWjJ6VHNUYzBRdnZYRlhfeUNNajMwSmNCcmFxME91Nm9GWVhBMGVyZjBRRE9zMlE?oc=5",
+      "status": "rejected",
+      "reason": "Out of scope: Morgan Stanley is a bank; item is investment-bank earnings, not a credit transaction or manager capital event",
+      "at": "2026-10-24T05:21:57.959Z"
+    },
+    {
+      "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-kkr-on-acquisition-of-iep-and-ng-representing-the-majority-of-hoerbigers-sbu",
+      "status": "rejected",
+      "reason": "Recorded as legal alert u4247; KKR PE/equity acquisition, not a credit deal",
+      "at": "2026-10-24T05:22:12.238Z"
+    },
+    {
+      "url": "https://www.hsfkramer.com/news/2026-10/hsf-kramer-advises-statera-energy-on-ares-investment-in-1-9-gw-uk-flexible-energy-portfolio",
+      "status": "rejected",
+      "reason": "Recorded as legal alert u4248; Ares Infrastructure Equity minority investment, not a credit deal",
+      "at": "2026-10-24T05:22:12.238Z"
     }
   ]
 }
