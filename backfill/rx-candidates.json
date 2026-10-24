@@ -1,15 +1,31 @@
 {
- "generated": "2026-10-23T08:49:28.572Z",
+ "generated": "2026-10-24T08:23:11.051Z",
  "windowDays": 120,
  "summary": {
-  "judgments": 0,
-  "leads": 18,
-  "tnaHits": 8,
+  "judgments": 1,
+  "leads": 19,
+  "tnaHits": 9,
   "held": 78,
   "errors": []
  },
- "judgments": [],
+ "judgments": [
+  {
+   "company": "SCUR-Alpha 1092 GmbH",
+   "date": "2026-10-23",
+   "citation": "[2026] EWHC 2735 (BP)",
+   "court": "High Court (Insolvency and Companies List)",
+   "judgmentUrl": "https://caselaw.nationalarchives.gov.uk/ewhc/bp/2026/2735",
+   "uploaded": "2026-10-23",
+   "source": "tna"
+  }
+ ],
  "leads": [
+  {
+   "title": "New Judgment – Re SCUR-Alpha 1092 GmbH [2026] EWHC 2735 (BP): sanction of the Schleich group scheme of arrangement",
+   "url": "https://southsquare.com/new-judgment-re-scur-alpha-1092-gmbh-2026-ewhc-2735-bp-sanction-of-the-schleich-group-scheme-of-arrangement/",
+   "date": "2026-10-23",
+   "source": "south-square"
+  },
   {
    "title": "New Judgment – Türk Altin İşletmeleri A.Ş v (1) Koza Ltd (2) Hamdi Akin Ipek [2026] EWHC 2528 (BP)",
    "url": "https://southsquare.com/new-judgment-turk-altin-isletmeleri-a-s-v-1-koza-ltd-2-hamdi-akin-ipek-2026-ewhc-2528-bp/",
