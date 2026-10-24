@@ -49,32 +49,11 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/b68b8544-4ce9-45d4-b522-cd2f8150e4cc"
   },
   {
-    "id": "9bf81e98-08b7-450a-a804-51030934646e",
-    "title": "Macron says deadly shooting near Paris was racially motivated",
-    "date": "2026-10-23",
-    "time": "21:08",
-    "url": "https://www.ft.com/content/9bf81e98-08b7-450a-a804-51030934646e"
-  },
-  {
-    "id": "72a7cfd6-ab06-4638-8db2-94e02ebacab0",
-    "title": "Turn Downing Street into museum or flats, says Starmer’s cost of living tsar",
-    "date": "2026-10-23",
-    "time": "21:00",
-    "url": "https://www.ft.com/content/72a7cfd6-ab06-4638-8db2-94e02ebacab0"
-  },
-  {
     "id": "bc13b5f1-387e-4fae-927e-d96ac24ea645",
     "title": "Lunch break under threat as Hong Kong looks at longer trading day",
     "date": "2026-10-23",
     "time": "21:00",
     "url": "https://www.ft.com/content/bc13b5f1-387e-4fae-927e-d96ac24ea645"
-  },
-  {
-    "id": "510e9189-bb32-43e0-8bf7-fec4a78ea353",
-    "title": "Tory gamblers stood to make nearly £50,000 from insider information, court told",
-    "date": "2026-10-23",
-    "time": "20:35",
-    "url": "https://www.ft.com/content/510e9189-bb32-43e0-8bf7-fec4a78ea353"
   },
   {
     "id": "859676ae-5fa4-489a-99af-560771dd44a1",
@@ -84,39 +63,11 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/859676ae-5fa4-489a-99af-560771dd44a1"
   },
   {
-    "id": "84cc6388-8745-4ca2-8c70-536c89dfe9cb",
-    "title": "Reform’s former policy chief steps down from Cambridge management roles",
-    "date": "2026-10-23",
-    "time": "19:35",
-    "url": "https://www.ft.com/content/84cc6388-8745-4ca2-8c70-536c89dfe9cb"
-  },
-  {
-    "id": "5260aac3-e339-47f7-8473-d8ccee5d3bfc",
-    "title": "Global Insight: The ‘cockroach’ protesters Modi cannot stamp out",
-    "date": "2026-10-23",
-    "time": "18:18",
-    "url": "https://www.ft.com/content/5260aac3-e339-47f7-8473-d8ccee5d3bfc"
-  },
-  {
     "id": "510f7213-e196-4af3-8ba8-fc51cd741228",
     "title": "Directors’ Deals: Safestore directors raise stakes as shares struggle",
     "date": "2026-10-23",
     "time": "18:00",
     "url": "https://www.ft.com/content/510f7213-e196-4af3-8ba8-fc51cd741228"
-  },
-  {
-    "id": "e3bd8426-defb-41d0-8680-81ce72948e83",
-    "title": "The ledger problem",
-    "date": "2026-10-23",
-    "time": "18:00",
-    "url": "https://www.ft.com/content/e3bd8426-defb-41d0-8680-81ce72948e83"
-  },
-  {
-    "id": "2aeaf5c1-1fc2-45ae-a6dd-0634384ae9d7",
-    "title": "Stockpickers: Aberdeen, ITM Power, Tristel",
-    "date": "2026-10-23",
-    "time": "18:00",
-    "url": "https://www.ft.com/content/2aeaf5c1-1fc2-45ae-a6dd-0634384ae9d7"
   },
   {
     "id": "9f46db72-0a1e-42b0-8efe-974a04fa0fc7",
@@ -154,41 +105,6 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/f75c25c2-4164-4dfc-9d56-fc6a86704c47"
   },
   {
-    "id": "0db7d1cd-be3b-4034-b813-51fc8be88f11",
-    "title": "EU capitals moderate plans to help companies operate bloc-wide",
-    "date": "2026-10-23",
-    "time": "12:55",
-    "url": "https://www.ft.com/content/0db7d1cd-be3b-4034-b813-51fc8be88f11"
-  },
-  {
-    "id": "9743b853-1a19-4693-a353-78e014cf1833",
-    "title": "Author Hanif Kureishi: ‘The urge to write came back strongly’",
-    "date": "2026-10-23",
-    "time": "12:30",
-    "url": "https://www.ft.com/content/9743b853-1a19-4693-a353-78e014cf1833"
-  },
-  {
-    "id": "4e3f67c8-70d0-44aa-950e-62190717c2db",
-    "title": "London Underground blames rising delays on repair backlog",
-    "date": "2026-10-23",
-    "time": "12:30",
-    "url": "https://www.ft.com/content/4e3f67c8-70d0-44aa-950e-62190717c2db"
-  },
-  {
-    "id": "8f0b71c3-b097-4126-b0ff-ad7b66676107",
-    "title": "100 days of Burnham",
-    "date": "2026-10-23",
-    "time": "12:09",
-    "url": "https://www.ft.com/content/8f0b71c3-b097-4126-b0ff-ad7b66676107"
-  },
-  {
-    "id": "2fae96bf-4328-4aa6-b68f-af416a9cb4bf",
-    "title": "National Crime Agency wins freezing order over £15mn London flat",
-    "date": "2026-10-23",
-    "time": "12:08",
-    "url": "https://www.ft.com/content/2fae96bf-4328-4aa6-b68f-af416a9cb4bf"
-  },
-  {
     "id": "e67a3d0e-5893-45a5-b098-64a68a4ef032",
     "title": "Ukraine says Starlink speeds still throttled",
     "date": "2026-10-23",
@@ -203,46 +119,11 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/06209f51-de7c-4de0-8e66-5c621a960b87"
   },
   {
-    "id": "bb1f2a5e-6a87-404a-a89e-4e0c88113827",
-    "title": "Confessions of a middle-class prepper",
-    "date": "2026-10-23",
-    "time": "12:00",
-    "url": "https://www.ft.com/content/bb1f2a5e-6a87-404a-a89e-4e0c88113827"
-  },
-  {
-    "id": "df94aaca-71f2-4788-9835-898b1cc79a05",
-    "title": "Austria expels Russian diplomats suspected of espionage",
-    "date": "2026-10-23",
-    "time": "11:53",
-    "url": "https://www.ft.com/content/df94aaca-71f2-4788-9835-898b1cc79a05"
-  },
-  {
     "id": "4fa0c5ef-abfe-4a63-95c0-2ba69329abd0",
     "title": "Citi wins long-awaited approval for China securities business",
     "date": "2026-10-23",
     "time": "11:40",
     "url": "https://www.ft.com/content/4fa0c5ef-abfe-4a63-95c0-2ba69329abd0"
-  },
-  {
-    "id": "ebd9b327-a689-4872-b9d8-b8b494427a01",
-    "title": "20 à la mod buys",
-    "date": "2026-10-23",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/ebd9b327-a689-4872-b9d8-b8b494427a01"
-  },
-  {
-    "id": "3eab64ae-1a0b-4ac8-8341-847c1b6bf2d8",
-    "title": "How smart does my fridge need to be?",
-    "date": "2026-10-23",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/3eab64ae-1a0b-4ac8-8341-847c1b6bf2d8"
-  },
-  {
-    "id": "bcc464cc-9d12-4b15-866d-64642de66ca8",
-    "title": "US nuclear revival faces scrutiny after incidents at flagship plant",
-    "date": "2026-10-23",
-    "time": "11:00",
-    "url": "https://www.ft.com/content/bcc464cc-9d12-4b15-866d-64642de66ca8"
   },
   {
     "id": "df70bf20-e809-48d0-8485-f8f514a7fbc4",
@@ -252,25 +133,11 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/df70bf20-e809-48d0-8485-f8f514a7fbc4"
   },
   {
-    "id": "34946f6f-ccd9-4de5-9f57-136e1a0e2064",
-    "title": "Why the UK should greenlight both Jackdaw and Rosebank",
-    "date": "2026-10-23",
-    "time": "10:00",
-    "url": "https://www.ft.com/content/34946f6f-ccd9-4de5-9f57-136e1a0e2064"
-  },
-  {
     "id": "f968f40c-ecc8-4981-ba60-a826f808505b",
     "title": "September inflation keeps BoJ on tightening course",
     "date": "2026-10-23",
     "time": "09:48",
     "url": "https://www.ft.com/content/f968f40c-ecc8-4981-ba60-a826f808505b"
-  },
-  {
-    "id": "ddd17044-0b38-446b-a973-d0ab80d5738c",
-    "title": "FTAV’s further reading",
-    "date": "2026-10-23",
-    "time": "08:17",
-    "url": "https://www.ft.com/content/ddd17044-0b38-446b-a973-d0ab80d5738c"
   },
   {
     "id": "74bb3555-6f29-4ff9-bcaf-6cd20a9a3b1b",
@@ -292,13 +159,6 @@ export const FT_ITEMS = [
     "date": "2026-10-23",
     "time": "06:00",
     "url": "https://www.ft.com/content/575c54b3-b194-4338-930b-3f446da5044f"
-  },
-  {
-    "id": "9193784c-9b3b-4626-bd69-15806b0221ed",
-    "title": "Healey to promise end of ‘pointless paperwork’ for small UK companies",
-    "date": "2026-10-23",
-    "time": "06:00",
-    "url": "https://www.ft.com/content/9193784c-9b3b-4626-bd69-15806b0221ed"
   },
   {
     "id": "9aa4549e-26f4-4963-94eb-50cf0fc0b8f9",
@@ -350,13 +210,6 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/70379a26-c20e-4501-aec9-a9a0089cdd3d"
   },
   {
-    "id": "00471cd9-c579-4205-a573-b38a0237ddb8",
-    "title": "Summer heatwave linked to 50,000 deaths in Europe",
-    "date": "2026-10-23",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/00471cd9-c579-4205-a573-b38a0237ddb8"
-  },
-  {
     "id": "e114059c-308d-4d8e-8127-f88b0faca879",
     "title": "How a transatlantic mega-merger fell apart over a leadership tug of war",
     "date": "2026-10-23",
@@ -392,32 +245,11 @@ export const FT_ITEMS = [
     "url": "https://www.ft.com/content/bf959a1a-1cd8-41e2-8767-03aa1ac3ed48"
   },
   {
-    "id": "ee40daa9-48a7-4157-b6a1-d2ea3c90dbd0",
-    "title": "Government accused of ‘fudging’ consultancy spending to meet pledge",
-    "date": "2026-10-23",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/ee40daa9-48a7-4157-b6a1-d2ea3c90dbd0"
-  },
-  {
     "id": "57e5b584-78b8-49a5-be2b-c02bba63886a",
     "title": "Europe’s largest landlord exposed to €8bn hit from Berlin apartment plans",
     "date": "2026-10-23",
     "time": "05:00",
     "url": "https://www.ft.com/content/57e5b584-78b8-49a5-be2b-c02bba63886a"
-  },
-  {
-    "id": "7f8e36d6-b044-4610-bdd5-db56c77a0c4f",
-    "title": "Interior designer Beata Heuman talks taste",
-    "date": "2026-10-23",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/7f8e36d6-b044-4610-bdd5-db56c77a0c4f"
-  },
-  {
-    "id": "26f97311-f72c-40a8-bc89-c46740f9cdc0",
-    "title": "Students seek to oust Serbia’s strongman in Sunday vote",
-    "date": "2026-10-23",
-    "time": "05:00",
-    "url": "https://www.ft.com/content/26f97311-f72c-40a8-bc89-c46740f9cdc0"
   },
   {
     "id": "e842173f-6f9f-4115-9e5f-a0f06f0df18d",

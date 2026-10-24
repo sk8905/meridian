@@ -137,8 +137,8 @@ check(!feedQualityKeep(bbg("Royal Caribbean Buys Stake in Sandals Resorts")), "f
 check(!feedQualityKeep(bbg("Chanel Plans to Keep Investing in China Despite Demand Downturn")), "focus: an off-beat consumer headline is dropped");
 check(!feedQualityKeep(wsj("YouTube Is Battling Netflix Over Top Talent")), "focus: an off-beat media headline is dropped");
 check(!feedQualityKeep(bbg("Space Weapons in Focus Ahead of Trump-Xi Summit")), "focus: an off-beat geopolitics headline is dropped");
-// Reader-curated myFT is exempt from the focus gate (the reader chose those topics)
-check(feedQualityKeep({ source: "Financial Times", title: "The best restaurants in Lisbon this autumn", myft: true }), "focus: a reader-curated myFT item is exempt");
+// myFT is NO LONGER exempt (owner 2026-10-23, "relevance first"): it takes the FT relevance screen.
+check(!feedQualityKeep({ source: "Financial Times", title: "The best restaurants in Lisbon this autumn", myft: true }), "focus: an off-beat myFT item is screened out (no exemption)");
 
 // ---- Cull still drops genuine low-tier noise (regression guard) -------------------
 check(!feedQualityKeep({ source: "Benzinga", title: "3 stocks to buy now for huge gains" }),
@@ -234,4 +234,16 @@ for (const [title, source] of [
   ["Bundesliga clubs vote on investor deal for media rights", "Associated Press"],
   ["German Bund yields rise as ECB signals hike", "Associated Press"],
 ]) check(feedQualityKeep({ title, source, url: "https://apnews.com/x" }), `the business of sport / Bunds still pass: "${title}"`);
+// ---- FT relevance first (owner 2026-10-23): myFT, the FT sections and the committed ft.js all
+// take the FT relevance screen — Wire's beat in, lifestyle / culture / general news out. -------
+{
+  const { ftRelevant } = await import("../src/index.js");
+  const { FT_ITEMS } = await import("../ft.js");
+  for (const t of ["Creditors to Sanjeev Gupta’s first UK steel plant appoint liquidators", "Steve Cohen takes Hertz for a defensive spin", "Global tech sell-off sparks flight to safety", "How nervous are bond markets about France?", "Should UK banks be taxed more?"])
+    check(ftRelevant(t) && feedQualityKeep({ source: "Financial Times", title: t, myft: true }), `FT on-beat kept: ${t}`);
+  for (const t of ["Author Hanif Kureishi: ‘The urge to write came back strongly’", "How smart does my fridge need to be?", "20 à la mod buys", "Interior designer Beata Heuman talks taste", "FTAV’s further reading", "Summer heatwave linked to 50,000 deaths in Europe"])
+    check(!feedQualityKeep({ source: "Financial Times", title: t, myft: true }) && !feedQualityKeep({ source: "FT Alphaville", title: t }), `FT off-beat dropped (myFT too): ${t}`);
+  const off = (FT_ITEMS || []).filter((x) => !ftRelevant(x.title));
+  check(off.length === 0, `ft.js carries only screened headlines (run scripts/screen-ft.mjs) — off-beat: ${off.slice(0, 3).map((x) => x.title).join(" | ") || "none"}`);
+}
 finish();

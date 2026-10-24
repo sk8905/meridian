@@ -2128,8 +2128,8 @@ macro/megacap title gate; **topic** = the source's own `match`/`drop` screen.
 | Source | Desk / lane | Screen | Route |
 |---|---|---|---|
 | CNBC (Economy, Markets, Finance, Top News, World) | Markets | macro | RSS |
-| Financial Times (Markets, Global Economy, Hedge Funds, myFT) | Markets / Hedge funds / FT desk | macro (Hedge Funds open; myFT soft) | RSS — owner's subscription (R53) |
-| FT Alphaville | Markets | open | RSS — owner's subscription (R53) |
+| Financial Times (Markets, Global Economy, Hedge Funds, myFT) | Markets / Hedge funds / FT desk | FT relevance screen (`ftRelevant` — myFT and `ft.js` too, owner 2026-10-23) | RSS — owner's subscription (R53) |
+| FT Alphaville | Markets | FT relevance screen | RSS — owner's subscription (R53) |
 | Financial News (fnlondon.com) | Markets | open (curated trade press) | Google News bridge, links resolved on open — owner's subscription (R53) |
 | Bloomberg (Markets, Business, Economics, Nishant Kumar byline) | Markets / Hedge funds | macro (byline open) | RSS + Google News bridge — owner's subscription (R53) |
 | The Wall Street Journal (Markets, US Business) | Markets | macro | RSS + Google News bridge — owner's subscription (R53) |

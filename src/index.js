@@ -4974,6 +4974,23 @@ const FEED_FOCUS_RE = new RegExp([
   // (vi) legal / Big Law
   "law firm|law firms", "magic circle|silver circle|big ?law|global elite|white[- ]shoe", "barrister|solicitor|\\bkc\\b|king'?s counsel|general counsel", "litigation|lawsuit|\\bsued?\\b|\\bsues\\b|court (rules|ruling|case|battle|fight)|tribunal|high court|supreme court|court of appeal", "antitrust|competition (probe|case|watchdog)", "\\bfca\\b|\\bdoj\\b|regulat(or|ory) (fine|charge|probe|action|crackdown)", "merger (challenge|review|probe)", "clifford chance|linklaters|freshfields|slaughter and may|allen ?& ?overy|a&o shearman|kirkland|latham|skadden|paul[, ]weiss|davis polk|sullivan ?& ?cromwell|\\bweil\\b|simpson thacher|cravath|wachtell|hogan lovells|herbert smith|dla piper|norton rose|ashurst|dentons|baker mckenzie|white ?& ?case|cleary gottlieb|mayer brown|\\bcms\\b",
 ].join("|"), "i");
+// The FT relevance screen (owner 2026-10-23: "relevance first" — myFT and the FT sections
+// were reaching the wire unscreened: author interviews, gadget columns, shopping edits).
+// An FT headline is kept when it reads as Wire's beat — the six focus verticals, the
+// general markets / economy / policy vocabulary, or the City vocabulary below (banks,
+// lenders, creditors, liquidators, sell-offs, deals, funds, pensions, regulation) — and is
+// not lifestyle / culture. Applies to myFT too (the reader's topics are broad), to the FT
+// section feeds and FT Alphaville, and to the committed ft.js list (scripts/screen-ft.mjs).
+const FEED_FT_EXTRA = /\b(?:banks?|bankers?|banking|lenders?|landlords?|creditors?|liquidat\w*|administrators?|insolven\w*|sell-?offs?|markets|investors?|valuations?|buyouts?|hedge|activist|funds?|pensions?|insurers?|bonds?|gilts?|yields?|tariffs?|budgets?|tax(?:es|ed|ing)?|rates?|regulat\w*|rules|deals?|mergers?|takeovers?|ipos?|listings?|stakes?|founders?|bailout|subsid\w*|dollar|sterling|euro|oil|gas|copper|gold|invest(?:ing|ment|ments|ors?)|trading|steve cohen|ken griffin|bill ackman|ray dalio|carl icahn|dan loeb|david einhorn|stephen schwarzman|henry kravis|izzy englander|chris hohn|paul singer)\b/i;
+const FEED_FT_OFFBEAT = /^(?:ftav[’']s further reading|the week in charts)\b|\b(?:author|novelist|artist|actor|designer|chef)\b.*\btalks?\b|\btalks taste\b|\bbuys\b$|\bhow (?:smart|big|much) does my\b|\bconfessions of\b/i;
+export function ftRelevant(title) {
+  const t = String(title || "");
+  if (!t || FEED_FT_OFFBEAT.test(t)) return false;
+  if (FEED_LIFESTYLE_RE.test(t) && !(FEED_MACRO_RE.test(t) || FEED_FOCUS_RE.test(t))) return false;
+  if (FEED_PR_NOISE.test(t)) return false;
+  return FEED_FOCUS_RE.test(t) || FEED_MACRO_RE.test(t) || FEED_MEGACAP_RE.test(t) || FEED_RELEVANCE.test(t) || FEED_FT_EXTRA.test(t);
+}
+const FEED_FT_SRC = new Set(["Financial Times", "FT Alphaville"]);
 const FEED_PAY_PREMIUM = new Set(["Financial Times", "Bloomberg", "The Wall Street Journal", "WSJ", "The Economist"]);
 const FEED_RELEVANCE = /\b(econom|market|stock|share\b|shares|equit|bond|yield|treasur|gilt|bund|rate|interest|inflation|deflation|cpi|ppi|pce|gdp|growth|recession|jobs|payroll|unemploy|labou?r|wage|pay award|pay rise|pay deal|pay cut|pay freeze|pay settlement|pay round|earnings growth|productivity|cost of living|fed|fomc|powell|ecb|lagarde|central bank|\bboe\b|dollar|euro|sterling|\byen\b|currenc|forex|\bfx\b|oil|crude|opec|brent|\bgas\b|gold|silver|copper|commodit|bitcoin|crypto|ethereum|stablecoin|earnings|profit|revenue|guidance|\bipo\b|merger|acquisition|buyout|takeover|\bdeal|\bm&a\b|bank|lend|credit|debt|default|bankrupt|restructur|tariff|trade|export|import|sanction|budget|fiscal|deficit|\btax\b|stimulus|housing|house price|mortgage|property|rent\b|retail sales|consumer|manufactur|\bpmi\b|factory|industr|semiconductor|\bchip|\bai\b|artificial intelligence|tech|nvidia|apple|microsoft|tesla|amazon|alphabet|google|meta\b|openai|geopolit|\bwar\b|election|tariff|trump|\bchina\b|russia|\biran\b|ukraine|opec|hedge fund|private equity|venture|valuation|bond market|stock market|wall street|ftse|s&p|nasdaq|dow|nikkei|dax|hang seng)\b/i;
 // Routine corporate IR / press-release boilerplate — quarterly-results notices,
@@ -5078,8 +5095,10 @@ export function feedQualityKeep(it) {
   if (/\bpodcasts?\b/i.test(it.title) || /\/podcasts?\/|\/audio\/|\.mp3\b/i.test(it.url || "")) return false;
   // The premium newsrooms (FT/Bloomberg/WSJ/Economist) publish far more than the app's
   // beat, so they earn a slot ONLY when the headline is strictly on one of the six focus verticals
-  // — reader-curated myFT items are exempt (the reader chose those topics themselves).
-  if (FEED_PAY_PREMIUM.has(s) && !it.myft) return FEED_FOCUS_RE.test(it.title) && !FEED_PR_NOISE.test(it.title);
+  // The FT (myFT included) takes the FT relevance screen; the other premium newsrooms the
+  // strict focus-vertical gate.
+  if (FEED_FT_SRC.has(s) || it.myft) return ftRelevant(it.title);
+  if (FEED_PAY_PREMIUM.has(s)) return FEED_FOCUS_RE.test(it.title) && !FEED_PR_NOISE.test(it.title);
   // Premium newsrooms, the curated legal wire, and reader-flagged streams
   // (myFT / Substack) always pass; everything else must read as finance-relevant
   // (strict macro, megacap, or the broader markets/economy/policy/deal vocabulary).

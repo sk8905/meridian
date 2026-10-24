@@ -1688,7 +1688,10 @@ it on a failed fetch.
    `src/index.js` (`FEED_LIFESTYLE_RE` rejects; a headline also matching
    `FEED_MACRO_RE`/`FEED_MEGACAP_RE` is rescued).
 4. Regenerate `FT_ITEMS` in `ft.js` — dedupe by `id`, newest first, keep the most
-   recent ~40 that pass the screen. Headline, date, time and URL only — never body
+   recent ~40 that pass the screen. **Then run `node scripts/screen-ft.mjs`** (owner
+   2026-10-23, "relevance first"): it applies the live wire's FT relevance screen
+   (`ftRelevant` in `src/index.js` — Wire's beat in, lifestyle / culture / general news
+   out) to `ft.js`, so the committed list and the live feed screen identically. Headline, date, time and URL only — never body
    text (paywalled). `ft.js` is TOKENLESS + `no-cache`; no token to bump. `glance.js`
    renders `FT_ITEMS` under the `FT` label.
 
