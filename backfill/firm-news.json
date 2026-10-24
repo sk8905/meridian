@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-23T23:26:38.628Z",
- "since": "2026-10-09",
+ "generated": "2026-10-24T05:00:32.711Z",
+ "since": "2026-10-10",
  "firms": {
   "proskauerrose": {
    "domains": [
@@ -48,7 +48,7 @@
     "www.ashurst.com"
    ],
    "sitemaps": 1,
-   "urls": 5664,
+   "urls": 5676,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -62,19 +62,6 @@
    ],
    "carried": 0
   },
-  "linklaters": {
-   "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
-   ],
-   "sitemaps": 6,
-   "urls": 17822,
-   "kept": 7,
-   "fetched": 7,
-   "errors": 0,
-   "carried": 0
-  },
   "hsf": {
    "domains": [
     "www.hsfkramer.com"
@@ -84,6 +71,19 @@
    "kept": 0,
    "fetched": 0,
    "errors": 1,
+   "carried": 0
+  },
+  "linklaters": {
+   "domains": [
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
+   ],
+   "sitemaps": 6,
+   "urls": 17824,
+   "kept": 7,
+   "fetched": 7,
+   "errors": 0,
    "carried": 0
   },
   "traverssmith": {
@@ -145,25 +145,25 @@
    "errors": 0,
    "carried": 0
   },
+  "kirkland": {
+   "domains": [
+    "www.kirkland.com"
+   ],
+   "sitemaps": 11,
+   "urls": 17464,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
   "whitecase": {
    "domains": [
     "www.whitecase.com"
    ],
    "sitemaps": 11,
    "urls": 10423,
-   "kept": 20,
-   "fetched": 20,
-   "errors": 0,
-   "carried": 0
-  },
-  "kirkland": {
-   "domains": [
-    "www.kirkland.com"
-   ],
-   "sitemaps": 11,
-   "urls": 17461,
-   "kept": 40,
-   "fetched": 40,
+   "kept": 19,
+   "fetched": 19,
    "errors": 0,
    "carried": 0
   },
@@ -171,11 +171,19 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 7,
-   "urls": 7606,
-   "kept": 1,
-   "fetched": 1,
-   "errors": 10,
+   "sitemaps": 5,
+   "urls": 6788,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 12,
+   "samples": [
+    "https://www.sidley.com/en/insights/newsupdates/2024/10/sidley-blockchain-bulletin-october-2024 @2026-03-26",
+    "https://www.sidley.com/en/insights/newsupdates/2023/02/februarys-notable-cases-and-events-in-e-discovery @2026-03-26",
+    "https://www.sidley.com/en/insights/newsupdates/2024/11/trump-trade-policy-2--us-tariff-risk-and-opportunities @2026-03-26",
+    "https://www.sidley.com/en/insights/newsupdates/2024/10/second-circuit-offers-guidance-on-meaning-of-consumer-under-the-us-video-privacy-protection-act @2026-03-26",
+    "https://www.sidley.com/en/insights/newsupdates/2011/11/sec-and-cftc-adopt-form-pf-confidential-information-reporting-requirements @2026-03-26",
+    "https://www.sidley.com/en/insights/newsupdates/2024/11/risk-alert-sec-staff-explains-risk-based-approach-to-registered-investment-company-examinations @2026-03-26"
+   ],
    "carried": 0
   },
   "ropesgray": {
@@ -214,9 +222,9 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16241,
-   "kept": 7,
-   "fetched": 7,
+   "urls": 16245,
+   "kept": 8,
+   "fetched": 8,
    "errors": 0,
    "carried": 0
   },
@@ -281,23 +289,19 @@
    "domains": [
     "www.hoganlovells.com"
    ],
-   "sitemaps": 0,
-   "urls": 0,
+   "sitemaps": 2,
+   "urls": 21472,
    "kept": 0,
    "fetched": 0,
-   "errors": 1,
-   "carried": 0
-  },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
+   "errors": 0,
+   "samples": [
+    "https://www.hlc.com/en/knowledge @2023-12-08",
+    "https://www.hlc.com/de/knowledge @2023-12-08",
+    "https://www.hlc.com/fr/knowledge @2023-12-08",
+    "https://www.hlc.com/ja/knowledge @2023-12-08",
+    "https://www.hlc.com/es/knowledge @2023-12-08",
+    "https://www.hlc.com/en/knowledge/topic-centers/fintech-mentor-program @2026-01-06"
    ],
-   "sitemaps": 1,
-   "urls": 18731,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
    "carried": 0
   },
   "southsquare": {
@@ -319,14 +323,26 @@
    ],
    "carried": 0
   },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 1,
+   "urls": 18731,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
+   "carried": 0
+  },
   "mayerbrown": {
    "domains": [
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
    "urls": 16380,
-   "kept": 20,
-   "fetched": 20,
+   "kept": 19,
+   "fetched": 19,
    "errors": 0,
    "carried": 0
   },
@@ -700,34 +716,6 @@
    "date": "2026-10-12",
    "dateSource": "page date label",
    "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/publications/insight/financial-regulatory-observer-autumn-2021",
-   "title": "Financial Regulatory Observer - Autumn 2021",
-   "description": "The Financial Regulatory Observer spotlights selected topics currently driving regulatory and technological changes in the financial industry.",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-09",
-   "dateProbe": []
-  },
-  {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/california-adopts-regulations-expanding-healthcare-transaction-review",
-   "title": "California Adopts Regulations Expanding Healthcare Transaction Review",
-   "description": null,
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/general-repercussion-theme-no-843-stf-rules-that-icms-presumed-credits-must-be-excluded-from-pis-and-cofins-tax-basis",
-   "title": "General Repercussion Theme No. 843: STF Rules that ICMS Presumed Credits Must Be Excluded from PIS and COFINS Tax Basis",
-   "description": "On October 7, 2026, the Brazilian Supreme Court (\"STF\") concluded the trial of the Extraordinary Appeal No. 835,818/PR (General Repercussion",
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
   },
   {
    "firm": "kirkland",
