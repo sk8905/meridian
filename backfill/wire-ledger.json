@@ -3710,6 +3710,12 @@
       "status": "rejected",
       "reason": "Headline is only \"Proskauer\"; the real Financial News article could not be resolved or dated, nothing verifiable to record",
       "at": "2026-10-24T09:14:18.621Z"
+    },
+    {
+      "url": "https://www.bloomberg.com/news/articles/2026-10-24/barclays-house-of-fixed-income-pins-future-growth-on-equities",
+      "status": "rejected",
+      "reason": "Paywalled Bloomberg piece on a bank's equities-growth strategy; no verifiable facts or credit-scope event found by search; not a credit-manager capital event or hire",
+      "at": "2026-10-24T13:14:53.888Z"
     }
   ]
 }
