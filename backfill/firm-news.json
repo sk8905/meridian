@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-24T11:29:12.253Z",
+ "generated": "2026-10-24T16:17:36.379Z",
  "since": "2026-10-10",
  "firms": {
   "proskauerrose": {
@@ -62,6 +62,19 @@
    ],
    "carried": 0
   },
+  "linklaters": {
+   "domains": [
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
+   ],
+   "sitemaps": 6,
+   "urls": 17823,
+   "kept": 6,
+   "fetched": 6,
+   "errors": 0,
+   "carried": 0
+  },
   "hsf": {
    "domains": [
     "www.hsfkramer.com"
@@ -71,19 +84,6 @@
    "kept": 0,
    "fetched": 0,
    "errors": 1,
-   "carried": 0
-  },
-  "linklaters": {
-   "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
-   ],
-   "sitemaps": 6,
-   "urls": 17824,
-   "kept": 6,
-   "fetched": 6,
-   "errors": 0,
    "carried": 0
   },
   "traverssmith": {
@@ -116,8 +116,8 @@
    ],
    "sitemaps": 4,
    "urls": 2416,
-   "kept": 2,
-   "fetched": 2,
+   "kept": 1,
+   "fetched": 1,
    "errors": 0,
    "carried": 0
   },
@@ -134,14 +134,14 @@
    "errors": 0,
    "carried": 0
   },
-  "whitecase": {
+  "latham": {
    "domains": [
-    "www.whitecase.com"
+    "www.lw.com"
    ],
-   "sitemaps": 11,
-   "urls": 10423,
-   "kept": 19,
-   "fetched": 19,
+   "sitemaps": 9,
+   "urls": 20246,
+   "kept": 13,
+   "fetched": 13,
    "errors": 0,
    "carried": 0
   },
@@ -156,26 +156,38 @@
    "errors": 0,
    "carried": 0
   },
-  "latham": {
+  "whitecase": {
    "domains": [
-    "www.lw.com"
+    "www.whitecase.com"
    ],
-   "sitemaps": 9,
-   "urls": 20246,
+   "sitemaps": 11,
+   "urls": 10423,
    "kept": 19,
    "fetched": 19,
    "errors": 0,
+   "carried": 0
+  },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 2,
    "carried": 0
   },
   "sidley": {
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 7,
-   "urls": 7603,
+   "sitemaps": 5,
+   "urls": 6785,
    "kept": 0,
    "fetched": 0,
-   "errors": 10,
+   "errors": 12,
    "samples": [
     "https://www.sidley.com/en/insights/newsupdates/2024/10/sidley-blockchain-bulletin-october-2024 @2026-03-26",
     "https://www.sidley.com/en/insights/newsupdates/2023/02/februarys-notable-cases-and-events-in-e-discovery @2026-03-26",
@@ -216,18 +228,6 @@
    ],
    "carried": 0
   },
-  "davispolk": {
-   "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
-   ],
-   "sitemaps": 11,
-   "urls": 16247,
-   "kept": 8,
-   "fetched": 8,
-   "errors": 0,
-   "carried": 0
-  },
   "stephensonharwood": {
    "domains": [
     "www.shlegal.com"
@@ -255,6 +255,18 @@
    "urls": 12307,
    "kept": 4,
    "fetched": 4,
+   "errors": 0,
+   "carried": 0
+  },
+  "davispolk": {
+   "domains": [
+    "www.davispolk.com",
+    "davispolk.com"
+   ],
+   "sitemaps": 11,
+   "urls": 16247,
+   "kept": 8,
+   "fetched": 8,
    "errors": 0,
    "carried": 0
   },
@@ -288,34 +300,6 @@
    ],
    "carried": 0
   },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "tax.weil.com",
-    "governance.weil.com",
-    "restructuring.weil.com",
-    "eurorestructuring.weil.com",
-    "european-disputes-blog.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7745,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 1,
-   "urls": 18731,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
-   "carried": 0
-  },
   "southsquare": {
    "domains": [
     "southsquare.com"
@@ -333,6 +317,22 @@
     "https://southsquare.com/rabin-kok-triumphs-in-royalelife-collapse/ @2024-01-23",
     "https://southsquare.com/south-square-integral-to-the-successful-sanction-of-aoyuans-restructuring-schemes/ @2024-01-23"
    ],
+   "carried": 0
+  },
+  "weil": {
+   "domains": [
+    "www.weil.com",
+    "tax.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "european-disputes-blog.weil.com"
+   ],
+   "sitemaps": 36,
+   "urls": 7745,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
    "carried": 0
   },
   "mayerbrown": {
@@ -360,15 +360,6 @@
  },
  "items": [
   {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o6a3/a-return-of-the-uk-investor-visa-still-on-the-agenda",
-   "title": "A return of the UK investor visa: still on the agenda",
-   "description": "The Financial Times reported this week that Chancellor John Healey will not include a new investor visa route in his Budget on 28 October...",
-   "date": "2026-10-23",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-23"
-  },
-  {
    "firm": "weil",
    "url": "https://restructuring.weil.com/category/news/",
    "title": "News Archives",
@@ -379,15 +370,6 @@
    "dateProbe": []
   },
   {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
-   "description": null,
-   "date": "2026-10-23",
-   "dateSource": "datePublished",
-   "lastmod": null
-  },
-  {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/general-repercussion-theme-no-topic-118-stf-rules-in-favor-of-taxpayers-on-the-exclusion-of-iss-from-the-pis-cofins-tax-basis",
    "title": "General Repercussion Theme No. Topic 118: STF Rules in Favor of Taxpayers on the Exclusion of ISS from the PIS/COFINS Tax Basis",
@@ -395,15 +377,6 @@
    "date": "2026-10-23",
    "dateSource": "datePublished",
    "lastmod": "2026-10-23"
-  },
-  {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
-   "title": "Publications",
-   "description": null,
-   "date": "2026-10-22",
-   "dateSource": "datePublished",
-   "lastmod": null
   },
   {
    "firm": "mayerbrown",
@@ -438,24 +411,6 @@
    "url": "https://www.lw.com/en/news/2026/10/latham-advises-morgan-stanley-capital-partners-on-acquisition-of-the-rapid-group",
    "title": "Latham & Watkins Advises Morgan Stanley Capital Partners on Acquisition of The Rapid Group",
    "description": "Firm represented the middle-market private equity platform in the transaction.",
-   "date": "2026-10-20",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-20"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/latham-advises-on-mynt-ipo",
-   "title": "Latham Advises on Mynt’s ₱53 Billion IPO",
-   "description": "Firm represents underwriters and bookrunners on one of the largest ever IPOs in the Philippines.",
-   "date": "2026-10-20",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-20"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/latham-advises-trumid-in-acquisition-by-tradeweb",
-   "title": "Latham & Watkins Advises Trumid in US$1.97 Billion Acquisition by Tradeweb",
-   "description": "Cross-border, multi-disciplinary Latham team represents the financial technology company and electronic credit trading marketplace in the transaction.",
    "date": "2026-10-20",
    "dateSource": "page date label",
    "lastmod": "2026-10-20"
@@ -514,42 +469,6 @@
    "date": "2026-10-19",
    "dateSource": "page date label",
    "lastmod": null
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/key-takeaways-from-the-inaugural-fund-finance-association-fall-forum",
-   "title": "Key Takeaways From the Inaugural Fund Finance Association Fall Forum",
-   "description": "Panelists offer insights into evolving fund finance products, fundraising trends, and market dynamics for sponsors and lenders.",
-   "date": "2026-10-19",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-19"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/latham-advises-institutional-investors-on-kapla-holding-eur100-million-private-placement",
-   "title": "Latham Advises Institutional Investors on Kapla Holding’s €100 Million Private Placement",
-   "description": "Paris team advises the institutional investors in relation to the equipment rental company’s latest transaction.",
-   "date": "2026-10-19",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-19"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/latham-advises-on-financing-for-charlesbank-capital-partners-strategic-growth-investment",
-   "title": "Latham Advises on Financing for Charlesbank Capital Partners’ Strategic Growth Investment in Wood Smith Henning & Berman for Formation of MSO",
-   "description": "Firm represents the financing sources supporting the partnership that will support growth, technology, and expansion into new markets.",
-   "date": "2026-10-19",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-19"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/latham-advises-tcgx-acquisition-corp-in-business-combination-agreement-with-trigemx-bio",
-   "title": "Latham Advises TCGX Acquisition Corp. in Business Combination Agreement With TriGemX Bio to Create Publicly Listed Company",
-   "description": "Houston-based team represents the SPAC in the transaction to develop elismetrep, a potential first-in-class treatment for migraine.",
-   "date": "2026-10-19",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-19"
   },
   {
    "firm": "davispolk",
