@@ -2614,7 +2614,7 @@ function _dealTitleSet() {
 let _dealLinks = null;
 // An item's link, normalised for lane claims (scheme, www, query and trailing slash off).
 function _laneLink(x) {
-  const u = x && (x.href || x.url || x.link || x.sourceUrl);
+  const u = x && (x.href || x.url || x.link || x.sourceUrl || x._href || x.source);
   return /^https?:/i.test(String(u || "")) ? String(u).toLowerCase().replace(/^https?:\/\/(www\.)?/, "").split(/[?#]/)[0].replace(/\/+$/, "") : "";
 }
 function _dealLinkSet() {
