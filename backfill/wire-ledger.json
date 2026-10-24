@@ -3704,6 +3704,12 @@
       "status": "rejected",
       "reason": "Bank earnings/M&A advisory, not credit activity",
       "at": "2026-10-24T07:13:44.854Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5QeEczdGF3c0FmSE9rbTZWQ0RON1J2d1UwaDh1TW5wZFZtZEl0SkE0S3hRUlIxRTVYbU1Pc3dZTlp0VWd4NHRjMjhrTE1abmhyYmNEWWFqRTZNbXMxeldCd3FXSQ?oc=5",
+      "status": "rejected",
+      "reason": "Headline is only \"Proskauer\"; the real Financial News article could not be resolved or dated, nothing verifiable to record",
+      "at": "2026-10-24T09:14:18.621Z"
     }
   ]
 }
