@@ -11475,6 +11475,46 @@
      }
     }
    ]
+  },
+  {
+   "at": "2026-10-24",
+   "collection": "DEAL_TAGS",
+   "id": "d1349",
+   "verdict": "GAP",
+   "source": "https://www.bloomberg.com/news/articles/2026-10-22/blackstone-leads-debt-package-to-take-gooch-housego-private",
+   "sourceLabel": "Bloomberg 2026-10-22",
+   "asOf": "2026-10-22",
+   "evidence": "Deal text: ~$300m debt package (unitranche, DDTL, RCF) backing a take-private; a loan package, amount is a financing size.",
+   "changes": [
+    {
+     "field": "amountKind",
+     "from": null,
+     "to": "financing"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24",
+   "collection": "HEDGE_INTEL",
+   "id": "hi577",
+   "verdict": "GAP",
+   "source": "https://www.lanjinger.com/d/1750063615291681847",
+   "evidence": "Lanjinger article dated 2025-06-16",
+   "changes": [
+    {
+     "field": "(new record)",
+     "to": {
+      "id": "hi577",
+      "hfId": "h137",
+      "date": "2025-06-16",
+      "type": "Fundraising",
+      "headline": "Yanfu Investments closes new-client subscriptions to its CSI 500, CSI 1000 and small-cap index-enhancement products from 1 July",
+      "summary": "Yanfu announced on 16 June 2025 that from 1 July it would stop new-client subscriptions to its CSI 500, CSI 1000 and Wind small-cap index-enhancement products; existing holders can still top up.",
+      "outlet": "Lanjinger",
+      "url": "https://www.lanjinger.com/d/1750063615291681847"
+     }
+    }
+   ]
   }
  ]
 }

@@ -1228,7 +1228,7 @@ const T = {
   d1346: {"c":"US","s":"Leisure & hospitality","p":"Aspyr Holdings LLC","r":"borrower","a":null},
   d1347: {"c":"France","s":"Business services","p":"Impulsa","r":"borrower","a":null},
   d1348: {"c":"Germany","s":"TMT","p":"Drooms","r":"borrower","a":null},
-  d1349: {"c":"UK","s":"Industrials","p":"Gooch & Housego","r":"borrower","a":null},
+  d1349: {"c":"UK","s":"Industrials","p":"Gooch & Housego","r":"borrower","a":"financing"},
   d1350: {"c":null,"s":"Diversified","a":"fund","e":"new","p":"Capital Four Euro CLO IV","r":"issuer"},
   d1351: {"c":"US","s":"Diversified","a":"aum","p":"Capital Four US CLOs","r":"issuer"},
 };

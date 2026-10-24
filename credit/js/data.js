@@ -33,7 +33,7 @@ export const LAST_CHECKED = '2026-10-24';
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "06:10 BST";
+export const LAST_CHECKED_TIME = "08:30 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -4793,6 +4793,7 @@ export const HEDGE_INTEL = [
   {"id":"hi574","hfId":"h125","date":"2026-08-14","type":"Position","headline":"Montanova Capital discloses $5.47bn US equity book in Q2 2026 13F","summary":"Montanova Capital, LLC (EDGAR former name Suvretta Capital Management, LLC, renamed 23 June 2026) filed a 13F-HR for the period ended 30 June 2026 on 14 August 2026, reporting 95 holdings with a total value of about $5.47bn. The largest positions are Veradermics (about $513m), Arcutis Biotherapeutics (about $326m) and Legend Biotech (about $204m).","outlet":"SEC EDGAR (13F-HR filing)","url":"https://www.sec.gov/Archives/edgar/data/1569064/000117266126003727/0001172661-26-003727-index.htm"},
   {"id":"hi575","hfId":"h78","date":"2026-08-14","type":"Position","headline":"Steadfast Capital discloses $3.26bn US equity book in Q2 2026 13F","summary":"Steadfast Capital Management LP's 13F-HR for the period ended 30 June 2026, filed 14 August 2026, reports 84 holdings with a total value of about $3.26bn. The largest positions are Costco (about $219m), Amazon (about $178m), Somnigroup International (about $166m) and Dick's Sporting Goods (about $141m).","outlet":"SEC EDGAR (13F-HR filing)","url":"https://www.sec.gov/Archives/edgar/data/1214822/000121482226000007/0001214822-26-000007-index.htm"},
   {"id":"hi576","hfId":"h80","date":"2026-08-14","type":"Position","headline":"Naya Capital discloses concentrated three-stock $2.08bn US book in Q2 2026 13F","summary":"Naya Capital Management UK Ltd's 13F-HR for the period ended 30 June 2026, filed 14 August 2026, reports 3 holdings with a total value of about $2.08bn: Humana (about $728m), Liberty Media (about $503m) and UnitedHealth Group (about $437m).","outlet":"SEC EDGAR (13F-HR filing)","url":"https://www.sec.gov/Archives/edgar/data/1665012/000117266126003537/0001172661-26-003537-index.htm"},
+  {"id":"hi577","hfId":"h137","date":"2025-06-16","type":"Fundraising","headline":"Yanfu Investments closes new-client subscriptions to its CSI 500, CSI 1000 and small-cap index-enhancement products from 1 July","summary":"Yanfu announced on 16 June 2025 that from 1 July it would stop new-client subscriptions to its CSI 500, CSI 1000 and Wind small-cap index-enhancement products; existing holders can still top up.","outlet":"Lanjinger","url":"https://www.lanjinger.com/d/1750063615291681847"},
 ];
 
 // 13F snapshot — the cross-fund read for the Dashboard ▸ Hedge Funds section.
