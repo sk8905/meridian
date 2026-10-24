@@ -99,13 +99,13 @@
 // =============================================================================
 export const BRIEFINGS = {
   tz: "BST",
-  date: "2026-10-23",
-  time:"23:20 BST",
-  lede: "Global stocks fell and haven bonds rallied as AI worries hit tech, with the Nasdaq 100 down nearly 3% after Meta's capex guidance, oil at $114 a barrel on Middle East supply fears, French 10-year yields above 5% ahead of an expected Moody's downgrade, and global credit spreads at a 17-month high.",
+  date: "2026-10-24",
+  time:"05:10 BST",
+  lede: "Wall Street closed the week lower as Brent settled at $116.72 on US-Iran tension, the Dow fell 1.2% to 52,215 and the S&P 500 slipped 0.5% to 7,624, with the 10-year Treasury near 5% ahead of next week's Fed meeting and global credit spreads at a 17-month high.",
   bullets: [
-    { html: "<strong>Macro &mdash; Oil hit $114 a barrel</strong> for the first time since May as global stocks were hit by AI fears; the S&amp;P 500 was down 1.2% at 7,663 in early trading on Friday.", src: "https://www.ft.com/content/8948193b-438b-4d71-a0b1-31dff56fc308", srcName: "Financial Times", date: "2026-10-23" },
+    { html: "<strong>Macro &mdash; Brent settled at $116.72,</strong> its highest since April, and WTI rose 3.8% to $103.27 on rising US-Iran tension, with the 10-year Treasury yield near 5% ahead of next week&rsquo;s Fed meeting.", src: "https://www.cnbc.com/2026/10/22/stock-market-today-live-update.html", srcName: "CNBC", date: "2026-10-23" },
     { html: "<strong>Bonds &mdash; French 10-year yields have topped 5%,</strong> two percentage points higher than when France lost its triple-A in 2012, with Moody&rsquo;s expected to cut France from Aa3 to A1 on Friday.", src: "https://www.economist.com/the-world-in-brief", srcName: "The Economist", date: "2026-10-23" },
-    { html: "<strong>Equities &mdash; The Nasdaq 100 fell nearly 3%</strong> and Meta dropped 7% after it guided to $135-145bn of capex this year and announced a new class of non-voting shares.", src: "https://www.economist.com/the-world-in-brief", srcName: "The Economist", date: "2026-10-23" },
+    { html: "<strong>Equities &mdash; The Dow fell 1.2% to 52,215</strong> and the S&amp;P 500 dropped 0.5% to 7,623.68 on Friday as oil climbed; the Nasdaq Composite slipped 0.2% to 25,955 after Meta&rsquo;s 7% fall the day before.", src: "https://www.cnbc.com/2026/10/22/stock-market-today-live-update.html", srcName: "CNBC", date: "2026-10-23" },
     { html: "<strong>Credit &mdash; Global credit spreads hit a 17-month high</strong> as AI and tech fears pushed the market to its biggest risk-off reading in more than a year.", src: "https://www.bloomberg.com/news/articles/2026-10-23/ai-tech-fears-push-global-credit-spreads-to-17-month-high", srcName: "Bloomberg", date: "2026-10-23" },
     { html: "<strong>Credit &mdash; Thames Water and some creditors offered Pimco a compromise</strong> on a plan to raise &pound;2.4bn of extra rescue debt, lifting its super-senior facility to &pound;5.4bn: the first &pound;600m would be shared across three creditor groups, the remaining &pound;1.8bn among super-senior holders.", src: "https://www.bloomberg.com/news/articles/2026-10-20/thames-water-creditors-offer-pimco-a-compromise-on-new-debt", srcName: "Bloomberg", date: "2026-10-20" },
   ],

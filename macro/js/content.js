@@ -12,8 +12,8 @@ export const UPDATED = "28 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-10-23",
-  lastCheckedTime: "23:20 BST",
+  lastChecked: "2026-10-24",
+  lastCheckedTime: "05:10 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1040,13 +1040,13 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-23",
+  updated: "2026-10-24",
   us: [
+    {title: "Dow tumbles more than 600 points as oil prices rise and market sell-off hits most sectors", source: "CNBC", date: "2026-10-23", time: "21:30", url: "https://www.cnbc.com/2026/10/22/stock-market-today-live-update.html"},
     {title: "US is prepared for long stand-off with Iran, says Trump envoy", source: "Financial Times", date: "2026-10-23", time: "05:00", url: "https://www.ft.com/content/70379a26-c20e-4501-aec9-a9a0089cdd3d"},
     {title: "Beware Bessent’s tilt towards short-term debt", source: "Financial Times", date: "2026-10-23", time: "05:00", url: "https://www.ft.com/content/bf959a1a-1cd8-41e2-8767-03aa1ac3ed48"},
     {title: "US pension giant Calpers retreats from Big Tech as AI rally falters", source: "Financial Times", date: "2026-10-23", time: "05:00", url: "https://www.ft.com/content/e842173f-6f9f-4115-9e5f-a0f06f0df18d"},
     {title: "Global stocks tumble as oil price tops $112", source: "Financial Times", date: "2026-10-22", time: "14:31", url: "https://www.ft.com/content/6e318b81-a771-4842-9754-e265fef2852f"},
-    {title: "Blackstone cuts property valuations as higher rates hit returns", source: "Financial Times", date: "2026-10-22", time: "12:03", url: "https://www.ft.com/content/df7c95d7-72d1-4cec-87f6-9f7968ac3e5e"},
   ],
   uk: [
     {title: "Should UK banks be taxed more?", source: "Financial Times", date: "2026-10-23", time: "05:00", url: "https://www.ft.com/content/d66ab794-72e9-447b-b6f4-a633dd9fda91"},
