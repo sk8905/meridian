@@ -3680,6 +3680,30 @@
       "status": "rejected",
       "reason": "Recorded as legal alert u4248; Ares Infrastructure Equity minority investment, not a credit deal",
       "at": "2026-10-24T05:22:12.238Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxON1dpcUVOMl9EVkhabVdnUUpDZWs0OC1zQ0FCbHBJdFhPQTdCYkxfUXBiNU1mVndzaU9iMUowcmo3UUxKQjQyOXhHSERVOU5jV1RuRTNEcGZUbnlITFpwQ2VURWJOODFhWDg0SUV1Z28tWHp1cm1NTk1nLTlMX1BLNnZCWmw0ZlhRSlNvMUVSS2NZUHVOUHFldlNEb1pGLTdac3Vjb1pjTzJzellPSzFPeg?oc=5",
+      "status": "rejected",
+      "reason": "Out of scope: bank regulatory/brokerage licence news, not credit; no primary source",
+      "at": "2026-10-24T07:13:44.854Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPWmNDZDRDU1JvRUF2cEIya1ZmLXl1ZVNZdkc5VUpkNWlfX3FxVlVFbF9EZnBWQ3JRcEd1eWNQOXhYR0hTR0NzX3hwTEsybTF5ZnlXbHg4aW83TnFEU1FqX1Y4cGNvM0N6Q2hCUThDcHNFeEdEamE3ZDFOMWh1WHdVVnFZQUR3OWVhUzVCblFUaUI1VHA0eENuTTllTVNENUxpSlBQLS1sQU9OZmhuZ2k0SmhCcjRoMVNCMXAyTA?oc=5",
+      "status": "rejected",
+      "reason": "Print-edition roundup; no deal/fund/credit-hire; HSBC CFO exit is bank corporate news",
+      "at": "2026-10-24T07:13:44.854Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQaFZyeTl4d3pwUGZNY3NxVWVCbFhQaHg5ZWZNWGtvX2w4Tm9hUUJjVnRVYVRnQ25rVWFRMTYxNEtidWptYnYyY3dvMWpkdlJQUW5LZ3UyVmd2WHZ6ajZFbFBGMVRtS2xMNGJZd0d3RFFLUUJqSTlwRnlwbXdacmdHTV9UWElOeGJZZzFhVUs5Vm5NMjBFWDlJSDRBY2EtQUs2bC1ySw?oc=5",
+      "status": "rejected",
+      "reason": "Primary Financial News article could not be located or dated; not recorded to avoid fabrication",
+      "at": "2026-10-24T07:13:44.854Z"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQaS1FTWc5MVRDdk1tTnhja0plNjRGbm5kYjhSbEdEakFPTUo3NUdhNHF6cEdMTHVhVURZVWpTTW1vYlpVaTJpOEZRbjMwUzZBZ1p1ckZwRjRQdWNTdGFZckkxRktKRU9adnNnVV9BY2RoeDZFWnJVdjlPbHROaWZacE1SVzQyVHhyZFpwTnVpMmx3OG4xdm1pOUdQWFhMUXBHTjhLQkhCd3ItWW1UZ0lPUmlR?oc=5",
+      "status": "rejected",
+      "reason": "Bank earnings/M&A advisory, not credit activity",
+      "at": "2026-10-24T07:13:44.854Z"
     }
   ]
 }
