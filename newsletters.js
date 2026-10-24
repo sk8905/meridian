@@ -63,6 +63,28 @@ export const NOT_FOR_WIRE = {
 
 export const NEWSLETTERS = [
   {
+    "id": "nl-taxpolicy-beingsuedwyoming-20261024",
+    "publication": "Tax Policy Associates",
+    "author": "Dan Neidle",
+    "series": null,
+    "title": "I’m being sued for $795m. By a fugitive fraudster. In Wyoming. Under anti-Mafia law.",
+    "date": "2026-10-24",
+    "time": "08:11",
+    "summary": "Dan Neidle is being sued for $795m in a Wyoming federal court under RICO by fugitive British fraudster Iain Clifford Stamp.",
+    "url": "https://newsletter.taxpolicy.org.uk/campaign/f0fec4c7-9e7e-4136-a324-f51918748d8d/fd0b23db-b61a-4813-bcbf-44577160c2d1"
+  },
+  {
+    "id": "nl-bloomberg-moneystuff-podcasttice-20261023",
+    "publication": "Bloomberg",
+    "author": "Matt Levine",
+    "series": "Money Stuff",
+    "title": "Money Stuff: The Podcast: Tice Brown",
+    "date": "2026-10-23",
+    "time": "16:59",
+    "summary": "Guest episode with Tice Brown on the DAT craze, non-cross-collateralized leverage, art-market bid/ask spreads and SpaceX/Tesla.",
+    "url": "https://bloom.bg/4nhTnYV"
+  },
+  {
     "id": "nl-economist-worldinbrief-iranplotsadvanced-20261024",
     "publication": "The Economist",
     "author": null,

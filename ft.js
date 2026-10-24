@@ -21,6 +21,55 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    "id": "6a940d99-579a-481c-953e-a61cc23486e5",
+    "title": "UK mortgage market ‘failing to adapt to new patterns of work’",
+    "date": "2026-10-24",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/6a940d99-579a-481c-953e-a61cc23486e5"
+  },
+  {
+    "id": "6a059ab0-a9fc-4e4c-8ae7-1d110faf5adf",
+    "title": "A little bit of luck is lifting UK Budget expectations",
+    "date": "2026-10-24",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/6a059ab0-a9fc-4e4c-8ae7-1d110faf5adf"
+  },
+  {
+    "id": "e41fe456-48c8-4bb1-8802-88b39f563d29",
+    "title": "Tobacco taxes work — even when they give smugglers a windfall",
+    "date": "2026-10-24",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/e41fe456-48c8-4bb1-8802-88b39f563d29"
+  },
+  {
+    "id": "995ede2d-c1de-4ba7-99e3-2e18d1c43c50",
+    "title": "China’s luxury brands are ready to elbow western rivals aside",
+    "date": "2026-10-24",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/995ede2d-c1de-4ba7-99e3-2e18d1c43c50"
+  },
+  {
+    "id": "f7793e22-13f6-4cd7-9613-a11a0f0f30e4",
+    "title": "Pubs, pints and the art of the Budget gimmick",
+    "date": "2026-10-24",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/f7793e22-13f6-4cd7-9613-a11a0f0f30e4"
+  },
+  {
+    "id": "9c00e8f9-b7dc-4893-8b34-66a4bb5a5605",
+    "title": "The money questions children ask AI chatbots",
+    "date": "2026-10-24",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/9c00e8f9-b7dc-4893-8b34-66a4bb5a5605"
+  },
+  {
+    "id": "e87859e1-bab5-40e0-8dca-f85139d7b7ee",
+    "title": "The HTSI autumn property special",
+    "date": "2026-10-24",
+    "time": "05:00",
+    "url": "https://www.ft.com/content/e87859e1-bab5-40e0-8dca-f85139d7b7ee"
+  },
+  {
     "id": "ba33fb18-1dea-4214-9221-228c155a6ac1",
     "title": "Russia and Ukraine agree to temporary ceasefire around occupied town of Oleshky",
     "date": "2026-10-23",
