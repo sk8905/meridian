@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-24",
-  time: "17:10 BST",
+  time: "19:10 BST",
   lede: "Wall Street ended a volatile week lower as Brent settled at $116.72 on US-Iran tension, with the Dow down 1.2% at 52,215 and the S&P 500 at 7,624; the Fed decides on Wednesday 28 October with the 10-year Treasury near 5%, the ECB follows on 29 October, and global credit spreads sit at a 17-month high.",
   bullets: [
     { html: "<strong>Macro &mdash; Brent settled at $116.72,</strong> its highest since April, and WTI rose 3.8% to $103.27 on rising US-Iran tension, with the 10-year Treasury yield near 5% ahead of next week&rsquo;s Fed meeting.", src: "https://www.cnbc.com/2026/10/22/stock-market-today-live-update.html", srcName: "CNBC", date: "2026-10-23" },
