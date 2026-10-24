@@ -1339,16 +1339,7 @@ export const items = [
     points: [],
     tags: ["Pillar Two", "fund tax", "VAT", "REITs"],
   },
-  {
-    url: "https://www.linklaters.com/knowledge/publications/alerts-newsletters-and-guides/2025/august/05/compulsory-identity-verification-rollout-to-begin-on-18-november-2025",
-    id: "u147", title: "Compulsory identity verification rollout to begin on 18 November 2025",
-    area: "corporate", areas: ["corporate"], type: "update", firm: "linklaters",
-    date: "2025-08-05", jurisdiction: "United Kingdom",
-    summary: "Linklaters reports that compulsory identity verification under ECCTA 2023 for directors, PSCs and others will begin its rollout from 18 November 2025.",
-    points: [],
-    tags: ["ECCTA", "identity verification", "Companies House"],
-    dateEstimated: true,
-  },
+  {"url":"https://www.linklaters.com/knowledge/publications/alerts-newsletters-and-guides/2025/august/05/compulsory-identity-verification-rollout-to-begin-on-18-november-2025","id":"u147","title":"Compulsory identity verification rollout to begin on 18 November 2025","area":"corporate","areas":["corporate"],"type":"update","firm":"linklaters","date":"2025-08-05","jurisdiction":"United Kingdom","summary":"Linklaters reports that compulsory identity verification under ECCTA 2023 for directors, PSCs and others will begin its rollout from 18 November 2025.","points":[],"tags":["ECCTA","identity verification","Companies House"]},
   {"url":"https://www.cliffordchance.com/insights/thought_leadership/across-the-board/articles/2025/08/the-new-uk-listing-rules.html","id":"u148","title":"The New UK Listing Rules - Trends In M&A Announcements","area":"corporate","areas":["corporate"],"type":"insight","firm":"cliffordchance","date":"2025-08-01","jurisdiction":"United Kingdom","summary":"Reviews how the new UK listing rules have affected public M&A announcement practices, including the use of break fees.","points":[],"tags":["UK listing","M&A","Takeover Code","break fees"],"dateEstimated":true,"datePrecision":"month"},
   {
     url: "https://www.linklaters.com/insights/blogs/bankinglitigationlinks/2025/august/app-fraud-reimbursement",

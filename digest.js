@@ -4,14 +4,14 @@
 // hand-edit; re-run the script. Tokenless + no-cache (see _headers).
 // =============================================================================
 export const DIGEST = {
- "asOf": "2026-10-23",
- "built": "2026-10-23T07:54:13.426Z",
+ "asOf": "2026-10-24",
+ "built": "2026-10-24T01:36:13.512Z",
  "daily": {
   "label": "Daily",
-  "from": "2026-10-22",
-  "to": "2026-10-23",
+  "from": "2026-10-23",
+  "to": "2026-10-24",
   "equities": {
-   "savedAt": "2026-10-23T07:53:52.362Z",
+   "savedAt": "2026-10-23T11:31:13.418Z",
    "items": [
     {
      "label": "S&P 500",
@@ -63,10 +63,10 @@ export const DIGEST = {
     },
     {
      "label": "Stoxx Europe 600",
-     "value": 635.84,
+     "value": 634.58,
      "unit": "idx",
-     "display": "636",
-     "chg": -0.3,
+     "display": "635",
+     "chg": -0.5,
      "chgUnit": "%",
      "asOf": "2026-10-23",
      "url": "https://finance.yahoo.com/quote/%5ESTOXX",
@@ -75,10 +75,10 @@ export const DIGEST = {
     },
     {
      "label": "FTSE 100",
-     "value": 10693.03,
+     "value": 10676.09,
      "unit": "idx",
-     "display": "10,693",
-     "chg": -0.3,
+     "display": "10,676",
+     "chg": -0.46,
      "chgUnit": "%",
      "asOf": "2026-10-23",
      "url": "https://finance.yahoo.com/quote/%5EFTSE",
@@ -87,10 +87,10 @@ export const DIGEST = {
     },
     {
      "label": "DAX",
-     "value": 25242.19,
+     "value": 25186.75,
      "unit": "idx",
-     "display": "25,242",
-     "chg": -0.51,
+     "display": "25,187",
+     "chg": -0.73,
      "chgUnit": "%",
      "asOf": "2026-10-23",
      "url": "https://finance.yahoo.com/quote/%5EGDAXI",
@@ -99,10 +99,10 @@ export const DIGEST = {
     },
     {
      "label": "CAC 40",
-     "value": 7758.29,
+     "value": 7765.41,
      "unit": "idx",
-     "display": "7,758",
-     "chg": -0.68,
+     "display": "7,765",
+     "chg": -0.59,
      "chgUnit": "%",
      "asOf": "2026-10-23",
      "url": "https://finance.yahoo.com/quote/%5EFCHI",
@@ -123,10 +123,10 @@ export const DIGEST = {
     },
     {
      "label": "Hang Seng",
-     "value": 23117.79,
+     "value": 23093.37,
      "unit": "idx",
-     "display": "23,118",
-     "chg": 0.8,
+     "display": "23,093",
+     "chg": 0.69,
      "chgUnit": "%",
      "asOf": "2026-10-23",
      "url": "https://finance.yahoo.com/quote/%5EHSI",
@@ -136,7 +136,7 @@ export const DIGEST = {
    ]
   },
   "rates": {
-   "savedAt": "2026-10-23T07:53:52.362Z",
+   "savedAt": "2026-10-23T11:31:13.418Z",
    "items": [
     {
      "label": "SONIA",
@@ -265,7 +265,7 @@ export const DIGEST = {
      "display": 3.75,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-21",
+     "asOf": "2026-10-22",
      "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
      "src": "bankofengland.co.uk",
      "tone": "flat"
@@ -273,62 +273,27 @@ export const DIGEST = {
    ]
   },
   "deals": {
-   "total": 3,
-   "items": [
-    {
-     "id": "d1333",
-     "date": "2026-10-22",
-     "title": "Belk secures $1.275bn senior secured ABL and FILO facilities from Wells Fargo and Pathlight Capital",
-     "url": "https://www.abfjournal.com/belk-secures-1-275b-in-new-financing-from-wells-fargo-and-pathlight-capital/",
-     "src": "abfjournal.com",
-     "who": "Wells Fargo",
-     "kind": "Financing",
-     "href": "/v2/transactions/#/deal/d1333",
-     "amount": "$1.275bn"
-    },
-    {
-     "id": "d1334",
-     "date": "2026-10-22",
-     "title": "Pivot Energy secures $500m corporate credit facility from Nuveen Energy Infrastructure Capital",
-     "url": "https://www.abfjournal.com/pivot-energy-secures-500mm-corporate-credit-facility-from-nuveen-energy-infrastructure-capital/",
-     "src": "abfjournal.com",
-     "who": "Nuveen Private Capital",
-     "kind": "Financing",
-     "href": "/v2/transactions/#/deal/d1334",
-     "amount": "$500m"
-    },
-    {
-     "id": "d1338",
-     "date": "2026-10-22",
-     "title": "BlackRock's HPS to invest up to $434m in TBS Energi Utama's Asian waste platform",
-     "url": "https://www.bloomberg.com/news/articles/2026-10-22/blackrock-s-hps-to-invest-434-million-in-asian-waste-company",
-     "src": "bloomberg.com",
-     "who": "BlackRock",
-     "kind": "Financing",
-     "href": "/v2/transactions/#/deal/d1338",
-     "amount": "$434m"
-    }
-   ]
+   "total": 0,
+   "items": []
   },
   "closes": {
+   "total": 0,
+   "items": []
+  },
+  "legal": {
    "total": 1,
    "items": [
     {
-     "id": "i1478",
-     "date": "2026-10-22",
-     "title": "Blackstone Credit & Insurance reports $35.8bn of Q3 2026 inflows, AUM up 11% to $480.0bn",
-     "url": "https://www.sec.gov/Archives/edgar/data/0001393818/000119312526428297/d160590dex991.htm",
-     "src": "sec.gov",
-     "who": "Blackstone Credit & Insurance (BXCI)",
-     "kind": "Fundraising",
-     "href": "/v2/profiles/#/manager/m8",
-     "amount": "$35.8bn"
+     "id": "i1539",
+     "date": "2026-10-23",
+     "title": "VietJet faces aircraft, cash seizures in FitzWalter debt fight",
+     "url": "https://www.bloomberg.com/news/articles/2026-10-23/vietjet-faces-aircraft-cash-seizures-in-fitzwalter-debt-fight",
+     "src": "bloomberg.com",
+     "who": "FitzWalter Capital",
+     "kind": "Restructuring",
+     "href": null
     }
    ]
-  },
-  "legal": {
-   "total": 0,
-   "items": []
   },
   "people": {
    "total": 0,
@@ -337,10 +302,10 @@ export const DIGEST = {
  },
  "weekly": {
   "label": "Weekly",
-  "from": "2026-10-17",
-  "to": "2026-10-23",
+  "from": "2026-10-18",
+  "to": "2026-10-24",
   "equities": {
-   "savedAt": "2026-10-23T07:53:52.362Z",
+   "savedAt": "2026-10-23T11:31:13.418Z",
    "items": [
     {
      "label": "S&P 500",
@@ -392,10 +357,10 @@ export const DIGEST = {
     },
     {
      "label": "Stoxx Europe 600",
-     "value": 635.84,
+     "value": 634.58,
      "unit": "idx",
-     "display": "636",
-     "chg": -1.38,
+     "display": "635",
+     "chg": -1.58,
      "chgUnit": "%",
      "asOf": "2026-10-23",
      "url": "https://finance.yahoo.com/quote/%5ESTOXX",
@@ -404,10 +369,10 @@ export const DIGEST = {
     },
     {
      "label": "FTSE 100",
-     "value": 10693.03,
+     "value": 10676.09,
      "unit": "idx",
-     "display": "10,693",
-     "chg": -1.74,
+     "display": "10,676",
+     "chg": -1.89,
      "chgUnit": "%",
      "asOf": "2026-10-23",
      "url": "https://finance.yahoo.com/quote/%5EFTSE",
@@ -416,10 +381,10 @@ export const DIGEST = {
     },
     {
      "label": "DAX",
-     "value": 25242.19,
+     "value": 25186.75,
      "unit": "idx",
-     "display": "25,242",
-     "chg": -1.48,
+     "display": "25,187",
+     "chg": -1.7,
      "chgUnit": "%",
      "asOf": "2026-10-23",
      "url": "https://finance.yahoo.com/quote/%5EGDAXI",
@@ -428,10 +393,10 @@ export const DIGEST = {
     },
     {
      "label": "CAC 40",
-     "value": 7758.29,
+     "value": 7765.41,
      "unit": "idx",
-     "display": "7,758",
-     "chg": -2.49,
+     "display": "7,765",
+     "chg": -2.4,
      "chgUnit": "%",
      "asOf": "2026-10-23",
      "url": "https://finance.yahoo.com/quote/%5EFCHI",
@@ -452,10 +417,10 @@ export const DIGEST = {
     },
     {
      "label": "Hang Seng",
-     "value": 23117.79,
+     "value": 23093.37,
      "unit": "idx",
-     "display": "23,118",
-     "chg": -3.93,
+     "display": "23,093",
+     "chg": -4.03,
      "chgUnit": "%",
      "asOf": "2026-10-23",
      "url": "https://finance.yahoo.com/quote/%5EHSI",
@@ -465,7 +430,7 @@ export const DIGEST = {
    ]
   },
   "rates": {
-   "savedAt": "2026-10-23T07:53:52.362Z",
+   "savedAt": "2026-10-23T11:31:13.418Z",
    "items": [
     {
      "label": "SONIA",
@@ -594,7 +559,7 @@ export const DIGEST = {
      "display": 3.75,
      "chg": 0,
      "chgUnit": "pp",
-     "asOf": "2026-10-21",
+     "asOf": "2026-10-22",
      "url": "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y",
      "src": "bankofengland.co.uk",
      "tone": "flat"
@@ -602,7 +567,7 @@ export const DIGEST = {
    ]
   },
   "deals": {
-   "total": 9,
+   "total": 10,
    "items": [
     {
      "id": "d1335",
@@ -693,6 +658,17 @@ export const DIGEST = {
      "amount": "$20m"
     },
     {
+     "id": "d1349",
+     "date": "2026-10-22",
+     "title": "Blackstone leads debt package for Arlington's Gooch & Housego take-private",
+     "url": "https://www.bloomberg.com/news/articles/2026-10-22/blackstone-leads-debt-package-to-take-gooch-housego-private",
+     "src": "bloomberg.com",
+     "who": "Blackstone (funds managed by Blackstone)",
+     "kind": "Unitranche",
+     "href": "/v2/transactions/#/deal/d1349",
+     "amount": null
+    },
+    {
      "id": "d1321",
      "date": "2026-10-21",
      "title": "Eiffel Investment Group provides financing for Bencis' partnership with KODIAK",
@@ -755,8 +731,18 @@ export const DIGEST = {
    ]
   },
   "legal": {
-   "total": 8,
+   "total": 10,
    "items": [
+    {
+     "id": "i1539",
+     "date": "2026-10-23",
+     "title": "VietJet faces aircraft, cash seizures in FitzWalter debt fight",
+     "url": "https://www.bloomberg.com/news/articles/2026-10-23/vietjet-faces-aircraft-cash-seizures-in-fitzwalter-debt-fight",
+     "src": "bloomberg.com",
+     "who": "FitzWalter Capital",
+     "kind": "Restructuring",
+     "href": null
+    },
     {
      "id": "c304",
      "date": "2026-10-21",
@@ -816,6 +802,16 @@ export const DIGEST = {
      "who": "Davis Polk",
      "kind": "R&I alert",
      "href": "/v2/profiles/#/firm/davispolk"
+    },
+    {
+     "id": "u4170",
+     "date": "2026-10-20",
+     "title": "The AI Drop™ #27: California and New York AI Regulation",
+     "url": "https://www.freshfields.com/en/our-thinking/podcasts/the-ai-drop/the-ai-drop-27-on-the-front-lines-tracking-ai-regulation-from-california-to-new-york-with-megan-kayo",
+     "src": "freshfields.com",
+     "who": "Freshfields",
+     "kind": "R&I alert",
+     "href": "/v2/profiles/#/firm/freshfields"
     },
     {
      "id": "u3490",
