@@ -2365,7 +2365,9 @@ function renderFeed() {
     const rsch = isResearchPublication(n.publication);
     const src = n.author ? `${n.author} · ${n.publication}` : n.publication;
     if (rsch) nlResearch.push(mk("rsch", n.url, n.title, src, true, n.date, n.time));
-    else newsletter.push({ ...mk(nlDesk(n.title), n.url, n.title, src, true, n.date, n.time), nl: true });
+    // sid = the issue's id: several issues share one "read online" link (every Economist World
+    // in Brief, every Reuters Trading Day), so the link can't tell them apart — the id can.
+    else newsletter.push({ ...mk(nlDesk(n.title), n.url, n.title, src, true, n.date, n.time, "n", n.id), nl: true });
   });
 
   // The reader's personalised myFT (followed-topics) headlines — pulled from the
@@ -3002,13 +3004,18 @@ function renderWire() {
 // whose email body the refresh routine stored in KV (`body: true` in newsletters.js) read
 // IN-PANE from /api/nl-body — so they are not "paywalled" here even though their
 // read-online link points at a subscriber site.
-const _NL_BODY = new Map((NEWSLETTERS || []).filter((n) => n && n.body && n.url && n.id).map((n) => [n.url, n.id]));
+// Keyed by the issue's id (a row's data-sid), NOT its link: one "read online" link is shared by
+// every issue of some newsletters (Economist World in Brief, Reuters Trading Day) — by link, a
+// tap opened another day's issue (fixed 2026-10-24). _NL_URLS only answers "is this a newsletter
+// link?" (no padlock / link-out mark).
+const _NL_BY_ID = new Map((NEWSLETTERS || []).filter((n) => n && n.id).map((n) => [n.id, n]));
+const _NL_URLS = new Set((NEWSLETTERS || []).filter((n) => n && n.url).map((n) => n.url));
+const _nlOf = (it) => (it && it.sid && _NL_BY_ID.get(it.sid)) || null;
 // Every newsletter by its link (owner 2026-10-23: newsletters run in the News lane). One with
 // no stored body opens in the pane as its one-line summary + "Open at <publication>" — never a
 // padlock, and never fetched (its link is the publisher's click-tracker).
-const _NL_ALL = new Map((NEWSLETTERS || []).filter((n) => n && n.url).map((n) => [n.url, n]));
 function _isPaywalled(src, href) {
-  if (href && (_NL_BODY.has(href) || _NL_ALL.has(href))) return false;
+  if (href && _NL_URLS.has(href)) return false;
   return isPaywalledSrc(src, href);
 }
 // Openly-published sources that nonetheless BOT-WALL the reader — a plain AND a
@@ -3018,7 +3025,7 @@ function _isPaywalled(src, href) {
 // SEPARATE from PAYWALL_SRC: no "needs a login" padlock, but they DO count against
 // the readable-share throttle, open straight at the publisher (never a dead in-pane
 // fallback), and carry an "opens at publisher" mark. Grow as more are confirmed live.
-function _linksOut(src, href) { return !(href && _NL_ALL.has(href)) && linksOutSrc(src, href); }   // a newsletter is the owner's own email, never a bot-walled link-out
+function _linksOut(src, href) { return !(href && _NL_URLS.has(href)) && linksOutSrc(src, href); }   // a newsletter is the owner's own email, never a bot-walled link-out
 // A row can't open in the reading pane — it opens EXTERNALLY — when it's paywalled
 // (subscriber login) OR bot-walled (Reuters &c). Both are "not readable in-pane".
 function _opensExternally(src, href) { return _isPaywalled(src, href) || _linksOut(src, href); }
@@ -3060,6 +3067,7 @@ function _rowItem(row) {
     code: ((row.querySelector(".g-feed-code") || {}).textContent || "").trim(),
     when: ((row.querySelector(".g-feed-time") || {}).textContent || "").trim(),
     href: row.getAttribute("href") || "",
+    sid: row.getAttribute("data-sid") || "",
     sum: _SUM.get(row.getAttribute("href") || "") || "",
     ext: row.getAttribute("target") === "_blank" || /^https?:/i.test(row.getAttribute("href") || ""),
     ent: _entityOf(row.getAttribute("data-mgr") || ""),
@@ -3115,21 +3123,23 @@ function _timeoutSignal(ms) { try { const c = new AbortController(); setTimeout(
 // warm = a background prefetch: the server reads it DIRECT only (never the paid / rate-limited
 // browser proxies), and a prefetch it could not read is not remembered — the reader's own
 // open then gets the full direct → Cloudflare → Jina path.
-function _fetchRead(href, warm) {
+function _fetchRead(href, warm, sid) {
   if (!href) return Promise.resolve(null);
-  const hit = _readMem.get(href); if (hit) return hit;
+  const nlRec = sid ? _NL_BY_ID.get(sid) : null;
+  const memKey = nlRec ? "nl:" + sid : href;
+  const hit = _readMem.get(memKey); if (hit) return hit;
   // A 40s ceiling so a hung fetch always resolves, but with enough room for the SERVER to
   // return real text: the worker bounds its own work (direct fetch 8s × up to 4 tries for a
   // flaky origin, then a proxy render ~20s), so this must outwait those retries to actually
   // LOAD the body rather than giving up on it. Only a genuinely dead source falls through to
   // the UI fallback — and the worker caches any success, so a later open is instant anyway.
-  const nl = _NL_BODY.get(href);   // a stored newsletter body → read it from KV (R38), not the publisher
+  const nl = nlRec && nlRec.body ? nlRec.id : null;   // a stored newsletter body → read it from KV (R38), not the publisher
   const p = (nl
     ? fetch(`/api/nl-body?id=${encodeURIComponent(nl)}`, { headers: { accept: "application/json" }, cache: "no-store", signal: _timeoutSignal(40000) })
     : fetch(`/api/read?url=${encodeURIComponent(href)}${warm ? "&warm=1" : ""}`, { headers: { accept: "application/json" }, cache: "no-store", signal: _timeoutSignal(40000) }))
     .then((r) => (r && r.ok) ? r.json() : null).catch(() => null);
-  _readMem.set(href, p);
-  p.then((d) => { if (!d || (d.warm && !d.accessible)) _readMem.delete(href); });        // a failed/timed-out fetch retries on the next open
+  _readMem.set(memKey, p);
+  p.then((d) => { if (!d || (d.warm && !d.accessible)) _readMem.delete(memKey); });        // a failed/timed-out fetch retries on the next open
   return p;
 }
 // Warm the reader cache (and the edge) for the top few openable stories, so the auto-opened
@@ -3139,7 +3149,9 @@ function prefetchTopReads(n) {
   for (const row of document.querySelectorAll("#g-feed .g-feed-row")) {
     if (warmed >= (n || 3)) break;
     const it = _rowItem(row);
-    if (it && it.ext && it.href && !_opensExternally(it.src, it.href) && !_readMem.has(it.href)) { _fetchRead(it.href, true); warmed++; }
+    const nlr = _nlOf(it);
+    if (nlr && !nlr.body) continue;                                  // a body-less newsletter opens as its summary — nothing to fetch
+    if (it && it.ext && it.href && !_opensExternally(it.src, it.href) && !_readMem.has(nlr ? "nl:" + it.sid : it.href)) { _fetchRead(it.href, true, it.sid); warmed++; }
   }
 }
 function _readNiceDate(iso) {
@@ -3152,7 +3164,7 @@ function _readOpen(it) {
   // A story from one of the owner's subscriptions: "Open at <publication>" (owner 2026-10-23;
   // on iPhone the link still hands off to the publisher's app when it's installed).
   const sub = it.ext && it.href && isSubscribedSrc(it.src, it.href);
-  const nlPub = it.href && _NL_ALL.has(it.href) ? (_NL_ALL.get(it.href).publication || "") : "";
+  const nlPub = (_nlOf(it) || {}).publication || "";
   const label = nlPub ? `Open at ${nlPub}` : sub ? `Open at ${it.src || subscribedApp(it.src, it.href) || "source"}` : `Open original at ${it.src || "source"}`;
   return ((it.ext && it.href) ? `<a class="g-read-open" href="${esc(it.href)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>` : "")
     + (it.ent ? `<a class="g-read-open g-read-ent" href="${esc(it.ent.href)}">Open ${esc(it.ent.name)} profile</a>` : "");
@@ -3321,7 +3333,7 @@ function _renderReaderInto(box, it, emptyMsg) {
   if (!box) return;
   if (!it || !it.title) { box.innerHTML = `<div class="g-read-empty">${esc(emptyMsg || "Select a story to read it here.")}</div>`; return; }
   const seq = ++_readSeq;
-  const nlRec = it.href && !_NL_BODY.has(it.href) ? _NL_ALL.get(it.href) : null;
+  const nlRec0 = _nlOf(it), nlRec = nlRec0 && !nlRec0.body ? nlRec0 : null;
   if (nlRec) {
     const pub = nlRec.publication || it.src || "the publisher";
     box.innerHTML = _readShell({ ...it, src: it.src || pub }, "",
@@ -3351,7 +3363,7 @@ function _renderReaderInto(box, it, emptyMsg) {
   // timeout resolves null → the "open the original" fallback renders. Fixes a reading pane
   // that could sit on "Fetching the full text…" indefinitely.
   const uiTimeout = (typeof window !== "undefined" && +window.__readUiTimeoutMs) || 42000;   // test-overridable; outwaits the fetch ceiling
-  Promise.race([_fetchRead(it.href), new Promise((res) => setTimeout(() => res(null), uiTimeout))])
+  Promise.race([_fetchRead(it.href, false, it.sid), new Promise((res) => setTimeout(() => res(null), uiTimeout))])
     .then((d) => {
       if (seq !== _readSeq) return;                                     // superseded by another click
       // Re-query the live pane: a repaint can swap the #g-readpane node out from under

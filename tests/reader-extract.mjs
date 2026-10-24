@@ -707,8 +707,8 @@ check(/function prefetchTopReads\(/.test(_cli) && /prefetchTopReads\(\s*\d+\s*\)
 // The render path still goes through the memoised _fetchRead(it.href), now raced
 // against a UI timeout (Promise.race) so the pane can't hang even if that promise
 // never settles — so _fetchRead(it.href) is followed (within the race) by a .then.
-check(/_fetchRead\(it\.href\)[\s\S]{0,120}\.then\(/.test(_cli), "responsiveness: the reading pane renders via the memoised _fetchRead path");
-check(/Promise\.race\(\[\s*_fetchRead\(it\.href\)/.test(_cli), "responsiveness: the fetch is raced against a UI timeout so the pane never stays stuck on the loading note");
+check(/_fetchRead\(it\.href(?:,[^)]*)?\)[\s\S]{0,120}\.then\(/.test(_cli), "responsiveness: the reading pane renders via the memoised _fetchRead path");
+check(/Promise\.race\(\[\s*_fetchRead\(it\.href(?:,[^)]*)?\)/.test(_cli), "responsiveness: the fetch is raced against a UI timeout so the pane never stays stuck on the loading note");
 check(/prefetchTopReads\(\s*6\s*\)/.test(_cli) && !/offsetParent[^\n]*prefetchTopReads/.test(_cli),
   "responsiveness: prefetch runs on BOTH surfaces (mobile included — no desktop-only gate)");
 // SERVER: the direct publisher fetch MUST be time-bounded so a stalled origin can't hang

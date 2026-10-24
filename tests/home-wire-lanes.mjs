@@ -157,12 +157,13 @@ if (linkout) {
 // ---- A newsletter with no stored text opens as its summary + "Open at <publication>" ----
 const nlOpen = await pg.evaluate(async () => {
   const all = ((await import("/newsletters.js")).NEWSLETTERS || []);
-  const byUrl = new Map(all.filter((n) => !n.body && n.summary).map((n) => [n.url, n]));
-  const r = [...document.querySelectorAll("#g-feed .g-feed-row")].find((x) => byUrl.has(x.getAttribute("href")));
+  // By issue id (data-sid): several issues share one "read online" link.
+  const byId = new Map(all.filter((n) => !n.body && n.summary).map((n) => [n.id, n]));
+  const r = [...document.querySelectorAll("#g-feed .g-feed-row")].find((x) => byId.has(x.getAttribute("data-sid")));
   if (!r) return null;
   r.click();
   await new Promise((res) => setTimeout(res, 250));
-  const n = byUrl.get(r.getAttribute("href")), p = document.getElementById("g-readpane");
+  const n = byId.get(r.getAttribute("data-sid")), p = document.getElementById("g-readpane");
   return { pub: n.publication, sum: n.summary, text: (p || {}).textContent || "", open: ((p && p.querySelector(".g-read-open")) || {}).textContent || "", lock: !!(p && p.querySelector(".g-read-lock")) };
 });
 if (nlOpen) {

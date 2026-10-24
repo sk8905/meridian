@@ -81,6 +81,6 @@ try {
   const { readFileSync } = await import("node:fs");
   const g = readFileSync(new URL("../v2/js/home/glance.js", import.meta.url), "utf8");
   const pf = g.slice(g.indexOf("function prefetchTopReads"), g.indexOf("function prefetchTopReads") + 600);
-  check(/_fetchRead\(it\.href, true\)/.test(pf) && /warm \? "&warm=1" : ""/.test(g), "Home's top-story prefetch asks for a direct-only (warm=1) read");
+  check(/_fetchRead\(it\.href, true(?:,[^)]*)?\)/.test(pf) && /warm \? "&warm=1" : ""/.test(g), "Home's top-story prefetch asks for a direct-only (warm=1) read");
 }
 finish();
