@@ -63,6 +63,18 @@ export const NOT_FOR_WIRE = {
 
 export const NEWSLETTERS = [
   {
+    "id": "nl-economist-worldinbrief-iranplotsadvanced-20261024",
+    "publication": "The Economist",
+    "author": null,
+    "series": "The World in Brief",
+    "title": "The World in Brief: Iran’s “advanced” plans to kill Americans",
+    "date": "2026-10-24",
+    "time": "06:57",
+    "summary": "Also: France braces for more protests.",
+    "url": "https://www.economist.com/the-world-in-brief",
+    "body": true
+  },
+  {
     "id": "nl-bloomberg-parisedition-feelingofdread-20261023",
     "publication": "Bloomberg",
     "author": "Lionel Laurent",
